@@ -129,31 +129,37 @@
                     <Order>4</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                     <CommandLine>%WINDIR%\Setup\Scripts\SOFTWARE\WinRAR.exe</CommandLine>
-                    <Description>4</Description>
+                    <Description>WinRAR</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>5</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                     <CommandLine>%WINDIR%\Setup\Scripts\NVIDIA\setup.exe</CommandLine>
-                    <Description>14</Description>
+                    <Description>Nvidia Video Driver</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>6</Order>
                     <Requir5sUserInput>true</Requir5sUserInput>
                     <CommandLine>%WINDIR%\Setup\Scripts\SOFTWARE\GooglePinyinInstaller.exe</CommandLine>
-                    <Description>15</Description>
+                    <Description>GooglePinyin</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>7</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                     <CommandLine>%WINDIR%\Setup\Scripts\SOFTWARE\ReShade.exe</CommandLine>
-                    <Description>17</Description>
+                    <Description>reshade</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>8</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                     <CommandLine>%WINDIR%\Setup\Scripts\Realtek\Setup.exe</CommandLine>
                     <Description>Dolby Audio Driver</Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>9</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                    <CommandLine>%WINDIR%\System32\MSI_util_v3.exe</CommandLine>
+                    <Description>MSI Mode</Description>
                 </SynchronousCommand>
             </FirstLogonCommands>
             <UserAccounts>
