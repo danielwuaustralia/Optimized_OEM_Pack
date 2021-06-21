@@ -563,13 +563,7 @@ sc config fdPHost start=auto
 sc config upnphost start=auto
 sc config SSDPSRV start=disabled
 sc config W32Time start=disabled
-
-echo ======================================================
 echo.
-echo ======================================================
-echo ------------- Extra registry Tweaks ------------------
-echo ======================================================
-
 reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 0 /f
 reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 1 /f
 reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 2 /f
@@ -879,7 +873,6 @@ reg add "HKCU\Control Panel\Desktop" /v "DockMoving" /t REG_SZ /d 0 /f
 reg add "HKCU\Control Panel\Desktop" /v "WindowArrangementActive" /t REG_DWORD /d 0 /f
 reg add "HKCU\Control Panel\Desktop" /v "MouseWheelRouting" /t REG_DWORD /d 0 /f
 reg add "HKCU\Control Panel\Desktop" /v "CursorBlinkRate" /t REG_SZ /d 200 /f
-reg add "HKCU\Control Panel\Desktop" /v "UserPreferencesMask" /t REG_BINARY /d "9e3e078012000000" /f
 reg add "HKCU\Control Panel\Desktop" /v "JPEGImportQuality" /t REG_DWORD /d 100 /f
 reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "MinAnimate" /t REG_SZ /d 0 /f
 reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "BorderWidth" /t REG_SZ /d "0" /f
@@ -1283,7 +1276,6 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescripti
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\AutoComplete" /v "AutoSuggest" /t REG_SZ /d "no" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers" /v "DisableAutoplay" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Ribbon" /v "MinimizedStateTabletModeOff" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /v "VisualFXSetting" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowRun" /v 1 /t REG_SZ /d "software_reporter_tool.exe" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoStartMenuMorePrograms" /t REG_DWORD /d 2 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoCustomizeThisFolder" /t REG_DWORD /d 1 /f
@@ -1525,7 +1517,6 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows Search" /v "AllowCortana" /t REG_DWORD 
 reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\WiFi\AllowAutoConnectToWiFiSenseHotspots" /v "value" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo" /v "Id" /t REG_SZ /d "null" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CloudExperienceHost" /v "ETWLoggingEnabled" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /v "VisualFXSetting" /t REG_DWORD /d "2" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\AnimateMinMax" /v "DefaultApplied" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ComboBoxAnimation" /v "DefaultApplied" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ControlAnimations" /v "DefaultApplied" /t REG_DWORD /d "0" /f
@@ -1570,12 +1561,7 @@ reg add "HKLM\SOFTWARE\Classes\CLSID\{645FF040-5081-101B-9F08-00AA002F954E}\shel
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UpdateHandlers\Driver" /v "LocalOnly" /t REG_DWORD /d 1 /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UpdateHandlers\Driver" /v "URI" /t REG_SZ /d "http://ssschemas.mmmmicrosoft.ccccom/msus/2002/12/UpdateHandlers/Windows" /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel\NameSpace\{87D66A43-7B11-4A28-9811-C86EE395ACF7}" /f
-
-echo ======================================================
 echo.
-echo ======================================================
-echo ---------------- Apply Extra Settings ----------------
-echo ======================================================
 COPY "%SystemRoot%\System32\ctfmon.exe" "%AppData%\Microsoft\Windows\Start Menu\Programs\Startup\ctfmon.exe" /V /Y
 IF EXIST "%SystemDrive%\DumpStack.log" del /f /q "%SystemDrive%\DumpStack.log."
 IF EXIST "%SystemDrive%\DumpStack.log.tmp" del /f /q "%SystemDrive%\DumpStack.log.tmp"
@@ -1723,11 +1709,6 @@ echo --- Apply Best NetBT Tweak
 echo.
 echo --- Disable All Windows Event Logs
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$key = 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
-echo ======================================================
-echo.
-echo ======================================================
-echo -------------------- Apply Tweaks --------------------
-echo ======================================================
 
 %SystemRoot%\System32\SetACL -on "%SystemRoot%\Logs" -ot file -actn setowner -ownr "n:Administrators"
 %SystemRoot%\System32\SetACL -on "%SystemRoot%\Logs" -ot file -actn ace -ace "n:Administrators;p:full"
@@ -1808,9 +1789,6 @@ DEL /F /S /Q /A %LocalAppData%\Microsoft\Windows\Explorer\thumbcache_*.db
 DEL /F /S /Q /A %LocalAppData%\Microsoft\Windows\Explorer\iconcache_*.db
 DEL /F /S /Q /A %LocalAppData%\Microsoft\Windows\Explorer\ExplorerStartupLog_*.etl
 echo.
-echo ======================================================
-echo ---------- Personal Tweak ----------
-echo ======================================================
 rem Potplayer Setting
 reg add "HKCU\Software\Daum\PotPlayerMini64\AtscAntenaList" /v "0" /t REG_SZ /d "1|0|0|0|0|0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\AtscAntenaList" /v "1" /t REG_SZ /d "1|0|0|0|0|0" /f
@@ -3042,68 +3020,25 @@ regsvr32.exe "%windir%\SysWOW64\VSFilter.dll" /s
 regsvr32.exe "C:\Program Files\madVR\madVR64.ax" /s
 
 rem unnecessary folders
-%windir%\System32\PowerRun /SW:1 cmd.exe rd /s /q "%windir%\Help"
-%windir%\System32\PowerRun /SW:1 cmd.exe rd /s /q "%windir%\Media\Afternoon"
-%windir%\System32\PowerRun /SW:1 cmd.exe rd /s /q "%windir%\Media\Calligraphy"
-%windir%\System32\PowerRun /SW:1 cmd.exe rd /s /q "%windir%\Media\Characters"
-%windir%\System32\PowerRun /SW:1 cmd.exe rd /s /q "%windir%\Media\Cityscape"
-%windir%\System32\PowerRun /SW:1 cmd.exe rd /s /q "%windir%\Media\Delta"
-%windir%\System32\PowerRun /SW:1 cmd.exe rd /s /q "%windir%\Media\Festival"
-%windir%\System32\PowerRun /SW:1 cmd.exe rd /s /q "%windir%\Media\Garden"
-%windir%\System32\PowerRun /SW:1 cmd.exe rd /s /q "%windir%\Media\Heritage"
-%windir%\System32\PowerRun /SW:1 cmd.exe rd /s /q "%windir%\Media\Landscape"
-%windir%\System32\PowerRun /SW:1 cmd.exe rd /s /q "%windir%\Media\Quirky"
-%windir%\System32\PowerRun /SW:1 cmd.exe rd /s /q "%windir%\Media\Raga"
-%windir%\System32\PowerRun /SW:1 cmd.exe rd /s /q "%windir%\Media\Savanna"
-%windir%\System32\PowerRun /SW:1 cmd.exe rd /s /q "%windir%\Media\Sonata"
-%windir%\System32\PowerRun /SW:1 cmd.exe rd /s /q "%windir%\Web\Wallpaper"
-%windir%\System32\PowerRun /SW:1 cmd.exe rd /s /q "%windir%\Web\Screen"
-%windir%\System32\PowerRun /SW:1 cmd.exe rd /s /q "%windir%\Web\4K"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Alarm01.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Alarm02.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Alarm03.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Alarm04.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Alarm05.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Alarm06.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Alarm07.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Alarm08.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Alarm09.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Alarm10.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\flourish.mid"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Focus0_48000Hz.raw"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Focus1_48000Hz.raw"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Focus2_48000Hz.raw"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Focus3_48000Hz.raw"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Focus4_48000Hz.raw"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\GoBack_48000Hz.raw"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Hide_48000Hz.raw"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Invoke_48000Hz.raw"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\MoveNext_48000Hz.raw"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\MovePrevious_48000Hz.raw"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\notify.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\onestop.mid"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\recycle.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Ring01.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Ring02.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Ring03.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Ring04.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Ring05.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Ring06.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Ring07.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Ring08.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Ring09.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Ring10.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\ringout.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Show_48000Hz.raw"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Speech Disambiguation.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Speech Misrecognition.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Speech Off.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Speech On.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Speech Sleep.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\SysWOW64\OneDriveSetup.exe"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\SysWOW64\OneDriveSettingSyncProvider.dll"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Ring10.wav"
-%windir%\System32\PowerRun /SW:1 cmd.exe del /f /q "%windir%\Media\Ring10.wav"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Help' -Force -Recurse"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Afternoon' -Force -Recurse"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Calligraphy' -Force -Recurse"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Characters' -Force -Recurse"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Cityscape' -Force -Recurse"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Delta' -Force -Recurse"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Festival' -Force -Recurse"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Garden' -Force -Recurse"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Heritage' -Force -Recurse"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Landscape' -Force -Recurse"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Quirky' -Force -Recurse"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Raga' -Force -Recurse"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Savanna' -Force -Recurse"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Sonata' -Force -Recurse"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Web\Wallpaper' -Force -Recurse"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Web\Screen' -Force -Recurse"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Web\4K' -Force -Recurse"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -Path '%windir%\SysWOW64\OneDriveSetup.exe' -Force"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -Path '%windir%\SysWOW64\OneDriveSettingSyncProvider.dll' -Force"
 
 rem disable error erport
 %windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe"-Command "Disable-WindowsErrorReporting"
@@ -3318,7 +3253,7 @@ rem Enable TRIM support for NTFS and ReFS file systems for SSD drives
 %windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$QueryReFS = Invoke-Expression -Command ('FSUTIL BEHAVIOR QUERY DISABLEDELETENOTIFY') | Select-String -Pattern ReFS"
 %windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "If ($QueryReFS) { Invoke-Expression -Command ('FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY REFS 0') | Out-Null }"
 
-echo ======================================================
+echo.
 
 rem allow microsoft edge to be uninstalled
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge" /v "NoRemove" /t REG_DWORD /d "0" /f
@@ -3362,7 +3297,7 @@ rem delete taskbar shortcuts
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband" /f
 
 rem MacOS wallpaper
-reg add "HKCU\Control Panel\Desktop" /v "WallPaper" /t REG_SZ /d "%windir%\Web\MacOS\BigSur-Daylight.jpg" /f
+reg add "HKCU\Control Panel\Desktop" /v "WallPaper" /t REG_SZ /d "%windir%\Web\MacOS\11-0-Day.jpg" /f
 
 rem no Window border
 reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "BorderWidth" /t REG_SZ /d "0" /f
@@ -3370,9 +3305,6 @@ reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "PaddedBorderWidth" /t REG
 
 rem no auto volume tune
 reg add "HKCU\SOFTWARE\Microsoft\Multimedia\Audio" /v "UserDuckingPreference" /t REG_DWORD /d "3" /f
-
-rem use "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" 7 as default ps1 opener
-reg add "HKCR\Microsoft.PowerShellScript.1\Shell\Open\Command" /ve /t REG_SZ /d "\"C:\Program Files\"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe"\7-preview\pwsh.exe\" \"%%1\"" /f
 
 rem Disable SEHOP
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" /v "DisableExceptionChainValidation" /t REG_DWORD /d "0x1" /f
@@ -3413,24 +3345,25 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy" /v "fDisab
 rem This policy setting controls the appearance of window animations such as those found when restoring, minimizing, and maximizing windows
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DWM" /v "DisallowAnimations" /t REG_DWORD /d "1" /f
 
-rem minium visual 
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /v "VisualFXSetting" /t REG_DWORD /d "2" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\AnimateMinMax" /v "DefaultApplied" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ComboBoxAnimation" /v "DefaultApplied" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ControlAnimations" /v "DefaultApplied" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\CursorShadow" /v "DefaultApplied" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DragFullWindows" /v "DefaultApplied" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DropShadow" /v "DefaultApplied" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DWMAeroPeekEnabled" /v "DefaultApplied" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DWMSaveThumbnailEnabled" /v "DefaultApplied" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListBoxSmoothScrolling" /v "DefaultApplied" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListviewAlphaSelect" /v "DefaultApplied" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListviewShadow" /v "DefaultApplied" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\MenuAnimation" /v "DefaultApplied" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\SelectionFade" /v "DefaultApplied" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\TaskbarAnimations" /v "DefaultApplied" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ThumbnailsOrIcon" /v "DefaultApplied" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\TooltipAnimation" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+rem minium visual
+reg add "HKCU\Control Panel\Desktop" /v "UserPreferencesMask" /t REG_BINARY /d "9012038010000000" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /v "VisualFXSetting" /t REG_DWORD /d "3" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\AnimateMinMax" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ComboBoxAnimation" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ControlAnimations" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\CursorShadow" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DragFullWindows" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DropShadow" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DWMAeroPeekEnabled" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DWMSaveThumbnailEnabled" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListBoxSmoothScrolling" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListviewAlphaSelect" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListviewShadow" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\MenuAnimation" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\SelectionFade" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\TaskbarAnimations" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ThumbnailsOrIcon" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\TooltipAnimation" /v "DefaultApplied" /t REG_DWORD /d "0" /f
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "EnableTransparency" /t REG_DWORD /d "1" /f
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "AppsUseLightTheme" /t REG_DWORD /d "0" /f
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "SystemUsesLightTheme" /t REG_DWORD /d "0" /f
@@ -3579,16 +3512,13 @@ rem no startup delay
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "AsyncScriptDelay" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "EnableLogonScriptDelay" /t REG_DWORD /d "0" /f
 
-rem Disable FirstLogon Animation
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableFirstLogonAnimation" /t REG_DWORD /d "0" /f
-
 rem Disable appresolver early start
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /v "EarlyAppResolverStart" /t REG_DWORD /d "0" /f
 
 rem enable startup sound
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation" /v "DisableStartupSound" /t REG_DWORD /d "0" /f
 
-rem win11- extend taskbar to multiple monitors
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "MMTaskbarEnabled" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_ShowClassicMode" /t REG_DWORD /d "1" /f
+rem powershell 7 as default
+reg add "HKCR\Microsoft.PowerShellScript.1\Shell\Open\Command" /ve /t REG_SZ /d "\"C:\Program Files\PowerShell\7-preview\pwsh.exe\" \"%%1\"" /f
+
 echo ********************** The End ***********************
