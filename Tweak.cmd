@@ -3,11 +3,12 @@ echo ======================================================
 echo ---------- Powershell Execution Policy -------------
 echo ======================================================
 reg add "HKLM\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v "ExecutionPolicy" /t REG_SZ /d "Unrestricted" /f
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ExecutionPolicy Unrestricted -Scope LocalMachine"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ExecutionPolicy Unrestricted -Scope MachinePolicy"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ExecutionPolicy Unrestricted -Scope UserPolicy"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ExecutionPolicy Unrestricted -Scope Process"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ExecutionPolicy Unrestricted -Scope CurrentUser"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ExecutionPolicy Unrestricted -Scope LocalMachine"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ExecutionPolicy Unrestricted -Scope MachinePolicy"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ExecutionPolicy Unrestricted -Scope UserPolicy"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ExecutionPolicy Unrestricted -Scope Process"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ExecutionPolicy Unrestricted -Scope CurrentUser"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$ConfirmPreference = 'None'"
 echo.
 echo ======================================================
 echo ---------- Import Trusted CA Root -------------
@@ -1473,7 +1474,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveWebProbeHostV6" /t REG_SZ /d "network-test.debian.org" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveWebProbePath" /t REG_SZ /d "nm" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "ActiveWebProbePathV6" /t REG_SZ /d "nm" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "EnableActiveProbing" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "EnableActiveProbing" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "NV Hostname" /t reg_SZ /d "ANONYMOUS" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "Hostname" /t reg_SZ /d "ANONYMOUS" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "UseDomainNameDevolution" /t REG_DWORD /d "0" /f
@@ -3044,9 +3045,9 @@ rem disable error erport
 %windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe"-Command "Disable-WindowsErrorReporting"
 
 rem Disable System Devices
-%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-PnpDevice | Where-Object { $_.FriendlyName -match 'High precision event timer' } | Disable-PnpDevice"
-%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-PnpDevice | Where-Object { $_.FriendlyName -match 'Microsoft Kernel Debug Network Adapter' } | Disable-PnpDevice"
-%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-PnpDevice | Where-Object { $_.FriendlyName -match 'Microsoft Hyper-V Virtualization Infrastructure Driver' } | Disable-PnpDevice"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-PnpDevice | Where-Object { $_.FriendlyName -match 'High precision event timer' } | Disable-PnpDevice -Confirm:$false"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-PnpDevice | Where-Object { $_.FriendlyName -match 'Microsoft Kernel Debug Network Adapter' } | Disable-PnpDevice -Confirm:$false"
+%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-PnpDevice | Where-Object { $_.FriendlyName -match 'Microsoft Wi-Fi Direct Virtual Adapter' } | Disable-PnpDevice -Confirm:$false"
 
 rem AutoTuningLevelLocal
 %windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -AutomaticUseCustom Enabled"
@@ -3518,7 +3519,6 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /v "EarlyAppRe
 rem enable startup sound
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation" /v "DisableStartupSound" /t REG_DWORD /d "0" /f
 
-rem powershell 7 as default
-reg add "HKCR\Microsoft.PowerShellScript.1\Shell\Open\Command" /ve /t REG_SZ /d "\"C:\Program Files\PowerShell\7-preview\pwsh.exe\" \"%%1\"" /f
-
 echo ********************** The End ***********************
+rem restart after 30secs
+shutdown /r /f /t 30
