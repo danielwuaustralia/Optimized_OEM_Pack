@@ -759,10 +759,6 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\InputPersonalization" /v "RestrictImpl
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Messenger\Client" /v "CEIP" /t REG_DWORD /d 2 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Messenger\Client" /v "PreventRun" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "AllowTelemetry" /t REG_DWORD /d 0 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "AITEnable" /t REG_DWORD /d 0 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisablePropPage" /t REG_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisableInventory" /t REG_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisableUAR" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "AllowDeviceNameInTelemetry" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "AllowTelemetry" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "DisableDeviceDelete" /t REG_DWORD /d 1 /f
@@ -3020,27 +3016,6 @@ regsvr32.exe "%windir%\SysWOW64\XySubFilter.dll" /s
 regsvr32.exe "%windir%\SysWOW64\VSFilter.dll" /s
 regsvr32.exe "C:\Program Files\madVR\madVR64.ax" /s
 
-rem unnecessary folders
-%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Help' -Force -Recurse"
-%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Afternoon' -Force -Recurse"
-%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Calligraphy' -Force -Recurse"
-%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Characters' -Force -Recurse"
-%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Cityscape' -Force -Recurse"
-%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Delta' -Force -Recurse"
-%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Festival' -Force -Recurse"
-%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Garden' -Force -Recurse"
-%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Heritage' -Force -Recurse"
-%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Landscape' -Force -Recurse"
-%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Quirky' -Force -Recurse"
-%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Raga' -Force -Recurse"
-%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Savanna' -Force -Recurse"
-%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Media\Sonata' -Force -Recurse"
-%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Web\Wallpaper' -Force -Recurse"
-%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Web\Screen' -Force -Recurse"
-%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Web\4K' -Force -Recurse"
-%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -Path '%windir%\SysWOW64\OneDriveSetup.exe' -Force"
-%windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -Path '%windir%\SysWOW64\OneDriveSettingSyncProvider.dll' -Force"
-
 rem disable error erport
 %windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe"-Command "Disable-WindowsErrorReporting"
 
@@ -3253,8 +3228,6 @@ rem Enable TRIM support for NTFS and ReFS file systems for SSD drives
 %windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Invoke-Expression -Command ('FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY NTFS 0') | Out-Null"
 %windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$QueryReFS = Invoke-Expression -Command ('FSUTIL BEHAVIOR QUERY DISABLEDELETENOTIFY') | Select-String -Pattern ReFS"
 %windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "If ($QueryReFS) { Invoke-Expression -Command ('FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY REFS 0') | Out-Null }"
-
-echo.
 
 rem allow microsoft edge to be uninstalled
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge" /v "NoRemove" /t REG_DWORD /d "0" /f
@@ -3518,6 +3491,18 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /v "EarlyAppRe
 
 rem enable startup sound
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation" /v "DisableStartupSound" /t REG_DWORD /d "0" /f
+
+rem MS office banner OFF : (usually manifested on converted revisions VL)
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /v KeyManagementServiceName /t REG_SZ /d "0.0.0.0" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /v KeyManagementServicePort /t REG_SZ /d "1688" /f
+
+rem Bypass TPM & Secureboot (https://github.com/St1ckys)
+reg add "HKLM\SYSTEM\Setup\LabConfig" /v "BypassTPMCheck" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\Setup\LabConfig" /v "BypassSecureBootCheck" /t REG_DWORD /d "1" /f
+
+rem unnecessary folders
+rem %windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Help' -Force -Recurse"
+rem %windir%\System32\PowerRun /SW:1 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -Path '' -Force"
 
 echo ********************** The End ***********************
 rem restart after 30secs
