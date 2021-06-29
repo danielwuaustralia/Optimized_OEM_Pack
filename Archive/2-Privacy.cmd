@@ -1,4 +1,4 @@
-@echo off & title Win10 ^& 11 Tweaker & color 17
+@echo off & title Win10 Tweaker & color 17
 cd %~dp0
 echo ======================================================
 echo -------------- Ensure Admin Privileges ---------------
@@ -14,7 +14,6 @@ echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"
 exit /B
 :gotAdmin
 echo Got Admin Access
-attrib -r "%UserProfile%\Desktop\*.*"
 echo ======================================================
 echo.
 echo ======================================================
@@ -230,14 +229,17 @@ echo ======================================================
 reg add "HKCU\Environment" /v "TEMP" /t reg_SZ /d "%SystemRoot%\Temp" /f
 reg add "HKCU\Environment" /v "TMP" /t reg_SZ /d "%SystemRoot%\Temp" /f
 reg delete "HKCU\Environment" /v "OneDrive" /f
-reg delete "HKCU\Software\Microsoft\OneDrive" /f
+attrib -r "%UserProfile%\Desktop\*.*"
 net user defaultuser0 /delete
 echo.
 echo --- Uninstall Edge Chromium
-CALL "Privacy\EdgeChromium.cmd"
+CALL "Privacy/EdgeChromium.cmd"
+echo.
+echo --- Apply Best W10Privacy Settings
+START /WAIT Privacy\W10Privacy.exe /s 1
 echo.
 echo --- Apply Best Windows Privacy Dashboard Settings
-START /WAIT Privacy\WPD.exe -defender "off" -wfp "off" -privacy " CEIPEnable  DisableCustomerImprovementProgram  CEIP  AllowCortana  AllowSearchToUseLocation  WindowsErrorReporting  DisableUAR  DisableInventory  AllowTelemetry  RestrictImplicitCollection  AllowInputPersonalization  AllowLinguisticDataCollection  ScenarioExecutionEnabled  DisableQueryRemoteServer  AdvertisingInfo  DisableContentFileUpdates  DisableWindowsConsumerFeatures  DiagTrack  dhscs  dmwappushservice  Consolidator  PublishUserActivities  UploadUserActivities  EnableActivityFeed  AllowClipboardHistory  AllowCrossDeviceClipboard  AllowDeviceNameInTelemetry  DisableSettingSync  DisableFileSyncNGSC  DisableAntiSpyware  EnableSmartScreen  LetAppsAccessAccountInfo  LetAppsAccessCalendar  LetAppsAccessCallHistory  LetAppsAccessCamera  LetAppsAccessContacts  LetAppsAccessEmail  LetAppsAccessGazeInput  LetAppsAccessLocation  LetAppsAccessMessaging  LetAppsAccessMicrophone  LetAppsAccessMotion  LetAppsAccessNotifications  LetAppsAccessPhone  LetAppsAccessRadios  LetAppsAccessTasks  LetAppsAccessTrustedDevices  LetAppsGetDiagnosticInfo  LetAppsRunInBackground  LetAppsSyncWithDevices  LetAppsActivateWithVoice  LetAppsActivateWithVoiceAboveLock  LetAppsAccessBackgroundSpatialPerception  CDPUserSvc  PimIndexMaintenanceSvc  UnistoreSvc  UserDataSvc  MessagingService  WpnUserService  ShowSyncProviderNotifications  TailoredExperiencesWithDiagnosticDataEnabled  StartTrackProgs  HttpAcceptLanguageOptOut  WaaSMedicSvc " -revert " WUGP  wuauserv  UsoSvc  Rule1 Rule2 Rule3" -revert " WUGP  wuauserv  UsoSvc " -includeAdv -nosplash -nowarnOS -noappx -nofw -pro -security -close
+START /WAIT Privacy\WPD.exe -defender "off" -wfp "off" -privacy " CEIPEnable  DisableCustomerImprovementProgram  CEIP  AllowCortana  AllowSearchToUseLocation  WindowsErrorReporting  DisableUAR  DisableInventory  AllowTelemetry  RestrictImplicitCollection  AllowInputPersonalization  AllowLinguisticDataCollection  ScenarioExecutionEnabled  DisableQueryRemoteServer  AdvertisingInfo  DisableContentFileUpdates  DisableWindowsConsumerFeatures  DiagTrack  dhscs  dmwappushservice  Consolidator  MCA  DeviceCensus  PublishUserActivities  UploadUserActivities  EnableActivityFeed  AllowClipboardHistory  AllowCrossDeviceClipboard  AllowDeviceNameInTelemetry  DisableSettingSync  DisableFileSyncNGSC  DisableAntiSpyware  EnableSmartScreen  LetAppsAccessAccountInfo  LetAppsAccessCalendar  LetAppsAccessCallHistory  LetAppsAccessCamera  LetAppsAccessContacts  LetAppsAccessEmail  LetAppsAccessGazeInput  LetAppsAccessLocation  LetAppsAccessMessaging  LetAppsAccessMicrophone  LetAppsAccessMotion  LetAppsAccessNotifications  LetAppsAccessPhone  LetAppsAccessRadios  LetAppsAccessTasks  LetAppsAccessTrustedDevices  LetAppsGetDiagnosticInfo  LetAppsRunInBackground  LetAppsSyncWithDevices  LetAppsActivateWithVoice  LetAppsActivateWithVoiceAboveLock  LetAppsAccessBackgroundSpatialPerception  CDPUserSvc  PimIndexMaintenanceSvc  UnistoreSvc  UserDataSvc  MessagingService  WpnUserService  ShowSyncProviderNotifications  TailoredExperiencesWithDiagnosticDataEnabled  StartTrackProgs  HttpAcceptLanguageOptOut  WaaSMedicSvc  Rule1 Rule2 Rule3" -revert " WUGP  wuauserv  UsoSvc " -includeAdv -nosplash -nowarnOS -noappx -nofw -pro -security -close
 echo.
 echo --- Apply Best OO Shutup Settings
 START /WAIT Privacy\OOSU10.exe Privacy\OOSU10.cfg /quiet
@@ -245,10 +247,9 @@ echo.
 echo --- Disable Win10 Game Explorer
 Privacy\blackbird -s -g
 echo ======================================================
-title Win10 ^& 11 Tweaker
 echo.
 echo ======================================================
-echo ----------- Disable Administrative shares ------------
+echo ----------- Disable administrative shares ------------
 echo ======================================================
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" /v "AutoShareWks" /t REG_DWORD /d 0 /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" /v "AutoShareServer" /t REG_DWORD /d 0 /f
@@ -278,7 +279,7 @@ ECHO Manufacturer="%BaseBoardManufacturer%"
 ECHO Product="%BaseBoardProduct%"
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation" /t reg_SZ /v Manufacturer /d "%BaseBoardManufacturer%" /f 
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation" /t reg_SZ /v Model /d "%BaseBoardProduct%" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation" /t reg_SZ /v Logo /d "%Windir%\System32\oobe\Logo\Logo.bmp" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation" /t reg_SZ /v Logo /d "%Windir%\System32\logo.bmp" /f
 echo ======================================================
 echo.
 echo ======================================================
@@ -305,14 +306,14 @@ echo ======================================================
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\wscsvc" /v "Start" /t reg_DWORD /d "4" /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\SecurityHealthService" /v "Start" /t reg_DWORD /d "4" /f
 
-Privacy\SetACL -on "HKLM\SOFTWARE\Microsoft\Windows Defender" -ot reg -actn setowner -ownr "n:Administrators"
-Privacy\SetACL -on "HKLM\SOFTWARE\Microsoft\Windows Defender" -ot reg -actn ace -ace "n:Administrators;p:full"
-Privacy\SetACL -on "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" -ot reg -actn setowner -ownr "n:Administrators"
-Privacy\SetACL -on "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" -ot reg -actn ace -ace "n:Administrators;p:full"
-Privacy\SetACL -on "HKLM\SOFTWARE\Microsoft\Windows Defender\Signature Updates" -ot reg -actn setowner -ownr "n:Administrators"
-Privacy\SetACL -on "HKLM\SOFTWARE\Microsoft\Windows Defender\Signature Updates" -ot reg -actn ace -ace "n:Administrators;p:full"
-Privacy\SetACL -on "HKLM\SOFTWARE\Microsoft\Windows Defender\UX Configuration" -ot reg -actn setowner -ownr "n:Administrators"
-Privacy\SetACL -on "HKLM\SOFTWARE\Microsoft\Windows Defender\UX Configuration" -ot reg -actn ace -ace "n:Administrators;p:full"
+%Windir%\System32\SetACL -on "HKLM\SOFTWARE\Microsoft\Windows Defender" -ot reg -actn setowner -ownr "n:Administrators"
+%Windir%\System32\SetACL -on "HKLM\SOFTWARE\Microsoft\Windows Defender" -ot reg -actn ace -ace "n:Administrators;p:full"
+%Windir%\System32\SetACL -on "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" -ot reg -actn setowner -ownr "n:Administrators"
+%Windir%\System32\SetACL -on "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" -ot reg -actn ace -ace "n:Administrators;p:full"
+%Windir%\System32\SetACL -on "HKLM\SOFTWARE\Microsoft\Windows Defender\Signature Updates" -ot reg -actn setowner -ownr "n:Administrators"
+%Windir%\System32\SetACL -on "HKLM\SOFTWARE\Microsoft\Windows Defender\Signature Updates" -ot reg -actn ace -ace "n:Administrators;p:full"
+%Windir%\System32\SetACL -on "HKLM\SOFTWARE\Microsoft\Windows Defender\UX Configuration" -ot reg -actn setowner -ownr "n:Administrators"
+%Windir%\System32\SetACL -on "HKLM\SOFTWARE\Microsoft\Windows Defender\UX Configuration" -ot reg -actn ace -ace "n:Administrators;p:full"
 
 reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" /v "TamperProtection" /t REG_DWORD /d 4 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\UX Configuration" /v "DisablePrivacyMode" /t reg_DWORD /d 1 /f
@@ -386,7 +387,6 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" /v
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" /v "ScheduleDay" /t reg_DWORD /d 8 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" /v "ScheduleTime" /t reg_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" /v "SignatureUpdateCatchupInterval" /t reg_DWORD /d 0 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" /v "SignatureBlobUpdateInterval" /t reg_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\SmartScreen" /v "ConfigureAppInstallControl" /t reg_SZ /d "Anywhere" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\SmartScreen" /v "ConfigureAppInstallControlEnabled" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\SpyNet" /v "DisableBlockAtFirstSeen" /t reg_DWORD /d 1 /f
@@ -401,11 +401,6 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\AutorunsDisabled" /v "SecurityHealth" /t REG_EXPAND_SZ /d "%windir%\system32\SecurityHealthSystray.exe" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SecurityHealth" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run" /v "SecurityHealth" /f
-
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows Defender\Real-Time Protection" /v "DisableRealtimeMonitoring" /t REG_DWORD /d 1 /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows Defender\Real-Time Protection" /v "DpaDisabled" /t REG_DWORD /d 1 /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows Defender\Spynet" /v "SpyNetReporting" /t REG_DWORD /d 0 /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows Defender\Spynet" /v "SubmitSamplesConsent" /t REG_DWORD /d 2 /f
 
 echo ======================================================
 echo.
@@ -589,7 +584,6 @@ sc stop vmicshutdown & sc config vmicshutdown start=disabled
 sc stop vmictimesync & sc config vmictimesync start=disabled
 sc stop vmicvmsession & sc config vmicvmsession start=disabled
 sc stop vmicvss & sc config vmicvss start=disabled
-sc stop WbioSrvc & sc config WbioSrvc start=disabled
 sc stop wcncsvc & sc config wcncsvc start=disabled
 sc stop WdiServiceHost & sc config WdiServiceHost start=disabled
 sc stop WdiSystemHost & sc config WdiSystemHost start=disabled
@@ -614,6 +608,27 @@ echo ======================================================
 echo ------------- Extra registry Tweaks ------------------
 echo ======================================================
 
+reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 0 /f
+reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 1 /f
+reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 2 /f
+reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 3 /f
+reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 4 /f
+reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 5 /f
+reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 6 /f
+reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 7 /f
+reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 8 /f
+reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 9 /f
+reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 10 /f
+reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 11 /f
+reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 12 /f
+reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 13 /f
+reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 14 /f
+reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 15 /f
+reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 16 /f
+reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 17 /f
+reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 18 /f
+reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 19 /f
+reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 20 /f
 reg delete "HKCR\SystemFileAssociations\.3mf\Shell\3D Edit" /f
 reg delete "HKCR\SystemFileAssociations\.bmp\Shell\3D Edit" /f
 reg delete "HKCR\SystemFileAssociations\.fbx\Shell\3D Edit" /f
@@ -625,9 +640,6 @@ reg delete "HKCR\SystemFileAssociations\.jpg\Shell\3D Edit" /f
 reg delete "HKCR\SystemFileAssociations\.png\Shell\3D Edit" /f
 reg delete "HKCR\SystemFileAssociations\.tif\Shell\3D Edit" /f
 reg delete "HKCR\SystemFileAssociations\.tiff\Shell\3D Edit" /f
-reg delete "HKCR\Directory\shellex\ContextMenuHandlers\EPP" /f
-reg delete "HKCR\Drive\shellex\ContextMenuHandlers\EPP" /f
-reg delete "HKCR\*\shellex\ContextMenuHandlers\EPP" /f
 reg delete "HKCR\*\shellex\ContextMenuHandlers\Open With EncryptionMenu" /f
 reg delete "HKCR\*\shellex\ContextMenuHandlers\Open With" /f
 reg delete "HKCR\.lnk\ShellNew" /f
@@ -711,89 +723,6 @@ reg delete "HKCR\CompressedFolder\ShellEx\ContextMenuHandlers\{b8cdcb65-b1bf-4b4
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\DelegateFolders\{F5FB2C77-0E2F-4A16-A381-3E560C68BC83}" /f
 reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\DelegateFolders\{F5FB2C77-0E2F-4A16-A381-3E560C68BC83}" /f
 reg delete "HKCR\CLSID\{09A47860-11B0-4DA5-AFA5-26D86198A780}" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\TelemetryController\Appraiser" /v Command /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\TelemetryController\AppraiserServer" /v Command /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\TelemetryController\AvStatus" /v Command /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\TelemetryController\DevInv" /v Command /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\TelemetryController\Encapsulation" /v Command /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\TelemetryController\InvAgent" /v Command /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\KeyExchangeAlgorithms\Diffie-Hellman" /f /v ServerMinKeyBitLength /t REG_DWORD /d 0x00001000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\KeyExchangeAlgorithms\Diffie-Hellman" /f /v ClientMinKeyBitLength /t REG_DWORD /d 0x00001000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\KeyExchangeAlgorithms\Diffie-Hellman" /f /v Enabled /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 40/128" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 56/128" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 128/128" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 128/128" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 64/128" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 56/128" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 40/128" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\DES 56" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\DES 56/56" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\Triple DES 168" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\Triple DES 168/168" /f /v Enabled /t REG_DWORD /d 0x00000000       
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Hashes\MD5" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Hashes\SHA" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\NULL" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL" /f /v AllowInsecureRenegoClients /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL" /f /v AllowInsecureRenegoServers /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL" /f /v DisableRenegoOnServer /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL" /f /v UseScsvForTls /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.0\Server" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.0\Server" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.0\Client" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.0\Client" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.1\Server" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.1\Server" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.1\Client" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.1\Client" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.3\Server" /f /v Enabled /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.3\Server" /f /v DisabledByDefault /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.3\Client" /f /v Enabled /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.3\Client" /f /v DisabledByDefault /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Client" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Client" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v2.0.50727" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v2.0.50727" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v2.0.50727" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v2.0.50727" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v3.0" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v3.0" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v3.0" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v3.0" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v4.0.30319" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v4.0.30319" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Server" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Server" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Client" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Client" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.3\Server" /f /v Enabled /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.3\Server" /f /v DisabledByDefault /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.3\Client" /f /v Enabled /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.3\Client" /f /v DisabledByDefault /t REG_DWORD /d 0x00000000
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v2.0.50727" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v2.0.50727" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v2.0.50727" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v2.0.50727" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v3.0" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v3.0" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v3.0" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v3.0" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v4.0.30319" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v4.0.30319" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 2.0\Server" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 2.0\Server" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 2.0\Client" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 2.0\Client" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Server" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Server" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Client" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Client" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
 reg add "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /d "0" /t REG_DWORD /f
 reg add "HKCR\Wow6432Node\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /d "0" /t REG_DWORD /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v "LockImageFlags" /t REG_DWORD /d 0 /f
@@ -830,7 +759,6 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\Remote Assistance" /v "fAllowFull
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Remote Assistance" /v "CreateEncryptedOnlyTickets" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Policies\Microsoft\InputPersonalization" /v "RestrictImplicitInkCollection" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Policies\Microsoft\InputPersonalization" /v "RestrictImplicitTextCollection" /t REG_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\OOBE" /v "DisablePrivacyExperience" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "NoLocalPasswordResetQuestions" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "EnableCdp" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "DisableLogonBackgroundImage" /t REG_DWORD /d 1 /f
@@ -851,9 +779,6 @@ reg add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v "DisableSearchBox
 reg add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v "NoPinningToDestinations" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v "DisableThumbsDBOnNetworkFolders" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v "NoPinningStoreToTaskbar" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v "NoUseStoreOpenWith" /t REG_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsStore" /v "RemoveWindowsStore" /t REG_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate" /v "AutoDownload" /t REG_DWORD /d 2 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Feeds" /v "EnableFeeds" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\GameBar" /v "AllowAutoGameMode" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\GameBar" /v "AutoGameModeEnabled" /t REG_DWORD /d 0 /f
@@ -862,7 +787,6 @@ reg add "HKCU\Software\Microsoft\GameBar" /v "ShowStartupPanel" /t REG_DWORD /d 
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent" /v "DisableWindowsConsumerFeatures" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent" /v "DisableCloudOptimizedContent" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent" /v "DisableSoftLanding" /t REG_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent" /v "DisableWindowsSpotlightFeatures" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" /v "fAllowToGetHelp" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" /v "fAllowUnsolicited" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" /v "fAllowUnsolicitedFullControl" /t REG_DWORD /d 0 /f
@@ -882,8 +806,6 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "AITEnable" /t R
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisablePropPage" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisableInventory" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisableUAR" /t REG_DWORD /d 1 /f
-reg add "HKLM\Software\Policies\Microsoft\Windows\AppCompat" /v "DisablePCA" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Policies\Microsoft\Windows\AppCompat" /v "DisablePCA" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "AllowDeviceNameInTelemetry" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "AllowTelemetry" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "DisableDeviceDelete" /t REG_DWORD /d 1 /f
@@ -979,7 +901,6 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "BackgroundModeEnabled" /t RE
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "SyncDisabled" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Policies\Microsoft\Edge" /v "SmartScreenEnabled" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Policies\Microsoft\Edge" /v "SyncDisabled" /t REG_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\EdgeUpdate" /v "UpdateDefault" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PreviewBuilds" /v "AllowBuildPreview" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PreviewBuilds" /v "EnableExperimentation" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PreviewBuilds" /v "EnableConfigFlighting" /t REG_DWORD /d 0 /f
@@ -992,8 +913,6 @@ reg add "HKCU\Software\Microsoft\Osk" /v "NextRepeatDelay" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Osk" /v "FirstRepeatDelay" /t REG_DWORD /d 0 /f
 reg add "HKCU\Control Panel\Cursors" /v "ContactVisualization" /t REG_DWORD /d 0 /f
 reg add "HKCU\Control Panel\Cursors" /v "GestureVisualization" /t REG_DWORD /d 0 /f
-reg add "HKCU\Control Panel\Desktop" /v "RestorePreviousStateRecalcBehavior" /t REG_DWORD /d 1 /f
-reg add "HKCU\Control Panel\Desktop" /v "MonitorRemovalRecalcBehavior" /t REG_DWORD /d 1 /f
 reg add "HKCU\Control Panel\Desktop" /v "DockMoving" /t REG_SZ /d 0 /f
 reg add "HKCU\Control Panel\Desktop" /v "WindowArrangementActive" /t REG_DWORD /d 0 /f
 reg add "HKCU\Control Panel\Desktop" /v "MouseWheelRouting" /t REG_DWORD /d 0 /f
@@ -1066,12 +985,6 @@ reg add "HKCU\Software\Microsoft\ScreenMagnifier" /v "FollowNarrator" /t REG_DWO
 reg add "HKCU\Software\Microsoft\Windows\DWM" /v "ColorPrevalence" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Windows\DWM" /v "EnableWindowColorization" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Windows\DWM" /v "ColorizationGlassAttribute" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\DWM" /v "ColorizationColor" /t REG_DWORD /d "3293334088" /f
-reg add "HKCU\Software\Microsoft\Windows\DWM" /v "ColorizationAfterglow" /t REG_DWORD /d "3293334088" /f
-reg add "HKCU\Software\Microsoft\Windows\DWM" /v "AccentColor" /t REG_DWORD /d "4282927692" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" /v "AccentColorMenu" /t REG_DWORD /d "4282927692" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" /v "StartColorMenu" /t REG_DWORD /d "4282203969" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" /v "AccentPalette" /t REG_BINARY /d "DFDEDC00A6A5A100686562004C4A4800413F3D0027252400100D0D00107C1000" /f
 reg add "HKLM\SOFTWARE\Microsoft\Tracing\SystemSettings_RASAPI32" /v "EnableFileTracing" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Microsoft\Tracing\SystemSettings_RASAPI32" /v "EnableAutoFileTracing" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Microsoft\Tracing\SystemSettings_RASAPI32" /v "EnableConsoleTracing" /t REG_DWORD /d 0 /f
@@ -1091,8 +1004,6 @@ reg add "HKCU\Software\Microsoft\Siuf\Rules" /v "PeriodInNanoSeconds" /t REG_DWO
 reg add "HKCU\Software\Microsoft\Input\TIPC" /v "Enabled" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Input\Settings" /v "EnableHwkbTextPrediction" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Input\Settings" /v "InsightsEnabled" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Input\Settings" /v "IsVoiceTypingKeyEnabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\TabletTip\EmbeddedInkControl" /v "EnableInkingWithTouch" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Input\Settings" /v "InsightsEnabled" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Microsoft\Input\Settings" /v "HarvestContacts" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\InputPersonalization" /v "RestrictImplicitTextCollection" /t REG_DWORD /d 1 /f
@@ -1293,18 +1204,6 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\webcam" /v "Value" /t REG_SZ /d "Deny" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\wifiData" /v "Value" /t REG_SZ /d "Deny" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\wiFiDirect" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\musicLibrary" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\musicLibrary" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\downloadsFolder" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\downloadsFolder" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureProgrammatic" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureProgrammatic" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureWithoutBorder" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureWithoutBorder" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureProgrammatic\NonPackaged" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureProgrammatic\NonPackaged" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureWithoutBorder\NonPackaged" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureWithoutBorder\NonPackaged" /v "Value" /t REG_SZ /d "Deny" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\appointments\Microsoft.Windows.Cortana_cw5n1h2txyewy" /v "Value" /t REG_SZ /d "Deny" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\chat\Microsoft.Windows.Cortana_cw5n1h2txyewy" /v "Value" /t REG_SZ /d "Deny" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\contacts\Microsoft.Windows.Cortana_cw5n1h2txyewy" /v "Value" /t REG_SZ /d "Deny" /f
@@ -1318,12 +1217,8 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy" /v "Value" /t REG_SZ /d "Deny" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\webcam\Microsoft.Windows.Cortana_cw5n1h2txyewy" /v "Value" /t REG_SZ /d "Deny" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" /v "GlobalUserDisabled" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.SecHealthUI_8wekyb3d8bbwe" /v "Disabled" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.SecHealthUI_8wekyb3d8bbwe" /v "DisabledByUser" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.Windows.SecHealthUI_cw5n1h2txyewy" /v "Disabled" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.Windows.SecHealthUI_cw5n1h2txyewy" /v "DisabledByUser" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\windows.immersivecontrolpanel_cw5n1h2txyewy" /v "Disabled" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\windows.immersivecontrolpanel_cw5n1h2txyewy" /v "DisabledByUser" /t REG_DWORD /d 1 /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.Windows.SecHealthUI_cw5n1h2txyewy" /v "DisabledByUser" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies" /v "HideSCAMeetNow" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments" /v "SaveZoneInformation" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Attachments" /v "SaveZoneInformation" /t REG_DWORD /d 1 /f
@@ -1332,8 +1227,6 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization" /v
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config" /v "DownloadMode" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config" /v "DODownloadMode" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Settings" /v "DownloadMode" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Policies\Microsoft\Windows\CurrentVersion\PushNotifications" /v "NoTileApplicationNotification" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Policies\Microsoft\Internet Explorer\Feeds" /v "BackgroundSyncStatus" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "AllowSearchToUseLocation" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "BackgroundAppGlobalToggle" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "BingSearchEnabled" /t REG_DWORD /d 0 /f
@@ -1358,14 +1251,6 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "LocalKnown
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "TelemetrySalt" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "ShowFrequent" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "ShowRecent" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAl" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSi" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarDa" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "EnableSnapAssistFlyout" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "DITest" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "EnableTaskGroups" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "UseCompactMode" /t REG_DWORD /d 1 /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_ShowClassicMode" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_SearchFiles" /t REG_DWORD /d 2 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ServerAdminUI" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Hidden" /t REG_DWORD /d 1 /f
@@ -1401,13 +1286,10 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "S
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "SnapFill" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_TrackDocs" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarGlomLevel" /t REG_DWORD /d 2 /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /V "MMTaskbarEnabled" /T REG_dWORD /D 1 /F
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /V "MMTaskbarGlomLevel" /T REG_dWORD /D 2 /F
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_TrackProgs" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowSecondsInSystemClock" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSmallIcons" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowSyncProviderNotifications" /t REG_DWORD /d 0 /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowSyncProviderNotifications" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "DisallowShaking" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSizeMove" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "FolderContentsInfoTip" /t REG_DWORD /d 0 /f
@@ -1543,7 +1425,6 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" 
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-88000161Enabled" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-88000163Enabled" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-88000165Enabled" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-88000530Enabled" /t REG_DWord /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\AppSync" /v "Enabled" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\DesktopTheme" /v "Enabled" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\PackageState" /v "Enabled" /t REG_DWORD /d 0 /f
@@ -1655,14 +1536,6 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Associations" /
 reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Policies\System" /v "VerboseStatus" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\CompatTelRunner.exe" /v "Debugger" /t REG_SZ /d "%windir%\System32\taskkill.exe" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\DeviceCensus.exe" /v "Debugger" /t REG_SZ /d "%windir%\System32\taskkill.exe" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "DisableWindowsUpdateAccess" /t REG_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "SetDisableUXWUAccess" /t REG_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "NoAutoUpdate" /t REG_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "DoNotConnectToWindowsUpdateInternetLocations" /t REG_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "UseWUServer" /t REG_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "WUServer" /t REG_SZ /d "-" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "WUStatusServer" /t REG_SZ /d "-" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "UpdateServiceUrlAlternate" /t REG_SZ /d "-" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "ExcludeWUDriversInQualityUpdate" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DriverSearching" /v "DontSearchWindowsUpdate" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DriverSearching" /v "SearchOrderConfig" /t REG_DWORD /d 0 /f
@@ -1715,12 +1588,6 @@ reg add "HKLM\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v 
 reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v "ExecutionPolicy" /t reg_SZ /d "Restricted" /f
 reg add "HKCU\Software\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v "ExecutionPolicy" /t reg_SZ /d "Restricted" /f
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap" /v "ProxyBypass" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs" /va /f
-reg delete "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs" /va /f
-reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\LastVisitedPidlMRU" /f
-reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSavePidlMRU" /f
-reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3" /v "Settings" /t REG_BINARY /d "30000000FEFFFFFF02740000030000003E0000001E0000000000000066030000A0050000840300006000000001000000" /f
 reg import "Privacy\PhotoVeiwer.reg"
 reg import "Privacy\PageFile.reg"
 COPY "Privacy\StartLayout.xml" "%Systemdrive%\Users\Default\AppData\Local\Microsoft\Windows\Shell\StartLayout.xml" /V /Y
@@ -1752,8 +1619,6 @@ echo ======================================================
 %SystemRoot%\System32\cscript //Nologo "%SystemRoot%\System32\slmgr.vbs" /dlv
 %SystemRoot%\System32\Unlocker\Unlocker.exe "%ProgramData%\Microsoft\UEV" /S /D
 %SystemRoot%\System32\Unlocker\Unlocker.exe "%ProgramData%\Microsoft\AppV" /S /D
-%SystemRoot%\System32\Unlocker\Unlocker.exe "%Windir%\System32\CompatTelRunner.exe" /R "%Windir%\System32\CompatTelRunner.bak" /S
-%SystemRoot%\System32\Unlocker\Unlocker.exe "%Windir%\System32\DeviceCensus.exe" /R "%Windir%\System32\DeviceCensus.bak" /S
 %SystemRoot%\System32\Unlocker\Unlocker.exe "%Windir%\System32\mobsync.exe" /R "%Windir%\System32\mobsync.bak" /S
 %SystemRoot%\System32\Unlocker\Unlocker.exe "%Windir%\System32\upfc.exe" /R "%Windir%\System32\upfc.bak" /S
 COPY "%SystemRoot%\System32\ctfmon.exe" "%AppData%\Microsoft\Windows\Start Menu\Programs\Startup\ctfmon.exe" /V /Y
@@ -1839,13 +1704,6 @@ PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologge
 PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\CloudExperienceHostOobe'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\DataMarket'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
-PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger\{1edeee53-0afe-4609-b846-d8c0b2075b1f}'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
-PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger\{54849625-5478-4994-a5ba-3e3b0328c30d}'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
-PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger\{a68ca8b7-004f-d7b6-a698-07e2de0f1f5d}'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
-PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger\{E02A841C-75A3-4FA7-AFC8-AE09CF9B7F23}'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
-PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger\{ef1cc15b-46c1-414e-bb95-e76b077bd51e}'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
-PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger\{fae10392-f0af-4ac0-b8ff-9f4d920c3cdf}'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
-PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger\{fc65ddd8-d6ef-4962-83d5-6e5cfe9ce148}'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-Application'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-System'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
@@ -1859,7 +1717,6 @@ PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologge
 PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\NtfsLog'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\PEAuthLog'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\ReadyBoot'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
-PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\ReFSLog'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\RdrLog'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\SetupPlatform'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\SetupPlatformTel'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
@@ -1870,19 +1727,11 @@ PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologge
 PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\Tpm'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\UBPM'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\WFP-IPsec Trace'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
-PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiDriverIHVSession'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiSession'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Start -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\CloudExperienceHostOobe'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\DataMarket'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\DefenderApiLogger'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
-PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\DefenderApiLogger\{1edeee53-0afe-4609-b846-d8c0b2075b1f}'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
-PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\DefenderApiLogger\{54849625-5478-4994-a5ba-3e3b0328c30d}'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
-PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\DefenderApiLogger\{a68ca8b7-004f-d7b6-a698-07e2de0f1f5d}'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
-PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\DefenderApiLogger\{E02A841C-75A3-4FA7-AFC8-AE09CF9B7F23}'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
-PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\DefenderApiLogger\{ef1cc15b-46c1-414e-bb95-e76b077bd51e}'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
-PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\DefenderApiLogger\{fae10392-f0af-4ac0-b8ff-9f4d920c3cdf}'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
-PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\DefenderApiLogger\{fc65ddd8-d6ef-4962-83d5-6e5cfe9ce148}'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\Diagtrack-Listener'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\EventLog-Application'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\EventLog-System'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
@@ -1896,7 +1745,6 @@ PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\NB
 PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\NtfsLog'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\PEAuthLog'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\ReadyBoot'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
-PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\ReFSLog'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\RdrLog'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\SetupPlatform'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\SetupPlatformTel'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
@@ -1907,18 +1755,13 @@ PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\Ti
 PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\Tpm'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\UBPM'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\WFP-IPsec Trace'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
-PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\WiFiDriverIHVSession'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 PowerShell -Command "$key = 'HKLM:SYSTEM\ControlSet001\Control\WMI\Autologger\WiFiSession'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\ControlSet001\Control\WMI\Autologger\NetCore" /v "Start" /t REG_DWORD /d 0 /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\ControlSet001\Control\WMI\Autologger\RadioMgr" /v "Start" /t REG_DWORD /d 0 /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\ControlSet001\Control\WMI\Autologger\Diagtrack-Listener" /v "Start" /t REG_DWORD /d 0 /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\ControlSet001\Control\WMI\Autologger\WinPhoneCritical" /v "Start" /t REG_DWORD /d 0 /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\NetCore" /v "Start" /t REG_DWORD /d 0 /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\RadioMgr" /v "Start" /t REG_DWORD /d 0 /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "Start" /t REG_DWORD /d 0 /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WinPhoneCritical" /v "Start" /t REG_DWORD /d 0 /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-Application" /v "Start" /t REG_DWORD /d 0 /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-System" /v "Start" /t REG_DWORD /d 0 /f
 Powershell -Command "Get-AutologgerConfig | Set-AutologgerConfig -Start 0 -InitStatus 0 -Confirm:$false -ErrorAction SilentlyContinue -Verbose"
 echo.
 echo --- Disable Diagtrack Dignostic Logs
@@ -1949,231 +1792,27 @@ echo --- Remove All Firewall Rules
 Powershell -Command "Get-NetFirewallRule | Remove-NetFirewallRule -Confirm:$False -ErrorAction SilentlyContinue -Verbose"
 echo.
 echo --- Apply Best Firewall Policy
-Powershell -Command "Get-NetFirewallProfile | Set-NetFirewallProfile -DefaultOutboundAction Block -DefaultInboundAction Block -AllowInboundRules False -NotifyonListen True -Enabled True -ErrorAction SilentlyContinue -Verbose"
+Powershell -Command "Get-NetFirewallProfile | Set-NetFirewallProfile -DefaultOutboundAction Block -DefaultInboundAction Block -AllowInboundRules False -NotifyonListen True -Enabled False -ErrorAction SilentlyContinue -Verbose"
 echo.
 echo --- Apply Best NetBT Tweak
 PowerShell -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\services\NetBT\Parameters\Interfaces'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name NetbiosOptions -Value 2 -ErrorAction SilentlyContinue -Verbose }"
 echo.
 echo --- Disable All Windows Event Logs
-for /F "tokens=*" %%1 in ('wevtutil.exe el') DO wevtutil.exe cl "%%1"
 PowerShell -Command "$key = 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
-echo ======================================================
-echo.
-echo ======================================================
-echo ---------------- Extra Firewall Rules ----------------
-echo ======================================================
-netsh advfirewall firewall add rule name="Block At.exe" program="%systemroot%\System32\At.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block At.exe" program="%systemroot%\SysWOW64\At.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Attrib.exe" program="%systemroot%\System32\Attrib.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Attrib.exe" program="%systemroot%\SysWOW64\Attrib.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Atbroker.exe" program="%systemroot%\System32\Atbroker.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Atbroker.exe" program="%systemroot%\SysWOW64\Atbroker.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block bash.exe" program="%systemroot%\System32\bash.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block bash.exe" program="%systemroot%\SysWOW64\bash.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block bitsadmin.exe" program="%systemroot%\System32\bitsadmin.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block bitsadmin.exe" program="%systemroot%\SysWOW64\bitsadmin.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block calc.exe" program="%systemroot%\System32\calc.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block calc.exe" program="%systemroot%\SysWOW64\calc.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block certreq.exe" program="%systemroot%\System32\certreq.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block certreq.exe" program="%systemroot%\SysWOW64\certreq.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block certutil.exe" program="%systemroot%\System32\certutil.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block certutil.exe" program="%systemroot%\SysWOW64\certutil.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block cmdkey.exe" program="%systemroot%\System32\cmdkey.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block cmdkey.exe" program="%systemroot%\SysWOW64\cmdkey.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block cmstp.exe" program="%systemroot%\System32\cmstp.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block cmstp.exe" program="%systemroot%\SysWOW64\cmstp.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block CompatTelRunner.exe" program="%systemroot%\System32\CompatTelRunner.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block CompatTelRunner.exe" program="%systemroot%\SysWOW64\CompatTelRunner.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block ConfigSecurityPolicy.exe" program="%ProgramData%\Microsoft\Windows Defender\Platform\4.18.2008.9-0\ConfigSecurityPolicy.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block control.exe" program="%systemroot%\System32\control.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block control.exe" program="%systemroot%\SysWOW64\control.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Csc.exe" program="%systemroot%\Microsoft.NET\Framework\v4.0.30319\Csc.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Csc.exe" program="%systemroot%\Microsoft.NET\Framework64\v4.0.30319\Csc.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block cscript.exe" program="%systemroot%\System32\cscript.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block cscript.exe" program="%systemroot%\SysWOW64\cscript.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block ctfmon.exe" program="%systemroot%\System32\ctfmon.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block ctfmon.exe" program="%systemroot%\SysWOW64\ctfmon.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block curl.exe" program="%systemroot%\System32\curl.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block curl.exe" program="%systemroot%\SysWOW64\curl.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block desktopimgdownldr.exe" program="%systemroot%\System32\desktopimgdownldr.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block DeviceDisplayObjectProvider.exe" program="%systemroot%\System32\DeviceDisplayObjectProvider.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block DeviceDisplayObjectProvider.exe" program="%systemroot%\SysWOW64\DeviceDisplayObjectProvider.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Dfsvc.exe" program="%systemroot%\Microsoft.NET\Framework\v4.0.30319\Dfsvc.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Dfsvc.exe" program="%systemroot%\Microsoft.NET\Framework64\v4.0.30319\Dfsvc.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block diskshadow.exe" program="%systemroot%\SysWOW64\diskshadow.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block diskshadow.exe" program="%systemroot%\System32\diskshadow.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Dnscmd.exe" program="%systemroot%\SysWOW64\Dnscmd.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Dnscmd.exe" program="%systemroot%\System32\Dnscmd.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block dwm.exe" program="%systemroot%\SysWOW64\dwm.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block dwm.exe" program="%systemroot%\System32\dwm.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block eventvwr.exe" program="%systemroot%\SysWOW64\eventvwr.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block eventvwr.exe" program="%systemroot%\System32\eventvwr.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block esentutl.exe" program="%systemroot%\SysWOW64\esentutl.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block esentutl.exe" program="%systemroot%\System32\esentutl.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block eventvwr.exe" program="%systemroot%\SysWOW64\eventvwr.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block eventvwr.exe" program="%systemroot%\SysWOW64\eventvwr.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Expand.exe" program="%systemroot%\System32\Expand.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Expand.exe" program="%systemroot%\SysWOW64\Expand.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block explorer.exe" program="%systemroot%\explorer.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block explorer.exe" program="%systemroot%\System32\explorer.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block explorer.exe" program="%systemroot%\SysWOW64\explorer.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Extexport.exe" program="%programfiles%\Internet Explorer\Extexport.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Extexport.exe" program="%programfiles(x86)%\Internet Explorer\Extexport.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block extrac32.exe" program="%systemroot%\System32\extrac32.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block extrac32.exe" program="%systemroot%\SysWOW64\extrac32.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block findstr.exe" program="%systemroot%\System32\findstr.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block findstr.exe" program="%systemroot%\SysWOW64\findstr.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block forfiles.exe" program="%systemroot%\System32\forfiles.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block forfiles.exe" program="%systemroot%\SysWOW64\forfiles.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block ftp.exe" program="%systemroot%\System32\ftp.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block ftp.exe" program="%systemroot%\SysWOW64\ftp.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block gpscript.exe" program="%systemroot%\System32\gpscript.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block gpscript.exe" program="%systemroot%\SysWOW64\gpscript.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block hh.exe" program="%systemroot%\System32\hh.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block hh.exe" program="%systemroot%\SysWOW64\hh.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block ie4uinit.exe" program="%systemroot%\System32\ie4uinit.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block ie4uinit.exe" program="%systemroot%\SysWOW64\ie4uinit.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block ieexec.exe" program="%systemroot%\Microsoft.NET\Framework\v2.0.50727\ieexec.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block ieexec.exe" program="%systemroot%\Microsoft.NET\Framework64\v2.0.50727\ieexec.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block ilasm.exe" program="%systemroot%\Microsoft.NET\Framework\v4.0.30319\ilasm.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block ilasm.exe" program="%systemroot%\Microsoft.NET\Framework64\v4.0.30319\ilasm.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Infdefaultinstall.exe" program="%systemroot%\System32\Infdefaultinstall.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Infdefaultinstall.exe" program="%systemroot%\SysWOW64\Infdefaultinstall.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block InstallUtil.exe" program="%systemroot%\Microsoft.NET\Framework\v2.0.50727\InstallUtil.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block InstallUtil.exe" program="%systemroot%\Microsoft.NET\Framework64\v2.0.50727\InstallUtil.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block InstallUtil.exe" program="%systemroot%\Microsoft.NET\Framework\v4.0.30319\InstallUtil.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block InstallUtil.exe" program="%systemroot%\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Jsc.exe" program="%systemroot%\Microsoft.NET\Framework\v2.0.50727\Jsc.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Jsc.exe" program="%systemroot%\Microsoft.NET\Framework64\v2.0.50727\Jsc.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Jsc.exe" program="%systemroot%\Microsoft.NET\Framework\v4.0.30319\Jsc.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Jsc.exe" program="%systemroot%\Microsoft.NET\Framework64\v4.0.30319\Jsc.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block lsass.exe" program="%systemroot%\System32\lsass.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block lsass.exe" program="%systemroot%\SysWOW64\lsass.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block makecab.exe" program="%systemroot%\System32\makecab.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block makecab.exe" program="%systemroot%\SysWOW64\makecab.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block mavinject.exe" program="%systemroot%\System32\mavinject.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block mavinject.exe" program="%systemroot%\SysWOW64\mavinject.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Microsoft.Workflow.Compiler.exe" program="%systemroot%\Microsoft.Net\Framework64\v4.0.30319\Microsoft.Workflow.Compiler.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block mmc.exe" program="%systemroot%\SysWOW64\mmc.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block mmc.exe" program="%systemroot%\System32\mmc.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Msbuild.exe" program="%systemroot%\Microsoft.NET\Framework\v2.0.50727\Msbuild.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Msbuild.exe" program="%systemroot%\Microsoft.NET\Framework64\v2.0.50727\Msbuild.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Msbuild.exe" program="%systemroot%\Microsoft.NET\Framework\v3.5\Msbuild.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Msbuild.exe" program="%systemroot%\Microsoft.NET\Framework64\v3.5\Msbuild.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Msbuild.exe" program="%systemroot%\Microsoft.NET\Framework\v4.0.30319\Msbuild.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Msbuild.exe" program="%systemroot%\Microsoft.NET\Framework64\v4.0.30319\Msbuild.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block msconfig.exe" program="%systemroot%\System32\msconfig.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Msdt.exe" program="%systemroot%\System32\Msdt.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Msdt.exe" program="%systemroot%\SysWOW64\Msdt.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block mshta.exe" program="%systemroot%\System32\mshta.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block mshta.exe" program="%systemroot%\SysWOW64\mshta.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block msiexec.exe" program="%systemroot%\System32\msiexec.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block msiexec.exe" program="%systemroot%\SysWOW64\msiexec.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Netsh.exe" program="%systemroot%\System32\Netsh.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Netsh.exe" program="%systemroot%\SysWOW64\Netsh.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block notepad.exe" program="%systemroot%\system32\notepad.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block notepad.exe " program="%systemroot%\SysWOW64\notepad.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block odbcconf.exe" program="%systemroot%\System32\odbcconf.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block odbcconf.exe" program="%systemroot%\SysWOW64\odbcconf.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block pcalua.exe" program="%systemroot%\System32\pcalua.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block pcalua.exe" program="%systemroot%\SysWOW64\pcalua.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block pcwrun.exe" program="%systemroot%\System32\pcwrun.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block pcwrun.exe" program="%systemroot%\SysWOW64\pcwrun.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block pktmon.exe" program="%systemroot%\System32\pktmon.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block pktmon.exe" program="%systemroot%\SysWOW64\pktmon.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block powershell.exe" program="%systemroot%\System32\WindowsPowerShell\v1.0\powershell.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block powershell.exe" program="%systemroot%\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block powershell_ise.exe" program="%systemroot%\System32\WindowsPowerShell\v1.0\powershell_ise.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block powershell_ise.exe" program="%systemroot%\SysWOW64\WindowsPowerShell\v1.0\powershell_ise.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Presentationhost.exe" program="%systemroot%\System32\Presentationhost.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Presentationhost.exe" program="%systemroot%\SysWOW64\Presentationhost.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block print.exe" program="%systemroot%\System32\print.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block print.exe" program="%systemroot%\SysWOW64\print.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block psr.exe" program="%systemroot%\System32\psr.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block psr.exe" program="%systemroot%\SysWOW64\psr.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block rasautou.exe" program="%systemroot%\System32\rasautou.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block rasautou.exe" program="%systemroot%\SysWOW64\rasautou.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block reg.exe" program="%systemroot%\System32\reg.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block reg.exe" program="%systemroot%\SysWOW64\reg.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block regasm.exe" program="%systemroot%\Microsoft.NET\Framework\v2.0.50727\regasm.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block regasm.exe" program="%systemroot%\Microsoft.NET\Framework64\v2.0.50727\regasm.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block regasm.exe" program="%systemroot%\Microsoft.NET\Framework\v4.0.30319\regasm.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block regasm.exe" program="%systemroot%\Microsoft.NET\Framework64\v4.0.30319\regasm.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block regedit.exe" program="%systemroot%\System32\regedit.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block regedit.exe" program="%systemroot%\SysWOW64\regedit.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block regini.exe" program="%systemroot%\System32\regini.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block regini.exe" program="%systemroot%\SysWOW64\regini.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Register-cimprovider.exe" program="%systemroot%\System32\Register-cimprovider.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block Register-cimprovider.exe" program="%systemroot%\SysWOW64\Register-cimprovider.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block regsvcs.exe" program="%systemroot%\System32\regsvcs.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block regsvcs.exe" program="%systemroot%\SysWOW64\regsvcs.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block regsvr32.exe" program="%systemroot%\System32\regsvr32.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block regsvr32.exe" program="%systemroot%\SysWOW64\regsvr32.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block replace.exe" program="%systemroot%\System32\replace.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block replace.exe" program="%systemroot%\SysWOW64\replace.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block rpcping.exe" program="%systemroot%\System32\rpcping.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block rpcping.exe" program="%systemroot%\SysWOW64\rpcping.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block rundll32.exe" program="%systemroot%\System32\rundll32.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block rundll32.exe" program="%systemroot%\SysWOW64\rundll32.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block runonce.exe" program="%systemroot%\System32\runonce.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block runonce.exe" program="%systemroot%\SysWOW64\runonce.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block services.exe" program="%systemroot%\System32\services.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block services.exe" program="%systemroot%\SysWOW64\services.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block sc.exe" program="%systemroot%\System32\sc.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block sc.exe" program="%systemroot%\SysWOW64\sc.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block schtasks.exe" program="%systemroot%\System32\schtasks.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block schtasks.exe" program="%systemroot%\SysWOW64\schtasks.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block scriptrunner.exe" program="%systemroot%\System32\scriptrunner.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block scriptrunner.exe" program="%systemroot%\SysWOW64\scriptrunner.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block SyncAppvPublishingServer.exe" program="%systemroot%\System32\SyncAppvPublishingServer.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block SyncAppvPublishingServer.exe" program="%systemroot%\SysWOW64\SyncAppvPublishingServer.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block telnet.exe" program="%systemroot%\System32\telnet.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block telnet.exe" program="%systemroot%\SysWOW64\telnet.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block tftp.exe" program="%systemroot%\System32\tftp.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block tftp.exe" program="%systemroot%\SysWOW64\tftp.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block ttdinject.exe" program="%systemroot%\System32\ttdinject.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block ttdinject.exe" program="%systemroot%\SysWOW64\ttdinject.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block tttracer.exe" program="%systemroot%\System32\tttracer.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block tttracer.exe" program="%systemroot%\SysWOW64\tttracer.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block vbc.exe" program="%systemroot%\Microsoft.NET\Framework64\v4.0.30319\vbc.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block vbc.exe" program="%systemroot%\Microsoft.NET\Framework64\v3.5\vbc.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block verclsid.exe" program="%systemroot%\System32\verclsid.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block verclsid.exe" program="%systemroot%\SysWOW64\verclsid.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block wab.exe" program="%programfiles%\Windows Mail\wab.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block wab.exe" program="%programfiles(x86)%\Windows Mail\wab.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block WerFault.exe" program="%systemroot%\SysWOW64\WerFault.exe" protocol=any dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block WerFault.exe" program="%systemroot%\SysWOW64\WerFault.exe" protocol=any dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block wininit.exe" program="%systemroot%\System32\wininit.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block wininit.exe" program="%systemroot%\SysWOW64\wininit.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block winlogon.exe" program="%systemroot%\System32\winlogon.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block winlogon.exe" program="%systemroot%\SysWOW64\winlogon.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block wmic.exe" program="%systemroot%\System32\wbem\wmic.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block wmic.exe" program="%systemroot%\SysWOW64\wbem\wmic.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block wordpad.exe" program="%programfiles%\windows nt\accessories\wordpad.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block wordpad.exe" program="%programfiles(x86)%\windows nt\accessories\wordpad.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block wscript.exe" program="%systemroot%\System32\wscript.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block wscript.exe" program="%systemroot%\SysWOW64\wscript.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block wsreset.exe" program="%systemroot%\System32\wsreset.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block wsreset.exe" program="%systemroot%\SysWOW64\wsreset.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block xwizard.exe" program="%systemroot%\System32\xwizard.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Block xwizard.exe" program="%systemroot%\SysWOW64\xwizard.exe" dir=out enable=yes action=block profile=any
-netsh advfirewall firewall add rule name="Allow svchost.exe" program="%systemroot%\System32\svchost.exe" dir=out enable=yes action=Allow profile=any
-netsh advfirewall firewall add rule name="Allow firefox.exe" program="%ProgramFiles%\Mozilla Firefox\firefox.exe" dir=out enable=yes action=Allow profile=any
-netsh advfirewall firewall add rule name="Allow IDMan.exe" program="%ProgramFiles(x86)%\Internet Download Manager\IDMan.exe" dir=out enable=yes action=Allow profile=any
 echo ======================================================
 echo.
 echo ======================================================
 echo -------------------- Apply Tweaks --------------------
 echo ======================================================
 
-Privacy\SetACL -on "%SystemRoot%\Logs" -ot file -actn setowner -ownr "n:Administrators"
-Privacy\SetACL -on "%SystemRoot%\Logs" -ot file -actn ace -ace "n:Administrators;p:full"
-Privacy\SetACL -on "%SystemRoot%\DiagTrack" -ot file -actn setowner -ownr "n:Administrators"
-Privacy\SetACL -on "%SystemRoot%\DiagTrack" -ot file -actn ace -ace "n:Administrators;p:full"
-Privacy\SetACL -on "%SystemRoot%\DiagTrack\Scenarios" -ot file -actn setowner -ownr "n:Administrators"
-Privacy\SetACL -on "%SystemRoot%\DiagTrack\Scenarios" -ot file -actn ace -ace "n:Administrators;p:full"
-Privacy\SetACL -on "%SystemRoot%\DiagTrack\Settings" -ot file -actn setowner -ownr "n:Administrators"
-Privacy\SetACL -on "%SystemRoot%\DiagTrack\Settings" -ot file -actn ace -ace "n:Administrators;p:full"
+%SystemRoot%\System32\SetACL -on "%SystemRoot%\Logs" -ot file -actn setowner -ownr "n:Administrators"
+%SystemRoot%\System32\SetACL -on "%SystemRoot%\Logs" -ot file -actn ace -ace "n:Administrators;p:full"
+%SystemRoot%\System32\SetACL -on "%SystemRoot%\DiagTrack" -ot file -actn setowner -ownr "n:Administrators"
+%SystemRoot%\System32\SetACL -on "%SystemRoot%\DiagTrack" -ot file -actn ace -ace "n:Administrators;p:full"
+%SystemRoot%\System32\SetACL -on "%SystemRoot%\DiagTrack\Scenarios" -ot file -actn setowner -ownr "n:Administrators"
+%SystemRoot%\System32\SetACL -on "%SystemRoot%\DiagTrack\Scenarios" -ot file -actn ace -ace "n:Administrators;p:full"
+%SystemRoot%\System32\SetACL -on "%SystemRoot%\DiagTrack\Settings" -ot file -actn setowner -ownr "n:Administrators"
+%SystemRoot%\System32\SetACL -on "%SystemRoot%\DiagTrack\Settings" -ot file -actn ace -ace "n:Administrators;p:full"
 IF EXIST "%SystemRoot%\System32\Tasks" rd /s /q "%SystemRoot%\System32\Tasks"
 IF EXIST "%SystemRoot%\SysWOW64\Tasks" rd /s /q "%SystemRoot%\SysWOW64\Tasks"
 IF EXIST "%SystemRoot%\Logs" rd /s /q "%SystemRoot%\Logs"
@@ -2182,6 +1821,10 @@ IF EXIST "%SystemRoot%\SysWOW64\Logs" rd /s /q "%SystemRoot%\SysWOW64\Logs"
 IF EXIST "%SystemRoot%\System32\LogFiles" rd /s /q "%SystemRoot%\System32\LogFiles"
 IF EXIST "%SystemRoot%\SysWOW64\LogFiles" rd /s /q "%SystemRoot%\SysWOW64\LogFiles"
 IF EXIST "%SystemRoot%\DiagTrack" rd /s /q "%SystemRoot%\DiagTrack"
+vssadmin List Shadows
+vssadmin delete shadows /All /Quiet
+Powershell -Command "Disable-ComputerRestore -Drive $env:SystemDrive -Verbose"
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\mpssvc" /v "Start" /t reg_DWORD /d "4" /f
 echo.
 echo --- Apply Best NTUSER Registry Tweaks
 reg load "HKLM\TEMP_NTUSER" "%SystemDrive%\Users\Default\NTUSER.DAT"
@@ -2214,37 +1857,67 @@ fsutil behavior set EncryptPagingFile 0
 fsutil behavior set symlinkEvaluation L2R:0 R2R:0 R2L:0
 echo.
 echo --- Apply Local Group Policies
-Privacy\LGPO /m "Privacy\Machine.pol" /v
-Privacy\LGPO /u "Privacy\User.pol" /v
+%Windir%\System32\LGPO /m "Privacy\Machine.pol" /v
+%Windir%\System32\LGPO /u "Privacy\User.pol" /v
 gpupdate /force
 echo.
-vssadmin List Shadows
-vssadmin delete shadows /All /Quiet
-Powershell -Command "Disable-ComputerRestore -Drive $env:SystemDrive -Verbose"
+echo --- SystemApps Removal Tweak
+PowerShell -Command "Get-AppXProvisionedPackage -Online | Out-GridView -PassThru -Title 'Remove Windows Apps' | Remove-AppXProvisionedPackage -Online -AllUsers -ErrorAction SilentlyContinue -Verbose"
+%SystemRoot%\System32\SetACL -ot "reg" -on "HKLM\SYSTEM\CurrentControlSet\Services\StateRepository" -actn setowner -ownr "n:Administrators"
+%SystemRoot%\System32\SetACL -ot "reg" -on "HKLM\SYSTEM\CurrentControlSet\Services\StateRepository" -actn ace -ace "n:Administrators;p:full"
+Powershell -Command "Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\StateRepository' 'Start' 4 -Verbose"
+Powershell -Command "Stop-Service -Name StateRepository -Force -Verbose"
+Powershell -Command "Get-Service -Name StateRepository -Verbose"
+%SystemRoot%\System32\SetACL -ot "file" -on "%ProgramFiles%\WindowsApps" -actn setowner -ownr "n:Administrators"
+%SystemRoot%\System32\SetACL -ot "file" -on "%ProgramFiles%\WindowsApps" -actn ace -ace "n:Administrators;p:full"
+%SystemRoot%\System32\SetACL -ot "file" -on "%ProgramData%\Microsoft\Windows\AppRepository" -actn setowner -ownr "n:Administrators"
+%SystemRoot%\System32\SetACL -ot "file" -on "%ProgramData%\Microsoft\Windows\AppRepository" -actn ace -ace "n:Administrators;p:full"
+%SystemRoot%\System32\SetACL -ot "file" -on "%ProgramData%\Microsoft\Windows\AppRepository\StateRepository-Machine.srd" -actn setowner -ownr "n:Administrators"
+%SystemRoot%\System32\SetACL -ot "file" -on "%ProgramData%\Microsoft\Windows\AppRepository\StateRepository-Machine.srd" -actn ace -ace "n:Administrators;p:full"
+IF EXIST "%ProgramData%\Microsoft\Windows\AppRepository\PackageRepository.edb" del /f /s /q /a "%ProgramData%\Microsoft\Windows\AppRepository\PackageRepository.edb"
+Powershell -Command "Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\StateRepository' 'Start' 2 -Verbose"
+Powershell -Command "Start-Service -Name StateRepository -Verbose"
+Powershell -Command "Get-Service -Name StateRepository -Verbose"
+TASKLIST /svc /fi "services eq StateRepository"
+TASKKILL /F /FI "services eq StateRepository" /T
+%SystemRoot%\System32\SQLite3 "%ProgramData%\Microsoft\Windows\AppRepository\StateRepository-Machine.srd" "DROP TRIGGER TRG_AFTER_UPDATE_Package_SRJournal;"
+%SystemRoot%\System32\SQLite3 "%ProgramData%\Microsoft\Windows\AppRepository\StateRepository-Machine.srd" "UPDATE Package SET IsInBox=0 WHERE IsInBox=1;"
+Powershell -Command "Write-Output ':***********************************************************************:' '' '                               { Urgent SystemApps Removal }' '' ' Pl Do Not Select [ShellExperienceHost] [ImmersiveControlPanel] [VClibs] ' '' '      Pl Dont Worry as it will Show you Critical Error For Start Menu ' '' '                            Drop it Downside Towards Taskbar ' '' '               OpenShell Is the Correct Solution for Start Menu' '' '                       Waiting Time is 10 Min Until You Press OK' | MSG "%username%" /TIME:600 /W"
+Powershell -Command "Get-AppxPackage -AllUsers | Out-GridView -PassThru -Title 'Remove System Apps' | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue -Verbose"
+echo.
+echo --- Recheck SystemApps Removal [IF Some Apps Are Left Before This Time They Will be Removed]
+PowerShell -Command "Get-AppXProvisionedPackage -Online | Out-GridView -PassThru -Title 'Remove Windows Apps' | Remove-AppXProvisionedPackage -Online -AllUsers -ErrorAction SilentlyContinue -Verbose"
+%SystemRoot%\System32\SetACL -ot "reg" -on "HKLM\SYSTEM\CurrentControlSet\Services\StateRepository" -actn setowner -ownr "n:Administrators"
+%SystemRoot%\System32\SetACL -ot "reg" -on "HKLM\SYSTEM\CurrentControlSet\Services\StateRepository" -actn ace -ace "n:Administrators;p:full"
+Powershell -Command "Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\StateRepository' 'Start' 4 -Verbose"
+Powershell -Command "Stop-Service -Name StateRepository -Force -Verbose"
+Powershell -Command "Get-Service -Name StateRepository -Verbose"
+%SystemRoot%\System32\SetACL -ot "file" -on "%ProgramFiles%\WindowsApps" -actn setowner -ownr "n:Administrators"
+%SystemRoot%\System32\SetACL -ot "file" -on "%ProgramFiles%\WindowsApps" -actn ace -ace "n:Administrators;p:full"
+%SystemRoot%\System32\SetACL -ot "file" -on "%ProgramData%\Microsoft\Windows\AppRepository" -actn setowner -ownr "n:Administrators"
+%SystemRoot%\System32\SetACL -ot "file" -on "%ProgramData%\Microsoft\Windows\AppRepository" -actn ace -ace "n:Administrators;p:full"
+%SystemRoot%\System32\SetACL -ot "file" -on "%ProgramData%\Microsoft\Windows\AppRepository\StateRepository-Machine.srd" -actn setowner -ownr "n:Administrators"
+%SystemRoot%\System32\SetACL -ot "file" -on "%ProgramData%\Microsoft\Windows\AppRepository\StateRepository-Machine.srd" -actn ace -ace "n:Administrators;p:full"
+IF EXIST "%ProgramData%\Microsoft\Windows\AppRepository\PackageRepository.edb" del /f /s /q /a "%ProgramData%\Microsoft\Windows\AppRepository\PackageRepository.edb"
+Powershell -Command "Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\StateRepository' 'Start' 2 -Verbose"
+Powershell -Command "Start-Service -Name StateRepository -Verbose"
+Powershell -Command "Get-Service -Name StateRepository -Verbose"
+TASKLIST /svc /fi "services eq StateRepository"
+TASKKILL /F /FI "services eq StateRepository" /T
+%SystemRoot%\System32\SQLite3 "%ProgramData%\Microsoft\Windows\AppRepository\StateRepository-Machine.srd" "UPDATE Package SET IsInBox=0 WHERE IsInBox=1;"
+Powershell -Command "Write-Output ':***********************************************************************:' '' '                               { Urgent SystemApps Removal }' '' ' Pl Do Not Select [ShellExperienceHost] [ImmersiveControlPanel] [VClibs] ' '' '      Pl Dont Worry as it will Show you Critical Error For Start Menu ' '' '                            Drop it Downside Towards Taskbar ' '' '               OpenShell Is the Correct Solution for Start Menu' '' '                       Waiting Time is 10 Min Until You Press OK' | MSG "%username%" /TIME:600 /W"
+Powershell -Command "Get-AppxPackage -AllUsers | Out-GridView -PassThru -Title 'Remove System Apps' | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue -Verbose"
+echo.
 reg import "Privacy\Extra.reg"
-Powershell -Command "Set-Service -Name 'WalletService' -StartupType Disabled -Status Stopped -Verbose"
-Powershell -Command "Set-Service -Name 'WbioSrvc' -StartupType Disabled -Status Stopped -Verbose"
-Powershell -Command "Set-Service -Name 'WdNisDrv' -StartupType Disabled -Status Stopped -Verbose"
-reg add "HKCU\Software\Microsoft\Assistance\Client\1.0\Settings" /v "ImplicitFeedback" /t REG_DWORD /d 0 /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\IKEEXT" /v "Start" /t reg_DWORD /d "3" /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\IKEEXT\TriggerInfo\0" /v "Action" /t reg_DWORD /d "0" /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\UsoSvc" /v "DelayedAutoStart" /t REG_DWORD /d 0 /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\UsoSvc" /v "Start" /t REG_DWORD /d 3 /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Lock Screen\FeedManager" /v "" /t REG_SZ /d 0 /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance" /v "WakeUp" /t REG_DWORD /d 0 /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance" /v "MaintenanceDisabled" /t REG_DWORD /d 1 /f
-taskkill /f /im explorer.exe & TIMEOUT /T 5 /NOBREAK
+taskkill /f /im explorer.exe & TIMEOUT /T 2 /NOBREAK
 DEL /F /S /Q /A %LocalAppData%\Microsoft\Windows\Explorer\thumbcache_*.db
 DEL /F /S /Q /A %LocalAppData%\Microsoft\Windows\Explorer\iconcache_*.db
 DEL /F /S /Q /A %LocalAppData%\Microsoft\Windows\Explorer\ExplorerStartupLog_*.etl
-start explorer.exe & TIMEOUT /T 30 /NOBREAK
+start explorer.exe
+shutdown /r /f /t 60
 echo ======================================================
 echo ********************** The End ***********************
-START /WAIT QuickCPU\QuickCPU.exe
-IF EXIST "%LocalAppData%\Microsoft\CLR_v4.0" rd /s /q "%LocalAppData%\Microsoft\CLR_v4.0"
-IF EXIST "%LocalAppData%\Coderbag" rd /s /q "%LocalAppData%\Coderbag"
-reg delete "HKCU\SOFTWARE\CoderBag" /f
-IF EXIST "QuickCPU" rd /s /q "QuickCPU"
-IF EXIST "Privacy" rd /s /q "Privacy"
-shutdown /r /f /t 60
-del %~f0
