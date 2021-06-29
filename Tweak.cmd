@@ -527,7 +527,6 @@ sc config ScDeviceEnum start=disabled
 sc config SCPolicySvc start=disabled
 sc config SmsRouter start=disabled
 sc config SNMPTRAP start=disabled
-sc config SSDPSRV start=disabled
 sc config StorSvc start=disabled
 sc config SysMain start=disabled
 sc config TabletInputService start=disabled
@@ -565,9 +564,14 @@ sc config XboxNetApiSvc start=disabled
 sc config FDResPub start=auto
 sc config fdPHost start=auto
 sc config upnphost start=auto
-sc config SSDPSRV start=disabled
+sc config SSDPSRV start=auto
 sc config W32Time start=disabled
 sc config BthAvctpSvc start=disabled
+sc config BITS start=disabled
+sc config bthserv start=disabled
+sc config DisplayEnhancementService start=disabled
+sc config hidserv start=disabled
+sc config ShellHWDetection start=disabled
 echo.
 reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 0 /f
 reg delete "HKCU\Control Panel\Quick Actions\Pinned" /v 1 /f
@@ -3508,6 +3512,9 @@ reg add "HKCU\Control Panel\Desktop" /v "MonitorRemovalRecalcBehavior" /t REG_DW
 
 rem Win11 - no Drag Full Window
 reg add "HKCU\Control Panel\Desktop" /v "DragFullWindows" /t REG_SZ /d "0" /f
+
+rem Win11 - Small Taskbar Icon
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /V "TaskbarSi" /T REG_DWORD /D "0" /F
 
 rem input method
 reg delete "HKCU\Control Panel\Input Method\Hot Keys\00000104" /f
