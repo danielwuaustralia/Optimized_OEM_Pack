@@ -493,7 +493,6 @@ sc config InstallService start=disabled
 sc config LicenseManager start=disabled
 sc config lfsvc start=disabled
 sc config lmhosts start=disabled
-sc config LxpSvc start=disabled
 sc config MessagingService start=disabled
 sc config MapsBroker start=disabled
 sc config MRxDAV start=disabled
@@ -525,7 +524,6 @@ sc config SNMPTRAP start=disabled
 sc config SSDPSRV start=disabled
 sc config StorSvc start=disabled
 sc config SysMain start=disabled
-sc config TabletInputService start=disabled
 sc config TermService start=disabled
 sc config tunnel start=disabled
 sc config UmRdpService start=disabled
@@ -558,6 +556,8 @@ sc config XblAuthManager start=disabled
 sc config XblGameSave start=disabled
 sc config XboxGipSvc start=disabled
 sc config XboxNetApiSvc start=disabled
+sc config LxpSvc start=auto
+sc config TabletInputService start=auto
 sc config FDResPub start=auto
 sc config fdPHost start=auto
 sc config upnphost start=auto
@@ -570,6 +570,19 @@ sc config DisplayEnhancementService start=disabled
 sc config hidserv start=disabled
 sc config ShellHWDetection start=disabled
 sc config UsoSvc start=disabled
+sc config spectrum start=disabled
+sc config perceptionsimulation start=disabled
+sc config MixedRealityOpenXRSvc start=disabled
+sc config SDRSVC start=disabled
+sc config WFDSConMgrSvc start=disabled
+sc config VacSvc start=disabled
+sc config VSS start=disabled
+sc config TieringEngineService start=disabled
+sc config SharedRealitySvc start=disabled
+sc config TroubleshootingSvc start=disabled
+sc config QWAVE start=disabled
+sc config WPDBusEnum start=disabled
+sc config swprv start=disabled
 
 echo ======================================================
 echo.
@@ -3517,9 +3530,7 @@ reg add "HKCU\Software\Microsoft\Windows\DWM" /v "ColorizationAfterglow" /t REG_
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ListviewShadow" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ListviewAlphaSelect" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "IconsOnly" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSd" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarDa" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAl" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAcrylicOpacity" /t REG_DWORD /d "0" /f
 
 rem https://www.tenforums.com/tutorials/103762-prevent-windows-10-deleting-thumbnail-cache.html
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Thumbnail Cache" /v "Autorun" /t REG_DWORD /d "0" /f
@@ -3581,20 +3592,15 @@ reg add "HKCU\Control Panel\Desktop" /v "MonitorRemovalRecalcBehavior" /t REG_DW
 rem Win11 - no Drag Full Window
 reg add "HKCU\Control Panel\Desktop" /v "DragFullWindows" /t REG_SZ /d "0" /f
 
-rem Win11 - Small Taskbar Icon
+rem Win11 - Small Taskbar Icon - 0 for small, 1 for standard, and 2 for the extra-large taskbar size
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /V "TaskbarSi" /T REG_DWORD /D "0" /F
-
-rem input method
-reg delete "HKCU\Control Panel\Input Method\Hot Keys\00000104" /f
-reg add "HKCU\Control Panel\International\User Profile" /v "UserLocaleFromLanguageProfileOptOut" /t REG_DWORD /d "1" /f
-reg add "HKCU\Control Panel\International\User Profile" /v "InputMethodOverride" /t REG_SZ /d "0409:00000409" /f
-reg add "HKCU\Control Panel\International\User Profile" /v "UserLocaleFromLanguageProfileOptOut" /t REG_DWORD /d "1" /f
-reg add "HKCU\Keyboard Layout\Toggle" /v "Language Hotkey" /t REG_SZ /d "3" /f
-reg add "HKCU\Keyboard Layout\Toggle" /v "Layout Hotkey" /t REG_SZ /d "3" /f
-reg add "HKCU\Keyboard Layout\Toggle" /v "Hotkey" /t REG_SZ /d "3" /f
 
 rem notifiy USB deivce error
 reg add "HKCU\Software\Microsoft\Shell\USB" /v "NotifyOnUsbErrors" /t REG_DWORD /d "1" /f
+
+rem en-US as first input method
+reg add "HKU\.DEFAULT\Keyboard Layout\Preload" /v "1" /t REG_SZ /d "00000409" /f
+reg add "HKCU\Keyboard Layout\Preload" /v "1" /t REG_SZ /d "00000409" /f
 
 rem unnecessary folders
 rem %windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Help' -Force -Recurse"
