@@ -107,59 +107,10 @@
             </OOBE>
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
-                </SynchronousCommand>
                     <Order>1</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>%windir%\Setup\Scripts\Tweak.cmd</CommandLine>
                     <Description>FirstLogon Tweak</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>2</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>%WINDIR%\Setup\Scripts\SOFTWARE\AMDChipset.exe</CommandLine>
-                    <Description>AMDChipset</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>3</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>%WINDIR%\Setup\Scripts\SOFTWARE\AMDRyzenMaster.exe</CommandLine>
-                    <Description>AMDRyzenMaster</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>4</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>%WINDIR%\Setup\Scripts\SOFTWARE\WinRAR.exe</CommandLine>
-                    <Description>WinRAR</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>5</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>%WINDIR%\Setup\Scripts\NVIDIA\setup.exe</CommandLine>
-                    <Description>Nvidia Video Driver</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>6</Order>
-                    <Requir5sUserInput>true</Requir5sUserInput>
-                    <CommandLine>%WINDIR%\Setup\Scripts\SOFTWARE\GooglePinyinInstaller.exe</CommandLine>
-                    <Description>GooglePinyin</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>7</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>%WINDIR%\Setup\Scripts\SOFTWARE\ReShade.exe</CommandLine>
-                    <Description>reshade</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>8</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>%WINDIR%\Setup\Scripts\Realtek\Setup.exe</CommandLine>
-                    <Description>Dolby Audio Driver</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>9</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>%WINDIR%\System32\MSI_util_v3.exe</CommandLine>
-                    <Description>MSI Mode</Description>
                 </SynchronousCommand>
             </FirstLogonCommands>
             <UserAccounts>
