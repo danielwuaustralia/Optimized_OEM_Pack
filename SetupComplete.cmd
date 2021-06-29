@@ -37,10 +37,10 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassoactivator.exe -makekeyfi
 
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassosetup64.exe /S /keyfile=%WINDIR%\Setup\Scripts\SOFTWARE\prolasso.key /launch_gui=false /gui_start_type=all /governor_start_type=all /language=SimpChinese
 
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\TranslucentTB.exe /SP- /VERYSILENT /SUPPRESSMSGBOXES
+start /wait C:\PROGRA~1\UpdateTime\UpdateTime_x64.exe /SI
 
-start /wait "%windir%\Setup\Scripts\Office365\setup.exe" /configure "%windir%\Setup\Scripts\Office365\Configuration.xml"
+"%windir%\Setup\Scripts\Office365\setup.exe" /configure "%windir%\Setup\Scripts\Office365\Configuration.xml"
 
-call %windir%\Setup\Scripts\KMS_VL_ALL_AIO.cmd
+call %windir%\Setup\Scripts\KMS.cmd
 
 %windir%\System32\UsoClient.exe RefreshSettings
