@@ -1,4 +1,5 @@
 @echo on & title Windows Tweaker & color 17
+setlocal EnableDelayedExpansion
 echo ======================================================
 echo ---------- Powershell Execution Policy -------------
 echo ======================================================
@@ -3477,12 +3478,7 @@ rem Disable Microsoft Store Apps Open Files in Default Desktop App
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Associations" /v "BlockFileElevation" /t REG_DWORD /d "1" /f
 
 rem https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Windows-NCSI
-reg add "HKLM\SOFTWARE\POLICIES\MICROSOFT\Windows\NetworkConnectivityStatusIndicator" /v "NoActiveProbe" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\POLICIES\MICROSOFT\Windows\NetworkConnectivityStatusIndicator" /v "UseGlobalDNS" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "EnableActiveProbing" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "PassivePollPeriod" /t REG_DWORD /d "30" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "WebTimeout" /t REG_DWORD /d "35" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "MinimumInternetHopCount" /t REG_DWORD /d "1" /f
 
 rem Turn on hardware-accelerated GPU scheduling
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" /v "HwSchMode" /t REG_DWORD /d "2" /f
@@ -3577,8 +3573,32 @@ rem enable startup sound
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation" /v "DisableStartupSound" /t REG_DWORD /d "0" /f
 
 rem MS office banner OFF : (usually manifested on converted revisions VL)
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /v "KeyManagementServiceName" /t REG_SZ /d "0.0.0.0" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /v "KeyManagementServicePort" /t REG_SZ /d "1688" /f
+set app=
+for /f "tokens=2 delims==" %%G in ('"wmic path SoftwareLicensingProduct where (Name like '%%office%%' and Description like '%%KMSCLIENT%%' and PartialProductKey is not NULL) get ID /VALUE" 2^>nul') do (if defined app (call set "app=!app! %%G") else (call set "app=%%G"))
+
+if defined app (
+for %%# in (%app%) do (wmic path SoftwareLicensingProduct where ID='%%#' call SetKeyManagementServiceMachine MachineName="0.0.0.0")
+)
+
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /f /v "KeyManagementServiceName" /t REG_SZ /d "0.0.0.0"
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /f /v "KeyManagementServiceName" /t REG_SZ /d "0.0.0.0" /reg:32
+
+rem notifiy USB deivce error
+reg add "HKCU\Software\Microsoft\Shell\USB" /v "NotifyOnUsbErrors" /t REG_DWORD /d "1" /f
+
+rem en-US as first input method
+reg add "HKU\.DEFAULT\Keyboard Layout\Preload" /v "1" /t REG_SZ /d "00000409" /f
+reg add "HKCU\Keyboard Layout\Preload" /v "1" /t REG_SZ /d "00000409" /f
+
+rem https://support.microsoft.com/en-us/topic/windows-client-guidance-for-it-pros-to-protect-against-speculative-execution-side-channel-vulnerabilities-35820a8a-ae13-1299-88cc-357f104f5b11
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "FeatureSettingsOverride" /t REG_DWORD /d "3" /f
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "FeatureSettingsOverrideMask" /t REG_DWORD /d "3" /f
+
+rem old ribbon
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Ribbon" /v "MinimizedStateTabletModeOff" /t REG_DWORD /d "0" /f
+
+rem Disable Peer-to-Peer Networking
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Peernet" /v "Disabled" /t "REG_DWORD" /d "1" /f
 
 rem Win11 - Restore to default start menu
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /V "Start_ShowClassicMode" /T REG_DWORD /d "1" /f
@@ -3595,16 +3615,22 @@ reg add "HKCU\Control Panel\Desktop" /v "DragFullWindows" /t REG_SZ /d "0" /f
 rem Win11 - Small Taskbar Icon - 0 for small, 1 for standard, and 2 for the extra-large taskbar size
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /V "TaskbarSi" /T REG_DWORD /D "0" /F
 
-rem notifiy USB deivce error
-reg add "HKCU\Software\Microsoft\Shell\USB" /v "NotifyOnUsbErrors" /t REG_DWORD /d "1" /f
-
-rem en-US as first input method
-reg add "HKU\.DEFAULT\Keyboard Layout\Preload" /v "1" /t REG_SZ /d "00000409" /f
-reg add "HKCU\Keyboard Layout\Preload" /v "1" /t REG_SZ /d "00000409" /f
+rem Win11 -Restore old style right click menu
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\FeatureManagement\Overrides\4\586118283" /v "EnabledState" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\FeatureManagement\Overrides\4\586118283" /v "EnabledStateOptions" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\FeatureManagement\Overrides\4\586118283" /v "Variant" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\FeatureManagement\Overrides\4\586118283" /v "VariantPayload" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\FeatureManagement\Overrides\4\586118283" /v "VariantPayloadKind" /t REG_DWORD /d "0" /f
 
 rem unnecessary folders
 rem %windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Help' -Force -Recurse"
 rem %windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -Path '' -Force"
+
+rem cleanup
+"%windir%\microsoft.net\Framework\v4.0.30319\ngen.exe" update /force /queue
+"%windir%\microsoft.net\Framework64\v4.0.30319\ngen.exe" update /force /queue
+"%windir%\microsoft.net\Framework\v4.0.30319\ngen.exe" executequeueditems
+"%windir%\microsoft.net\Framework64\v4.0.30319\ngen.exe" executequeueditems
 
 echo ********************** The End ***********************
 rem restart after 10secs
