@@ -1984,7 +1984,7 @@ reg add "HKCU\Software\Daum\PotPlayerMini64\AtscCableList" /v "4" /t REG_SZ /d "
 reg add "HKCU\Software\Daum\PotPlayerMini64\AtscCableList" /v "5" /t REG_SZ /d "1|0|0|0|0|0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\AtscCableList" /v "6" /t REG_SZ /d "" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\BMItem_0" /ve /t REG_SZ /d "/f" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Dialog324" /v "WindowPosition" /t REG_SZ /d "856,371,1607,1011" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Dialog324" /v "WindowPosition" /t REG_SZ /d "856,371,1714,973" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\DvbcList" /v "0" /t REG_SZ /d "1|0|0|0|0|0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\DvbcList" /v "1" /t REG_SZ /d "1|0|0|0|0|0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\DvbcList" /v "2" /t REG_SZ /d "1|0|0|0|0|0" /f
@@ -2152,7 +2152,7 @@ reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0017" /v "Merit" /t REG_DWO
 reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0017" /v "MeritHi" /t REG_DWORD /d "1048707" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0018" /v "Type" /t REG_DWORD /d "4294967294" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "0" /t REG_SZ /d ".3G2*3G2 - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*41" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "1" /t REG_SZ /d ".3GP*3GP - �ֻ���Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*28" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "1" /t REG_SZ /d ".3GP*3GP - 锟街伙拷锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*28" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "2" /t REG_SZ /d ".3GP2*3GP2 - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*42" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "3" /t REG_SZ /d ".3GPP*3GPP - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*40" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "4" /t REG_SZ /d ".AAC*AAC - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*63" /f
@@ -2162,14 +2162,14 @@ reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "7" /t REG_SZ /d ".
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "8" /t REG_SZ /d ".AMR*AMR - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*46" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "9" /t REG_SZ /d ".AMV*AMV - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "10" /t REG_SZ /d ".APE*APE - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*64" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "11" /t REG_SZ /d ".ASF*ASF - Windows ý���ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*3" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "11" /t REG_SZ /d ".ASF*ASF - Windows 媒锟斤拷锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*3" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "12" /t REG_SZ /d ".ASS*ASS - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*73" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "13" /t REG_SZ /d ".ASX*ASX - Windows ý���ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*4" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "14" /t REG_SZ /d ".AVI*AVI - Windows ��׼��Ƶ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*1" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "13" /t REG_SZ /d ".ASX*ASX - Windows 媒锟斤拷锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*4" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "14" /t REG_SZ /d ".AVI*AVI - Windows 锟斤拷准锟斤拷频锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*1" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "15" /t REG_SZ /d ".CDA*CDA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "16" /t REG_SZ /d ".CUE*CUE - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "17" /t REG_SZ /d ".DIVX*DIVX - ��Ƶ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "18" /t REG_SZ /d ".DMSKM*DMSKM - �ֻ���Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*31" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "17" /t REG_SZ /d ".DIVX*DIVX - 锟斤拷频锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*2" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "18" /t REG_SZ /d ".DMSKM*DMSKM - 锟街伙拷锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*31" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "19" /t REG_SZ /d ".DPG*DPG - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "20" /t REG_SZ /d ".DPL*DPL - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "21" /t REG_SZ /d ".DSF*DSF - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
@@ -2180,46 +2180,46 @@ reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "25" /t REG_SZ /d "
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "26" /t REG_SZ /d ".EVO*EVO - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "27" /t REG_SZ /d ".F4V*F4V - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "28" /t REG_SZ /d ".FLAC*FLAC - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*68" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "29" /t REG_SZ /d ".FLV*FLV - Flash(FLV) ��Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*32" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "29" /t REG_SZ /d ".FLV*FLV - Flash(FLV) 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*32" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "30" /t REG_SZ /d ".IDX*IDX - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*75" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "31" /t REG_SZ /d ".IFO*IFO - DVD ��Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*17" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "32" /t REG_SZ /d ".K3G*K3G - �ֻ���Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*29" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "33" /t REG_SZ /d ".LMP4*LMP4 - MPEG-4 ��Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*27" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "31" /t REG_SZ /d ".IFO*IFO - DVD 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*17" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "32" /t REG_SZ /d ".K3G*K3G - 锟街伙拷锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*29" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "33" /t REG_SZ /d ".LMP4*LMP4 - MPEG-4 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*27" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "34" /t REG_SZ /d ".M1A*M1A - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*49" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "35" /t REG_SZ /d ".M1V*M1V - MPEG ��Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*10" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "35" /t REG_SZ /d ".M1V*M1V - MPEG 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*10" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "36" /t REG_SZ /d ".M2A*M2A - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*50" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "37" /t REG_SZ /d ".M2T*M2T - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "38" /t REG_SZ /d ".M2TS*M2TS - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*77" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "39" /t REG_SZ /d ".M2V*M2V - MPEG ��Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*11" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "39" /t REG_SZ /d ".M2V*M2V - MPEG 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*11" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "40" /t REG_SZ /d ".M3U*M3U - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*53" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "41" /t REG_SZ /d ".M3U8*M3U8 - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "42" /t REG_SZ /d ".M4A*M4A - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*51" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "43" /t REG_SZ /d ".M4B*M4B - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*39" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "44" /t REG_SZ /d ".M4P*M4P - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*38" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "45" /t REG_SZ /d ".M4V*M4V - MPEG-4 ��Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*26" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "45" /t REG_SZ /d ".M4V*M4V - MPEG-4 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*26" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "46" /t REG_SZ /d ".MKA*MKA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*69" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "47" /t REG_SZ /d ".MKV*MKV - Matroska ��Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*20" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "47" /t REG_SZ /d ".MKV*MKV - Matroska 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*20" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "48" /t REG_SZ /d ".MOD*MOD - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*65" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "49" /t REG_SZ /d ".MOV*MOV - Quicktime ��Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*23" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "49" /t REG_SZ /d ".MOV*MOV - Quicktime 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*23" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "50" /t REG_SZ /d ".MP2*MP2 - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*59" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "51" /t REG_SZ /d ".MP2V*MP2V - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*37" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "52" /t REG_SZ /d ".MP3*MP3 - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*60" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "53" /t REG_SZ /d ".MP4*MP4 - MPEG-4 ��Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*25" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "53" /t REG_SZ /d ".MP4*MP4 - MPEG-4 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*25" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "54" /t REG_SZ /d ".MPA*MPA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*48" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "55" /t REG_SZ /d ".MPC*MPC - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*66" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "56" /t REG_SZ /d ".MPE*MPE - MPEG ��Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*12" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "57" /t REG_SZ /d ".MPEG*MPEG - MPEG ��Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*13" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "58" /t REG_SZ /d ".MPG*MPG - MPEG ��Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*14" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "56" /t REG_SZ /d ".MPE*MPE - MPEG 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*12" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "57" /t REG_SZ /d ".MPEG*MPEG - MPEG 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*13" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "58" /t REG_SZ /d ".MPG*MPG - MPEG 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*14" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "59" /t REG_SZ /d ".MPL*MPL - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "60" /t REG_SZ /d ".MPLS*MPLS - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "61" /t REG_SZ /d ".MPV2*MPV2 - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*36" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "62" /t REG_SZ /d ".MQV*MQV - QT ��Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*24" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "62" /t REG_SZ /d ".MQV*MQV - QT 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*24" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "63" /t REG_SZ /d ".MTS*MTS - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*78" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "64" /t REG_SZ /d ".MXF*MXF - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*79" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "65" /t REG_SZ /d ".NSR*NSR - DRM ��Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "65" /t REG_SZ /d ".NSR*NSR - DRM 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "66" /t REG_SZ /d ".NSV*NSV - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "67" /t REG_SZ /d ".OGG*OGG - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*61" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "68" /t REG_SZ /d ".OGM*OGM - OGM ��Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*19" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "68" /t REG_SZ /d ".OGM*OGM - OGM 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*19" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "69" /t REG_SZ /d ".OGV*OGV - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*80" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "70" /t REG_SZ /d ".OPUS*OPUS - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "71" /t REG_SZ /d ".PLS*PLS - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*54" /f
@@ -2227,12 +2227,12 @@ reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "72" /t REG_SZ /d "
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "73" /t REG_SZ /d ".QT*QT - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*45" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "74" /t REG_SZ /d ".RA*RA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*52" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "75" /t REG_SZ /d ".RAM*RAM - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*43" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "76" /t REG_SZ /d ".RM*RM - RealMedia ��Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*21" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "77" /t REG_SZ /d ".RMVB*RMVB - RealMedia ��Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*22" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "76" /t REG_SZ /d ".RM*RM - RealMedia 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*21" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "77" /t REG_SZ /d ".RMVB*RMVB - RealMedia 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*22" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "78" /t REG_SZ /d ".RPM*RPM - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*44" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "79" /t REG_SZ /d ".RT*RT - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "80" /t REG_SZ /d ".SBV*SBV - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "81" /t REG_SZ /d ".SKM*SKM - �ֻ���Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*30" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "81" /t REG_SZ /d ".SKM*SKM - 锟街伙拷锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*30" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "82" /t REG_SZ /d ".SMI*SMI - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*71" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "83" /t REG_SZ /d ".SRT*SRT - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*72" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "84" /t REG_SZ /d ".SSA*SSA - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*74" /f
@@ -2241,26 +2241,26 @@ reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "86" /t REG_SZ /d "
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "87" /t REG_SZ /d ".SUP*SUP - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "88" /t REG_SZ /d ".SWF*SWF - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*56" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "89" /t REG_SZ /d ".TAK*TAK - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "90" /t REG_SZ /d ".TP*TP - MPEG2 Transport ��Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*16" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "90" /t REG_SZ /d ".TP*TP - MPEG2 Transport 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*16" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "91" /t REG_SZ /d ".TPR*TPR - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*35" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "92" /t REG_SZ /d ".TRP*TRP - MPEG2 Transport ��Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*34" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "93" /t REG_SZ /d ".TS*TS - MPEG2 Transport ��Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*33" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "92" /t REG_SZ /d ".TRP*TRP - MPEG2 Transport 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*34" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "93" /t REG_SZ /d ".TS*TS - MPEG2 Transport 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*33" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "94" /t REG_SZ /d ".TTA*TTA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "95" /t REG_SZ /d ".TTML*TTML - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "96" /t REG_SZ /d ".USF*USF - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "97" /t REG_SZ /d ".VOB*VOB - DVD ��Ӱ�ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*18" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "97" /t REG_SZ /d ".VOB*VOB - DVD 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*18" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "98" /t REG_SZ /d ".VTT*VTT - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "99" /t REG_SZ /d ".WAV*WAV - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*70" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "100" /t REG_SZ /d ".WAX*WAX - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*55" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "101" /t REG_SZ /d ".WEBM*WEBM - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "102" /t REG_SZ /d ".WM*WM - Windows ý���ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*5" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "102" /t REG_SZ /d ".WM*WM - Windows 媒锟斤拷锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*5" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "103" /t REG_SZ /d ".WMA*WMA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*47" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "104" /t REG_SZ /d ".WMP*WMP - Windows ý���ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*6" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "105" /t REG_SZ /d ".WMV*WMV - Windows ý���ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*7" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "106" /t REG_SZ /d ".WMX*WMX - Windows ý���ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*8" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "104" /t REG_SZ /d ".WMP*WMP - Windows 媒锟斤拷锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*6" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "105" /t REG_SZ /d ".WMV*WMV - Windows 媒锟斤拷锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*7" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "106" /t REG_SZ /d ".WMX*WMX - Windows 媒锟斤拷锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*8" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "107" /t REG_SZ /d ".WTV*WTV - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "108" /t REG_SZ /d ".WV*WV - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "109" /t REG_SZ /d ".WVX*WVX - Windows ý���ļ�*C:\Program Files\PotPlayer\PotIcons64.dll*9" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "109" /t REG_SZ /d ".WVX*WVX - Windows 媒锟斤拷锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*9" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "110" /t REG_SZ /d ".XSPF*XSPF - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "111" /t REG_SZ /d ".XSS*XSS - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "112" /t REG_SZ /d "" /f
@@ -2966,8 +2966,8 @@ reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0001" /v "FilterTy
 reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0001" /v "Merit" /t REG_DWORD /d "4294967295" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0001" /v "MeritHi" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0002" /v "Type" /t REG_DWORD /d "4294967294" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "MainWidth2" /t REG_DWORD /d "1920" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "MainHeight2" /t REG_DWORD /d "860" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "MainWidth2" /t REG_DWORD /d "640" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "MainHeight2" /t REG_DWORD /d "412" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "VideoWindowWidth" /t REG_DWORD /d "4294967295" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "VideoWindowHeight" /t REG_DWORD /d "4294967295" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "MainWindowState" /t REG_DWORD /d "1" /f
@@ -2987,6 +2987,8 @@ reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "TopMostWindow9" /t RE
 reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "ControlBoxWidth" /t REG_DWORD /d "330" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "ControlBoxHeight" /t REG_DWORD /d "195" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "LanguageIni" /t REG_SZ /d "Chinese(Simplified).ini" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "CudaDecoder" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "NvencEncoder" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "MftDecoder" /t REG_DWORD /d "2" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "DmoDecoder" /t REG_DWORD /d "2" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Info1" /t REG_SZ /d "" /f
@@ -2999,6 +3001,7 @@ reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "LastSkinName" /t REG_S
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "LastSkinXmlName" /t REG_SZ /d "VideoSkin.xml" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "LastSkinXmlNameVideo" /t REG_SZ /d "VideoSkin.xml" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "VideoRen2" /t REG_DWORD /d "10" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AudioVolume" /t REG_DWORD /d "95" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "RepeatPlay2" /t REG_DWORD /d "2" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "RepeatPlayAudio" /t REG_DWORD /d "2" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "PreviewSeekTime" /t REG_DWORD /d "1" /f
@@ -3006,6 +3009,7 @@ reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "PreviewThumbnail" /t R
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "PlaybackSearchFile" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "MotionBlur" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AudioNormalize" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "OpenWithSameName" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "RememberPosition" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "RememberPositionAudio" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "ShowRememberList" /t REG_DWORD /d "1" /f
@@ -3084,11 +3088,12 @@ reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "PauseOnMin" /t REG_DWO
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "PauseOnLock" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "StartScreenSize" /t REG_DWORD /d "4" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "CaptionTranslateEngine2" /t REG_SZ /d "SubtitleTranslate - google.as" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "VMR9ColorManagementEnable" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "D3DFullScreenUi" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "MessageFontName" /t REG_SZ /d "徽�雅黑" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "MessageFontName" /t REG_SZ /d "微软雅黑" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "MessageFontWeight" /t REG_DWORD /d "400" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "MessageFontSize" /t REG_DWORD /d "14" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "SO_FontName" /t REG_SZ /d "徽�雅黑" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "SO_FontName" /t REG_SZ /d "微软雅黑" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "SO_Desktop" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "SO_Download" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AttachWindowIndex" /t REG_DWORD /d "2" /f
@@ -3098,8 +3103,9 @@ reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "SaveConfigPause" /t RE
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Win7WorkTool" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AutoAlignWindow" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "UseSideWindow" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "DialogBaseFontName" /t REG_SZ /d "΢���ź�" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "DialogBaseFontSize" /t REG_DWORD /d "12" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "DialogBaseFontName" /t REG_SZ /d "微软雅黑" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "DialogBaseFontSize" /t REG_DWORD /d "10" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "DialogCharset" /t REG_DWORD /d "134" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "UseATextOut" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "TouchSupport" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "CheckAutoUpdate" /t REG_DWORD /d "0" /f
@@ -3109,8 +3115,6 @@ reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AutoDownloadFile" /t R
 reg add "HKCU\Software\Daum\PotPlayerMini64" /v "AddMyComPL" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64" /v "ServiceValue" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64" /v "Check118_119" /t REG_DWORD /d "4" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64" /v "MInfo1" /t REG_SZ /d "uBAPk+dolj/RmpURxLC9tKrMmfzkVbpzO2prZTSDFJYVmG0=;zdHIb7jCk7nUAbJvyTRR7UT2hzJvdF6infMCuzTWcbm50m23ns1D2O5BX8uhz5/VeZFz96Kp2XMpO1cY/JIvbhn5WDldSAQr2cDgEEccJinXy7WSP4FGpFfJEjeE2HfAgXjPsbpmLv1+NXUWmX7D5ZTyl4McPSPbBR4w" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64" /v "MInfo2" /t REG_SZ /d "uBAPk+dolj/RmpURxLC9tKrMmfzkVbpzO2prZTSDFJYVmG0=;yN7PJrLCk7vVAOYuljlQ4RaryT5sfkbgw/NeoDTQZLu+z3L1ns0DgKIIRo70ncDSIIUgoOPw03NyZwJMx8oNOSf4ZgIWDQMX2pzITjVaCzr+/uCS" /f
 
 rem LAV Filter Settings
 reg add "HKCU\Software\LAV\Audio" /v "TrayIcon" /t REG_DWORD /d "0" /f
@@ -3196,6 +3200,7 @@ reg add "HKCU\Software\LAV\Splitter\Formats" /v "flac" /t REG_DWORD /d "1" /f
 rem register video filters
 regsvr32.exe "%windir%\SysWOW64\XySubFilter.dll" /s
 regsvr32.exe "%windir%\SysWOW64\VSFilter.dll" /s
+regsvr32.exe "%windir%\SysWOW64\nvngx_dlss.dll" /s
 regsvr32.exe "C:\Program Files\madVR\madVR64.ax" /s
 
 rem mouse setting
@@ -3569,21 +3574,18 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "EnableLogonScriptD
 rem Disable appresolver early start
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /v "EarlyAppResolverStart" /t REG_DWORD /d "0" /f
 
-rem enable startup sound
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation" /v "DisableStartupSound" /t REG_DWORD /d "0" /f
-
 rem MS office banner OFF : (usually manifested on converted revisions VL)
-set app=
-for /f "tokens=2 delims==" %%G in ('"wmic path SoftwareLicensingProduct where (Name like '%%office%%' and Description like '%%KMSCLIENT%%' and PartialProductKey is not NULL) get ID /VALUE" 2^>nul') do (if defined app (call set "app=!app! %%G") else (call set "app=%%G"))
+set o365=
+for /f "tokens=2 delims==" %%G in ('"wmic path SoftwareLicensingProduct where (Name like '%%office%%' and Description like '%%KMSCLIENT%%' and PartialProductKey is not NULL) get ID /VALUE" 2^>nul') do (if defined o365 (call set "o365=!o365! %%G") else (call set "o365=%%G"))
 
-if defined app (
-for %%# in (%app%) do (wmic path SoftwareLicensingProduct where ID='%%#' call SetKeyManagementServiceMachine MachineName="0.0.0.0")
+if defined o365 (
+for %%# in (%o365%) do (wmic path SoftwareLicensingProduct where ID='%%#' call SetKeyManagementServiceMachine MachineName="0.0.0.0")
 )
 
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /f /v "KeyManagementServiceName" /t REG_SZ /d "0.0.0.0"
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /f /v "KeyManagementServiceName" /t REG_SZ /d "0.0.0.0" /reg:32
 
-rem notifiy USB deivce error
+rem do not notifiy USB deivce error
 reg add "HKCU\Software\Microsoft\Shell\USB" /v "NotifyOnUsbErrors" /t REG_DWORD /d "1" /f
 
 rem en-US as first input method
