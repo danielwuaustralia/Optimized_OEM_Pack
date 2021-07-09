@@ -1941,12 +1941,7 @@ fsutil behavior set disableencryption 1
 fsutil behavior set disablelastaccess 3
 fsutil behavior set EncryptPagingFile 0
 fsutil behavior set symlinkEvaluation L2R:0 R2R:0 R2L:0
-echo.
-echo --- Apply Local Group Policies
-%SystemRoot%\System32\LGPO.exe /m "%windir%\Setup\Scripts\Machine.pol" /v
-%SystemRoot%\System32\LGPO.exe /u "%windir%\Setup\Scripts\User.pol" /v
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-ComputerRestore -Drive $env:SystemDrive -Verbose"
-reg import "%windir%\Setup\Scripts\Extra.reg"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-Service -Name 'WalletService' -StartupType Disabled -Status Stopped -Verbose"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-Service -Name 'WbioSrvc' -StartupType Disabled -Status Stopped -Verbose"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-Service -Name 'WdNisDrv' -StartupType Disabled -Status Stopped -Verbose"
@@ -1958,10 +1953,6 @@ reg add "HKCU\Software\Microsoft\Assistance\Client\1.0\Settings" /v "ImplicitFee
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Lock Screen\FeedManager" /v "" /t REG_SZ /d 0 /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance" /v "WakeUp" /t REG_DWORD /d 0 /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance" /v "MaintenanceDisabled" /t REG_DWORD /d 1 /f
-taskkill /f /im explorer.exe & TIMEOUT /T 5 /NOBREAK
-DEL /F /S /Q /A %LocalAppData%\Microsoft\Windows\Explorer\thumbcache_*.db
-DEL /F /S /Q /A %LocalAppData%\Microsoft\Windows\Explorer\iconcache_*.db
-DEL /F /S /Q /A %LocalAppData%\Microsoft\Windows\Explorer\ExplorerStartupLog_*.etl
 echo.
 echo ======================================================
 echo.
@@ -3203,6 +3194,9 @@ regsvr32.exe "%windir%\SysWOW64\VSFilter.dll" /s
 regsvr32.exe "%windir%\SysWOW64\nvngx_dlss.dll" /s
 regsvr32.exe "C:\Program Files\madVR\madVR64.ax" /s
 
+rem import trusted certificate
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-ChildItem -Path %WINDIR%\Setup\Scripts\roots.sst | Import-Certificate -CertStoreLocation Cert:\LocalMachine\Root"
+
 rem mouse setting
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ItemProperty -Path 'HKCU:\Control Panel\Mouse' 'MouseSensitivity' '10'"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ItemProperty -Path 'HKCU:\Control Panel\Mouse' 'MouseSpeed' '0'"
@@ -3423,16 +3417,6 @@ rem Enable TRIM support for NTFS and ReFS file systems for SSD drives
 %windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$QueryReFS = Invoke-Expression -Command ('FSUTIL BEHAVIOR QUERY DISABLEDELETENOTIFY') | Select-String -Pattern ReFS"
 %windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "If ($QueryReFS) { Invoke-Expression -Command ('FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY REFS 0') | Out-Null }"
 
-rem Disable Power saving for all USB devices
-$devicesUSB = Get-PnpDevice | where {$_.InstanceId -like "*USB\ROOT*"}  | 
-ForEach-Object -Process {
-Get-CimInstance -ClassName MSPower_DeviceEnable -Namespace root\wmi 
-}
-foreach ( $device in $devicesUSB )
-{
-    Set-CimInstance -Namespace root\wmi -Query "SELECT * FROM MSPower_DeviceEnable WHERE InstanceName LIKE '%$($device.PNPDeviceID)%'" -Property @{Enable=$False} -PassThru
-}
-
 rem allow microsoft edge to be uninstalled
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge" /v "NoRemove" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge" /v "NoRemove" /t REG_DWORD /d "0" /f
@@ -3574,17 +3558,6 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "EnableLogonScriptD
 rem Disable appresolver early start
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /v "EarlyAppResolverStart" /t REG_DWORD /d "0" /f
 
-rem MS office banner OFF : (usually manifested on converted revisions VL)
-set o365=
-for /f "tokens=2 delims==" %%G in ('"wmic path SoftwareLicensingProduct where (Name like '%%office%%' and Description like '%%KMSCLIENT%%' and PartialProductKey is not NULL) get ID /VALUE" 2^>nul') do (if defined o365 (call set "o365=!o365! %%G") else (call set "o365=%%G"))
-
-if defined o365 (
-for %%# in (%o365%) do (wmic path SoftwareLicensingProduct where ID='%%#' call SetKeyManagementServiceMachine MachineName="0.0.0.0")
-)
-
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /f /v "KeyManagementServiceName" /t REG_SZ /d "0.0.0.0"
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /f /v "KeyManagementServiceName" /t REG_SZ /d "0.0.0.0" /reg:32
-
 rem do not notifiy USB deivce error
 reg add "HKCU\Software\Microsoft\Shell\USB" /v "NotifyOnUsbErrors" /t REG_DWORD /d "1" /f
 
@@ -3599,11 +3572,11 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Mem
 rem old ribbon
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Ribbon" /v "MinimizedStateTabletModeOff" /t REG_DWORD /d "0" /f
 
+rem Turn off notification area cleanup
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "	NoAutoTrayNotify" /t REG_DWORD /d "1" /f
+
 rem Disable Peer-to-Peer Networking
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Peernet" /v "Disabled" /t "REG_DWORD" /d "1" /f
-
-rem Win11 - Restore to default start menu
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /V "Start_ShowClassicMode" /T REG_DWORD /d "1" /f
 
 rem Win11 - Disable_show_snap_layouts_when_hover_over_maximize_button
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "EnableSnapAssistFlyout" /t REG_DWORD /d "0" /f
@@ -3613,16 +3586,6 @@ reg add "HKCU\Control Panel\Desktop" /v "MonitorRemovalRecalcBehavior" /t REG_DW
 
 rem Win11 - no Drag Full Window
 reg add "HKCU\Control Panel\Desktop" /v "DragFullWindows" /t REG_SZ /d "0" /f
-
-rem Win11 - Small Taskbar Icon - 0 for small, 1 for standard, and 2 for the extra-large taskbar size
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /V "TaskbarSi" /T REG_DWORD /D "0" /F
-
-rem Win11 -Restore old style right click menu
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\FeatureManagement\Overrides\4\586118283" /v "EnabledState" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\FeatureManagement\Overrides\4\586118283" /v "EnabledStateOptions" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\FeatureManagement\Overrides\4\586118283" /v "Variant" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\FeatureManagement\Overrides\4\586118283" /v "VariantPayload" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\FeatureManagement\Overrides\4\586118283" /v "VariantPayloadKind" /t REG_DWORD /d "0" /f
 
 rem unnecessary folders
 rem %windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Help' -Force -Recurse"
