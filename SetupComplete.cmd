@@ -31,6 +31,8 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\netruntime64.exe /install /quiet /no
 
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\python.exe /quiet
 
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\TranslucentTB.exe /VERYSILENT /SP- /SUPPRESSMSGBOXES
+
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\firefox.exe /S /TaskbarShortcut=false /DesktopShortcut=true /MaintenanceService=false
 
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassoactivator.exe -makekeyfile -product:2 -output:"%WINDIR%\Setup\Scripts\SOFTWARE"
