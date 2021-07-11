@@ -9,6 +9,12 @@ reg add "HKLM\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v 
 %windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ExecutionPolicy Unrestricted -Scope Process"
 %windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ExecutionPolicy Unrestricted -Scope CurrentUser"
 %windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$ConfirmPreference = 'None'"
+reg add "HKCR\Microsoft.PowerShellConsole.1" /v "FriendlyTypeName" /t REG_EXPAND_SZ /d "@\"%%systemroot%%\SysWOW64\WindowsPowerShell\v1.0\powershell.exe\",-107" /f
+reg add "HKCR\Microsoft.PowerShellConsole.1\Shell\0" /v "MUIVerb" /t REG_EXPAND_SZ /d "@\"%%systemroot%%\SysWOW64\windowspowershell\v1.0\powershell.exe\",-112" /f
+reg add "HKCR\Microsoft.PowerShellConsole.1\Shell\0\Command" /ve /t REG_SZ /d "\"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe\" -p \"%%1\"" /f
+reg add "HKCR\Microsoft.PowerShellConsole.1\Shell\Open\Command" /ve /t REG_SZ /d "\"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe\" -p \"%%1\"" /f
+reg add "HKLM\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v "Path" /t REG_SZ /d "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" /f
+reg add "HKLM\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v "ExecutionPolicy" /t REG_SZ /d "Unrestricted" /f
 echo.
 echo ======================================================
 echo ---------- Configure Power Plan Settings -------------
@@ -3196,7 +3202,7 @@ echo ======================================================
 echo ------------ import trusted certificate ----------------
 echo ======================================================
 rem http://woshub.com/updating-trusted-root-certificates-in-windows-10/
-rem "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "certutil.exe -generateSSTFromWU roots.sst"
+rem "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "certutil.exe -generateSSTFromWU %WINDIR%\Setup\Scripts\roots.sst"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-ChildItem -Path %WINDIR%\Setup\Scripts\roots.sst | Import-Certificate -CertStoreLocation Cert:\LocalMachine\Root"
 echo.
 echo ======================================================
@@ -3619,7 +3625,39 @@ rem Turn off notification area cleanup
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "	NoAutoTrayNotify" /t REG_DWORD /d "1" /f
 
 rem Disable Peer-to-Peer Networking
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Peernet" /v "Disabled" /t "REG_DWORD" /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Peernet" /v "Disabled" /t REG_DWORD /d "1" /f
+
+rem https://docs.microsoft.com/en-us/windows/iot-core/learn-about-hardware/wakeontouch#disabling-modern-standby
+reg add "HKLM\System\CurrentControlSet\Control\Power" /v "PlatformAoAcOverride" /t REG_DWORD /d "0"
+
+rem Win11 - Enable New Office Interface
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\access" /v "Microsoft.Office.UXPlatform.FluentSVRefresh" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\access" /v "Microsoft.Office.UXPlatform.RibbonTouchOptimization" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\access" /v "Microsoft.Office.UXPlatform.FluentSVRibbonOptionsMenu" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\excel" /v "Microsoft.Office.UXPlatform.FluentSVRefresh" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\excel" /v "Microsoft.Office.UXPlatform.RibbonTouchOptimization" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\excel" /v "Microsoft.Office.UXPlatform.FluentSVRibbonOptionsMenu" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\onenote" /v "Microsoft.Office.UXPlatform.FluentSVRefresh" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\onenote" /v "Microsoft.Office.UXPlatform.RibbonTouchOptimization" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\onenote" /v "Microsoft.Office.UXPlatform.FluentSVRibbonOptionsMenu" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\outlook" /v "Microsoft.Office.UXPlatform.FluentSVRefresh" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\outlook" /v "Microsoft.Office.UXPlatform.RibbonTouchOptimization" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\outlook" /v "Microsoft.Office.UXPlatform.FluentSVRibbonOptionsMenu" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\powerpoint" /v "Microsoft.Office.UXPlatform.FluentSVRefresh" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\powerpoint" /v "Microsoft.Office.UXPlatform.RibbonTouchOptimization" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\powerpoint" /v "Microsoft.Office.UXPlatform.FluentSVRibbonOptionsMenu" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\project" /v "Microsoft.Office.UXPlatform.FluentSVRefresh" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\project" /v "Microsoft.Office.UXPlatform.RibbonTouchOptimization" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\project" /v "Microsoft.Office.UXPlatform.FluentSVRibbonOptionsMenu" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\publisher" /v "Microsoft.Office.UXPlatform.FluentSVRefresh" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\publisher" /v "Microsoft.Office.UXPlatform.RibbonTouchOptimization" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\publisher" /v "Microsoft.Office.UXPlatform.FluentSVRibbonOptionsMenu" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\visio" /v "Microsoft.Office.UXPlatform.FluentSVRefresh" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\visio" /v "Microsoft.Office.UXPlatform.RibbonTouchOptimization" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\visio" /v "Microsoft.Office.UXPlatform.FluentSVRibbonOptionsMenu" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\word" /v "Microsoft.Office.UXPlatform.FluentSVRefresh" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\word" /v "Microsoft.Office.UXPlatform.RibbonTouchOptimization" /t REG_SZ /d "true" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\word" /v "Microsoft.Office.UXPlatform.FluentSVRibbonOptionsMenu" /t REG_SZ /d "true" /f
 
 rem Win11 - Disable_show_snap_layouts_when_hover_over_maximize_button
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "EnableSnapAssistFlyout" /t REG_DWORD /d "0" /f
