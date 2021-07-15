@@ -1,4 +1,8 @@
-@echo on & title Windows Tweaker & color 17
+@echo off & title Windows Tweaker & color 17
+cd /d %~dp0
+echo Got Admin Access
+attrib -r "%UserProfile%\Desktop\*.*"
+attrib -h -r -s "%ProgramData%\Desktop\*.*"
 echo ======================================================
 echo ---------- Powershell Execution Policy -------------
 echo ======================================================
@@ -209,12 +213,7 @@ echo ---------- Set User TEMP to Windows TEMP -------------
 echo ======================================================
 reg add "HKCU\Environment" /v "TEMP" /t reg_SZ /d "%SystemRoot%\Temp" /f
 reg add "HKCU\Environment" /v "TMP" /t reg_SZ /d "%SystemRoot%\Temp" /f
-reg delete "HKCU\Environment" /v "OneDrive" /f
-reg delete "HKCU\Software\Microsoft\OneDrive" /f
-net user defaultuser0 /delete
-echo.
-echo --- Uninstall Edge Chromium
-CALL "%windir%\Setup\Scripts\EdgeChromium.cmd"
+echo ======================================================
 echo.
 echo ======================================================
 echo ----------- Disable Administrative shares ------------
@@ -248,7 +247,6 @@ ECHO Product="%BaseBoardProduct%"
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation" /t reg_SZ /v Manufacturer /d "%BaseBoardManufacturer%" /f 
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation" /t reg_SZ /v Model /d "%BaseBoardProduct%" /f
 echo ======================================================
-echo.
 echo.
 echo ======================================================
 echo ---------- Disable Defender and Smartscreen ----------
@@ -284,7 +282,15 @@ echo ======================================================
 %SystemRoot%\System32\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows Defender\UX Configuration" -ot reg -actn ace -ace "n:Administrators;p:full"
 
 reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" /v "TamperProtection" /t REG_DWORD /d 4 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" /v "ForcePassiveMode" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" /v "GeoPreferenceId" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" /v "MpPlatformKillbitsFromEngine" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" /v "SenseEnabled" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" /v "SenseOrgId" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\UX Configuration" /v "DisablePrivacyMode" /t reg_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\UX Configuration" /v "Notification_Suppress" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\UX Configuration" /v "SuppressRebootNotification" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\UX Configuration" /v "SuppressWdoNotification" /t REG_DWORD /d 1 /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger" /v "Start" /t reg_DWORD /d 0 /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderAuditLogger" /v "Start" /t reg_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\MRT" /v "DontOfferThroughWUAU" /t reg_DWORD /d 1 /f
@@ -309,13 +315,77 @@ reg add "HKCU\Software\Microsoft\Windows Security Health\State" /v "AccountProte
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "RandomizeScheduleTaskTimes" /t reg_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "PUAProtection" /t reg_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "DisableAntiSpyware" /t reg_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "DisableAntiVirus" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "DisableRoutinelyTakingAction" /t reg_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "DisableLocalAdminMerge" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "DisableSpecialRunningModes" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "DisableTokenRecovery" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "AllowFastServiceStartup" /t reg_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "ServiceKeepAlive" /t reg_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "CachedProxy" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "CachedProxyAccessType " /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "CachedProxyBypass" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "EnableAuditMode" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "EnableCloudAuditMode" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "EnableRemoteManagedDefaults" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "EngineParanoidMode" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "FlightingLevel" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "ForceUseProxyOnly" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "LastEnabledTime" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "LastKnownGoodProxy" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "LastWdDisable" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "LastWdEnable" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "MaintenanceCriticalDeadline" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "MaintenanceInterval" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "MaintenanceNonCriticalDeadline" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "MdmSubscriberIds" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "NewLocation" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "ProxyBypass" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "ProxyConfigOverride" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "ProxyPacUrl" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "ProxyServer" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "RemediationExe" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "ReportingGUID" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "RoutineActionDelay" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "RoutineActionMaxDelay" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "RpcUserQuota" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "ServiceHardeningFlags" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "ServiceKeepAlive" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "SmartLockerMode" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "SupportLogEventIds" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "SupportLogLocation" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "ThreatFileHashLogging" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Exclusions" /v "DisableAutoExclusions" /t reg_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine" /v "MpEnablePus" /t reg_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine" /v "EnableFileHashComputation" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine" /v "MpBafsExtendedTimeout" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine" /v "MpCampGradualRelease" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine" /v "MpCampRing" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine" /v "MpCloudBlockLevel" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine" /v "MpContinueOnDetection" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine" /v "MpEnableMBA" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine" /v "MpEnablePUSRemoval" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine" /v "MpEnableTest" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine" /v "MpEngineRing" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine" /v "MpGradualEngineRelease" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine" /v "MpSevilleEnable" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine" /v "SafeReleaseRing" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Quarantine" /v "PurgeItemsAfterDelay" /t reg_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Quarantine" /v "LocalSettingOverridePurgeItemsAfterDelay" /t reg_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "DirectoryMonitoringKillbit" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "EnableHardlinkMonitoring" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "IOAVMaxSize" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "MpEngine_AllowedUrlExclusionDisabled" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "MpEngine_DisableScriptScanning" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "MpEngine_InMemoryScan_CacheMaxBuffer" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "MpEngine_InMemoryScan_CacheSize" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "MpEngine_ScriptScanning_MinSize" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "MpEngine_ZoneBasedUrlExclusionDisabled" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "ScriptScanningCacheSharing" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "ScriptScanningCacheSize" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "SendSynchronousProcessCreateNotification" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "SyncMonitorRequestDuration" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "SyncMonitorState" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "DisableBehaviorMonitoring" /t reg_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "DisableIOAVProtection" /t reg_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "DisableOnAccessProtection" /t reg_DWORD /d 1 /f
@@ -325,16 +395,40 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection"
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "DisableScriptScanning" /t reg_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "DisableScanOnRealtimeEnable" /t reg_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "DisableBlockAtFirstSeen" /t reg_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "DisableDynamicRegHardening" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "DisableEarlyLaunchAntimalware" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "DisableRawWriteNotification" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "LocalSettingOverrideDisableRealtimeMonitoring" /t reg_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "LocalSettingOverrideDisableBehaviorMonitoring" /t reg_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "LocalSettingOverrideDisableIOAVProtection" /t reg_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "LocalSettingOverrideDirectoryMonitoringKillbit" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "LocalSettingOverrideDisableEarlyLaunchAntimalware" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "LocalSettingOverrideDisableOnAccessProtection" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "LocalSettingOverrideDisableScriptScanning" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "LocalSettingOverrideEnableHardlinkMonitoring" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "LocalSettingOverrideRealTimeScanDirection" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "LocalSettingOverrideSyncMonitorRequestDuration" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "LocalSettingOverrideSyncMonitorState" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Remediation" /v "Scan_ScheduleDay" /t reg_DWORD /d 8 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Remediation" /v "Scan_ScheduleTime" /t reg_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Remediation" /v "DisableRim" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Remediation" /v "EnableLocalFileRollback" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Remediation" /v "LocalSettingOverrideScan_ScheduleTime" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting" /v "EnableShutdownTracing" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting" /v "AdditionalActionTimeOut" /t reg_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting" /v "CriticalFailureTimeOut" /t reg_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting" /v "NonCriticalTimeOut" /t reg_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting" /v "DisableGenericRePorts" /t reg_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting" /v "DisableEnhancedNotifications" /t reg_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Scan" /v "CheckForSignaturesBeforeRunningScan" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Scan" /v "DaysUntilAggressiveCatchupQuickScan" /t REG_DWORD /d 8 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Scan" /v "DisableAutoCreateJournal" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Scan" /v "DisableCacheTrustedUSN" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Scan" /v "DisableDynamicCacheEntries" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Scan" /v "DisableEmailScanning" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Scan" /v "DisableHeuristics" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Scan" /v "DisableReparsePointScanning" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Scan" /v "ScheduleQuickScanTime" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Scan" /v "AvgCPULoadFactor" /t reg_DWORD /d 10 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Scan" /v "DisableArchiveScanning" /t reg_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Scan" /v "DisableCatchupFullScan" /t reg_DWORD /d 1 /f
@@ -348,7 +442,19 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Scan" /v "ScheduleDay
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Scan" /v "ScheduleTime" /t reg_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Scan" /v "ScanOnlyIfIdle" /t reg_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Scan" /v "ScanParameters" /t reg_DWORD /d 0 /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\Signature Updates" /v "FirstAuGracePeriod" /t reg_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" /v "DeltaUpdateFailure" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" /v "DisableDefaultSigs" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" /v "DisableISU" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" /v "DisableScheduledSignatureUpdateOnBattery" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" /v "DisableSigUpdateOnWdoStart" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" /v "FallbackOrder" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" /v "RealTimeSignatureDelivery" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" /v "SignatureUpdateCount" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" /v "SignatureUpdateInterval" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" /v "SignatureUpdatePending" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" /v "SignaturesLastUpdated" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" /v "TemporaryExclusionMaxSize" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" /v "FirstAuGracePeriod" /t reg_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" /v "DisableUpdateOnStartupWithoutEngine" /t reg_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" /v "DisableScanOnUpdate" /t reg_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" /v "UpdateOnStartUp" /t reg_DWORD /d 0 /f
@@ -358,23 +464,40 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" /v
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" /v "SignatureBlobUpdateInterval" /t reg_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\SmartScreen" /v "ConfigureAppInstallControl" /t reg_SZ /d "Anywhere" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\SmartScreen" /v "ConfigureAppInstallControlEnabled" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" /v "BypassInternetCheck" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\SpyNet" /v "DisableBlockAtFirstSeen" /t reg_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\SpyNet" /v "SpynetReporting" /t reg_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" /v "SpyNetReportingLocation" /t reg_MULTI_SZ /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\SpyNet" /v "SubmitSamplesConsent" /t reg_DWORD /d 2 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" /v "LocalSettingOverrideSpynetReporting" /t reg_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" /v "LocalSettingOverrideSubmitSamplesConsent" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Systray" /v "HideSystray" /t reg_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\Miscellaneous Configuration" /v "DisableDatagramProcessing" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\Miscellaneous Configuration" /v "DisableLastAccessTimeSuppression" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows Defender Security Center\Device security" /v "DisableClearTpmButton" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows Defender Security Center\Device security" /v "DisableTpmFirmwareUpdateWarning" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows Defender Security Center\Device security" /v "HideSecureBoot" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows Defender Security Center\Device security" /v "HideTPMTroubleshooting" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows Defender Security Center\Notifications" /v "DisableNotifications" /t reg_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows Defender Security Center\Notifications" /v "DisableEnhancedNotifications" /t reg_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{09A47860-11B0-4DA5-AFA5-26D86198A780}" /t REG_SZ /d "" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\AutorunsDisabled" /v "SecurityHealth" /t REG_EXPAND_SZ /d "%windir%\system32\SecurityHealthSystray.exe" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows Defender Security Center\Virus and threat protection" /v "FilesBlockedNotificationDisabled" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows Defender Security Center\Virus and threat protection" /v "HideRansomwareRecovery" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows Defender Security Center\Virus and threat protection" /v "NoActionNotificationDisabled" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows Defender Security Center\Virus and threat protection" /v "SummaryNotificationDisabled" /t REG_DWORD /d 1 /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SecurityHealth" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run" /v "SecurityHealth" /f
 
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows Defender\WCOS" /v "Enabled" /t REG_DWORD /d 0 /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows Defender\WCOS" /v "IsContainerOs" /t REG_DWORD /d 0 /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows Defender\Real-Time Protection" /v "DisableRealtimeMonitoring" /t REG_DWORD /d 1 /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows Defender\Real-Time Protection" /v "DpaDisabled" /t REG_DWORD /d 1 /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows Defender\Spynet" /v "SpyNetReporting" /t REG_DWORD /d 0 /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows Defender\Spynet" /v "SubmitSamplesConsent" /t REG_DWORD /d 2 /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows Defender\NIS\Consumers\IPS" /v "DisableBmNetworkSensor" /t REG_DWORD /d 1 /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows Defender\NIS\Consumers\IPS" /v "DisableDatagramProcessing" /t REG_DWORD /d 1 /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR" /v "EnableASRConsumers" /t REG_DWORD /d 0 /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows Defender\Windows Defender Exploit Guard\Controlled Folder Access" /v "EnableControlledFolderAccess" /t REG_DWORD /d 0 /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows Defender\Windows Defender Exploit Guard\Network Protection" /v "EnableNetworkProtection" /t REG_DWORD /d 0 /f
 
 echo ======================================================
 echo.
@@ -463,7 +586,6 @@ for /f "delims=" %%S in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /k 
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\DiagTrack" /v "Start" /t reg_DWORD /d "4" /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\DmWapPushService" /v "Start" /t reg_DWORD /d "4" /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\iphlpsvc" /v "Start" /t reg_DWORD /d "4" /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer" /v "Start" /t reg_DWORD /d "4" /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\luafv" /v "Start" /t REG_DWORD /d "4" /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\MessagingService" /v "Start" /t reg_DWORD /d "4" /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\PimIndexMaintenanceSvc" /v "Start" /t reg_DWORD /d "4" /f
@@ -511,6 +633,7 @@ sc config InstallService start=disabled
 sc config LicenseManager start=disabled
 sc config lfsvc start=disabled
 sc config lmhosts start=disabled
+sc config LxpSvc start=disabled
 sc config MessagingService start=disabled
 sc config MapsBroker start=disabled
 sc config MRxDAV start=disabled
@@ -541,7 +664,7 @@ sc config SmsRouter start=disabled
 sc config SNMPTRAP start=disabled
 sc config SSDPSRV start=disabled
 sc config StorSvc start=disabled
-sc config SysMain start=disabled
+sc config TabletInputService start=disabled
 sc config TermService start=disabled
 sc config tunnel start=disabled
 sc config UmRdpService start=disabled
@@ -711,95 +834,29 @@ reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Tel
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\TelemetryController\DevInv" /v Command /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\TelemetryController\Encapsulation" /v Command /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\TelemetryController\InvAgent" /v Command /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\KeyExchangeAlgorithms\Diffie-Hellman" /f /v ServerMinKeyBitLength /t REG_DWORD /d 0x00001000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\KeyExchangeAlgorithms\Diffie-Hellman" /f /v ClientMinKeyBitLength /t REG_DWORD /d 0x00001000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\KeyExchangeAlgorithms\Diffie-Hellman" /f /v Enabled /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 40/128" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 56/128" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 128/128" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 128/128" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 64/128" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 56/128" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 40/128" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\DES 56" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\DES 56/56" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\Triple DES 168" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\Triple DES 168/168" /f /v Enabled /t REG_DWORD /d 0x00000000       
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Hashes\MD5" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Hashes\SHA" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\NULL" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL" /f /v AllowInsecureRenegoClients /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL" /f /v AllowInsecureRenegoServers /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL" /f /v DisableRenegoOnServer /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL" /f /v UseScsvForTls /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.0\Server" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.0\Server" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.0\Client" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.0\Client" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.1\Server" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.1\Server" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.1\Client" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.1\Client" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.3\Server" /f /v Enabled /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.3\Server" /f /v DisabledByDefault /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.3\Client" /f /v Enabled /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\DTLS 1.3\Client" /f /v DisabledByDefault /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Client" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Client" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v2.0.50727" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v2.0.50727" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v2.0.50727" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v2.0.50727" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v3.0" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v3.0" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v3.0" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v3.0" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v4.0.30319" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v4.0.30319" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Server" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Server" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Client" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Client" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.3\Server" /f /v Enabled /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.3\Server" /f /v DisabledByDefault /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.3\Client" /f /v Enabled /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.3\Client" /f /v DisabledByDefault /t REG_DWORD /d 0x00000000
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v2.0.50727" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v2.0.50727" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v2.0.50727" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v2.0.50727" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v3.0" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v3.0" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v3.0" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v3.0" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v4.0.30319" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\Microsoft\.NETFramework\v4.0.30319" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319" /f /v SchUseStrongCrypto /t REG_DWORD /d 0x00000001
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319" /f /v SystemDefaultTlsVersions /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 2.0\Server" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 2.0\Server" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 2.0\Client" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 2.0\Client" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Server" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Server" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Client" /f /v Enabled /t REG_DWORD /d 0x00000000
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Client" /f /v DisabledByDefault /t REG_DWORD /d 0x00000001
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap" /v "ProxyBypass" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs" /f
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs" /f
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\LastVisitedPidlMRU" /f
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSavePidlMRU" /f
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU" /f
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount" /f
+reg delete "HKCU\Software\Microsoft\OneDrive" /f
+reg delete "HKCU\Environment" /v "OneDrive" /f
+reg delete "HKCU\Software\Microsoft\Siuf\Rules" /v "PeriodInNanoSeconds" /f
 reg add "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /d "0" /t REG_DWORD /f
 reg add "HKCR\Wow6432Node\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /d "0" /t REG_DWORD /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v "LockImageFlags" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v "CreativeId" /t REG_SZ /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v "PortraitAssetPath" /t REG_SZ /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v "LandscapeAssetPath" /t REG_SZ /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v "PlacementId" /t REG_SZ /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v "ImpressionToken" /t REG_SZ /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v "HotspotImageFolderPath" /t REG_SZ /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v "CreativeJson" /t REG_SZ /d 0 /f
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v "LockImageFlags" /t REG_DWORD /d 0 /f
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v "CreativeId" /t REG_SZ /d "" /f
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v "PortraitAssetPath" /t REG_SZ /d "" /f
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v "LandscapeAssetPath" /t REG_SZ /d "" /f
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v "PlacementId" /t REG_SZ /d "" /f
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v "ImpressionToken" /t REG_SZ /d "" /f
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v "HotspotImageFolderPath" /t REG_SZ /d "" /f
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v "CreativeJson" /t REG_SZ /d "" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer" /v "PageSpaceControlSizer" /t reg_BINARY /d "A00000000000000000000000A0050000" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Ribbon" /v "QatItems" /t reg_BINARY /d "3c7369713a637573746f6d554920786d6c6e733a7369713d22687474703a2f2f736368656d61732e6d6963726f736f66742e636f6d2f77696e646f77732f323030392f726962626f6e2f716174223e3c7369713a726962626f6e206d696e696d697a65643d2274727565223e3c7369713a71617420706f736974696f6e3d2230223e3c7369713a736861726564436f6e74726f6c733e3c7369713a636f6e74726f6c206964513d227369713a3132333336222076697369626c653d2266616c73652220617267756d656e743d223022202f3e3c7369713a636f6e74726f6c206964513d227369713a3136313238222076697369626c653d2266616c73652220617267756d656e743d223022202f3e3c7369713a636f6e74726f6c206964513d227369713a3136313239222076697369626c653d2266616c73652220617267756d656e743d223022202f3e3c7369713a636f6e74726f6c206964513d227369713a3132333532222076697369626c653d2266616c73652220617267756d656e743d223022202f3e3c7369713a636f6e74726f6c206964513d227369713a3132333834222076697369626c653d2266616c73652220617267756d656e743d223022202f3e3c7369713a636f6e74726f6c206964513d227369713a3132333537222076697369626c653d2266616c73652220617267756d656e743d223022202f3e3c2f7369713a736861726564436f6e74726f6c733e3c2f7369713a7161743e3c2f7369713a726962626f6e3e3c2f7369713a637573746f6d55493e" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3" /v "Settings" /t REG_BINARY /d "30000000FEFFFFFF02740000030000003E0000001E0000000000000066030000A0050000840300006000000001000000" /f
 reg add "HKCR\*" /v "DefaultDropEffect" /t REG_DWORD /d 2 /f
 reg add "HKCR\AllFilesystemObjects" /v "DefaultDropEffect" /t REG_DWORD /d 2 /f
 reg add "HKCR\Drive\shell\encrypt-bde" /v "LegacyDisable" /t REG_SZ /d "" /f
@@ -876,7 +933,7 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "AITEnable" /t R
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisablePropPage" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisableInventory" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisableUAR" /t REG_DWORD /d 1 /f
-reg add "HKLM\Software\Policies\Microsoft\Windows\AppCompat" /v "DisablePCA" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisablePCA" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Policies\Microsoft\Windows\AppCompat" /v "DisablePCA" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "AllowDeviceNameInTelemetry" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "AllowTelemetry" /t REG_DWORD /d 0 /f
@@ -891,7 +948,8 @@ reg add "HKCU\Software\Microsoft\OneDrive" /v "DisablePersonalSync" /t REG_DWORD
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v "Disabled" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v "AutoApproveOSDumps" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v "DontSendAdditionalData" /t REG_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v "BypassDataThrottling" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v "BypassDataThrottling" /t REG_DWORD /d 0 /f
+reg add "HKCU\Software\Policies\Microsoft\Windows\Windows Error Reporting" /v "BypassDataThrottling" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "AllowCortana" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "AllowSearchToUseLocation" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "BingSearchEnabled" /t REG_DWORD /d 0 /f
@@ -960,12 +1018,19 @@ reg add "HKCU\Software\Microsoft\Internet Explorer\SearchScopes" /v "ShowSearchS
 reg add "HKCU\Software\Microsoft\Internet Explorer\ContinuousBrowsing" /v "Enabled" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Internet Explorer\Geolocation" /v "BlockAllWebsites" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Internet Explorer\New Windows" /v "PopupMgr" /t REG_DWORD /d 1 /f
+reg add "HKCU\Software\Microsoft\Internet Explorer\Privacy" /v "UseAllowList" /t REG_DWORD /d 0 /f
+reg add "HKCU\Software\Microsoft\Internet Explorer\Privacy" /v "CleanTIF" /t REG_DWORD /d 1 /f
+reg add "HKCU\Software\Microsoft\Internet Explorer\Privacy" /v "CleanCookies" /t REG_DWORD /d 1 /f
+reg add "HKCU\Software\Microsoft\Internet Explorer\Privacy" /v "CleanHistory" /t REG_DWORD /d 1 /f
+reg add "HKCU\Software\Microsoft\Internet Explorer\Privacy" /v "CleanDownloadHistory" /t REG_DWORD /d 1 /f
+reg add "HKCU\Software\Microsoft\Internet Explorer\Privacy" /v "CleanForms" /t REG_DWORD /d 1 /f
+reg add "HKCU\Software\Microsoft\Internet Explorer\Privacy" /v "CleanPassword" /t REG_DWORD /d 1 /f
+reg add "HKCU\Software\Microsoft\Internet Explorer\Privacy" /v "CleanTrackingProtection" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Internet Explorer\Privacy" /v "ClearBrowsingHistoryOnExit" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Internet Explorer\PhishingFilter" /v "EnabledV9" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Internet Explorer\Suggested Sites" /v "Enabled" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Internet Explorer\MINIE" /v "ShowStatusBar" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Internet Explorer\Feeds" /v "AutoMarkAsReadOPV" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Download" /v "CheckExeSignatures" /t REG_SZ /d "no" /f
 reg add "HKCU\Software\Microsoft\Internet Explorer\Safety\PrivacIE" /v "DisableToolbars" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Personalization\Settings" /v "RestrictImplicitInkCollection" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Personalization\Settings" /v "AcceptedPrivacyPolicy" /t REG_DWORD /d 0 /f
@@ -992,6 +1057,7 @@ reg add "HKCU\Control Panel\Desktop" /v "DockMoving" /t REG_SZ /d 0 /f
 reg add "HKCU\Control Panel\Desktop" /v "WindowArrangementActive" /t REG_DWORD /d 0 /f
 reg add "HKCU\Control Panel\Desktop" /v "MouseWheelRouting" /t REG_DWORD /d 0 /f
 reg add "HKCU\Control Panel\Desktop" /v "CursorBlinkRate" /t REG_SZ /d 200 /f
+reg add "HKCU\Control Panel\Desktop" /v "UserPreferencesMask" /t REG_BINARY /d "9e3e078012000000" /f
 reg add "HKCU\Control Panel\Desktop" /v "JPEGImportQuality" /t REG_DWORD /d 100 /f
 reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "MinAnimate" /t REG_SZ /d 0 /f
 reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "BorderWidth" /t REG_SZ /d "0" /f
@@ -1005,12 +1071,6 @@ reg add "HKCU\Control Panel\Accessibility\StickyKeys" /v "Flags" /t REG_SZ /d 50
 reg add "HKCU\Control Panel\Accessibility\ToggleKeys" /v "Flags" /t REG_SZ /d 58 /f
 reg add "HKCU\Control Panel\Accessibility" /v "Warning Sounds" /t REG_DWORD /d 0 /f
 reg add "HKCU\Control Panel\Accessibility" /v "Sound on Activation" /t REG_DWORD /d 0 /f
-reg add "HKCU\Control Panel\Mouse" /v "DoubleClickHeight" /t REG_SZ /d 4 /f
-reg add "HKCU\Control Panel\Mouse" /v "DoubleClickSpeed" /t REG_SZ /d 200 /f
-reg add "HKCU\Control Panel\Mouse" /v "DoubleClickWidth" /t REG_SZ /d 4 /f
-reg add "HKCU\Control Panel\Mouse" /v "MouseHoverHeight" /t REG_SZ /d 4 /f
-reg add "HKCU\Control Panel\Mouse" /v "MouseHoverTime" /t REG_SZ /d 400 /f
-reg add "HKCU\Control Panel\Mouse" /v "MouseHoverWidth" /t REG_SZ /d 4 /f
 reg add "HKCU\Control Panel\Keyboard" /v "InitialKeyboardIndicators" /t REG_SZ /d 2147483650 /f
 reg add "HKCU\Control Panel\Keyboard" /v "KeyboardSpeed" /t REG_SZ /d 31 /f
 reg add "HKCU\Control Panel\Keyboard" /v "KeyboardDelay" /t REG_SZ /d 0 /f
@@ -1039,15 +1099,6 @@ reg add "HKCU\Software\Microsoft\ScreenMagnifier" /v "FollowMouse" /t REG_DWORD 
 reg add "HKCU\Software\Microsoft\ScreenMagnifier" /v "FollowFocus" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\ScreenMagnifier" /v "FollowCaret" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\ScreenMagnifier" /v "FollowNarrator" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\DWM" /v "ColorPrevalence" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Windows\DWM" /v "EnableWindowColorization" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Windows\DWM" /v "ColorizationGlassAttribute" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\DWM" /v "ColorizationColor" /t REG_DWORD /d "3293334088" /f
-reg add "HKCU\Software\Microsoft\Windows\DWM" /v "ColorizationAfterglow" /t REG_DWORD /d "3293334088" /f
-reg add "HKCU\Software\Microsoft\Windows\DWM" /v "AccentColor" /t REG_DWORD /d "4282927692" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" /v "AccentColorMenu" /t REG_DWORD /d "4282927692" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" /v "StartColorMenu" /t REG_DWORD /d "4282203969" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" /v "AccentPalette" /t REG_BINARY /d "DFDEDC00A6A5A100686562004C4A4800413F3D0027252400100D0D00107C1000" /f
 reg add "HKLM\SOFTWARE\Microsoft\Tracing\SystemSettings_RASAPI32" /v "EnableFileTracing" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Microsoft\Tracing\SystemSettings_RASAPI32" /v "EnableAutoFileTracing" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Microsoft\Tracing\SystemSettings_RASAPI32" /v "EnableConsoleTracing" /t REG_DWORD /d 0 /f
@@ -1063,7 +1114,6 @@ reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "ActiveHoursEnd" 
 reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\StateVariables" /v "ActiveHoursEnd" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\StateVariables" /v "ActiveHoursStart" /t REG_DWORD /d 8 /f
 reg add "HKCU\Software\Microsoft\Siuf\Rules" /v "NumberOfSIUFInPeriod" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Siuf\Rules" /v "PeriodInNanoSeconds" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Input\TIPC" /v "Enabled" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Input\Settings" /v "EnableHwkbTextPrediction" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Input\Settings" /v "InsightsEnabled" /t REG_DWORD /d 0 /f
@@ -1082,8 +1132,8 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore" /v "Di
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore" /v "DisableSR" /t "REG_DWORD" /d 1 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\PasswordLess\Device" /v "DevicePasswordLessBuildVersion" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "ARSOUserConsent" /t REG_DWORD /d 0 /f
-reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "RestartApps" /t REG_DWORD /d "0" /f
-reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "EnableFirstLogonAnimation" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "RestartApps" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "EnableFirstLogonAnimation" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\AboveLock" /v "AllowCortanaAboveLock" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\Experience" /v "AllowCortana" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\System" /v "AllowExperimentation" /t REG_DWORD /d 0 /f
@@ -1144,8 +1194,11 @@ reg add "HKCU\Software\Microsoft\MediaPlayer\Preferences" /v "SendUserGUID" /t R
 reg add "HKCU\Software\Microsoft\MediaPlayer\Preferences" /v "AskMeAgain" /t REG_SZ /d "No" /f
 reg add "HKLM\System\CurrentControlSet\Control\Session Manager" /v "AutoChkTimeout" /t REG_DWORD /d 1 /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "HiberbootEnabled" /t REG_DWORD /d 0 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "HibernateEnabled" /t REG_DWORD /d 0 /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" /v "EnableSuperfetch" /t REG_DWORD /d 0 /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" /v "EnablePrefetcher" /t REG_DWORD /d 0 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "MoveImages" /t REG_DWORD /d 4294967295 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" /v "MitigationOptions" /t REG_BINARY /d "00010100000000000000000000000000" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WDI\{C295FBBA-FD47-46ac-8BEE-B1715EC634E5}" /v "ScenarioExecutionEnabled" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WDI\{C295FBBA-FD47-46ac-8BEE-B1715EC634E5}" /v "DownloadToolsEnabled" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WDI\{9c5a40da-b965-4fc3-8781-88dd50a6299d}" /v "ScenarioExecutionEnabled" /t REG_DWORD /d 0 /f
@@ -1270,17 +1323,17 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\wifiData" /v "Value" /t REG_SZ /d "Deny" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\wiFiDirect" /v "Value" /t REG_SZ /d "Deny" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\musicLibrary" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\musicLibrary" /v "Value" /t REG_SZ /d "Deny" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\musicLibrary" /v "Value" /t REG_SZ /d "Deny" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\downloadsFolder" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\downloadsFolder" /v "Value" /t REG_SZ /d "Deny" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\downloadsFolder" /v "Value" /t REG_SZ /d "Deny" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureProgrammatic" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureProgrammatic" /v "Value" /t REG_SZ /d "Deny" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureProgrammatic" /v "Value" /t REG_SZ /d "Deny" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureWithoutBorder" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureWithoutBorder" /v "Value" /t REG_SZ /d "Deny" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureWithoutBorder" /v "Value" /t REG_SZ /d "Deny" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureProgrammatic\NonPackaged" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureProgrammatic\NonPackaged" /v "Value" /t REG_SZ /d "Deny" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureProgrammatic\NonPackaged" /v "Value" /t REG_SZ /d "Deny" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureWithoutBorder\NonPackaged" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureWithoutBorder\NonPackaged" /v "Value" /t REG_SZ /d "Deny" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureWithoutBorder\NonPackaged" /v "Value" /t REG_SZ /d "Deny" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\appointments\Microsoft.Windows.Cortana_cw5n1h2txyewy" /v "Value" /t REG_SZ /d "Deny" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\chat\Microsoft.Windows.Cortana_cw5n1h2txyewy" /v "Value" /t REG_SZ /d "Deny" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\contacts\Microsoft.Windows.Cortana_cw5n1h2txyewy" /v "Value" /t REG_SZ /d "Deny" /f
@@ -1300,6 +1353,8 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplicat
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.Windows.SecHealthUI_cw5n1h2txyewy" /v "DisabledByUser" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\windows.immersivecontrolpanel_cw5n1h2txyewy" /v "Disabled" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\windows.immersivecontrolpanel_cw5n1h2txyewy" /v "DisabledByUser" /t REG_DWORD /d 1 /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.Windows.Apprep.ChxApp_cw5n1h2txyewy" /v "Disabled" /t REG_DWORD /d 1 /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.Windows.Apprep.ChxApp_cw5n1h2txyewy" /v "DisabledByUser" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies" /v "HideSCAMeetNow" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments" /v "SaveZoneInformation" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Attachments" /v "SaveZoneInformation" /t REG_DWORD /d 1 /f
@@ -1334,9 +1389,9 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "LocalKnown
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "TelemetrySalt" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "ShowFrequent" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "ShowRecent" /t REG_DWORD /d 0 /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "EnableSnapAssistFlyout" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "DITest" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "EnableTaskGroups" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "UseCompactMode" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_SearchFiles" /t REG_DWORD /d 2 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ServerAdminUI" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Hidden" /t REG_DWORD /d 1 /f
@@ -1372,8 +1427,8 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "S
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "SnapFill" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_TrackDocs" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarGlomLevel" /t REG_DWORD /d 2 /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /V "MMTaskbarEnabled" /T REG_dWORD /D 1 /F
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /V "MMTaskbarGlomLevel" /T REG_dWORD /D 2 /F
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /V "MMTaskbarEnabled" /T REG_dWORD /D 1 /F
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /V "MMTaskbarGlomLevel" /T REG_dWORD /D 2 /F
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_TrackProgs" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowSecondsInSystemClock" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSmallIcons" /t REG_DWORD /d 1 /f
@@ -1410,7 +1465,6 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescripti
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\AutoComplete" /v "AutoSuggest" /t REG_SZ /d "no" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers" /v "DisableAutoplay" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Ribbon" /v "MinimizedStateTabletModeOff" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /v "VisualFXSetting" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowRun" /v 1 /t REG_SZ /d "software_reporter_tool.exe" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoStartMenuMorePrograms" /t REG_DWORD /d 2 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoCustomizeThisFolder" /t REG_DWORD /d 1 /f
@@ -1450,11 +1504,20 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "Dis
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "VerboseStatus" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "SystemUsesLightTheme" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "AppsUseLightTheme" /t REG_DWORD /d 0 /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{7AD84985-87B4-4a16-BE58-8B72A5B390F7}" /t REG_SZ /d "Play to Menu" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{596AB062-B4D2-4215-9F74-E9109B0A8153}" /t REG_SZ /d "" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{09A47860-11B0-4DA5-AFA5-26D86198A780}" /t REG_SZ /d "" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{1d27f844-3a1f-4410-85ac-14651078412d}" /t REG_SZ /d "" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{596AB062-B4D2-4215-9F74-E9109B0A8153}" /t REG_SZ /d "" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{7AD84985-87B4-4a16-BE58-8B72A5B390F7}" /t REG_SZ /d "" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{9F156763-7844-4DC4-B2B1-901F640F5155}" /t REG_SZ /d "" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{E2BF9676-5F8F-435C-97EB-11607A5BEDF7}" /t REG_SZ /d "" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{f81e9010-6ea4-11ce-a7ff-00aa003ca9f6}" /t REG_SZ /d "" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{09A47860-11B0-4DA5-AFA5-26D86198A780}" /t REG_SZ /d "" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{1D27F844-3A1F-4410-85AC-14651078412D}" /t REG_SZ /d "" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{596AB062-B4D2-4215-9F74-E9109B0A8153}" /t REG_SZ /d "" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{7AD84985-87B4-4a16-BE58-8B72A5B390F7}" /t REG_SZ /d "" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{9F156763-7844-4DC4-B2B1-901F640F5155}" /t REG_SZ /d "" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{E2BF9676-5F8F-435C-97EB-11607A5BEDF7}" /t REG_SZ /d "" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{f81e9010-6ea4-11ce-a7ff-00aa003ca9f6}" /t REG_SZ /d "" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CDP\SettingsPage" /v "BluetoothLastDisabledNearShare" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CDP" /v "NearShareChannelUserAuthzPolicy" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CDP" /v "RomeSdkChannelUserAuthzPolicy" /t REG_DWORD /d 0 /f
@@ -1543,7 +1606,6 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting\Consent" /v "Ne
 reg add "HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting\WMR" /v "Disabled" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting\Assert Filtering Policy" /v "ReportAndContinue" /t REG_DWORD /d 0 /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "HibernteEnabled" /t REG_DWORD /d 0 /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "HibernateEnabled" /t REG_DWORD /d 0 /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Network\NetworkLocationWizard" /v "HideWizard" /t REG_DWORD /d 1 /f
 reg add "HKCU\System\GameConfigStore" /v "GameDVR_Enabled" /t REG_DWORD /d 0 /f
 reg add "HKCU\System\GameConfigStore" /v "GameDVR_FSEBehavior" /t REG_DWORD /d 2 /f
@@ -1614,14 +1676,17 @@ reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Policies\Sys
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\CompatTelRunner.exe" /v "Debugger" /t REG_SZ /d "%windir%\System32\taskkill.exe" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\DeviceCensus.exe" /v "Debugger" /t REG_SZ /d "%windir%\System32\taskkill.exe" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "DisableWindowsUpdateAccess" /t REG_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "SetDisableUXWUAccess" /t REG_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "NoAutoUpdate" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "DoNotConnectToWindowsUpdateInternetLocations" /t REG_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "UseWUServer" /t REG_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "WUServer" /t REG_SZ /d "-" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "WUStatusServer" /t REG_SZ /d "-" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "UpdateServiceUrlAlternate" /t REG_SZ /d "-" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "AllowAutoWindowsUpdateDownloadOverMeteredNetwork" /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "SetAutoRestartNotificationDisable" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "SetDisablePauseUXAccess" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "SetDisableUXWUAccess" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "WUServer" /t REG_SZ /d - /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "WUStatusServer" /t REG_SZ /d - /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "UpdateServiceUrlAlternate" /t REG_SZ /d - /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "ExcludeWUDriversInQualityUpdate" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "NoAutoUpdate" /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "UseWUServer" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DriverSearching" /v "DontSearchWindowsUpdate" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DriverSearching" /v "SearchOrderConfig" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Settings" /v "AllSigningEqual" /t REG_DWORD /d 1 /f
@@ -1648,39 +1713,46 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows Search" /v "AllowCortana" /t REG_DWORD 
 reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\WiFi\AllowAutoConnectToWiFiSenseHotspots" /v "value" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo" /v "Id" /t REG_SZ /d "null" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CloudExperienceHost" /v "ETWLoggingEnabled" /t REG_DWORD /d 0 /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{09A47860-11B0-4DA5-AFA5-26D86198A780}" /t REG_SZ /d "" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /v "VisualFXSetting" /t REG_DWORD /d "2" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\AnimateMinMax" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ComboBoxAnimation" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ControlAnimations" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\CursorShadow" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DragFullWindows" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DropShadow" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DWMAeroPeekEnabled" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DWMSaveThumbnailEnabled" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListBoxSmoothScrolling" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListviewAlphaSelect" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListviewShadow" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\MenuAnimation" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\SelectionFade" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\TaskbarAnimations" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ThumbnailsOrIcon" /v "DefaultApplied" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\TooltipAnimation" /v "DefaultApplied" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" /v "LongPathsEnabled" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell" /v "EnableScripts" /t reg_DWORD /d 1 /f
 reg add "HKCU\Software\Policies\Microsoft\Windows\PowerShell" /v "EnableScripts" /t reg_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v "ExecutionPolicy" /t reg_SZ /d "Restricted" /f
 reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v "ExecutionPolicy" /t reg_SZ /d "Restricted" /f
 reg add "HKCU\Software\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v "ExecutionPolicy" /t reg_SZ /d "Restricted" /f
-reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap" /v "ProxyBypass" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs" /va /f
-reg delete "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs" /va /f
-reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\LastVisitedPidlMRU" /f
-reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSavePidlMRU" /f
-reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3" /v "Settings" /t REG_BINARY /d "30000000FEFFFFFF02740000030000003E0000001E0000000000000066030000A0050000840300006000000001000000" /f
-reg import "%windir%\Setup\Scripts\PhotoVeiwer.reg"
-COPY "%windir%\Setup\Scripts\StartLayout.xml" "%Systemdrive%\Users\Default\AppData\Local\Microsoft\Windows\Shell\StartLayout.xml" /V /Y
-reg import "%windir%\Setup\Scripts\StartLayout.reg"
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoChangeStartMenu" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v "DisableContextMenusInStart" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v "NoUninstallFromStart" /t REG_DWORD /d 1 /f
+COPY "%windir%\Setup\Scripts\StartLayout.xml" "%Systemdrive%\Users\Default\AppData\Local\Microsoft\Windows\Shell\StartLayout.xml" /V /Y
+reg import "%windir%\Setup\Scripts\StartLayout.reg"
+reg import "%windir%\Setup\Scripts\PhotoVeiwer.reg"
 reg add "HKLM\SOFTWARE\Classes\CLSID\{645FF040-5081-101B-9F08-00AA002F954E}\shell\Separator" /v "CommandFlags" /t REG_DWORD /d 40 /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Classes\AppID\slui.exe" /v "NoGenTicket" /t REG_DWORD /d 1 /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\BannerStore\OptIn" /v "URL" /t REG_SZ /d "" /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\BannerStore\OptOut" /v "URL" /t REG_SZ /d "" /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" /v "DisableWerReporting" /t REG_DWORD /d 1 /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter" /v "ActivationType" /t REG_DWORD /d 0 /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\WOW6432Node\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter" /v "ActivationType" /t REG_DWORD /d 0 /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\ExpressionEvaluators\Driver" /v "DLL" /t REG_SZ /d "1wuuhext.dll1" /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\ExpressionEvaluators\Driver" /v "Prefixes" /t REG_MULTI_SZ /d "1d1." /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UpdateHandlers\Driver" /v "DLL" /t REG_SZ /d "1wuuhext.dll1" /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UpdateHandlers\Driver" /v "LocalOnly" /t REG_DWORD /d 1 /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UpdateHandlers\Driver" /v "URI" /t REG_SZ /d "http://ssschemas.mmmmicrosoft.ccccom/msus/2002/12/UpdateHandlers/Windows" /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel\NameSpace\{87D66A43-7B11-4A28-9811-C86EE395ACF7}" /f
+echo --- Disable Background Apps Execution
+for /F "tokens=* skip=1" %%n in ('wmic useraccount where "name='%username%'" get sid ^| findstr "."') do (set SID=%%n)
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\UserARSO\%SID%" /v OptOut /t REG_DWORD /d 1 /f
+echo.
+echo --- Remove Ghost DefaultUser0 User
+net user defaultuser0 /delete
+echo.
+echo --- Remove Log Files ^& UnNeeded Directories
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\cmd.exe rd /s /q "%ProgramData%\Microsoft\UEV"
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\cmd.exe rd /s /q "%ProgramData%\Microsoft\AppV"
 COPY "%SystemRoot%\System32\ctfmon.exe" "%AppData%\Microsoft\Windows\Start Menu\Programs\Startup\ctfmon.exe" /V /Y
 IF EXIST "%SystemDrive%\DumpStack.log" del /f /q "%SystemDrive%\DumpStack.log."
 IF EXIST "%SystemDrive%\DumpStack.log.tmp" del /f /q "%SystemDrive%\DumpStack.log.tmp"
@@ -1705,6 +1777,17 @@ IF EXIST "%SystemRoot%\*.LOG" del /f /q "%SystemRoot%\*.LOG"
 IF EXIST "%SystemRoot%\*.log" del /f /q "%SystemRoot%\*.log"
 IF EXIST "%SystemRoot%\*.xml" del /f /q "%SystemRoot%\*.xml"
 IF EXIST "%SystemRoot%\*.ini" del /f /q "%SystemRoot%\*.ini"
+IF EXIST "%UserProfile%\3D Objects" rd /s /q "%UserProfile%\3D Objects"
+IF EXIST "%UserProfile%\Documents" rd /s /q "%UserProfile%\Documents"
+IF EXIST "%UserProfile%\Downloads" rd /s /q "%UserProfile%\Downloads"
+IF EXIST "%UserProfile%\Favorites" rd /s /q "%UserProfile%\Favorites"
+IF EXIST "%UserProfile%\OneDrive" rd /s /q "%UserProfile%\OneDrive"
+IF EXIST "%UserProfile%\Contacts" rd /s /q "%UserProfile%\Contacts"
+IF EXIST "%UserProfile%\Pictures" rd /s /q "%UserProfile%\Pictures"
+IF EXIST "%UserProfile%\Searches" rd /s /q "%UserProfile%\Searches"
+IF EXIST "%UserProfile%\Videos" rd /s /q "%UserProfile%\Videos"
+IF EXIST "%UserProfile%\Links" rd /s /q "%UserProfile%\Links"
+IF EXIST "%UserProfile%\Music" rd /s /q "%UserProfile%\Music"
 IF EXIST "%LocalAppData%\Temp" rd /s /q "%LocalAppData%\Temp"
 IF EXIST "%LocalAppData%\Programs" rd /s /q "%LocalAppData%\Programs"
 IF EXIST "%LocalAppData%\D3DSCache" rd /s /q "%LocalAppData%\D3DSCache"
@@ -1725,6 +1808,7 @@ IF EXIST "%ProgramFiles(x86)%\Microsoft" rd /s /q "%ProgramFiles(x86)%\Microsoft
 IF EXIST "%AppData%\Microsoft\Windows\SendTo\Documents.*" del "%AppData%\Microsoft\Windows\SendTo\Documents.*" /a /f /q /s
 IF EXIST "%AppData%\Microsoft\Windows\SendTo\Mail recipient.*" del "%AppData%\Microsoft\Windows\SendTo\Mail recipient.*" /a /f /q /s
 IF EXIST "%AppData%\Microsoft\Windows\SendTo\Compressed (zipped) folder.*" del "%AppData%\Microsoft\Windows\SendTo\Compressed (zipped) folder.*" /a /f /q /s
+IF EXIST "%AppData%\Microsoft\Windows\SendTo\*.LNK" del "%AppData%\Microsoft\Windows\SendTo\*.LNK" /a /f /q /s
 echo.
 echo --- Disable Auditpolicy
 %SystemRoot%\System32\Auditpol /remove /allusers
@@ -1827,8 +1911,8 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack" /
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack" /v "DisableAutomaticTelemetryKeywordReporting" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack" /v "TelemetryServiceDisabled" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack\TestHooks" /v "DisableAsimovUpLoad" /t REG_DWORD /d 1 /f
-"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$key = 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack\SettingsRequests'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name ETag -Value 0 -ErrorAction SilentlyContinue -Verbose }"
-"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$key = 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack\SettingsRequests'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name ETagQueryParameters -Value 0 -ErrorAction SilentlyContinue -Verbose }"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$key = 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack\SettingsRequests'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name ETag -Value '' -ErrorAction SilentlyContinue -Verbose }"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$key = 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack\SettingsRequests'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name ETagQueryParameters -Value '' -ErrorAction SilentlyContinue -Verbose }"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$key = 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack\SettingsRequests'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name RefreshInterval -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$key = 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack\SettingsRequests'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name SettingsPriority -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$key = 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack\SettingsRequests'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name SettingsRegistrationType -Value 0 -ErrorAction SilentlyContinue -Verbose }"
@@ -1843,11 +1927,12 @@ reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule" /f
 reg import "%windir%\Setup\Scripts\ScheduledTasks.reg"
 echo.
 echo --- Apply Best NetBT Tweak
-"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\services\NetBT\Parameters\Interfaces'; Get-ChildItem $key | ForEach-Object { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name NetbiosOptions -Value 2 -ErrorAction SilentlyContinue -Verbose }"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$key = 'HKLM:SYSTEM\CurrentControlSet\services\NetBT\Parameters\Interfaces'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name NetbiosOptions -Value 2 -ErrorAction SilentlyContinue -Verbose }"
 echo.
 echo --- Disable All Windows Event Logs
 for /F "tokens=*" %%1 in ('wevtutil.exe el') DO wevtutil.exe cl "%%1"
-"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$key = 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe"  -Command "$key = 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
+echo.
 %SystemRoot%\System32\SetACL.exe -on "%SystemRoot%\Logs" -ot file -actn setowner -ownr "n:Administrators"
 %SystemRoot%\System32\SetACL.exe -on "%SystemRoot%\Logs" -ot file -actn ace -ace "n:Administrators;p:full"
 %SystemRoot%\System32\SetACL.exe -on "%SystemRoot%\DiagTrack" -ot file -actn setowner -ownr "n:Administrators"
@@ -1864,16 +1949,21 @@ IF EXIST "%SystemRoot%\SysWOW64\Logs" rd /s /q "%SystemRoot%\SysWOW64\Logs"
 IF EXIST "%SystemRoot%\System32\LogFiles" rd /s /q "%SystemRoot%\System32\LogFiles"
 IF EXIST "%SystemRoot%\SysWOW64\LogFiles" rd /s /q "%SystemRoot%\SysWOW64\LogFiles"
 IF EXIST "%SystemRoot%\DiagTrack" rd /s /q "%SystemRoot%\DiagTrack"
-reg add "HKLM\Software\Policies\Microsoft\Windows\OOBE" /v "DisablePrivacyExperience" /t REG_DWORD /d "1" /f
-reg add "HKLM\Software\Microsoft\Speech_OneCore\Settings\OnlineSpeechPrivacy" /v "HasAccepted" /t REG_DWORD /d "0" /f
-reg add "HKLM\Software\Microsoft\Settings\FindMyDevice" /v "LocationSyncEnabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\Software\Microsoft\Input\TIPC" /v "Enabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo" /v "Enabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\AccessPage\Camera" /v "CameraEnabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Privacy" /v "TailoredExperiencesWithDiagnosticDataEnabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Privacy" /v "PrivacyConsentPresentationVersion" /t REG_DWORD /d "2" /f
-reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Privacy" /v "PrivacyConsentSettingsVersion" /t REG_DWORD /d "3" /f
+echo.
+echo --- Apply Best NTUSER Registry Tweaks
+reg load "HKLM\TEMP_NTUSER" "%SystemDrive%\Users\Default\NTUSER.DAT"
+reg add "HKLM\TEMP_NTUSER\Software\Policies\Microsoft\Windows\OOBE" /v "DisablePrivacyExperience" /t REG_DWORD /d "1" /f
+reg add "HKLM\TEMP_NTUSER\Software\Microsoft\Speech_OneCore\Settings\OnlineSpeechPrivacy" /v "HasAccepted" /t REG_DWORD /d "0" /f
+reg add "HKLM\TEMP_NTUSER\Software\Microsoft\Settings\FindMyDevice" /v "LocationSyncEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\TEMP_NTUSER\Software\Microsoft\Input\TIPC" /v "Enabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\TEMP_NTUSER\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo" /v "Enabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\TEMP_NTUSER\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo" /v "Id" /t REG_SZ /d "null" /f
+reg add "HKLM\TEMP_NTUSER\Software\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\AccessPage\Camera" /v "CameraEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\TEMP_NTUSER\Software\Microsoft\Windows\CurrentVersion\Privacy" /v "TailoredExperiencesWithDiagnosticDataEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\TEMP_NTUSER\Software\Microsoft\Windows\CurrentVersion\Privacy" /v "PrivacyConsentPresentationVersion" /t REG_DWORD /d "2" /f
+reg add "HKLM\TEMP_NTUSER\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location" /v "Value" /t REG_SZ /d "Deny" /f
+reg add "HKLM\TEMP_NTUSER\Software\Microsoft\Windows\CurrentVersion\Privacy" /v "PrivacyConsentSettingsVersion" /t REG_DWORD /d "3" /f
+reg unload HKLM\TEMP_NTUSER
 echo.
 echo --- Apply Best BCDEDIT Boot Tweaks
 bcdedit /timeout 0
@@ -1890,28 +1980,67 @@ fsutil behavior set disableencryption 1
 fsutil behavior set disablelastaccess 3
 fsutil behavior set EncryptPagingFile 0
 fsutil behavior set symlinkEvaluation L2R:0 R2R:0 R2L:0
+echo.
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-ComputerRestore -Drive $env:SystemDrive -Verbose"
+reg import "%WINDIR%\Setup\Scripts\Extra.reg"
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v "EnableNegotiate" /t REG_DWORD /d 0 /f
+reg add "HKCU\Software\Microsoft\Assistance\Client\1.0\Settings" /v "ImplicitFeedback" /t REG_DWORD /d 0 /f
+reg add "HKCU\Software\Microsoft\Internet Explorer\Download" /v "CheckExeSignatures" /t REG_SZ /d "no" /f
+reg delete "HKCU\Software\Microsoft\OneDrive" /f
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-Service -Name 'WalletService' -StartupType Disabled -Status Stopped -Verbose"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-Service -Name 'WbioSrvc' -StartupType Disabled -Status Stopped -Verbose"
-"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-Service -Name 'WdNisDrv' -StartupType Disabled -Status Stopped -Verbose"
-reg add "HKCU\Software\Microsoft\Assistance\Client\1.0\Settings" /v "ImplicitFeedback" /t REG_DWORD /d 0 /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\ControlSet001\Services\MsSecFlt" /v "Start" /t REG_DWORD /d "4" /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\ControlSet001\Services\Sense" /v "Start" /t reg_DWORD /d "4" /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\ControlSet001\Services\WdBoot" /v "Start" /t reg_DWORD /d "4" /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\ControlSet001\Services\WdFilter" /v "Start" /t reg_DWORD /d "4" /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\ControlSet001\Services\WdNisDrv" /v "Start" /t reg_DWORD /d "4" /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\ControlSet001\Services\WdNisSvc" /v "Start" /t reg_DWORD /d "4" /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\ControlSet001\Services\WinDefend" /v "Start" /t reg_DWORD /d "4" /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\ControlSet001\Services\wscsvc" /v "Start" /t reg_DWORD /d "4" /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\ControlSet001\Services\SecurityHealthService" /v "Start" /t reg_DWORD /d "4" /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\MsSecFlt" /v "Start" /t REG_DWORD /d "4" /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\Sense" /v "Start" /t reg_DWORD /d "4" /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\WdBoot" /v "Start" /t reg_DWORD /d "4" /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\WdFilter" /v "Start" /t reg_DWORD /d "4" /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\WdNisDrv" /v "Start" /t reg_DWORD /d "4" /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\WdNisSvc" /v "Start" /t reg_DWORD /d "4" /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\WinDefend" /v "Start" /t reg_DWORD /d "4" /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\wscsvc" /v "Start" /t reg_DWORD /d "4" /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\SecurityHealthService" /v "Start" /t reg_DWORD /d "4" /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Classes\AppID\slui.exe" /v "NoGenTicket" /t REG_DWORD /d 1 /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\BannerStore\OptIn" /v "URL" /t REG_SZ /d "" /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\BannerStore\OptOut" /v "URL" /t REG_SZ /d "" /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" /v "DisableWerReporting" /t REG_DWORD /d 1 /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter" /v "ActivationType" /t REG_DWORD /d 0 /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\WOW6432Node\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter" /v "ActivationType" /t REG_DWORD /d 0 /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\ExpressionEvaluators\Driver" /v "DLL" /t REG_SZ /d "1wuuhext.dll1" /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\ExpressionEvaluators\Driver" /v "Prefixes" /t REG_MULTI_SZ /d "1d1." /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UpdateHandlers\Driver" /v "DLL" /t REG_SZ /d "1wuuhext.dll1" /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UpdateHandlers\Driver" /v "LocalOnly" /t REG_DWORD /d 1 /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UpdateHandlers\Driver" /v "URI" /t REG_SZ /d "http://ssschemas.mmmmicrosoft.ccccom/msus/2002/12/UpdateHandlers/Windows" /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel\NameSpace\{87D66A43-7B11-4A28-9811-C86EE395ACF7}" /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\IKEEXT" /v "Start" /t reg_DWORD /d "3" /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\IKEEXT\TriggerInfo\0" /v "Action" /t reg_DWORD /d "0" /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\UsoSvc" /v "DelayedAutoStart" /t REG_DWORD /d 0 /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\UsoSvc" /v "Start" /t REG_DWORD /d 3 /f
-%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Lock Screen\FeedManager" /v "" /t REG_SZ /d 0 /f
+%Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Lock Screen\FeedManager" /v "" /t REG_SZ /d "" /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance" /v "WakeUp" /t REG_DWORD /d 0 /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance" /v "MaintenanceDisabled" /t REG_DWORD /d 1 /f
+DEL /F /S /Q /A %LocalAppData%\Microsoft\Windows\Explorer\thumbcache_*.db
+DEL /F /S /Q /A %LocalAppData%\Microsoft\Windows\Explorer\iconcache_*.db
+DEL /F /S /Q /A %LocalAppData%\Microsoft\Windows\Explorer\ExplorerStartupLog_*.etl
+echo --- Remove EdgeChromium
+CALL "%windir%\Setup\Scripts\EdgeChromium.cmd"
 echo.
 echo ======================================================
 echo.
 echo ======================================================
 echo -------------------- Personal Tweaks --------------------
 echo ======================================================
-echo.
-echo ======================================================
-echo ------------ Potplayer Setting ----------------
-echo ======================================================
+echo. unnecessary folders
+rem %windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Help' -Force -Recurse"
+rem %windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -Path '' -Force"
+echo. Potplayer Setting
 reg add "HKCU\Software\Daum\PotPlayerMini64\AtscAntenaList" /v "0" /t REG_SZ /d "1|0|0|0|0|0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\AtscAntenaList" /v "1" /t REG_SZ /d "1|0|0|0|0|0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\AtscAntenaList" /v "2" /t REG_SZ /d "1|0|0|0|0|0" /f
@@ -2094,119 +2223,6 @@ reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0017" /v "FilterType" /t RE
 reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0017" /v "Merit" /t REG_DWORD /d "1140588544" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0017" /v "MeritHi" /t REG_DWORD /d "1048707" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0018" /v "Type" /t REG_DWORD /d "4294967294" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "0" /t REG_SZ /d ".3G2*3G2 - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*41" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "1" /t REG_SZ /d ".3GP*3GP - 锟街伙拷锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*28" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "2" /t REG_SZ /d ".3GP2*3GP2 - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*42" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "3" /t REG_SZ /d ".3GPP*3GPP - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*40" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "4" /t REG_SZ /d ".AAC*AAC - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*63" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "5" /t REG_SZ /d ".AC3*AC3 - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*62" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "6" /t REG_SZ /d ".AIF*AIF - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "7" /t REG_SZ /d ".AIFF*AIFF - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "8" /t REG_SZ /d ".AMR*AMR - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*46" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "9" /t REG_SZ /d ".AMV*AMV - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "10" /t REG_SZ /d ".APE*APE - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*64" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "11" /t REG_SZ /d ".ASF*ASF - Windows 媒锟斤拷锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*3" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "12" /t REG_SZ /d ".ASS*ASS - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*73" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "13" /t REG_SZ /d ".ASX*ASX - Windows 媒锟斤拷锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*4" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "14" /t REG_SZ /d ".AVI*AVI - Windows 锟斤拷准锟斤拷频锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*1" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "15" /t REG_SZ /d ".CDA*CDA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "16" /t REG_SZ /d ".CUE*CUE - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "17" /t REG_SZ /d ".DIVX*DIVX - 锟斤拷频锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "18" /t REG_SZ /d ".DMSKM*DMSKM - 锟街伙拷锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*31" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "19" /t REG_SZ /d ".DPG*DPG - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "20" /t REG_SZ /d ".DPL*DPL - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "21" /t REG_SZ /d ".DSF*DSF - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "22" /t REG_SZ /d ".DTS*DTS - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*67" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "23" /t REG_SZ /d ".DTSHD*DTSHD - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "24" /t REG_SZ /d ".DVR-MS*DVR-MS - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "25" /t REG_SZ /d ".EAC3*EAC3 - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "26" /t REG_SZ /d ".EVO*EVO - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "27" /t REG_SZ /d ".F4V*F4V - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "28" /t REG_SZ /d ".FLAC*FLAC - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*68" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "29" /t REG_SZ /d ".FLV*FLV - Flash(FLV) 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*32" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "30" /t REG_SZ /d ".IDX*IDX - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*75" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "31" /t REG_SZ /d ".IFO*IFO - DVD 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*17" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "32" /t REG_SZ /d ".K3G*K3G - 锟街伙拷锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*29" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "33" /t REG_SZ /d ".LMP4*LMP4 - MPEG-4 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*27" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "34" /t REG_SZ /d ".M1A*M1A - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*49" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "35" /t REG_SZ /d ".M1V*M1V - MPEG 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*10" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "36" /t REG_SZ /d ".M2A*M2A - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*50" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "37" /t REG_SZ /d ".M2T*M2T - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "38" /t REG_SZ /d ".M2TS*M2TS - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*77" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "39" /t REG_SZ /d ".M2V*M2V - MPEG 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*11" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "40" /t REG_SZ /d ".M3U*M3U - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*53" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "41" /t REG_SZ /d ".M3U8*M3U8 - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "42" /t REG_SZ /d ".M4A*M4A - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*51" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "43" /t REG_SZ /d ".M4B*M4B - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*39" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "44" /t REG_SZ /d ".M4P*M4P - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*38" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "45" /t REG_SZ /d ".M4V*M4V - MPEG-4 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*26" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "46" /t REG_SZ /d ".MKA*MKA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*69" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "47" /t REG_SZ /d ".MKV*MKV - Matroska 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*20" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "48" /t REG_SZ /d ".MOD*MOD - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*65" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "49" /t REG_SZ /d ".MOV*MOV - Quicktime 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*23" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "50" /t REG_SZ /d ".MP2*MP2 - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*59" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "51" /t REG_SZ /d ".MP2V*MP2V - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*37" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "52" /t REG_SZ /d ".MP3*MP3 - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*60" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "53" /t REG_SZ /d ".MP4*MP4 - MPEG-4 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*25" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "54" /t REG_SZ /d ".MPA*MPA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*48" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "55" /t REG_SZ /d ".MPC*MPC - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*66" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "56" /t REG_SZ /d ".MPE*MPE - MPEG 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*12" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "57" /t REG_SZ /d ".MPEG*MPEG - MPEG 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*13" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "58" /t REG_SZ /d ".MPG*MPG - MPEG 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*14" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "59" /t REG_SZ /d ".MPL*MPL - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "60" /t REG_SZ /d ".MPLS*MPLS - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "61" /t REG_SZ /d ".MPV2*MPV2 - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*36" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "62" /t REG_SZ /d ".MQV*MQV - QT 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*24" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "63" /t REG_SZ /d ".MTS*MTS - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*78" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "64" /t REG_SZ /d ".MXF*MXF - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*79" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "65" /t REG_SZ /d ".NSR*NSR - DRM 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "66" /t REG_SZ /d ".NSV*NSV - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "67" /t REG_SZ /d ".OGG*OGG - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*61" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "68" /t REG_SZ /d ".OGM*OGM - OGM 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*19" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "69" /t REG_SZ /d ".OGV*OGV - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*80" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "70" /t REG_SZ /d ".OPUS*OPUS - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "71" /t REG_SZ /d ".PLS*PLS - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*54" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "72" /t REG_SZ /d ".PSB*PSB - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "73" /t REG_SZ /d ".QT*QT - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*45" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "74" /t REG_SZ /d ".RA*RA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*52" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "75" /t REG_SZ /d ".RAM*RAM - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*43" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "76" /t REG_SZ /d ".RM*RM - RealMedia 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*21" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "77" /t REG_SZ /d ".RMVB*RMVB - RealMedia 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*22" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "78" /t REG_SZ /d ".RPM*RPM - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*44" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "79" /t REG_SZ /d ".RT*RT - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "80" /t REG_SZ /d ".SBV*SBV - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "81" /t REG_SZ /d ".SKM*SKM - 锟街伙拷锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*30" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "82" /t REG_SZ /d ".SMI*SMI - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*71" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "83" /t REG_SZ /d ".SRT*SRT - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*72" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "84" /t REG_SZ /d ".SSA*SSA - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*74" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "85" /t REG_SZ /d ".SSF*SSF - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "86" /t REG_SZ /d ".SUB*SUB - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*76" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "87" /t REG_SZ /d ".SUP*SUP - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "88" /t REG_SZ /d ".SWF*SWF - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*56" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "89" /t REG_SZ /d ".TAK*TAK - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "90" /t REG_SZ /d ".TP*TP - MPEG2 Transport 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*16" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "91" /t REG_SZ /d ".TPR*TPR - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*35" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "92" /t REG_SZ /d ".TRP*TRP - MPEG2 Transport 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*34" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "93" /t REG_SZ /d ".TS*TS - MPEG2 Transport 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*33" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "94" /t REG_SZ /d ".TTA*TTA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "95" /t REG_SZ /d ".TTML*TTML - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "96" /t REG_SZ /d ".USF*USF - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "97" /t REG_SZ /d ".VOB*VOB - DVD 锟斤拷影锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*18" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "98" /t REG_SZ /d ".VTT*VTT - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "99" /t REG_SZ /d ".WAV*WAV - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*70" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "100" /t REG_SZ /d ".WAX*WAX - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*55" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "101" /t REG_SZ /d ".WEBM*WEBM - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "102" /t REG_SZ /d ".WM*WM - Windows 媒锟斤拷锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*5" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "103" /t REG_SZ /d ".WMA*WMA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*47" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "104" /t REG_SZ /d ".WMP*WMP - Windows 媒锟斤拷锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*6" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "105" /t REG_SZ /d ".WMV*WMV - Windows 媒锟斤拷锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*7" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "106" /t REG_SZ /d ".WMX*WMX - Windows 媒锟斤拷锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*8" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "107" /t REG_SZ /d ".WTV*WTV - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "108" /t REG_SZ /d ".WV*WV - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "109" /t REG_SZ /d ".WVX*WVX - Windows 媒锟斤拷锟侥硷拷*C:\Program Files\PotPlayer\PotIcons64.dll*9" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "110" /t REG_SZ /d ".XSPF*XSPF - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "111" /t REG_SZ /d ".XSS*XSS - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\FileIconList" /v "112" /t REG_SZ /d "" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "Type" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "Disabled" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "DisplayName" /t REG_SZ /d "@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{E8E73B6B-4CB3-44A4-BE99-4F7BCB96E491}" /f
@@ -3058,10 +3074,7 @@ reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AutoDownloadFile" /t R
 reg add "HKCU\Software\Daum\PotPlayerMini64" /v "AddMyComPL" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64" /v "ServiceValue" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64" /v "Check118_119" /t REG_DWORD /d "4" /f
-echo.
-echo ======================================================
-echo ------------ LAV Filter Settings ----------------
-echo ======================================================
+echo. LAV Filter Settings
 reg add "HKCU\Software\LAV\Audio" /v "TrayIcon" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\LAV\Audio" /v "DRCEnabled" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\LAV\Audio" /v "DRCLevel" /t REG_DWORD /d "100" /f
@@ -3156,11 +3169,6 @@ echo ======================================================
 rem http://woshub.com/updating-trusted-root-certificates-in-windows-10/
 rem "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "certutil.exe -generateSSTFromWU %WINDIR%\Setup\Scripts\roots.sst"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-ChildItem -Path %WINDIR%\Setup\Scripts\roots.sst | Import-Certificate -CertStoreLocation Cert:\LocalMachine\Root"
-echo.
-echo ======================================================
-echo ------------ Turnoff Office 365 Banner ----------------
-echo ======================================================
-CALL "%windir%\Setup\Scripts\OfficeBannerOFF.cmd"
 echo.
 echo ======================================================
 echo ------------ New PC name ----------------
@@ -3334,10 +3342,6 @@ rem disable network protocal
 %windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_lltdio"
 %windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_pacer"
 %windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_tcpip6"
-
-rem Apply Best NetBT Policy
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$Netbios = 'HKLM:SYSTEM\CurrentControlSet\services\NetBT\Parameters\Interfaces'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-ChildItem $Netbios | ForEach-Object-Object { Set-ItemProperty -Path \'$Netbios\$($_.pschildname)\' -Name NetbiosOptions -Value 2 -ErrorAction SilentlyContinue }"
 
 rem TcpAckFrequency
 %windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$strGUIDS = [array](Get-WmiObject win32_networkadapter | Select-Object -expand GUID)"
@@ -3614,6 +3618,11 @@ reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFe
 reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\word" /v "Microsoft.Office.UXPlatform.RibbonTouchOptimization" /t REG_SZ /d "true" /f
 reg add "HKCU\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\word" /v "Microsoft.Office.UXPlatform.FluentSVRibbonOptionsMenu" /t REG_SZ /d "true" /f
 
+rem No Office 365 banner
+reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\0ff1ce15-a989-479d-af46-f275c6370663" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /f /v "KeyManagementServiceName" /t REG_SZ /d "0.0.0.0"
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /f /v "KeyManagementServiceName" /t REG_SZ /d "0.0.0.0" /reg:32
+
 rem Win11 - Start Button on left alignment
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAl" /t REG_DWORD /d 0 /f
 
@@ -3635,9 +3644,10 @@ reg add "HKCU\Control Panel\Desktop" /v "RestorePreviousStateRecalcBehavior" /t 
 rem Win11 - remove the Open in Windows Terminal context menu
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{9F156763-7844-4DC4-B2B1-901F640F5155}" /t REG_SZ /d "" /f 
 
-rem unnecessary folders
-rem %windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Help' -Force -Recurse"
-rem %windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -Path '' -Force"
+rem Allow Windows Apps to be uninstalled
+Dism /Online /Set-NonRemovableAppPolicy /PackageFamily:* /NonRemovable:0
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NonRemovableAppsPolicy -Online -PackageFamilyName * -NonRemovable 0 -Verbose"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-AppXProvisionedPackage -Online | Out-GridView -PassThru -Title 'Remove Windows Apps' | Remove-AppXProvisionedPackage -Online -AllUsers -ErrorAction SilentlyContinue -Verbose"
 
 rem cleanup
 "%windir%\microsoft.net\Framework\v4.0.30319\ngen.exe" update /force /queue
