@@ -1,6 +1,5 @@
 @echo off & title Windows Tweaker & color 17
 cd /d %~dp0
-echo Got Admin Access
 attrib -r "%UserProfile%\Desktop\*.*"
 attrib -h -r -s "%ProgramData%\Desktop\*.*"
 echo ======================================================
@@ -3642,10 +3641,13 @@ reg add "HKCU\Control Panel\Desktop" /v "RestorePreviousStateRecalcBehavior" /t 
 rem Win11 - remove the Open in Windows Terminal context menu
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{9F156763-7844-4DC4-B2B1-901F640F5155}" /t REG_SZ /d "" /f 
 
+rem Win11 - Change_taskbar_icons_size_to_small
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /V "TaskbarSi" /T REG_DWORD /D "0" /f
+
 rem Allow Windows Apps to be uninstalled
 Dism /Online /Set-NonRemovableAppPolicy /PackageFamily:* /NonRemovable:0
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NonRemovableAppsPolicy -Online -PackageFamilyName * -NonRemovable 0 -Verbose"
-"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-AppXProvisionedPackage -Online | Out-GridView -PassThru -Title 'Remove Windows Apps' | Remove-AppXProvisionedPackage -Online -AllUsers -ErrorAction SilentlyContinue -Verbose"
+rem "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-AppXProvisionedPackage -Online | Out-GridView -PassThru -Title 'Remove Windows Apps' | Remove-AppXProvisionedPackage -Online -AllUsers -ErrorAction SilentlyContinue -Verbose"
 
 rem cleanup
 "%windir%\microsoft.net\Framework\v4.0.30319\ngen.exe" update /force /queue
