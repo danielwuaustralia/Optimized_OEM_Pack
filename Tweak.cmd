@@ -1916,6 +1916,16 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack\Te
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$key = 'HKLM:SOFTWARE\Microsoft\WcmSvc\wifinetworkmanager\features'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name FeatureStates -Value 828 -ErrorAction SilentlyContinue -Verbose }"
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack\TelemetryNamespaces" /f
 echo.
+echo --- KMS38 Activation Based Tweak Script to Remove Registered KMS Machine IP & Port Plus Disable KMS Host Cache Plus Increase Renewal Interval as well as Activation Interval (Wont Affect Win Activation Status in Any Way)
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$key = 'HKLM:SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\55c92734-d682-4d71-983e-d6ec3f16059f'; Get-ChildItem $key | foreach { Remove-ItemProperty -Path \"$key\$($_.pschildname)\" -Name KeyManagementServiceName -ErrorAction SilentlyContinue -Verbose }"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$key = 'HKLM:SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\55c92734-d682-4d71-983e-d6ec3f16059f'; Get-ChildItem $key | foreach { Remove-ItemProperty -Path \"$key\$($_.pschildname)\" -Name KeyManagementServicePort -ErrorAction SilentlyContinue -Verbose }"
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /v "VLActivationInterval" /t REG_DWORD /d "8640000" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /v "VLRenewalInterval" /t REG_DWORD /d "8640000" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /v "DisableKeyManagementServiceHostCaching" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\Activation" /v "ActivationInterval" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\Activation" /v "Manual" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\Activation" /v "NotificationDisabled" /t REG_DWORD /d "1" /f
+echo.
 echo --- Delete All Scheduled Tasks
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-Scheduledtask | Unregister-ScheduledTask -Confirm:$false -ErrorAction SilentlyContinue -Verbose"
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule" /f
