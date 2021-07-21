@@ -271,14 +271,14 @@ echo ======================================================
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\wscsvc" /v "Start" /t reg_DWORD /d "4" /f
 %Windir%\System32\PowerRun /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\SecurityHealthService" /v "Start" /t reg_DWORD /d "4" /f
 
-%SystemRoot%\System32\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows Defender" -ot reg -actn setowner -ownr "n:Administrators"
-%SystemRoot%\System32\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows Defender" -ot reg -actn ace -ace "n:Administrators;p:full"
-%SystemRoot%\System32\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" -ot reg -actn setowner -ownr "n:Administrators"
-%SystemRoot%\System32\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" -ot reg -actn ace -ace "n:Administrators;p:full"
-%SystemRoot%\System32\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows Defender\Signature Updates" -ot reg -actn setowner -ownr "n:Administrators"
-%SystemRoot%\System32\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows Defender\Signature Updates" -ot reg -actn ace -ace "n:Administrators;p:full"
-%SystemRoot%\System32\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows Defender\UX Configuration" -ot reg -actn setowner -ownr "n:Administrators"
-%SystemRoot%\System32\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows Defender\UX Configuration" -ot reg -actn ace -ace "n:Administrators;p:full"
+%SystemRoot%\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows Defender" -ot reg -actn setowner -ownr "n:Administrators"
+%SystemRoot%\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows Defender" -ot reg -actn ace -ace "n:Administrators;p:full"
+%SystemRoot%\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" -ot reg -actn setowner -ownr "n:Administrators"
+%SystemRoot%\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" -ot reg -actn ace -ace "n:Administrators;p:full"
+%SystemRoot%\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows Defender\Signature Updates" -ot reg -actn setowner -ownr "n:Administrators"
+%SystemRoot%\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows Defender\Signature Updates" -ot reg -actn ace -ace "n:Administrators;p:full"
+%SystemRoot%\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows Defender\UX Configuration" -ot reg -actn setowner -ownr "n:Administrators"
+%SystemRoot%\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows Defender\UX Configuration" -ot reg -actn ace -ace "n:Administrators;p:full"
 
 reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" /v "TamperProtection" /t REG_DWORD /d 4 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" /v "ForcePassiveMode" /t REG_DWORD /d 0 /f
@@ -1938,14 +1938,14 @@ echo --- Disable All Windows Event Logs
 for /F "tokens=*" %%1 in ('wevtutil.exe el') DO wevtutil.exe cl "%%1"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe"  -Command "$key = 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels'; Get-ChildItem $key | foreach { Set-ItemProperty -Path \"$key\$($_.pschildname)\" -Name Enabled -Value 0 -ErrorAction SilentlyContinue -Verbose }"
 echo.
-%SystemRoot%\System32\SetACL.exe -on "%SystemRoot%\Logs" -ot file -actn setowner -ownr "n:Administrators"
-%SystemRoot%\System32\SetACL.exe -on "%SystemRoot%\Logs" -ot file -actn ace -ace "n:Administrators;p:full"
-%SystemRoot%\System32\SetACL.exe -on "%SystemRoot%\DiagTrack" -ot file -actn setowner -ownr "n:Administrators"
-%SystemRoot%\System32\SetACL.exe -on "%SystemRoot%\DiagTrack" -ot file -actn ace -ace "n:Administrators;p:full"
-%SystemRoot%\System32\SetACL.exe -on "%SystemRoot%\DiagTrack\Scenarios" -ot file -actn setowner -ownr "n:Administrators"
-%SystemRoot%\System32\SetACL.exe -on "%SystemRoot%\DiagTrack\Scenarios" -ot file -actn ace -ace "n:Administrators;p:full"
-%SystemRoot%\System32\SetACL.exe -on "%SystemRoot%\DiagTrack\Settings" -ot file -actn setowner -ownr "n:Administrators"
-%SystemRoot%\System32\SetACL.exe -on "%SystemRoot%\DiagTrack\Settings" -ot file -actn ace -ace "n:Administrators;p:full"
+%SystemRoot%\SysWOW64\SetACL.exe -on "%SystemRoot%\Logs" -ot file -actn setowner -ownr "n:Administrators"
+%SystemRoot%\SysWOW64\SetACL.exe -on "%SystemRoot%\Logs" -ot file -actn ace -ace "n:Administrators;p:full"
+%SystemRoot%\SysWOW64\SetACL.exe -on "%SystemRoot%\DiagTrack" -ot file -actn setowner -ownr "n:Administrators"
+%SystemRoot%\SysWOW64\SetACL.exe -on "%SystemRoot%\DiagTrack" -ot file -actn ace -ace "n:Administrators;p:full"
+%SystemRoot%\SysWOW64\SetACL.exe -on "%SystemRoot%\DiagTrack\Scenarios" -ot file -actn setowner -ownr "n:Administrators"
+%SystemRoot%\SysWOW64\SetACL.exe -on "%SystemRoot%\DiagTrack\Scenarios" -ot file -actn ace -ace "n:Administrators;p:full"
+%SystemRoot%\SysWOW64\SetACL.exe -on "%SystemRoot%\DiagTrack\Settings" -ot file -actn setowner -ownr "n:Administrators"
+%SystemRoot%\SysWOW64\SetACL.exe -on "%SystemRoot%\DiagTrack\Settings" -ot file -actn ace -ace "n:Administrators;p:full"
 IF EXIST "%SystemRoot%\System32\Tasks" rd /s /q "%SystemRoot%\System32\Tasks"
 IF EXIST "%SystemRoot%\SysWOW64\Tasks" rd /s /q "%SystemRoot%\SysWOW64\Tasks"
 IF EXIST "%SystemRoot%\Logs" rd /s /q "%SystemRoot%\Logs"
@@ -3159,12 +3159,13 @@ reg add "HKCU\Software\LAV\Splitter\Formats" /v "ac3" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\LAV\Splitter\Formats" /v "aac" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\LAV\Splitter\Formats" /v "mp3" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\LAV\Splitter\Formats" /v "flac" /t REG_DWORD /d "1" /f
-echo. register video filters
+echo. 
+echo ---- register video filters
 regsvr32.exe "%windir%\SysWOW64\XySubFilter.dll" /s
 regsvr32.exe "%windir%\SysWOW64\VSFilter.dll" /s
-regsvr32.exe "%windir%\SysWOW64\nvngx_dlss.dll" /s
 regsvr32.exe "C:\Program Files\madVR\madVR64.ax" /s
-echo. import trusted certificate
+echo. 
+echo ---- import trusted certificate
 rem http://woshub.com/updating-trusted-root-certificates-in-windows-10/
 rem "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "certutil.exe -generateSSTFromWU %WINDIR%\Setup\Scripts\roots.sst"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-ChildItem -Path %WINDIR%\Setup\Scripts\roots.sst | Import-Certificate -CertStoreLocation Cert:\LocalMachine\Root"
@@ -3605,6 +3606,9 @@ reg add "HKCU\Control Panel\Desktop" /v "RestorePreviousStateRecalcBehavior" /t 
 
 rem Win11 - remove the Open in Windows Terminal context menu
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{9F156763-7844-4DC4-B2B1-901F640F5155}" /t REG_SZ /d "" /f 
+
+rem Win11 - No Chat Icon in Taskbar
+reg add "HKLM\Software\Policies\Microsoft\Windows\Windows Chat" /v "ChatIcon" /t REG_DWORD /d "3" /f
 
 rem cleanup
 "%windir%\microsoft.net\Framework\v4.0.30319\ngen.exe" update /force /queue
