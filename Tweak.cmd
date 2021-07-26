@@ -3181,161 +3181,167 @@ echo.   mouse setting
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ItemProperty -Path 'HKCU:\Control Panel\Mouse' 'MouseThreshold2' '0'"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ItemProperty -Path 'HKCU:\Control Panel\Mouse' 'SmoothMouseXCurve' ([byte[]](0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0xC0, 0xCC, 0x0C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x99, 0x19, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x66, 0x26, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x33, 0x33, 0x00, 0x00, 0x00, 0x00, 0x00))"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ItemProperty -Path 'HKCU:\Control Panel\Mouse' 'SmoothMouseXCurve' ([byte[]](0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x38, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x70, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xA8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xE0, 0x00, 0x00, 0x00, 0x00, 0x00))"
-echo. disable error erport
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-WindowsErrorReporting"
-echo. Disable System Devices
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-PnpDevice | Where-Object { $_.FriendlyName -match 'High precision event timer' } | Disable-PnpDevice -Confirm:$false"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-PnpDevice | Where-Object { $_.FriendlyName -match 'Microsoft Kernel Debug Network Adapter' } | Disable-PnpDevice -Confirm:$false"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-PnpDevice | Where-Object { $_.FriendlyName -match 'Microsoft Wi-Fi Direct Virtual Adapter' } | Disable-PnpDevice -Confirm:$false"
-echo. Network Optimize
-rem AutoTuningLevelLocal
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -AutomaticUseCustom Enabled"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -AutoTuningLevelLocal Experimental"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -AutoTuningLevelLocal Experimental"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -AutoTuningLevelLocal Experimental"
+echo.
+
+echo ---disable error erport
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-WindowsErrorReporting"
+echo. 
+
+echo ---Disable System Devices
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-PnpDevice | Where-Object { $_.FriendlyName -match 'High precision event timer' } | Disable-PnpDevice -Confirm:$false"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-PnpDevice | Where-Object { $_.FriendlyName -match 'Microsoft Kernel Debug Network Adapter' } | Disable-PnpDevice -Confirm:$false"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-PnpDevice | Where-Object { $_.FriendlyName -match 'Microsoft Wi-Fi Direct Virtual Adapter' } | Disable-PnpDevice -Confirm:$false"
+echo.
+
+echo ---Network Optimize
+echo ---AutoTuningLevelLocal
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -AutomaticUseCustom Enabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -AutoTuningLevelLocal Experimental"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -AutoTuningLevelLocal Experimental"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -AutoTuningLevelLocal Experimental"
 
 rem CongestionProvider
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -CongestionProvider LEDBAT"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -CongestionProvider LEDBAT"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -CongestionProvider LEDBAT"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -CongestionProvider LEDBAT"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -CongestionProvider LEDBAT"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -CongestionProvider LEDBAT"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -CongestionProvider LEDBAT"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -CongestionProvider LEDBAT"
 
 rem DelayedAckTimeoutMs
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -DelayedAckTimeoutMs 50"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -DelayedAckTimeoutMs 50"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -DelayedAckTimeoutMs 50"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -ForceWS Disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -DelayedAckTimeoutMs 50"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -DelayedAckTimeoutMs 50"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -DelayedAckTimeoutMs 50"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -ForceWS Disabled"
 
 rem force window scaling for retransmission
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Compat' -ForceWS Disabled"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -ForceWS Disabled"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -ForceWS Disabled"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -ForceWS Disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Compat' -ForceWS Disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -ForceWS Disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -ForceWS Disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -ForceWS Disabled"
 
 rem disable congestion window restart
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -CwndRestart True"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -CwndRestart True"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -CwndRestart True"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -CwndRestart True"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -CwndRestart True"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -CwndRestart True"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -CwndRestart True"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -CwndRestart True"
 
 rem disable memory pressure protection. TCP memory pressure protection helps ensure that a computer continues normal operation when low on memory due to denial of service attacks
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -MemoryPressureProtection Disabled"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -MemoryPressureProtection Disabled"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -MemoryPressureProtection Disabled"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -MemoryPressureProtection Disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -MemoryPressureProtection Disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -MemoryPressureProtection Disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -MemoryPressureProtection Disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -MemoryPressureProtection Disabled"
 
 rem disable round trip time resiliency for clients that do not support selective acknowledgment
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -NonSackRttResiliency Disabled"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -NonSackRttResiliency Disabled"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -NonSackRttResiliency Disabled"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -NonSackRttResiliency Disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -NonSackRttResiliency Disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -NonSackRttResiliency Disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -NonSackRttResiliency Disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -NonSackRttResiliency Disabled"
 
 rem disable scaling heuristics
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -ScalingHeuristics Disabled"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -ScalingHeuristics Disabled"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -ScalingHeuristics Disabled"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -ScalingHeuristics Disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -ScalingHeuristics Disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -ScalingHeuristics Disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -ScalingHeuristics Disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -ScalingHeuristics Disabled"
 
 rem Timestamps facilitate round trip measurement, and can help protect against wrapped sequence numbers on high throughput links. For more information about TCP timestamps, see RFC 1323
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -Timestamps Disabled"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -Timestamps Disabled"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -Timestamps Disabled"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -Timestamps Disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -Timestamps Disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -Timestamps Disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -Timestamps Disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -Timestamps Disabled"
 
 rem Specifies the initial size of the congestion window. Provide a value to multiply by the maximum segment size (MSS). The acceptable values for this parameter are: even numbers from 2 through 64
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -InitialCongestionWindow 10"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -InitialCongestionWindow 10"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -InitialCongestionWindow 10"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -InitialCongestionWindow 10"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -InitialCongestionWindow 10"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -InitialCongestionWindow 10"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -InitialCongestionWindow 10"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -InitialCongestionWindow 10"
 
 rem Specifies the maximum number of times the computer sends SYN packets without receiving a response.
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -MaxSynRetransmissions 2"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -MaxSynRetransmissions 2"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -MaxSynRetransmissions 2"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -MaxSynRetransmissions 2"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -MaxSynRetransmissions 2"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -MaxSynRetransmissions 2"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -MaxSynRetransmissions 2"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -MaxSynRetransmissions 2"
 
-%windir%\System32\PowerRun /SW:0 cmd.exe "netsh int tcp set global RSS=Disabled"
-%windir%\System32\PowerRun /SW:0 cmd.exe "netsh int tcp set global RSC=Disabled"
-%windir%\System32\PowerRun /SW:0 cmd.exe "netsh int ipv6 isatap set state disabled"
-%windir%\System32\PowerRun /SW:0 cmd.exe "netsh wfp set options netevents = off"
-%windir%\System32\PowerRun /SW:0 %windir%\System32\reg.exe add "HKLM\System\CurrentControlSet\Services\Tcpip6\Parameters" /v "DisabledComponents" /t REG_DWORD /d "0x0" /f
-%windir%\System32\PowerRun /SW:0 cmd.exe "netsh interface teredo set state type=natawareclient"
-%windir%\System32\PowerRun /SW:0 cmd.exe "netsh interface ipv6 6to4 set state state=disabled undoonstop=disabled"
-%windir%\System32\PowerRun /SW:0 %windir%\System32\reg.exe add "HKLM\System\CurrentControlSet\Services\NetBT\Parameters" /v "EnableLMHOSTS" /t REG_DWORD /d "0" /f
-%windir%\System32\PowerRun /SW:0 cmd.exe "wmic nicconfig where TcpipNetbiosOptions=0 call SetTcpipNetbios 2"
-%windir%\System32\PowerRun /SW:0 cmd.exe "wmic nicconfig where TcpipNetbiosOptions=1 call SetTcpipNetbios 2"
-%windir%\System32\PowerRun /SW:0 cmd.exe "netsh int ip set global taskoffload=disabled"
-%windir%\System32\PowerRun /SW:0 cmd.exe "netsh int ip set global neighborcachelimit=4096"
-%windir%\System32\PowerRun /SW:0 cmd.exe "netsh int tcp set global timestamps=disabled"
-%windir%\System32\PowerRun /SW:0 cmd.exe "netsh int tcp set heuristics disabled"
-%windir%\System32\PowerRun /SW:0 cmd.exe "netsh int tcp set global autotuninglevel=experimental"
-%windir%\System32\PowerRun /SW:0 cmd.exe "netsh int tcp set global ecncapability=disabled"
-%windir%\System32\PowerRun /SW:0 cmd.exe "netsh int tcp set global dca=enabled"
-%windir%\System32\PowerRun /SW:0 cmd.exe "netsh int tcp set global netdma=enabled"
-%windir%\System32\PowerRun /SW:0 cmd.exe "netsh int tcp set global nonsackrttresiliency=disabled"
-%windir%\System32\PowerRun /SW:0 cmd.exe "netsh int tcp set security mpp=disabled"
-%windir%\System32\PowerRun /SW:0 cmd.exe "netsh int tcp set security profiles=disabled"
-%windir%\System32\PowerRun /SW:0 cmd.exe "netsh int tcp set global initialRto=2000"
-%windir%\System32\PowerRun /SW:0 cmd.exe "netsh int tcp set global hystart=disabled"
-%windir%\System32\PowerRun /SW:0 cmd.exe "netsh int tcp set global fastopenfallback=disable
-%windir%\System32\PowerRun /SW:0 cmd.exe "netsh int ipv4 set subinterface 'Wi-Fi' mtu=1500 store=persistent"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterChecksumOffload -Name '*'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterChecksumOffload -Name '*' -TcpIPv4"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterChecksumOffload -Name '*' -TcpIPv6"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterLso -Name '*'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterIPsecOffload -Name '*'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterPowerManagement -Name '*'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetOffloadGlobalSetting -Chimney Disabled"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetOffloadGlobalSetting -ReceiveSegmentCoalescing disabled"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetOffloadGlobalSetting -PacketCoalescingFilter disabled"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetOffloadGlobalSetting -TaskOffload Disabled"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Enable-NetAdapterRss -Name '*'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterRsc -Name '*'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterQos -Name '*'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterRss -Name 'Ethernet' -BaseProcessorNumber 2"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Flow Control' -DisplayValue 'disabled'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Interrupt Moderation' -DisplayValue 'disabled'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Interrupt Moderation Rate' -DisplayValue 'Off'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Enable PME' -DisplayValue 'disabled'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Maximum Number of RSS Queues' -DisplayValue '4 Queues'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Transmit Buffers' -DisplayValue '2048'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Receive Buffers' -DisplayValue '2048'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Large Send Offload V2 (IPv4)' -DisplayValue 'Disabled'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Large Send Offload V2 (IPv6)' -DisplayValue 'Disabled'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'TCP Checksum Offload (IPv4)' -DisplayValue 'Disabled'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'TCP Checksum Offload (IPv6)' -DisplayValue 'Disabled'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'UDP Checksum Offload (IPv4)' -DisplayValue 'Disabled'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'UDP Checksum Offload (IPv6)' -DisplayValue 'Disabled'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'IPv4 Checksum Offload' -DisplayValue 'Disabled'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Gigabit Master Slave Mode' -DisplayValue 'Auto Detect'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'RSS load balancing profile' -DisplayValue 'NUMAScaling'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Protocol ARP Offload' -DisplayValue 'Disabled'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Protocol NS Offload' -DisplayValue 'Disabled'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Ultra Low Power Mode' -DisplayValue 'Disabled'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Jumbo Packet' -DisplayValue 'Disabled'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Wake on Magic Packet' -DisplayValue 'Disabled'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Wake on Link Settings' -DisplayValue 'Disabled'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Wait for Link' -DisplayValue 'off'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Energy Efficient Ethernet' -DisplayValue 'Off'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Reduce Speed On Power Down' -DisplayValue 'Disabled'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'System Idle Power Saver' -DisplayValue 'Disabled'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Log Link State Event' -DisplayValue 'Disabled'"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Packet Priority & VLAN' -DisplayValue 'Packet Priority & VLAN Disabled'"
+netsh int tcp set global RSS=Disabled
+netsh int tcp set global RSC=Disabled
+netsh int ipv6 isatap set state disabled
+netsh wfp set options netevents = off
+reg add "HKLM\System\CurrentControlSet\Services\Tcpip6\Parameters" /v "DisabledComponents" /t REG_DWORD /d "0x0" /f
+netsh interface teredo set state type=natawareclient
+netsh interface ipv6 6to4 set state state=disabled undoonstop=disabled
+reg add "HKLM\System\CurrentControlSet\Services\NetBT\Parameters" /v "EnableLMHOSTS" /t REG_DWORD /d "0" /f
+wmic nicconfig where TcpipNetbiosOptions=0 call SetTcpipNetbios 2
+wmic nicconfig where TcpipNetbiosOptions=1 call SetTcpipNetbios 2
+netsh int ip set global taskoffload=disabled
+netsh int ip set global neighborcachelimit=4096
+netsh int tcp set global timestamps=disabled
+netsh int tcp set heuristics disabled
+netsh int tcp set global autotuninglevel=experimental
+netsh int tcp set global ecncapability=disabled
+netsh int tcp set global dca=enabled
+netsh int tcp set global netdma=enabled
+netsh int tcp set global nonsackrttresiliency=disabled
+netsh int tcp set security mpp=disabled
+netsh int tcp set security profiles=disabled
+netsh int tcp set global initialRto=2000
+netsh int tcp set global hystart=disabled
+netsh int tcp set global fastopenfallback=disable
+netsh int ipv4 set subinterface 'Wi-Fi' mtu=1500 store=persistent
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterChecksumOffload -Name '*'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterChecksumOffload -Name '*' -TcpIPv4"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterChecksumOffload -Name '*' -TcpIPv6"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterLso -Name '*'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterIPsecOffload -Name '*'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterPowerManagement -Name '*'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetOffloadGlobalSetting -Chimney Disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetOffloadGlobalSetting -ReceiveSegmentCoalescing disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetOffloadGlobalSetting -PacketCoalescingFilter disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetOffloadGlobalSetting -TaskOffload Disabled"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Enable-NetAdapterRss -Name '*'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterRsc -Name '*'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterQos -Name '*'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterRss -Name 'Ethernet' -BaseProcessorNumber 2"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Flow Control' -DisplayValue 'disabled'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Interrupt Moderation' -DisplayValue 'disabled'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Interrupt Moderation Rate' -DisplayValue 'Off'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Enable PME' -DisplayValue 'disabled'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Maximum Number of RSS Queues' -DisplayValue '4 Queues'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Transmit Buffers' -DisplayValue '2048'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Receive Buffers' -DisplayValue '2048'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Large Send Offload V2 (IPv4)' -DisplayValue 'Disabled'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Large Send Offload V2 (IPv6)' -DisplayValue 'Disabled'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'TCP Checksum Offload (IPv4)' -DisplayValue 'Disabled'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'TCP Checksum Offload (IPv6)' -DisplayValue 'Disabled'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'UDP Checksum Offload (IPv4)' -DisplayValue 'Disabled'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'UDP Checksum Offload (IPv6)' -DisplayValue 'Disabled'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'IPv4 Checksum Offload' -DisplayValue 'Disabled'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Gigabit Master Slave Mode' -DisplayValue 'Auto Detect'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'RSS load balancing profile' -DisplayValue 'NUMAScaling'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Protocol ARP Offload' -DisplayValue 'Disabled'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Protocol NS Offload' -DisplayValue 'Disabled'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Ultra Low Power Mode' -DisplayValue 'Disabled'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Jumbo Packet' -DisplayValue 'Disabled'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Wake on Magic Packet' -DisplayValue 'Disabled'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Wake on Link Settings' -DisplayValue 'Disabled'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Wait for Link' -DisplayValue 'off'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Energy Efficient Ethernet' -DisplayValue 'Off'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Reduce Speed On Power Down' -DisplayValue 'Disabled'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'System Idle Power Saver' -DisplayValue 'Disabled'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Log Link State Event' -DisplayValue 'Disabled'"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Packet Priority & VLAN' -DisplayValue 'Packet Priority & VLAN Disabled'"
 
 rem disable network protocal
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_lldp"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_server"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_msclient"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_rspndr"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_lltdio"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_pacer"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_tcpip6"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_lldp"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_server"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_msclient"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_rspndr"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_lltdio"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_pacer"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_tcpip6"
 
 rem TcpAckFrequency
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$strGUIDS = [array](Get-WmiObject win32_networkadapter | Select-Object -expand GUID)"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "foreach ($strGUID in $strGUIDS) { New-ItemProperty -Path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -PropertyType DWORD -Name TcpAckFrequency -Value 1 -Force | Out-Null }"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "foreach ($strGUID in $strGUIDS) { New-ItemProperty -Path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -PropertyType DWORD -Name TCPNoDelay -Value 1 -Force | Out-Null }"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "foreach ($strGUID in $strGUIDS) { New-ItemProperty -Path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -PropertyType DWORD -Name TcpDelAckTicks -Value 0 -Force | Out-Null }"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$strGUIDS = [array](Get-WmiObject win32_networkadapter | Select-Object -expand GUID)"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "foreach ($strGUID in $strGUIDS) { New-ItemProperty -Path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -PropertyType DWORD -Name TcpAckFrequency -Value 1 -Force | Out-Null }"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "foreach ($strGUID in $strGUIDS) { New-ItemProperty -Path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -PropertyType DWORD -Name TCPNoDelay -Value 1 -Force | Out-Null }"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "foreach ($strGUID in $strGUIDS) { New-ItemProperty -Path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -PropertyType DWORD -Name TcpDelAckTicks -Value 0 -Force | Out-Null }"
 
 rem AFD_Parameters & CTCP Tweak
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "FastSendDatagramThreshold" /t REG_DWORD /d "1500" /f
@@ -3343,65 +3349,78 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "FastCopyRece
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Nsi\{eb004a03-9b1a-11d4-9123-0050047759bc}\0" /v "0200" /t REG_BINARY /d "000000000100000700000000000000001e0000000000000000000000020000000000000000000000000000000000ff00ff00ffff0000000000000000ffffffff0000000000000000ffff0000ffffffff0000000000000000" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Nsi\{eb004a03-9b1a-11d4-9123-0050047759bc}\0" /v "1700" /t REG_BINARY /d "000000000100000000000000000000000000000000000000000000000200000000000000000000000000000000000000ff00ff000000000000000000000000000000000000000000ff000000ffffffff0000000000000000" /f
 
+rem Tcpip Parameters
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "EnableICMPRedirect" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "EnablePMTUDiscovery" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "Tcp1323Opts" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "TcpMaxDupAcks" /t REG_DWORD /d "2" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "TcpTimedWaitDelay" /t REG_DWORD /d "32" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "GlobalMaxTcpWindowSize" /t REG_DWORD /d "8760" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "TcpWindowSize" /t REG_DWORD /d "8760" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "MaxConnectionsPerServer" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "MaxUserPort" /t REG_DWORD /d "65534" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "SackOpts" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "DefaultTTL" /t REG_DWORD /d "64" /f
+
 echo.
 echo ======================================================
 echo ------------ Disable Firewall ----------------
 echo ======================================================
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetFirewallProfile -Profile Domain, Public, Private -Enabled False"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetFirewallProfile -Profile Domain, Public, Private -Enabled False"
 echo.
 echo ======================================================
 echo ------------ Disable Memory Compression ----------------
 echo ======================================================
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-MMAgent -ApplicationLaunchPrefetching"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-MMAgent -ApplicationPreLaunch"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-MMAgent -PageCombining"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-MMAgent -MemoryCompression"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-Service 'SysMain' | Set-Service -StartupType Disabled -PassThru | Stop-Service"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-MMAgent -ApplicationLaunchPrefetching"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-MMAgent -ApplicationPreLaunch"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-MMAgent -PageCombining"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-MMAgent -MemoryCompression"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-Service 'SysMain' | Set-Service -StartupType Disabled -PassThru | Stop-Service"
 echo.
 echo ======================================================
 echo ------------ Disable Windows File Compression ----------------
 echo ======================================================
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "compact /CompactOs:never"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "compact /CompactOs:never"
 echo.
 echo ======================================================
 echo ------------ Removing Default Fax Printer ----------------
 echo ======================================================
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Printer -Name 'Fax' -ErrorAction SilentlyContinue"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Printer -Name 'Fax' -ErrorAction SilentlyContinue"
 
 rem Allows (1) or disallows (0) characters from the extended character set (including diacritic characters) to be used in 8.3 character-length short file names on NTFS volumes
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil behavior set allowextchar 1"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil behavior set allowextchar 1"
 
 rem Allows (1) or disallows (0) generation of a bug check when there is corruption on an NTFS volume. This feature can be used to prevent NTFS from silently deleting data when used with the Self-Healing NTFS feature
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil behavior set Bugcheckoncorrupt 0"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil behavior set Bugcheckoncorrupt 0"
 
 rem Disables (1) or enables (0) NTFS compression
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil behavior set disablecompression 1"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "cipher /d /s:C:\"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil behavior set disablecompression 1"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "cipher /d /s:C:\"
 
 rem Disables (1) or enables (0) updates to the Last Access Time stamp on each directory when directories are listed on an NTFS volume
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil behavior set DisableLastAccess 1"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil behavior set DisableLastAccess 1"
 
 rem Encrypts (1) or doesn't encrypt (0) the memory paging file in the Windows operating system
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil behavior set encryptpagingfile 0"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil behavior set encryptpagingfile 0"
 
 rem Configures the internal cache levels of NTFS paged-pool memory and NTFS nonpaged-pool memory. Set to 1 or 2. When set to 1 (the default), NTFS uses the default amount of paged-pool memory. When set to 2, NTFS increases the size of its lookaside lists and memory thresholds. (A lookaside list is a pool of fixed-size memory buffers that the kernel and device drivers create as private memory caches for file system operations, such as reading a file.)
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil behavior set memoryusage 2"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil behavior set memoryusage 2"
 
 rem Sets the size of the MFT Zone, and is expressed as a multiple of 200MB units. Set value to a number from 1 (default is 200 MB) to 4 (maximum is 800 MB)
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil behavior set mftzone 2"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil behavior set mftzone 2"
 
 rem Transactional Resource Manager
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil resource setavailable c:"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil resource setlog shrink 10 C:\"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil resource setavailable d:"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil resource setlog shrink 10 D:\"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil resource setautoreset true c:\"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil usn deletejournal /d /n c:"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil resource setavailable c:"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil resource setlog shrink 10 C:\"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil resource setavailable d:"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil resource setlog shrink 10 D:\"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil resource setautoreset true c:\"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil usn deletejournal /d /n c:"
 
 rem Enable TRIM support for NTFS and ReFS file systems for SSD drives
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Invoke-Expression -Command ('FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY NTFS 0') | Out-Null"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$QueryReFS = Invoke-Expression -Command ('FSUTIL BEHAVIOR QUERY DISABLEDELETENOTIFY') | Select-String -Pattern ReFS"
-%windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "If ($QueryReFS) { Invoke-Expression -Command ('FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY REFS 0') | Out-Null }"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Invoke-Expression -Command ('FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY NTFS 0') | Out-Null"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$QueryReFS = Invoke-Expression -Command ('FSUTIL BEHAVIOR QUERY DISABLEDELETENOTIFY') | Select-String -Pattern ReFS"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "If ($QueryReFS) { Invoke-Expression -Command ('FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY REFS 0') | Out-Null }"
 
 rem page file
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "ClearPageFileAtShutdown" /t REG_DWORD /d "0" /f
