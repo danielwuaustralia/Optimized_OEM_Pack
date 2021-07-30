@@ -2018,18 +2018,11 @@ reg delete "HKCU\Software\Microsoft\OneDrive" /f
 DEL /F /S /Q /A %LocalAppData%\Microsoft\Windows\Explorer\thumbcache_*.db
 DEL /F /S /Q /A %LocalAppData%\Microsoft\Windows\Explorer\iconcache_*.db
 DEL /F /S /Q /A %LocalAppData%\Microsoft\Windows\Explorer\ExplorerStartupLog_*.etl
+
 echo --- Remove EdgeChromium
 CALL "%windir%\Setup\Scripts\EdgeChromium.cmd"
-echo.
-echo ======================================================
-echo.
-echo ======================================================
-echo -------------------- Personal Tweaks --------------------
-echo ======================================================
-echo. unnecessary folders
-rem %windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -LiteralPath '%windir%\Help' -Force -Recurse"
-rem %windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Item -Path '' -Force"
-echo. Potplayer Setting
+
+echo --- Potplayer Setting
 reg add "HKCU\Software\Daum\PotPlayerMini64\AtscAntenaList" /v "0" /t REG_SZ /d "1|0|0|0|0|0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\AtscAntenaList" /v "1" /t REG_SZ /d "1|0|0|0|0|0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\AtscAntenaList" /v "2" /t REG_SZ /d "1|0|0|0|0|0" /f
@@ -3063,7 +3056,8 @@ reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AutoDownloadFile" /t R
 reg add "HKCU\Software\Daum\PotPlayerMini64" /v "AddMyComPL" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64" /v "ServiceValue" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64" /v "Check118_119" /t REG_DWORD /d "4" /f
-echo. LAV Filter Settings
+
+echo --- LAV Filter Settings
 reg add "HKCU\Software\LAV\Audio" /v "TrayIcon" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\LAV\Audio" /v "DRCEnabled" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\LAV\Audio" /v "DRCLevel" /t REG_DWORD /d "100" /f
@@ -3143,103 +3137,101 @@ reg add "HKCU\Software\LAV\Splitter\Formats" /v "ac3" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\LAV\Splitter\Formats" /v "aac" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\LAV\Splitter\Formats" /v "mp3" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\LAV\Splitter\Formats" /v "flac" /t REG_DWORD /d "1" /f
-echo. 
-echo ---- register video filters
+
+echo ---  register video filters
 regsvr32.exe "%windir%\SysWOW64\XySubFilter.dll" /s
 regsvr32.exe "%windir%\SysWOW64\VSFilter.dll" /s
 regsvr32.exe "C:\Program Files\madVR\madVR64.ax" /s
-echo. 
-echo ---- import trusted certificate
+
+echo --- import trusted certificate
 rem http://woshub.com/updating-trusted-root-certificates-in-windows-10/
 rem "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "certutil.exe -generateSSTFromWU %WINDIR%\Setup\Scripts\roots.sst"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-ChildItem -Path %WINDIR%\Setup\Scripts\roots.sst | Import-Certificate -CertStoreLocation Cert:\LocalMachine\Root"
-echo. New PC name
+
+echo --- New PC name
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Rename-Computer -NewName 'Alienware'"
-rem Allow Windows Apps to be uninstalled
+
+echo --- Allow Windows Apps to be uninstalled
 Dism /Online /Set-NonRemovableAppPolicy /PackageFamily:* /NonRemovable:0
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NonRemovableAppsPolicy -Online -PackageFamilyName * -NonRemovable 0 -Verbose"
 rem %windir%\System32\PowerRun /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-AppXProvisionedPackage -Online | Out-GridView -PassThru -Title 'Remove Windows Apps' | Remove-AppXProvisionedPackage -Online -AllUsers -ErrorAction SilentlyContinue -Verbose"
-echo.   mouse setting
+
+echo --- mouse setting
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ItemProperty -Path 'HKCU:\Control Panel\Mouse' 'MouseSensitivity' '10'"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ItemProperty -Path 'HKCU:\Control Panel\Mouse' 'MouseSpeed' '0'"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ItemProperty -Path 'HKCU:\Control Panel\Mouse' 'MouseThreshold1' '0'"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ItemProperty -Path 'HKCU:\Control Panel\Mouse' 'MouseThreshold2' '0'"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ItemProperty -Path 'HKCU:\Control Panel\Mouse' 'SmoothMouseXCurve' ([byte[]](0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0xC0, 0xCC, 0x0C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x99, 0x19, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x66, 0x26, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x33, 0x33, 0x00, 0x00, 0x00, 0x00, 0x00))"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ItemProperty -Path 'HKCU:\Control Panel\Mouse' 'SmoothMouseXCurve' ([byte[]](0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x38, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x70, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xA8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xE0, 0x00, 0x00, 0x00, 0x00, 0x00))"
-echo.
 
-echo ---disable error erport
+echo --- disable error erport
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-WindowsErrorReporting"
-echo. 
 
-echo ---Disable System Devices
-"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-PnpDevice | Where-Object { $_.FriendlyName -match 'High precision event timer' } | Disable-PnpDevice -Confirm:$false"
+echo --- Disable Uncessary System Devices
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-PnpDevice | Where-Object { $_.FriendlyName -match 'Microsoft Kernel Debug Network Adapter' } | Disable-PnpDevice -Confirm:$false"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-PnpDevice | Where-Object { $_.FriendlyName -match 'Microsoft Wi-Fi Direct Virtual Adapter' } | Disable-PnpDevice -Confirm:$false"
-echo.
 
-echo ---Network Optimize
-echo ---AutoTuningLevelLocal
+echo --- AutoTuningLevelLocal
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -AutomaticUseCustom Enabled"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -AutoTuningLevelLocal Experimental"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -AutoTuningLevelLocal Experimental"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -AutoTuningLevelLocal Experimental"
 
-rem CongestionProvider
+echo --- CongestionProvider
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -CongestionProvider LEDBAT"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -CongestionProvider LEDBAT"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -CongestionProvider LEDBAT"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -CongestionProvider LEDBAT"
 
-rem DelayedAckTimeoutMs
+echo --- DelayedAckTimeoutMs
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -DelayedAckTimeoutMs 50"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -DelayedAckTimeoutMs 50"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -DelayedAckTimeoutMs 50"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -ForceWS Disabled"
 
-rem force window scaling for retransmission
+echo --- force window scaling for retransmission
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Compat' -ForceWS Disabled"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -ForceWS Disabled"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -ForceWS Disabled"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -ForceWS Disabled"
 
-rem disable congestion window restart
+echo --- disable congestion window restart
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -CwndRestart True"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -CwndRestart True"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -CwndRestart True"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -CwndRestart True"
 
-rem disable memory pressure protection. TCP memory pressure protection helps ensure that a computer continues normal operation when low on memory due to denial of service attacks
+echo --- disable memory pressure protection. TCP memory pressure protection helps ensure that a computer continues normal operation when low on memory due to denial of service attacks
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -MemoryPressureProtection Disabled"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -MemoryPressureProtection Disabled"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -MemoryPressureProtection Disabled"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -MemoryPressureProtection Disabled"
 
-rem disable round trip time resiliency for clients that do not support selective acknowledgment
+echo --- disable round trip time resiliency for clients that do not support selective acknowledgment
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -NonSackRttResiliency Disabled"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -NonSackRttResiliency Disabled"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -NonSackRttResiliency Disabled"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -NonSackRttResiliency Disabled"
 
-rem disable scaling heuristics
+echo --- disable scaling heuristics
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -ScalingHeuristics Disabled"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -ScalingHeuristics Disabled"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -ScalingHeuristics Disabled"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -ScalingHeuristics Disabled"
 
-rem Timestamps facilitate round trip measurement, and can help protect against wrapped sequence numbers on high throughput links. For more information about TCP timestamps, see RFC 1323
+echo --- Timestamps facilitate round trip measurement, and can help protect against wrapped sequence numbers on high throughput links. For more information about TCP timestamps, see RFC 1323
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -Timestamps Disabled"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -Timestamps Disabled"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -Timestamps Disabled"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -Timestamps Disabled"
 
-rem Specifies the initial size of the congestion window. Provide a value to multiply by the maximum segment size (MSS). The acceptable values for this parameter are: even numbers from 2 through 64
+echo --- Specifies the initial size of the congestion window. Provide a value to multiply by the maximum segment size (MSS). The acceptable values for this parameter are: even numbers from 2 through 64
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -InitialCongestionWindow 10"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -InitialCongestionWindow 10"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -InitialCongestionWindow 10"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -InitialCongestionWindow 10"
 
-rem Specifies the maximum number of times the computer sends SYN packets without receiving a response.
+echo --- Specifies the maximum number of times the computer sends SYN packets without receiving a response.
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Datacenter' -MaxSynRetransmissions 2"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'Internet' -MaxSynRetransmissions 2"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'DatacenterCustom' -MaxSynRetransmissions 2"
@@ -3313,7 +3305,7 @@ netsh int ipv4 set subinterface 'Wi-Fi' mtu=1500 store=persistent
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Log Link State Event' -DisplayValue 'Disabled'"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetAdapterAdvancedProperty -Name '*' -DisplayName 'Packet Priority & VLAN' -DisplayValue 'Packet Priority & VLAN Disabled'"
 
-rem disable network protocal
+echo --- disable network protocal
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_lldp"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_server"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_msclient"
@@ -3322,19 +3314,19 @@ rem disable network protocal
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_pacer"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_tcpip6"
 
-rem TcpAckFrequency
+echo --- TcpAckFrequency
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$strGUIDS = [array](Get-WmiObject win32_networkadapter | Select-Object -expand GUID)"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "foreach ($strGUID in $strGUIDS) { New-ItemProperty -Path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -PropertyType DWORD -Name TcpAckFrequency -Value 1 -Force | Out-Null }"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "foreach ($strGUID in $strGUIDS) { New-ItemProperty -Path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -PropertyType DWORD -Name TCPNoDelay -Value 1 -Force | Out-Null }"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "foreach ($strGUID in $strGUIDS) { New-ItemProperty -Path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -PropertyType DWORD -Name TcpDelAckTicks -Value 0 -Force | Out-Null }"
 
-rem AFD_Parameters & CTCP Tweak
+echo --- AFD_Parameters & CTCP Tweak
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "FastSendDatagramThreshold" /t REG_DWORD /d "1500" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "FastCopyReceiveThreshold" /t REG_DWORD /d "1500" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Nsi\{eb004a03-9b1a-11d4-9123-0050047759bc}\0" /v "0200" /t REG_BINARY /d "000000000100000700000000000000001e0000000000000000000000020000000000000000000000000000000000ff00ff00ffff0000000000000000ffffffff0000000000000000ffff0000ffffffff0000000000000000" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Nsi\{eb004a03-9b1a-11d4-9123-0050047759bc}\0" /v "1700" /t REG_BINARY /d "000000000100000000000000000000000000000000000000000000000200000000000000000000000000000000000000ff00ff000000000000000000000000000000000000000000ff000000ffffffff0000000000000000" /f
 
-rem Tcpip Parameters
+echo --- Tcpip Parameters
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "EnableICMPRedirect" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "EnablePMTUDiscovery" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "Tcp1323Opts" /t REG_DWORD /d "0" /f
@@ -3347,60 +3339,51 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "MaxUserPor
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "SackOpts" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "DefaultTTL" /t REG_DWORD /d "64" /f
 
-rem Host Resolution Priority Tweak
+echo --- Host Resolution Priority Tweak
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" /v "DnsPriority" /t REG_DWORD /d "6" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" /v "HostsPriority" /t REG_DWORD /d "5" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" /v "LocalPriority" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" /v "NetbtPriority" /t REG_DWORD /d "7" /f
 
-echo.
-echo ======================================================
-echo ------------ Disable Firewall ----------------
-echo ======================================================
+echo --- Disable Firewall
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetFirewallProfile -Profile Domain, Public, Private -Enabled False"
-echo.
-echo ======================================================
-echo ------------ Disable Memory Compression ----------------
-echo ======================================================
+
+echo --- Disable Memory Compression
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-MMAgent -ApplicationLaunchPrefetching"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-MMAgent -ApplicationPreLaunch"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-MMAgent -PageCombining"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-MMAgent -MemoryCompression"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-Service 'SysMain' | Set-Service -StartupType Disabled -PassThru | Stop-Service"
-echo.
-echo ======================================================
-echo ------------ Disable Windows File Compression ----------------
-echo ======================================================
+
+echo --- Disable Windows File Compression
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "compact /CompactOs:never"
-echo.
-echo ======================================================
-echo ------------ Removing Default Fax Printer ----------------
-echo ======================================================
+
+echo --- Removing Default Fax Printer
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Remove-Printer -Name 'Fax' -ErrorAction SilentlyContinue"
 
-rem Allows (1) or disallows (0) characters from the extended character set (including diacritic characters) to be used in 8.3 character-length short file names on NTFS volumes
+echo --- Allows (1) or disallows (0) characters from the extended character set (including diacritic characters) to be used in 8.3 character-length short file names on NTFS volumes
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil behavior set allowextchar 1"
 
-rem Allows (1) or disallows (0) generation of a bug check when there is corruption on an NTFS volume. This feature can be used to prevent NTFS from silently deleting data when used with the Self-Healing NTFS feature
+echo --- Allows (1) or disallows (0) generation of a bug check when there is corruption on an NTFS volume. This feature can be used to prevent NTFS from silently deleting data when used with the Self-Healing NTFS feature
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil behavior set Bugcheckoncorrupt 0"
 
-rem Disables (1) or enables (0) NTFS compression
+echo --- Disables (1) or enables (0) NTFS compression
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil behavior set disablecompression 1"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "cipher /d /s:C:\"
 
-rem Disables (1) or enables (0) updates to the Last Access Time stamp on each directory when directories are listed on an NTFS volume
+echo --- Disables (1) or enables (0) updates to the Last Access Time stamp on each directory when directories are listed on an NTFS volume
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil behavior set DisableLastAccess 1"
 
-rem Encrypts (1) or doesn't encrypt (0) the memory paging file in the Windows operating system
+echo --- Encrypts (1) or doesn't encrypt (0) the memory paging file in the Windows operating system
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil behavior set encryptpagingfile 0"
 
-rem Configures the internal cache levels of NTFS paged-pool memory and NTFS nonpaged-pool memory. Set to 1 or 2. When set to 1 (the default), NTFS uses the default amount of paged-pool memory. When set to 2, NTFS increases the size of its lookaside lists and memory thresholds. (A lookaside list is a pool of fixed-size memory buffers that the kernel and device drivers create as private memory caches for file system operations, such as reading a file.)
+echo --- Configures the internal cache levels of NTFS paged-pool memory and NTFS nonpaged-pool memory. Set to 1 or 2. When set to 1 (the default), NTFS uses the default amount of paged-pool memory. When set to 2, NTFS increases the size of its lookaside lists and memory thresholds. (A lookaside list is a pool of fixed-size memory buffers that the kernel and device drivers create as private memory caches for file system operations, such as reading a file.)
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil behavior set memoryusage 2"
 
-rem Sets the size of the MFT Zone, and is expressed as a multiple of 200MB units. Set value to a number from 1 (default is 200 MB) to 4 (maximum is 800 MB)
+echo --- Sets the size of the MFT Zone, and is expressed as a multiple of 200MB units. Set value to a number from 1 (default is 200 MB) to 4 (maximum is 800 MB)
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil behavior set mftzone 2"
 
-rem Transactional Resource Manager
+echo --- Transactional Resource Manager
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil resource setavailable c:"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil resource setlog shrink 10 C:\"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil resource setavailable d:"
@@ -3408,12 +3391,12 @@ rem Transactional Resource Manager
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil resource setautoreset true c:\"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "fsutil usn deletejournal /d /n c:"
 
-rem Enable TRIM support for NTFS and ReFS file systems for SSD drives
+echo --- Enable TRIM support for NTFS and ReFS file systems for SSD drives
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Invoke-Expression -Command ('FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY NTFS 0') | Out-Null"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "$QueryReFS = Invoke-Expression -Command ('FSUTIL BEHAVIOR QUERY DISABLEDELETENOTIFY') | Select-String -Pattern ReFS"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "If ($QueryReFS) { Invoke-Expression -Command ('FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY REFS 0') | Out-Null }"
 
-rem page file
+echo --- page file
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "ClearPageFileAtShutdown" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "DisablePagingExecutive" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "LargeSystemCache" /t REG_DWORD /d "0" /f
@@ -3423,78 +3406,78 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "FeatureSettingsOverride" /t REG_DWORD /d "3" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "FeatureSettingsOverrideMask" /t REG_DWORD /d "3" /f
 
-rem allow microsoft edge to be uninstalled
+echo --- allow microsoft edge to be uninstalled
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge" /v "NoRemove" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge" /v "NoRemove" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge Update" /v "NoRemove" /t REG_DWORD /d "0" /f
 
-rem DoNotOpenServerManagerAtLogon
+echo --- DoNotOpenServerManagerAtLogon
 reg add "HKLM\SOFTWARE\Microsoft\ServerManager" /v "DoNotOpenServerManagerAtLogon" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\ServerManager" /v "DoNotPopWACConsoleAtSMLaunch" /t REG_DWORD /d "1" /f
 
-rem no shutdown event tracker
+echo --- no shutdown event tracker
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Reliability" /v "ShutdownReasonUI" /t REG_DWORD /d "0" /f
 
-rem Disable Folder Thumbnails without Disabling Thumbnail Preview for Files
+echo --- Disable Folder Thumbnails without Disabling Thumbnail Preview for Files
 reg add "HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\Bags\AllFolders\Shell" /v "Logo" /t REG_SZ /d "d:\somefile.jpg" /f
 
-rem disable open file warning
+echo --- disable open file warning
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Associations" /v "ModRiskFileTypes" /t REG_SZ /d ".bat.exe.reg.vbs.chm.msi.js.cmd" /f
 
-rem unpin Mail app
+echo --- unpin Mail app
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband\AuxilliaryPins" /v "MailPin" /t REG_DWORD /d "1" /f
 
-rem NoPinningStoreToTaskbar
+echo --- NoPinningStoreToTaskbar
 reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "NoPinningStoreToTaskbar" /t REG_DWORD /d "1" /f
 
-rem delete taskbar shortcuts
+echo --- delete taskbar shortcuts
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband" /f
 
-rem MacOS wallpaper
+echo --- MacOS wallpaper
 reg add "HKCU\Control Panel\Desktop" /v "WallPaper" /t REG_SZ /d "%windir%\Web\MacOS\11-0-Day.jpg" /f
 
-rem no Window border
+echo --- no Window border
 reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "BorderWidth" /t REG_SZ /d "0" /f
 reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "PaddedBorderWidth" /t REG_SZ /d "0" /f
 
-rem Disable SEHOP
+echo --- Disable SEHOP
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" /v "DisableExceptionChainValidation" /t REG_DWORD /d "0x1" /f
 
-rem Disable Ctrl+Alt+Del login
+echo --- Disable Ctrl+Alt+Del login
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "DisableCAD" /t REG_DWORD /d "1" /f
 
-rem Disable Cloud Optimized Taskbars
+echo --- Disable Cloud Optimized Taskbars
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent" /v "DisableCloudOptimizedContent" /t REG_DWORD /d "1" /f
 
-rem Disable Microsoft Store Apps Open Files in Default Desktop App
+echo --- Disable Microsoft Store Apps Open Files in Default Desktop App
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Associations" /v "BlockFileElevation" /t REG_DWORD /d "1" /f
 
-rem https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Windows-NCSI
+echo --- https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Windows-NCSI
 reg add "HKLM\SOFTWARE\POLICIES\MICROSOFT\Windows\NetworkConnectivityStatusIndicator" /v "UseGlobalDNS" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "EnableActiveProbing" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "PassivePollPeriod" /t REG_DWORD /d "30" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet" /v "MinimumInternetHopCount" /t REG_DWORD /d "1" /f
 
-rem Turn on hardware-accelerated GPU scheduling
+echo --- Turn on hardware-accelerated GPU scheduling
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" /v "HwSchMode" /t REG_DWORD /d "2" /f
 
-rem Disable Automatically save my restartable apps when I sign out and restart them after I sign in
+echo --- Disable Automatically save my restartable apps when I sign out and restart them after I sign in
 reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "RestartApps" /t REG_DWORD /d "0" /f
 
-rem Disable LLTDIO driver and Responder RSPNDR driver
+echo --- Disable LLTDIO driver and Responder RSPNDR driver
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\LLTD" /v "EnableRspndr" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\LLTD" /v "EnableLLTDIO" /t REG_DWORD /d "0" /f
 
-rem Internet Explorer - simultaneous connections to the internet
+echo --- Internet Explorer - simultaneous connections to the internet
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy" /v "fMinimizeConnections" /t REG_DWORD /d "0" /f
 
-rem Disable power management in connected standby mode
+echo --- Disable power management in connected standby mode
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy" /v "fDisablePowerManagement" /t REG_DWORD /d "1" /f
 
-rem This policy setting controls the appearance of window animations such as those found when restoring, minimizing, and maximizing windows
+echo --- This policy setting controls the appearance of window animations such as those found when restoring, minimizing, and maximizing windows
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DWM" /v "DisallowAnimations" /t REG_DWORD /d "1" /f
 
-rem minium visual
+echo --- minium visual
 reg add "HKCU\Control Panel\Desktop" /v "UserPreferencesMask" /t REG_BINARY /d "9012038010000000" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /v "VisualFXSetting" /t REG_DWORD /d "3" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\AnimateMinMax" /v "DefaultApplied" /t REG_DWORD /d "0" /f
@@ -3523,115 +3506,115 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "I
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAcrylicOpacity" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "EnableTransparency" /t REG_DWORD /d "1" /f
 
-rem https://www.tenforums.com/tutorials/103762-prevent-windows-10-deleting-thumbnail-cache.html
+echo --- https://www.tenforums.com/tutorials/103762-prevent-windows-10-deleting-thumbnail-cache.html
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Thumbnail Cache" /v "Autorun" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Thumbnail Cache" /v "Autorun" /t REG_DWORD /d "0" /f
 
-rem never auto logoff
+echo --- never auto logoff
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "InactivityTimeoutSecs" /t REG_DWORD /d "5871936" /f
 
-rem Disable UwpStartupTasks
+echo --- Disable UwpStartupTasks
 reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableUwpStartupTasks" /t REG_DWORD /d "0" /f
 
-rem no boot optimize
+echo --- no boot optimize
 reg add "HKLM\Software\Microsoft\Dfrg\BootOptimizeFunction" /v "Enable" /t REG_SZ /d "n" /f
 reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Prefetcher" /v "BootFilesOptimized" /t REG_DWORD /d "0" /f
 reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\OptimalLayout" /v "EnableAutoLayout" /t REG_DWORD /d "0" /f
 reg add "HKLM\Software\Microsoft\Windows\ScheduledDiagnostics" /v "EnabledExecution" /t REG_DWORD /d "0" /f
 
-rem https://www.tenforums.com/tutorials/103059-enable-disable-diagnostic-data-viewer-windows-10-a.html
+echo --- https://www.tenforums.com/tutorials/103059-enable-disable-diagnostic-data-viewer-windows-10-a.html
 reg Add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack\EventTranscriptKey" /T REG_DWORD /V "EnableEventTranscript" /D "1" /f
 
-rem no boot trace
+echo --- no boot trace
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" /v "EnableBoottrace" /t REG_DWORD /d "0" /f
 
-rem no PowerThrottling
+echo --- no PowerThrottling
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling" /v "PowerThrottlingOff" /t REG_DWORD /d "1" /f
 
-rem no hiber boot
+echo --- no hiber boot
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "CsEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "HiberbootEnabled" /t REG_DWORD /d "0" /f
 
-rem no startup delay
+echo --- no startup delay
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "AsyncScriptDelay" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "EnableLogonScriptDelay" /t REG_DWORD /d "0" /f
 
-rem Disable appresolver early start
+echo --- Disable appresolver early start
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /v "EarlyAppResolverStart" /t REG_DWORD /d "0" /f
 
-rem do not notifiy USB deivce error
+echo --- do not notifiy USB deivce error
 reg add "HKCU\Software\Microsoft\Shell\USB" /v "NotifyOnUsbErrors" /t REG_DWORD /d "1" /f
 
-rem en-US as first input method
+echo --- en-US as first input method
 reg add "HKU\.DEFAULT\Keyboard Layout\Preload" /v "1" /t REG_SZ /d "00000409" /f
 reg add "HKCU\Keyboard Layout\Preload" /v "1" /t REG_SZ /d "00000409" /f
 
-rem https://support.microsoft.com/en-us/topic/windows-client-guidance-for-it-pros-to-protect-against-speculative-execution-side-channel-vulnerabilities-35820a8a-ae13-1299-88cc-357f104f5b11
+echo --- https://support.microsoft.com/en-us/topic/windows-client-guidance-for-it-pros-to-protect-against-speculative-execution-side-channel-vulnerabilities-35820a8a-ae13-1299-88cc-357f104f5b11
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "FeatureSettingsOverride" /t REG_DWORD /d "3" /f
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "FeatureSettingsOverrideMask" /t REG_DWORD /d "3" /f
 
-rem no taskbar group
+echo --- no taskbar group
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoTaskGrouping" /t REG_DWORD /d "1" /f
 
-rem Turn off notification area cleanup
+echo --- Turn off notification area cleanup
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "	NoAutoTrayNotify" /t REG_DWORD /d "1" /f
 
-rem Disable Peer-to-Peer Networking
+echo --- Disable Peer-to-Peer Networking
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Peernet" /v "Disabled" /t REG_DWORD /d "1" /f
 
-rem https://docs.microsoft.com/en-us/windows/iot-core/learn-about-hardware/wakeontouch#disabling-modern-standby
+echo --- https://docs.microsoft.com/en-us/windows/iot-core/learn-about-hardware/wakeontouch#disabling-modern-standby
 reg add "HKLM\System\CurrentControlSet\Control\Power" /v "PlatformAoAcOverride" /t REG_DWORD /d "0"
 
-rem No Office 365 banner
+echo --- No Office 365 banner
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\0ff1ce15-a989-479d-af46-f275c6370663" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /f /v "KeyManagementServiceName" /t REG_SZ /d "0.0.0.0"
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /f /v "KeyManagementServiceName" /t REG_SZ /d "0.0.0.0" /reg:32
 
-rem Disable WFP logging - https://docs.microsoft.com/en-US/troubleshoot/windows-client/networking/lots-disk-io-writes-wfpdiag-etl-log
+echo --- Disable WFP logging - https://docs.microsoft.com/en-US/troubleshoot/windows-client/networking/lots-disk-io-writes-wfpdiag-etl-log
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\BFE\Parameters\Policy\Options" /v "CollectNetEvents" /t REG_DWORD /d "0" /f
 
-rem allow upgrade with unsupported CPU
+echo --- allow upgrade with unsupported CPU
 reg add "HKLM\SYSTEM\Setup\MoSetup" /v "AllowUpgradesWithUnsupportedTPMOrCPU" /t REG_DWORD /d "1" /f
 
-rem Network Throttling Index (Gaming)
+echo --- Network Throttling Index (Gaming)
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v "NetworkThrottlingIndex" /t REG_DWORD /d "4294967295" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v "SystemResponsiveness" /t REG_DWORD /d "0" /f
 
-rem Win11 - Start Button on left alignment
+echo --- Win11 - Start Button on left alignment
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAl" /t REG_DWORD /d 0 /f
 
-rem Win11 - Remove Widgets Button on Taskbar
+echo --- Win11 - Remove Widgets Button on Taskbar
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarDa" /t REG_DWORD /d 0 /f
 
-rem Win11 - Disable_show_snap_layouts_when_hover_over_maximize_button
+echo --- Win11 - Disable_show_snap_layouts_when_hover_over_maximize_button
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "EnableSnapAssistFlyout" /t REG_DWORD /d "0" /f
 
-rem Win11 - Disable_rminimize_windows_when_monitor_is_disconnected
+echo --- Win11 - Disable_rminimize_windows_when_monitor_is_disconnected
 reg add "HKCU\Control Panel\Desktop" /v "MonitorRemovalRecalcBehavior" /t REG_DWORD /d "1" /f
 
-rem Win11 - no Drag Full Window
+echo --- Win11 - no Drag Full Window
 reg add "HKCU\Control Panel\Desktop" /v "DragFullWindows" /t REG_SZ /d "0" /f
 
-rem Win11 - Enable Remember Window Locations
+echo --- Win11 - Enable Remember Window Locations
 reg add "HKCU\Control Panel\Desktop" /v "RestorePreviousStateRecalcBehavior" /t REG_DWORD /d "0" /f
 
-rem Win11 - remove the Open in Windows Terminal context menu
+echo --- Win11 - remove the Open in Windows Terminal context menu
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{9F156763-7844-4DC4-B2B1-901F640F5155}" /t REG_SZ /d "" /f 
 
-rem Win11 - No Chat Icon in Taskbar
+echo --- Win11 - No Chat Icon in Taskbar
 reg add "HKLM\Software\Policies\Microsoft\Windows\Windows Chat" /v "ChatIcon" /t REG_DWORD /d "3" /f
 
-rem install PingFang Font
+echo --- install PingFang Font
 copy "%WINDIR%\Setup\Scripts\Fonts\PingFangSC-Mod-16.d4e0-Regular.ttf" "%WINDIR%\Fonts"
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "PingFang SC Regular (TrueType)" /t REG_SZ /d "PingFangSC-Mod-16.d4e0-Regular.otf" /f
 
-rem auto start transparent taskbar
+echo --- auto start transparent taskbar
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "TranslucentTB" /t REG_SZ /d "\"C:\Program Files (x86)\TranslucentTB\TranslucentTB.exe\"" /f
 
-rem disable all power saving feature
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -NonInteractive -ExecutionPolicy Bypass %WINDIR%\Setup\Scripts\DisablePowerSaving.ps1
+echo --- disable all power saving feature
+"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -NonInteractive -ExecutionPolicy Bypass "%WINDIR%\Setup\Scripts\DisablePowerSaving.ps1"
 
-rem cleanup
+echo --- cleanup
 "%windir%\microsoft.net\Framework\v4.0.30319\ngen.exe" update /force /queue
 "%windir%\microsoft.net\Framework64\v4.0.30319\ngen.exe" update /force /queue
 "%windir%\microsoft.net\Framework\v4.0.30319\ngen.exe" executequeueditems
