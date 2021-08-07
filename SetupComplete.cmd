@@ -11,53 +11,21 @@ auditpol /set /subcategory:"User Account Management" /success:disable
 rem Powershell 7
 start /wait %windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
-start /wait %windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\ImageGlass.msi" /quiet /qn
-
-start /wait %windir%\Setup\Scripts\SOFTWARE\VisualCRuntimes\vcredist2005_x86.exe /q
-
-start /wait %windir%\Setup\Scripts\SOFTWARE\VisualCRuntimes\vcredist2005_x64.exe /q
-
-start /wait %windir%\Setup\Scripts\SOFTWARE\VisualCRuntimes\vcredist2008_x86.exe /qb
-
-start /wait %windir%\Setup\Scripts\SOFTWARE\VisualCRuntimes\vcredist2008_x64.exe /qb
-
-start /wait %windir%\Setup\Scripts\SOFTWARE\VisualCRuntimes\vcredist2010_x86.exe /passive /norestart
-
-start /wait %windir%\Setup\Scripts\SOFTWARE\VisualCRuntimes\vcredist2010_x64.exe /passive /norestart
-
-start /wait %windir%\Setup\Scripts\SOFTWARE\VisualCRuntimes\vcredist2012_x86.exe /passive /norestart
-
-start /wait %windir%\Setup\Scripts\SOFTWARE\VisualCRuntimes\vcredist2012_x64.exe /passive /norestart
-
-start /wait %windir%\Setup\Scripts\SOFTWARE\VisualCRuntimes\vcredist2013_x86.exe /passive /norestart
-
-start /wait %windir%\Setup\Scripts\SOFTWARE\VisualCRuntimes\vcredist2013_x64.exe /passive /norestart
-
-start /wait %windir%\Setup\Scripts\SOFTWARE\VisualCRuntimes\vcredist2015_2017_2019_2022_x86.exe /passive /norestart
-
-start /wait %windir%\Setup\Scripts\SOFTWARE\VisualCRuntimes\vcredist2015_2017_2019_2022_x64.exe /passive /norestart
-
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters.exe /VERYSILENT
 
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\java.exe /s
 
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vulkanruntime.exe /S
 
-start /wait %windir%\System32\msiexec.exe /package %WINDIR%\Setup\Scripts\SOFTWARE\ImageGlass.msi /quiet /norestart
-
-start /wait %windir%\System32\msiexec.exe /package %WINDIR%\Setup\Scripts\SOFTWARE\nodejs.msi /quiet /norestart
+start /wait %windir%\System32\msiexec.exe /package %WINDIR%\Setup\Scripts\SOFTWARE\node-v16.6.1-x64.msi /quiet /norestart
 
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VSCode.exe /SP- /VERYSILENT /NORESTART /SUPPRESSMSGBOXES /mergetasks=!runcode
 
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\netruntime32.exe /install /quiet /norestart
-
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\netruntime64.exe /install /quiet /norestart
-
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\python.exe /quiet
 
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\TranslucentTB.exe /VERYSILENT /SP- /SUPPRESSMSGBOXES
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VisualCppRedist_AIO_x86_x64.exe /ai
 
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\firefox.exe /S /TaskbarShortcut=false /DesktopShortcut=true /MaintenanceService=false
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\TranslucentTB.exe /VERYSILENT /SP- /SUPPRESSMSGBOXES
 
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassoactivator.exe -makekeyfile -product:2 -output:"%WINDIR%\Setup\Scripts\SOFTWARE"
 
