@@ -1714,16 +1714,6 @@ IF EXIST "%SystemRoot%\*.LOG" del /f /q "%SystemRoot%\*.LOG"
 IF EXIST "%SystemRoot%\*.log" del /f /q "%SystemRoot%\*.log"
 IF EXIST "%SystemRoot%\*.xml" del /f /q "%SystemRoot%\*.xml"
 IF EXIST "%SystemRoot%\*.ini" del /f /q "%SystemRoot%\*.ini"
-IF EXIST "%UserProfile%\3D Objects" rd /s /q "%UserProfile%\3D Objects"
-IF EXIST "%UserProfile%\Documents" rd /s /q "%UserProfile%\Documents"
-IF EXIST "%UserProfile%\Downloads" rd /s /q "%UserProfile%\Downloads"
-IF EXIST "%UserProfile%\Favorites" rd /s /q "%UserProfile%\Favorites"
-IF EXIST "%UserProfile%\OneDrive" rd /s /q "%UserProfile%\OneDrive"
-IF EXIST "%UserProfile%\Contacts" rd /s /q "%UserProfile%\Contacts"
-IF EXIST "%UserProfile%\Pictures" rd /s /q "%UserProfile%\Pictures"
-IF EXIST "%UserProfile%\Searches" rd /s /q "%UserProfile%\Searches"
-IF EXIST "%UserProfile%\Videos" rd /s /q "%UserProfile%\Videos"
-IF EXIST "%UserProfile%\Links" rd /s /q "%UserProfile%\Links"
 IF EXIST "%UserProfile%\Music" rd /s /q "%UserProfile%\Music"
 IF EXIST "%LocalAppData%\Temp" rd /s /q "%LocalAppData%\Temp"
 IF EXIST "%LocalAppData%\Programs" rd /s /q "%LocalAppData%\Programs"
@@ -1953,9 +1943,6 @@ reg delete "HKCU\Software\Microsoft\OneDrive" /f
 %Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter" /v "ActivationType" /t REG_DWORD /d 0 /f
 %Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\WOW6432Node\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter" /v "ActivationType" /t REG_DWORD /d 0 /f
 %Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel\NameSpace\{87D66A43-7B11-4A28-9811-C86EE395ACF7}" /f
-DEL /F /S /Q /A %LocalAppData%\Microsoft\Windows\Explorer\thumbcache_*.db
-DEL /F /S /Q /A %LocalAppData%\Microsoft\Windows\Explorer\iconcache_*.db
-DEL /F /S /Q /A %LocalAppData%\Microsoft\Windows\Explorer\ExplorerStartupLog_*.etl
 echo.
 
 echo --- Windows Update
@@ -3257,9 +3244,14 @@ echo.
 
 echo --- disable error erport
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Disable-WindowsErrorReporting -Verbose"
+echo.
+
 echo --- Disable Uncessary System Devices
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-PnpDevice | Where-Object { $_.FriendlyName -match 'Microsoft Kernel Debug Network Adapter' } | Disable-PnpDevice -Confirm:$false"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-PnpDevice | Where-Object { $_.FriendlyName -match 'Microsoft Wi-Fi Direct Virtual Adapter' } | Disable-PnpDevice -Confirm:$false"
+"C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-PnpDevice | Where-Object { $_.FriendlyName -match 'Mi Monitor (2- High Definition Audio Device)' } | Disable-PnpDevice -Confirm:$false"
+echo.
+
 echo --- AutoTuningLevelLocal
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -AutomaticUseCustom Enabled -Verbose"
 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-NetTCPSetting -SettingName 'InternetCustom' -AutoTuningLevelLocal Experimental -Verbose"
