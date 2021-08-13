@@ -480,7 +480,6 @@ for /f "delims=" %%S in ('reg query "HKLM\SYSTEM\ControlSet001\Services" /k /f "
 for /f "delims=" %%S in ('reg query "HKLM\SYSTEM\ControlSet001\Services" /k /f "UdkUserSvc_*" ^| find "UdkUserSvc"') do reg add "%%S" /v "Start" /t REG_DWORD /d "4" /f
 for /f "delims=" %%S in ('reg query "HKLM\SYSTEM\ControlSet001\Services" /k /f "UnistoreSvc_*" ^| find "UnistoreSvc"') do reg add "%%S" /v "Start" /t REG_DWORD /d "4" /f
 for /f "delims=" %%S in ('reg query "HKLM\SYSTEM\ControlSet001\Services" /k /f "UserDataSvc_*" ^| find "UserDataSvc"') do reg add "%%S" /v "Start" /t REG_DWORD /d "4" /f
-for /f "delims=" %%S in ('reg query "HKLM\SYSTEM\ControlSet001\Services" /k /f "WpnUserService_*" ^| find "WpnUserService"') do reg add "%%S" /v "Start" /t REG_DWORD /d "4" /f
 for /f "delims=" %%S in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /k /f "AarSvc_*" ^| find "AarSvc"') do reg add "%%S" /v "Start" /t REG_DWORD /d "4" /f
 for /f "delims=" %%S in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /k /f "BcastDVRUserService_*" ^| find "BcastDVRUserService"') do reg add "%%S" /v "Start" /t REG_DWORD /d "4" /f
 for /f "delims=" %%S in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /k /f "BluetoothUserService_*" ^| find "BluetoothUserService"') do reg add "%%S" /v "Start" /t REG_DWORD /d "4" /f
@@ -499,7 +498,6 @@ for /f "delims=" %%S in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /k 
 for /f "delims=" %%S in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /k /f "UdkUserSvc_*" ^| find "UdkUserSvc"') do reg add "%%S" /v "Start" /t REG_DWORD /d "4" /f
 for /f "delims=" %%S in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /k /f "UnistoreSvc_*" ^| find "UnistoreSvc"') do reg add "%%S" /v "Start" /t REG_DWORD /d "4" /f
 for /f "delims=" %%S in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /k /f "UserDataSvc_*" ^| find "UserDataSvc"') do reg add "%%S" /v "Start" /t REG_DWORD /d "4" /f
-for /f "delims=" %%S in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /k /f "WpnUserService_*" ^| find "WpnUserService"') do reg add "%%S" /v "Start" /t REG_DWORD /d "4" /f
 %Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\ControlSet001\Services\CSC" /v "Start" /t reg_DWORD /d "4" /f
 %Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\ControlSet001\Services\CscService" /v "Start" /t reg_DWORD /d "4" /f
 %Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\ControlSet001\Services\CredentialEnrollmentManagerUserSvc" /v "Start" /t reg_DWORD /d "4" /f
@@ -516,7 +514,6 @@ for /f "delims=" %%S in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /k 
 %Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\ControlSet001\Services\UserDataSvc" /v "Start" /t reg_DWORD /d "4" /f
 %Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\ControlSet001\Services\WinHttpAutoProxySvc" /v "Start" /t reg_DWORD /d "4" /f
 %Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\ControlSet001\Services\WMPNetworkSvc" /v "Start" /t reg_DWORD /d "4" /f
-%Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\ControlSet001\Services\WpnUserService" /v "Start" /t reg_DWORD /d "4" /f
 %Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\ControlSet001\Services\WaaSMedicSvc" /v "Start" /t reg_DWORD /d "4" /f
 %Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\ControlSet001\Services\WSearch" /v "Start" /t reg_DWORD /d "4" /f
 %Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\ControlSet001\Services\BITS" /v "Start" /t REG_DWORD /d "4" /f
@@ -554,7 +551,6 @@ for /f "delims=" %%S in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /k 
 %Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\UsoSvc" /v "Start" /t REG_DWORD /d "2" /f
 %Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\WinHttpAutoProxySvc" /v "Start" /t reg_DWORD /d "4" /f
 %Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\WMPNetworkSvc" /v "Start" /t reg_DWORD /d "4" /f
-%Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\WpnUserService" /v "Start" /t reg_DWORD /d "4" /f
 %Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\WaaSMedicSvc" /v "Start" /t reg_DWORD /d "4" /f
 %Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\WSearch" /v "Start" /t reg_DWORD /d "4" /f
 %Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\wuauserv" /v "Start" /t reg_DWORD /d "3" /f
@@ -643,7 +639,6 @@ sc config SmsRouter start=disabled
 sc config SNMPTRAP start=disabled
 sc config SSDPSRV start=disabled
 sc config StorSvc start=disabled
-sc config TabletInputService start=disabled
 sc config TermService start=disabled
 sc config tunnel start=disabled
 sc config UmRdpService start=disabled
@@ -944,70 +939,6 @@ reg add "HKLM\SOFTWARE\Policies\Wow6432Node\Microsoft\Windows\Windows Search" /v
 reg add "HKLM\SOFTWARE\Policies\Wow6432Node\Microsoft\Windows\Windows Search" /v "AllowCortanaAboveLock" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SmartGlass" /v "UserAuthPolicy" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SmartGlass" /v "BluetoothPolicy" /t REG_DWORD /d 0 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Internet Explorer" /v "AllowServicePoweredQSA" /t REG_DWORD /d 0 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Internet Explorer\Suggested Sites" /v "Enabled" /t REG_DWORD /d 0 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Internet Explorer\Geolocation" /v "PolicyDisableGeolocation" /t REG_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Internet Explorer\Infodelivery\Restrictions" /v "NoUpdateCheck" /t REG_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Internet Explorer\SQM" /v "DisableCustomerImprovementProgram" /t REG_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Internet Explorer\Safety\PrivacIE" /v "DisableLogging" /t REG_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Internet Explorer\Main" /v "DoNotTrack" /t REG_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Internet Explorer\Safety\PrivacIE" /v "DisableToolbars" /t REG_DWORD /d 1 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Internet Explorer\Main" /v "NoReportSiteProblems" /t REG_SZ /d "yes" /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Main" /v "DoNotTrack" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Main" /v "Use FormSuggest" /t REG_SZ /d no /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Main" /v "FormSuggest PW Ask" /t REG_SZ /d no /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Main" /v "HideNewEdgeButton" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Main" /v "IE10TourNoShow" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Main" /v "IE10TourShown" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Main" /v "IE10RunOncePerInstallCompleted" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Main" /v "AllowWindowReuse" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Main" /v "IE10TourShownTime" /t REG_BINARY /d "00" /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Main" /v "IE10RunOnceCompletionTime" /t REG_BINARY /d "00" /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Main" /v "IE10RunOnceLastShown_TIMESTAMP" /t REG_BINARY /d "00" /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Main" /v "IE10RecommendedSettingsNo" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Main" /v "Check_Associations" /t REG_SZ /d "no" /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Main" /v "Start Page" /t REG_SZ /d "about:Tabs" /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\GPU" /v "SubSysId" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\GPU" /v "Wow64-VersionLow" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\GPU" /v "Wow64-Revision" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\GPU" /v "Wow64-SubSysId" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\GPU" /v "Wow64-DeviceId" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\GPU" /v "Wow64-VendorId" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\GPU" /v "DXFeatureLevel" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\GPU" /v "VersionLow" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\GPU" /v "VersionHigh" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\GPU" /v "Revision" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\GPU" /v "Wow64-VersionHigh" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\GPU" /v "DeviceId" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\GPU" /v "VendorId" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\GPU" /v "Wow64-DXFeatureLevel" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\TabbedBrowsing" /v "PopupsUseNewWindow" /t REG_DWORD /d 2 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\TabbedBrowsing" /v "NewTabPageShow" /t REG_DWORD /d 2 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\TabbedBrowsing" /v "WarnOnClose" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\TabbedBrowsing" /v "ShowTabsWelcome" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\TabbedBrowsing" /v "OpenInForeground" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\BrowserStorage\AppCache" /v "AllowWebsiteCaches" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\BrowserStorage\IndexedDB" /v "AllowWebsiteDatabases" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\IntelliForms" /v "AskUser" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\AutoComplete" /v "Append Completion" /t REG_SZ /d no /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\SearchScopes" /v "ShowSearchSuggestionsInAddressGlobal" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\ContinuousBrowsing" /v "Enabled" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Geolocation" /v "BlockAllWebsites" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\New Windows" /v "PopupMgr" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Privacy" /v "UseAllowList" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Privacy" /v "CleanTIF" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Privacy" /v "CleanCookies" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Privacy" /v "CleanHistory" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Privacy" /v "CleanDownloadHistory" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Privacy" /v "CleanForms" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Privacy" /v "CleanPassword" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Privacy" /v "CleanTrackingProtection" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Privacy" /v "ClearBrowsingHistoryOnExit" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\PhishingFilter" /v "EnabledV9" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Suggested Sites" /v "Enabled" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\MINIE" /v "ShowStatusBar" /t REG_DWORD /d 1 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Feeds" /v "AutoMarkAsReadOPV" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Safety\PrivacIE" /v "DisableToolbars" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Personalization\Settings" /v "RestrictImplicitInkCollection" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Personalization\Settings" /v "AcceptedPrivacyPolicy" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "BackgroundModeEnabled" /t REG_DWORD /d 0 /f
@@ -1042,10 +973,10 @@ reg add "HKCU\Control Panel\Accessibility\StickyKeys" /v "Flags" /t REG_SZ /d 50
 reg add "HKCU\Control Panel\Accessibility\ToggleKeys" /v "Flags" /t REG_SZ /d 58 /f
 reg add "HKCU\Control Panel\Accessibility" /v "Warning Sounds" /t REG_DWORD /d 0 /f
 reg add "HKCU\Control Panel\Accessibility" /v "Sound on Activation" /t REG_DWORD /d 0 /f
-reg add "HKCU\Control Panel\Keyboard" /v "InitialKeyboardIndicators" /t REG_SZ /d 2147483650 /f
+reg add "HKCU\Control Panel\Keyboard" /v "InitialKeyboardIndicators" /t REG_SZ /d 2 /f
 reg add "HKCU\Control Panel\Keyboard" /v "KeyboardSpeed" /t REG_SZ /d 31 /f
 reg add "HKCU\Control Panel\Keyboard" /v "KeyboardDelay" /t REG_SZ /d 0 /f
-reg add "HKU\.DEFAULT\Control Panel\Keyboard" /v "InitialKeyboardIndicators" /t REG_SZ /d 2147483650 /f
+reg add "HKU\.DEFAULT\Control Panel\Keyboard" /v "InitialKeyboardIndicators" /t REG_SZ /d 2 /f
 reg add "HKCU\Software\Microsoft\Narrator\NarratorHome" /v "AutoStart" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Narrator\NarratorHome" /v "MinimizeType" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Narrator" /v "FollowInsertion" /t REG_DWORD /d 0 /f
@@ -1209,110 +1140,8 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableWebBro
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableWebBrowserSettingSyncUserOverride" /t REG_DWORD /d 2 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableWindowsSettingSync" /t REG_DWORD /d 2 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableWindowsSettingSyncUserOverride" /t REG_DWORD /d 2 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsAccessAccountInfo" /t REG_DWORD /d 2 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsAccessCalendar" /t REG_DWORD /d 2 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsAccessCallHistory" /t REG_DWORD /d 2 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsAccessCamera" /t REG_DWORD /d 2 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsAccessContacts" /t REG_DWORD /d 2 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsAccessEmail" /t REG_DWORD /d 2 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsAccessGazeInput" /t REG_DWORD /d 2 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsAccessLocation" /t REG_DWORD /d 2 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsAccessMessaging" /t REG_DWORD /d 2 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsAccessMicrophone" /t REG_DWORD /d 2 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsAccessMotion" /t REG_DWORD /d 2 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsAccessNotifications" /t REG_DWORD /d 2 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsAccessPhone" /t REG_DWORD /d 2 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsAccessRadios" /t REG_DWORD /d 2 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsAccessTasks" /t REG_DWORD /d 2 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsAccessTrustedDevices" /t REG_DWORD /d 2 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsGetDiagnosticInfo" /t REG_DWORD /d 2 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsRunInBackground" /t REG_DWORD /d 2 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsSyncWithDevices" /t REG_DWORD /d 2 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsActivateWithVoice" /t REG_DWORD /d 2 /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsActivateWithVoiceAboveLock" /t REG_DWORD /d 2 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsAccessBackgroundSpatialPerception" /t REG_DWORD /d 2 /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\activity" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\appDiagnostics" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\appointments" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\bluetooth" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\bluetoothSync" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\broadFileSystemAccess" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\cellularData" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\chat" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\contacts" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\documentsLibrary" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\email" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\gazeInput" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\humanInterfaceDevice" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\phoneCall" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\phoneCallHistory" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\picturesLibrary" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\radios" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\sensors.custom" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\serialCommunication" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\usb" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userDataTasks" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userNotificationListener" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\videosLibrary" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\webcam" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\wifiData" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\wiFiDirect" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\activity" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\appDiagnostics" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\appointments" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\bluetooth" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\bluetoothSync" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\broadFileSystemAccess" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\cellularData" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\chat" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\contacts" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\documentsLibrary" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\email" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\gazeInput" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\humanInterfaceDevice" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\phoneCall" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\phoneCallHistory" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\picturesLibrary" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\radios" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\sensors.custom" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\serialCommunication" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\usb" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userDataTasks" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userNotificationListener" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\videosLibrary" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\webcam" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\wifiData" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\wiFiDirect" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\musicLibrary" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\musicLibrary" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\downloadsFolder" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\downloadsFolder" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureProgrammatic" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureProgrammatic" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureWithoutBorder" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureWithoutBorder" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureProgrammatic\NonPackaged" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureProgrammatic\NonPackaged" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureWithoutBorder\NonPackaged" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\graphicsCaptureWithoutBorder\NonPackaged" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\appointments\Microsoft.Windows.Cortana_cw5n1h2txyewy" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\chat\Microsoft.Windows.Cortana_cw5n1h2txyewy" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\contacts\Microsoft.Windows.Cortana_cw5n1h2txyewy" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\documentsLibrary\Microsoft.Windows.SecHealthUI_cw5n1h2txyewy" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\email\Microsoft.Windows.Cortana_cw5n1h2txyewy" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location\Microsoft.Windows.Cortana_cw5n1h2txyewy" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\Microsoft.Windows.Cortana_cw5n1h2txyewy" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\phoneCall\Microsoft.Windows.Cortana_cw5n1h2txyewy" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\phoneCallHistory\Microsoft.Windows.Cortana_cw5n1h2txyewy" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\picturesLibrary\Microsoft.Windows.Cortana_cw5n1h2txyewy" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy" /v "Value" /t REG_SZ /d "Deny" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\webcam\Microsoft.Windows.Cortana_cw5n1h2txyewy" /v "Value" /t REG_SZ /d "Deny" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" /v "GlobalUserDisabled" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.SecHealthUI_8wekyb3d8bbwe" /v "Disabled" /t REG_DWORD /d 1 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications\Microsoft.SecHealthUI_8wekyb3d8bbwe" /v "DisabledByUser" /t REG_DWORD /d 1 /f
@@ -1540,10 +1369,6 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Deskt
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\PackageState" /v "Enabled" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\StartLayout" /v "Enabled" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Language" /v "Enabled" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\GameDVR" /v "AppCaptureEnabled" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\GameDVR" /v "HistoricalCaptureEnabled" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\GameDVR" /v "AudioCaptureEnabled" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\GameDVR" /v "CursorCaptureEnabled" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo" /v "Enabled" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo" /v "Id" /t REG_SZ /d "null" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\PenWorkspace" /v "PenWorkspaceAppSuggestionsEnabled" /t REG_DWORD /d 0 /f
@@ -1690,7 +1515,6 @@ echo.
 echo --- Remove Log Files ^& UnNeeded Directories
 %Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\cmd.exe rd /s /q "%ProgramData%\Microsoft\UEV"
 %Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\cmd.exe rd /s /q "%ProgramData%\Microsoft\AppV"
-COPY "%SystemRoot%\System32\ctfmon.exe" "%AppData%\Microsoft\Windows\Start Menu\Programs\Startup\ctfmon.exe" /V /Y
 IF EXIST "%SystemDrive%\DumpStack.log" del /f /q "%SystemDrive%\DumpStack.log."
 IF EXIST "%SystemDrive%\DumpStack.log.tmp" del /f /q "%SystemDrive%\DumpStack.log.tmp"
 IF EXIST "%SystemDrive%\$Recycle.Bin" rd /s /q "%SystemDrive%\$Recycle.Bin"
@@ -1736,6 +1560,9 @@ IF EXIST "%AppData%\Microsoft\Windows\SendTo\Documents.*" del "%AppData%\Microso
 IF EXIST "%AppData%\Microsoft\Windows\SendTo\Mail recipient.*" del "%AppData%\Microsoft\Windows\SendTo\Mail recipient.*" /a /f /q /s
 IF EXIST "%AppData%\Microsoft\Windows\SendTo\Compressed (zipped) folder.*" del "%AppData%\Microsoft\Windows\SendTo\Compressed (zipped) folder.*" /a /f /q /s
 IF EXIST "%AppData%\Microsoft\Windows\SendTo\*.LNK" del "%AppData%\Microsoft\Windows\SendTo\*.LNK" /a /f /q /s
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\edgeupdate" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\edgeupdatem" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\MicrosoftEdgeElevationService" /f
 echo.
 
 echo --- Disable Auditpolicy
@@ -3240,6 +3067,10 @@ reg add "HKCU\Control Panel\Cursors" /v "Arrow" /t REG_EXPAND_SZ /d "" /f
 reg add "HKCU\Control Panel\Cursors" /v "AppStarting" /t REG_EXPAND_SZ /d "" /f
 reg add "HKCU\Control Panel\Cursors" /ve /t REG_SZ /d "" /f
 reg add "HKCU\Control Panel\Cursors" /v "Wait" /t REG_EXPAND_SZ /d "" /f
+echo.
+
+echo --- Microsoft Pinyin
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "PinYin" /t REG_SZ /d "\"C:\Windows\System32\ctfmon.exe\"" /f
 echo.
 
 echo --- disable error erport
