@@ -8,8 +8,9 @@ auditpol /set /subcategory:"Special Logon" /success:disable
 auditpol /set /subcategory:"Audit Policy Change" /success:disable
 auditpol /set /subcategory:"User Account Management" /success:disable
 
-rem Powershell 7
-start /wait %windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
+%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
+
+%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\MicrosoftEdgeEnterpriseX64.msi" /quiet /norestart
 
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters.exe /VERYSILENT
 
@@ -20,8 +21,6 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vulkanruntime.exe /S
 start /wait %windir%\System32\msiexec.exe /package %WINDIR%\Setup\Scripts\SOFTWARE\node-v16.6.1-x64.msi /quiet /norestart
 
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VSCode.exe /SP- /VERYSILENT /NORESTART /SUPPRESSMSGBOXES /mergetasks=!runcode
-
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\python.exe /quiet
 
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VisualCppRedist_AIO_x86_x64.exe /ai
 
