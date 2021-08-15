@@ -698,6 +698,9 @@ sc config TroubleshootingSvc start=disabled
 sc config QWAVE start=disabled
 sc config WPDBusEnum start=disabled
 sc config swprv start=disabled
+sc config edgeupdate start= disabled
+sc config edgeupdatem start= disabled
+sc config MicrosoftEdgeElevationService start= disabled
 echo.
 
 echo --- Remove unuseful Right Click Menu
@@ -1560,9 +1563,6 @@ IF EXIST "%AppData%\Microsoft\Windows\SendTo\Documents.*" del "%AppData%\Microso
 IF EXIST "%AppData%\Microsoft\Windows\SendTo\Mail recipient.*" del "%AppData%\Microsoft\Windows\SendTo\Mail recipient.*" /a /f /q /s
 IF EXIST "%AppData%\Microsoft\Windows\SendTo\Compressed (zipped) folder.*" del "%AppData%\Microsoft\Windows\SendTo\Compressed (zipped) folder.*" /a /f /q /s
 IF EXIST "%AppData%\Microsoft\Windows\SendTo\*.LNK" del "%AppData%\Microsoft\Windows\SendTo\*.LNK" /a /f /q /s
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\edgeupdate" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\edgeupdatem" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\MicrosoftEdgeElevationService" /f
 echo.
 
 echo --- Disable Auditpolicy
@@ -1791,10 +1791,6 @@ reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "HideMCTLink" /t 
 reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "ActiveHoursEnd" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\StateVariables" /v "ActiveHoursEnd" /t REG_DWORD /d 0 /f
 reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\StateVariables" /v "ActiveHoursStart" /t REG_DWORD /d 8 /f
-echo.
-
-echo --- Remove EdgeChromium
-CALL "%windir%\Setup\Scripts\EdgeChromium.cmd"
 echo.
 
 echo --- Potplayer Setting
@@ -3325,6 +3321,8 @@ echo --- allow microsoft edge to be uninstalled
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge" /v "NoRemove" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge" /v "NoRemove" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge Update" /v "NoRemove" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\EdgeUpdate" /f /v "UpdateDefault" /t REG_DWORD / d "0"
+reg add "HKLM\SOFTWARE\Policies\Microsoft\EdgeUpdate" /f /v "AutoUpdateCheckPeriodMinutes" /t REG_DWORD / d "0"
 echo.
 
 echo --- DoNotOpenServerManagerAtLogon
