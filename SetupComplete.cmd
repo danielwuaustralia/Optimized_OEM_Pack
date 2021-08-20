@@ -1,67 +1,43 @@
 @echo off
-
-set "windowsappx=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Applications"
-for %%i in (
-Microsoft.BingNews
-Microsoft.BingWeather
-Microsoft.DesktopAppInstaller
-Microsoft.GamingApp
-Microsoft.GetHelp
-Microsoft.Getstarted
-Microsoft.HEIFImageExtension
-Microsoft.MicrosoftOfficeHub
-Microsoft.MicrosoftSolitaireCollection
-Microsoft.MicrosoftStickyNotes
-Microsoft.Paint
-Microsoft.People
-Microsoft.PowerAutomateDesktop
-Microsoft.ScreenSketch
-Microsoft.SecHealthUI
-Microsoft.StorePurchaseApp
-Microsoft.Todos
-Microsoft.VP9VideoExtensions
-Microsoft.WebMediaExtensions
-Microsoft.WebpImageExtension
-Microsoft.Windows.Photos
-Microsoft.WindowsAlarms
-Microsoft.WindowsCalculator
-Microsoft.WindowsCamera
-microsoft.windowscommunicationsapps
-Microsoft.WindowsFeedbackHub
-Microsoft.WindowsMaps
-Microsoft.WindowsNotepad
-Microsoft.WindowsSoundRecorder
-Microsoft.WindowsTerminal
-Microsoft.WindowsStore
-Microsoft.YourPhone
-Microsoft.ZuneMusic
-Microsoft.ZuneVideo
-) do (
-	for /f %%a in ('reg query "%windowsappx%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
+powercfg -h off
+rem net accounts /maxpwage:unlimited
+FOR /F "TOKENS=2 DELIMS==" %%A IN ('"WMIC /NAMESPACE:\\ROOT\CIMV2 PATH Win32_UserAccount GET Name /VALUE"') DO (
+CALL WMIC /NAMESPACE:\\ROOT\CIMV2 PATH Win32_UserAccount WHERE Name='%%A' SET PasswordExpires=FALSE
 )
+auditpol /set /subcategory:"Special Logon" /success:disable
+auditpol /set /subcategory:"Audit Policy Change" /success:disable
+auditpol /set /subcategory:"User Account Management" /success:disable
 
+rem start /wait %windir%\System32\msiexec.exe /package %WINDIR%\Setup\Scripts\SOFTWARE\ /quiet /norestart
 
-set "systemappx=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications"
-for %%i in (
-1527c705-839a-4832-9118-54d4Bd6a0c89
-c5e2524a-ea46-4f67-841f-6a9465d9d515
-E2A4F912-2574-4A75-9BB0-0D023378592B
-F46D4000-FD22-4DB4-AC8E-4E1DDDE828FE
-Microsoft.AAD.BrokerPlugin
-Microsoft.BioEnrollment
-Microsoft.ECApp
-Microsoft.LockApp
-Microsoft.Windows.Apprep.ChxApp
-Microsoft.Windows.AssignedAccessLockApp
-Microsoft.Windows.CallingShellApp
-Microsoft.Windows.CapturePicker
-Microsoft.Windows.ContentDeliveryManager
-Microsoft.Windows.ParentalControls
-Microsoft.Windows.PeopleExperienceHost
-Microsoft.Windows.PinningConfirmationDialog
-Microsoft.Windows.SecureAssessmentBrowser
-Microsoft.Windows.XGpuEjectDialog
-Windows.CBSPreview
-) do (
-	for /f %%a in ('reg query "%systemappx%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
-)
+%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
+
+%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\MicrosoftEdgeEnterpriseX64.msi" /quiet /norestart
+
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\dControl.exe /D
+
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters.exe /VERYSILENT
+
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\java.exe /s
+
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vulkanruntime.exe /S
+
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VSCode.exe /SP- /VERYSILENT /NORESTART /SUPPRESSMSGBOXES /mergetasks=!runcode
+
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VisualCppRedist_AIO_x86_x64.exe /ai
+
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\TranslucentTB.exe /VERYSILENT /SP- /SUPPRESSMSGBOXES
+
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassoactivator.exe -makekeyfile -product:2 -output:"%WINDIR%\Setup\Scripts\SOFTWARE"
+
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassosetup64.exe /S /keyfile=%WINDIR%\Setup\Scripts\SOFTWARE\prolasso.key /launch_gui=false /gui_start_type=all /governor_start_type=all /language=SimpChinese
+
+start /wait C:\PROGRA~1\UpdateTime\UpdateTime_x64.exe /SI
+
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\Win7GamesForWin10-Setup.exe /S /nouninstaller /lang=SimpChinese
+
+"%windir%\Setup\Scripts\Office365\setup.exe" /configure "%windir%\Setup\Scripts\Office365\Configuration.xml"
+
+call %windir%\Setup\Scripts\KMS.cmd
+
+%windir%\System32\UsoClient.exe RefreshSettings
