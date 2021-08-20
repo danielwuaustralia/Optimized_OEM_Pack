@@ -4,6 +4,7 @@ set "windowsappx=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUser
 for %%i in (
 Microsoft.BingNews
 Microsoft.BingWeather
+Microsoft.DesktopAppInstaller
 Microsoft.GamingApp
 Microsoft.GetHelp
 Microsoft.Getstarted
