@@ -2,9 +2,9 @@
 
 set "windowsappx=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Applications"
 for %%i in (
+Microsoft.549981C3F5F10
 Microsoft.BingNews
 Microsoft.BingWeather
-Microsoft.DesktopAppInstaller
 Microsoft.GamingApp
 Microsoft.GetHelp
 Microsoft.Getstarted
@@ -33,6 +33,11 @@ Microsoft.WindowsNotepad
 Microsoft.WindowsSoundRecorder
 Microsoft.WindowsTerminal
 Microsoft.WindowsStore
+Microsoft.Xbox.TCUI
+Microsoft.XboxGameOverlay
+Microsoft.XboxGamingOverlay
+Microsoft.XboxIdentityProvider
+Microsoft.XboxSpeechToTextOverlay
 Microsoft.YourPhone
 Microsoft.ZuneMusic
 Microsoft.ZuneVideo
