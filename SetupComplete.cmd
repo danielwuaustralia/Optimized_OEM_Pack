@@ -24,7 +24,11 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vulkanruntime.exe /S
 
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VSCode.exe /SP- /VERYSILENT /NORESTART /SUPPRESSMSGBOXES /mergetasks=!runcode
 
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VisualCppRedist_AIO_x86_x64.exe /ai
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VisualCppRedist_AIO_x86_x64.exe /ai58X23TEV
+
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\7z2103-x64.exe /S
+
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\MicrosoftEdgeWebView2RuntimeInstallerX64.exe /silent /install
 
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\TranslucentTB.exe /VERYSILENT /SP- /SUPPRESSMSGBOXES
 
