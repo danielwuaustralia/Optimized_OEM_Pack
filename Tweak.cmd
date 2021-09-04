@@ -477,6 +477,7 @@ sc config edgeupdatem start=disabled
 sc config MicrosoftEdgeElevationService start=disabled
 sc config TabletInputService start=auto
 net start TabletInputService
+reg delete HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\IrisService /f
 echo.
 
 echo --- Remove unuseful Right Click Menu
@@ -3261,4 +3262,4 @@ echo.
 
 echo ********************** The End ***********************
 rem restart after 10secs
-shutdown /r /f /t 1078925-
+shutdown /r /f /t 10
