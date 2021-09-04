@@ -42,6 +42,9 @@ start /wait %WINDIR%\Setup\Scripts\Redist\2019\VC_redist.x86.exe /q /norestart
 
 start /wait %WINDIR%\Setup\Scripts\Redist\2019\VC_redist.x64.exe /q /norestart
 
+rem Direct X 10
+start /wait %WINDIR%\Setup\Scripts\DirectX\DXSETUP.exe /silent
+
 rem install apps
 %windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.2.0-preview.9-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
@@ -55,7 +58,7 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\java.exe /s
 
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vulkanruntime.exe /S
 
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VSCode.exe /SP- /VERYSILENT /NORESTART /SUPPRESSMSGBOXES /mergetasks=!runcode
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VSCodeSetup-x64-1.61.0-insider.exe /SP- /VERYSILENT /NORESTART /SUPPRESSMSGBOXES /mergetasks=!runcode
 
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Software.exe /S
 
