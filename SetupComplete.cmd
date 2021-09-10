@@ -38,27 +38,27 @@ start /wait %WINDIR%\Setup\Scripts\Redist\2017\vc_redist.x86.exe /q /norestart
 
 start /wait %WINDIR%\Setup\Scripts\Redist\2017\vc_redist.x64.exe /q /norestart
 
-start /wait %WINDIR%\Setup\Scripts\Redist\2019\VC_redist.x86.exe /q /norestart
-
-start /wait %WINDIR%\Setup\Scripts\Redist\2019\VC_redist.x64.exe /q /norestart
-
 rem Direct X 10
 start /wait %WINDIR%\Setup\Scripts\DirectX\DXSETUP.exe /silent
 
-rem install apps
+rem Powershell 7
 %windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.2.0-preview.9-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
+
+rem Edge Chrome
 
 %windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\MicrosoftEdgeEnterpriseX64.msi" /quiet /norestart
 
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\dControl.exe /D
 
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters.exe /VERYSILENT
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.75.1-3.exe /VERYSILENT
 
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\java.exe /s
 
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vulkanruntime.exe /S
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.2.189.1-Installer.exe /S
 
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VSCodeSetup-x64-1.61.0-insider.exe /SP- /VERYSILENT /NORESTART /SUPPRESSMSGBOXES /mergetasks=!runcode
+
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\XnView-win-full.exe /VERYSILENT /SUPPRESSMSGBOXES
 
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Software.exe /S
 
@@ -66,7 +66,7 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\7z2103-x64.exe /S
 
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\MicrosoftEdgeWebView2RuntimeInstallerX64.exe /silent /install
 
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\TranslucentTB.exe /VERYSILENT /SP- /SUPPRESSMSGBOXES
+rem start /wait %WINDIR%\Setup\Scripts\SOFTWARE\TranslucentTB.exe /VERYSILENT /SP- /SUPPRESSMSGBOXES
 
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassoactivator.exe -makekeyfile -product:2 -output:"%WINDIR%\Setup\Scripts\SOFTWARE"
 
