@@ -5,6 +5,7 @@ for %%i in (
 Microsoft.549981C3F5F10
 Microsoft.BingNews
 Microsoft.BingWeather
+Microsoft.DesktopAppInstaller
 Microsoft.GamingApp
 Microsoft.GetHelp
 Microsoft.Getstarted
@@ -14,7 +15,6 @@ Microsoft.MicrosoftSolitaireCollection
 Microsoft.MicrosoftStickyNotes
 Microsoft.Paint
 Microsoft.People
-Microsoft.PowerAutomateDesktop
 Microsoft.ScreenSketch
 Microsoft.SecHealthUI
 Microsoft.StorePurchaseApp
@@ -47,7 +47,6 @@ set "systemappx=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserS
 for %%i in (
 1527c705-839a-4832-9118-54d4Bd6a0c89
 c5e2524a-ea46-4f67-841f-6a9465d9d515
-E2A4F912-2574-4A75-9BB0-0D023378592B
 F46D4000-FD22-4DB4-AC8E-4E1DDDE828FE
 Microsoft.AAD.BrokerPlugin
 Microsoft.AsyncTextService
@@ -56,7 +55,7 @@ Microsoft.ECApp
 Microsoft.LockApp
 Microsoft.Windows.ParentalControls
 Microsoft.Windows.PeopleExperienceHost
-Microsoft.Windows.SecureAssessmentBrowser
+NcsiUwpApp
 Windows.CBSPreview
 ) do (
 	for /f %%a in ('reg query "%systemappx%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
