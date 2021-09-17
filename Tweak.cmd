@@ -18,32 +18,18 @@ reg add "HKLM\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v 
 echo.
 
 echo --- Font
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "苹方-简 中粗体 (TrueType)" /t REG_SZ /d "PingFangSC-Mod-16.d4e0-Semibold_0.otf" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Microsoft YaHei & Microsoft YaHei UI (TrueType)" /t REG_SZ /d "PingFangSC-Mod-16.d4e0-Semibold_0.otf" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Microsoft YaHei Bold & Microsoft YaHei UI Bold (TrueType)" /t REG_SZ /d "PingFangSC-Mod-16.d4e0-Semibold_0.otf" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Microsoft YaHei Light & Microsoft YaHei UI Light (TrueType)" /t REG_SZ /d "PingFangSC-Mod-16.d4e0-Semibold_0.otf" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Segoe UI (TrueType)" /t REG_SZ /d "PingFangSC-Mod-16.d4e0-Semibold_0.otf" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Segoe UI Variable (TrueType)" /t REG_SZ /d "PingFangSC-Mod-16.d4e0-Semibold_0.otf" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "SimSun & NSimSun (TrueType)" /t REG_SZ /d "PingFangSC-Mod-16.d4e0-Semibold_0.otf" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "SimSun-ExtB (TrueType)" /t REG_SZ /d "PingFangSC-Mod-16.d4e0-Semibold_0.otf" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "MS Shell Dlg" /t REG_SZ /d "苹方-简 中粗体" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "MS Shell Dlg 2" /t REG_SZ /d "苹方-简 中粗体" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts" /v "苹方-简 中粗体 (TrueType)" /t REG_SZ /d "PingFangSC-Mod-16.d4e0-Semibold_0.otf" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Microsoft YaHei & Microsoft YaHei UI (TrueType)" /t REG_SZ /d "PingFangSC-Mod-16.d4e0-Semibold_0.otf" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Microsoft YaHei Bold & Microsoft YaHei UI Bold (TrueType)" /t REG_SZ /d "PingFangSC-Mod-16.d4e0-Semibold_0.otf" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Microsoft YaHei Light & Microsoft YaHei UI Light (TrueType)" /t REG_SZ /d "PingFangSC-Mod-16.d4e0-Semibold_0.otf" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Segoe UI (TrueType)" /t REG_SZ /d "PingFangSC-Mod-16.d4e0-Semibold_0.otf" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Segoe UI Variable (TrueType)" /t REG_SZ /d "PingFangSC-Mod-16.d4e0-Semibold_0.otf" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts" /v "SimSun & NSimSun (TrueType)" /t REG_SZ /d "PingFangSC-Mod-16.d4e0-Semibold_0.otf" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts" /v "SimSun-ExtB (TrueType)" /t REG_SZ /d "PingFangSC-Mod-16.d4e0-Semibold_0.otf" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "MS Shell Dlg" /t REG_SZ /d "苹方-简 中粗体" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "MS Shell Dlg 2" /t REG_SZ /d "苹方-简 中粗体" /f
-reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "CaptionFont" /t REG_BINARY /d "F3FFFFFF000000000000000000000000580200000000008603020122F982B9652D00807B0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" /f
-reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "IconFont" /t REG_BINARY /d "F3FFFFFF000000000000000000000000580200000000008603020122F982B9652D00807B0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" /f
-reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "MenuFont" /t REG_BINARY /d "F3FFFFFF000000000000000000000000580200000000008603020122F982B9652D00807B0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" /f
-reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "MessageFont" /t REG_BINARY /d "F3FFFFFF000000000000000000000000580200000000008603020122F982B9652D00807B0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" /f
-reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "StatusFont" /t REG_BINARY /d "F3FFFFFF000000000000000000000000580200000000008603020122F982B9652D00807B0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" /f
-reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "SmCaptionFont" /t REG_BINARY /d "F3FFFFFF000000000000000000000000580200000000008603020122F982B9652D00807B0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Segoe UI (TrueType)" /t REG_SZ /d "msyh.ttc" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Segoe UI Variable (TrueType)" /t REG_SZ /d "msyh.ttc" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "SimSun & NSimSun (TrueType)" /t REG_SZ /d "msyh.ttc" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "SimSun-ExtB (TrueType)" /t REG_SZ /d "msyh.ttc" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "MS Shell Dlg" /t REG_SZ /d "Microsoft YaHei UI" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "MS Shell Dlg 2" /t REG_SZ /d "Microsoft YaHei UI" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Segoe UI (TrueType)" /t REG_SZ /d "msyh.ttc" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Segoe UI Variable (TrueType)" /t REG_SZ /d "msyh.ttc" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts" /v "SimSun & NSimSun (TrueType)" /t REG_SZ /d "msyh.ttc" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts" /v "SimSun-ExtB (TrueType)" /t REG_SZ /d "msyh.ttc" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "MS Shell Dlg" /t REG_SZ /d "Microsoft YaHei UI" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "MS Shell Dlg 2" /t REG_SZ /d "Microsoft YaHei UI" /f
 
 echo ---  Configure Power Plan Settings
 powercfg -h off
@@ -246,8 +232,8 @@ reg add "HKCU\Software\Classes\WOW6432Node\CLSID\{679f85cb-0220-4080-b29b-5540cc
 echo.
 
 echo --- Set User TEMP to Windows TEMP
-reg add "HKCU\Environment" /v "TEMP" /t reg_SZ /d "%SystemRoot%\Temp" /f
-reg add "HKCU\Environment" /v "TMP" /t reg_SZ /d "%SystemRoot%\Temp" /f
+reg add "HKCU\Environment" /v "TEMP" /t reg_SZ /d "C:\TEMP" /f
+reg add "HKCU\Environment" /v "TMP" /t reg_SZ /d "C:\TEMP" /f
 echo.
 
 echo --- Disable Administrative shares
@@ -1242,7 +1228,6 @@ rd /s /q "%ProgramData%\USOShared\Logs"
 rd /s /q "%ProgramData%\Microsoft OneDrive"
 rd /s /q "%ProgramData%\SoftwareDistribution"
 rd /s /q "%ProgramData%\WindowsHolographicDevices"
-del /f /q "C:\Users\Administrator\Desktop\Microsoft Edge.lnk"
 rd /s /q "%AppData%\Microsoft\Internet Explorer\Quick Launch\User Pinned"
 del /f /q "%AppData%\Microsoft\Internet Explorer\Quick Launch\Microsoft Edge*.lnk"
 del "%AppData%\Microsoft\Windows\SendTo\Documents.*" /a /f /q /s
@@ -1407,22 +1392,44 @@ reg unload HKLM\TEMP_NTUSER
 echo.
 
 echo --- Edge Policy
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge" /v "NoRemove" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge" /v "NoRemove" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge Update" /v "NoRemove" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "BackgroundModeEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "StartupBoostEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "SleepingTabsEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "DefaultBrowserSettingEnabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\EdgeUpdate" /v "UpdateDefault" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge" /v "NoRemove" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge" /v "NoRemove" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge Update" /v "NoRemove" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\MicrosoftEdge\SearchScopes" /v "ShowSearchSuggestionsGlobal" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Microsoft\EdgeUpdate" /v "DoNotUpdateToEdgeWithChromium" /t REG_DWORD /d "1" /f
-
-echo --- Disable SmartScreen
-rem https://pastebin.com/hLsCCZQY
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "SmartScreenEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "SmartScreenPuaEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "SmartScreenForTrustedDownloadsEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "DefaultGeolocationSetting" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "NewTabPageSearchBox" /t REG_SZ /d "redirect" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "PasswordManagerEnabled" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "ProxySettings" /t REG_SZ /d "\"ProxyMode\": \"direct\"" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "ShowHomeButton" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "PersonalizationReportingEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "PinningWizardAllowed" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "BrowserNetworkTimeQueriesEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "TabFreezingEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "AutoplayAllowed" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "PinningWizardAllowed" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "UserFeedbackAllowed" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "AlwaysOpenPdfExternally" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "AutoImportAtFirstRun" /t REG_DWORD /d "4" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "BrowserSignin" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "DnsOverHttpsMode" /t REG_SZ /d "off" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "SyncDisabled" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "PromotionalTabsEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "FavoritesBarEnabled" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "AddressBarMicrosoftSearchInBingProviderEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "HideFirstRunExperience" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "ShowMicrosoftRewards" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v "BuiltInDnsClientEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\EdgeUpdate" /v "CreateDesktopShortcut{56EB18F8-B008-4CBD-B6D2-8C97FE7E9062}" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\EdgeUpdate" /v "Update{56EB18F8-B008-4CBD-B6D2-8C97FE7E9062}" /t REG_DWORD /d "2" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\EdgeUpdate" /v "ProxyMode" /t REG_SZ /d "direct" /f
+
+echo --- Disable SmartScreen
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "EnableSmartScreen" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "DisableHHDEP" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "ShellSmartScreenLevel" /t REG_SZ /d "Warn" /f
@@ -1503,7 +1510,7 @@ reg add "HKCU\Software\Daum\PotPlayerMini64\AtscCableList" /v "4" /t REG_SZ /d "
 reg add "HKCU\Software\Daum\PotPlayerMini64\AtscCableList" /v "5" /t REG_SZ /d "1|0|0|0|0|0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\AtscCableList" /v "6" /t REG_SZ /d "" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\BMItem_0" /ve /t REG_SZ /d "/f" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Dialog324" /v "WindowPosition" /t REG_SZ /d "856,371,1607,1011" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Dialog324" /v "WindowPosition" /t REG_SZ /d "856,371,1714,973" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\DvbcList" /v "0" /t REG_SZ /d "1|0|0|0|0|0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\DvbcList" /v "1" /t REG_SZ /d "1|0|0|0|0|0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\DvbcList" /v "2" /t REG_SZ /d "1|0|0|0|0|0" /f
@@ -1670,6 +1677,728 @@ reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0017" /v "FilterType" /t RE
 reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0017" /v "Merit" /t REG_DWORD /d "1140588544" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0017" /v "MeritHi" /t REG_DWORD /d "1048707" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0018" /v "Type" /t REG_DWORD /d "4294967294" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "Type" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "Disabled" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "DisplayName" /t REG_SZ /d "@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{E8E73B6B-4CB3-44A4-BE99-4F7BCB96E491}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "Name" /t REG_SZ /d "LAV Audio Decoder" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "CLSID" /t REG_SZ /d "{E8E73B6B-4CB3-44A4-BE99-4F7BCB96E491}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0000" /t REG_SZ /d "{ED0B916A-044D-11D1-AA78-00C04FC31D60}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0001" /t REG_SZ /d "{E06D802B-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0002" /t REG_SZ /d "{36523B13-8EE5-11D1-8CA3-0060B057664A}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0003" /t REG_SZ /d "{E06D802B-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0004" /t REG_SZ /d "{E06D8020-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0005" /t REG_SZ /d "{E06D802B-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0006" /t REG_SZ /d "{ED0B916A-044D-11D1-AA78-00C04FC31D60}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0007" /t REG_SZ /d "{E06D802C-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0008" /t REG_SZ /d "{36523B13-8EE5-11D1-8CA3-0060B057664A}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0009" /t REG_SZ /d "{E06D802C-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0010" /t REG_SZ /d "{E06D8020-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0011" /t REG_SZ /d "{E06D802C-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0012" /t REG_SZ /d "{ED0B916A-044D-11D1-AA78-00C04FC31D60}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0013" /t REG_SZ /d "{E06D8033-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0014" /t REG_SZ /d "{36523B13-8EE5-11D1-8CA3-0060B057664A}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0015" /t REG_SZ /d "{E06D8033-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0016" /t REG_SZ /d "{E06D8020-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0017" /t REG_SZ /d "{E06D8033-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0018" /t REG_SZ /d "{ED0B916A-044D-11D1-AA78-00C04FC31D60}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0019" /t REG_SZ /d "{E06D8032-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0020" /t REG_SZ /d "{36523B13-8EE5-11D1-8CA3-0060B057664A}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0021" /t REG_SZ /d "{E06D8032-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0022" /t REG_SZ /d "{E06D8020-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0023" /t REG_SZ /d "{E06D8032-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0024" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0025" /t REG_SZ /d "{000000FF-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0026" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0027" /t REG_SZ /d "{000001FF-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0028" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0029" /t REG_SZ /d "{00001602-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0030" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0031" /t REG_SZ /d "{4134504D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0032" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0033" /t REG_SZ /d "{6134706D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0034" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0035" /t REG_SZ /d "{53544441-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0036" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0037" /t REG_SZ /d "{00001600-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0038" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0039" /t REG_SZ /d "{00001601-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0040" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0041" /t REG_SZ /d "{00001610-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0042" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0043" /t REG_SZ /d "{20534C41-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0044" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0045" /t REG_SZ /d "{E06D802C-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0046" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0047" /t REG_SZ /d "{A7FB87AF-2D02-42FB-A4D4-05CD93843BDD}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0048" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0049" /t REG_SZ /d "{71CFA727-37E4-404A-AEC0-34842532EFF7}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0050" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0051" /t REG_SZ /d "{EB27CEC4-163E-4CA3-8B74-8E25F91B517E}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0052" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0053" /t REG_SZ /d "{00002000-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0054" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0055" /t REG_SZ /d "{E06D8033-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0056" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0057" /t REG_SZ /d "{00002001-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0058" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0059" /t REG_SZ /d "{A2E58EB7-0FA9-48BB-A40C-FA0E156D0645}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0060" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0061" /t REG_SZ /d "{E436EB80-524F-11CE-9F53-0020AF0BA770}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0062" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0063" /t REG_SZ /d "{E436EB81-524F-11CE-9F53-0020AF0BA770}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0064" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0065" /t REG_SZ /d "{00000050-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0066" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0067" /t REG_SZ /d "{E06D802B-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0068" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0069" /t REG_SZ /d "{00000055-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0070" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0071" /t REG_SZ /d "{0000F1AC-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0072" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0073" /t REG_SZ /d "{1541C5C0-CDDF-477D-BC0A-86F8AE7F8354}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0074" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0075" /t REG_SZ /d "{8D2FD10B-5841-4A6B-8905-588FEC1ADED9}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0076" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0077" /t REG_SZ /d "{000077A1-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0078" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0079" /t REG_SZ /d "{00005756-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0080" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0081" /t REG_SZ /d "{20504C4D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0082" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0083" /t REG_SZ /d "{63616C61-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0084" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0085" /t REG_SZ /d "{B82196E9-1B3F-4796-A636-46239087B38E}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0086" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0087" /t REG_SZ /d "{33534541-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0088" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0089" /t REG_SZ /d "{E06D8032-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0090" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0091" /t REG_SZ /d "{A23EB7FC-510B-466F-9FBF-5F878F69347C}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0092" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0093" /t REG_SZ /d "{949F97FD-56F6-4527-B4AE-DDEB375AB80F}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0094" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0095" /t REG_SZ /d "{454E4F4E-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0096" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0097" /t REG_SZ /d "{20776172-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0098" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0099" /t REG_SZ /d "{736F7774-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0100" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0101" /t REG_SZ /d "{74776F73-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0102" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0103" /t REG_SZ /d "{34326E69-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0104" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0105" /t REG_SZ /d "{32336E69-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0106" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0107" /t REG_SZ /d "{32336C66-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0108" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0109" /t REG_SZ /d "{34366C66-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0110" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0111" /t REG_SZ /d "{696E3234-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0112" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0113" /t REG_SZ /d "{696E3332-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0114" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0115" /t REG_SZ /d "{666C3332-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0116" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0117" /t REG_SZ /d "{666C3634-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0118" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0119" /t REG_SZ /d "{00000160-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0120" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0121" /t REG_SZ /d "{00000161-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0122" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0123" /t REG_SZ /d "{00000162-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0124" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0125" /t REG_SZ /d "{00000163-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0126" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0127" /t REG_SZ /d "{4B4F4F43-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0128" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0129" /t REG_SZ /d "{43414152-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0130" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0131" /t REG_SZ /d "{50434152-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0132" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0133" /t REG_SZ /d "{52504953-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0134" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0135" /t REG_SZ /d "{00000130-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0136" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0137" /t REG_SZ /d "{54454E44-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0138" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0139" /t REG_SZ /d "{385F3832-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0140" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0141" /t REG_SZ /d "{345F3431-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0142" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0143" /t REG_SZ /d "{464C4152-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0144" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0145" /t REG_SZ /d "{0000A109-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0146" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0147" /t REG_SZ /d "{0000704F-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0148" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0149" /t REG_SZ /d "{5355504F-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0150" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0151" /t REG_SZ /d "{726D6173-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0152" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0153" /t REG_SZ /d "{4C4C454E-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0154" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0155" /t REG_SZ /d "{00000006-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0156" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0157" /t REG_SZ /d "{00000007-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0158" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0159" /t REG_SZ /d "{00000031-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0160" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0161" /t REG_SZ /d "{00000002-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0162" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0163" /t REG_SZ /d "{00000022-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0164" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0165" /t REG_SZ /d "{324D4451-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0166" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0167" /t REG_SZ /d "{00000075-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0168" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0169" /t REG_SZ /d "{00000270-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0170" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0171" /t REG_SZ /d "{43525441-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0172" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0173" /t REG_SZ /d "{E923AABF-CB58-4471-A119-FFFA01E4CE62}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0174" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0175" /t REG_SZ /d "{AFBC2343-3DCB-4047-9655-E1E62A61B1C5}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "FilterType" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "Merit" /t REG_DWORD /d "8388611" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "MeritHi" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0001" /v "Type" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0001" /v "Disabled" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0001" /v "DisplayName" /t REG_SZ /d "@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{B98D13E7-55DB-4385-A33D-09FD1BA26338}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0001" /v "Name" /t REG_SZ /d "LAV Splitter Source" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0001" /v "CLSID" /t REG_SZ /d "{B98D13E7-55DB-4385-A33D-09FD1BA26338}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0001" /v "FilterType" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0001" /v "Merit" /t REG_DWORD /d "8388612" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0001" /v "MeritHi" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "Type" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "Disabled" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "DisplayName" /t REG_SZ /d "@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{EE30215D-164F-4A92-A4EB-9D4C13390F9F}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "Name" /t REG_SZ /d "LAV Video Decoder" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "CLSID" /t REG_SZ /d "{EE30215D-164F-4A92-A4EB-9D4C13390F9F}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0000" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0001" /t REG_SZ /d "{34363248-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0002" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0003" /t REG_SZ /d "{34363268-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0004" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0005" /t REG_SZ /d "{34363258-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0006" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0007" /t REG_SZ /d "{34363278-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0008" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0009" /t REG_SZ /d "{31435641-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0010" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0011" /t REG_SZ /d "{31637661-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0012" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0013" /t REG_SZ /d "{31564343-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0014" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0015" /t REG_SZ /d "{8D2D71CB-243F-45E3-B2D8-5FD7967EC09B}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0016" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0017" /t REG_SZ /d "{43564D41-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0018" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0019" /t REG_SZ /d "{3143564D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0020" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0021" /t REG_SZ /d "{43564548-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0022" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0023" /t REG_SZ /d "{31435648-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0024" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0025" /t REG_SZ /d "{30314D48-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0026" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0027" /t REG_SZ /d "{E436EB81-524F-11CE-9F53-0020AF0BA770}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0028" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0029" /t REG_SZ /d "{E436EB86-524F-11CE-9F53-0020AF0BA770}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0030" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0031" /t REG_SZ /d "{E06D8026-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0032" /t REG_SZ /d "{ED0B916A-044D-11D1-AA78-00C04FC31D60}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0033" /t REG_SZ /d "{E06D8026-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0034" /t REG_SZ /d "{36523B13-8EE5-11D1-8CA3-0060B057664A}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0035" /t REG_SZ /d "{E06D8026-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0036" /t REG_SZ /d "{E06D8020-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0037" /t REG_SZ /d "{E06D8026-DB46-11CF-B4D1-00805F6CBBEA}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0038" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0039" /t REG_SZ /d "{47504A4D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0040" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0041" /t REG_SZ /d "{6765706A-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0042" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0043" /t REG_SZ /d "{62706A6D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0044" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0045" /t REG_SZ /d "{31435657-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0046" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0047" /t REG_SZ /d "{31637677-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0048" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0049" /t REG_SZ /d "{41564D57-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0050" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0051" /t REG_SZ /d "{61766D77-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0052" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0053" /t REG_SZ /d "{32505657-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0054" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0055" /t REG_SZ /d "{32707677-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0056" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0057" /t REG_SZ /d "{31564D57-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0058" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0059" /t REG_SZ /d "{31766D77-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0060" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0061" /t REG_SZ /d "{32564D57-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0062" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0063" /t REG_SZ /d "{32766D77-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0064" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0065" /t REG_SZ /d "{33564D57-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0066" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0067" /t REG_SZ /d "{33766D77-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0068" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0069" /t REG_SZ /d "{50564D57-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0070" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0071" /t REG_SZ /d "{70766D77-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0072" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0073" /t REG_SZ /d "{30375056-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0074" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0075" /t REG_SZ /d "{30385056-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0076" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0077" /t REG_SZ /d "{30395056-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0078" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0079" /t REG_SZ /d "{31305641-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0080" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0081" /t REG_SZ /d "{44495658-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0082" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0083" /t REG_SZ /d "{64697678-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0084" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0085" /t REG_SZ /d "{58564944-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0086" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0087" /t REG_SZ /d "{78766964-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0088" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0089" /t REG_SZ /d "{78766944-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0090" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0091" /t REG_SZ /d "{30355844-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0092" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0093" /t REG_SZ /d "{30357864-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0094" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0095" /t REG_SZ /d "{5634504D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0096" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0097" /t REG_SZ /d "{7634706D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0098" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0099" /t REG_SZ /d "{3253344D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0100" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0101" /t REG_SZ /d "{3273346D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0102" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0103" /t REG_SZ /d "{5334504D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0104" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0105" /t REG_SZ /d "{7334706D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0106" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0107" /t REG_SZ /d "{34504D46-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0108" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0109" /t REG_SZ /d "{58564933-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0110" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0111" /t REG_SZ /d "{78766933-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0112" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0113" /t REG_SZ /d "{31564933-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0114" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0115" /t REG_SZ /d "{31766933-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0116" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0117" /t REG_SZ /d "{32564933-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0118" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0119" /t REG_SZ /d "{32766933-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0120" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0121" /t REG_SZ /d "{305A4C42-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0122" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0123" /t REG_SZ /d "{564F4547-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0124" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0125" /t REG_SZ /d "{3447504D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0126" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0127" /t REG_SZ /d "{3467706D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0128" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0129" /t REG_SZ /d "{3134504D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0130" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0131" /t REG_SZ /d "{3134706D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0132" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0133" /t REG_SZ /d "{31564944-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0134" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0135" /t REG_SZ /d "{31766964-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0136" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0137" /t REG_SZ /d "{3234504D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0138" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0139" /t REG_SZ /d "{3234706D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0140" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0141" /t REG_SZ /d "{32564944-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0142" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0143" /t REG_SZ /d "{32766964-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0144" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0145" /t REG_SZ /d "{3334504D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0146" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0147" /t REG_SZ /d "{3334706D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0148" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0149" /t REG_SZ /d "{33564944-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0150" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0151" /t REG_SZ /d "{33766964-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0152" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0153" /t REG_SZ /d "{3347504D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0154" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0155" /t REG_SZ /d "{3367706D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0156" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0157" /t REG_SZ /d "{34564944-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0158" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0159" /t REG_SZ /d "{34766964-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0160" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0161" /t REG_SZ /d "{35564944-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0162" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0163" /t REG_SZ /d "{35766964-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0164" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0165" /t REG_SZ /d "{36564944-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0166" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0167" /t REG_SZ /d "{36766964-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0168" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0169" /t REG_SZ /d "{33585644-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0170" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0171" /t REG_SZ /d "{33787664-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0172" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0173" /t REG_SZ /d "{44564933-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0174" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0175" /t REG_SZ /d "{31564C46-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0176" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0177" /t REG_SZ /d "{31766C66-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0178" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0179" /t REG_SZ /d "{30365056-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0180" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0181" /t REG_SZ /d "{30367076-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0182" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0183" /t REG_SZ /d "{31365056-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0184" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0185" /t REG_SZ /d "{31367076-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0186" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0187" /t REG_SZ /d "{32365056-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0188" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0189" /t REG_SZ /d "{32367076-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0190" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0191" /t REG_SZ /d "{41365056-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0192" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0193" /t REG_SZ /d "{61367076-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0194" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0195" /t REG_SZ /d "{46365056-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0196" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0197" /t REG_SZ /d "{66367076-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0198" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0199" /t REG_SZ /d "{34564C46-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0200" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0201" /t REG_SZ /d "{34766C66-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0202" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0203" /t REG_SZ /d "{31565346-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0204" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0205" /t REG_SZ /d "{30315652-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0206" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0207" /t REG_SZ /d "{30325652-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0208" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0209" /t REG_SZ /d "{30335652-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0210" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0211" /t REG_SZ /d "{30345652-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0212" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0213" /t REG_SZ /d "{64737664-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0214" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0215" /t REG_SZ /d "{44535644-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0216" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0217" /t REG_SZ /d "{48564443-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0218" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0219" /t REG_SZ /d "{43564443-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0220" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0221" /t REG_SZ /d "{35564443-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0222" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0223" /t REG_SZ /d "{35327664-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0224" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0225" /t REG_SZ /d "{35325644-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0226" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0227" /t REG_SZ /d "{30357664-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0228" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0229" /t REG_SZ /d "{30355644-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0230" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0231" /t REG_SZ /d "{70637664-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0232" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0233" /t REG_SZ /d "{70357664-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0234" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0235" /t REG_SZ /d "{6E357664-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0236" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0237" /t REG_SZ /d "{70707664-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0238" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0239" /t REG_SZ /d "{20637664-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0240" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0241" /t REG_SZ /d "{31687664-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0242" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0243" /t REG_SZ /d "{32687664-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0244" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0245" /t REG_SZ /d "{33687664-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0246" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0247" /t REG_SZ /d "{34687664-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0248" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0249" /t REG_SZ /d "{35687664-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0250" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0251" /t REG_SZ /d "{36687664-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0252" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0253" /t REG_SZ /d "{71687664-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0254" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0255" /t REG_SZ /d "{70687664-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0256" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0257" /t REG_SZ /d "{76645641-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0258" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0259" /t REG_SZ /d "{31645641-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0260" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0261" /t REG_SZ /d "{32706A6D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0262" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0263" /t REG_SZ /d "{43324A4D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0264" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0265" /t REG_SZ /d "{43324A4C-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0266" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0267" /t REG_SZ /d "{4B324A4C-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0268" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0269" /t REG_SZ /d "{324A5049-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0270" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0271" /t REG_SZ /d "{31515653-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0272" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0273" /t REG_SZ /d "{33515653-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0274" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0275" /t REG_SZ /d "{31363248-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0276" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0277" /t REG_SZ /d "{31363268-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0278" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0279" /t REG_SZ /d "{33363248-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0280" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0281" /t REG_SZ /d "{33363268-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0282" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0283" /t REG_SZ /d "{33363273-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0284" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0285" /t REG_SZ /d "{33363273-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0286" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0287" /t REG_SZ /d "{33363249-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0288" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0289" /t REG_SZ /d "{33363269-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0290" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0291" /t REG_SZ /d "{4F454854-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0292" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0293" /t REG_SZ /d "{6F656874-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0294" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0295" /t REG_SZ /d "{63637374-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0296" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0297" /t REG_SZ /d "{32637374-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0298" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0299" /t REG_SZ /d "{30355649-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0300" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0301" /t REG_SZ /d "{31345649-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0302" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0303" /t REG_SZ /d "{31335649-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0304" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0305" /t REG_SZ /d "{32335649-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0306" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0307" /t REG_SZ /d "{31535046-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0308" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0309" /t REG_SZ /d "{55594648-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0310" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0311" /t REG_SZ /d "{5347414C-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0312" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0313" /t REG_SZ /d "{64697663-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0314" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0315" /t REG_SZ /d "{20656C72-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0316" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0317" /t REG_SZ /d "{30335056-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0318" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0319" /t REG_SZ /d "{31335056-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0320" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0321" /t REG_SZ /d "{44435343-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0322" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0323" /t REG_SZ /d "{47455051-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0324" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0325" /t REG_SZ /d "{302E3151-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0326" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0327" /t REG_SZ /d "{312E3151-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0328" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0329" /t REG_SZ /d "{485A534D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0330" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0331" /t REG_SZ /d "{42494C5A-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0332" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0333" /t REG_SZ /d "{617A7072-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0334" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0335" /t REG_SZ /d "{00000001-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0336" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0337" /t REG_SZ /d "{68637061-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0338" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0339" /t REG_SZ /d "{6E637061-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0340" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0341" /t REG_SZ /d "{73637061-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0342" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0343" /t REG_SZ /d "{6F637061-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0344" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0345" /t REG_SZ /d "{68347061-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0346" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0347" /t REG_SZ /d "{78347061-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0348" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0349" /t REG_SZ /d "{41524C55-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0350" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0351" /t REG_SZ /d "{47524C55-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0352" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0353" /t REG_SZ /d "{30594C55-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0354" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0355" /t REG_SZ /d "{32594C55-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0356" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0357" /t REG_SZ /d "{34594C55-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0358" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0359" /t REG_SZ /d "{32595155-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0360" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0361" /t REG_SZ /d "{47525155-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0362" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0363" /t REG_SZ /d "{41525155-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0364" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0365" /t REG_SZ /d "{30484C55-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0366" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0367" /t REG_SZ /d "{32484C55-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0368" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0369" /t REG_SZ /d "{34484C55-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0370" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0371" /t REG_SZ /d "{32594D55-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0372" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0373" /t REG_SZ /d "{32484D55-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0374" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0375" /t REG_SZ /d "{34594D55-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0376" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0377" /t REG_SZ /d "{34484D55-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0378" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0379" /t REG_SZ /d "{47524D55-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0380" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0381" /t REG_SZ /d "{41524D55-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0382" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0383" /t REG_SZ /d "{56564D41-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0384" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0385" /t REG_SZ /d "{46564D41-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0386" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0387" /t REG_SZ /d "{64726376-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0388" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0389" /t REG_SZ /d "{63617264-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0390" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0391" /t REG_SZ /d "{6E645641-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0392" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0393" /t REG_SZ /d "{68645641-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0394" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0395" /t REG_SZ /d "{4D415243-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0396" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0397" /t REG_SZ /d "{4356534D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0398" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0399" /t REG_SZ /d "{4D414857-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0400" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0401" /t REG_SZ /d "{53504238-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0402" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0403" /t REG_SZ /d "{4F434F4C-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0404" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0405" /t REG_SZ /d "{56424D5A-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0406" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0407" /t REG_SZ /d "{31524356-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0408" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0409" /t REG_SZ /d "{43534141-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0410" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0411" /t REG_SZ /d "{574F4E53-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0412" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0413" /t REG_SZ /d "{31564646-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0414" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0415" /t REG_SZ /d "{48564646-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0416" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0417" /t REG_SZ /d "{636E4D56-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0418" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0419" /t REG_SZ /d "{434C4641-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0420" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0421" /t REG_SZ /d "{344D3247-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0422" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0423" /t REG_SZ /d "{646F6369-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0424" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0425" /t REG_SZ /d "{4B435544-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0426" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0427" /t REG_SZ /d "{30324D54-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0428" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0429" /t REG_SZ /d "{44484643-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0430" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0431" /t REG_SZ /d "{5947414D-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0432" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0433" /t REG_SZ /d "{694B4942-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0434" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0435" /t REG_SZ /d "{624B4942-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0436" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0437" /t REG_SZ /d "{324B4D53-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0438" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0439" /t REG_SZ /d "{344B4D53-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0440" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0441" /t REG_SZ /d "{56504854-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0442" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0443" /t REG_SZ /d "{56516F52-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0444" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0445" /t REG_SZ /d "{20676E70-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0446" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0447" /t REG_SZ /d "{46464954-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0448" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0449" /t REG_SZ /d "{20504D42-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0450" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0451" /t REG_SZ /d "{20464947-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0452" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0453" /t REG_SZ /d "{20414754-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0454" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0455" /t REG_SZ /d "{30313276-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0456" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0457" /t REG_SZ /d "{30313476-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0458" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0459" /t REG_SZ /d "{D80FA03C-35C1-4FA1-8C8E-375C8667166E}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "FilterType" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "Merit" /t REG_DWORD /d "8388611" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "MeritHi" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0003" /v "Type" /t REG_DWORD /d "4294967294" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "Type" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "Disabled" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "DisplayName" /t REG_SZ /d "@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{2DFCB782-EC20-4A7C-B530-4577ADB33F21}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "Name" /t REG_SZ /d "XySubFilter" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "CLSID" /t REG_SZ /d "{2DFCB782-EC20-4A7C-B530-4577ADB33F21}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0000" /t REG_SZ /d "{73747874-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0001" /t REG_SZ /d "{E436EB8E-524F-11CE-9F53-0020AF0BA770}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0002" /t REG_SZ /d "{73747874-0000-0010-8000-00AA00389B71}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0003" /t REG_SZ /d "{00000000-0000-0000-0000-000000000000}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0004" /t REG_SZ /d "{E487EB08-6B26-4BE9-9DD3-993434D313FD}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0005" /t REG_SZ /d "{E436EB8E-524F-11CE-9F53-0020AF0BA770}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0006" /t REG_SZ /d "{E487EB08-6B26-4BE9-9DD3-993434D313FD}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0007" /t REG_SZ /d "{87C0B230-03A8-4FDF-8010-B27A5848200D}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0008" /t REG_SZ /d "{E487EB08-6B26-4BE9-9DD3-993434D313FD}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0009" /t REG_SZ /d "{3020560F-255A-4DDC-806E-6C5CC6DCD70A}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0010" /t REG_SZ /d "{E487EB08-6B26-4BE9-9DD3-993434D313FD}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0011" /t REG_SZ /d "{326444F7-686F-47FF-A4B2-C8C96307B4C2}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0012" /t REG_SZ /d "{E487EB08-6B26-4BE9-9DD3-993434D313FD}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0013" /t REG_SZ /d "{370689E7-B226-4F67-978D-F10BC1A9C6AE}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0014" /t REG_SZ /d "{E487EB08-6B26-4BE9-9DD3-993434D313FD}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0015" /t REG_SZ /d "{76C421C4-DB89-42EC-936E-A9FBC1794714}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0016" /t REG_SZ /d "{E487EB08-6B26-4BE9-9DD3-993434D313FD}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0017" /t REG_SZ /d "{F7239E31-9599-4E43-8DD5-FBAF75CF37F1}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0018" /t REG_SZ /d "{E487EB08-6B26-4BE9-9DD3-993434D313FD}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0019" /t REG_SZ /d "{04EBA53E-9330-436C-9133-553EC87031DC}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0020" /t REG_SZ /d "{E487EB08-6B26-4BE9-9DD3-993434D313FD}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0021" /t REG_SZ /d "{34FFCBC3-D5B3-4171-9002-D4C60301697F}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "FilterType" /t REG_DWORD /d "2" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "Merit" /t REG_DWORD /d "8388610" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "MeritHi" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0001" /v "Type" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0001" /v "Disabled" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0001" /v "DisplayName" /t REG_SZ /d "@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{6B237877-902B-4C6C-92F6-E63169A5166C}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0001" /v "Name" /t REG_SZ /d "XySubFilterAutoLoader" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0001" /v "CLSID" /t REG_SZ /d "{6B237877-902B-4C6C-92F6-E63169A5166C}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0001" /v "mod0000" /t REG_SZ /d "{00000000-0000-0000-0000-000000000000}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0001" /v "mod0001" /t REG_SZ /d "{00000000-0000-0000-0000-000000000000}" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0001" /v "FilterType" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0001" /v "Merit" /t REG_DWORD /d "4294967295" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0001" /v "MeritHi" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0002" /v "Type" /t REG_DWORD /d "4294967294" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "MainWidth2" /t REG_DWORD /d "640" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "MainHeight2" /t REG_DWORD /d "412" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "VideoWindowWidth" /t REG_DWORD /d "4294967295" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "VideoWindowHeight" /t REG_DWORD /d "4294967295" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "MainWindowState" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "ChatWindowVisible" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "PlayListWindowVisible" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "PlayListWidth" /t REG_DWORD /d "286" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "TopMostWindow0" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "TopMostWindow1" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "TopMostWindow2" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "TopMostWindow3" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "TopMostWindow4" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "TopMostWindow5" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "TopMostWindow6" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "TopMostWindow7" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "TopMostWindow8" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "TopMostWindow9" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "ControlBoxWidth" /t REG_DWORD /d "330" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "ControlBoxHeight" /t REG_DWORD /d "195" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "LanguageIni" /t REG_SZ /d "Chinese(Simplified).ini" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "CudaDecoder" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "NvencEncoder" /t REG_DWORD /d "1" /f
@@ -1678,14 +2407,14 @@ reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "DmoDecoder" /t REG_DWO
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Info1" /t REG_SZ /d "" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Info6" /t REG_SZ /d "" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Info7" /t REG_SZ /d "" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "LastConfigPage" /t REG_DWORD /d "375" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "LastConfigPage" /t REG_DWORD /d "436" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "PlaybackMode" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "LastPlayListName" /t REG_SZ /d "PotPlayerMini64.dpl" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "LastSkinName" /t REG_SZ /d "YouTube_Slim.dsf" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "LastSkinXmlName" /t REG_SZ /d "VideoSkin.xml" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "LastSkinXmlNameVideo" /t REG_SZ /d "VideoSkin.xml" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "VideoRen2" /t REG_DWORD /d "10" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AudioVolume" /t REG_DWORD /d "70" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AudioVolume" /t REG_DWORD /d "95" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "RepeatPlay2" /t REG_DWORD /d "2" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "RepeatPlayAudio" /t REG_DWORD /d "2" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "PreviewSeekTime" /t REG_DWORD /d "1" /f
@@ -1774,10 +2503,10 @@ reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "StartScreenSize" /t RE
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "CaptionTranslateEngine2" /t REG_SZ /d "SubtitleTranslate - google.as" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "VMR9ColorManagementEnable" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "D3DFullScreenUi" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "MessageFontName" /t REG_SZ /d "苹方-简" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "MessageFontWeight" /t REG_DWORD /d "600" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "MessageFontName" /t REG_SZ /d "微软雅黑" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "MessageFontWeight" /t REG_DWORD /d "400" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "MessageFontSize" /t REG_DWORD /d "14" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "SO_FontName" /t REG_SZ /d "苹方-简" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "SO_FontName" /t REG_SZ /d "微软雅黑" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "SO_Desktop" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "SO_Download" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AttachWindowIndex" /t REG_DWORD /d "2" /f
@@ -1787,7 +2516,7 @@ reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "SaveConfigPause" /t RE
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Win7WorkTool" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AutoAlignWindow" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "UseSideWindow" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "DialogBaseFontName" /t REG_SZ /d "苹方-简" /f
+reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "DialogBaseFontName" /t REG_SZ /d "微软雅黑" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "DialogBaseFontSize" /t REG_DWORD /d "10" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "DialogCharset" /t REG_DWORD /d "134" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "UseATextOut" /t REG_DWORD /d "1" /f
@@ -1799,12 +2528,6 @@ reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AutoDownloadFile" /t R
 reg add "HKCU\Software\Daum\PotPlayerMini64" /v "AddMyComPL" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64" /v "ServiceValue" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Daum\PotPlayerMini64" /v "Check118_119" /t REG_DWORD /d "4" /f
-
-echo --- XY sub filter
-reg add "HKCU\Software\Gabest\XySubFilter\Text" /v "override_placement" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Gabest\XySubFilter\Text" /v "x_perc" /t REG_DWORD /d "50" /f
-reg add "HKCU\Software\Gabest\XySubFilter\Text" /v "y_perc" /t REG_DWORD /d "90" /f
-reg add "HKCU\Software\Gabest\XySubFilter\Text" /v "style2" /t REG_SZ /d "20;20;20;20;2;0;2.000000;2.000000;3.000000;3.000000;0xffffff;0x00ffff;0x000000;0x000000;0x00;0x00;0x00;0x80;134;苹方-简;18.000000;100.000000;100.000000;0.000000;600;0;0;0;0.000000;0.000000;0.000000;0.000000;0.000000;2" /f
 
 echo --- LAV Filter Settings
 reg add "HKCU\Software\LAV\Audio" /v "TrayIcon" /t REG_DWORD /d "0" /f
@@ -2459,10 +3182,34 @@ echo --- Disable Peer-to-Peer Networking
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Peernet" /v "Disabled" /t REG_DWORD /d "1" /f
 echo.
 
-echo --- No Office 365 banner
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\0ff1ce15-a989-479d-af46-f275c6370663" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /f /v "KeyManagementServiceName" /t REG_SZ /d "0.0.0.0"
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /f /v "KeyManagementServiceName" /t REG_SZ /d "0.0.0.0" /reg:32
+echo --- Office Setting
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Options" /v "FirstRun" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Options" /v "FirstRunOnRTM" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Options" /v "DefaultFormat" /t REG_SZ /d "" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Options" /v "VisiForceField" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Options" /v "IgnoreFilenamesEmailAliases" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Options" /v "AutoSpell" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Options" /v "NoContextSpell" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Options" /v "InsPic" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Options" /v "SoundFeedback" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Options" /v "BkgrndPag" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Options" /v "ATUserAdded" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Options" /v "AccentOnUpper" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Options" /v "VisiFlm" /t REG_DWORD /d "3" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Options" /v "IMEControlActive" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Options" /v "DisableBootToOfficeStart" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Options" /v "ShowParaMarks" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Options" /v "WritingStyle" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Options" /v "AutoHideRuler" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Options" /v "AnimateScreenMove" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Options" /v "DOC-PATH" /t REG_EXPAND_SZ /d "C:\\" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Options" /v "AUTOSAVE-PATH" /t REG_EXPAND_SZ /d "C:\TEMP\\" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Security\FileBlock" /v "OpenInProtectedView" /t REG_DWORD /d "2" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Security\Trusted Locations" /v "AllowNetworkLocations" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Security\Trusted Locations\Location0" /v "Path" /t REG_SZ /d "D:\\" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Security\Trusted Locations\Location0" /v "AllowSubfolders" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Security\Trusted Locations\Location0" /v "Description" /t REG_SZ /d "" /f
+reg add "HKCU\Software\Microsoft\Office\16.0\Word\Security\Trusted Locations\Location0" /v "Date" /t REG_SZ /d "01/09/2021 00:00" /f
 echo.
 
 echo --- Disable WFP logging - https://docs.microsoft.com/en-US/troubleshoot/windows-client/networking/lots-disk-io-writes-wfpdiag-etl-log
