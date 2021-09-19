@@ -26,9 +26,6 @@ rem Edge Chrome
 %windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\MicrosoftEdgeEnterpriseX64.msi" /quiet /norestart
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\MicrosoftEdgeWebView2RuntimeInstallerX64.exe /silent /install
 
-rem disable defender
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\dControl.exe /D
-
 rem lav
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.75.1-4.exe /VERYSILENT
 
