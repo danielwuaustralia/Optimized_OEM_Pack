@@ -13,14 +13,7 @@ rem Powershell 7
 %windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.2.0-preview.9-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
 rem VC Redist
-start /wait %WINDIR%\Setup\Scripts\Runtime\2005x64.exe /Q
-start /wait %WINDIR%\Setup\Scripts\Runtime\2008x64.exe /Q
-start /wait %WINDIR%\Setup\Scripts\Runtime\2010x64.exe /q /norestart
-start /wait %WINDIR%\Setup\Scripts\Runtime\2012x64.exe /install /quiet /norestart
-start /wait %WINDIR%\Setup\Scripts\Runtime\2013x64.exe /install /quiet /norestart
-
-rem Direct X 10
-start /wait %WINDIR%\Setup\Scripts\Runtime\DirectX\DXSETUP.exe /silent
+start /wait %WINDIR%\Setup\Scripts\Runtime\VisualCppRedist_AIO_x86_x64.exe /ai /gm2
 
 rem Edge Chrome
 %windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\MicrosoftEdgeEnterpriseX64.msi" /quiet /norestart
