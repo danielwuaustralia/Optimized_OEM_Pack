@@ -3010,7 +3010,7 @@ reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319" /v "SchUs
 echo.
 
 echo -- Gameconfig
-reg add "HKU\.DEFAULT\System\GameConfigStore" /v "GameDVR_Enabled" /t REG_DWORD /d "1" /f
+reg add "HKU\.DEFAULT\System\GameConfigStore" /v "GameDVR_Enabled" /t REG_DWORD /d "0" /f
 reg add "HKU\.DEFAULT\System\GameConfigStore" /v "GameDVR_FSEBehaviorMode" /t REG_DWORD /d "2" /f
 reg add "HKU\.DEFAULT\System\GameConfigStore" /v "Win32_AutoGameModeDefaultProfile" /t REG_BINARY /d "01000100000000000000000000000000000000000000000000000000000000000000000000000000" /f
 reg add "HKU\.DEFAULT\System\GameConfigStore" /v "Win32_GameModeRelatedProcesses" /t REG_BINARY /d "010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" /f
@@ -3018,7 +3018,7 @@ reg add "HKU\.DEFAULT\System\GameConfigStore" /v "GameDVR_HonorUserFSEBehaviorMo
 reg add "HKU\.DEFAULT\System\GameConfigStore" /v "GameDVR_DXGIHonorFSEWindowsCompatible" /t REG_DWORD /d "1" /f
 reg add "HKU\.DEFAULT\System\GameConfigStore" /v "GameDVR_EFSEFeatureFlags" /t REG_DWORD /d "0" /f
 reg add "HKU\.DEFAULT\System\GameConfigStore" /v "GameDVR_FSEBehavior" /t REG_DWORD /d "2" /f
-reg add "HKCU\System\GameConfigStore" /v "GameDVR_Enabled" /t REG_DWORD /d "1" /f
+reg add "HKCU\System\GameConfigStore" /v "GameDVR_Enabled" /t REG_DWORD /d "0" /f
 reg add "HKCU\System\GameConfigStore" /v "GameDVR_FSEBehaviorMode" /t REG_DWORD /d "2" /f
 reg add "HKCU\System\GameConfigStore" /v "Win32_AutoGameModeDefaultProfile" /t REG_BINARY /d "01000100000000000000000000000000000000000000000000000000000000000000000000000000" /f
 reg add "HKCU\System\GameConfigStore" /v "Win32_GameModeRelatedProcesses" /t REG_BINARY /d "010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" /f
@@ -3028,8 +3028,10 @@ reg add "HKCU\System\GameConfigStore" /v "GameDVR_EFSEFeatureFlags" /t REG_DWORD
 reg add "HKCU\System\GameConfigStore" /v "GameDVR_FSEBehavior" /t REG_DWORD /d "2" /f
 reg delete "HKCU\System\GameConfigStore\Children" /f
 reg delete "HKCU\System\GameConfigStore\Parents" /f
-reg add "HKU\.DEFAULT\Software\Microsoft\GameBar" /v "AutoGameModeEnabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\GameBar" /v "AutoGameModeEnabled" /t REG_DWORD /d "0" /f
+reg add "HKU\.DEFAULT\Software\Microsoft\GameBar" /v "AutoGameModeEnabled" /t REG_DWORD /d "1" /f
+reg add "HKU\.DEFAULT\Software\Microsoft\GameBar" /v "AllowAutoGameMode" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\GameBar" /v "AutoGameModeEnabled" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\GameBar" /v "AllowAutoGameMode" /t REG_DWORD /d "1" /f
 echo.
 
 echo --- Blocking Windows driver co-installer applications
@@ -3063,6 +3065,182 @@ Net start NVDisplay.ContainerLocalSystem
 
 rem delete java startup item
 reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run\SunJavaUpdateSched" /f
+
+REM *** Set Scheduled Tasks = DISABLED ***
+schtasks /Change /TN "Microsoft\Windows\AppID\SmartScreenSpecific" /Disable
+schtasks /Change /TN "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /Disable
+schtasks /Change /TN "Microsoft\Windows\Application Experience\ProgramDataUpdater" /Disable
+schtasks /Change /TN "Microsoft\Windows\Application Experience\StartupAppTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\Autochk\Proxy" /Disable
+schtasks /Change /TN "Microsoft\Windows\Customer Experience Improvement Program\Consolidator" /Disable
+schtasks /Change /TN "Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" /Disable
+schtasks /Change /TN "Microsoft\Windows\Customer Experience Improvement Program\Uploader" /Disable
+schtasks /Change /TN "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" /Disable
+schtasks /Change /TN "Microsoft\Windows\Maintenance\WinSAT" /Disable
+schtasks /Change /TN "Microsoft\Windows\Shell\FamilySafetyUpload" /Disable
+schtasks /Change /TN "Microsoft\Windows\SystemRestore\SR" /Disable
+schtasks /Change /TN "Microsoft\Office\OfficeTelemetryAgentLogOn" /Disable
+schtasks /Change /TN "Microsoft\Office\OfficeTelemetryAgentFallBack" /Disable
+schtasks /Change /TN "Microsoft\Office\Office 15 Subscription Heartbeat" /Disable
+schtasks /Change /TN "Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem" /Disable
+schtasks /Change /TN "Microsoft\Windows\Autochk\Proxy" /Disable
+schtasks /Change /TN "Microsoft\Windows\CloudExperienceHost\CreateObjectTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" /Disable
+schtasks /Change /TN "Microsoft\Windows\DiskFootprint\Diagnostics" /Disable
+schtasks /Change /TN "Microsoft\Windows\FileHistory\File History (maintenance mode)" /Disable
+schtasks /Change /TN "Microsoft\Windows\Maintenance\WinSAT" /Disable
+schtasks /Change /TN "Microsoft\Windows\NetTrace\GatherNetworkInfo" /Disable
+schtasks /Change /TN "Microsoft\Windows\PI\Sqm-Tasks" /Disable
+schtasks /Change /TN "Microsoft\Windows\Time Synchronization\ForceSynchronizeTime" /Disable
+schtasks /Change /TN "Microsoft\Windows\Time Synchronization\SynchronizeTime" /Disable
+schtasks /Change /TN "Microsoft\Windows\Windows Error Reporting\QueueReporting" /Disable
+schtasks /Change /TN "Microsoft\Windows\WindowsUpdate\Automatic App Update" /Disable
+schtasks /Change /TN "Microsoft\Office\Office Automatic Updates 2.0" /Disable
+schtasks /Change /TN "Microsoft\Office\Office Feature Updates" /Disable
+schtasks /Change /TN "Microsoft\Office\Office Feature Updates Logon" /Disable
+schtasks /Change /TN "Microsoft\Office\OfficeTelemetryAgentFallBack2016" /Disable
+schtasks /Change /TN "Microsoft\Office\OfficeTelemetryAgentLogOn2016" /Disable
+schtasks /Change /TN "Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319" /Disable
+schtasks /Change /TN "Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319 64" /Disable
+schtasks /Change /TN "Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319 64 Critical" /Disable
+schtasks /Change /TN "Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319 Critical" /Disable
+schtasks /Change /TN "Microsoft\Windows\AppID\EDP Policy Manager" /Disable
+schtasks /Change /TN "Microsoft\Windows\Application Experience\PcaPatchDbTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\Application Experience\StartupAppTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\ApplicationData\appuriverifierdaily" /Disable
+schtasks /Change /TN "Microsoft\Windows\ApplicationData\appuriverifierinstall" /Disable
+schtasks /Change /TN "Microsoft\Windows\ApplicationData\CleanupTemporaryState" /Disable
+schtasks /Change /TN "Microsoft\Windows\ApplicationData\DsSvcCleanup" /Disable
+schtasks /Change /TN "Microsoft\Windows\AppListBackup\Backup" /Disable
+schtasks /Change /TN "Microsoft\Windows\AppxDeploymentClient\Pre-staged app cleanup" /Disable
+schtasks /Change /TN "Microsoft\Windows\BitLocker\BitLocker Encrypt All Drives" /Disable
+schtasks /Change /TN "Microsoft\Windows\BitLocker\BitLocker MDM policy Refresh" /Disable
+schtasks /Change /TN "Microsoft\Windows\Bluetooth\UninstallDeviceTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\BrokerInfrastructure\BgTaskRegistrationMaintenanceTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\capabilityaccessmanager\maintenancetasks" /Disable
+schtasks /Change /TN "Microsoft\Windows\CertificateServicesClient\AikCertEnrollTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\CertificateServicesClient\CryptoPolicyTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\CertificateServicesClient\KeyPreGenTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\CertificateServicesClient\SystemTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\CertificateServicesClient\UserTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\CertificateServicesClient\UserTask-Roam" /Disable
+schtasks /Change /TN "Microsoft\Windows\Chkdsk\ProactiveScan" /Disable
+schtasks /Change /TN "Microsoft\Windows\Chkdsk\SyspartRepair" /Disable
+schtasks /Change /TN "Microsoft\Windows\Data Integrity Scan\Data Integrity Check And Scan" /Disable
+schtasks /Change /TN "Microsoft\Windows\Data Integrity Scan\Data Integrity Scan" /Disable
+schtasks /Change /TN "Microsoft\Windows\Data Integrity Scan\Data Integrity Scan for Crash Recovery" /Disable
+schtasks /Change /TN "Microsoft\Windows\Defrag\ScheduledDefrag" /Disable
+schtasks /Change /TN "Microsoft\Windows\Device Information\Device User" /Disable
+schtasks /Change /TN "Microsoft\Windows\Device Setup\Metadata Refresh" /Disable
+schtasks /Change /TN "Microsoft\Windows\DeviceDirectoryClient\HandleCommand" /Disable
+schtasks /Change /TN "Microsoft\Windows\DeviceDirectoryClient\HandleWnsCommand" /Disable
+schtasks /Change /TN "Microsoft\Windows\DeviceDirectoryClient\IntegrityCheck" /Disable
+schtasks /Change /TN "Microsoft\Windows\DeviceDirectoryClient\LocateCommandUserSession" /Disable
+schtasks /Change /TN "Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceAccountChange" /Disable
+schtasks /Change /TN "Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceLocationRightsChange" /Disable
+schtasks /Change /TN "Microsoft\Windows\DeviceDirectoryClient\RegisterDevicePeriodic24" /Disable
+schtasks /Change /TN "Microsoft\Windows\DeviceDirectoryClient\RegisterDevicePolicyChange" /Disable
+schtasks /Change /TN "Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceProtectionStateChanged" /Disable
+schtasks /Change /TN "Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceSettingChange" /Disable
+schtasks /Change /TN "Microsoft\Windows\DeviceDirectoryClient\RegisterUserDevice" /Disable
+schtasks /Change /TN "Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner" /Disable
+schtasks /Change /TN "Microsoft\Windows\Diagnosis\Scheduled" /Disable
+schtasks /Change /TN "Microsoft\Windows\DirectX\DirectXDatabaseUpdater" /Disable
+schtasks /Change /TN "Microsoft\Windows\DirectX\DXGIAdapterCache" /Disable
+schtasks /Change /TN "Microsoft\Windows\DiskCleanup\SilentCleanup" /Disable
+schtasks /Change /TN "Microsoft\Windows\DiskFootprint\StorageSense" /Disable
+schtasks /Change /TN "Microsoft\Windows\DUSM\dusmtask" /Disable
+schtasks /Change /TN "Microsoft\Windows\EDP\EDP App Launch Task" /Disable
+schtasks /Change /TN "Microsoft\Windows\EDP\EDP Auth Task" /Disable
+schtasks /Change /TN "Microsoft\Windows\EDP\EDP Inaccessible Credentials Task" /Disable
+schtasks /Change /TN "Microsoft\Windows\EDP\StorageCardEncryption Task" /Disable
+schtasks /Change /TN "Microsoft\Windows\ExploitGuard\ExploitGuard MDM policy Refresh" /Disable
+schtasks /Change /TN "Microsoft\Windows\Feedback\Siuf\DmClient" /Disable
+schtasks /Change /TN "Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload" /Disable
+schtasks /Change /TN "Microsoft\Windows\Flighting\FeatureConfig\ReconcileFeatures" /Disable
+schtasks /Change /TN "Microsoft\Windows\Flighting\FeatureConfig\UsageDataFlushing" /Disable
+schtasks /Change /TN "Microsoft\Windows\Flighting\FeatureConfig\UsageDataReporting" /Disable
+schtasks /Change /TN "Microsoft\Windows\Flighting\OneSettings\RefreshCache" /Disable
+schtasks /Change /TN "Microsoft\Windows\Input\LocalUserSyncDataAvailable" /Disable
+schtasks /Change /TN "Microsoft\Windows\Input\MouseSyncDataAvailable" /Disable
+schtasks /Change /TN "Microsoft\Windows\Input\PenSyncDataAvailable" /Disable
+schtasks /Change /TN "Microsoft\Windows\Input\TouchpadSyncDataAvailable" /Disable
+schtasks /Change /TN "Microsoft\Windows\InstallService\ScanForUpdates" /Disable
+schtasks /Change /TN "Microsoft\Windows\InstallService\ScanForUpdatesAsUser" /Disable
+schtasks /Change /TN "Microsoft\Windows\InstallService\SmartRetry" /Disable
+schtasks /Change /TN "Microsoft\Windows\International\Synchronize Language Settings" /Disable
+schtasks /Change /TN "Microsoft\Windows\Kernel\La57Cleanup" /Disable
+schtasks /Change /TN "Microsoft\Windows\LanguageComponentsInstaller\Installation" /Disable
+schtasks /Change /TN "Microsoft\Windows\LanguageComponentsInstaller\ReconcileLanguageResources" /Disable
+schtasks /Change /TN "Microsoft\Windows\LanguageComponentsInstaller\Uninstallation" /Disable
+schtasks /Change /TN "Microsoft\Windows\License Manager\TempSignedLicenseExchange" /Disable
+schtasks /Change /TN "Microsoft\Windows\Location\Notifications" /Disable
+schtasks /Change /TN "Microsoft\Windows\Location\WindowsActionDialog" /Disable
+schtasks /Change /TN "Microsoft\Windows\Management\Provisioning\Cellular" /Disable
+schtasks /Change /TN "Microsoft\Windows\Management\Provisioning\Logon" /Disable
+schtasks /Change /TN "Microsoft\Windows\Maps\MapsToastTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\MemoryDiagnostic\ProcessMemoryDiagnosticEvents" /Disable
+schtasks /Change /TN "Microsoft\Windows\MemoryDiagnostic\RunFullMemoryDiagnostic" /Disable
+schtasks /Change /TN "Microsoft\Windows\MUI\LPRemove" /Disable
+schtasks /Change /TN "Microsoft\Windows\Multimedia\SystemSoundsService" /Disable
+schtasks /Change /TN "Microsoft\Windows\NlaSvc\WiFiTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\PI\Secure-Boot-Update" /Disable
+schtasks /Change /TN "Microsoft\Windows\Plug and Play\Device Install Group Policy" /Disable
+schtasks /Change /TN "Microsoft\Windows\Plug and Play\Device Install Reboot Required" /Disable
+schtasks /Change /TN "Microsoft\Windows\Plug and Play\Sysprep Generalize Drivers" /Disable
+schtasks /Change /TN "Microsoft\Windows\Printing\EduPrintProv" /Disable
+schtasks /Change /TN "Microsoft\Windows\Printing\PrinterCleanupTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\Printing\PrintJobCleanupTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\PushToInstall\Registration" /Disable
+schtasks /Change /TN "Microsoft\Windows\Ras\MobilityManager" /Disable
+schtasks /Change /TN "Microsoft\Windows\RecoveryEnvironment\VerifyWinRE" /Disable
+schtasks /Change /TN "Microsoft\Windows\Registry\RegIdleBackup" /Disable
+schtasks /Change /TN "Microsoft\Windows\RemoteAssistance\RemoteAssistanceTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\Security\Pwdless\IntelligentPwdlessTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\Servicing\StartComponentCleanup" /Disable
+schtasks /Change /TN "Microsoft\Windows\Setup\SetupCleanupTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\Shell\CreateObjectTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\Shell\FamilySafetyMonitor" /Disable
+schtasks /Change /TN "Microsoft\Windows\Shell\FamilySafetyRefreshTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\Shell\ThemesSyncedImageDownload" /Disable
+schtasks /Change /TN "Microsoft\Windows\Shell\UpdateUserPictureTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\SpacePort\SpaceAgentTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\SpacePort\SpaceManagerTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\Speech\SpeechModelDownloadTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\StateRepository\MaintenanceTasks" /Disable
+schtasks /Change /TN "Microsoft\Windows\Storage Tiers Management\Storage Tiers Management Initialization" /Disable
+schtasks /Change /TN "Microsoft\Windows\Subscription\EnableLicenseAcquisition" /Disable
+schtasks /Change /TN "Microsoft\Windows\Sysmain\ResPriStaticDbSync" /Disable
+schtasks /Change /TN "Microsoft\Windows\Sysmain\WsSwapAssessmentTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\Task Manager\Interactive" /Disable
+schtasks /Change /TN "Microsoft\Windows\Time Zone\SynchronizeTimeZone" /Disable
+schtasks /Change /TN "Microsoft\Windows\TPM\Tpm-HASCertRetr" /Disable
+schtasks /Change /TN "Microsoft\Windows\TPM\Tpm-Maintenance" /Disable
+schtasks /Change /TN "Microsoft\Windows\UpdateOrchestrator\Report policies" /Disable
+schtasks /Change /TN "Microsoft\Windows\UpdateOrchestrator\Schedule Scan" /Disable
+schtasks /Change /TN "Microsoft\Windows\UpdateOrchestrator\Schedule Scan Static Task" /Disable
+schtasks /Change /TN "Microsoft\Windows\UpdateOrchestrator\USO_UxBroker" /Disable
+schtasks /Change /TN "Microsoft\Windows\UpdateOrchestrator\UUS Failover Task" /Disable
+schtasks /Change /TN "Microsoft\Windows\USB\Usb-Notifications" /Disable
+schtasks /Change /TN "Microsoft\Windows\UPnP\UPnPHostConfig" /Disable
+schtasks /Change /TN "Microsoft\Windows\WCM\WiFiTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\WDI\ResolutionHost" /Disable
+schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Cache Maintenance" /Disable
+schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Cleanup" /Disable
+schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Scheduled Scan" /Disable
+schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Verification" /Disable
+schtasks /Change /TN "Microsoft\Windows\Windows Filtering Platform\BfeOnServiceStartTypeChange" /Disable
+schtasks /Change /TN "Microsoft\Windows\Windows Media Sharing\UpdateLibrary" /Disable
+schtasks /Change /TN "Microsoft\Windows\WindowsColorSystem\Calibration Loader" /Disable
+schtasks /Change /TN "Microsoft\Windows\WindowsUpdate\Scheduled Start" /Disable
+schtasks /Change /TN "Microsoft\Windows\Wininet\CacheTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\WlanSvc\CDSSync" /Disable
+schtasks /Change /TN "Microsoft\Windows\WOF\WIM-Hash-Management" /Disable
+schtasks /Change /TN "Microsoft\Windows\WOF\WIM-Hash-Validation" /Disable
+schtasks /Change /TN "Microsoft\Windows\WwanSvc\NotificationTask" /Disable
+schtasks /Change /TN "Microsoft\Windows\WwanSvc\OobeDiscovery" /Disable
+schtasks /Change /TN "Microsoft\XblGameSave\XblGameSaveTask" /Disable
 
 echo --- Win11 - Start Button on left alignment
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAl" /t REG_DWORD /d 0 /f
