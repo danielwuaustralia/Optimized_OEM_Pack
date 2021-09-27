@@ -166,8 +166,11 @@ rem remove services
 
 rem disable drivers
 %Windir%\SysWOW64\PowerRun.exe /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\3ware*' -Name 'Start' -Value 4"
+%Windir%\SysWOW64\PowerRun.exe /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\ADP80XX*' -Name 'Start' -Value 4"
+%Windir%\SysWOW64\PowerRun.exe /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\AppleSSD*' -Name 'Start' -Value 4"
 %Windir%\SysWOW64\PowerRun.exe /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\arcsas*' -Name 'Start' -Value 4"
 %Windir%\SysWOW64\PowerRun.exe /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\b06bdrv*' -Name 'Start' -Value 4"
+%Windir%\SysWOW64\PowerRun.exe /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\bcmfn2*' -Name 'Start' -Value 4"
 %Windir%\SysWOW64\PowerRun.exe /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\cht4iscsi*' -Name 'Start' -Value 4"
 %Windir%\SysWOW64\PowerRun.exe /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\cht4vbd*' -Name 'Start' -Value 4"
 %Windir%\SysWOW64\PowerRun.exe /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\ebdrv*' -Name 'Start' -Value 4"
@@ -430,8 +433,8 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" /v "Aut
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" /v "AutoShareServer" /t REG_DWORD /d "0" /f
 echo.
 
-echo --- Enable Reset Base in Dism Component Store
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Configuration" /v "DisableResetbase" /t "reg_DWORD" /d "0" /f
+echo --- Component Store Clean-up
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Configuration" /v "DisableResetbase" /t "reg_DWORD" /d "1" /f
 echo.
 
 echo --- Disable Reserved Storage
