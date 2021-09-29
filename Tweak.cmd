@@ -322,7 +322,7 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcon
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\ClassicStartMenu" /v "{5399E694-6CE5-4D6C-8FCE-1D8870FDCBA0}" /t reg_DWORD /d "0" /f
 rem remove Recycle Bin
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\NonEnum" /v "{645FF040-5081-101B-9F08-00AA002F954E}" /t REG_DWORD /d "1" /f
-REM ; Desktop
+rem Desktop
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}" /f
 reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Hide" /f
@@ -559,8 +559,8 @@ echo.
 echo --- other tweak
 reg delete "HKCU\Environment" /v "OneDrive" /f
 reg delete "HKCU\Software\Microsoft\Siuf\Rules" /v "PeriodInNanoSeconds" /f
-reg add "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /d "0" /t REG_DWORD /f
-reg add "HKCR\Wow6432Node\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v System.IsPinnedToNameSpaceTree /d "0" /t REG_DWORD /f
+reg add "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v "System.IsPinnedToNameSpaceTree" /d "0" /t REG_DWORD /f
+reg add "HKCR\Wow6432Node\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v "System.IsPinnedToNameSpaceTree" /d "0" /t REG_DWORD /f
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v "LockImageFlags" /t REG_DWORD /d "0" /f
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v "CreativeId" /t REG_SZ /d "" /f
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v "PortraitAssetPath" /t REG_SZ /d "" /f
@@ -569,9 +569,6 @@ reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v "ImpressionToken" /t REG_SZ /d "" /f
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v "HotspotImageFolderPath" /t REG_SZ /d "" /f
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Lock Screen\Creative" /v "CreativeJson" /t REG_SZ /d "" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer" /v "PageSpaceControlSizer" /t reg_BINARY /d "A00000000000000000000000A0050000" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Ribbon" /v "QatItems" /t reg_BINARY /d "3c7369713a637573746f6d554920786d6c6e733a7369713d22687474703a2f2f736368656d61732e6d6963726f736f66742e636f6d2f77696e646f77732f323030392f726962626f6e2f716174223e3c7369713a726962626f6e206d696e696d697a65643d2274727565223e3c7369713a71617420706f736974696f6e3d2230223e3c7369713a736861726564436f6e74726f6c733e3c7369713a636f6e74726f6c206964513d227369713a3132333336222076697369626c653d2266616c73652220617267756d656e743d223022202f3e3c7369713a636f6e74726f6c206964513d227369713a3136313238222076697369626c653d2266616c73652220617267756d656e743d223022202f3e3c7369713a636f6e74726f6c206964513d227369713a3136313239222076697369626c653d2266616c73652220617267756d656e743d223022202f3e3c7369713a636f6e74726f6c206964513d227369713a3132333532222076697369626c653d2266616c73652220617267756d656e743d223022202f3e3c7369713a636f6e74726f6c206964513d227369713a3132333834222076697369626c653d2266616c73652220617267756d656e743d223022202f3e3c7369713a636f6e74726f6c206964513d227369713a3132333537222076697369626c653d2266616c73652220617267756d656e743d223022202f3e3c2f7369713a736861726564436f6e74726f6c733e3c2f7369713a7161743e3c2f7369713a726962626f6e3e3c2f7369713a637573746f6d55493e" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3" /v "Settings" /t REG_BINARY /d "30000000FEFFFFFF02740000030000003E0000001E0000000000000066030000A0050000840300006000000001000000" /f
 reg add "HKCR\*" /v "DefaultDropEffect" /t REG_DWORD /d "2" /f
 reg add "HKCR\AllFilesystemObjects" /v "DefaultDropEffect" /t REG_DWORD /d "2" /f
 reg add "HKCR\Drive\shell\encrypt-bde" /v "LegacyDisable" /t REG_SZ /d "" /f
@@ -3088,181 +3085,21 @@ Net start NVDisplay.ContainerLocalSystem
 rem delete java startup item
 reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run\SunJavaUpdateSched" /f
 
-REM *** Set Scheduled Tasks = DISABLED ***
-schtasks /Change /TN "Microsoft\Windows\AppID\SmartScreenSpecific" /Disable
-schtasks /Change /TN "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /Disable
-schtasks /Change /TN "Microsoft\Windows\Application Experience\ProgramDataUpdater" /Disable
-schtasks /Change /TN "Microsoft\Windows\Application Experience\StartupAppTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\Autochk\Proxy" /Disable
-schtasks /Change /TN "Microsoft\Windows\Customer Experience Improvement Program\Consolidator" /Disable
-schtasks /Change /TN "Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" /Disable
-schtasks /Change /TN "Microsoft\Windows\Customer Experience Improvement Program\Uploader" /Disable
-schtasks /Change /TN "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" /Disable
-schtasks /Change /TN "Microsoft\Windows\Maintenance\WinSAT" /Disable
-schtasks /Change /TN "Microsoft\Windows\Shell\FamilySafetyUpload" /Disable
-schtasks /Change /TN "Microsoft\Windows\SystemRestore\SR" /Disable
-schtasks /Change /TN "Microsoft\Office\OfficeTelemetryAgentLogOn" /Disable
-schtasks /Change /TN "Microsoft\Office\OfficeTelemetryAgentFallBack" /Disable
-schtasks /Change /TN "Microsoft\Office\Office 15 Subscription Heartbeat" /Disable
-schtasks /Change /TN "Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem" /Disable
-schtasks /Change /TN "Microsoft\Windows\Autochk\Proxy" /Disable
-schtasks /Change /TN "Microsoft\Windows\CloudExperienceHost\CreateObjectTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" /Disable
-schtasks /Change /TN "Microsoft\Windows\DiskFootprint\Diagnostics" /Disable
-schtasks /Change /TN "Microsoft\Windows\FileHistory\File History (maintenance mode)" /Disable
-schtasks /Change /TN "Microsoft\Windows\Maintenance\WinSAT" /Disable
-schtasks /Change /TN "Microsoft\Windows\NetTrace\GatherNetworkInfo" /Disable
-schtasks /Change /TN "Microsoft\Windows\PI\Sqm-Tasks" /Disable
-schtasks /Change /TN "Microsoft\Windows\Time Synchronization\ForceSynchronizeTime" /Disable
-schtasks /Change /TN "Microsoft\Windows\Time Synchronization\SynchronizeTime" /Disable
-schtasks /Change /TN "Microsoft\Windows\Windows Error Reporting\QueueReporting" /Disable
-schtasks /Change /TN "Microsoft\Windows\WindowsUpdate\Automatic App Update" /Disable
-schtasks /Change /TN "Microsoft\Office\Office Automatic Updates 2.0" /Disable
-schtasks /Change /TN "Microsoft\Office\Office Feature Updates" /Disable
-schtasks /Change /TN "Microsoft\Office\Office Feature Updates Logon" /Disable
-schtasks /Change /TN "Microsoft\Office\OfficeTelemetryAgentFallBack2016" /Disable
-schtasks /Change /TN "Microsoft\Office\OfficeTelemetryAgentLogOn2016" /Disable
-schtasks /Change /TN "Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319" /Disable
-schtasks /Change /TN "Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319 64" /Disable
-schtasks /Change /TN "Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319 64 Critical" /Disable
-schtasks /Change /TN "Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319 Critical" /Disable
-schtasks /Change /TN "Microsoft\Windows\AppID\EDP Policy Manager" /Disable
-schtasks /Change /TN "Microsoft\Windows\Application Experience\PcaPatchDbTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\Application Experience\StartupAppTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\ApplicationData\appuriverifierdaily" /Disable
-schtasks /Change /TN "Microsoft\Windows\ApplicationData\appuriverifierinstall" /Disable
-schtasks /Change /TN "Microsoft\Windows\ApplicationData\CleanupTemporaryState" /Disable
-schtasks /Change /TN "Microsoft\Windows\ApplicationData\DsSvcCleanup" /Disable
-schtasks /Change /TN "Microsoft\Windows\AppListBackup\Backup" /Disable
-schtasks /Change /TN "Microsoft\Windows\AppxDeploymentClient\Pre-staged app cleanup" /Disable
-schtasks /Change /TN "Microsoft\Windows\BitLocker\BitLocker Encrypt All Drives" /Disable
-schtasks /Change /TN "Microsoft\Windows\BitLocker\BitLocker MDM policy Refresh" /Disable
-schtasks /Change /TN "Microsoft\Windows\Bluetooth\UninstallDeviceTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\BrokerInfrastructure\BgTaskRegistrationMaintenanceTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\capabilityaccessmanager\maintenancetasks" /Disable
-schtasks /Change /TN "Microsoft\Windows\CertificateServicesClient\AikCertEnrollTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\CertificateServicesClient\CryptoPolicyTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\CertificateServicesClient\KeyPreGenTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\CertificateServicesClient\SystemTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\CertificateServicesClient\UserTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\CertificateServicesClient\UserTask-Roam" /Disable
-schtasks /Change /TN "Microsoft\Windows\Chkdsk\ProactiveScan" /Disable
-schtasks /Change /TN "Microsoft\Windows\Chkdsk\SyspartRepair" /Disable
-schtasks /Change /TN "Microsoft\Windows\Data Integrity Scan\Data Integrity Check And Scan" /Disable
-schtasks /Change /TN "Microsoft\Windows\Data Integrity Scan\Data Integrity Scan" /Disable
-schtasks /Change /TN "Microsoft\Windows\Data Integrity Scan\Data Integrity Scan for Crash Recovery" /Disable
-schtasks /Change /TN "Microsoft\Windows\Defrag\ScheduledDefrag" /Disable
-schtasks /Change /TN "Microsoft\Windows\Device Information\Device User" /Disable
-schtasks /Change /TN "Microsoft\Windows\Device Setup\Metadata Refresh" /Disable
-schtasks /Change /TN "Microsoft\Windows\DeviceDirectoryClient\HandleCommand" /Disable
-schtasks /Change /TN "Microsoft\Windows\DeviceDirectoryClient\HandleWnsCommand" /Disable
-schtasks /Change /TN "Microsoft\Windows\DeviceDirectoryClient\IntegrityCheck" /Disable
-schtasks /Change /TN "Microsoft\Windows\DeviceDirectoryClient\LocateCommandUserSession" /Disable
-schtasks /Change /TN "Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceAccountChange" /Disable
-schtasks /Change /TN "Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceLocationRightsChange" /Disable
-schtasks /Change /TN "Microsoft\Windows\DeviceDirectoryClient\RegisterDevicePeriodic24" /Disable
-schtasks /Change /TN "Microsoft\Windows\DeviceDirectoryClient\RegisterDevicePolicyChange" /Disable
-schtasks /Change /TN "Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceProtectionStateChanged" /Disable
-schtasks /Change /TN "Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceSettingChange" /Disable
-schtasks /Change /TN "Microsoft\Windows\DeviceDirectoryClient\RegisterUserDevice" /Disable
-schtasks /Change /TN "Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner" /Disable
-schtasks /Change /TN "Microsoft\Windows\Diagnosis\Scheduled" /Disable
-schtasks /Change /TN "Microsoft\Windows\DirectX\DirectXDatabaseUpdater" /Disable
-schtasks /Change /TN "Microsoft\Windows\DirectX\DXGIAdapterCache" /Disable
-schtasks /Change /TN "Microsoft\Windows\DiskCleanup\SilentCleanup" /Disable
-schtasks /Change /TN "Microsoft\Windows\DiskFootprint\StorageSense" /Disable
-schtasks /Change /TN "Microsoft\Windows\DUSM\dusmtask" /Disable
-schtasks /Change /TN "Microsoft\Windows\EDP\EDP App Launch Task" /Disable
-schtasks /Change /TN "Microsoft\Windows\EDP\EDP Auth Task" /Disable
-schtasks /Change /TN "Microsoft\Windows\EDP\EDP Inaccessible Credentials Task" /Disable
-schtasks /Change /TN "Microsoft\Windows\EDP\StorageCardEncryption Task" /Disable
-schtasks /Change /TN "Microsoft\Windows\ExploitGuard\ExploitGuard MDM policy Refresh" /Disable
-schtasks /Change /TN "Microsoft\Windows\Feedback\Siuf\DmClient" /Disable
-schtasks /Change /TN "Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload" /Disable
-schtasks /Change /TN "Microsoft\Windows\Flighting\FeatureConfig\ReconcileFeatures" /Disable
-schtasks /Change /TN "Microsoft\Windows\Flighting\FeatureConfig\UsageDataFlushing" /Disable
-schtasks /Change /TN "Microsoft\Windows\Flighting\FeatureConfig\UsageDataReporting" /Disable
-schtasks /Change /TN "Microsoft\Windows\Flighting\OneSettings\RefreshCache" /Disable
-schtasks /Change /TN "Microsoft\Windows\Input\LocalUserSyncDataAvailable" /Disable
-schtasks /Change /TN "Microsoft\Windows\Input\MouseSyncDataAvailable" /Disable
-schtasks /Change /TN "Microsoft\Windows\Input\PenSyncDataAvailable" /Disable
-schtasks /Change /TN "Microsoft\Windows\Input\TouchpadSyncDataAvailable" /Disable
-schtasks /Change /TN "Microsoft\Windows\InstallService\ScanForUpdates" /Disable
-schtasks /Change /TN "Microsoft\Windows\InstallService\ScanForUpdatesAsUser" /Disable
-schtasks /Change /TN "Microsoft\Windows\InstallService\SmartRetry" /Disable
-schtasks /Change /TN "Microsoft\Windows\International\Synchronize Language Settings" /Disable
-schtasks /Change /TN "Microsoft\Windows\Kernel\La57Cleanup" /Disable
-schtasks /Change /TN "Microsoft\Windows\LanguageComponentsInstaller\Installation" /Disable
-schtasks /Change /TN "Microsoft\Windows\LanguageComponentsInstaller\ReconcileLanguageResources" /Disable
-schtasks /Change /TN "Microsoft\Windows\LanguageComponentsInstaller\Uninstallation" /Disable
-schtasks /Change /TN "Microsoft\Windows\License Manager\TempSignedLicenseExchange" /Disable
-schtasks /Change /TN "Microsoft\Windows\Location\Notifications" /Disable
-schtasks /Change /TN "Microsoft\Windows\Location\WindowsActionDialog" /Disable
-schtasks /Change /TN "Microsoft\Windows\Management\Provisioning\Cellular" /Disable
-schtasks /Change /TN "Microsoft\Windows\Management\Provisioning\Logon" /Disable
-schtasks /Change /TN "Microsoft\Windows\Maps\MapsToastTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\MemoryDiagnostic\ProcessMemoryDiagnosticEvents" /Disable
-schtasks /Change /TN "Microsoft\Windows\MemoryDiagnostic\RunFullMemoryDiagnostic" /Disable
-schtasks /Change /TN "Microsoft\Windows\MUI\LPRemove" /Disable
-schtasks /Change /TN "Microsoft\Windows\Multimedia\SystemSoundsService" /Disable
-schtasks /Change /TN "Microsoft\Windows\NlaSvc\WiFiTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\PI\Secure-Boot-Update" /Disable
-schtasks /Change /TN "Microsoft\Windows\Plug and Play\Device Install Group Policy" /Disable
-schtasks /Change /TN "Microsoft\Windows\Plug and Play\Device Install Reboot Required" /Disable
-schtasks /Change /TN "Microsoft\Windows\Plug and Play\Sysprep Generalize Drivers" /Disable
-schtasks /Change /TN "Microsoft\Windows\Printing\EduPrintProv" /Disable
-schtasks /Change /TN "Microsoft\Windows\Printing\PrinterCleanupTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\Printing\PrintJobCleanupTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\PushToInstall\Registration" /Disable
-schtasks /Change /TN "Microsoft\Windows\Ras\MobilityManager" /Disable
-schtasks /Change /TN "Microsoft\Windows\RecoveryEnvironment\VerifyWinRE" /Disable
-schtasks /Change /TN "Microsoft\Windows\Registry\RegIdleBackup" /Disable
-schtasks /Change /TN "Microsoft\Windows\RemoteAssistance\RemoteAssistanceTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\Security\Pwdless\IntelligentPwdlessTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\Servicing\StartComponentCleanup" /Disable
-schtasks /Change /TN "Microsoft\Windows\Setup\SetupCleanupTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\Shell\CreateObjectTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\Shell\FamilySafetyMonitor" /Disable
-schtasks /Change /TN "Microsoft\Windows\Shell\FamilySafetyRefreshTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\Shell\ThemesSyncedImageDownload" /Disable
-schtasks /Change /TN "Microsoft\Windows\Shell\UpdateUserPictureTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\SpacePort\SpaceAgentTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\SpacePort\SpaceManagerTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\Speech\SpeechModelDownloadTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\StateRepository\MaintenanceTasks" /Disable
-schtasks /Change /TN "Microsoft\Windows\Storage Tiers Management\Storage Tiers Management Initialization" /Disable
-schtasks /Change /TN "Microsoft\Windows\Subscription\EnableLicenseAcquisition" /Disable
-schtasks /Change /TN "Microsoft\Windows\Sysmain\ResPriStaticDbSync" /Disable
-schtasks /Change /TN "Microsoft\Windows\Sysmain\WsSwapAssessmentTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\Task Manager\Interactive" /Disable
-schtasks /Change /TN "Microsoft\Windows\Time Zone\SynchronizeTimeZone" /Disable
-schtasks /Change /TN "Microsoft\Windows\TPM\Tpm-HASCertRetr" /Disable
-schtasks /Change /TN "Microsoft\Windows\TPM\Tpm-Maintenance" /Disable
-schtasks /Change /TN "Microsoft\Windows\UpdateOrchestrator\Report policies" /Disable
-schtasks /Change /TN "Microsoft\Windows\UpdateOrchestrator\Schedule Scan" /Disable
-schtasks /Change /TN "Microsoft\Windows\UpdateOrchestrator\Schedule Scan Static Task" /Disable
-schtasks /Change /TN "Microsoft\Windows\UpdateOrchestrator\USO_UxBroker" /Disable
-schtasks /Change /TN "Microsoft\Windows\UpdateOrchestrator\UUS Failover Task" /Disable
-schtasks /Change /TN "Microsoft\Windows\USB\Usb-Notifications" /Disable
-schtasks /Change /TN "Microsoft\Windows\UPnP\UPnPHostConfig" /Disable
-schtasks /Change /TN "Microsoft\Windows\WCM\WiFiTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\WDI\ResolutionHost" /Disable
-schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Cache Maintenance" /Disable
-schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Cleanup" /Disable
-schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Scheduled Scan" /Disable
-schtasks /Change /TN "Microsoft\Windows\Windows Defender\Windows Defender Verification" /Disable
-schtasks /Change /TN "Microsoft\Windows\Windows Filtering Platform\BfeOnServiceStartTypeChange" /Disable
-schtasks /Change /TN "Microsoft\Windows\Windows Media Sharing\UpdateLibrary" /Disable
-schtasks /Change /TN "Microsoft\Windows\WindowsColorSystem\Calibration Loader" /Disable
-schtasks /Change /TN "Microsoft\Windows\WindowsUpdate\Scheduled Start" /Disable
-schtasks /Change /TN "Microsoft\Windows\Wininet\CacheTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\WlanSvc\CDSSync" /Disable
-schtasks /Change /TN "Microsoft\Windows\WOF\WIM-Hash-Management" /Disable
-schtasks /Change /TN "Microsoft\Windows\WOF\WIM-Hash-Validation" /Disable
-schtasks /Change /TN "Microsoft\Windows\WwanSvc\NotificationTask" /Disable
-schtasks /Change /TN "Microsoft\Windows\WwanSvc\OobeDiscovery" /Disable
-schtasks /Change /TN "Microsoft\XblGameSave\XblGameSaveTask" /Disable
+REM Set Scheduled Tasks
+%Windir%\SysWOW64\PowerRun.exe /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Get-ScheduledTask -TaskPath '*' | Disable-ScheduledTask"
+%Windir%\SysWOW64\PowerRun.exe /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Enable-ScheduledTask -TaskPath '\Microsoft\Windows\SoftwareProtectionPlatform' -TaskName 'SvcRestartTask'"
+%Windir%\SysWOW64\PowerRun.exe /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Enable-ScheduledTask -TaskPath '\Microsoft\Windows\SoftwareProtectionPlatform' -TaskName 'SvcRestartTaskLogon'"
+%Windir%\SysWOW64\PowerRun.exe /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Enable-ScheduledTask -TaskPath '\Microsoft\Windows\SoftwareProtectionPlatform' -TaskName 'SvcRestartTaskNetwork'"
+%Windir%\SysWOW64\PowerRun.exe /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Enable-ScheduledTask -TaskPath '\Microsoft\Windows\SoftwareProtectionPlatform' -TaskName 'SvcTrigger'"
+%Windir%\SysWOW64\PowerRun.exe /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Enable-ScheduledTask -TaskPath '\Microsoft\Windows\UpdateOrchestrator' -TaskName 'Report policies'"
+%Windir%\SysWOW64\PowerRun.exe /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Enable-ScheduledTask -TaskPath '\Microsoft\Windows\UpdateOrchestrator' -TaskName 'Schedule Maintenance Work'"
+%Windir%\SysWOW64\PowerRun.exe /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Enable-ScheduledTask -TaskPath '\Microsoft\Windows\UpdateOrchestrator' -TaskName 'Schedule Scan'"
+%Windir%\SysWOW64\PowerRun.exe /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Enable-ScheduledTask -TaskPath '\Microsoft\Windows\UpdateOrchestrator' -TaskName 'Schedule Scan Static Task'"
+%Windir%\SysWOW64\PowerRun.exe /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Enable-ScheduledTask -TaskPath '\Microsoft\Windows\UpdateOrchestrator' -TaskName 'Schedule Wake To Work'"
+%Windir%\SysWOW64\PowerRun.exe /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Enable-ScheduledTask -TaskPath '\Microsoft\Windows\UpdateOrchestrator' -TaskName 'Schedule Work'"
+%Windir%\SysWOW64\PowerRun.exe /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Enable-ScheduledTask -TaskPath '\Microsoft\Windows\UpdateOrchestrator' -TaskName 'UUS Failover Task'"
+%Windir%\SysWOW64\PowerRun.exe /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Enable-ScheduledTask -TaskPath '\Microsoft\Windows\UPnP' -TaskName 'UPnPHostConfig'"
+%Windir%\SysWOW64\PowerRun.exe /SW:0 "C:\PROGRA~1\PowerShell\7-preview\pwsh.exe" -Command "Enable-ScheduledTask -TaskPath '\Microsoft\Windows\WindowsUpdate' -TaskName 'Scheduled Start'"
 
 echo --- Win11 - Start Button on left alignment
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAl" /t REG_DWORD /d 0 /f
