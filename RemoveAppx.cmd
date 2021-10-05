@@ -27,12 +27,12 @@ Microsoft.WindowsFeedbackHub
 Microsoft.WindowsMaps
 Microsoft.WindowsNotepad
 Microsoft.WindowsStore
-Microsoft.WindowsTerminal
 Microsoft.WindowsSoundRecorder
 Microsoft.YourPhone
 Microsoft.ZuneMusic
 Microsoft.ZuneVideo
 MicrosoftWindows.Client.WebExperience
+Microsoft.MicrosoftEdge.Stable
 ) do (
 	for /f %%a in ('reg query "%windowsappx%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
 )
@@ -45,7 +45,9 @@ E2A4F912-2574-4A75-9BB0-0D023378592B
 c5e2524a-ea46-4f67-841f-6a9465d9d515
 F46D4000-FD22-4DB4-AC8E-4E1DDDE828FE
 Microsoft.AAD.BrokerPlugin
+Microsoft.AsyncTextService
 Microsoft.BioEnrollment
+Microsoft.Windows.AssignedAccessLockApp
 Microsoft.Windows.CallingShellApp
 Microsoft.Windows.CapturePicker
 Microsoft.Windows.ContentDeliveryManager
@@ -57,6 +59,9 @@ Microsoft.Windows.ParentalControls
 Microsoft.Windows.PeopleExperienceHost
 Microsoft.Windows.SecureAssessmentBrowser
 Microsoft.Windows.XGpuEjectDialog
+Microsoft.MicrosoftEdge
+Microsoft.MicrosoftEdgeDevToolsClient
+Microsoft.Win32WebViewHost
 Windows.CBSPreview
 ) do (
 	for /f %%a in ('reg query "%systemappx%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
