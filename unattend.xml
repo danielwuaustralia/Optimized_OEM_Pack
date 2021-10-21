@@ -26,7 +26,7 @@
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
                     <Order>5</Order>
-                    <Path>%windir%\Setup\Scripts\RemoveAppx.cmd</Path>
+                    <Path>C:\Windows\Setup\Scripts\RemoveAppx.cmd</Path>
                     <Description>Uninstall Apps</Description>
                 </RunSynchronousCommand>
             </RunSynchronous>
@@ -114,8 +114,20 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>1</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>%windir%\Setup\Scripts\Tweak.cmd</CommandLine>
-                    <Description>FirstLogon Tweak</Description>
+                    <CommandLine>"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Unrestricted -File "%WINDIR%\Setup\Scripts\DisablePowerSaving.ps1"</CommandLine>
+                    <Description>Disable Power Saving</Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>2</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                    <CommandLine>%WINDIR%\Setup\Scripts\Tweak.bat</CommandLine>
+                    <Description>Tweak</Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>3</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                    <CommandLine>%WINDIR%\Setup\Scripts\SOFTWARE\0AAFOptimusAudioPack9231.exe</CommandLine>
+                    <Description>Audio Driver</Description>
                 </SynchronousCommand>
             </FirstLogonCommands>
             <UserAccounts>
