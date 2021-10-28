@@ -5,27 +5,32 @@
         <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <RunSynchronous>
                 <RunSynchronousCommand wcm:action="add">
-                    <Path>reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OOBE /v UnattendCreatedUser /t REG-DWORD /d 1 /f</Path>
+                    <Path>"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -noprofile -Command "Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine"</Path>
                     <Order>1</Order>
+                    <Description>PowerShell Execution Policy</Description>
+                </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Path>reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OOBE /v UnattendCreatedUser /t REG-DWORD /d 1 /f</Path>
+                    <Order>2</Order>
                     <Description>Disable create user</Description>
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
                     <Path>net /user administrator /active:yes</Path>
-                    <Order>2</Order>
-                    <Description>EnableAdmin</Description>
-                </RunSynchronousCommand>
-                <RunSynchronousCommand wcm:action="add">
-                    <Path>net /user administrator_ploc /active:yes</Path>
                     <Order>3</Order>
                     <Description>EnableAdmin</Description>
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
+                    <Path>net /user administrator_ploc /active:yes</Path>
                     <Order>4</Order>
+                    <Description>EnableAdmin</Description>
+                </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>5</Order>
                     <Path>reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableFirstLogonAnimation /t REG_DWORD /d 0 /f</Path>
                     <Description>Disable First Logon Animation</Description>
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
-                    <Order>5</Order>
+                    <Order>6</Order>
                     <Path>C:\Windows\Setup\Scripts\RemoveAppx.cmd</Path>
                     <Description>Uninstall Apps</Description>
                 </RunSynchronousCommand>
@@ -34,44 +39,14 @@
         <component name="Microsoft-Windows-ErrorReportingCore" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <DisableWER>1</DisableWER>
         </component>
-        <component name="Microsoft-Windows-IE-ClientNetworkProtocolImplementation" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <CacheLimit>1024</CacheLimit>
-        </component>
-        <component name="Microsoft-Windows-IE-InternetExplorer" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <CompatibilityViewDomains>microsoft.com</CompatibilityViewDomains>
-            <DisableAccelerators>true</DisableAccelerators>
-            <DisableFirstRunWizard>true</DisableFirstRunWizard>
-            <DisableOOBAccelerators>true</DisableOOBAccelerators>
-            <FavoritesDelete>true</FavoritesDelete>
-            <FavoritesOnTop>true</FavoritesOnTop>
-            <GroupTabs>false</GroupTabs>
-            <Home_Page>about:blank</Home_Page>
-            <LockToolbars>true</LockToolbars>
-            <MSCompatibilityMode>true</MSCompatibilityMode>
-            <PlaySound>false</PlaySound>
-            <SuggestedSitesEnabled>false</SuggestedSitesEnabled>
-            <SearchScopes>
-                <Scope wcm:action="add">
-                    <ScopeDefault>true</ScopeDefault>
-                    <ScopeDisplayName>Google</ScopeDisplayName>
-                    <ScopeKey>SearchProvider1</ScopeKey>
-                    <ScopeUrl>http://www.google.com/search?q={searchTerms}&amp;rls=com.microsoft:{language}&amp;ie={inputEncoding}&amp;oe={outputEncoding}&amp;startIndex={startIndex}&amp;startPage={startPage}</ScopeUrl>
-                    <ShowSearchSuggestions>true</ShowSearchSuggestions>
-                    <SuggestionsURL>http://clients5.google.com/complete/search?hl={language}&amp;q={searchTerms}&amp;client=ie8&amp;inputencoding={inputEncoding}&amp;outputencoding={outputEncoding}</SuggestionsURL>
-                    <FaviconURL>http://www.google.com/favicon.ico</FaviconURL>
-                </Scope>
-            </SearchScopes>
-            <TrustedSites>https://www.google.com;https://www.microsoft.com</TrustedSites>
-            <AllowedSites>*.google.com;*.microsoft.com</AllowedSites>
-        </component>
         <component name="Microsoft-Windows-RemoteAssistance-Exe" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <fAllowFullControl>false</fAllowFullControl>
             <fAllowToGetHelp>false</fAllowToGetHelp>
         </component>
         <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <ComputerName>Terminator</ComputerName>
-            <RegisteredOwner>Terminator</RegisteredOwner>
-            <RegisteredOrganization>SkyNet</RegisteredOrganization>
+            <ComputerName>Alienware</ComputerName>
+            <RegisteredOwner>Bill Gates</RegisteredOwner>
+            <RegisteredOrganization>Microsoft</RegisteredOrganization>
             <TimeZone>AUS Eastern Standard Time</TimeZone>
             <ProductKey>NRG8B-VKK3Q-CXVCJ-9G2XF-6Q84J</ProductKey>
         </component>
@@ -80,6 +55,14 @@
         </component>
         <component name="Microsoft-Windows-SystemRestore-Main" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <DisableSR>1</DisableSR>
+        </component>
+        <component name="Networking-MPSSVC-Svc" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <DomainProfile_DisableNotifications>true</DomainProfile_DisableNotifications>
+            <DomainProfile_EnableFirewall>false</DomainProfile_EnableFirewall>
+            <PrivateProfile_DisableNotifications>true</PrivateProfile_DisableNotifications>
+            <PrivateProfile_EnableFirewall>false</PrivateProfile_EnableFirewall>
+            <PublicProfile_DisableNotifications>true</PublicProfile_DisableNotifications>
+            <PublicProfile_EnableFirewall>false</PublicProfile_EnableFirewall>
         </component>
     </settings>
     <settings pass="oobeSystem">
@@ -114,20 +97,26 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>1</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Unrestricted -File "%WINDIR%\Setup\Scripts\DisablePowerSaving.ps1"</CommandLine>
-                    <Description>Disable Power Saving</Description>
+                    <CommandLine>%WINDIR%\Setup\Scripts\Additional.cmd</CommandLine>
+                    <Description>CMD Tweak</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>2</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>%WINDIR%\Setup\Scripts\Tweak.bat</CommandLine>
-                    <Description>Tweak</Description>
+                    <RequiresUserInput>false</RequiresUserInput>
+                    <CommandLine>"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File "%WINDIR%\Setup\Scripts\Tweak.ps1"</CommandLine>
+                    <Description>Powershell Tweak</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>3</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                     <CommandLine>%WINDIR%\Setup\Scripts\SOFTWARE\0AAFOptimusAudioPack9231.exe</CommandLine>
                     <Description>Audio Driver</Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>4</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                    <CommandLine>%WINDIR%\Setup\Scripts\Acrobat\autoplay.exe</CommandLine>
+                    <Description>Acrobat</Description>
                 </SynchronousCommand>
             </FirstLogonCommands>
             <UserAccounts>
@@ -143,6 +132,23 @@
                 </LocalAccounts>
             </UserAccounts>
         </component>
+        <component name="Microsoft-Windows-WinRE-RecoveryAgent" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <UninstallWindowsRE>true</UninstallWindowsRE>
+        </component>
+        <component name="Security-Malware-Windows-Defender" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <DisableAntiSpyware>true</DisableAntiSpyware>
+        </component>
     </settings>
-    <cpi:offlineImage cpi:source="wim:d:/downloads/install.wim#Windows 10 Pro" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+    <settings pass="windowsPE">
+        <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <RunSynchronous>
+                <RunSynchronousCommand wcm:action="add">
+                    <Path>cmd /c for %a in (TPM SecureBoot Storage RAM CPU) do reg add HKLM\SYSTEM\Setup\LabConfig /t REG_DWORD /v Bypass%aCheck /d 1 /f</Path>
+                    <Order>1</Order>
+                    <Description>Bypass the Windows 11 installation restrictions (TPM, SecureBoot, Storage, RAM, CPU check)</Description>
+                </RunSynchronousCommand>
+            </RunSynchronous>
+        </component>
+    </settings>
+    <cpi:offlineImage cpi:source="wim:d:/optimizeoffline/wim/install.wim#Windows 11 专业版" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
 </unattend>
