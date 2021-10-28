@@ -1,6 +1,10 @@
 @setlocal DisableDelayedExpansion
 @echo off
+rem Office LTSC
+"%windir%\Setup\Scripts\Office365\setup.exe" /configure "%windir%\Setup\Scripts\Office365\Configuration.xml"
+
 powercfg -h off
+
 rem account policy
 FOR /F "TOKENS=2 DELIMS==" %%A IN ('"WMIC /NAMESPACE:\\ROOT\CIMV2 PATH Win32_UserAccount GET Name /VALUE"') DO (
 CALL WMIC /NAMESPACE:\\ROOT\CIMV2 PATH Win32_UserAccount WHERE Name='%%A' SET PasswordExpires=FALSE
@@ -11,7 +15,7 @@ auditpol /set /subcategory:"Audit Policy Change" /success:disable
 auditpol /set /subcategory:"User Account Management" /success:disable
 
 rem Powershell 7
-%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.2.0-preview.10-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
+%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.2.0-rc.1-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
 rem lav
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.75.1-9.exe /VERYSILENT
@@ -25,14 +29,14 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VisualCppRedist_AIO_x86_x64.exe /ai 
 rem DirectX Runtime
 start /wait %WINDIR%\Setup\Scripts\DirectX\DXSETUP.exe /silent
 
+rem Net Framework
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-5.0.11-win-x64.exe /quiet /norestart
+
 rem VSCode
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VSCodeSetup-x64-1.62.0-insider.exe /SP- /VERYSILENT /NORESTART /SUPPRESSMSGBOXES /mergetasks=!runcode
 
-rem xnview
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\XnViewMP-win-x64.exe /VERYSILENT /SUPPRESSMSGBOXES
-
 rem chipset driver
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Software.exe /S
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\amd_chipset_software_3.10.08.506.exe /S
 
 rem process lasso
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassoActivator.exe -makekeyfile -product:2 -output:"%WINDIR%\Setup\Scripts\SOFTWARE"
@@ -42,13 +46,7 @@ rem time sync
 start /wait C:\PROGRA~1\UpdateTime\UpdateTime_x64.exe /SI
 
 rem Nvidia Driver
-start /wait %WINDIR%\Setup\Scripts\Driver\setup.exe /s
-
-rem Office LTSC
-"%windir%\Setup\Scripts\Office365\setup.exe" /configure "%windir%\Setup\Scripts\Office365\Configuration.xml"
-
-rem KMS
-call %windir%\Setup\Scripts\KMS.cmd
+start /wait %WINDIR%\Setup\Scripts\nvidia\setup.exe /s
 
 rem remove Edge
 "C:\Program Files (x86)\Microsoft\Edge\Application\92.0.902.67\Installer\setup.exe" --uninstall --system-level --verbose-logging --force-uninstall --delete-profile
