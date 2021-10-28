@@ -313,6 +313,12 @@ Set-Net6to4Configuration -State Enabled -AutoSharing Enabled -RelayState Enabled
 netsh int 6to4 set state state=enabled undoonstop=disabled
 netsh int 6to4 set routing routing=enabled sitelocals=enabled
 
+# Disable Nagle's Algorithm
+# $strGUIDS = [array](Get-WmiObject win32_networkadapter -filter “netconnectionstatus = 2” | Select-Object -expand GUID)
+$strGUIDS = [array](Get-WmiObject win32_networkadapter | Select-Object -expand GUID)
+foreach ($strGUID in $strGUIDS) { New-ItemProperty -path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -propertytype DWORD -name TcpAckFrequency -value 1 -Force -Verbose }
+foreach ($strGUID in $strGUIDS) { New-ItemProperty -path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -propertytype DWORD -name TCPNoDelay -value 1 -Force -Verbose }
+
 # Disable Memory Compression
 Disable-MMAgent -Verbose
 Get-Service 'SysMain' | Set-Service -StartupType Disabled -PassThru -Verbose
@@ -368,7 +374,62 @@ foreach ( $device in $devicesUSB ) {
     Set-CimInstance -Namespace root\wmi -Query "SELECT * FROM MSPower_DeviceEnable WHERE InstanceName LIKE '%$($device.PNPDeviceID)%'" -Property @{Enable = $False } -PassThru
 }
 
-# Configure Power Plan Settings
+# Disable System Restore
+disable-computerrestore -drive 'C:\' -Verbose
+disable-computerrestore -drive 'D:\' -Verbose
+
+# Stop DiagLog Event Trace sessions.
+Get-EtwTraceSession -Name DiagLog | Stop-EtwTraceSession -Verbose
+
+# Turn off Autologger and SQMLogger sessions after the next restart.
+Get-AutologgerConfig -Name AutoLogger-Diagtrack-Listener, SQMLogger | Set-AutologgerConfig -Start 0 -Verbose
+
+# Disable automatic Event Tracker Logs from Services that can use them as telemetry.
+@('AITEventLog', 'AutoLogger-Diagtrack-Listener', 'DiagLog', 'EventLog-Microsoft-RMS-MSIPC-Debug', 'EventLog-Microsoft-Windows-WorkFolders-WHC', 'FamilySafetyAOT', 'LwtNetLog', 'Microsoft-Windows-Setup', 'NBSMBLOGGER', 'PEAuthLog', 'RdrLog', 'ReadyBoot', 'SetupPlatform', 'SQMLogger', 'TCPIPLOGGER', 'Tpm', 'WdiContextLog') | ForEach-Object -Process { Set-ItemProperty -Path "HKLM:\SYSTEM\ControlSet001\Control\WMI\AutoLogger\$($PSItem)" -Name Start -Value 4 -Force }
+
+# Remove any Event Tracker Logs and Security Health (Windows Defender) scan files.
+@("$Env:SystemRoot\System32\LogFiles\WMI\AutoLogger-Diagtrack-Listener.etl", "$Env:ProgramData\Microsoft\Diagnosis\ETLLogs\AutoLogger\*.etl", "$Env:ProgramData\Microsoft\Diagnosis\ETLLogs\ShutdownLogger\*.etl", "$Env:ProgramData\Microsoft\Diagnosis\*.rbs", "$Env:ProgramData\Microsoft\Windows Defender\Scans\*") | Remove-Item -Recurse -Force -Verbose
+
+# Delete the CompatTelRunner executable.
+If (Test-Path -Path "$Env:SystemRoot\System32\CompatTelRunner.exe") {
+    Invoke-Expression -Command ('TAKEOWN.EXE /F "{ 0 }" /A' -f "$Env:SystemRoot\System32\CompatTelRunner.exe")
+    Invoke-Expression -Command ('ICACLS.EXE "{ 0 }" /GRANT *S-1-5-32-544:F' -f "$Env:SystemRoot\System32\CompatTelRunner.exe")
+    Stop-Process -Name CompatTelRunner -Force
+    Remove-Item -Path "$Env:SystemRoot\System32\CompatTelRunner.exe" -Force
+    If (!(Test-Path -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\CompatTelRunner.exe")) { New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\CompatTelRunner.exe" -ItemType Directory -Force }
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\CompatTelRunner.exe" -Name Debugger -Value "%SystemRoot%\System32\taskkill.exe" -Type ExpandString -Force
+}
+
+# Enable TRIM support for NTFS and ReFS file systems for SSD drives.
+Invoke-Expression -Command ('FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY NTFS 0')
+$QueryReFS = Invoke-Expression -Command ('FSUTIL BEHAVIOR QUERY DISABLEDELETENOTIFY') | Select-String -Pattern ReFS
+If ($QueryReFS) { Invoke-Expression -Command ('FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY REFS 0') }
+
+# Disable Swapfile.sys which can improve SSD performance.
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name SwapfileControl -Value 0 -Force
+
+# Disable Prefetch and Superfetch (optimal for SSD drives).
+If (!(Test-Path -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters")) { New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" -ItemType Directory -Force }
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" -Name EnablePrefetcher -Value 0 -Force
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" -Name EnableSuperfetch -Value 0 -Force
+
+# Disable hibernation.
+Invoke-Expression -Command ('POWERCFG -H OFF')
+
+# Disable the automatic disabling of network cards to save power.
+Get-NetAdapter -Physical | Get-NetAdapterPowerManagement | Where-Object -Property AllowComputerToTurnOffDevice -NE Unsupported | ForEach-Object -Process {
+    $PSItem.AllowComputerToTurnOffDevice = 'Disabled'
+    $PSItem | Set-NetAdapterPowerManagement
+}
+
+# Use the total amount of memory installed on the device to modify the svchost.exe split threshold to reduce the amount of svchost.exe processes that run simultaneously.
+$Memory = (Get-CimInstance -ClassName Win32_PhysicalMemory | Measure-Object -Property Capacity -Sum).Sum / 1KB
+If ($Memory -is [Double]) { Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name SvcHostSplitThresholdInKB -Value $Memory -Force }
+
+# disable the Reserved Storage feature
+Set-WindowsReservedStorageState -State Disabled
+
+#  Configure Power Plan Settings
 powercfg -h off
 powercfg -setactive 381b4222-f694-41f0-9685-ff5bb260df2e
 powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e fea3413e-7e05-4911-9a71-700331f1c294 0e796bdb-100d-47d6-a2d5-f7d2daa51f51 0
@@ -433,168 +494,60 @@ powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f1
 powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f d8742dcb-3e6a-4b3c-b3fe-374623cdcf06 0
 powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f f3c5027d-cd16-4930-aa6b-90db844a8f00 0
 powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f f3c5027d-cd16-4930-aa6b-90db844a8f00 0
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "PowerSettingProfile" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling" /v "PowerThrottlingOff" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "HiberbootEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "CsEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "EnergyEstimationEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "PerfCalculateActualUtilization" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "SleepReliabilityDetailedDiagnostics" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "EventProcessorEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "QosManagesIdleProcessors" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "DisableVsyncLatencyUpdate" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "DisableSensorWatchdog" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "ExitLatencyCheckEnabled" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "LatencyToleranceDefault" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "LatencyToleranceFSVP" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "LatencyToleranceIdleResiliency" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "LatencyTolerancePerfOverride" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "LatencyToleranceScreenOffIR" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "LatencyToleranceVSyncEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\System\CurrentControlSet\Control\Power" /v "PlatformAoAcOverride" /t REG_DWORD /d "0"
 
-# Disable System Restore
-disable-computerrestore -drive 'C:\' -Verbose
-disable-computerrestore -drive 'D:\' -Verbose
+# Remove Cast To Device From Context Menus Of Media Files
+Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v " { 7AD84985-87B4-4a16-BE58-8B72A5B390F7 }" /t REG_SZ /d "" /f
+Reg.exe add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v " { 7AD84985-87B4-4a16-BE58-8B72A5B390F7 }" /t REG_SZ /d "" /f
 
-# Stop DiagLog Event Trace sessions.
-Get-EtwTraceSession -Name DiagLog | Stop-EtwTraceSession -Verbose
+# Remove the Open in Windows Terminal context menu
+Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{9F156763-7844-4DC4-B2B1-901F640F5155}" /t REG_SZ /d "" /f
 
-# Turn off Autologger and SQMLogger sessions after the next restart.
-Get-AutologgerConfig -Name AutoLogger-Diagtrack-Listener, SQMLogger | Set-AutologgerConfig -Start 0 -Verbose
+# Remove/Restore Rotate Right/Left From Image Filetypes Context Menu
+Reg.exe delete "HKCR\SystemFileAssociations\.bmp\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
+Reg.exe delete "HKCR\SystemFileAssociations\.dds\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
+Reg.exe delete "HKCR\SystemFileAssociations\.dib\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
+Reg.exe delete "HKCR\SystemFileAssociations\.gif\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
+Reg.exe delete "HKCR\SystemFileAssociations\.heic\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
+Reg.exe delete "HKCR\SystemFileAssociations\.heif\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
+Reg.exe delete "HKCR\SystemFileAssociations\.ico\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
+Reg.exe delete "HKCR\SystemFileAssociations\.jfif\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
+Reg.exe delete "HKCR\SystemFileAssociations\.jpe\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
+Reg.exe delete "HKCR\SystemFileAssociations\.jpeg\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
+Reg.exe delete "HKCR\SystemFileAssociations\.jpg\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
+Reg.exe delete "HKCR\SystemFileAssociations\.jxr\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
+Reg.exe delete "HKCR\SystemFileAssociations\.png\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
+Reg.exe delete "HKCR\SystemFileAssociations\.rle\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
+Reg.exe delete "HKCR\SystemFileAssociations\.tif\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
+Reg.exe delete "HKCR\SystemFileAssociations\.tiff\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
+Reg.exe delete "HKCR\SystemFileAssociations\.wdp\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
+Reg.exe delete "HKCR\SystemFileAssociations\.webp\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
 
-# Disable automatic Event Tracker Logs from Services that can use them as telemetry.
-@('AITEventLog', 'AutoLogger-Diagtrack-Listener', 'DiagLog', 'EventLog-Microsoft-RMS-MSIPC-Debug', 'EventLog-Microsoft-Windows-WorkFolders-WHC', 'FamilySafetyAOT', 'LwtNetLog', 'Microsoft-Windows-Setup', 'NBSMBLOGGER', 'PEAuthLog', 'RdrLog', 'ReadyBoot', 'SetupPlatform', 'SQMLogger', 'TCPIPLOGGER', 'Tpm', 'WdiContextLog') | ForEach-Object -Process { Set-ItemProperty -Path "HKLM:\SYSTEM\ControlSet001\Control\WMI\AutoLogger\$($PSItem)" -Name Start -Value 4 -Force }
-
-# Remove any Event Tracker Logs and Security Health (Windows Defender) scan files.
-@("$Env:SystemRoot\System32\LogFiles\WMI\AutoLogger-Diagtrack-Listener.etl", "$Env:ProgramData\Microsoft\Diagnosis\ETLLogs\AutoLogger\*.etl", "$Env:ProgramData\Microsoft\Diagnosis\ETLLogs\ShutdownLogger\*.etl", "$Env:ProgramData\Microsoft\Diagnosis\*.rbs", "$Env:ProgramData\Microsoft\Windows Defender\Scans\*") | Remove-Item -Recurse -Force -Verbose
-
-# Delete the CompatTelRunner executable.
-If (Test-Path -Path "$Env:SystemRoot\System32\CompatTelRunner.exe") {
-    Invoke-Expression -Command ('TAKEOWN.EXE /F "{ 0 }" /A' -f "$Env:SystemRoot\System32\CompatTelRunner.exe")
-    Invoke-Expression -Command ('ICACLS.EXE "{ 0 }" /GRANT *S-1-5-32-544:F' -f "$Env:SystemRoot\System32\CompatTelRunner.exe")
-    Stop-Process -Name CompatTelRunner -Force
-    Remove-Item -Path "$Env:SystemRoot\System32\CompatTelRunner.exe" -Force
-    If (!(Test-Path -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\CompatTelRunner.exe")) { New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\CompatTelRunner.exe" -ItemType Directory -Force }
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\CompatTelRunner.exe" -Name Debugger -Value "%SystemRoot%\System32\taskkill.exe" -Type ExpandString -Force
-}
-
-# Enable TRIM support for NTFS and ReFS file systems for SSD drives.
-Invoke-Expression -Command ('FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY NTFS 0')
-$QueryReFS = Invoke-Expression -Command ('FSUTIL BEHAVIOR QUERY DISABLEDELETENOTIFY') | Select-String -Pattern ReFS
-If ($QueryReFS) { Invoke-Expression -Command ('FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY REFS 0') }
-
-# Disable Swapfile.sys which can improve SSD performance.
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name SwapfileControl -Value 0 -Force
-
-# Disable Prefetch and Superfetch (optimal for SSD drives).
-If (!(Test-Path -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters")) { New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" -ItemType Directory -Force }
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" -Name EnablePrefetcher -Value 0 -Force
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" -Name EnableSuperfetch -Value 0 -Force
-
-# Disable hibernation.
-Invoke-Expression -Command ('POWERCFG -H OFF')
-
-# Disable the automatic disabling of network cards to save power.
-Get-NetAdapter -Physical | Get-NetAdapterPowerManagement | Where-Object -Property AllowComputerToTurnOffDevice -NE Unsupported | ForEach-Object -Process {
-    $PSItem.AllowComputerToTurnOffDevice = 'Disabled'
-    $PSItem | Set-NetAdapterPowerManagement
-}
-
-# Use the total amount of memory installed on the device to modify the svchost.exe split threshold to reduce the amount of svchost.exe processes that run simultaneously.
-$Memory = (Get-CimInstance -ClassName Win32_PhysicalMemory | Measure-Object -Property Capacity -Sum).Sum / 1KB
-If ($Memory -is [Double]) { Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name SvcHostSplitThresholdInKB -Value $Memory -Force }
-
-# disable the Reserved Storage feature
-Set-WindowsReservedStorageState -State Disabled
-    
-# Remove unuseful Right Click Menu
-reg delete "HKCR\SystemFileAssociations\.3mf\Shell\3D Edit" /f
-reg delete "HKCR\SystemFileAssociations\.bmp\Shell\3D Edit" /f
-reg delete "HKCR\SystemFileAssociations\.fbx\Shell\3D Edit" /f
-reg delete "HKCR\SystemFileAssociations\.gif\Shell\3D Edit" /f
-reg delete "HKCR\SystemFileAssociations\.jfif\Shell\3D Edit" /f
-reg delete "HKCR\SystemFileAssociations\.jpe\Shell\3D Edit" /f
-reg delete "HKCR\SystemFileAssociations\.jpeg\Shell\3D Edit" /f
-reg delete "HKCR\SystemFileAssociations\.jpg\Shell\3D Edit" /f
-reg delete "HKCR\SystemFileAssociations\.png\Shell\3D Edit" /f
-reg delete "HKCR\SystemFileAssociations\.tif\Shell\3D Edit" /f
-reg delete "HKCR\SystemFileAssociations\.tiff\Shell\3D Edit" /f
-reg delete "HKCR\Directory\shellex\ContextMenuHandlers\EPP" /f
-reg delete "HKCR\Drive\shellex\ContextMenuHandlers\EPP" /f
-reg delete "HKCR\*\shellex\ContextMenuHandlers\EPP" /f
-reg delete "HKCR\*\shellex\ContextMenuHandlers\Open With EncryptionMenu" /f
-reg delete "HKCR\*\shellex\ContextMenuHandlers\Open With" /f
-reg delete "HKCR\.lnk\ShellNew" /f
-reg delete "HKCR\Folder\shell\pintohome" /f
-reg delete "HKCR\Windows.IsoFile\shell\mount" /f
-reg delete "HKCR\*\shell\UpdateEncryptionSettingsWork" /f
-reg delete "HKCR\Directory\shell\UpdateEncryptionSettings" /f
-reg delete "HKCR\Folder\shell\opennewtab" /f
-reg delete "HKCR\Folder\shell\opennewwindow" /f
-reg delete "HKCR\.library-ms\ShellNew" /f
-reg delete "HKCR\.bmp\ShellNew" /f
-reg delete "HKCR\.contact\ShellNew" /f
-reg delete "HKCR\.rtf\ShellNew" /f
-reg delete "HKCR\.zip\CompressedFolder\ShellNew" /f
-reg delete "HKCR\Windows.IsoFile\shell\burn" /f
-reg delete "HKCR\*\shellex\ContextMenuHandlers\Sharing" /f
-reg delete "HKCR\Directory\Background\shellex\ContextMenuHandlers\Sharing" /f
-reg delete "HKCR\Directory\shellex\ContextMenuHandlers\Sharing" /f
-reg delete "HKCR\Directory\shellex\CopyHookHandlers\Sharing" /f
-reg delete "HKCR\Directory\shellex\PropertySheetHandlers\Sharing" /f
-reg delete "HKCR\Drive\shellex\ContextMenuHandlers\Sharing" /f
-reg delete "HKCR\Drive\shellex\PropertySheetHandlers\Sharing" /f
-reg delete "HKCR\LibraryFolder\background\shellex\ContextMenuHandlers\Sharing" /f
-reg delete "HKCR\UserLibraryFolder\shellex\ContextMenuHandlers\Sharing" /f
-reg delete "HKCR\AllFilesystemObjects\shellex\ContextMenuHandlers\ModernSharing" /f
-reg delete "HKCR\*\shellex\ContextMenuHandlers\{ 90AA3A4E-1CBA-4233-B8BB-535773D48449 }" /f
-reg delete "HKCR\Folder\ShellEx\ContextMenuHandlers\Library Location" /f
-reg delete "HKCR\SystemFileAssociations\.bmp\Shell\setdesktopwallpaper" /f
-reg delete "HKCR\SystemFileAssociations\.dib\Shell\setdesktopwallpaper" /f
-reg delete "HKCR\SystemFileAssociations\.gif\Shell\setdesktopwallpaper" /f
-reg delete "HKCR\SystemFileAssociations\.jfif\Shell\setdesktopwallpaper" /f
-reg delete "HKCR\SystemFileAssociations\.jpe\Shell\setdesktopwallpaper" /f
-reg delete "HKCR\SystemFileAssociations\.jpeg\Shell\setdesktopwallpaper" /f
-reg delete "HKCR\SystemFileAssociations\.jpg\Shell\setdesktopwallpaper" /f
-reg delete "HKCR\SystemFileAssociations\.png\Shell\setdesktopwallpaper" /f
-reg delete "HKCR\SystemFileAssociations\.tif\Shell\setdesktopwallpaper" /f
-reg delete "HKCR\SystemFileAssociations\.tiff\Shell\setdesktopwallpaper" /f
-reg delete "HKCR\SystemFileAssociations\.wdp\Shell\setdesktopwallpaper" /f
-reg delete "HKCR\SystemFileAssociations\.avci\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.bmp\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.dds\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.dib\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.gif\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.heic\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.heif\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.ico\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.jfif\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.jpe\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.jpeg\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.jpg\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.jxr\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.png\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.rle\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.tif\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.tiff\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.wdp\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.webp\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\Drive\shellex\ContextMenuHandlers\{ D6791A63-E7E2-4fee-BF52-5DED8E86E9B8 }" /f
-reg delete "HKCR\cmdfile\shell\runasuser" /f
-reg delete "HKCR\batfile\shell\runasuser" /f
-reg delete "HKCR\exefile\shell\runasuser" /f
-reg delete "HKCR\mscfile\shell\runasuser" /f
-reg delete "HKCR\Msi.Package\shell\runasuser" /f
-reg delete "HKCR\SystemFileAssociations\.glb\Shell\3D Edit\command" /f
-reg delete "HKCR\SystemFileAssociations\.obj\Shell\3D Edit\command" /f
-reg delete "HKCR\SystemFileAssociations\.ply\Shell\3D Edit\command" /f
-reg delete "HKCR\SystemFileAssociations\.stl\Shell\3D Edit\command" /f
-reg delete "HKCR\Folder\shellex\ContextMenuHandlers\PintoStartScreen" /f
-reg delete "HKCR\exefile\shellex\ContextMenuHandlers\PintoStartScreen" /f
-reg delete "HKCR\Microsoft.Website\ShellEx\ContextMenuHandlers\PintoStartScreen" /f
-reg delete "HKCR\mscfile\shellex\ContextMenuHandlers\PintoStartScreen" /f
-reg delete "HKCR\AllFilesystemObjects\shellex\PropertySheetHandlers\{ 596AB062-B4D2-4215-9F74-E9109B0A8153 }" /f
-reg delete "HKCR\CLSID\ { 450D8FBA-AD25-11D0-98A8-0800361B1103 }\shellex\PropertySheetHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" /f
-reg delete "HKCR\Directory\shellex\PropertySheetHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" /f
-reg delete "HKCR\Drive\shellex\PropertySheetHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" /f
-reg delete "HKCR\AllFilesystemObjects\shellex\ContextMenuHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" /f
-reg delete "HKCR\CLSID\ { 450D8FBA-AD25-11D0-98A8-0800361B1103 }\shellex\ContextMenuHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" /f
-reg delete "HKCR\Directory\shellex\ContextMenuHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" /f
-reg delete "HKCR\Drive\shellex\ContextMenuHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" /f
-reg delete "HKCR\CompressedFolder\ShellEx\ContextMenuHandlers\ { b8cdcb65-b1bf-4b42-9428-1dfdb7ee92af }" /f
-reg delete "HKCR\CLSID\ { 09A47860-11B0-4DA5-AFA5-26D86198A780 }" /f
-
-# extra
-reg add "HKCR\CLSID\ { 018D5C66-4533-4307-9B53-224DE2ED1FE6 }" /v "System.IsPinnedToNameSpaceTree" /d "0" /t REG_DWORD /f
-reg add "HKCR\Wow6432Node\{ 018D5C66-4533-4307-9B53-224DE2ED1FE6 }" /v "System.IsPinnedToNameSpaceTree" /d "0" /t REG_DWORD /f
-reg add "HKCR\*" /v "DefaultDropEffect" /t REG_DWORD /d "2" /f
-reg add "HKCR\AllFilesystemObjects" /v "DefaultDropEffect" /t REG_DWORD /d "2" /f
-reg add "HKCR\Drive\shell\encrypt-bde" /v "LegacyDisable" /t REG_SZ /d "" /f
-reg add "HKCR\Drive\shell\encrypt-bde-elev" /v "LegacyDisable" /t REG_SZ /d "" /f
+# show This PC + control panel icon on desktop
+Reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel" /v "{20D04FE0-3AEA-1069-A2D8-08002B30309D}" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel" /v "{5399E694-6CE5-4D6C-8FCE-1D8870FDCBA0}" /t REG_DWORD /d "0" /f
 
 # Font
+Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "苹方-简 中黑体 (TrueType)" /t REG_SZ /d "PingFangSC-17.d1e2-Medium.otf" /f
+Reg.exe add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts" /v "苹方-简 中黑体 (TrueType)" /t REG_SZ /d "PingFangSC-17.d1e2-Medium.otf" /f
 # reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "MS Sans Serif 8,10,12,14,18,24" /f
 # reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "MS Sans Serif 8,10,12,14,18,24 (120)" /f
 # reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "MS Serif 8,10,12,14,18,24" /f
@@ -1867,15 +1820,19 @@ Enable-NetAdapterIPsecOffload -Name '*' -Verbose
 Disable-NetAdapterLso -Name '*' -Verbose
 # Enabling Net Adapter Packet Direct...
 Enable-NetAdapterPacketDirect -Name '*' -Verbose
+
 # Disabling Net Adapter Receive Side Coalescing...
 Disable-NetAdapterRsc -Name '*' -Verbose
+
 # Enabling Net Adapter Receive Side Scaling...
 Enable-NetAdapterRss -Name '*' -Verbose
+
 # Enable Teredo and 6to4 (Xbox LIVE fix)
 Set-NetTeredoConfiguration -Type natawareclient -Verbose
 netsh int teredo set state natawareclient
 netsh int 6to4 set state state=enabled
 netsh int teredo set state servername="win1910.ipv6.microsoft.com"
+
 # disable network protocal
 Disable-NetAdapterBinding -Name '*' -ComponentID ms_lldp -Verbose
 Disable-NetAdapterBinding -Name '*' -ComponentID ms_server -Verbose
@@ -1884,17 +1841,15 @@ Disable-NetAdapterBinding -Name '*' -ComponentID ms_rspndr -Verbose
 Disable-NetAdapterBinding -Name '*' -ComponentID ms_lltdio -Verbose
 Disable-NetAdapterBinding -Name '*' -ComponentID ms_pacer -Verbose
 Enable-NetAdapterBinding -Name '*' -ComponentID ms_tcpip6 -Verbose
+
 # Setting up 6to4 tunneling...
 Set-Net6to4Configuration -State Enabled -AutoSharing Enabled -RelayState Enabled -RelayName '6to4.ipv6.microsoft.com' -Verbose
 netsh int 6to4 set state state=enabled undoonstop=disabled
 netsh int 6to4 set routing routing=enabled sitelocals=enabled
+
 # do not disable IPV6
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" /v "DisabledComponents" /t REG_DWORD /d "0" /f
-#  TcpAckFrequency
-# $strGUIDS = [array](Get-WmiObject win32_networkadapter | Select-Object -expand GUID)"
-# foreach ($strGUID in $strGUIDS) { New-ItemProperty -Path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -PropertyType DWORD -Name TcpAckFrequency -Value 1 -Force | Out-Null }"
-# foreach ($strGUID in $strGUIDS) { New-ItemProperty -Path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -PropertyType DWORD -Name TCPNoDelay -Value 1 -Force | Out-Null }"
-# foreach ($strGUID in $strGUIDS) { New-ItemProperty -Path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -PropertyType DWORD -Name TcpDelAckTicks -Value 0 -Force | Out-Null }"
+
 # Tcpip Parameters
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "DelayedAckFrequency" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "DelayedAckTicks" /t REG_DWORD /d "1" /f
@@ -1993,7 +1948,6 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Psched\DiffservByteMappingNonC
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Psched\UserPriorityMapping" /v "ServiceTypeGuaranteed" /t REG_DWORD /d "5" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Psched\UserPriorityMapping" /v "ServiceTypeNetworkControl" /t REG_DWORD /d "7" /f
 
-
 # Disable Memory Compression
 Disable-MMAgent -ApplicationLaunchPrefetching -ApplicationPreLaunch -PageCombining -MemoryCompression -Verbose
 Get-Service 'SysMain' | Set-Service -StartupType Disabled -PassThru -Verbose
@@ -2010,11 +1964,9 @@ fsutil behavior set allowextchar 1
 # Allows (1) or disallows (0) generation of a bug check when there is corruption on an NTFS volume. This feature can be used to prevent NTFS from silently deleting data when used with the Self-Healing NTFS feature
 fsutil behavior set Bugcheckoncorrupt 0
 
-
 # Disables (1) or enables (0) NTFS compression
 fsutil behavior set disablecompression 1
 cipher /d /s:C:\
-
 
 # Disables (1) or enables (0) updates to the Last Access Time stamp on each directory when directories are listed on an NTFS volume
 fsutil behavior set DisableLastAccess 1
@@ -2024,7 +1976,6 @@ fsutil behavior set encryptpagingfile 0
 
 # Configures the internal cache levels of NTFS paged-pool memory and NTFS nonpaged-pool memory. Set to 1 or 2. When set to 1 (the default), NTFS uses the default amount of paged-pool memory. When set to 2, NTFS increases the size of its lookaside lists and memory thresholds. (A lookaside list is a pool of fixed-size memory buffers that the kernel and device drivers create as private memory caches for file system operations, such as reading a file.)
 fsutil behavior set memoryusage 2
-
 
 # Sets the size of the MFT Zone, and is expressed as a multiple of 200MB units. Set value to a number from 1 (default is 200 MB) to 4 (maximum is 800 MB)
 fsutil behavior set mftzone 2
@@ -2058,203 +2009,6 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" /v "EnableSuperfetch" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" /v "EnablePrefetcher" /t REG_DWORD /d "0" /f
 
-#  Configure Power Plan Settings
-powercfg -h off
-powercfg -setactive 381b4222-f694-41f0-9685-ff5bb260df2e
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e fea3413e-7e05-4911-9a71-700331f1c294 0e796bdb-100d-47d6-a2d5-f7d2daa51f51 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e fea3413e-7e05-4911-9a71-700331f1c294 0e796bdb-100d-47d6-a2d5-f7d2daa51f51 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 0012ee47-9041-4b5d-9b77-535fba8b1442 6738e2c4-e8a5-4a42-b16a-e040e769756e 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 0012ee47-9041-4b5d-9b77-535fba8b1442 6738e2c4-e8a5-4a42-b16a-e040e769756e 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 02f815b5-a5cf-4c84-bf20-649d1f75d3d8 4c793e7d-a264-42e1-87d3-7a0d2f523ccd 1
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 02f815b5-a5cf-4c84-bf20-649d1f75d3d8 4c793e7d-a264-42e1-87d3-7a0d2f523ccd 1
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 0d7dbae2-4294-402a-ba8e-26777e8488cd 309dce9b-bef4-4119-9921-a851fb12f0f4 1
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 0d7dbae2-4294-402a-ba8e-26777e8488cd 309dce9b-bef4-4119-9921-a851fb12f0f4 1
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 19cbb8fa-5279-450e-9fac-8a3d5fedd0c1 12bbebe6-58d6-4636-95bb-3217ef867c1a 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 19cbb8fa-5279-450e-9fac-8a3d5fedd0c1 12bbebe6-58d6-4636-95bb-3217ef867c1a 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 29f6c1db-86da-48c5-9fdb-f2b67b1f44da 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 29f6c1db-86da-48c5-9fdb-f2b67b1f44da 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 94ac6d29-73ce-41a6-809f-6363ba21b47e 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 94ac6d29-73ce-41a6-809f-6363ba21b47e 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 9d7815a6-7ee4-497e-8888-515a05f02364 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 9d7815a6-7ee4-497e-8888-515a05f02364 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 bd3b718a-0680-4d9d-8ab2-e1d2b4ac806d 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 bd3b718a-0680-4d9d-8ab2-e1d2b4ac806d 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 5ca83367-6e45-459f-a27b-476b1d01c936 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 5ca83367-6e45-459f-a27b-476b1d01c936 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 7648efa3-dd9c-4e3e-b566-50f929386280 3
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 7648efa3-dd9c-4e3e-b566-50f929386280 3
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 96996bc0-ad50-47ec-923b-6f41874dd9eb 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 96996bc0-ad50-47ec-923b-6f41874dd9eb 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 a7066653-8d6c-40a8-910e-a1f54b84c7e5 2
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 a7066653-8d6c-40a8-910e-a1f54b84c7e5 2
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 501a4d13-42af-4429-9fd1-a8218c268e20 ee12f906-d277-404b-b6da-e5fa1a576df5 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 501a4d13-42af-4429-9fd1-a8218c268e20 ee12f906-d277-404b-b6da-e5fa1a576df5 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 54533251-82be-4824-96c1-47b60b740d00 893dee8e-2bef-41e0-89c6-b55d0929964c 100
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 54533251-82be-4824-96c1-47b60b740d00 893dee8e-2bef-41e0-89c6-b55d0929964c 100
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 54533251-82be-4824-96c1-47b60b740d00 bc5038f7-23e0-4960-96da-33abaf5935ec 100
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 54533251-82be-4824-96c1-47b60b740d00 bc5038f7-23e0-4960-96da-33abaf5935ec 100
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 54533251-82be-4824-96c1-47b60b740d00 94d3a615-a899-4ac5-ae2b-e4d8f634367f 1
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 54533251-82be-4824-96c1-47b60b740d00 94d3a615-a899-4ac5-ae2b-e4d8f634367f 1
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 fbd9aa66-9553-4097-ba44-ed6e9d65eab8 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 fbd9aa66-9553-4097-ba44-ed6e9d65eab8 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 17aaa29b-8b43-4b94-aafe-35f64daaf1ee 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 17aaa29b-8b43-4b94-aafe-35f64daaf1ee 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 3c0bc021-c8a8-4e07-a973-6b14cbcb2b7e 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 3c0bc021-c8a8-4e07-a973-6b14cbcb2b7e 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 aded5e82-b909-4619-9949-f5d71dac0bcb 100
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 aded5e82-b909-4619-9949-f5d71dac0bcb 100
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 f1fbfde2-a960-4165-9f88-50667911ce96 100
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 f1fbfde2-a960-4165-9f88-50667911ce96 100
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 9596fb26-9850-41fd-ac3e-f7c3c00afd4b 03680956-93bc-4294-bba6-4e0f09bb717f 1
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 9596fb26-9850-41fd-ac3e-f7c3c00afd4b 03680956-93bc-4294-bba6-4e0f09bb717f 1
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 9596fb26-9850-41fd-ac3e-f7c3c00afd4b 34c7b99f-9a6d-4b3c-8dc7-b6693b78cef4 1
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 9596fb26-9850-41fd-ac3e-f7c3c00afd4b 34c7b99f-9a6d-4b3c-8dc7-b6693b78cef4 1
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f 637ea02f-bbcb-4015-8e2c-a1c7b9c0b546 3
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f 637ea02f-bbcb-4015-8e2c-a1c7b9c0b546 3
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f 9a66d8d7-4ff7-4ef9-b5a2-5a326ca2a469 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f 9a66d8d7-4ff7-4ef9-b5a2-5a326ca2a469 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f 8183ba9a-e910-48da-8769-14ae6dc1170a 5
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f 8183ba9a-e910-48da-8769-14ae6dc1170a 5
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f bcded951-187b-4d05-bccc-f7e51960c258 1
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f bcded951-187b-4d05-bccc-f7e51960c258 1
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f d8742dcb-3e6a-4b3c-b3fe-374623cdcf06 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f d8742dcb-3e6a-4b3c-b3fe-374623cdcf06 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f f3c5027d-cd16-4930-aa6b-90db844a8f00 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f f3c5027d-cd16-4930-aa6b-90db844a8f00 0
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "PowerSettingProfile" /t REG_DWORD /d "4" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling" /v "PowerThrottlingOff" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "HiberbootEnabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "CsEnabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "EnergyEstimationEnabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "PerfCalculateActualUtilization" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "SleepReliabilityDetailedDiagnostics" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "EventProcessorEnabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "QosManagesIdleProcessors" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "DisableVsyncLatencyUpdate" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "DisableSensorWatchdog" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "ExitLatencyCheckEnabled" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "LatencyToleranceDefault" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "LatencyToleranceFSVP" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "LatencyToleranceIdleResiliency" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "LatencyTolerancePerfOverride" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "LatencyToleranceScreenOffIR" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "LatencyToleranceVSyncEnabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\System\CurrentControlSet\Control\Power" /v "PlatformAoAcOverride" /t REG_DWORD /d "0"
-
-#  This PC icons
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel" /v "{ 20D04FE0-3AEA-1069-A2D8-08002B30309D }" /t reg_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\ClassicStartMenu" /v "{ 20D04FE0-3AEA-1069-A2D8-08002B30309D }" /t reg_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel" /v "{ 5399E694 - 6CE5-4D6C-8FCE-1D8870FDCBA0 }" /t reg_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\ClassicStartMenu" /v "{ 5399E694 - 6CE5-4D6C-8FCE-1D8870FDCBA0 }" /t reg_DWORD /d "0" /f
-# #ove Recycle Bin
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\NonEnum" /v "{ 645FF040-5081-101B-9F08-00AA002F954E }" /t REG_DWORD /d "1" /f
-# Desktop
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{ B4BFCC3A-DB2C-424C-B029-7FE99A87C641 }" /f
-reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { B4BFCC3A-DB2C-424C-B029-7FE99A87C641 }" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\ { B4BFCC3A-DB2C-424C-B029-7FE99A87C641 }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Hide" /f
-reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{ B4BFCC3A-DB2C-424C-B029-7FE99A87C641 }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Hide" /f
-# Documents
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{ A8CDFF1C-4878-43be-B5FD-F8091C1C60D0 }" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { d3162b92-9365-467a-956b-92703aca08af }" /f
-reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { A8CDFF1C-4878-43be-B5FD-F8091C1C60D0 }" /f
-reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { d3162b92-9365-467a-956b-92703aca08af }" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\ { f42ee2d3-909f-4907-8871-4c22fc0bf756 }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Hide" /f
-reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{ f42ee2d3-909f-4907-8871-4c22fc0bf756 }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Hide" /f
-# Downloads
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{ 374DE290-123F-4565-9164-39C4925E467B }" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { 088e3905 - 0323 - 4b02-9826-5d99428e115f }" /f
-reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { 374DE290-123F-4565-9164-39C4925E467B }" /f
-reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { 088e3905 - 0323 - 4b02-9826-5d99428e115f }" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\ { 7d83ee9b-2244-4e70-b1f5-5393042af1e4 }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Hide" /f
-reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{ 7d83ee9b-2244-4e70-b1f5-5393042af1e4 }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Hide" /f
-# Music
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{ 1CF1260C-4DD0-4ebb-811F-33C572699FDE }" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { 3dfdf296-dbec-4fb4-81d1-6a3438bcf4de }" /f
-reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { 1CF1260C-4DD0-4ebb-811F-33C572699FDE }" /f
-reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { 3dfdf296-dbec-4fb4-81d1-6a3438bcf4de }" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\ { a0c69a99-21c8-4671-8703-7934162fcf1d }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Hide" /f
-reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{ a0c69a99-21c8-4671-8703-7934162fcf1d }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Hide" /f
-# Pictures
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{ 3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA }" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { 24ad3ad4-a569-4530-98e1-ab02f9417aa8 }" /f
-reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { 3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA }" /f
-reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { 24ad3ad4-a569-4530-98e1-ab02f9417aa8 }" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\ { 0ddd015d-b06c-45d5-8c4c-f59713854639 }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Hide" /f
-reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{ 0ddd015d-b06c-45d5-8c4c-f59713854639 }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Hide" /f
-# Videos
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{ A0953C92-50DC-43bf-BE83-3742FED03C9C }" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a }" /f
-reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { A0953C92-50DC-43bf-BE83-3742FED03C9C }" /f
-reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a }" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\ { 35286a68-3c57-41a1-bbb1-0eae73d76c95 }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Hide" /f
-reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{ 35286a68-3c57-41a1-bbb1-0eae73d76c95 }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Hide" /f
-# 3D Objects
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{ 0DB7E03F-FC29-4DC6-9020-FF41B59E513A }" /f
-reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { 0DB7E03F-FC29-4DC6-9020-FF41B59E513A }" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\ { 31C0DD25-9439-4F12-BF41-7FF4EDA38722 }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Hide" /f
-reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{ 31C0DD25-9439-4F12-BF41-7FF4EDA38722 }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Hide" /f
-# Video
-reg add "HKCU\Software\Classes\CLSID\{ f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a }" /v "System.IsPinnedToNameSpaceTree" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Classes\Wow6432Node\CLSID\{ f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a }" /v "System.IsPinnedToNameSpaceTree" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideMyComputerIcons" /v "{ f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a }" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { A0953C92-50DC-43bf-BE83-3742FED03C9C }" /f
-reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { A0953C92-50DC-43bf-BE83-3742FED03C9C }" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\ { 35286a68-3c57-41a1-bbb1-0eae73d76c95 }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Show" /f
-reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{ 35286a68-3c57-41a1-bbb1-0eae73d76c95 }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Show" /f
-# Documents
-reg add "HKCU\Software\Classes\CLSID\{ d3162b92-9365-467a-956b-92703aca08af }" /v "System.IsPinnedToNameSpaceTree" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Classes\Wow6432Node\CLSID\{ d3162b92-9365-467a-956b-92703aca08af }" /v "System.IsPinnedToNameSpaceTree" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideMyComputerIcons" /v "{ d3162b92-9365-467a-956b-92703aca08af }" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { A8CDFF1C-4878-43be-B5FD-F8091C1C60D0 }" /f
-reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { A8CDFF1C-4878-43be-B5FD-F8091C1C60D0 }" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\ { f42ee2d3-909f-4907-8871-4c22fc0bf756 }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Show" /f
-reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{ f42ee2d3-909f-4907-8871-4c22fc0bf756 }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Show" /f
-# Downloads
-reg add "HKCU\Software\Classes\CLSID\{ 088e3905 - 0323 - 4b02-9826-5d99428e115f }" /v "System.IsPinnedToNameSpaceTree" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Classes\Wow6432Node\CLSID\{ 088e3905 - 0323 - 4b02-9826-5d99428e115f }" /v "System.IsPinnedToNameSpaceTree" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideMyComputerIcons" /v "{ 088e3905 - 0323 - 4b02-9826-5d99428e115f }" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { 374DE290-123F-4565-9164-39C4925E467B }" /f
-reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { 374DE290-123F-4565-9164-39C4925E467B }" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\ { 7d83ee9b-2244-4e70-b1f5-5393042af1e4 }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Show" /f
-reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{ 7d83ee9b-2244-4e70-b1f5-5393042af1e4 }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Show" /f
-# Images
-reg add "HKCU\Software\Classes\CLSID\{ 24ad3ad4-a569-4530-98e1-ab02f9417aa8 }" /v "System.IsPinnedToNameSpaceTree" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Classes\Wow6432Node\CLSID\{ 24ad3ad4-a569-4530-98e1-ab02f9417aa8 }" /v "System.IsPinnedToNameSpaceTree" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideMyComputerIcons" /v "{ 24ad3ad4-a569-4530-98e1-ab02f9417aa8 }" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { 3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA }" /f
-reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { 3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA }" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\ { 0ddd015d-b06c-45d5-8c4c-f59713854639 }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Show" /f
-reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{ 0ddd015d-b06c-45d5-8c4c-f59713854639 }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Show" /f
-# Music
-reg add "HKCU\Software\Classes\CLSID\{ 3dfdf296-dbec-4fb4-81d1-6a3438bcf4de }" /v "System.IsPinnedToNameSpaceTree" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Classes\Wow6432Node\CLSID\{ 3dfdf296-dbec-4fb4-81d1-6a3438bcf4de }" /v "System.IsPinnedToNameSpaceTree" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideMyComputerIcons" /v "{ 3dfdf296-dbec-4fb4-81d1-6a3438bcf4de }" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { 1CF1260C-4DD0-4ebb-811F-33C572699FDE }" /f
-reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\ { 1CF1260C-4DD0-4ebb-811F-33C572699FDE }" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\ { a0c69a99-21c8-4671-8703-7934162fcf1d }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Show" /f
-reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{ a0c69a99-21c8-4671-8703-7934162fcf1d }\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Show" /f
-# Desktop
-reg add "HKCU\Software\Classes\CLSID\{ B4BFCC3A-DB2C-424C-B029-7FE99A87C641 }" /v "System.IsPinnedToNameSpaceTree" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Classes\Wow6432Node\CLSID\{ B4BFCC3A-DB2C-424C-B029-7FE99A87C641 }" /v "System.IsPinnedToNameSpaceTree" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideMyComputerIcons" /v "{ B4BFCC3A-DB2C-424C-B029-7FE99A87C641 }" /t REG_DWORD /d "1" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\ { B4BFCC3A-DB2C-424C-B029-7FE99A87C641 }\PropertyBag" /v "ThisPCPolicy" /f
-reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{ B4BFCC3A-DB2C-424C-B029-7FE99A87C641 }\PropertyBag" /v "ThisPCPolicy" /f
-# 3d objects
-reg add "HKCU\Software\Classes\CLSID\{ 0DB7E03F-FC29-4DC6-9020-FF41B59E513A }" /v "System.IsPinnedToNameSpaceTree" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Classes\Wow6432Node\CLSID\{ 0DB7E03F-FC29-4DC6-9020-FF41B59E513A }" /v "System.IsPinnedToNameSpaceTree" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideMyComputerIcons" /v "{ 0DB7E03F-FC29-4DC6-9020-FF41B59E513A }" /t REG_DWORD /d "1" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\ { 31C0DD25-9439-4F12-BF41-7FF4EDA38722 }\PropertyBag" /v "ThisPCPolicy" /f
-reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{ 31C0DD25-9439-4F12-BF41-7FF4EDA38722 }\PropertyBag" /v "ThisPCPolicy" /f
-# Quick Access
-reg add "HKCU\Software\Classes\CLSID\{ 679f85cb-0220-4080-b29b-5540cc05aab6 }\ShellFolder" /v "Attributes" /t REG_DWORD /d "0xa0600000" /f
-reg add "HKCU\Software\Classes\WOW6432Node\CLSID\{ 679f85cb-0220-4080-b29b-5540cc05aab6 }\ShellFolder" /v "Attributes" /t REG_DWORD /d "0xa0600000" /f
-%Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Classes\CLSID\{ 679f85cb-0220-4080-b29b-5540cc05aab6 }\ShellFolder" /v "Attributes" /t REG_DWORD /d "0xa0100000" /f
-%Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Classes\CLSID\{ 679f85cb-0220-4080-b29b-5540cc05aab6 }" /v "System.IsPinnedtoNameSpaceTree" /t REG_DWORD /d "1" /f
-%Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Classes\WOW6432Node\CLSID\{ 679f85cb-0220-4080-b29b-5540cc05aab6 }\ShellFolder" /v "Attributes" /t REG_DWORD /d "0xa0100000" /f
-%Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Classes\WOW6432Node\CLSID\{ 679f85cb-0220-4080-b29b-5540cc05aab6 }" /v "System.IsPinnedtoNameSpaceTree" /t REG_DWORD /d "1"/f
-
 # Disable Administrative shares
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" /v "AutoShareWks" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" /v "AutoShareServer" /t REG_DWORD /d "0" /f
@@ -2266,117 +2020,6 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Configuration
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager" /v "MiscPolicyInfo" /t reg_DWORD /d "2" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager" /v "ShippedWithReserves" /t reg_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager" /v "PassedPolicy" /t reg_DWORD /d "0" /f
-
-# Remove unuseful Right Click Menu
-reg delete "HKCR\SystemFileAssociations\.3mf\Shell\3D Edit" /f
-reg delete "HKCR\SystemFileAssociations\.bmp\Shell\3D Edit" /f
-reg delete "HKCR\SystemFileAssociations\.fbx\Shell\3D Edit" /f
-reg delete "HKCR\SystemFileAssociations\.gif\Shell\3D Edit" /f
-reg delete "HKCR\SystemFileAssociations\.jfif\Shell\3D Edit" /f
-reg delete "HKCR\SystemFileAssociations\.jpe\Shell\3D Edit" /f
-reg delete "HKCR\SystemFileAssociations\.jpeg\Shell\3D Edit" /f
-reg delete "HKCR\SystemFileAssociations\.jpg\Shell\3D Edit" /f
-reg delete "HKCR\SystemFileAssociations\.png\Shell\3D Edit" /f
-reg delete "HKCR\SystemFileAssociations\.tif\Shell\3D Edit" /f
-reg delete "HKCR\SystemFileAssociations\.tiff\Shell\3D Edit" /f
-reg delete "HKCR\Directory\shellex\ContextMenuHandlers\EPP" /f
-reg delete "HKCR\Drive\shellex\ContextMenuHandlers\EPP" /f
-reg delete "HKCR\*\shellex\ContextMenuHandlers\EPP" /f
-reg delete "HKCR\*\shellex\ContextMenuHandlers\Open With EncryptionMenu" /f
-reg delete "HKCR\*\shellex\ContextMenuHandlers\Open With" /f
-reg delete "HKCR\.lnk\ShellNew" /f
-reg delete "HKCR\Folder\shell\pintohome" /f
-reg delete "HKCR\Windows.IsoFile\shell\mount" /f
-reg delete "HKCR\*\shell\UpdateEncryptionSettingsWork" /f
-reg delete "HKCR\Directory\shell\UpdateEncryptionSettings" /f
-reg delete "HKCR\Folder\shell\opennewtab" /f
-reg delete "HKCR\Folder\shell\opennewwindow" /f
-reg delete "HKCR\.library-ms\ShellNew" /f
-reg delete "HKCR\.bmp\ShellNew" /f
-reg delete "HKCR\.contact\ShellNew" /f
-reg delete "HKCR\.rtf\ShellNew" /f
-reg delete "HKCR\.zip\CompressedFolder\ShellNew" /f
-reg delete "HKCR\Windows.IsoFile\shell\burn" /f
-reg delete "HKCR\*\shellex\ContextMenuHandlers\Sharing" /f
-reg delete "HKCR\Directory\Background\shellex\ContextMenuHandlers\Sharing" /f
-reg delete "HKCR\Directory\shellex\ContextMenuHandlers\Sharing" /f
-reg delete "HKCR\Directory\shellex\CopyHookHandlers\Sharing" /f
-reg delete "HKCR\Directory\shellex\PropertySheetHandlers\Sharing" /f
-reg delete "HKCR\Drive\shellex\ContextMenuHandlers\Sharing" /f
-reg delete "HKCR\Drive\shellex\PropertySheetHandlers\Sharing" /f
-reg delete "HKCR\LibraryFolder\background\shellex\ContextMenuHandlers\Sharing" /f
-reg delete "HKCR\UserLibraryFolder\shellex\ContextMenuHandlers\Sharing" /f
-reg delete "HKCR\AllFilesystemObjects\shellex\ContextMenuHandlers\ModernSharing" /f
-reg delete "HKCR\*\shellex\ContextMenuHandlers\{ 90AA3A4E-1CBA-4233-B8BB-535773D48449 }" /f
-reg delete "HKCR\Folder\ShellEx\ContextMenuHandlers\Library Location" /f
-reg delete "HKCR\SystemFileAssociations\.bmp\Shell\setdesktopwallpaper" /f
-reg delete "HKCR\SystemFileAssociations\.dib\Shell\setdesktopwallpaper" /f
-reg delete "HKCR\SystemFileAssociations\.gif\Shell\setdesktopwallpaper" /f
-reg delete "HKCR\SystemFileAssociations\.jfif\Shell\setdesktopwallpaper" /f
-reg delete "HKCR\SystemFileAssociations\.jpe\Shell\setdesktopwallpaper" /f
-reg delete "HKCR\SystemFileAssociations\.jpeg\Shell\setdesktopwallpaper" /f
-reg delete "HKCR\SystemFileAssociations\.jpg\Shell\setdesktopwallpaper" /f
-reg delete "HKCR\SystemFileAssociations\.png\Shell\setdesktopwallpaper" /f
-reg delete "HKCR\SystemFileAssociations\.tif\Shell\setdesktopwallpaper" /f
-reg delete "HKCR\SystemFileAssociations\.tiff\Shell\setdesktopwallpaper" /f
-reg delete "HKCR\SystemFileAssociations\.wdp\Shell\setdesktopwallpaper" /f
-reg delete "HKCR\SystemFileAssociations\.avci\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.bmp\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.dds\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.dib\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.gif\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.heic\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.heif\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.ico\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.jfif\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.jpe\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.jpeg\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.jpg\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.jxr\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.png\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.rle\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.tif\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.tiff\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.wdp\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\SystemFileAssociations\.webp\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-reg delete "HKCR\Drive\shellex\ContextMenuHandlers\{ D6791A63-E7E2-4fee-BF52-5DED8E86E9B8 }" /f
-reg delete "HKCR\cmdfile\shell\runasuser" /f
-reg delete "HKCR\batfile\shell\runasuser" /f
-reg delete "HKCR\exefile\shell\runasuser" /f
-reg delete "HKCR\mscfile\shell\runasuser" /f
-reg delete "HKCR\Msi.Package\shell\runasuser" /f
-reg delete "HKCR\SystemFileAssociations\.glb\Shell\3D Edit\command" /f
-reg delete "HKCR\SystemFileAssociations\.obj\Shell\3D Edit\command" /f
-reg delete "HKCR\SystemFileAssociations\.ply\Shell\3D Edit\command" /f
-reg delete "HKCR\SystemFileAssociations\.stl\Shell\3D Edit\command" /f
-reg delete "HKCR\Folder\shellex\ContextMenuHandlers\PintoStartScreen" /f
-reg delete "HKCR\exefile\shellex\ContextMenuHandlers\PintoStartScreen" /f
-reg delete "HKCR\Microsoft.Website\ShellEx\ContextMenuHandlers\PintoStartScreen" /f
-reg delete "HKCR\mscfile\shellex\ContextMenuHandlers\PintoStartScreen" /f
-reg delete "HKCR\AllFilesystemObjects\shellex\PropertySheetHandlers\{ 596AB062-B4D2-4215-9F74-E9109B0A8153 }" /f
-reg delete "HKCR\CLSID\ { 450D8FBA-AD25-11D0-98A8-0800361B1103 }\shellex\PropertySheetHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" /f
-reg delete "HKCR\Directory\shellex\PropertySheetHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" /f
-reg delete "HKCR\Drive\shellex\PropertySheetHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" /f
-reg delete "HKCR\AllFilesystemObjects\shellex\ContextMenuHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" /f
-reg delete "HKCR\CLSID\ { 450D8FBA-AD25-11D0-98A8-0800361B1103 }\shellex\ContextMenuHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" /f
-reg delete "HKCR\Directory\shellex\ContextMenuHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" /f
-reg delete "HKCR\Drive\shellex\ContextMenuHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" /f
-reg delete "HKCR\CompressedFolder\ShellEx\ContextMenuHandlers\ { b8cdcb65-b1bf-4b42-9428-1dfdb7ee92af }" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\DelegateFolders\ { F5FB2C77-0E2F-4A16-A381-3E560C68BC83 }" /f
-reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\DelegateFolders\ { F5FB2C77-0E2F-4A16-A381-3E560C68BC83 }" /f
-reg delete "HKCR\CLSID\ { 09A47860-11B0-4DA5-AFA5-26D86198A780 }" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\TelemetryController\Appraiser" /v Command /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\TelemetryController\AppraiserServer" /v Command /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\TelemetryController\AvStatus" /v Command /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\TelemetryController\DevInv" /v Command /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\TelemetryController\Encapsulation" /v Command /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\TelemetryController\InvAgent" /v Command /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs" /f
-reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs" /f
-reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\LastVisitedPidlMRU" /f
-reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSavePidlMRU" /f
-reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU" /f
-reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount" /f
 
 # Telemetry
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\AppV\CEIP" /v "CEIPEnable" /t REG_DWORD /d "0" /f
@@ -2394,6 +2037,12 @@ reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection" 
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v "Disabled" /t REG_DWORD /d "1" /f
 
 # other tweak
+reg add "HKCR\CLSID\ { 018D5C66-4533-4307-9B53-224DE2ED1FE6 }" /v "System.IsPinnedToNameSpaceTree" /d "0" /t REG_DWORD /f
+reg add "HKCR\Wow6432Node\{ 018D5C66-4533-4307-9B53-224DE2ED1FE6 }" /v "System.IsPinnedToNameSpaceTree" /d "0" /t REG_DWORD /f
+reg add "HKCR\*" /v "DefaultDropEffect" /t REG_DWORD /d "2" /f
+reg add "HKCR\AllFilesystemObjects" /v "DefaultDropEffect" /t REG_DWORD /d "2" /f
+reg add "HKCR\Drive\shell\encrypt-bde" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKCR\Drive\shell\encrypt-bde-elev" /v "LegacyDisable" /t REG_SZ /d "" /f
 reg add "HKLM\Software\Microsoft\Security Center" /v "cval" /t REG_DWORD /d "0" /f
 reg delete "HKCU\Environment" /v "OneDrive" /f
 reg delete "HKCU\Software\Microsoft\Siuf\Rules" /v "PeriodInNanoSeconds" /f
@@ -2620,8 +2269,6 @@ reg add "HKLM\SOFTWARE\Classes\SystemFileAssociations\.ply\Shell\3D Print" /v "P
 reg add "HKLM\SOFTWARE\Classes\SystemFileAssociations\.stl\Shell\3D Edit" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
 reg add "HKLM\SOFTWARE\Classes\SystemFileAssociations\.stl\Shell\3D Print" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
 reg add "HKLM\SOFTWARE\Classes\SystemFileAssociations\.wrl\Shell\3D Print" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
-reg add "HKCU\Software\Classes\Folder\shellex\ContextMenuHandlers\Library Location" /ve /t REG_NONE /d "" /f
-reg add "HKCU\Software\Classes\Folder\shellex\ContextMenuHandlers\Library Location" /v (Default) /t reg_None /d "" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableSettingSync" /t REG_DWORD /d "2" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "EnableBackupForWin8Apps" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableSettingSyncUserOverride" /t REG_DWORD /d "2" /f
@@ -2784,16 +2431,6 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "Pro
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableVirtualization" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "ConsentPromptBehaviorAdmin" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "VerboseStatus" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v " { 09A47860-11B0-4DA5-AFA5-26D86198A780 }" /t REG_SZ /d "" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v " { 1d27f844-3a1f-4410-85ac-14651078412d }" /t REG_SZ /d "" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v " { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" /t REG_SZ /d "" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v " { 9F156763-7844-4DC4-B2B1-901F640F5155 }" /t REG_SZ /d "" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v " { f81e9010-6ea4-11ce-a7ff-00aa003ca9f6 }" /t REG_SZ /d "" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v " { 09A47860-11B0-4DA5-AFA5-26D86198A780 }" /t REG_SZ /d "" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v " { 1D27F844-3A1F-4410-85AC-14651078412D }" /t REG_SZ /d "" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v " { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" /t REG_SZ /d "" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v " { 9F156763-7844-4DC4-B2B1-901F640F5155 }" /t REG_SZ /d "" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v " { f81e9010-6ea4-11ce-a7ff-00aa003ca9f6 }" /t REG_SZ /d "" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CDP\SettingsPage" /v "BluetoothLastDisabledNearShare" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CDP" /v "NearShareChannelUserAuthzPolicy" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CDP" /v "RomeSdkChannelUserAuthzPolicy" /t REG_DWORD /d "0" /f
@@ -2921,7 +2558,6 @@ reg add "HKCU\Software\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v 
 reg add "HKLM\SOFTWARE\Classes\CLSID\{ 645FF040-5081-101B-9F08-00AA002F954E }\shell\Separator" /v "CommandFlags" /t REG_DWORD /d "40" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows Media Foundation\Platform" /v "EnableFrameServerMode" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows Media Foundation\Platform" /v "EnableFrameServerMode" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Classes\Folder\shellex\ContextMenuHandlers\Library Location" /ve /t REG_NONE /d "" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\UserProfileEngagement" /v "ScoobeSystemSettingEnabled" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Holographic" /v "FirstRunSucceeded" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Holographic" /v "IdleTimerDuration" /t REG_DWORD /d "0" /f
@@ -2930,11 +2566,7 @@ reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Holographic\StageManagem
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Holographic\StageManagement" /v "DisableStageNearbyRequi#ent" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Reliability" /v "TimeStampInterval" /t REG_DWORD /d "0" /f
 
-# Remove Cast To Device From Context Menus Of Media Files
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v " { 7AD84985-87B4-4a16-BE58-8B72A5B390F7 }" /t REG_SZ /d "" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v " { 7AD84985-87B4-4a16-BE58-8B72A5B390F7 }" /t REG_SZ /d "" /f
-
-# Disable ALL Modern Apps Background Activity
+# Disable Background Activity For ALL Modern Apps
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsRunInBackground" /t REG_DWORD /d "2" /f
 
 # no lock Screen
@@ -3092,18 +2724,21 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband\Auxill
 
 # Explorer Policy
 reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "NoPinningStoreToTaskbar" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "HideRecentlyAddedApps" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "HidePeopleBar" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "NoUseStoreOpenWith" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "DisableSearchBoxSuggestions" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "NoAutoplayfornonVolume" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v "DisableSearchBoxSuggestions" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v "NoPinningToDestinations" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v "DisableThumbsDBOnNetworkFolders" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v "NoPinningStoreToTaskbar" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v "NoUseStoreOpenWith" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v "DisableContextMenusInStart" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v "NoUninstallFromStart" /t REG_DWORD /d "1" /f
+
+# Disable Show Recently Added Apps On Start Menu
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "HideRecentlyAddedApps" /t REG_DWORD /d "1" /f
+
+# Remove Web Search From Start Menu
+Reg.exe add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v "DisableSearchBoxSuggestions" /t REG_DWORD /d "1" /f
 
 # delete taskbar shortcuts
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband" /f
@@ -3317,9 +2952,6 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager" /v
 # Ungroup icons on all taskbars
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /f /v "NoTaskGrouping" /t REG_DWORD /d 1
 
-# Remove the Open in Windows Terminal context menu
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v " { 9F156763-7844-4DC4-B2B1-901F640F5155 }" /t REG_SZ /d "" /f 
-
 # Disable Acrylic Background On Logon Screen
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "DisableAcrylicBackgroundOnLogon" /t REG_DWORD /d "1" /f
 
@@ -3359,7 +2991,7 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\EditionOverrides" /v "Us
 # Win11 - Remove Widgets Button on Taskbar
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarDa" /t REG_DWORD /d "0" /f
 
-# Win11 - Disable_show_snap_layouts_when_hover_over_maximize_button
+# Win11 - Disable Snap Assist Flyout
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "EnableSnapAssistFlyout" /t REG_DWORD /d "0" /f
 
 # Win11 - Disable_rminimize_windows_when_monitor_is_disconnected
@@ -3375,5 +3007,5 @@ reg add "HKCU\Control Panel\Desktop" /v "RestorePreviousStateRecalcBehavior" /t 
 reg add "HKLM\Software\Policies\Microsoft\Windows\Windows Chat" /v "ChatIcon" /t REG_DWORD /d "3" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarMn" /t REG_DWORD /d "0" /f
 
-# Win11 - Restore Win10 Right Menu
-reg.exe add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve
+# Win11 - Restore full right click context menu in Windows 11 via Registry
+Reg.exe add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f
