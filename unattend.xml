@@ -97,26 +97,38 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>1</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>%WINDIR%\Setup\Scripts\Additional.cmd</CommandLine>
-                    <Description>CMD Tweak</Description>
+                    <CommandLine>C:\Windows\SysWOW64\PowerRun_x64.exe "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Tweak1.ps1"</CommandLine>
+                    <Description>Powershell Tweak</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>2</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File "%WINDIR%\Setup\Scripts\Tweak.ps1"</CommandLine>
+                    <CommandLine>"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Tweak2.ps1"</CommandLine>
                     <Description>Powershell Tweak</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>3</Order>
                     <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>%WINDIR%\Setup\Scripts\SOFTWARE\0AAFOptimusAudioPack9231.exe</CommandLine>
+                    <CommandLine>C:\Windows\Setup\Scripts\SOFTWARE\0AAFOptimusAudioPack9231.exe</CommandLine>
                     <Description>Audio Driver</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>4</Order>
                     <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>%WINDIR%\Setup\Scripts\Acrobat\autoplay.exe</CommandLine>
+                    <CommandLine>C:\Windows\Setup\Scripts\Acrobat\autoplay.exe</CommandLine>
                     <Description>Acrobat</Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>5</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                    <CommandLine>C:\Windows\Setup\Scripts\Acrobat\Crack\Keygen\Acrobat_Keygen.exe</CommandLine>
+                    <Description>Acrobat Crack</Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>6</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                    <CommandLine>"C:\Program Files\SysinternalsSuite\Autoruns64.exe"</CommandLine>
+                    <Description>Acrobat Crack</Description>
                 </SynchronousCommand>
             </FirstLogonCommands>
             <UserAccounts>
