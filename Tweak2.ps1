@@ -1,10 +1,1673 @@
 # Enable script logging.
 # To stop logging just close the console or type "Stop-Transcript"
-Start-Transcript -Path c:\TweakLog.txt -Force
+Start-Transcript -Path c:\Tweak2Log.txt -Force
 
 # Assign the default preferences to their own variables so we can restore then once the function completes.
 $ErrorActionPreference = 'SilentlyContinue'
 $ProgressPreference = 'SilentlyContinue'
+
+$Host.UI.RawUI.WindowTitle = "Powershell Tweaks"
+
+# Segoe UI to Arial Font
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" -force -verbose };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" -force -verbose };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name 'Segoe UI (TrueType)' -Value '' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name 'Segoe UI Black (TrueType)' -Value '' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name 'Segoe UI Black Italic (TrueType)' -Value '' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name 'Segoe UI Bold (TrueType)' -Value '' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name 'Segoe UI Bold Italic (TrueType)' -Value '' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name 'Segoe UI Historic (TrueType)' -Value '' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name 'Segoe UI Italic (TrueType)' -Value '' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name 'Segoe UI Light (TrueType)' -Value '' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name 'Segoe UI Light Italic (TrueType)' -Value '' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name 'Segoe UI Semibold (TrueType)' -Value '' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name 'Segoe UI Semibold Italic (TrueType)' -Value '' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name 'Segoe UI Semilight (TrueType)' -Value '' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name 'Segoe UI Semilight Italic (TrueType)' -Value '' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name 'Segoe UI Variable (TrueType)' -Value '' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes' -Name 'Segoe UI' -Value 'Arial' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes' -Name 'MS Shell Dlg 2' -Value 'Arial' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes' -Name 'Helv' -Value 'Arial' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes' -Name 'Helvetica' -Value 'Arial' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes' -Name 'MS Shell Dlg' -Value 'Arial' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes' -Name 'Times' -Value 'Arial' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes' -Name 'Tms Rmn' -Value 'Arial' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes' -Name 'FangSong_GB2312' -Value 'Microsoft YaHei UI' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes' -Name 'KaiTi_GB2312' -Value 'Microsoft YaHei UI' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes' -Name 'SimSun' -Value 'Microsoft YaHei UI' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes' -Name 'Segoe UI Bold' -Value 'Arial' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes' -Name 'MS Serif' -Value 'Arial' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes' -Name 'MS Sans Serif' -Value 'Arial' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes' -Name 'System' -Value 'Arial' -PropertyType String -Force -verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes' -Name 'Tahoma' -Value 'Arial' -PropertyType String -Force -verbose
+    
+# Set User TEMP to Windows TEMP
+[Environment]::SetEnvironmentVariable("TMP", "C:\TEMP", "User")
+[Environment]::SetEnvironmentVariable("TMP", "C:\TEMP", "Machine")
+[Environment]::SetEnvironmentVariable("TMP", "C:\TEMP", "Process")
+New-ItemProperty -Path HKCU:\Environment -Name TMP -PropertyType ExpandString -Value C:\TEMP -Force -verbose
+[Environment]::SetEnvironmentVariable("TEMP", "C:\TEMP", "User")
+[Environment]::SetEnvironmentVariable("TEMP", "C:\TEMP", "Machine")
+[Environment]::SetEnvironmentVariable("TEMP", "C:\TEMP", "Process")
+New-ItemProperty -Path HKCU:\Environment -Name TEMP -PropertyType ExpandString -Value C:\TEMP -Force -verbose
+New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" -Name TMP -PropertyType ExpandString -Value C:\TEMP -Force -verbose
+New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" -Name TEMP -PropertyType ExpandString -Value C:\TEMP -Force -verbose
+
+# Potplayer Setting
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayer64") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayer64" -force -Verbose };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayer64' -Name 'ProgramAPI' -Value '1' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayer64' -Name 'ProgramFolder' -Value 'C:\Program Files\PotPlayer' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayer64' -Name 'ProgramPath' -Value 'C:\Program Files\PotPlayer\PotPlayerMini64.exe' -PropertyType String -Force -Verbose
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\AtscAntenaList") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\AtscAntenaList" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\AtscCableList") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\AtscCableList" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\BMItem_0") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\BMItem_0" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\Dialog324") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\Dialog324" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\DvbcList") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\DvbcList" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\DvbsList") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\DvbsList" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\DvbtList") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\DvbtList" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0000") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0000" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0001") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0001" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0002") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0002" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0003") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0003" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0004") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0004" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0005") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0005" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0006") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0006" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0007") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0007" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0008") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0008" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0009") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0009" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0010") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0010" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0011") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0011" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0012") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0012" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0013") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0013" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0014") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0014" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0015") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0015" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0016") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0016" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0017") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0017" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0018") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0018" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\Override\0000") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\Override\0000" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\Override\0001") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\Override\0001" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\Override\0002") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\Override\0002" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\Override\0003") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\Override\0003" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0001") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0001" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0002") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0002" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\Positions") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\Positions" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\RememberFiles") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\RememberFiles" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\Settings") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\Settings" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64" -force -Verbose };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\AtscAntenaList' -Name '0' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\AtscAntenaList' -Name '1' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\AtscAntenaList' -Name '2' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\AtscAntenaList' -Name '3' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\AtscAntenaList' -Name '4' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\AtscAntenaList' -Name '5' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\AtscAntenaList' -Name '6' -Value '' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\AtscCableList' -Name '0' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\AtscCableList' -Name '1' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\AtscCableList' -Name '2' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\AtscCableList' -Name '3' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\AtscCableList' -Name '4' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\AtscCableList' -Name '5' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\AtscCableList' -Name '6' -Value '' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\BMItem_0' -Name '' -Value '/f' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Dialog324' -Name 'WindowPosition' -Value '856,371,1714,973' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\DvbcList' -Name '0' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\DvbcList' -Name '1' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\DvbcList' -Name '2' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\DvbcList' -Name '3' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\DvbcList' -Name '4' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\DvbcList' -Name '5' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\DvbcList' -Name '6' -Value '' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\DvbsList' -Name '0' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\DvbsList' -Name '1' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\DvbsList' -Name '2' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\DvbsList' -Name '3' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\DvbsList' -Name '4' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\DvbsList' -Name '5' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\DvbsList' -Name '6' -Value '' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\DvbtList' -Name '0' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\DvbtList' -Name '1' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\DvbtList' -Name '2' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\DvbtList' -Name '3' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\DvbtList' -Name '4' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\DvbtList' -Name '5' -Value '1|0|0|0|0|0' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\DvbtList' -Name '6' -Value '' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0000' -Name 'Type' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0000' -Name 'Disabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0000' -Name 'DisplayName' -Value '@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{E8E73B6B-4CB3-44A4-BE99-4F7BCB96E491}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0000' -Name 'Name' -Value 'LAV Audio Decoder' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0000' -Name 'CLSID' -Value '{E8E73B6B-4CB3-44A4-BE99-4F7BCB96E491}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0000' -Name 'FilterType' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0000' -Name 'Merit' -Value -1140850433 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0000' -Name 'MeritHi' -Value 454720 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0001' -Name 'Type' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0001' -Name 'Disabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0001' -Name 'DisplayName' -Value '@device:dmo:{BBEEA841-0A63-4F52-A7AB-A9B3A84ED38A}{57F2DB8B-E6BB-4513-9D43-DCD2A6593125}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0001' -Name 'Name' -Value 'MP3 Decoder DMO' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0001' -Name 'CLSID' -Value '{94297043-BD82-4DFD-B0DE-8177739C6D20}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0001' -Name 'FilterType' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0001' -Name 'Merit' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0001' -Name 'MeritHi' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0002' -Name 'Type' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0002' -Name 'Disabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0002' -Name 'DisplayName' -Value '@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{4A2286E0-7BEF-11CE-9BD9-0000E202599C}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0002' -Name 'Name' -Value 'MPEG Audio Decoder' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0002' -Name 'CLSID' -Value '{4A2286E0-7BEF-11CE-9BD9-0000E202599C}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0002' -Name 'FilterType' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0002' -Name 'Merit' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0002' -Name 'MeritHi' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0003' -Name 'Type' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0003' -Name 'Disabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0003' -Name 'DisplayName' -Value '@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{FEB50740-7BEF-11CE-9BD9-0000E202599C}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0003' -Name 'Name' -Value 'MPEG Video Decoder' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0003' -Name 'CLSID' -Value '{FEB50740-7BEF-11CE-9BD9-0000E202599C}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0003' -Name 'FilterType' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0003' -Name 'Merit' -Value 256 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0003' -Name 'MeritHi' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0004' -Name 'Type' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0004' -Name 'Disabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0004' -Name 'DisplayName' -Value '@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{EE30215D-164F-4A92-A4EB-9D4C13390F9F}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0004' -Name 'Name' -Value 'LAV Video Decoder' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0004' -Name 'CLSID' -Value '{EE30215D-164F-4A92-A4EB-9D4C13390F9F}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0004' -Name 'FilterType' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0004' -Name 'Merit' -Value 261888 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0004' -Name 'MeritHi' -Value 201330176 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0005' -Name 'Type' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0005' -Name 'Disabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0005' -Name 'DisplayName' -Value '@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{212690FB-83E5-4526-8FD7-74478B7939CD}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0005' -Name 'Name' -Value 'Microsoft DTV-DVD Video Decoder' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0005' -Name 'CLSID' -Value '{212690FB-83E5-4526-8FD7-74478B7939CD}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0005' -Name 'FilterType' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0005' -Name 'Merit' -Value 13056 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0005' -Name 'MeritHi' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0006' -Name 'Type' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0006' -Name 'Disabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0006' -Name 'DisplayName' -Value '@device:dmo:{2A11BAE2-FE6E-4249-864B-9E9ED6E8DBC2}{4A69B442-28BE-4991-969C-B500ADF5D8A8}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0006' -Name 'Name' -Value 'Mpeg4s Decoder DMO' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0006' -Name 'CLSID' -Value '{94297043-BD82-4DFD-B0DE-8177739C6D20}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0006' -Name 'FilterType' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0006' -Name 'Merit' -Value 3072 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0006' -Name 'MeritHi' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0007' -Name 'Type' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0007' -Name 'Disabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0007' -Name 'DisplayName' -Value '@device:dmo:{82D353DF-90BD-4382-8BC2-3F6192B76E34}{4A69B442-28BE-4991-969C-B500ADF5D8A8}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0007' -Name 'Name' -Value 'WMVideo Decoder DMO' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0007' -Name 'CLSID' -Value '{94297043-BD82-4DFD-B0DE-8177739C6D20}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0007' -Name 'FilterType' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0007' -Name 'Merit' -Value 245760 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0007' -Name 'MeritHi' -Value 3072 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0008' -Name 'Type' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0008' -Name 'Disabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0008' -Name 'DisplayName' -Value '@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{1B544C20-FD0B-11CE-8C63-00AA0044B51E}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0008' -Name 'Name' -Value 'AVI Splitter' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0008' -Name 'CLSID' -Value '{1B544C20-FD0B-11CE-8C63-00AA0044B51E}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0008' -Name 'FilterType' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0008' -Name 'Merit' -Value 262144 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0008' -Name 'MeritHi' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0009' -Name 'Type' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0009' -Name 'Disabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0009' -Name 'DisplayName' -Value '@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{336475D0-942A-11CE-A870-00AA002FEAB5}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0009' -Name 'Name' -Value 'MPEG-I Stream Splitter' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0009' -Name 'CLSID' -Value '{336475D0-942A-11CE-A870-00AA002FEAB5}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0009' -Name 'FilterType' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0009' -Name 'Merit' -Value 34603008 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0009' -Name 'MeritHi' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0010' -Name 'Type' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0010' -Name 'Disabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0010' -Name 'DisplayName' -Value '@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{AFB6C280-2C41-11D3-8A60-0000F81E0E4A}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0010' -Name 'Name' -Value 'MPEG-2 Demultiplexer' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0010' -Name 'CLSID' -Value '{AFB6C280-2C41-11D3-8A60-0000F81E0E4A}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0010' -Name 'FilterType' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0010' -Name 'Merit' -Value 6291456 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0010' -Name 'MeritHi' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0011' -Name 'Type' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0011' -Name 'Disabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0011' -Name 'DisplayName' -Value '@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{3AE86B20-7BE8-11D1-ABE6-00A0C905F375}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0011' -Name 'Name' -Value 'MPEG-2 Splitter' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0011' -Name 'CLSID' -Value '{3AE86B20-7BE8-11D1-ABE6-00A0C905F375}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0011' -Name 'FilterType' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0011' -Name 'Merit' -Value 2097152 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0011' -Name 'MeritHi' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0012' -Name 'Type' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0012' -Name 'Disabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0012' -Name 'DisplayName' -Value '@device:dmo:{2EEB4ADF-4578-4D10-BCA7-BB955F56320A}{57F2DB8B-E6BB-4513-9D43-DCD2A6593125}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0012' -Name 'Name' -Value 'WMAudio Decoder DMO' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0012' -Name 'CLSID' -Value '{94297043-BD82-4DFD-B0DE-8177739C6D20}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0012' -Name 'FilterType' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0012' -Name 'Merit' -Value 1006632960 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0012' -Name 'MeritHi' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0013' -Name 'Type' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0013' -Name 'Disabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0013' -Name 'DisplayName' -Value '@device:dmo:{5210F8E4-B0BB-47C3-A8D9-7B2282CC79ED}{57F2DB8B-E6BB-4513-9D43-DCD2A6593125}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0013' -Name 'Name' -Value 'WMAPro over S/PDIF DMO' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0013' -Name 'CLSID' -Value '{94297043-BD82-4DFD-B0DE-8177739C6D20}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0013' -Name 'FilterType' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0013' -Name 'Merit' -Value 268435456 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0013' -Name 'MeritHi' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0014' -Name 'Type' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0014' -Name 'Disabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0014' -Name 'DisplayName' -Value '@device:dmo:{7BAFB3B1-D8F4-4279-9253-27DA423108DE}{4A69B442-28BE-4991-969C-B500ADF5D8A8}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0014' -Name 'Name' -Value 'WMV Screen decoder DMO' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0014' -Name 'CLSID' -Value '{94297043-BD82-4DFD-B0DE-8177739C6D20}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0014' -Name 'FilterType' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0014' -Name 'Merit' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0014' -Name 'MeritHi' -Value 12 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0015' -Name 'Type' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0015' -Name 'Disabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0015' -Name 'DisplayName' -Value '@device:dmo:{874131CB-4ECC-443B-8948-746B89595D20}{57F2DB8B-E6BB-4513-9D43-DCD2A6593125}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0015' -Name 'Name' -Value 'WMSpeech Decoder DMO' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0015' -Name 'CLSID' -Value '{94297043-BD82-4DFD-B0DE-8177739C6D20}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0015' -Name 'FilterType' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0015' -Name 'Merit' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0015' -Name 'MeritHi' -Value 65536 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0016' -Name 'Type' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0016' -Name 'Disabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0016' -Name 'DisplayName' -Value '@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{D51BD5A1-7548-11CF-A520-0080C77EF58A}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0016' -Name 'Name' -Value 'Wave Parser' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0016' -Name 'CLSID' -Value '{D51BD5A1-7548-11CF-A520-0080C77EF58A}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0016' -Name 'FilterType' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0016' -Name 'Merit' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0016' -Name 'MeritHi' -Value 1048576 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0017' -Name 'Type' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0017' -Name 'Disabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0017' -Name 'DisplayName' -Value '/f' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0017' -Name 'Name' -Value 'LAV Splitter Source' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0017' -Name 'CLSID' -Value '{B98D13E7-55DB-4385-A33D-09FD1BA26338}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0017' -Name 'FilterType' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0017' -Name 'Merit' -Value 1140588544 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0017' -Name 'MeritHi' -Value 1048707 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0018' -Name 'Type' -Value -2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'Type' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'Disabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'DisplayName' -Value '@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{E8E73B6B-4CB3-44A4-BE99-4F7BCB96E491}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'Name' -Value 'LAV Audio Decoder' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'CLSID' -Value '{E8E73B6B-4CB3-44A4-BE99-4F7BCB96E491}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0000' -Value '{ED0B916A-044D-11D1-AA78-00C04FC31D60}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0001' -Value '{E06D802B-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0002' -Value '{36523B13-8EE5-11D1-8CA3-0060B057664A}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0003' -Value '{E06D802B-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0004' -Value '{E06D8020-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0005' -Value '{E06D802B-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0006' -Value '{ED0B916A-044D-11D1-AA78-00C04FC31D60}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0007' -Value '{E06D802C-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0008' -Value '{36523B13-8EE5-11D1-8CA3-0060B057664A}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0009' -Value '{E06D802C-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0010' -Value '{E06D8020-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0011' -Value '{E06D802C-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0012' -Value '{ED0B916A-044D-11D1-AA78-00C04FC31D60}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0013' -Value '{E06D8033-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0014' -Value '{36523B13-8EE5-11D1-8CA3-0060B057664A}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0015' -Value '{E06D8033-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0016' -Value '{E06D8020-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0017' -Value '{E06D8033-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0018' -Value '{ED0B916A-044D-11D1-AA78-00C04FC31D60}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0019' -Value '{E06D8032-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0020' -Value '{36523B13-8EE5-11D1-8CA3-0060B057664A}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0021' -Value '{E06D8032-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0022' -Value '{E06D8020-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0023' -Value '{E06D8032-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0024' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0025' -Value '{000000FF-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0026' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0027' -Value '{000001FF-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0028' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0029' -Value '{00001602-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0030' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0031' -Value '{4134504D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0032' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0033' -Value '{6134706D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0034' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0035' -Value '{53544441-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0036' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0037' -Value '{00001600-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0038' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0039' -Value '{00001601-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0040' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0041' -Value '{00001610-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0042' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0043' -Value '{20534C41-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0044' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0045' -Value '{E06D802C-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0046' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0047' -Value '{A7FB87AF-2D02-42FB-A4D4-05CD93843BDD}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0048' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0049' -Value '{71CFA727-37E4-404A-AEC0-34842532EFF7}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0050' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0051' -Value '{EB27CEC4-163E-4CA3-8B74-8E25F91B517E}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0052' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0053' -Value '{00002000-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0054' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0055' -Value '{E06D8033-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0056' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0057' -Value '{00002001-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0058' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0059' -Value '{A2E58EB7-0FA9-48BB-A40C-FA0E156D0645}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0060' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0061' -Value '{E436EB80-524F-11CE-9F53-0020AF0BA770}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0062' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0063' -Value '{E436EB81-524F-11CE-9F53-0020AF0BA770}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0064' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0065' -Value '{00000050-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0066' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0067' -Value '{E06D802B-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0068' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0069' -Value '{00000055-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0070' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0071' -Value '{0000F1AC-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0072' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0073' -Value '{1541C5C0-CDDF-477D-BC0A-86F8AE7F8354}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0074' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0075' -Value '{8D2FD10B-5841-4A6B-8905-588FEC1ADED9}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0076' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0077' -Value '{000077A1-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0078' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0079' -Value '{00005756-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0080' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0081' -Value '{20504C4D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0082' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0083' -Value '{63616C61-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0084' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0085' -Value '{B82196E9-1B3F-4796-A636-46239087B38E}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0086' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0087' -Value '{33534541-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0088' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0089' -Value '{E06D8032-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0090' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0091' -Value '{A23EB7FC-510B-466F-9FBF-5F878F69347C}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0092' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0093' -Value '{949F97FD-56F6-4527-B4AE-DDEB375AB80F}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0094' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0095' -Value '{454E4F4E-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0096' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0097' -Value '{20776172-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0098' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0099' -Value '{736F7774-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0100' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0101' -Value '{74776F73-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0102' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0103' -Value '{34326E69-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0104' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0105' -Value '{32336E69-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0106' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0107' -Value '{32336C66-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0108' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0109' -Value '{34366C66-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0110' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0111' -Value '{696E3234-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0112' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0113' -Value '{696E3332-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0114' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0115' -Value '{666C3332-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0116' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0117' -Value '{666C3634-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0118' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0119' -Value '{00000160-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0120' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0121' -Value '{00000161-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0122' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0123' -Value '{00000162-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0124' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0125' -Value '{00000163-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0126' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0127' -Value '{4B4F4F43-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0128' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0129' -Value '{43414152-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0130' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0131' -Value '{50434152-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0132' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0133' -Value '{52504953-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0134' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0135' -Value '{00000130-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0136' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0137' -Value '{54454E44-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0138' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0139' -Value '{385F3832-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0140' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0141' -Value '{345F3431-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0142' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0143' -Value '{464C4152-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0144' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0145' -Value '{0000A109-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0146' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0147' -Value '{0000704F-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0148' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0149' -Value '{5355504F-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0150' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0151' -Value '{726D6173-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0152' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0153' -Value '{4C4C454E-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0154' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0155' -Value '{00000006-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0156' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0157' -Value '{00000007-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0158' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0159' -Value '{00000031-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0160' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0161' -Value '{00000002-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0162' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0163' -Value '{00000022-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0164' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0165' -Value '{324D4451-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0166' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0167' -Value '{00000075-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0168' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0169' -Value '{00000270-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0170' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0171' -Value '{43525441-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0172' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0173' -Value '{E923AABF-CB58-4471-A119-FFFA01E4CE62}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0174' -Value '{73647561-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'mod0175' -Value '{AFBC2343-3DCB-4047-9655-E1E62A61B1C5}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'FilterType' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'Merit' -Value 8388611 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0000' -Name 'MeritHi' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0001' -Name 'Type' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0001' -Name 'Disabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0001' -Name 'DisplayName' -Value '@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{B98D13E7-55DB-4385-A33D-09FD1BA26338}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0001' -Name 'Name' -Value 'LAV Splitter Source' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0001' -Name 'CLSID' -Value '{B98D13E7-55DB-4385-A33D-09FD1BA26338}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0001' -Name 'FilterType' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0001' -Name 'Merit' -Value 8388612 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0001' -Name 'MeritHi' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'Type' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'Disabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'DisplayName' -Value '@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{EE30215D-164F-4A92-A4EB-9D4C13390F9F}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'Name' -Value 'LAV Video Decoder' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'CLSID' -Value '{EE30215D-164F-4A92-A4EB-9D4C13390F9F}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0000' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0001' -Value '{34363248-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0002' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0003' -Value '{34363268-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0004' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0005' -Value '{34363258-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0006' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0007' -Value '{34363278-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0008' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0009' -Value '{31435641-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0010' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0011' -Value '{31637661-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0012' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0013' -Value '{31564343-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0014' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0015' -Value '{8D2D71CB-243F-45E3-B2D8-5FD7967EC09B}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0016' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0017' -Value '{43564D41-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0018' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0019' -Value '{3143564D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0020' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0021' -Value '{43564548-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0022' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0023' -Value '{31435648-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0024' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0025' -Value '{30314D48-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0026' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0027' -Value '{E436EB81-524F-11CE-9F53-0020AF0BA770}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0028' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0029' -Value '{E436EB86-524F-11CE-9F53-0020AF0BA770}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0030' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0031' -Value '{E06D8026-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0032' -Value '{ED0B916A-044D-11D1-AA78-00C04FC31D60}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0033' -Value '{E06D8026-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0034' -Value '{36523B13-8EE5-11D1-8CA3-0060B057664A}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0035' -Value '{E06D8026-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0036' -Value '{E06D8020-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0037' -Value '{E06D8026-DB46-11CF-B4D1-00805F6CBBEA}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0038' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0039' -Value '{47504A4D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0040' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0041' -Value '{6765706A-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0042' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0043' -Value '{62706A6D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0044' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0045' -Value '{31435657-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0046' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0047' -Value '{31637677-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0048' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0049' -Value '{41564D57-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0050' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0051' -Value '{61766D77-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0052' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0053' -Value '{32505657-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0054' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0055' -Value '{32707677-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0056' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0057' -Value '{31564D57-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0058' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0059' -Value '{31766D77-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0060' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0061' -Value '{32564D57-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0062' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0063' -Value '{32766D77-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0064' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0065' -Value '{33564D57-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0066' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0067' -Value '{33766D77-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0068' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0069' -Value '{50564D57-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0070' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0071' -Value '{70766D77-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0072' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0073' -Value '{30375056-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0074' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0075' -Value '{30385056-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0076' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0077' -Value '{30395056-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0078' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0079' -Value '{31305641-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0080' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0081' -Value '{44495658-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0082' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0083' -Value '{64697678-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0084' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0085' -Value '{58564944-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0086' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0087' -Value '{78766964-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0088' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0089' -Value '{78766944-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0090' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0091' -Value '{30355844-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0092' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0093' -Value '{30357864-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0094' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0095' -Value '{5634504D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0096' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0097' -Value '{7634706D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0098' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0099' -Value '{3253344D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0100' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0101' -Value '{3273346D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0102' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0103' -Value '{5334504D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0104' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0105' -Value '{7334706D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0106' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0107' -Value '{34504D46-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0108' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0109' -Value '{58564933-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0110' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0111' -Value '{78766933-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0112' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0113' -Value '{31564933-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0114' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0115' -Value '{31766933-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0116' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0117' -Value '{32564933-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0118' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0119' -Value '{32766933-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0120' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0121' -Value '{305A4C42-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0122' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0123' -Value '{564F4547-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0124' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0125' -Value '{3447504D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0126' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0127' -Value '{3467706D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0128' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0129' -Value '{3134504D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0130' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0131' -Value '{3134706D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0132' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0133' -Value '{31564944-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0134' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0135' -Value '{31766964-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0136' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0137' -Value '{3234504D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0138' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0139' -Value '{3234706D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0140' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0141' -Value '{32564944-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0142' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0143' -Value '{32766964-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0144' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0145' -Value '{3334504D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0146' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0147' -Value '{3334706D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0148' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0149' -Value '{33564944-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0150' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0151' -Value '{33766964-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0152' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0153' -Value '{3347504D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0154' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0155' -Value '{3367706D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0156' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0157' -Value '{34564944-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0158' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0159' -Value '{34766964-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0160' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0161' -Value '{35564944-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0162' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0163' -Value '{35766964-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0164' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0165' -Value '{36564944-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0166' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0167' -Value '{36766964-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0168' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0169' -Value '{33585644-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0170' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0171' -Value '{33787664-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0172' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0173' -Value '{44564933-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0174' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0175' -Value '{31564C46-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0176' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0177' -Value '{31766C66-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0178' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0179' -Value '{30365056-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0180' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0181' -Value '{30367076-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0182' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0183' -Value '{31365056-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0184' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0185' -Value '{31367076-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0186' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0187' -Value '{32365056-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0188' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0189' -Value '{32367076-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0190' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0191' -Value '{41365056-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0192' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0193' -Value '{61367076-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0194' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0195' -Value '{46365056-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0196' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0197' -Value '{66367076-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0198' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0199' -Value '{34564C46-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0200' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0201' -Value '{34766C66-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0202' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0203' -Value '{31565346-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0204' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0205' -Value '{30315652-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0206' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0207' -Value '{30325652-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0208' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0209' -Value '{30335652-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0210' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0211' -Value '{30345652-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0212' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0213' -Value '{64737664-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0214' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0215' -Value '{44535644-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0216' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0217' -Value '{48564443-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0218' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0219' -Value '{43564443-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0220' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0221' -Value '{35564443-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0222' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0223' -Value '{35327664-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0224' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0225' -Value '{35325644-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0226' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0227' -Value '{30357664-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0228' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0229' -Value '{30355644-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0230' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0231' -Value '{70637664-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0232' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0233' -Value '{70357664-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0234' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0235' -Value '{6E357664-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0236' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0237' -Value '{70707664-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0238' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0239' -Value '{20637664-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0240' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0241' -Value '{31687664-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0242' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0243' -Value '{32687664-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0244' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0245' -Value '{33687664-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0246' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0247' -Value '{34687664-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0248' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0249' -Value '{35687664-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0250' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0251' -Value '{36687664-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0252' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0253' -Value '{71687664-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0254' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0255' -Value '{70687664-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0256' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0257' -Value '{76645641-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0258' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0259' -Value '{31645641-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0260' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0261' -Value '{32706A6D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0262' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0263' -Value '{43324A4D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0264' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0265' -Value '{43324A4C-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0266' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0267' -Value '{4B324A4C-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0268' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0269' -Value '{324A5049-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0270' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0271' -Value '{31515653-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0272' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0273' -Value '{33515653-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0274' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0275' -Value '{31363248-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0276' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0277' -Value '{31363268-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0278' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0279' -Value '{33363248-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0280' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0281' -Value '{33363268-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0282' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0283' -Value '{33363273-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0284' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0285' -Value '{33363273-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0286' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0287' -Value '{33363249-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0288' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0289' -Value '{33363269-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0290' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0291' -Value '{4F454854-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0292' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0293' -Value '{6F656874-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0294' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0295' -Value '{63637374-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0296' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0297' -Value '{32637374-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0298' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0299' -Value '{30355649-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0300' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0301' -Value '{31345649-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0302' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0303' -Value '{31335649-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0304' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0305' -Value '{32335649-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0306' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0307' -Value '{31535046-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0308' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0309' -Value '{55594648-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0310' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0311' -Value '{5347414C-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0312' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0313' -Value '{64697663-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0314' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0315' -Value '{20656C72-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0316' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0317' -Value '{30335056-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0318' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0319' -Value '{31335056-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0320' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0321' -Value '{44435343-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0322' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0323' -Value '{47455051-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0324' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0325' -Value '{302E3151-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0326' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0327' -Value '{312E3151-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0328' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0329' -Value '{485A534D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0330' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0331' -Value '{42494C5A-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0332' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0333' -Value '{617A7072-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0334' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0335' -Value '{00000001-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0336' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0337' -Value '{68637061-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0338' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0339' -Value '{6E637061-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0340' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0341' -Value '{73637061-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0342' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0343' -Value '{6F637061-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0344' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0345' -Value '{68347061-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0346' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0347' -Value '{78347061-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0348' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0349' -Value '{41524C55-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0350' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0351' -Value '{47524C55-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0352' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0353' -Value '{30594C55-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0354' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0355' -Value '{32594C55-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0356' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0357' -Value '{34594C55-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0358' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0359' -Value '{32595155-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0360' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0361' -Value '{47525155-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0362' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0363' -Value '{41525155-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0364' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0365' -Value '{30484C55-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0366' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0367' -Value '{32484C55-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0368' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0369' -Value '{34484C55-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0370' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0371' -Value '{32594D55-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0372' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0373' -Value '{32484D55-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0374' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0375' -Value '{34594D55-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0376' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0377' -Value '{34484D55-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0378' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0379' -Value '{47524D55-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0380' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0381' -Value '{41524D55-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0382' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0383' -Value '{56564D41-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0384' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0385' -Value '{46564D41-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0386' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0387' -Value '{64726376-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0388' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0389' -Value '{63617264-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0390' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0391' -Value '{6E645641-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0392' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0393' -Value '{68645641-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0394' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0395' -Value '{4D415243-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0396' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0397' -Value '{4356534D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0398' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0399' -Value '{4D414857-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0400' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0401' -Value '{53504238-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0402' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0403' -Value '{4F434F4C-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0404' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0405' -Value '{56424D5A-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0406' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0407' -Value '{31524356-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0408' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0409' -Value '{43534141-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0410' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0411' -Value '{574F4E53-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0412' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0413' -Value '{31564646-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0414' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0415' -Value '{48564646-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0416' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0417' -Value '{636E4D56-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0418' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0419' -Value '{434C4641-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0420' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0421' -Value '{344D3247-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0422' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0423' -Value '{646F6369-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0424' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0425' -Value '{4B435544-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0426' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0427' -Value '{30324D54-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0428' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0429' -Value '{44484643-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0430' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0431' -Value '{5947414D-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0432' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0433' -Value '{694B4942-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0434' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0435' -Value '{624B4942-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0436' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0437' -Value '{324B4D53-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0438' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0439' -Value '{344B4D53-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0440' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0441' -Value '{56504854-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0442' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0443' -Value '{56516F52-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0444' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0445' -Value '{20676E70-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0446' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0447' -Value '{46464954-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0448' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0449' -Value '{20504D42-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0450' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0451' -Value '{20464947-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0452' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0453' -Value '{20414754-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0454' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0455' -Value '{30313276-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0456' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0457' -Value '{30313476-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0458' -Value '{73646976-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'mod0459' -Value '{D80FA03C-35C1-4FA1-8C8E-375C8667166E}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'FilterType' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'Merit' -Value 8388611 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0002' -Name 'MeritHi' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override\0003' -Name 'Type' -Value -2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'Type' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'Disabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'Name' -Value 'XySubFilter' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'CLSID' -Value '{2DFCB782-EC20-4A7C-B530-4577ADB33F21}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'mod0000' -Value '{73747874-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'mod0001' -Value '{E436EB8E-524F-11CE-9F53-0020AF0BA770}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'mod0002' -Value '{73747874-0000-0010-8000-00AA00389B71}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'mod0003' -Value '{00000000-0000-0000-0000-000000000000}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'mod0004' -Value '{E487EB08-6B26-4BE9-9DD3-993434D313FD}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'mod0005' -Value '{E436EB8E-524F-11CE-9F53-0020AF0BA770}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'mod0006' -Value '{E487EB08-6B26-4BE9-9DD3-993434D313FD}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'mod0007' -Value '{87C0B230-03A8-4FDF-8010-B27A5848200D}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'mod0008' -Value '{E487EB08-6B26-4BE9-9DD3-993434D313FD}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'mod0009' -Value '{3020560F-255A-4DDC-806E-6C5CC6DCD70A}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'mod0010' -Value '{E487EB08-6B26-4BE9-9DD3-993434D313FD}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'mod0011' -Value '{326444F7-686F-47FF-A4B2-C8C96307B4C2}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'mod0012' -Value '{E487EB08-6B26-4BE9-9DD3-993434D313FD}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'mod0013' -Value '{370689E7-B226-4F67-978D-F10BC1A9C6AE}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'mod0014' -Value '{E487EB08-6B26-4BE9-9DD3-993434D313FD}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'mod0015' -Value '{76C421C4-DB89-42EC-936E-A9FBC1794714}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'mod0016' -Value '{E487EB08-6B26-4BE9-9DD3-993434D313FD}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'mod0017' -Value '{F7239E31-9599-4E43-8DD5-FBAF75CF37F1}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'mod0018' -Value '{E487EB08-6B26-4BE9-9DD3-993434D313FD}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'mod0019' -Value '{04EBA53E-9330-436C-9133-553EC87031DC}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'mod0020' -Value '{E487EB08-6B26-4BE9-9DD3-993434D313FD}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'mod0021' -Value '{34FFCBC3-D5B3-4171-9002-D4C60301697F}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'FilterType' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'Merit' -Value 8388610 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0000' -Name 'MeritHi' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0001' -Name 'Type' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0001' -Name 'Disabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0001' -Name 'DisplayName' -Value '@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{6B237877-902B-4C6C-92F6-E63169A5166C}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0001' -Name 'Name' -Value 'XySubFilterAutoLoader' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0001' -Name 'CLSID' -Value '{6B237877-902B-4C6C-92F6-E63169A5166C}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0001' -Name 'mod0000' -Value '{00000000-0000-0000-0000-000000000000}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0001' -Name 'mod0001' -Value '{00000000-0000-0000-0000-000000000000}' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0001' -Name 'FilterType' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0001' -Name 'Merit' -Value -1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0001' -Name 'MeritHi' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Override_Settings\0002' -Name 'Type' -Value -2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Positions' -Name 'MainWidth2' -Value 640 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Positions' -Name 'MainHeight2' -Value 412 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Positions' -Name 'VideoWindowWidth' -Value -1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Positions' -Name 'VideoWindowHeight' -Value -1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Positions' -Name 'MainWindowState' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Positions' -Name 'ChatWindowVisible' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Positions' -Name 'PlayListWindowVisible' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Positions' -Name 'PlayListWidth' -Value 286 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Positions' -Name 'TopMostWindow0' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Positions' -Name 'TopMostWindow1' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Positions' -Name 'TopMostWindow2' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Positions' -Name 'TopMostWindow3' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Positions' -Name 'TopMostWindow4' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Positions' -Name 'TopMostWindow5' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Positions' -Name 'TopMostWindow6' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Positions' -Name 'TopMostWindow7' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Positions' -Name 'TopMostWindow8' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Positions' -Name 'TopMostWindow9' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Positions' -Name 'ControlBoxWidth' -Value 330 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Positions' -Name 'ControlBoxHeight' -Value 195 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'LanguageIni' -Value 'Chinese(Simplified).ini' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'MftDecoder' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'DmoDecoder' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'Info1' -Value '' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'Info6' -Value '' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'Info7' -Value '' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'LastConfigPage' -Value 359 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'PlaybackMode' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'LastPlayListName' -Value 'PotPlayerMini64.dpl' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'LastSkinName' -Value 'YouTube_Slim.dsf' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'LastSkinXmlName' -Value 'VideoSkin.xml' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'LastSkinXmlNameVideo' -Value 'VideoSkin.xml' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'VideoRen2' -Value 10 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'AudioVolume' -Value 95 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'RepeatPlay2' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'RepeatPlayAudio' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'PreviewSeekTime' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'PreviewThumbnail' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'PlaybackSearchFile' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'MotionBlur' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'AudioNormalize' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'OpenWithSameName' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'RememberPosition' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'RememberPositionAudio' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'ShowRememberList' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'CaptionVisible' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'AllowMultiple' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'UseTooltip' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'UseMagWindow' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'EffectPage' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'EffectCastOnly' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'SkipCastPreview' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'ChatAttachToMain2' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'BroadcastAttachToMain2' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'PlaylistAttachSize2' -Value 288 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'NormalAviSrc_new1' -Value 4 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'DemageAviSrc_new1' -Value 3 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'NormalAsfSrc_new1' -Value 4 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'DemageAsfSrc_new1' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'MkvSrc_new1' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'Mpg1Src_new1' -Value 3 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'Mpg2PsSrc_new1' -Value 4 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'Mpg2TsSrc_new1' -Value 3 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'Mp4Src_new1' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'OggSrc_new1' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'Mp3Src_new1' -Value 4 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'AacSrc1' -Value 3 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'FlacSrc1' -Value 3 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'FlvSrc1' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'WaveSrc1' -Value 4 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'Mpg1Video_new' -Value 3 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'Mpg2Video_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'XvidVideo_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'DivxVideo_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'H264Video_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'Avc1Video_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'HevcVideo_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'Vc1Video_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'WMV1Video_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'WMV2Video_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'WMV3Video_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'Vp8Video' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'Vp9Video' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'Vc1Image_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'WMV3Image_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'Mp3Audio_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'Mpg1Audio_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'Mpg2Audio_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'AacAudio_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'LatmAudio_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'Ac3Audio_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'Eac3Audio_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'TrueHDAudio_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'MlpAudio_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'DtsAudio_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'Lpcm2Audio_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'HdmvLpcmAudio' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'VorbisAudio_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'FlacAudio' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'WmaV1Audio' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'WmaV2Audio' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'WmaProAudio' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'WmaLosslessAudio' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'WavPackAudio' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'OpusAudio' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'AudSpkIndex_new' -Value 22 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'AudOutBit_new' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'VideoTransformUseMode' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'VideoTransformSwitcher' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'AudioTransformUseMode' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'AudioTransformSwitcher' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'BuiltInAudioSwitcher' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'WinampDspIndex' -Value -1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'UseMediaKey' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'ItuRecSpec' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'RGB2YUVLevel' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'PauseOnMin' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'PauseOnLock' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'StartScreenSize' -Value 4 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'CaptionTranslateEngine2' -Value 'SubtitleTranslate - google.as' -PropertyType String -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'VMR9ColorManagementEnable' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'D3DFullScreenUi' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'MessageFontWeight' -Value 400 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'MessageFontSize' -Value 14 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'SO_Desktop' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'SO_Download' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'AttachWindowIndex' -Value 2 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'AudioVolumeWaveMax' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'AutoLoadExtAudio' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'SaveConfigPause' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'Win7WorkTool' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'AutoAlignWindow' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'UseSideWindow' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'DialogBaseFontSize' -Value 10 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'DialogCharset' -Value 134 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'UseATextOut' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'TouchSupport' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'CheckAutoUpdate' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'LastCheckDays' -Value 18712 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'AutoUpdateStart' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Name 'AutoDownloadFile' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64' -Name 'AddMyComPL' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64' -Name 'ServiceValue' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64' -Name 'Check118_119' -Value 4 -PropertyType DWord -Force -Verbose;
+
+# LAV Filter Settings
+if ((Test-Path -LiteralPath "HKCU:\Software\LAV") -ne $true) { New-Item "HKCU:\Software\LAV" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\LAV\Audio") -ne $true) { New-Item "HKCU:\Software\LAV\Audio" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\LAV\Audio\Formats") -ne $true) { New-Item "HKCU:\Software\LAV\Audio\Formats" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\LAV\Splitter") -ne $true) { New-Item "HKCU:\Software\LAV\Splitter" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\LAV\Splitter\Formats") -ne $true) { New-Item "HKCU:\Software\LAV\Splitter\Formats" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\LAV\Video") -ne $true) { New-Item "HKCU:\Software\LAV\Video" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\LAV\Video\Formats") -ne $true) { New-Item "HKCU:\Software\LAV\Video\Formats" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\LAV\Video\Output") -ne $true) { New-Item "HKCU:\Software\LAV\Video\Output" -force -Verbose };
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'TrayIcon' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'DRCEnabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'DRCLevel' -Value 100 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'DTSHDFraming' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'BitstreamingFallback' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'AutoAVSync' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'ExpandMono' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'Expand61' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'OutputStandardLayout' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'Output51Legacy' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'AudioDelayEnabled' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'AudioDelay' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'Mixing' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'MixingLayout' -Value 3 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'MixingFlags' -Value 4 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'MixingMode' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'MixingCenterLevel' -Value 7071 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'MixingSurroundLevel' -Value 7071 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'MixingLFELevel' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'Bitstreaming_ac3' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'Bitstreaming_eac3' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'Bitstreaming_truehd' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'Bitstreaming_dts' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'Bitstreaming_dtshd' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'SampleFormat_s16' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'SampleFormat_s24' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'SampleFormat_s32' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'SampleFormat_u8' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'SampleFormat_fp32' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio' -Name 'SampleConvertDither' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'aac' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'ac3' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'eac3' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'dts' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'mp2' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'mp3float' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'truehd' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'flac' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'vorbis' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'lpcm' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'pcm' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'wavpack' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'tta' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'wma' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'wmapro' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'cook' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'realaudio' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'wmalossless' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'alac' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'opus' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'amr' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'nellymoser' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'mspcm' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'truespeech' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'tak' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Audio\Formats' -Name 'atrac' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'matroska' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'avi' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'mp4' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'mpegts' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'mpeg' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'bluray' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'flv' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'ogg' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'rm' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'wtv' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'asf' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'mxf' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'bink' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'avisynth' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'rtmp' -Value 0 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'rtsp' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'rtp' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'mms' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'dts' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'ac3' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'aac' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'mp3' -Value 1 -PropertyType DWord -Force -Verbose;
+New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'flac' -Value 1 -PropertyType DWord -Force -Verbose;
+
+# Receive updates for other Microsoft products when you update Windows
+(New-Object -ComObject Microsoft.Update.ServiceManager).AddService2("7971f918-a847-4430-9279-4a52d1efe18d", 7, "")
+
+# Default Cursor style to XP
+if ((Test-Path -LiteralPath "HKCU:\Control Panel\Cursors") -ne $true) { New-Item "HKCU:\Control Panel\Cursors" -force -Verbose };
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Pin' -Value '' -PropertyType ExpandString -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Person' -Value '' -PropertyType ExpandString -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'UpArrow' -Value '' -PropertyType ExpandString -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'SizeWE' -Value '' -PropertyType ExpandString -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'SizeNWSE' -Value '' -PropertyType ExpandString -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'AppStarting' -Value '' -PropertyType ExpandString -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Arrow' -Value '' -PropertyType ExpandString -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Hand' -Value '' -PropertyType ExpandString -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Help' -Value '' -PropertyType ExpandString -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'No' -Value '' -PropertyType ExpandString -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'NWPen' -Value '' -PropertyType ExpandString -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Scheme Source' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'SizeAll' -Value '' -PropertyType ExpandString -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'SizeNESW' -Value '' -PropertyType ExpandString -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'SizeNS' -Value '' -PropertyType ExpandString -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Wait' -Value '' -PropertyType ExpandString -Force -Verbose
+
+# No Windows Sound
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes") -ne $true) { New-Item "HKCU:\AppEvents\Schemes" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\.Default\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\.Default\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\.Default\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\.Default\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\AppGPFault\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\AppGPFault\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\AppGPFault\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\AppGPFault\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\CCSelect\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\CCSelect\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\CCSelect\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\CCSelect\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\ChangeTheme\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\ChangeTheme\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\ChangeTheme\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\ChangeTheme\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Close\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Close\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Close\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Close\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\CriticalBatteryAlarm\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\CriticalBatteryAlarm\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\CriticalBatteryAlarm\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\CriticalBatteryAlarm\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceConnect\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceConnect\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceConnect\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceConnect\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceDisconnect\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceDisconnect\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceDisconnect\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceDisconnect\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceFail\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceFail\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceFail\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceFail\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\FaxBeep\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\FaxBeep\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\FaxBeep\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\FaxBeep\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\LowBatteryAlarm\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\LowBatteryAlarm\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\LowBatteryAlarm\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\LowBatteryAlarm\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\MailBeep\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\MailBeep\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\MailBeep\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\MailBeep\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Maximize\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Maximize\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Maximize\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Maximize\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\MenuCommand\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\MenuCommand\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\MenuCommand\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\MenuCommand\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\MenuPopup\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\MenuPopup\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\MenuPopup\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\MenuPopup\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\MessageNudge\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\MessageNudge\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\MessageNudge\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\MessageNudge\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Minimize\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Minimize\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Minimize\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Minimize\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Default\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Default\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Default\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Default\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.IM\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.IM\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.IM\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.IM\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Mail\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Mail\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Mail\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Mail\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Proximity\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Proximity\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Proximity\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Proximity\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Reminder\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Reminder\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Reminder\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Reminder\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.SMS\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.SMS\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.SMS\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.SMS\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Open\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Open\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Open\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Open\.None" -force -Verbose } 
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\PrintComplete\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\PrintComplete\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\PrintComplete\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\PrintComplete\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\ProximityConnection\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\ProximityConnection\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\ProximityConnection\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\ProximityConnection\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\RestoreDown\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\RestoreDown\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\RestoreDown\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\RestoreDown\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\RestoreUp\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\RestoreUp\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\RestoreUp\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\RestoreUp\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\ShowBand\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\ShowBand\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\ShowBand\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\ShowBand\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\SystemAsterisk\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\SystemAsterisk\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\SystemAsterisk\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\SystemAsterisk\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\SystemExclamation\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\SystemExclamation\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\SystemExclamation\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\SystemExclamation\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\SystemHand\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\SystemHand\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\SystemHand\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\SystemHand\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\SystemNotification\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\SystemNotification\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\SystemNotification\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\SystemNotification\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\SystemQuestion\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\SystemQuestion\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\SystemQuestion\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\SystemQuestion\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\WindowsUAC\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\WindowsUAC\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\WindowsUAC\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\WindowsUAC\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\ActivatingDocument\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\ActivatingDocument\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\ActivatingDocument\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\ActivatingDocument\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\BlockedPopup\.current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\BlockedPopup\.current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\BlockedPopup\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\BlockedPopup\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\EmptyRecycleBin\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\EmptyRecycleBin\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\EmptyRecycleBin\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\EmptyRecycleBin\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\FeedDiscovered\.current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\FeedDiscovered\.current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\FeedDiscovered\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\FeedDiscovered\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\MoveMenuItem\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\MoveMenuItem\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\MoveMenuItem\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\MoveMenuItem\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\Navigating\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\Navigating\.Current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\Navigating\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\Navigating\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\SecurityBand\.current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\SecurityBand\.current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\SecurityBand\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\SecurityBand\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\DisNumbersSound\.current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\DisNumbersSound\.current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\DisNumbersSound\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\DisNumbersSound\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOffSound\.current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOffSound\.current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOffSound\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOffSound\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOnSound\.current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOnSound\.current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOnSound\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOnSound\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubSleepSound\.current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubSleepSound\.current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubSleepSound\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubSleepSound\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\MisrecoSound\.current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\MisrecoSound\.current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\MisrecoSound\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\MisrecoSound\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\PanelSound\.current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\PanelSound\.current" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\PanelSound\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\PanelSound\.None" -force -Verbose }
+if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Names\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Names\.None" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes' -Name '(default)' -Value '.None' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\.Default\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\.Default\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\AppGPFault\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\AppGPFault\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\CCSelect\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\CCSelect\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\ChangeTheme\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\ChangeTheme\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Close\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Close\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\CriticalBatteryAlarm\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\CriticalBatteryAlarm\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\DeviceConnect\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\DeviceConnect\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\DeviceDisconnect\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\DeviceDisconnect\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\DeviceFail\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\DeviceFail\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\FaxBeep\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\FaxBeep\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\LowBatteryAlarm\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\LowBatteryAlarm\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\MailBeep\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\MailBeep\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Maximize\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Maximize\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\MenuCommand\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\MenuCommand\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\MenuPopup\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\MenuPopup\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\MessageNudge\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\MessageNudge\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Minimize\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Minimize\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Default\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Default\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.IM\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.IM\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Mail\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Mail\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Proximity\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Proximity\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Reminder\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Reminder\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.SMS\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.SMS\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Open\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Open\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\PrintComplete\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\PrintComplete\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\ProximityConnection\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\ProximityConnection\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\RestoreDown\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\RestoreDown\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\RestoreUp\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\RestoreUp\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\ShowBand\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\ShowBand\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\SystemAsterisk\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\SystemAsterisk\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\SystemExclamation\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\SystemExclamation\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\SystemHand\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\SystemHand\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\SystemNotification\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\SystemNotification\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\SystemQuestion\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\SystemQuestion\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\WindowsUAC\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\WindowsUAC\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\ActivatingDocument\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\ActivatingDocument\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\BlockedPopup\.current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\BlockedPopup\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\EmptyRecycleBin\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\EmptyRecycleBin\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\FeedDiscovered\.current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\FeedDiscovered\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\MoveMenuItem\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\MoveMenuItem\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\Navigating\.Current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\Navigating\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\SecurityBand\.current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\SecurityBand\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\DisNumbersSound\.current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\DisNumbersSound\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOffSound\.current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOffSound\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOnSound\.current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOnSound\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\HubSleepSound\.current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\HubSleepSound\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\MisrecoSound\.current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\MisrecoSound\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\PanelSound\.current' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\PanelSound\.None' -Name '(default)' -Value '' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Names\.None' -Name '(default)' -Value '无声' -PropertyType String -Force -Verbose
+
+# Set the diagnostic data collection to minimum
+New-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection -Name AllowTelemetry -PropertyType DWord -Value 0 -Force -Verbose
+
+# Turn off Windows Error Reporting
+New-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\Windows Error Reporting" -Name Disabled -PropertyType DWord -Value 1 -Force -Verbose
+
+# Change the feedback frequency to Never
+if (-not (Test-Path -Path HKCU:\SOFTWARE\Microsoft\Siuf\Rules)) { New-Item -Path HKCU:\SOFTWARE\Microsoft\Siuf\Rules -Force -Verbose }
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Siuf\Rules -Name NumberOfSIUFInPeriod -PropertyType DWord -Value 0 -Force -Verbose
+
+# Do not use sign-in info to automatically finish setting up device after an update
+$SID = (Get-CimInstance -ClassName Win32_UserAccount | Where-Object -FilterScript { $_.Name -eq $env:USERNAME }).SID
+if (-not (Test-Path -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\UserARSO\$SID"))
+{ New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\UserARSO\$SID" -Force -Verbose }
+New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\UserARSO\$SID" -Name OptOut -PropertyType DWord -Value 1 -Force -Verbose
+
+# Do not let websites show me locally relevant content by accessing my language list
+New-ItemProperty -Path "HKCU:\Control Panel\International\User Profile" -Name HttpAcceptLanguageOptOut -PropertyType DWord -Value 1 -Force -Verbose
+
+# Do not let apps show me personalized ads by using my advertising ID
+if (-not (Test-Path -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo))
+{ New-Item -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo -Force -Verbose }
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo -Name Enabled -PropertyType DWord -Value 0 -Force -Verbose
+
+# ContentDeliveryManager
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager -Name SubscribedContent-310093Enabled -PropertyType DWord -Value 0 -Force -Verbose
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager -Name SubscribedContent-338389Enabled -PropertyType DWord -Value 0 -Force -Verbose
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager -Name SubscribedContent-338393Enabled -PropertyType DWord -Value 0 -Force -Verbose
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager -Name SubscribedContent-353694Enabled -PropertyType DWord -Value 0 -Force -Verbose
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager -Name SubscribedContent-353696Enabled -PropertyType DWord -Value 0 -Force -Verbose
+
+# Turn off automatic installing suggested apps
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager -Name SilentInstalledAppsEnabled -PropertyType DWord -Value 0 -Force -Verbose
+
+# Disable suggestions on how I can set up my device
+if (-not (Test-Path -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\UserProfileEngagement))
+{ New-Item -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\UserProfileEngagement -Force -Verbose }
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\UserProfileEngagement -Name ScoobeSystemSettingEnabled -PropertyType DWord -Value 0 -Force -Verbose
+
+# Do not let Microsoft use your diagnostic data for personalized tips, ads, and recommendations
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Privacy -Name TailoredExperiencesWithDiagnosticDataEnabled -PropertyType DWord -Value 0 -Force -Verbose
+
+# Disable Bing search in the Start Menu
+if (-not (Test-Path -Path HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer))
+{ New-Item -Path HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer -Force -Verbose }
+New-ItemProperty -Path HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer -Name DisableSearchBoxSuggestions -PropertyType DWord -Value 1 -Force -Verbose
+
+# Show the "This PC" icon on Desktop
+if (-not (Test-Path -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel))
+{ New-Item -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel -Force -Verbose }
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel -Name "{20D04FE0-3AEA-1069-A2D8-08002B30309D}" -PropertyType DWord -Value 0 -Force -Verbose
+
+# Advanced Explorer Policy
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" -force -Verbose };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'Start_SearchFiles' -Value 2 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ServerAdminUI' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'Hidden' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ShowCompColor' -Value 1 -PropertyType DWord -Force -Verbose
+
+# Show file name extensions
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideFileExt' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'DontPrettyPath' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ShowInfoTip' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideIcons' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'MapNetDrvBtn' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'WebView' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'Filter' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ShowSuperHidden' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'SeparateProcess' -Value 1 -PropertyType DWord -Force -Verbose
+
+# Do not use item check boxes
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'AutoCheckSelect' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'IconsOnly' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ShowTypeOverlay' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ShowStatusBar' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ListviewAlphaSelect' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ListviewShadow' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'TaskbarAnimations' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'TaskbarSizeMove' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'DisablePreviewDesktop' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'TaskbarSmallIcons' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'TaskbarGlomLevel' -Value 2 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'MMTaskbarGlomLevel' -Value 2 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'TaskbarAutoHideInTabletMode' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ShellMigrationLevel' -Value 3 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'MnRegionChecked' -Value 1 -PropertyType DWord -Force -Verbose
+
+# Hide the Chat icon (Microsoft Teams) on the taskbar
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'TaskbarMn' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'StartMenuInit' -Value 13 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'StartShownOnUpgrade' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'DITest' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'EnableTaskGroups' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'StoreAppsOnTaskbar' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ShowCortanaButton' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ReindexedProfile' -Value 1 -PropertyType DWord -Force -Verbose
+
+# Hide the Task view button on the taskbar
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ShowTaskViewButton' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'DontUsePowerShellOnWinX' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'TaskbarBadges' -Value 0 -PropertyType DWord -Force -Verbose
+
+# Open File Explorer to "This PC"
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'LaunchTo' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideDrivesWithNoMedia' -Value 0 -PropertyType DWord -Force -Verbose
+
+# Show folder merge conflicts
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideMergeConflicts' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'TaskbarAppsVisibleInTabletMode' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'JointResize' -Value 0 -PropertyType DWord -Force -Verbose
+
+# When I snap a window, do not show what I can snap next to it
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'SnapAssist' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'SnapFill' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'Start_TrackDocs' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'MMTaskbarEnabled' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'Start_TrackProgs' -Value 0 -PropertyType DWord -Force -Verbose
+
+# Do not show sync provider notification within File Explorer
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ShowSyncProviderNotifications' -Value 0 -PropertyType DWord -Force -Verbose
+
+# When I grab a windows's title bar and shake it, don't minimize all other windows
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'DisallowShaking' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'FolderContentsInfoTip' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ShowPreviewHandlers' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'SharingWizardOn' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'MultiTaskingAltTabFilter' -Value 3 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'SearchBoxVisibleInTouchImprovement' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'AppIconInTouchImprovement' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'FileExplorerInTouchImprovement' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'TaskbarAcrylicOpacity' -Value 0 -PropertyType DWord -Force -Verbose
+
+# Set the taskbar alignment to the left
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'TaskbarAl' -Value 0 -PropertyType DWord -Force -Verbose
+
+# Hide the widgets icon on the taskbar
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'TaskbarDa' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People' -Name 'PeopleBand' -Value 0 -PropertyType DWord -Force -Verbose
+
+# Enable the File Explorer compact mode
+New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'UseCompactMode' -Value 1 -PropertyType DWord -Force -Verbose
+
+# Hide recently used files in Quick access
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer -Name ShowRecent -PropertyType DWord -Value 0 -Force -Verbose
+
+# Hide frequently used folders in Quick access
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer -Name ShowFrequent -PropertyType DWord -Value 0 -Force -Verbose
+
+# Hide snap layouts when I hover over a windows's maximaze button
+New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'EnableSnapAssistFlyout' -Value 0 -PropertyType DWord -Force -Verbose
+
+# Show the file transfer dialog box in the detailed mode
+if (-not (Test-Path -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\OperationStatusManager))
+{ New-Item -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\OperationStatusManager -Force -Verbose }
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\OperationStatusManager -Name EnthusiastMode -PropertyType DWord -Value 1 -Force -Verbose
+
+# Do not display the recycle bin files delete confirmation dialog
+$ShellState = Get-ItemPropertyValue -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer -Name ShellState
+$ShellState[4] = 55
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer -Name ShellState -PropertyType Binary -Value $ShellState -Force -Verbose
+
+# Hide the search icon on the taskbar
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -Name SearchboxTaskbarMode -PropertyType DWord -Value 0 -Force -Verbose
+
+# Disable Acrylic Background On Logon Screen
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -force -Verbose };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\System' -Name 'DisableAcrylicBackgroundOnLogon' -Value 1 -PropertyType DWord -Force -Verbose
+
+# View the Control Panel icons by large icons
+if (-not (Test-Path -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel))
+{ New-Item -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel -Force -Verbose }
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel -Name AllItemsIconView -PropertyType DWord -Value 0 -Force -Verbose
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel -Name StartupPage -PropertyType DWord -Value 1 -Force -Verbose
+
+# Set the default Windows mode to dark
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name SystemUsesLightTheme -PropertyType DWord -Value 0 -Force -Verbose
+
+# Set the default app mode to dark
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -PropertyType DWord -Value 0 -Force -Verbose
+
+# Disable first sign-in animation after the upgrade
+New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name EnableFirstLogonAnimation -PropertyType DWord -Value 0 -Force -Verbose
+
+# Set the quality factor of the JPEG desktop wallpapers to maximum
+New-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name JPEGImportQuality -PropertyType DWord -Value 100 -Force -Verbose
+
+# Do not notify me when a restart is required to finish updating
+New-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings -Name RestartNotificationsAllowed2 -PropertyType DWord -Value 0 -Force -Verbose
+
+# Do not add the "- Shortcut" suffix to the file name of created shortcuts
+if (-not (Test-Path -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\NamingTemplates))
+{ New-Item -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\NamingTemplates -Force -Verbose }
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\NamingTemplates -Name ShortcutNameTemplate -PropertyType String -Value "%s.lnk" -Force -Verbose
+
+# Use the Print screen button to open screen snipping
+New-ItemProperty -Path "HKCU:\Control Panel\Keyboard" -Name PrintScreenKeyForSnippingEnabled -PropertyType DWord -Value 1 -Force -Verbose
+
+# OneDrive
+Remove-ItemProperty -Path HKCU:\Environment -Name OneDrive, OneDriveConsumer -Force -Verbose
+Remove-Item -Path HKCU:\SOFTWARE\Microsoft\OneDrive -Recurse -Force -Verbose
+Remove-Item -Path HKLM:\SOFTWARE\WOW6432Node\Microsoft\OneDrive -Recurse -Force -Verbose
+Remove-Item -Path "$env:ProgramData\Microsoft OneDrive" -Recurse -Force -Verbose
+Remove-Item -Path $env:SystemDrive\OneDriveTemp -Recurse -Force -Verbose
+
+# Turn on Storage Sense
+if (-not (Test-Path -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy))
+{ New-Item -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy -ItemType Directory -Force -Verbose }
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy -Name 01 -PropertyType DWord -Value 1 -Force -Verbose
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy -Name 04 -PropertyType DWord -Value 1 -Force -Verbose
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy -Name 2048 -PropertyType DWord -Value 30 -Force -Verbose
+
+# Disable hibernation
+cmd.exe /c "POWERCFG /HIBERNATE OFF"
+
+# Disable the Windows 260 character path limit
+New-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem -Name LongPathsEnabled -PropertyType DWord -Value 1 -Force -Verbose
+
+# Display the Stop error information on the BSoD
+New-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl -Name DisplayParameters -PropertyType DWord -Value 1 -Force -Verbose
+
+# Never notify The User Account Control (UAC) behavior
+New-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -PropertyType DWord -Value 0 -Force -Verbose
+
+# Turn on access to mapped drives from app running with elevated permissions with Admin Approval Mode enabled
+New-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System -Name EnableLinkedConnections -PropertyType DWord -Value 1 -Force -Verbose
+
+# Turn off Delivery Optimization
+New-ItemProperty -Path Registry::HKEY_USERS\S-1-5-20\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Settings -Name DownloadMode -PropertyType DWord -Value 0 -Force -Verbose
+
+# Never wait for the network at computer startup and logon for workgroup networks
+Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name SyncForegroundPolicy -Force -Verbose
+
+# Do not let Windows manage my default printer
+New-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows" -Name LegacyDefaultPrinterMode -PropertyType DWord -Value 1 -Force -Verbose
 
 # Set Page File size
 $pagefile = Get-WmiObject Win32_ComputerSystem -EnableAllPrivileges
@@ -19,61 +1682,62 @@ $pagefileset.Put() | Out-Null
 # http://woshub.com/updating-trusted-root-certificates-in-windows-10/
 # "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "certutil.exe -generateSSTFromWU %WINDIR%\Setup\Scripts\roots.sst"
 Get-ChildItem -Path %WINDIR%\Setup\Scripts\roots.sst | Import-Certificate -CertStoreLocation Cert:\LocalMachine\Root -Verbose
-reg add "HKLM\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config" /v "ChainRevAccumulativeUrlRetrievalTimeoutMilliseconds" /t REG_DWORD /d "20000" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config" /v "ChainUrlRetrievalTimeoutMilliseconds" /t REG_DWORD /d "15000" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config" /v "CrossCertDownloadIntervalHours" /t REG_DWORD /d "168" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config" /v "Options" /t REG_DWORD /d "0" /f
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config" -force -Verbose };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config' -Name 'ChainRevAccumulativeUrlRetrievalTimeoutMilliseconds' -Value 20000 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config' -Name 'ChainUrlRetrievalTimeoutMilliseconds' -Value 15000 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config' -Name 'CrossCertDownloadIntervalHours' -Value 168 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config' -Name 'Options' -Value 0 -PropertyType DWord -Force -Verbose
 
 # BCDEDIT Boot Tweaks
-bcdedit /timeout 0
-bcdedit /set advancedoptions no
-bcdedit /set bootems no
-bcdedit /set testsigning no
-bcdedit /set disableelamdrivers yes
-bcdedit /set bootmenupolicy Legacy
-bcdedit /set hypervisorlaunchtype off
-bcdedit /set vsmlaunchtype Off
-bcdedit /set vm No
-bcdedit /set isolatedcontext no
-bcdedit /set allowedinmemorysettings 0x0
+cmd.exe /c "bcdedit /timeout 0"
+cmd.exe /c "bcdedit /set advancedoptions no"
+cmd.exe /c "bcdedit /set bootems no"
+cmd.exe /c "bcdedit /set testsigning no"
+cmd.exe /c "bcdedit /set disableelamdrivers yes"
+cmd.exe /c "bcdedit /set bootmenupolicy Legacy"
+cmd.exe /c "bcdedit /set hypervisorlaunchtype off"
+cmd.exe /c "bcdedit /set vsmlaunchtype Off"
+cmd.exe /c "bcdedit /set vm No"
+cmd.exe /c "bcdedit /set isolatedcontext no"
+cmd.exe /c "bcdedit /set allowedinmemorysettings 0x0"
 
 # Apply Best File System Tweaks
-fsutil behavior set disable8dot3 1
-fsutil behavior set disableencryption 1
-fsutil behavior set disablelastaccess 1
-fsutil behavior set EncryptPagingFile 0
-fsutil behavior set symlinkEvaluation L2R:0 R2R:0 R2L:0
+cmd.exe /c "fsutil behavior set disable8dot3 1"
+cmd.exe /c "fsutil behavior set disableencryption 1"
+cmd.exe /c "fsutil behavior set disablelastaccess 1"
+cmd.exe /c "fsutil behavior set EncryptPagingFile 0"
+cmd.exe /c "fsutil behavior set symlinkEvaluation L2R:0 R2R:0 R2L:0"
 
 # Disable Uncessary System Devices
 Get-PnpDevice | Where-Object { $_.FriendlyName -match 'Microsoft Kernel Debug Network Adapter' } | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice | Where-Object { $_.FriendlyName -match 'Microsoft Wi-Fi Direct Virtual Adapter' } | Disable-PnpDevice -Confirm:$false -Verbose
 
 # Netsh
-netsh int tcp set supplemental template=internet
+cmd.exe /c "netsh int tcp set supplemental template=internet"
 
 # Enabling URO
-netsh int udp set global uro=enabled
-netsh int tcp set global rss=enable
-netsh int tcp set global autotuninglevel=experimental
-netsh int tcp set global ecncapability=disable
-netsh int tcp set global timestamps=enable
-netsh int tcp set global initialrto=300
-netsh int tcp set global rsc=disable
-netsh int tcp set global fastopen=enable
-netsh int tcp set global hystart=disable
-netsh int tcp set global pacingprofile=off
-netsh int ip set global minmtu=576
-netsh int ip set global flowlabel=disable
-netsh int tcp set supplemental internet congestionprovider=bbr2
-netsh int tcp set supplemental internet enablecwndrestart=disable
-netsh int ip set global icmpredirects=disabled
-netsh int ip set global multicastforwarding=disabled
-netsh int ip set global groupforwardedfragments=disable
-netsh int tcp set security mpp=disabled profiles=disabled
-netsh int tcp set heur forcews=disable
+cmd.exe /c "netsh int udp set global uro=enabled"
+cmd.exe /c "netsh int tcp set global rss=enable"
+cmd.exe /c "netsh int tcp set global autotuninglevel=experimental"
+cmd.exe /c "netsh int tcp set global ecncapability=disable"
+cmd.exe /c "netsh int tcp set global timestamps=enable"
+cmd.exe /c "netsh int tcp set global initialrto=300"
+cmd.exe /c "netsh int tcp set global rsc=disable"
+cmd.exe /c "netsh int tcp set global fastopen=enable"
+cmd.exe /c "netsh int tcp set global hystart=disable"
+cmd.exe /c "netsh int tcp set global pacingprofile=off"
+cmd.exe /c "netsh int ip set global minmtu=576"
+cmd.exe /c "netsh int ip set global flowlabel=disable"
+cmd.exe /c "netsh int tcp set supplemental internet congestionprovider=bbr2"
+cmd.exe /c "netsh int tcp set supplemental internet enablecwndrestart=disable"
+cmd.exe /c "netsh int ip set global icmpredirects=disabled"
+cmd.exe /c "netsh int ip set global multicastforwarding=disabled"
+cmd.exe /c "netsh int ip set global groupforwardedfragments=disable"
+cmd.exe /c "netsh int tcp set security mpp=disabled profiles=disabled"
+cmd.exe /c "netsh int tcp set heur forcews=disable"
 
 # Enable Winsock Send Autotuning (dynamic send-buffer)
-netsh winsock set autotuning on
+cmd.exe /c "netsh winsock set autotuning on"
 
 # Disabling Net Adapter QoS
 Disable-NetAdapterQos -Name '*' -Verbose
@@ -95,9 +1759,9 @@ Disable-NetAdapterRsc -Name '*' -Verbose
 Enable-NetAdapterRss -Name '*' -Verbose
 # Enable Teredo and 6to4 (Xbox LIVE fix)
 Set-NetTeredoConfiguration -Type natawareclient -Verbose
-netsh int teredo set state natawareclient
-netsh int 6to4 set state state=enabled
-netsh int teredo set state servername=win1910.ipv6.microsoft.com
+cmd.exe /c "netsh int teredo set state natawareclient"
+cmd.exe /c "netsh int 6to4 set state state=enabled"
+cmd.exe /c "netsh int teredo set state servername=win1910.ipv6.microsoft.com"
 
 # disable network protocal
 Disable-NetAdapterBinding -Name '*' -ComponentID ms_lldp -Verbose
@@ -110,8 +1774,8 @@ Enable-NetAdapterBinding -Name '*' -ComponentID ms_tcpip6 -Verbose
 
 # Setting up 6to4 tunneling...
 Set-Net6to4Configuration -State Enabled -AutoSharing Enabled -RelayState Enabled -RelayName '6to4.ipv6.microsoft.com' -Verbose
-netsh int 6to4 set state state=enabled undoonstop=disabled
-netsh int 6to4 set routing routing=enabled sitelocals=enabled
+cmd.exe /c "netsh int 6to4 set state state=enabled undoonstop=disabled"
+cmd.exe /c "netsh int 6to4 set routing routing=enabled sitelocals=enabled"
 
 # Disable Nagle's Algorithm
 # $strGUIDS = [array](Get-WmiObject win32_networkadapter -filter “netconnectionstatus = 2” | Select-Object -expand GUID)
@@ -120,47 +1784,45 @@ foreach ($strGUID in $strGUIDS) { New-ItemProperty -path HKLM:\System\CurrentCon
 foreach ($strGUID in $strGUIDS) { New-ItemProperty -path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -propertytype DWORD -name TCPNoDelay -value 1 -Force -Verbose }
 
 # Disable Memory Compression
-Disable-MMAgent -Verbose
+Disable-MMAgent -mc
 Get-Service 'SysMain' | Set-Service -StartupType Disabled -PassThru -Verbose
 
 # Disable Windows File Compression
-compact /CompactOs:never
-
-# Removing Default Fax Printer
-Remove-Printer -Name 'Fax' -ErrorAction SilentlyContinue -Verbose
+cmd.exe /c "compact /CompactOs:never"
 
 # Allows (1) or disallows (0) characters from the extended character set (including diacritic characters) to be used in 8.3 character-length short file names on NTFS volumes
-fsutil behavior set allowextchar 1
+cmd.exe /c "fsutil behavior set allowextchar 1"
 
 # Allows (1) or disallows (0) generation of a bug check when there is corruption on an NTFS volume. This feature can be used to prevent NTFS from silently deleting data when used with the Self-Healing NTFS feature
-fsutil behavior set Bugcheckoncorrupt 0
+cmd.exe /c "fsutil behavior set Bugcheckoncorrupt 0"
 
 # Disables (1) or enables (0) NTFS compression
-fsutil behavior set disablecompression 1
-cipher /d /s:C:\
+cmd.exe /c "fsutil behavior set disablecompression 1"
+cmd.exe /c "cipher /d /s:C:\"
 
 # Disables (1) or enables (0) updates to the Last Access Time stamp on each directory when directories are listed on an NTFS volume
-fsutil behavior set DisableLastAccess 1
+cmd.exe /c "fsutil behavior set DisableLastAccess 1"
 
 # Encrypts (1) or doesn't encrypt (0) the memory paging file in the Windows operating system
-fsutil behavior set encryptpagingfile 0
+cmd.exe /c "fsutil behavior set encryptpagingfile 0"
 
 # Configures the internal cache levels of NTFS paged-pool memory and NTFS nonpaged-pool memory. Set to 1 or 2. When set to 1 (the default), NTFS uses the default amount of paged-pool memory. When set to 2, NTFS increases the size of its lookaside lists and memory thresholds. (A lookaside list is a pool of fixed-size memory buffers that the kernel and device drivers create as private memory caches for file system operations, such as reading a file.)
-fsutil behavior set memoryusage 2
+cmd.exe /c "fsutil behavior set memoryusage 2"
 
 # Sets the size of the MFT Zone, and is expressed as a multiple of 200MB units. Set value to a number from 1 (default is 200 MB) to 4 (maximum is 800 MB)
-fsutil behavior set mftzone 2
+cmd.exe /c "fsutil behavior set mftzone 2"
 
 # Transactional Resource Manager
-fsutil resource setavailable c:
-fsutil resource setlog shrink 10 C:\
-fsutil resource setavailable d:
-fsutil resource setlog shrink 10 D:\
-fsutil resource setautoreset true c:\
-fsutil usn deletejournal /d /n c:
+cmd.exe /c "fsutil resource setavailable c:"
+cmd.exe /c "fsutil resource setlog shrink 10 C:\"
+cmd.exe /c "fsutil resource setavailable d:"
+cmd.exe /c "fsutil resource setlog shrink 10 D:\"
+cmd.exe /c "fsutil resource setautoreset true c:\"
+cmd.exe /c "fsutil usn deletejournal /d /n c:"
 
 # Enable TRIM support for NTFS and ReFS file systems for SSD drives
-fsutil behavior set disabledeletenotify 0
+cmd.exe /c "fsutil behavior set disabledeletenotify 0"
+cmd.exe /c "FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY NTFS 0"
 Invoke-Expression -Command ('FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY NTFS 0')
 $QueryReFS = Invoke-Expression -Command ('FSUTIL BEHAVIOR QUERY DISABLEDELETENOTIFY') | Select-String -Pattern ReFS
 If ($QueryReFS) { Invoke-Expression -Command ('FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY REFS 0') }
@@ -194,27 +1856,19 @@ Get-AutologgerConfig -Name AutoLogger-Diagtrack-Listener, SQMLogger | Set-Autolo
 If (Test-Path -Path "$Env:SystemRoot\System32\CompatTelRunner.exe") {
     Invoke-Expression -Command ('TAKEOWN.EXE /F "{ 0 }" /A' -f "$Env:SystemRoot\System32\CompatTelRunner.exe")
     Invoke-Expression -Command ('ICACLS.EXE "{ 0 }" /GRANT *S-1-5-32-544:F' -f "$Env:SystemRoot\System32\CompatTelRunner.exe")
-    Stop-Process -Name CompatTelRunner -Force
-    Remove-Item -Path "$Env:SystemRoot\System32\CompatTelRunner.exe" -Force
+    Stop-Process -Name CompatTelRunner -Force -Verbose
+    Remove-Item -Path "$Env:SystemRoot\System32\CompatTelRunner.exe" -Force -Verbose
     If (!(Test-Path -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\CompatTelRunner.exe")) { New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\CompatTelRunner.exe" -ItemType Directory -Force }
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\CompatTelRunner.exe" -Name Debugger -Value "%SystemRoot%\System32\taskkill.exe" -Type ExpandString -Force
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\CompatTelRunner.exe" -Name Debugger -Value "%SystemRoot%\System32\taskkill.exe" -Type ExpandString -Force -Verbose
 }
 
-# Enable TRIM support for NTFS and ReFS file systems for SSD drives.
-Invoke-Expression -Command ('FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY NTFS 0')
-$QueryReFS = Invoke-Expression -Command ('FSUTIL BEHAVIOR QUERY DISABLEDELETENOTIFY') | Select-String -Pattern ReFS
-If ($QueryReFS) { Invoke-Expression -Command ('FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY REFS 0') }
-
 # Disable Swapfile.sys which can improve SSD performance.
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name SwapfileControl -Value 0 -Force
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name SwapfileControl -Value 0 -Force -Verbose
 
 # Disable Prefetch and Superfetch (optimal for SSD drives).
-If (!(Test-Path -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters")) { New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" -ItemType Directory -Force }
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" -Name EnablePrefetcher -Value 0 -Force
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" -Name EnableSuperfetch -Value 0 -Force
-
-# Disable hibernation.
-Invoke-Expression -Command ('POWERCFG -H OFF')
+If (!(Test-Path -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters")) { New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" -ItemType Directory -Force -Verbose }
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" -Name EnablePrefetcher -Value 0 -Force -Verbose
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" -Name EnableSuperfetch -Value 0 -Force -Verbose
 
 # Disable the automatic disabling of network cards to save power.
 Get-NetAdapter -Physical | Get-NetAdapterPowerManagement | Where-Object -Property AllowComputerToTurnOffDevice -NE Unsupported | ForEach-Object -Process {
@@ -224,1388 +1878,205 @@ Get-NetAdapter -Physical | Get-NetAdapterPowerManagement | Where-Object -Propert
 
 # Use the total amount of memory installed on the device to modify the svchost.exe split threshold to reduce the amount of svchost.exe processes that run simultaneously.
 $Memory = (Get-CimInstance -ClassName Win32_PhysicalMemory | Measure-Object -Property Capacity -Sum).Sum / 1KB
-If ($Memory -is [Double]) { Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name SvcHostSplitThresholdInKB -Value $Memory -Force }
+If ($Memory -is [Double]) { Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name SvcHostSplitThresholdInKB -Value $Memory -Force -Verbose }
 
 # disable the Reserved Storage feature
 Set-WindowsReservedStorageState -State Disabled
 
 #  Configure Power Plan Settings
-powercfg -h off
-powercfg -setactive 381b4222-f694-41f0-9685-ff5bb260df2e
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e fea3413e-7e05-4911-9a71-700331f1c294 0e796bdb-100d-47d6-a2d5-f7d2daa51f51 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e fea3413e-7e05-4911-9a71-700331f1c294 0e796bdb-100d-47d6-a2d5-f7d2daa51f51 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 0012ee47-9041-4b5d-9b77-535fba8b1442 6738e2c4-e8a5-4a42-b16a-e040e769756e 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 0012ee47-9041-4b5d-9b77-535fba8b1442 6738e2c4-e8a5-4a42-b16a-e040e769756e 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 02f815b5-a5cf-4c84-bf20-649d1f75d3d8 4c793e7d-a264-42e1-87d3-7a0d2f523ccd 1
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 02f815b5-a5cf-4c84-bf20-649d1f75d3d8 4c793e7d-a264-42e1-87d3-7a0d2f523ccd 1
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 0d7dbae2-4294-402a-ba8e-26777e8488cd 309dce9b-bef4-4119-9921-a851fb12f0f4 1
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 0d7dbae2-4294-402a-ba8e-26777e8488cd 309dce9b-bef4-4119-9921-a851fb12f0f4 1
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 19cbb8fa-5279-450e-9fac-8a3d5fedd0c1 12bbebe6-58d6-4636-95bb-3217ef867c1a 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 19cbb8fa-5279-450e-9fac-8a3d5fedd0c1 12bbebe6-58d6-4636-95bb-3217ef867c1a 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 29f6c1db-86da-48c5-9fdb-f2b67b1f44da 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 29f6c1db-86da-48c5-9fdb-f2b67b1f44da 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 94ac6d29-73ce-41a6-809f-6363ba21b47e 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 94ac6d29-73ce-41a6-809f-6363ba21b47e 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 9d7815a6-7ee4-497e-8888-515a05f02364 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 9d7815a6-7ee4-497e-8888-515a05f02364 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 bd3b718a-0680-4d9d-8ab2-e1d2b4ac806d 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 bd3b718a-0680-4d9d-8ab2-e1d2b4ac806d 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 5ca83367-6e45-459f-a27b-476b1d01c936 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 5ca83367-6e45-459f-a27b-476b1d01c936 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 7648efa3-dd9c-4e3e-b566-50f929386280 3
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 7648efa3-dd9c-4e3e-b566-50f929386280 3
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 96996bc0-ad50-47ec-923b-6f41874dd9eb 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 96996bc0-ad50-47ec-923b-6f41874dd9eb 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 a7066653-8d6c-40a8-910e-a1f54b84c7e5 2
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 a7066653-8d6c-40a8-910e-a1f54b84c7e5 2
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 501a4d13-42af-4429-9fd1-a8218c268e20 ee12f906-d277-404b-b6da-e5fa1a576df5 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 501a4d13-42af-4429-9fd1-a8218c268e20 ee12f906-d277-404b-b6da-e5fa1a576df5 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 54533251-82be-4824-96c1-47b60b740d00 893dee8e-2bef-41e0-89c6-b55d0929964c 100
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 54533251-82be-4824-96c1-47b60b740d00 893dee8e-2bef-41e0-89c6-b55d0929964c 100
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 54533251-82be-4824-96c1-47b60b740d00 bc5038f7-23e0-4960-96da-33abaf5935ec 100
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 54533251-82be-4824-96c1-47b60b740d00 bc5038f7-23e0-4960-96da-33abaf5935ec 100
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 54533251-82be-4824-96c1-47b60b740d00 94d3a615-a899-4ac5-ae2b-e4d8f634367f 1
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 54533251-82be-4824-96c1-47b60b740d00 94d3a615-a899-4ac5-ae2b-e4d8f634367f 1
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 fbd9aa66-9553-4097-ba44-ed6e9d65eab8 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 fbd9aa66-9553-4097-ba44-ed6e9d65eab8 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 17aaa29b-8b43-4b94-aafe-35f64daaf1ee 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 17aaa29b-8b43-4b94-aafe-35f64daaf1ee 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 3c0bc021-c8a8-4e07-a973-6b14cbcb2b7e 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 3c0bc021-c8a8-4e07-a973-6b14cbcb2b7e 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 aded5e82-b909-4619-9949-f5d71dac0bcb 100
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 aded5e82-b909-4619-9949-f5d71dac0bcb 100
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 f1fbfde2-a960-4165-9f88-50667911ce96 100
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 f1fbfde2-a960-4165-9f88-50667911ce96 100
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 9596fb26-9850-41fd-ac3e-f7c3c00afd4b 03680956-93bc-4294-bba6-4e0f09bb717f 1
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 9596fb26-9850-41fd-ac3e-f7c3c00afd4b 03680956-93bc-4294-bba6-4e0f09bb717f 1
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 9596fb26-9850-41fd-ac3e-f7c3c00afd4b 34c7b99f-9a6d-4b3c-8dc7-b6693b78cef4 1
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 9596fb26-9850-41fd-ac3e-f7c3c00afd4b 34c7b99f-9a6d-4b3c-8dc7-b6693b78cef4 1
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f 637ea02f-bbcb-4015-8e2c-a1c7b9c0b546 3
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f 637ea02f-bbcb-4015-8e2c-a1c7b9c0b546 3
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f 9a66d8d7-4ff7-4ef9-b5a2-5a326ca2a469 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f 9a66d8d7-4ff7-4ef9-b5a2-5a326ca2a469 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f 8183ba9a-e910-48da-8769-14ae6dc1170a 5
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f 8183ba9a-e910-48da-8769-14ae6dc1170a 5
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f bcded951-187b-4d05-bccc-f7e51960c258 1
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f bcded951-187b-4d05-bccc-f7e51960c258 1
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f d8742dcb-3e6a-4b3c-b3fe-374623cdcf06 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f d8742dcb-3e6a-4b3c-b3fe-374623cdcf06 0
-powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f f3c5027d-cd16-4930-aa6b-90db844a8f00 0
-powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f f3c5027d-cd16-4930-aa6b-90db844a8f00 0
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "PowerSettingProfile" /t REG_DWORD /d "4" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling" /v "PowerThrottlingOff" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "HiberbootEnabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "CsEnabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "EnergyEstimationEnabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "PerfCalculateActualUtilization" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "SleepReliabilityDetailedDiagnostics" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "EventProcessorEnabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "QosManagesIdleProcessors" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "DisableVsyncLatencyUpdate" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "DisableSensorWatchdog" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "ExitLatencyCheckEnabled" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "LatencyToleranceDefault" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "LatencyToleranceFSVP" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "LatencyToleranceIdleResiliency" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "LatencyTolerancePerfOverride" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "LatencyToleranceScreenOffIR" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "LatencyToleranceVSyncEnabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\System\CurrentControlSet\Control\Power" /v "PlatformAoAcOverride" /t REG_DWORD /d "0"
-
-# Remove Cast To Device From Context Menus Of Media Files
-Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v " { 7AD84985-87B4-4a16-BE58-8B72A5B390F7 }" /t REG_SZ /d "" /f
-Reg.exe add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v " { 7AD84985-87B4-4a16-BE58-8B72A5B390F7 }" /t REG_SZ /d "" /f
-
-# Remove the Open in Windows Terminal context menu
-Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{9F156763-7844-4DC4-B2B1-901F640F5155}" /t REG_SZ /d "" /f
-
-# Remove/Restore Rotate Right/Left From Image Filetypes Context Menu
-Reg.exe delete "HKCR\SystemFileAssociations\.bmp\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-Reg.exe delete "HKCR\SystemFileAssociations\.dds\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-Reg.exe delete "HKCR\SystemFileAssociations\.dib\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-Reg.exe delete "HKCR\SystemFileAssociations\.gif\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-Reg.exe delete "HKCR\SystemFileAssociations\.heic\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-Reg.exe delete "HKCR\SystemFileAssociations\.heif\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-Reg.exe delete "HKCR\SystemFileAssociations\.ico\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-Reg.exe delete "HKCR\SystemFileAssociations\.jfif\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-Reg.exe delete "HKCR\SystemFileAssociations\.jpe\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-Reg.exe delete "HKCR\SystemFileAssociations\.jpeg\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-Reg.exe delete "HKCR\SystemFileAssociations\.jpg\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-Reg.exe delete "HKCR\SystemFileAssociations\.jxr\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-Reg.exe delete "HKCR\SystemFileAssociations\.png\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-Reg.exe delete "HKCR\SystemFileAssociations\.rle\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-Reg.exe delete "HKCR\SystemFileAssociations\.tif\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-Reg.exe delete "HKCR\SystemFileAssociations\.tiff\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-Reg.exe delete "HKCR\SystemFileAssociations\.wdp\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-Reg.exe delete "HKCR\SystemFileAssociations\.webp\ShellEx\ContextMenuHandlers\ShellImagePreview" /f
-
-# show This PC + control panel icon on desktop
-Reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel" /v "{20D04FE0-3AEA-1069-A2D8-08002B30309D}" /t REG_DWORD /d "0" /f
-Reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel" /v "{5399E694-6CE5-4D6C-8FCE-1D8870FDCBA0}" /t REG_DWORD /d "0" /f
-
-# Font
-Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "苹方-简 中黑体 (TrueType)" /t REG_SZ /d "PingFangSC-17.d1e2-Medium.otf" /f
-Reg.exe add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts" /v "苹方-简 中黑体 (TrueType)" /t REG_SZ /d "PingFangSC-17.d1e2-Medium.otf" /f
-# reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "MS Sans Serif 8,10,12,14,18,24" /f
-# reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "MS Sans Serif 8,10,12,14,18,24 (120)" /f
-# reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "MS Serif 8,10,12,14,18,24" /f
-# reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "MS Serif 8,10,12,14,18,24 (120)" /f
-# reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Segoe UI (TrueType)" /f
-# reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Segoe UI Black (TrueType)" /f
-# reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Segoe UI Black Italic (TrueType)" /f
-# reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Segoe UI Bold (TrueType)" /f
-# reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Segoe UI Bold Italic (TrueType)" /f
-# reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Segoe UI Historic (TrueType)" /f
-# reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Segoe UI Italic (TrueType)" /f
-# reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Segoe UI Light (TrueType)" /f
-# reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Segoe UI Light Italic (TrueType)" /f
-# reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Segoe UI Semibold (TrueType)" /f
-# reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Segoe UI Semibold Italic (TrueType)" /f
-# reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Segoe UI Semilight (TrueType)" /f
-# reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Segoe UI Semilight Italic (TrueType)" /f
-# reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Segoe UI Variable (TrueType)" /f
-# reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "Helv" /t REG_SZ /d "Arial" /f
-# reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "Helvetica" /t REG_SZ /d "Arial" /f
-# reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "MS Shell Dlg 2" /t REG_SZ /d "Arial" /f
-# reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "Tahoma Armenian" /t REG_SZ /d "Arial" /f
-# reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "Times" /t REG_SZ /d "Arial" /f
-# reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "Tms Rmn" /t REG_SZ /d "Arial" /f
-# reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "MS Shell Dlg" /t REG_SZ /d "Arial" /f
-# reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "FangSong_GB2312" /t REG_SZ /d "Microsoft YaHei UI" /f
-# reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "KaiTi_GB2312" /t REG_SZ /d "Microsoft YaHei UI" /f
-# reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "SimSun" /t REG_SZ /d "Microsoft YaHei UI" /f
-# reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "Segoe UI" /t REG_SZ /d "Arial" /f
-# reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "MS Serif" /t REG_SZ /d "Arial" /f
-# reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "MS Sans Serif" /t REG_SZ /d "Arial" /f
-# reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "Segoe UI Bold" /t REG_SZ /d "Arial" /f
-# reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "System" /t REG_SZ /d "Arial" /f
-# reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "Tahoma" /t REG_SZ /d "Arial" /f
-    
-# Set User TEMP to Windows TEMP
-reg add "HKCU\Environment" /v "TEMP" /t reg_SZ /d "C:\TEMP" /f
-reg add "HKCU\Environment" /v "TMP" /t reg_SZ /d "C:\TEMP" /f
-
-# Potplayer Setting
-reg add "HKCU\Software\Daum\PotPlayerMini64\AtscAntenaList" /v "0" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\AtscAntenaList" /v "1" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\AtscAntenaList" /v "2" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\AtscAntenaList" /v "3" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\AtscAntenaList" /v "4" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\AtscAntenaList" /v "5" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\AtscAntenaList" /v "6" /t REG_SZ /d "" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\AtscCableList" /v "0" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\AtscCableList" /v "1" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\AtscCableList" /v "2" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\AtscCableList" /v "3" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\AtscCableList" /v "4" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\AtscCableList" /v "5" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\AtscCableList" /v "6" /t REG_SZ /d "" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\BMItem_0" /ve /t REG_SZ /d "/f" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Dialog324" /v "WindowPosition" /t REG_SZ /d "856,371,1714,973" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\DvbcList" /v "0" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\DvbcList" /v "1" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\DvbcList" /v "2" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\DvbcList" /v "3" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\DvbcList" /v "4" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\DvbcList" /v "5" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\DvbcList" /v "6" /t REG_SZ /d "" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\DvbsList" /v "0" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\DvbsList" /v "1" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\DvbsList" /v "2" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\DvbsList" /v "3" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\DvbsList" /v "4" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\DvbsList" /v "5" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\DvbsList" /v "6" /t REG_SZ /d "" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\DvbtList" /v "0" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\DvbtList" /v "1" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\DvbtList" /v "2" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\DvbtList" /v "3" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\DvbtList" /v "4" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\DvbtList" /v "5" /t REG_SZ /d "1|0|0|0|0|0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\DvbtList" /v "6" /t REG_SZ /d "" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0000" /v "Type" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0000" /v "Disabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0000" /v "DisplayName" /t REG_SZ /d "@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{E8E73B6B-4CB3-44A4-BE99-4F7BCB96E491}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0000" /v "Name" /t REG_SZ /d "LAV Audio Decoder" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0000" /v "CLSID" /t REG_SZ /d "{E8E73B6B-4CB3-44A4-BE99-4F7BCB96E491}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0000" /v "FilterType" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0000" /v "Merit" /t REG_DWORD /d "3154116863" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0000" /v "MeritHi" /t REG_DWORD /d "454720" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0001" /v "Type" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0001" /v "Disabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0001" /v "DisplayName" /t REG_SZ /d "@device:dmo:{BBEEA841-0A63-4F52-A7AB-A9B3A84ED38A}{57F2DB8B-E6BB-4513-9D43-DCD2A6593125}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0001" /v "Name" /t REG_SZ /d "MP3 Decoder DMO" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0001" /v "CLSID" /t REG_SZ /d "{94297043-BD82-4DFD-B0DE-8177739C6D20}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0001" /v "FilterType" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0001" /v "Merit" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0001" /v "MeritHi" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0002" /v "Type" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0002" /v "Disabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0002" /v "DisplayName" /t REG_SZ /d "@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{4A2286E0-7BEF-11CE-9BD9-0000E202599C}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0002" /v "Name" /t REG_SZ /d "MPEG Audio Decoder" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0002" /v "CLSID" /t REG_SZ /d "{4A2286E0-7BEF-11CE-9BD9-0000E202599C}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0002" /v "FilterType" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0002" /v "Merit" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0002" /v "MeritHi" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0003" /v "Type" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0003" /v "Disabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0003" /v "DisplayName" /t REG_SZ /d "@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{FEB50740-7BEF-11CE-9BD9-0000E202599C}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0003" /v "Name" /t REG_SZ /d "MPEG Video Decoder" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0003" /v "CLSID" /t REG_SZ /d "{FEB50740-7BEF-11CE-9BD9-0000E202599C}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0003" /v "FilterType" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0003" /v "Merit" /t REG_DWORD /d "256" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0003" /v "MeritHi" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0004" /v "Type" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0004" /v "Disabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0004" /v "DisplayName" /t REG_SZ /d "@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{EE30215D-164F-4A92-A4EB-9D4C13390F9F}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0004" /v "Name" /t REG_SZ /d "LAV Video Decoder" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0004" /v "CLSID" /t REG_SZ /d "{EE30215D-164F-4A92-A4EB-9D4C13390F9F}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0004" /v "FilterType" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0004" /v "Merit" /t REG_DWORD /d "261888" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0004" /v "MeritHi" /t REG_DWORD /d "201330176" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0005" /v "Type" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0005" /v "Disabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0005" /v "DisplayName" /t REG_SZ /d "@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{212690FB-83E5-4526-8FD7-74478B7939CD}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0005" /v "Name" /t REG_SZ /d "Microsoft DTV-DVD Video Decoder" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0005" /v "CLSID" /t REG_SZ /d "{212690FB-83E5-4526-8FD7-74478B7939CD}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0005" /v "FilterType" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0005" /v "Merit" /t REG_DWORD /d "13056" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0005" /v "MeritHi" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0006" /v "Type" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0006" /v "Disabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0006" /v "DisplayName" /t REG_SZ /d "@device:dmo:{2A11BAE2-FE6E-4249-864B-9E9ED6E8DBC2}{4A69B442-28BE-4991-969C-B500ADF5D8A8}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0006" /v "Name" /t REG_SZ /d "Mpeg4s Decoder DMO" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0006" /v "CLSID" /t REG_SZ /d "{94297043-BD82-4DFD-B0DE-8177739C6D20}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0006" /v "FilterType" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0006" /v "Merit" /t REG_DWORD /d "3072" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0006" /v "MeritHi" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0007" /v "Type" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0007" /v "Disabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0007" /v "DisplayName" /t REG_SZ /d "@device:dmo:{82D353DF-90BD-4382-8BC2-3F6192B76E34}{4A69B442-28BE-4991-969C-B500ADF5D8A8}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0007" /v "Name" /t REG_SZ /d "WMVideo Decoder DMO" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0007" /v "CLSID" /t REG_SZ /d "{94297043-BD82-4DFD-B0DE-8177739C6D20}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0007" /v "FilterType" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0007" /v "Merit" /t REG_DWORD /d "245760" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0007" /v "MeritHi" /t REG_DWORD /d "3072" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0008" /v "Type" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0008" /v "Disabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0008" /v "DisplayName" /t REG_SZ /d "@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{1B544C20-FD0B-11CE-8C63-00AA0044B51E}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0008" /v "Name" /t REG_SZ /d "AVI Splitter" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0008" /v "CLSID" /t REG_SZ /d "{1B544C20-FD0B-11CE-8C63-00AA0044B51E}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0008" /v "FilterType" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0008" /v "Merit" /t REG_DWORD /d "262144" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0008" /v "MeritHi" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0009" /v "Type" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0009" /v "Disabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0009" /v "DisplayName" /t REG_SZ /d "@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{336475D0-942A-11CE-A870-00AA002FEAB5}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0009" /v "Name" /t REG_SZ /d "MPEG-I Stream Splitter" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0009" /v "CLSID" /t REG_SZ /d "{336475D0-942A-11CE-A870-00AA002FEAB5}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0009" /v "FilterType" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0009" /v "Merit" /t REG_DWORD /d "34603008" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0009" /v "MeritHi" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0010" /v "Type" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0010" /v "Disabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0010" /v "DisplayName" /t REG_SZ /d "@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{AFB6C280-2C41-11D3-8A60-0000F81E0E4A}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0010" /v "Name" /t REG_SZ /d "MPEG-2 Demultiplexer" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0010" /v "CLSID" /t REG_SZ /d "{AFB6C280-2C41-11D3-8A60-0000F81E0E4A}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0010" /v "FilterType" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0010" /v "Merit" /t REG_DWORD /d "6291456" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0010" /v "MeritHi" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0011" /v "Type" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0011" /v "Disabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0011" /v "DisplayName" /t REG_SZ /d "@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{3AE86B20-7BE8-11D1-ABE6-00A0C905F375}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0011" /v "Name" /t REG_SZ /d "MPEG-2 Splitter" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0011" /v "CLSID" /t REG_SZ /d "{3AE86B20-7BE8-11D1-ABE6-00A0C905F375}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0011" /v "FilterType" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0011" /v "Merit" /t REG_DWORD /d "2097152" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0011" /v "MeritHi" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0012" /v "Type" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0012" /v "Disabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0012" /v "DisplayName" /t REG_SZ /d "@device:dmo:{2EEB4ADF-4578-4D10-BCA7-BB955F56320A}{57F2DB8B-E6BB-4513-9D43-DCD2A6593125}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0012" /v "Name" /t REG_SZ /d "WMAudio Decoder DMO" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0012" /v "CLSID" /t REG_SZ /d "{94297043-BD82-4DFD-B0DE-8177739C6D20}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0012" /v "FilterType" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0012" /v "Merit" /t REG_DWORD /d "1006632960" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0012" /v "MeritHi" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0013" /v "Type" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0013" /v "Disabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0013" /v "DisplayName" /t REG_SZ /d "@device:dmo:{5210F8E4-B0BB-47C3-A8D9-7B2282CC79ED}{57F2DB8B-E6BB-4513-9D43-DCD2A6593125}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0013" /v "Name" /t REG_SZ /d "WMAPro over S/PDIF DMO" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0013" /v "CLSID" /t REG_SZ /d "{94297043-BD82-4DFD-B0DE-8177739C6D20}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0013" /v "FilterType" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0013" /v "Merit" /t REG_DWORD /d "268435456" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0013" /v "MeritHi" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0014" /v "Type" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0014" /v "Disabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0014" /v "DisplayName" /t REG_SZ /d "@device:dmo:{7BAFB3B1-D8F4-4279-9253-27DA423108DE}{4A69B442-28BE-4991-969C-B500ADF5D8A8}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0014" /v "Name" /t REG_SZ /d "WMV Screen decoder DMO" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0014" /v "CLSID" /t REG_SZ /d "{94297043-BD82-4DFD-B0DE-8177739C6D20}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0014" /v "FilterType" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0014" /v "Merit" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0014" /v "MeritHi" /t REG_DWORD /d "12" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0015" /v "Type" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0015" /v "Disabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0015" /v "DisplayName" /t REG_SZ /d "@device:dmo:{874131CB-4ECC-443B-8948-746B89595D20}{57F2DB8B-E6BB-4513-9D43-DCD2A6593125}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0015" /v "Name" /t REG_SZ /d "WMSpeech Decoder DMO" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0015" /v "CLSID" /t REG_SZ /d "{94297043-BD82-4DFD-B0DE-8177739C6D20}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0015" /v "FilterType" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0015" /v "Merit" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0015" /v "MeritHi" /t REG_DWORD /d "65536" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0016" /v "Type" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0016" /v "Disabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0016" /v "DisplayName" /t REG_SZ /d "@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{D51BD5A1-7548-11CF-A520-0080C77EF58A}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0016" /v "Name" /t REG_SZ /d "Wave Parser" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0016" /v "CLSID" /t REG_SZ /d "{D51BD5A1-7548-11CF-A520-0080C77EF58A}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0016" /v "FilterType" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0016" /v "Merit" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0016" /v "MeritHi" /t REG_DWORD /d "1048576" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0017" /v "Type" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0017" /v "Disabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0017" /v "DisplayName" /t REG_SZ /d "/f" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0017" /v "Name" /t REG_SZ /d "LAV Splitter Source" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0017" /v "CLSID" /t REG_SZ /d "{B98D13E7-55DB-4385-A33D-09FD1BA26338}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0017" /v "FilterType" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0017" /v "Merit" /t REG_DWORD /d "1140588544" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0017" /v "MeritHi" /t REG_DWORD /d "1048707" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\ExtCodec\0018" /v "Type" /t REG_DWORD /d "4294967294" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "Type" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "Disabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "DisplayName" /t REG_SZ /d "@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{E8E73B6B-4CB3-44A4-BE99-4F7BCB96E491}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "Name" /t REG_SZ /d "LAV Audio Decoder" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "CLSID" /t REG_SZ /d "{E8E73B6B-4CB3-44A4-BE99-4F7BCB96E491}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0000" /t REG_SZ /d "{ED0B916A-044D-11D1-AA78-00C04FC31D60}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0001" /t REG_SZ /d "{E06D802B-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0002" /t REG_SZ /d "{36523B13-8EE5-11D1-8CA3-0060B057664A}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0003" /t REG_SZ /d "{E06D802B-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0004" /t REG_SZ /d "{E06D8020-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0005" /t REG_SZ /d "{E06D802B-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0006" /t REG_SZ /d "{ED0B916A-044D-11D1-AA78-00C04FC31D60}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0007" /t REG_SZ /d "{E06D802C-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0008" /t REG_SZ /d "{36523B13-8EE5-11D1-8CA3-0060B057664A}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0009" /t REG_SZ /d "{E06D802C-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0010" /t REG_SZ /d "{E06D8020-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0011" /t REG_SZ /d "{E06D802C-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0012" /t REG_SZ /d "{ED0B916A-044D-11D1-AA78-00C04FC31D60}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0013" /t REG_SZ /d "{E06D8033-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0014" /t REG_SZ /d "{36523B13-8EE5-11D1-8CA3-0060B057664A}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0015" /t REG_SZ /d "{E06D8033-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0016" /t REG_SZ /d "{E06D8020-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0017" /t REG_SZ /d "{E06D8033-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0018" /t REG_SZ /d "{ED0B916A-044D-11D1-AA78-00C04FC31D60}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0019" /t REG_SZ /d "{E06D8032-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0020" /t REG_SZ /d "{36523B13-8EE5-11D1-8CA3-0060B057664A}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0021" /t REG_SZ /d "{E06D8032-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0022" /t REG_SZ /d "{E06D8020-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0023" /t REG_SZ /d "{E06D8032-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0024" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0025" /t REG_SZ /d "{000000FF-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0026" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0027" /t REG_SZ /d "{000001FF-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0028" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0029" /t REG_SZ /d "{00001602-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0030" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0031" /t REG_SZ /d "{4134504D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0032" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0033" /t REG_SZ /d "{6134706D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0034" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0035" /t REG_SZ /d "{53544441-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0036" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0037" /t REG_SZ /d "{00001600-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0038" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0039" /t REG_SZ /d "{00001601-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0040" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0041" /t REG_SZ /d "{00001610-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0042" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0043" /t REG_SZ /d "{20534C41-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0044" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0045" /t REG_SZ /d "{E06D802C-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0046" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0047" /t REG_SZ /d "{A7FB87AF-2D02-42FB-A4D4-05CD93843BDD}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0048" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0049" /t REG_SZ /d "{71CFA727-37E4-404A-AEC0-34842532EFF7}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0050" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0051" /t REG_SZ /d "{EB27CEC4-163E-4CA3-8B74-8E25F91B517E}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0052" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0053" /t REG_SZ /d "{00002000-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0054" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0055" /t REG_SZ /d "{E06D8033-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0056" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0057" /t REG_SZ /d "{00002001-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0058" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0059" /t REG_SZ /d "{A2E58EB7-0FA9-48BB-A40C-FA0E156D0645}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0060" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0061" /t REG_SZ /d "{E436EB80-524F-11CE-9F53-0020AF0BA770}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0062" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0063" /t REG_SZ /d "{E436EB81-524F-11CE-9F53-0020AF0BA770}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0064" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0065" /t REG_SZ /d "{00000050-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0066" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0067" /t REG_SZ /d "{E06D802B-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0068" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0069" /t REG_SZ /d "{00000055-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0070" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0071" /t REG_SZ /d "{0000F1AC-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0072" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0073" /t REG_SZ /d "{1541C5C0-CDDF-477D-BC0A-86F8AE7F8354}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0074" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0075" /t REG_SZ /d "{8D2FD10B-5841-4A6B-8905-588FEC1ADED9}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0076" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0077" /t REG_SZ /d "{000077A1-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0078" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0079" /t REG_SZ /d "{00005756-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0080" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0081" /t REG_SZ /d "{20504C4D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0082" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0083" /t REG_SZ /d "{63616C61-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0084" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0085" /t REG_SZ /d "{B82196E9-1B3F-4796-A636-46239087B38E}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0086" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0087" /t REG_SZ /d "{33534541-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0088" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0089" /t REG_SZ /d "{E06D8032-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0090" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0091" /t REG_SZ /d "{A23EB7FC-510B-466F-9FBF-5F878F69347C}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0092" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0093" /t REG_SZ /d "{949F97FD-56F6-4527-B4AE-DDEB375AB80F}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0094" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0095" /t REG_SZ /d "{454E4F4E-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0096" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0097" /t REG_SZ /d "{20776172-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0098" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0099" /t REG_SZ /d "{736F7774-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0100" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0101" /t REG_SZ /d "{74776F73-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0102" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0103" /t REG_SZ /d "{34326E69-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0104" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0105" /t REG_SZ /d "{32336E69-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0106" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0107" /t REG_SZ /d "{32336C66-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0108" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0109" /t REG_SZ /d "{34366C66-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0110" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0111" /t REG_SZ /d "{696E3234-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0112" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0113" /t REG_SZ /d "{696E3332-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0114" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0115" /t REG_SZ /d "{666C3332-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0116" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0117" /t REG_SZ /d "{666C3634-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0118" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0119" /t REG_SZ /d "{00000160-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0120" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0121" /t REG_SZ /d "{00000161-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0122" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0123" /t REG_SZ /d "{00000162-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0124" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0125" /t REG_SZ /d "{00000163-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0126" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0127" /t REG_SZ /d "{4B4F4F43-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0128" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0129" /t REG_SZ /d "{43414152-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0130" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0131" /t REG_SZ /d "{50434152-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0132" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0133" /t REG_SZ /d "{52504953-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0134" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0135" /t REG_SZ /d "{00000130-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0136" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0137" /t REG_SZ /d "{54454E44-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0138" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0139" /t REG_SZ /d "{385F3832-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0140" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0141" /t REG_SZ /d "{345F3431-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0142" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0143" /t REG_SZ /d "{464C4152-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0144" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0145" /t REG_SZ /d "{0000A109-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0146" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0147" /t REG_SZ /d "{0000704F-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0148" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0149" /t REG_SZ /d "{5355504F-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0150" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0151" /t REG_SZ /d "{726D6173-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0152" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0153" /t REG_SZ /d "{4C4C454E-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0154" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0155" /t REG_SZ /d "{00000006-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0156" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0157" /t REG_SZ /d "{00000007-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0158" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0159" /t REG_SZ /d "{00000031-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0160" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0161" /t REG_SZ /d "{00000002-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0162" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0163" /t REG_SZ /d "{00000022-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0164" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0165" /t REG_SZ /d "{324D4451-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0166" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0167" /t REG_SZ /d "{00000075-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0168" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0169" /t REG_SZ /d "{00000270-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0170" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0171" /t REG_SZ /d "{43525441-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0172" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0173" /t REG_SZ /d "{E923AABF-CB58-4471-A119-FFFA01E4CE62}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0174" /t REG_SZ /d "{73647561-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "mod0175" /t REG_SZ /d "{AFBC2343-3DCB-4047-9655-E1E62A61B1C5}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "FilterType" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "Merit" /t REG_DWORD /d "8388611" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0000" /v "MeritHi" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0001" /v "Type" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0001" /v "Disabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0001" /v "DisplayName" /t REG_SZ /d "@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{B98D13E7-55DB-4385-A33D-09FD1BA26338}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0001" /v "Name" /t REG_SZ /d "LAV Splitter Source" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0001" /v "CLSID" /t REG_SZ /d "{B98D13E7-55DB-4385-A33D-09FD1BA26338}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0001" /v "FilterType" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0001" /v "Merit" /t REG_DWORD /d "8388612" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0001" /v "MeritHi" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "Type" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "Disabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "DisplayName" /t REG_SZ /d "@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{EE30215D-164F-4A92-A4EB-9D4C13390F9F}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "Name" /t REG_SZ /d "LAV Video Decoder" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "CLSID" /t REG_SZ /d "{EE30215D-164F-4A92-A4EB-9D4C13390F9F}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0000" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0001" /t REG_SZ /d "{34363248-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0002" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0003" /t REG_SZ /d "{34363268-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0004" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0005" /t REG_SZ /d "{34363258-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0006" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0007" /t REG_SZ /d "{34363278-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0008" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0009" /t REG_SZ /d "{31435641-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0010" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0011" /t REG_SZ /d "{31637661-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0012" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0013" /t REG_SZ /d "{31564343-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0014" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0015" /t REG_SZ /d "{8D2D71CB-243F-45E3-B2D8-5FD7967EC09B}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0016" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0017" /t REG_SZ /d "{43564D41-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0018" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0019" /t REG_SZ /d "{3143564D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0020" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0021" /t REG_SZ /d "{43564548-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0022" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0023" /t REG_SZ /d "{31435648-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0024" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0025" /t REG_SZ /d "{30314D48-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0026" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0027" /t REG_SZ /d "{E436EB81-524F-11CE-9F53-0020AF0BA770}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0028" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0029" /t REG_SZ /d "{E436EB86-524F-11CE-9F53-0020AF0BA770}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0030" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0031" /t REG_SZ /d "{E06D8026-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0032" /t REG_SZ /d "{ED0B916A-044D-11D1-AA78-00C04FC31D60}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0033" /t REG_SZ /d "{E06D8026-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0034" /t REG_SZ /d "{36523B13-8EE5-11D1-8CA3-0060B057664A}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0035" /t REG_SZ /d "{E06D8026-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0036" /t REG_SZ /d "{E06D8020-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0037" /t REG_SZ /d "{E06D8026-DB46-11CF-B4D1-00805F6CBBEA}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0038" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0039" /t REG_SZ /d "{47504A4D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0040" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0041" /t REG_SZ /d "{6765706A-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0042" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0043" /t REG_SZ /d "{62706A6D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0044" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0045" /t REG_SZ /d "{31435657-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0046" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0047" /t REG_SZ /d "{31637677-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0048" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0049" /t REG_SZ /d "{41564D57-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0050" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0051" /t REG_SZ /d "{61766D77-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0052" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0053" /t REG_SZ /d "{32505657-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0054" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0055" /t REG_SZ /d "{32707677-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0056" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0057" /t REG_SZ /d "{31564D57-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0058" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0059" /t REG_SZ /d "{31766D77-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0060" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0061" /t REG_SZ /d "{32564D57-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0062" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0063" /t REG_SZ /d "{32766D77-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0064" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0065" /t REG_SZ /d "{33564D57-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0066" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0067" /t REG_SZ /d "{33766D77-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0068" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0069" /t REG_SZ /d "{50564D57-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0070" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0071" /t REG_SZ /d "{70766D77-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0072" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0073" /t REG_SZ /d "{30375056-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0074" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0075" /t REG_SZ /d "{30385056-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0076" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0077" /t REG_SZ /d "{30395056-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0078" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0079" /t REG_SZ /d "{31305641-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0080" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0081" /t REG_SZ /d "{44495658-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0082" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0083" /t REG_SZ /d "{64697678-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0084" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0085" /t REG_SZ /d "{58564944-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0086" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0087" /t REG_SZ /d "{78766964-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0088" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0089" /t REG_SZ /d "{78766944-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0090" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0091" /t REG_SZ /d "{30355844-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0092" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0093" /t REG_SZ /d "{30357864-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0094" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0095" /t REG_SZ /d "{5634504D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0096" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0097" /t REG_SZ /d "{7634706D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0098" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0099" /t REG_SZ /d "{3253344D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0100" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0101" /t REG_SZ /d "{3273346D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0102" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0103" /t REG_SZ /d "{5334504D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0104" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0105" /t REG_SZ /d "{7334706D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0106" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0107" /t REG_SZ /d "{34504D46-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0108" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0109" /t REG_SZ /d "{58564933-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0110" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0111" /t REG_SZ /d "{78766933-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0112" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0113" /t REG_SZ /d "{31564933-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0114" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0115" /t REG_SZ /d "{31766933-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0116" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0117" /t REG_SZ /d "{32564933-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0118" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0119" /t REG_SZ /d "{32766933-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0120" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0121" /t REG_SZ /d "{305A4C42-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0122" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0123" /t REG_SZ /d "{564F4547-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0124" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0125" /t REG_SZ /d "{3447504D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0126" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0127" /t REG_SZ /d "{3467706D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0128" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0129" /t REG_SZ /d "{3134504D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0130" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0131" /t REG_SZ /d "{3134706D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0132" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0133" /t REG_SZ /d "{31564944-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0134" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0135" /t REG_SZ /d "{31766964-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0136" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0137" /t REG_SZ /d "{3234504D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0138" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0139" /t REG_SZ /d "{3234706D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0140" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0141" /t REG_SZ /d "{32564944-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0142" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0143" /t REG_SZ /d "{32766964-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0144" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0145" /t REG_SZ /d "{3334504D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0146" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0147" /t REG_SZ /d "{3334706D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0148" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0149" /t REG_SZ /d "{33564944-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0150" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0151" /t REG_SZ /d "{33766964-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0152" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0153" /t REG_SZ /d "{3347504D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0154" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0155" /t REG_SZ /d "{3367706D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0156" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0157" /t REG_SZ /d "{34564944-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0158" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0159" /t REG_SZ /d "{34766964-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0160" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0161" /t REG_SZ /d "{35564944-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0162" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0163" /t REG_SZ /d "{35766964-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0164" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0165" /t REG_SZ /d "{36564944-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0166" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0167" /t REG_SZ /d "{36766964-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0168" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0169" /t REG_SZ /d "{33585644-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0170" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0171" /t REG_SZ /d "{33787664-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0172" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0173" /t REG_SZ /d "{44564933-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0174" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0175" /t REG_SZ /d "{31564C46-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0176" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0177" /t REG_SZ /d "{31766C66-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0178" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0179" /t REG_SZ /d "{30365056-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0180" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0181" /t REG_SZ /d "{30367076-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0182" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0183" /t REG_SZ /d "{31365056-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0184" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0185" /t REG_SZ /d "{31367076-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0186" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0187" /t REG_SZ /d "{32365056-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0188" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0189" /t REG_SZ /d "{32367076-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0190" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0191" /t REG_SZ /d "{41365056-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0192" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0193" /t REG_SZ /d "{61367076-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0194" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0195" /t REG_SZ /d "{46365056-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0196" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0197" /t REG_SZ /d "{66367076-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0198" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0199" /t REG_SZ /d "{34564C46-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0200" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0201" /t REG_SZ /d "{34766C66-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0202" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0203" /t REG_SZ /d "{31565346-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0204" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0205" /t REG_SZ /d "{30315652-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0206" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0207" /t REG_SZ /d "{30325652-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0208" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0209" /t REG_SZ /d "{30335652-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0210" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0211" /t REG_SZ /d "{30345652-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0212" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0213" /t REG_SZ /d "{64737664-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0214" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0215" /t REG_SZ /d "{44535644-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0216" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0217" /t REG_SZ /d "{48564443-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0218" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0219" /t REG_SZ /d "{43564443-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0220" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0221" /t REG_SZ /d "{35564443-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0222" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0223" /t REG_SZ /d "{35327664-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0224" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0225" /t REG_SZ /d "{35325644-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0226" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0227" /t REG_SZ /d "{30357664-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0228" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0229" /t REG_SZ /d "{30355644-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0230" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0231" /t REG_SZ /d "{70637664-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0232" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0233" /t REG_SZ /d "{70357664-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0234" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0235" /t REG_SZ /d "{6E357664-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0236" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0237" /t REG_SZ /d "{70707664-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0238" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0239" /t REG_SZ /d "{20637664-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0240" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0241" /t REG_SZ /d "{31687664-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0242" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0243" /t REG_SZ /d "{32687664-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0244" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0245" /t REG_SZ /d "{33687664-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0246" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0247" /t REG_SZ /d "{34687664-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0248" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0249" /t REG_SZ /d "{35687664-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0250" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0251" /t REG_SZ /d "{36687664-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0252" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0253" /t REG_SZ /d "{71687664-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0254" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0255" /t REG_SZ /d "{70687664-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0256" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0257" /t REG_SZ /d "{76645641-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0258" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0259" /t REG_SZ /d "{31645641-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0260" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0261" /t REG_SZ /d "{32706A6D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0262" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0263" /t REG_SZ /d "{43324A4D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0264" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0265" /t REG_SZ /d "{43324A4C-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0266" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0267" /t REG_SZ /d "{4B324A4C-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0268" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0269" /t REG_SZ /d "{324A5049-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0270" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0271" /t REG_SZ /d "{31515653-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0272" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0273" /t REG_SZ /d "{33515653-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0274" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0275" /t REG_SZ /d "{31363248-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0276" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0277" /t REG_SZ /d "{31363268-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0278" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0279" /t REG_SZ /d "{33363248-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0280" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0281" /t REG_SZ /d "{33363268-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0282" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0283" /t REG_SZ /d "{33363273-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0284" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0285" /t REG_SZ /d "{33363273-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0286" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0287" /t REG_SZ /d "{33363249-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0288" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0289" /t REG_SZ /d "{33363269-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0290" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0291" /t REG_SZ /d "{4F454854-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0292" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0293" /t REG_SZ /d "{6F656874-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0294" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0295" /t REG_SZ /d "{63637374-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0296" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0297" /t REG_SZ /d "{32637374-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0298" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0299" /t REG_SZ /d "{30355649-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0300" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0301" /t REG_SZ /d "{31345649-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0302" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0303" /t REG_SZ /d "{31335649-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0304" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0305" /t REG_SZ /d "{32335649-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0306" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0307" /t REG_SZ /d "{31535046-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0308" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0309" /t REG_SZ /d "{55594648-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0310" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0311" /t REG_SZ /d "{5347414C-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0312" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0313" /t REG_SZ /d "{64697663-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0314" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0315" /t REG_SZ /d "{20656C72-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0316" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0317" /t REG_SZ /d "{30335056-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0318" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0319" /t REG_SZ /d "{31335056-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0320" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0321" /t REG_SZ /d "{44435343-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0322" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0323" /t REG_SZ /d "{47455051-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0324" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0325" /t REG_SZ /d "{302E3151-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0326" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0327" /t REG_SZ /d "{312E3151-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0328" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0329" /t REG_SZ /d "{485A534D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0330" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0331" /t REG_SZ /d "{42494C5A-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0332" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0333" /t REG_SZ /d "{617A7072-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0334" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0335" /t REG_SZ /d "{00000001-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0336" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0337" /t REG_SZ /d "{68637061-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0338" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0339" /t REG_SZ /d "{6E637061-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0340" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0341" /t REG_SZ /d "{73637061-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0342" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0343" /t REG_SZ /d "{6F637061-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0344" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0345" /t REG_SZ /d "{68347061-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0346" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0347" /t REG_SZ /d "{78347061-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0348" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0349" /t REG_SZ /d "{41524C55-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0350" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0351" /t REG_SZ /d "{47524C55-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0352" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0353" /t REG_SZ /d "{30594C55-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0354" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0355" /t REG_SZ /d "{32594C55-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0356" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0357" /t REG_SZ /d "{34594C55-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0358" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0359" /t REG_SZ /d "{32595155-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0360" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0361" /t REG_SZ /d "{47525155-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0362" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0363" /t REG_SZ /d "{41525155-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0364" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0365" /t REG_SZ /d "{30484C55-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0366" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0367" /t REG_SZ /d "{32484C55-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0368" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0369" /t REG_SZ /d "{34484C55-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0370" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0371" /t REG_SZ /d "{32594D55-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0372" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0373" /t REG_SZ /d "{32484D55-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0374" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0375" /t REG_SZ /d "{34594D55-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0376" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0377" /t REG_SZ /d "{34484D55-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0378" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0379" /t REG_SZ /d "{47524D55-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0380" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0381" /t REG_SZ /d "{41524D55-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0382" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0383" /t REG_SZ /d "{56564D41-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0384" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0385" /t REG_SZ /d "{46564D41-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0386" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0387" /t REG_SZ /d "{64726376-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0388" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0389" /t REG_SZ /d "{63617264-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0390" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0391" /t REG_SZ /d "{6E645641-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0392" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0393" /t REG_SZ /d "{68645641-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0394" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0395" /t REG_SZ /d "{4D415243-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0396" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0397" /t REG_SZ /d "{4356534D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0398" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0399" /t REG_SZ /d "{4D414857-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0400" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0401" /t REG_SZ /d "{53504238-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0402" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0403" /t REG_SZ /d "{4F434F4C-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0404" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0405" /t REG_SZ /d "{56424D5A-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0406" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0407" /t REG_SZ /d "{31524356-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0408" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0409" /t REG_SZ /d "{43534141-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0410" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0411" /t REG_SZ /d "{574F4E53-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0412" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0413" /t REG_SZ /d "{31564646-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0414" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0415" /t REG_SZ /d "{48564646-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0416" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0417" /t REG_SZ /d "{636E4D56-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0418" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0419" /t REG_SZ /d "{434C4641-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0420" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0421" /t REG_SZ /d "{344D3247-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0422" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0423" /t REG_SZ /d "{646F6369-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0424" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0425" /t REG_SZ /d "{4B435544-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0426" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0427" /t REG_SZ /d "{30324D54-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0428" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0429" /t REG_SZ /d "{44484643-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0430" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0431" /t REG_SZ /d "{5947414D-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0432" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0433" /t REG_SZ /d "{694B4942-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0434" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0435" /t REG_SZ /d "{624B4942-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0436" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0437" /t REG_SZ /d "{324B4D53-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0438" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0439" /t REG_SZ /d "{344B4D53-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0440" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0441" /t REG_SZ /d "{56504854-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0442" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0443" /t REG_SZ /d "{56516F52-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0444" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0445" /t REG_SZ /d "{20676E70-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0446" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0447" /t REG_SZ /d "{46464954-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0448" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0449" /t REG_SZ /d "{20504D42-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0450" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0451" /t REG_SZ /d "{20464947-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0452" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0453" /t REG_SZ /d "{20414754-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0454" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0455" /t REG_SZ /d "{30313276-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0456" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0457" /t REG_SZ /d "{30313476-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0458" /t REG_SZ /d "{73646976-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "mod0459" /t REG_SZ /d "{D80FA03C-35C1-4FA1-8C8E-375C8667166E}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "FilterType" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "Merit" /t REG_DWORD /d "8388611" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0002" /v "MeritHi" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override\0003" /v "Type" /t REG_DWORD /d "4294967294" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "Type" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "Disabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "DisplayName" /t REG_SZ /d "@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{2DFCB782-EC20-4A7C-B530-4577ADB33F21}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "Name" /t REG_SZ /d "XySubFilter" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "CLSID" /t REG_SZ /d "{2DFCB782-EC20-4A7C-B530-4577ADB33F21}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0000" /t REG_SZ /d "{73747874-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0001" /t REG_SZ /d "{E436EB8E-524F-11CE-9F53-0020AF0BA770}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0002" /t REG_SZ /d "{73747874-0000-0010-8000-00AA00389B71}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0003" /t REG_SZ /d "{00000000-0000-0000-0000-000000000000}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0004" /t REG_SZ /d "{E487EB08-6B26-4BE9-9DD3-993434D313FD}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0005" /t REG_SZ /d "{E436EB8E-524F-11CE-9F53-0020AF0BA770}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0006" /t REG_SZ /d "{E487EB08-6B26-4BE9-9DD3-993434D313FD}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0007" /t REG_SZ /d "{87C0B230-03A8-4FDF-8010-B27A5848200D}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0008" /t REG_SZ /d "{E487EB08-6B26-4BE9-9DD3-993434D313FD}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0009" /t REG_SZ /d "{3020560F-255A-4DDC-806E-6C5CC6DCD70A}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0010" /t REG_SZ /d "{E487EB08-6B26-4BE9-9DD3-993434D313FD}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0011" /t REG_SZ /d "{326444F7-686F-47FF-A4B2-C8C96307B4C2}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0012" /t REG_SZ /d "{E487EB08-6B26-4BE9-9DD3-993434D313FD}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0013" /t REG_SZ /d "{370689E7-B226-4F67-978D-F10BC1A9C6AE}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0014" /t REG_SZ /d "{E487EB08-6B26-4BE9-9DD3-993434D313FD}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0015" /t REG_SZ /d "{76C421C4-DB89-42EC-936E-A9FBC1794714}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0016" /t REG_SZ /d "{E487EB08-6B26-4BE9-9DD3-993434D313FD}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0017" /t REG_SZ /d "{F7239E31-9599-4E43-8DD5-FBAF75CF37F1}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0018" /t REG_SZ /d "{E487EB08-6B26-4BE9-9DD3-993434D313FD}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0019" /t REG_SZ /d "{04EBA53E-9330-436C-9133-553EC87031DC}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0020" /t REG_SZ /d "{E487EB08-6B26-4BE9-9DD3-993434D313FD}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "mod0021" /t REG_SZ /d "{34FFCBC3-D5B3-4171-9002-D4C60301697F}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "FilterType" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "Merit" /t REG_DWORD /d "8388610" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0000" /v "MeritHi" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0001" /v "Type" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0001" /v "Disabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0001" /v "DisplayName" /t REG_SZ /d "@device:sw:{083863F1-70DE-11D0-BD40-00A0C911CE86}\{6B237877-902B-4C6C-92F6-E63169A5166C}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0001" /v "Name" /t REG_SZ /d "XySubFilterAutoLoader" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0001" /v "CLSID" /t REG_SZ /d "{6B237877-902B-4C6C-92F6-E63169A5166C}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0001" /v "mod0000" /t REG_SZ /d "{00000000-0000-0000-0000-000000000000}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0001" /v "mod0001" /t REG_SZ /d "{00000000-0000-0000-0000-000000000000}" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0001" /v "FilterType" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0001" /v "Merit" /t REG_DWORD /d "4294967295" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0001" /v "MeritHi" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Override_Settings\0002" /v "Type" /t REG_DWORD /d "4294967294" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "MainWidth2" /t REG_DWORD /d "640" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "MainHeight2" /t REG_DWORD /d "412" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "VideoWindowWidth" /t REG_DWORD /d "4294967295" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "VideoWindowHeight" /t REG_DWORD /d "4294967295" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "MainWindowState" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "ChatWindowVisible" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "PlayListWindowVisible" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "PlayListWidth" /t REG_DWORD /d "286" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "TopMostWindow0" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "TopMostWindow1" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "TopMostWindow2" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "TopMostWindow3" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "TopMostWindow4" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "TopMostWindow5" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "TopMostWindow6" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "TopMostWindow7" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "TopMostWindow8" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "TopMostWindow9" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "ControlBoxWidth" /t REG_DWORD /d "330" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Positions" /v "ControlBoxHeight" /t REG_DWORD /d "195" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "LanguageIni" /t REG_SZ /d "Chinese(Simplified).ini" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "CudaDecoder" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "NvencEncoder" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "MftDecoder" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "DmoDecoder" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Info1" /t REG_SZ /d "" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Info6" /t REG_SZ /d "" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Info7" /t REG_SZ /d "" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "LastConfigPage" /t REG_DWORD /d "436" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "PlaybackMode" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "LastPlayListName" /t REG_SZ /d "PotPlayerMini64.dpl" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "LastSkinName" /t REG_SZ /d "YouTube_Slim.dsf" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "LastSkinXmlName" /t REG_SZ /d "VideoSkin.xml" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "LastSkinXmlNameVideo" /t REG_SZ /d "VideoSkin.xml" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "VideoRen2" /t REG_DWORD /d "10" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AudioVolume" /t REG_DWORD /d "95" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "RepeatPlay2" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "RepeatPlayAudio" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "PreviewSeekTime" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "PreviewThumbnail" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "PlaybackSearchFile" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "MotionBlur" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AudioNormalize" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "OpenWithSameName" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "RememberPosition" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "RememberPositionAudio" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "ShowRememberList" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "CaptionVisible" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AllowMultiple" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "UseTooltip" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "UseMagWindow" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "EffectPage" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "EffectCastOnly" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "SkipCastPreview" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "ChatAttachToMain2" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "BroadcastAttachToMain2" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "PlaylistAttachSize2" /t REG_DWORD /d "288" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "NormalAviSrc_new1" /t REG_DWORD /d "4" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "DemageAviSrc_new1" /t REG_DWORD /d "3" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "NormalAsfSrc_new1" /t REG_DWORD /d "4" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "DemageAsfSrc_new1" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "MkvSrc_new1" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Mpg1Src_new1" /t REG_DWORD /d "3" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Mpg2PsSrc_new1" /t REG_DWORD /d "4" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Mpg2TsSrc_new1" /t REG_DWORD /d "3" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Mp4Src_new1" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "OggSrc_new1" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Mp3Src_new1" /t REG_DWORD /d "4" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AacSrc1" /t REG_DWORD /d "3" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "FlacSrc1" /t REG_DWORD /d "3" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "FlvSrc1" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "WaveSrc1" /t REG_DWORD /d "4" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Mpg1Video_new" /t REG_DWORD /d "3" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Mpg2Video_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "XvidVideo_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "DivxVideo_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "H264Video_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Avc1Video_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "HevcVideo_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Vc1Video_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "WMV1Video_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "WMV2Video_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "WMV3Video_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Vp8Video" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Vp9Video" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Vc1Image_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "WMV3Image_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Mp3Audio_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Mpg1Audio_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Mpg2Audio_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AacAudio_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "LatmAudio_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Ac3Audio_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Eac3Audio_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "TrueHDAudio_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "MlpAudio_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "DtsAudio_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Lpcm2Audio_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "HdmvLpcmAudio" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "VorbisAudio_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "FlacAudio" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "WmaV1Audio" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "WmaV2Audio" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "WmaProAudio" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "WmaLosslessAudio" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "WavPackAudio" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "OpusAudio" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AudSpkIndex_new" /t REG_DWORD /d "22" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AudOutBit_new" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "VideoTransformUseMode" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "VideoTransformSwitcher" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AudioTransformUseMode" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AudioTransformSwitcher" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "BuiltInAudioSwitcher" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "WinampDspIndex" /t REG_DWORD /d "4294967295" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "UseMediaKey" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "ItuRecSpec" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "RGB2YUVLevel" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "PauseOnMin" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "PauseOnLock" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "StartScreenSize" /t REG_DWORD /d "4" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "CaptionTranslateEngine2" /t REG_SZ /d "SubtitleTranslate - google.as" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "VMR9ColorManagementEnable" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "D3DFullScreenUi" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "MessageFontName" /t REG_SZ /d "微软雅黑" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "MessageFontWeight" /t REG_DWORD /d "400" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "MessageFontSize" /t REG_DWORD /d "14" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "SO_FontName" /t REG_SZ /d "微软雅黑" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "SO_Desktop" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "SO_Download" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AttachWindowIndex" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AudioVolumeWaveMax" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AutoLoadExtAudio" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "SaveConfigPause" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "Win7WorkTool" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AutoAlignWindow" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "UseSideWindow" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "DialogBaseFontName" /t REG_SZ /d "微软雅黑" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "DialogBaseFontSize" /t REG_DWORD /d "10" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "DialogCharset" /t REG_DWORD /d "134" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "UseATextOut" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "TouchSupport" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "CheckAutoUpdate" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "LastCheckDays" /t REG_DWORD /d "18712" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AutoUpdateStart" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64\Settings" /v "AutoDownloadFile" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64" /v "AddMyComPL" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64" /v "ServiceValue" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Daum\PotPlayerMini64" /v "Check118_119" /t REG_DWORD /d "4" /f
-
-# LAV Filter Settings
-reg add "HKCU\Software\LAV\Audio" /v "TrayIcon" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\LAV\Audio" /v "DRCEnabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\LAV\Audio" /v "DRCLevel" /t REG_DWORD /d "100" /f
-reg add "HKCU\Software\LAV\Audio" /v "DTSHDFraming" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\LAV\Audio" /v "BitstreamingFallback" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio" /v "AutoAVSync" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio" /v "ExpandMono" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\LAV\Audio" /v "Expand61" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\LAV\Audio" /v "OutputStandardLayout" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio" /v "Output51Legacy" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\LAV\Audio" /v "AudioDelayEnabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\LAV\Audio" /v "AudioDelay" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\LAV\Audio" /v "Mixing" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\LAV\Audio" /v "MixingLayout" /t REG_DWORD /d "3" /f
-reg add "HKCU\Software\LAV\Audio" /v "MixingFlags" /t REG_DWORD /d "4" /f
-reg add "HKCU\Software\LAV\Audio" /v "MixingMode" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\LAV\Audio" /v "MixingCenterLevel" /t REG_DWORD /d "7071" /f
-reg add "HKCU\Software\LAV\Audio" /v "MixingSurroundLevel" /t REG_DWORD /d "7071" /f
-reg add "HKCU\Software\LAV\Audio" /v "MixingLFELevel" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\LAV\Audio" /v "Bitstreaming_ac3" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\LAV\Audio" /v "Bitstreaming_eac3" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\LAV\Audio" /v "Bitstreaming_truehd" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\LAV\Audio" /v "Bitstreaming_dts" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\LAV\Audio" /v "Bitstreaming_dtshd" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\LAV\Audio" /v "SampleFormat_s16" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio" /v "SampleFormat_s24" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio" /v "SampleFormat_s32" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio" /v "SampleFormat_u8" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio" /v "SampleFormat_fp32" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio" /v "SampleConvertDither" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "aac" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "ac3" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "eac3" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "dts" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "mp2" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "mp3float" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "truehd" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "flac" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "vorbis" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "lpcm" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "pcm" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "wavpack" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "tta" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "wma" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "wmapro" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "cook" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "realaudio" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "wmalossless" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "alac" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "opus" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "amr" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "nellymoser" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "mspcm" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "truespeech" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "tak" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Audio\Formats" /v "atrac" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Splitter\Formats" /v "matroska" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Splitter\Formats" /v "avi" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Splitter\Formats" /v "mp4" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Splitter\Formats" /v "mpegts" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Splitter\Formats" /v "mpeg" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Splitter\Formats" /v "bluray" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Splitter\Formats" /v "flv" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Splitter\Formats" /v "ogg" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Splitter\Formats" /v "rm" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Splitter\Formats" /v "wtv" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\LAV\Splitter\Formats" /v "asf" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Splitter\Formats" /v "mxf" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Splitter\Formats" /v "bink" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Splitter\Formats" /v "avisynth" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Splitter\Formats" /v "rtmp" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\LAV\Splitter\Formats" /v "rtsp" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Splitter\Formats" /v "rtp" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Splitter\Formats" /v "mms" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Splitter\Formats" /v "dts" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Splitter\Formats" /v "ac3" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Splitter\Formats" /v "aac" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Splitter\Formats" /v "mp3" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\LAV\Splitter\Formats" /v "flac" /t REG_DWORD /d "1" /f
-
-# register video filters
-regsvr32.exe "%windir%\SysWOW64\XySubFilter.dll" /s
-regsvr32.exe "%windir%\SysWOW64\VSFilter.dll" /s
-regsvr32.exe "C:\Program Files\madVR\madVR64.ax" /s
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e fea3413e-7e05-4911-9a71-700331f1c294 0e796bdb-100d-47d6-a2d5-f7d2daa51f51 0"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e fea3413e-7e05-4911-9a71-700331f1c294 0e796bdb-100d-47d6-a2d5-f7d2daa51f51 0"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 0012ee47-9041-4b5d-9b77-535fba8b1442 6738e2c4-e8a5-4a42-b16a-e040e769756e 0"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 0012ee47-9041-4b5d-9b77-535fba8b1442 6738e2c4-e8a5-4a42-b16a-e040e769756e 0"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 02f815b5-a5cf-4c84-bf20-649d1f75d3d8 4c793e7d-a264-42e1-87d3-7a0d2f523ccd 1"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e fea3413e-7e05-4911-9a71-700331f1c294 0e796bdb-100d-47d6-a2d5-f7d2daa51f51 0"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e fea3413e-7e05-4911-9a71-700331f1c294 0e796bdb-100d-47d6-a2d5-f7d2daa51f51 0"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 0012ee47-9041-4b5d-9b77-535fba8b1442 6738e2c4-e8a5-4a42-b16a-e040e769756e 0"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 0012ee47-9041-4b5d-9b77-535fba8b1442 6738e2c4-e8a5-4a42-b16a-e040e769756e 0"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 02f815b5-a5cf-4c84-bf20-649d1f75d3d8 4c793e7d-a264-42e1-87d3-7a0d2f523ccd 1"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 02f815b5-a5cf-4c84-bf20-649d1f75d3d8 4c793e7d-a264-42e1-87d3-7a0d2f523ccd 1"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 0d7dbae2-4294-402a-ba8e-26777e8488cd 309dce9b-bef4-4119-9921-a851fb12f0f4 1"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 0d7dbae2-4294-402a-ba8e-26777e8488cd 309dce9b-bef4-4119-9921-a851fb12f0f4 1"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 19cbb8fa-5279-450e-9fac-8a3d5fedd0c1 12bbebe6-58d6-4636-95bb-3217ef867c1a 0"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 19cbb8fa-5279-450e-9fac-8a3d5fedd0c1 12bbebe6-58d6-4636-95bb-3217ef867c1a 0"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 29f6c1db-86da-48c5-9fdb-f2b67b1f44da 0"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 29f6c1db-86da-48c5-9fdb-f2b67b1f44da 0"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 94ac6d29-73ce-41a6-809f-6363ba21b47e 0"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 94ac6d29-73ce-41a6-809f-6363ba21b47e 0"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 9d7815a6-7ee4-497e-8888-515a05f02364 0"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 9d7815a6-7ee4-497e-8888-515a05f02364 0"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 bd3b718a-0680-4d9d-8ab2-e1d2b4ac806d 0"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 238c9fa8-0aad-41ed-83f4-97be242c8f20 bd3b718a-0680-4d9d-8ab2-e1d2b4ac806d 0"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 0"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 0"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 5ca83367-6e45-459f-a27b-476b1d01c936 0"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 5ca83367-6e45-459f-a27b-476b1d01c936 0"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 7648efa3-dd9c-4e3e-b566-50f929386280 3"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 7648efa3-dd9c-4e3e-b566-50f929386280 3"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 96996bc0-ad50-47ec-923b-6f41874dd9eb 0"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 96996bc0-ad50-47ec-923b-6f41874dd9eb 0"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 a7066653-8d6c-40a8-910e-a1f54b84c7e5 2"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 4f971e89-eebd-4455-a8de-9e59040e7347 a7066653-8d6c-40a8-910e-a1f54b84c7e5 2"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 501a4d13-42af-4429-9fd1-a8218c268e20 ee12f906-d277-404b-b6da-e5fa1a576df5 0"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 501a4d13-42af-4429-9fd1-a8218c268e20 ee12f906-d277-404b-b6da-e5fa1a576df5 0"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 54533251-82be-4824-96c1-47b60b740d00 893dee8e-2bef-41e0-89c6-b55d0929964c 100"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 54533251-82be-4824-96c1-47b60b740d00 893dee8e-2bef-41e0-89c6-b55d0929964c 100"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 54533251-82be-4824-96c1-47b60b740d00 bc5038f7-23e0-4960-96da-33abaf5935ec 100"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 54533251-82be-4824-96c1-47b60b740d00 bc5038f7-23e0-4960-96da-33abaf5935ec 100"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 54533251-82be-4824-96c1-47b60b740d00 94d3a615-a899-4ac5-ae2b-e4d8f634367f 1"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 54533251-82be-4824-96c1-47b60b740d00 94d3a615-a899-4ac5-ae2b-e4d8f634367f 1"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 fbd9aa66-9553-4097-ba44-ed6e9d65eab8 0"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 fbd9aa66-9553-4097-ba44-ed6e9d65eab8 0"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 17aaa29b-8b43-4b94-aafe-35f64daaf1ee 0"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 17aaa29b-8b43-4b94-aafe-35f64daaf1ee 0"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 3c0bc021-c8a8-4e07-a973-6b14cbcb2b7e 0"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 3c0bc021-c8a8-4e07-a973-6b14cbcb2b7e 0"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 aded5e82-b909-4619-9949-f5d71dac0bcb 100"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 aded5e82-b909-4619-9949-f5d71dac0bcb 100"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 f1fbfde2-a960-4165-9f88-50667911ce96 100"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 f1fbfde2-a960-4165-9f88-50667911ce96 100"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 9596fb26-9850-41fd-ac3e-f7c3c00afd4b 03680956-93bc-4294-bba6-4e0f09bb717f 1"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 9596fb26-9850-41fd-ac3e-f7c3c00afd4b 03680956-93bc-4294-bba6-4e0f09bb717f 1"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 9596fb26-9850-41fd-ac3e-f7c3c00afd4b 34c7b99f-9a6d-4b3c-8dc7-b6693b78cef4 1"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e 9596fb26-9850-41fd-ac3e-f7c3c00afd4b 34c7b99f-9a6d-4b3c-8dc7-b6693b78cef4 1"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f 637ea02f-bbcb-4015-8e2c-a1c7b9c0b546 3"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f 637ea02f-bbcb-4015-8e2c-a1c7b9c0b546 3"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f 9a66d8d7-4ff7-4ef9-b5a2-5a326ca2a469 0"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f 9a66d8d7-4ff7-4ef9-b5a2-5a326ca2a469 0"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f 8183ba9a-e910-48da-8769-14ae6dc1170a 5"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f 8183ba9a-e910-48da-8769-14ae6dc1170a 5"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f bcded951-187b-4d05-bccc-f7e51960c258 1"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f bcded951-187b-4d05-bccc-f7e51960c258 1"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f d8742dcb-3e6a-4b3c-b3fe-374623cdcf06 0"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f d8742dcb-3e6a-4b3c-b3fe-374623cdcf06 0"
+cmd.exe /c "powercfg -setacvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f f3c5027d-cd16-4930-aa6b-90db844a8f00 0"
+cmd.exe /c "powercfg -setdcvalueindex 381b4222-f694-41f0-9685-ff5bb260df2e e73a048d-bf27-4f12-9731-8b2076e8891f f3c5027d-cd16-4930-aa6b-90db844a8f00 0"
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power' -Name 'HiberbootEnabled' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power' -Name 'PowerSettingProfile' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power' -Name 'HibernateEnabled' -Value 0 -PropertyType DWord -Force -Verbose
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling' -Name 'PowerThrottlingOff' -Value 1 -PropertyType DWord -Force -Verbose
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\Power") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\Power" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'Class1InitialUnparkCount' -Value 64 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'CustomizeDuringSetup' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'EnergyEstimationEnabled' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'HiberFileSizePercent' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'MfBufferingThreshold' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'PerfCalculateActualUtilization' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'SourceSettingsVersion' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'TimerRebaseThresholdOnDripsExit' -Value 60 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'HibernateEnabledDefault' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'EventProcessorEnabled' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'LidReliabilityState' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'HibernateEnabled' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'CsEnabled' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'SleepReliabilityDetailedDiagnostics' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'QosManagesIdleProcessors' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'DisableVsyncLatencyUpdate' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'DisableSensorWatchdog' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'ExitLatencyCheckEnabled' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'LatencyToleranceDefault' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'LatencyToleranceFSVP' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'LatencyToleranceIdleResiliency' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'LatencyTolerancePerfOverride' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'LatencyToleranceScreenOffIR' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'LatencyToleranceVSyncEnabled' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'PlatformAoAcOverride' -Value 0 -PropertyType DWord -Force -Verbose
 
 # no volume down when detect other audio
-reg add "HKCU\Software\Microsoft\Multimedia\Audio" /v "UserDuckingPreference" /t REG_DWORD /d "3" /f
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Multimedia\Audio") -ne $true) { New-Item "HKCU:\Software\Microsoft\Multimedia\Audio" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Multimedia\Audio' -Name 'UserDuckingPreference' -Value 3 -PropertyType DWord -Force -Verbose
 
 # New PC name
 Rename-Computer -NewName 'Alienware' -Verbose
 
 # Disable Firewall
-Netsh advfirewall set allprofile state off
+cmd.exe /c "Netsh advfirewall set allprofile state off"
 
 # Windows Apps policy
-Set-NonRemovableAppsPolicy -Online -PackageFamilyName * -NonRemovable 0 -Verbose -Verbose
-
+Set-NonRemovableAppsPolicy -Online -PackageFamilyName * -NonRemovable 0 -Verbose
 
 # Keyboard and Mouse
-reg add "HKCU\Control Panel\Mouse" /v "MouseSensitivity" /t REG_SZ /d "10" /f
-reg add "HKCU\Control Panel\Mouse" /v "MouseSpeed" /t REG_SZ /d "0" /f
-reg add "HKCU\Control Panel\Mouse" /v "MouseThreshold1" /t REG_SZ /d "0" /f
-reg add "HKCU\Control Panel\Mouse" /v "MouseThreshold2" /t REG_SZ /d "0" /f
-Set-ItemProperty -Path 'HKCU:\Control Panel\Mouse' 'SmoothMouseXCurve' ([byte[]](0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xC0, 0xCC, 0x0C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x99, 0x19, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x66, 0x26, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x33, 0x33, 0x00, 0x00, 0x00, 0x00, 0x00)) -Verbose
-Set-ItemProperty -Path 'HKCU:\Control Panel\Mouse' 'SmoothMouseXCurve' ([byte[]](0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x38, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x70, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xA8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xE0, 0x00, 0x00, 0x00, 0x00, 0x00)) -Verbose
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\mouclass\Parameters" /v "MouseDataQueueSize" /t REG_DWORD /d "50" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\kbdclass\Parameters" /v "KeyboardDataQueueSize" /t REG_DWORD /d "50" /f
-reg add "HKCU\Control Panel\Cursors" /v "UpArrow" /t REG_EXPAND_SZ /d "" /f
-reg add "HKCU\Control Panel\Cursors" /v "SizeWE" /t REG_EXPAND_SZ /d "" /f
-reg add "HKCU\Control Panel\Cursors" /v "SizeNWSE" /t REG_EXPAND_SZ /d "" /f
-reg add "HKCU\Control Panel\Cursors" /v "SizeNS" /t REG_EXPAND_SZ /d "" /f
-reg add "HKCU\Control Panel\Cursors" /v "SizeNESW" /t REG_EXPAND_SZ /d "" /f
-reg add "HKCU\Control Panel\Cursors" /v "SizeAll" /t REG_EXPAND_SZ /d "" /f
-reg add "HKCU\Control Panel\Cursors" /v "Scheme Source" /t REG_DWORD /d "0" /f
-reg add "HKCU\Control Panel\Cursors" /v "NWPen" /t REG_EXPAND_SZ /d "" /f
-reg add "HKCU\Control Panel\Cursors" /v "No" /t REG_EXPAND_SZ /d "" /f
-reg add "HKCU\Control Panel\Cursors" /v "Help" /t REG_EXPAND_SZ /d "" /f
-reg add "HKCU\Control Panel\Cursors" /v "Hand" /t REG_EXPAND_SZ /d "" /f
-reg add "HKCU\Control Panel\Cursors" /v "Arrow" /t REG_EXPAND_SZ /d "" /f
-reg add "HKCU\Control Panel\Cursors" /v "AppStarting" /t REG_EXPAND_SZ /d "" /f
-reg add "HKCU\Control Panel\Cursors" /ve /t REG_SZ /d "" /f
-reg add "HKCU\Control Panel\Cursors" /v "Wait" /t REG_EXPAND_SZ /d "" /f
-reg add "HKCU\Control Panel\Cursors" /v "ContactVisualization" /t REG_DWORD /d "0" /f
-reg add "HKCU\Control Panel\Cursors" /v "GestureVisualization" /t REG_DWORD /d "0" /f
-reg add "HKCU\Control Panel\Desktop" /v "CursorBlinkRate" /t REG_SZ /d "200" /f
-reg add "HKLM\SOFTWARE\Microsoft\Input\Settings\ControllerProcessor\CursorMagnetism" /v "MagnetismUpdateIntervalInMilliseconds" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\Input\Settings\ControllerProcessor\CursorSpeed" /v "CursorUpdateInterval" /t REG_DWORD /d "1" /f
-reg add "HKU\.DEFAULT\Control Panel\Desktop" /v "MouseWheelRouting" /t REG_DWORD /d "0" /f
-reg add "HKCU\Control Panel\Desktop" /v "MouseWheelRouting" /t REG_DWORD /d "0" /f
-reg add "HKCU\Control Panel\Keyboard" /v "InitialKeyboardIndicators" /t REG_SZ /d "2" /f
-reg add "HKU\.DEFAULT\Control Panel\Keyboard" /v "InitialKeyboardIndicators" /t REG_SZ /d "2147483650" /f
-reg add "HKU\.DEFAULT\Control Panel\Accessibility\HighContrast" /v "Flags" /t REG_SZ /d "0" /f
-reg add "HKU\.DEFAULT\Control Panel\Accessibility\Keyboard Response" /v "Flags" /t REG_SZ /d "0" /f
-reg add "HKU\.DEFAULT\Control Panel\Accessibility\MouseKeys" /v "Flags" /t REG_SZ /d "0" /f
-reg add "HKU\.DEFAULT\Control Panel\Accessibility\SoundSentry" /v "Flags" /t REG_SZ /d "0" /f
-reg add "HKU\.DEFAULT\Control Panel\Accessibility\StickyKeys" /v "Flags" /t REG_SZ /d "0" /f
-reg add "HKU\.DEFAULT\Control Panel\Accessibility\TimeOut" /v "Flags" /t REG_SZ /d "0" /f
-reg add "HKU\.DEFAULT\Control Panel\Accessibility\ToggleKeys" /v "Flags" /t REG_SZ /d "0" /f
-reg add "HKCU\Control Panel\Accessibility\HighContrast" /v "Flags" /t REG_SZ /d "0" /f
-reg add "HKCU\Control Panel\Accessibility\Keyboard Response" /v "Flags" /t REG_SZ /d "0" /f
-reg add "HKCU\Control Panel\Accessibility\MouseKeys" /v "Flags" /t REG_SZ /d "0" /f
-reg add "HKCU\Control Panel\Accessibility\SoundSentry" /v "Flags" /t REG_SZ /d "0" /f
-reg add "HKCU\Control Panel\Accessibility\StickyKeys" /v "Flags" /t REG_SZ /d "0" /f
-reg add "HKCU\Control Panel\Accessibility\TimeOut" /v "Flags" /t REG_SZ /d "0" /f
-reg add "HKCU\Control Panel\Accessibility\ToggleKeys" /v "Flags" /t REG_SZ /d "0" /f
-reg add "HKCU\Control Panel\Keyboard" /v "KeyboardSpeed" /t REG_SZ /d "31" /f
-reg add "HKCU\Control Panel\Keyboard" /v "KeyboardDelay" /t REG_SZ /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\mouhid\Parameters" /v "UseOnlyMice" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\mouhid\Parameters" /v "TreatAbsolutePointerAsAbsolute" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\mouhid\Parameters" /v "TreatAbsoluteAsRelative" /t REG_DWORD /d "0" /f
+if ((Test-Path -LiteralPath "HKCU:\Control Panel\Mouse") -ne $true) { New-Item "HKCU:\Control Panel\Mouse" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Mouse' -Name 'ActiveWindowTracking' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Mouse' -Name 'Beep' -Value 'No' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Mouse' -Name 'MouseSensitivity' -Value '10' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Mouse' -Name 'MouseSpeed' -Value '0' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Mouse' -Name 'MouseThreshold1' -Value '0' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Mouse' -Name 'MouseThreshold2' -Value '0' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Mouse' -Name 'MouseTrails' -Value '0' -PropertyType String -Force -Verbose
+Set-ItemProperty -Path 'HKCU:\Control Panel\Mouse' 'SmoothMouseXCurve' ([byte[]](0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xC0, 0xCC, 0x0C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x99, 0x19, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x66, 0x26, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x33, 0x33, 0x00, 0x00, 0x00, 0x00, 0x00)) -Force -Verbose
+Set-ItemProperty -Path 'HKCU:\Control Panel\Mouse' 'SmoothMouseXCurve' ([byte[]](0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x38, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x70, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xA8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xE0, 0x00, 0x00, 0x00, 0x00, 0x00)) -Force -Verbose
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\mouclass\Parameters") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\mouclass\Parameters" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\mouclass\Parameters' -Name 'MouseDataQueueSize' -Value 50 -PropertyType DWord -Force -Verbose
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\kbdclass\Parameters") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\kbdclass\Parameters" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\kbdclass\Parameters' -Name 'KeyboardDataQueueSize' -Value 50 -PropertyType DWord -Force -Verbose
+if ((Test-Path -LiteralPath "HKCU:\Control Panel\Cursors") -ne $true) { New-Item "HKCU:\Control Panel\Cursors" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'ContactVisualization' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'GestureVisualization' -Value 0 -PropertyType DWord -Force -Verbose
+if ((Test-Path -LiteralPath "HKCU:\Control Panel\Desktop") -ne $true) { New-Item "HKCU:\Control Panel\Desktop" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'CursorBlinkRate' -Value '200' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'MouseWheelRouting' -Value 0 -PropertyType DWord -Force -Verbose
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Input\Settings\ControllerProcessor\CursorMagnetism") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Input\Settings\ControllerProcessor\CursorMagnetism" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Input\Settings\ControllerProcessor\CursorMagnetism' -Name 'MagnetismUpdateIntervalInMilliseconds' -Value 1 -PropertyType DWord -Force -Verbose
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Input\Settings\ControllerProcessor\CursorSpeed") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Input\Settings\ControllerProcessor\CursorSpeed" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Input\Settings\ControllerProcessor\CursorSpeed' -Name 'CursorUpdateInterval' -Value 1 -PropertyType DWord -Force -Verbose
+if ((Test-Path -LiteralPath "HKCU:\Control Panel\Keyboard") -ne $true) { New-Item "HKCU:\Control Panel\Keyboard" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Keyboard' -Name 'InitialKeyboardIndicators' -Value '2' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Keyboard' -Name 'KeyboardDelay' -Value '0' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Keyboard' -Name 'KeyboardSpeed' -Value '31' -PropertyType String -Force -Verbose
+if ((Test-Path -LiteralPath "HKCU:\Control Panel\Accessibility\HighContrast") -ne $true) { New-Item "HKCU:\Control Panel\Accessibility\HighContrast" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Control Panel\Accessibility\Keyboard Response") -ne $true) { New-Item "HKCU:\Control Panel\Accessibility\Keyboard Response" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Control Panel\Accessibility\MouseKeys") -ne $true) { New-Item "HKCU:\Control Panel\Accessibility\MouseKeys" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Control Panel\Accessibility\SoundSentry") -ne $true) { New-Item "HKCU:\Control Panel\Accessibility\SoundSentry" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Control Panel\Accessibility\StickyKeys") -ne $true) { New-Item "HKCU:\Control Panel\Accessibility\StickyKeys" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Control Panel\Accessibility\TimeOut") -ne $true) { New-Item "HKCU:\Control Panel\Accessibility\TimeOut" -force -Verbose };
+if ((Test-Path -LiteralPath "HKCU:\Control Panel\Accessibility\ToggleKeys") -ne $true) { New-Item "HKCU:\Control Panel\Accessibility\ToggleKeys" -force -Verbose };
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Accessibility\HighContrast' -Name 'Flags' -Value '0' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Accessibility\Keyboard Response' -Name 'Flags' -Value '0' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Accessibility\MouseKeys' -Name 'Flags' -Value '0' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Accessibility\SoundSentry' -Name 'Flags' -Value '0' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Accessibility\StickyKeys' -Name 'Flags' -Value '0' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Accessibility\TimeOut' -Name 'Flags' -Value '0' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Accessibility\ToggleKeys' -Name 'Flags' -Value '0' -PropertyType String -Force -Verbose
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\mouhid\Parameters") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\mouhid\Parameters" -force -Verbose };
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\mouhid\Parameters' -Name 'UseOnlyMice' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\mouhid\Parameters' -Name 'TreatAbsoluteAsRelative' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\mouhid\Parameters' -Name 'TreatAbsolutePointerAsAbsolute' -Value 1 -PropertyType DWord -Force -Verbose
 
 # Disable Uncessary System Devices
 Get-PnpDevice | Where-Object { $_.FriendlyName -match 'Microsoft Kernel Debug Network Adapter' } | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice | Where-Object { $_.FriendlyName -match 'Microsoft Wi-Fi Direct Virtual Adapter' } | Disable-PnpDevice -Confirm:$false -Verbose
 
 # Internet tweaks
-# Netsh
-netsh int tcp set supplemental template=internet
+cmd.exe /c "netsh int tcp set supplemental template=internet"
 # Enabling URO
-netsh int udp set global uro=enabled
-netsh int tcp set global rss=enable
-netsh int tcp set global autotuninglevel=experimental
-netsh int tcp set global ecncapability=disable
-netsh int tcp set global timestamps=enable
-netsh int tcp set global initialrto=300
-netsh int tcp set global rsc=disable
-netsh int tcp set global fastopen=enable
-netsh int tcp set global hystart=disable
-netsh int tcp set global pacingprofile=off
-netsh int ip set global minmtu=576
-netsh int ip set global flowlabel=disable
-netsh int tcp set supplemental internet congestionprovider=dctcp
-netsh int tcp set supplemental internet enablecwndrestart=disable
-netsh int ip set global icmpredirects=disabled
-netsh int ip set global multicastforwarding=disabled
-netsh int ip set global groupforwardedfragments=disable
-netsh int tcp set security mpp=disabled profiles=disabled
-netsh int tcp set heur forcews=disable
+cmd.exe /c "netsh int udp set global uro=enabled"
+cmd.exe /c "netsh int tcp set global rss=enable"
+cmd.exe /c "netsh int tcp set global autotuninglevel=experimental"
+cmd.exe /c "netsh int tcp set global ecncapability=disable"
+cmd.exe /c "netsh int tcp set global timestamps=enable"
+cmd.exe /c "netsh int tcp set global initialrto=300"
+cmd.exe /c "netsh int tcp set global rsc=disable"
+cmd.exe /c "netsh int tcp set global fastopen=enable"
+cmd.exe /c "netsh int tcp set global hystart=disable"
+cmd.exe /c "netsh int tcp set global pacingprofile=off"
+cmd.exe /c "netsh int ip set global minmtu=576"
+cmd.exe /c "netsh int ip set global flowlabel=disable"
+cmd.exe /c "netsh int tcp set supplemental internet congestionprovider=dctcp"
+cmd.exe /c "netsh int tcp set supplemental internet enablecwndrestart=disable"
+cmd.exe /c "netsh int ip set global icmpredirects=disabled"
+cmd.exe /c "netsh int ip set global multicastforwarding=disabled"
+cmd.exe /c "netsh int ip set global groupforwardedfragments=disable"
+cmd.exe /c "netsh int tcp set security mpp=disabled profiles=disabled"
+cmd.exe /c "netsh int tcp set heur forcews=disable"
 # Enable Winsock Send Autotuning (dynamic send-buffer)
-netsh winsock set autotuning on
+cmd.exe /c "netsh winsock set autotuning on"
 # Enable Experimental Autotuning and NEWRENO congestion provider
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS" /v "Tcp Autotuning Level" /t REG_SZ /d "Experimental" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\QoS" /v "Application DSCP Marking Request" /t REG_SZ /d "Allowed" /f
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS' -Name 'Tcp Autotuning Level' -Value 'Experimental' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS' -Name 'Application DSCP Marking Request' -Value 'Allowed' -PropertyType String -Force -Verbose
 # Disabling Net Adapter QoS
 Disable-NetAdapterQos -Name '*' -Verbose
 # Disabling Net Adapter Power Management...
@@ -1620,18 +2091,16 @@ Enable-NetAdapterIPsecOffload -Name '*' -Verbose
 Disable-NetAdapterLso -Name '*' -Verbose
 # Enabling Net Adapter Packet Direct...
 Enable-NetAdapterPacketDirect -Name '*' -Verbose
-
 # Disabling Net Adapter Receive Side Coalescing...
 Disable-NetAdapterRsc -Name '*' -Verbose
-
 # Enabling Net Adapter Receive Side Scaling...
 Enable-NetAdapterRss -Name '*' -Verbose
 
 # Enable Teredo and 6to4 (Xbox LIVE fix)
 Set-NetTeredoConfiguration -Type natawareclient -Verbose
-netsh int teredo set state natawareclient
-netsh int 6to4 set state state=enabled
-netsh int teredo set state servername="win1910.ipv6.microsoft.com"
+cmd.exe /c "netsh int teredo set state natawareclient"
+cmd.exe /c "netsh int 6to4 set state state=enabled"
+cmd.exe /c "netsh int teredo set state servername='win1910.ipv6.microsoft.com'"
 
 # disable network protocal
 Disable-NetAdapterBinding -Name '*' -ComponentID ms_lldp -Verbose
@@ -1644,155 +2113,137 @@ Enable-NetAdapterBinding -Name '*' -ComponentID ms_tcpip6 -Verbose
 
 # Setting up 6to4 tunneling...
 Set-Net6to4Configuration -State Enabled -AutoSharing Enabled -RelayState Enabled -RelayName '6to4.ipv6.microsoft.com' -Verbose
-netsh int 6to4 set state state=enabled undoonstop=disabled
-netsh int 6to4 set routing routing=enabled sitelocals=enabled
+cmd.exe /c "netsh int 6to4 set state state=enabled undoonstop=disabled"
+cmd.exe /c "netsh int 6to4 set routing routing=enabled sitelocals=enabled"
 
 # do not disable IPV6
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" /v "DisabledComponents" /t REG_DWORD /d "0" /f
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" -force -Verbose };
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters' -Name 'DisabledComponents' -Value 0 -PropertyType DWord -Force -Verbose
 
 # Tcpip Parameters
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "DelayedAckFrequency" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "DelayedAckTicks" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "CongestionAlgorithm" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "MultihopSets" /t REG_DWORD /d "15" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "FastCopyReceiveThreshold" /t REG_DWORD /d "16384" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "FastSendDatagramThreshold" /t REG_DWORD /d "16384" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "NV Hostname" /t reg_SZ /d "ANONYMOUS" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "Hostname" /t reg_SZ /d "ANONYMOUS" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "UseDomainNameDevolution" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "DefaultReceiveWindow" /t REG_DWORD /d "16384" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "DefaultSendWindow" /t REG_DWORD /d "16384" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "FastCopyReceiveThreshold" /t REG_DWORD /d "16384" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "FastSendDatagramThreshold" /t REG_DWORD /d "16384" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "DynamicSendBufferDisable" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "IgnorePushBitOnReceives" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "NonBlockingSendSpecialBuffering" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "DisableRawSecurity" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\WinSock2\Parameters" /v "Ws2_32NumHandleBuckets" /t REG_DWORD /d "1" /f
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'DelayedAckFrequency' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'DelayedAckTicks' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'CongestionAlgorithm' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'MultihopSets' -Value 15 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'FastCopyReceiveThreshold' -Value 16384 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'FastSendDatagramThreshold' -Value 16384 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'UseDomainNameDevolution' -Value 0 -PropertyType DWord -Force -Verbose
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\AFD\Parameters") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\AFD\Parameters" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AFD\Parameters' -Name 'DefaultReceiveWindow' -Value 16384 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AFD\Parameters' -Name 'DefaultSendWindow' -Value 16384 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AFD\Parameters' -Name 'FastCopyReceiveThreshold' -Value 16384 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AFD\Parameters' -Name 'FastSendDatagramThreshold' -Value 16384 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AFD\Parameters' -Name 'IgnorePushBitOnReceives' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AFD\Parameters' -Name 'NonBlockingSendSpecialBuffering' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AFD\Parameters' -Name 'DisableRawSecurity' -Value 1 -PropertyType DWord -Force -Verbose
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\WinSock2\Parameters") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\WinSock2\Parameters" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WinSock2\Parameters' -Name 'Ws2_32NumHandleBuckets' -Value 1 -PropertyType DWord -Force -Verbose
+
 # Host Resolution Priority Tweak
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" /v "DnsPriority" /t REG_DWORD /d "6" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" /v "HostsPriority" /t REG_DWORD /d "5" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" /v "LocalPriority" /t REG_DWORD /d "4" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" /v "NetbtPriority" /t REG_DWORD /d "7" /f
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider' -Name 'DnsPriority' -Value 6 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider' -Name 'HostsPriority' -Value 5 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider' -Name 'LocalPriority' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider' -Name 'NetbtPriority' -Value 7 -PropertyType DWord -Force -Verbose
+
 # Turnoff NCSI
-reg add "HKLM\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet" /v "ActiveDnsProbeContent" /t REG_SZ /d "131.107.255.255" /f
-reg add "HKLM\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet" /v "ActiveDnsProbeContentV6" /t REG_SZ /d "fd3e:4f5a:5b81::1" /f
-reg add "HKLM\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet" /v "ActiveDnsProbeHost" /t REG_SZ /d "dns.msftncsi.com" /f
-reg add "HKLM\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet" /v "ActiveDnsProbeHostV6" /t REG_SZ /d "dns.msftncsi.com" /f
-reg add "HKLM\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet" /v "ActiveWebProbeContent" /t REG_SZ /d "Microsoft NCSI" /f
-reg add "HKLM\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet" /v "ActiveWebProbeContentV6" /t REG_SZ /d "Microsoft NCSI" /f
-reg add "HKLM\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet" /v "ActiveWebProbeHost" /t REG_SZ /d "www.msftncsi.com" /f
-reg add "HKLM\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet" /v "ActiveWebProbeHostV6" /t REG_SZ /d "ipv6.msftncsi.com" /f
-reg add "HKLM\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet" /v "ActiveWebProbePath" /t REG_SZ /d "ncsi.txt" /f
-reg add "HKLM\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet" /v "ActiveWebProbePathV6" /t REG_SZ /d "ncsi.txt" /f
-reg add "HKLM\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet" /v "CaptivePortalTimer" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet" /v "CaptivePortalTimerBackOffInc#entsInSeconds" /t REG_DWORD /d "5" /f
-reg add "HKLM\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet" /v "CaptivePortalTimerMaxInSeconds" /t REG_DWORD /d "30" /f
-reg add "HKLM\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet" /v "EnableActiveProbing" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet" /v "PassivePollPeriod" /t REG_DWORD /d "15" /f
-reg add "HKLM\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet" /v "StaleThreshold" /t REG_DWORD /d "30" /f
-reg add "HKLM\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet" /v "WebTimeout" /t REG_DWORD /d "35" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters" /v "AddrConfigControl" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters" /v "DisableParallelAandAAAA" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" /v "UseDomainNameDevolution" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" /v "DisableSmartNameResolution" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" /v "EnableMDNS" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" /v "EnableMulticast" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\POLICIES\MICROSOFT\Windows\NetworkConnectivityStatusIndicator" /v "UseGlobalDNS" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\POLICIES\MICROSOFT\Windows\NetworkConnectivityStatusIndicator" /v "NoActiveProbe" /t REG_DWORD /d "1" /f
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet") -ne $true) { New-Item "HKLM:\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet' -Name 'ActiveDnsProbeContent' -Value '131.107.255.255' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet' -Name 'ActiveDnsProbeContentV6' -Value 'fd3e:4f5a:5b81::1' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet' -Name 'ActiveDnsProbeHost' -Value 'dns.msftncsi.com' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet' -Name 'ActiveDnsProbeHostV6' -Value 'dns.msftncsi.com' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet' -Name 'ActiveWebProbeContent' -Value 'Microsoft NCSI' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet' -Name 'ActiveWebProbeContentV6' -Value 'Microsoft NCSI' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet' -Name 'ActiveWebProbeHost' -Value 'www.msftncsi.com' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet' -Name 'ActiveWebProbeHostV6' -Value 'ipv6.msftncsi.com' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet' -Name 'ActiveWebProbePath' -Value 'ncsi.txt' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet' -Name 'ActiveWebProbePathV6' -Value 'ncsi.txt' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet' -Name 'CaptivePortalTimer' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet' -Name 'CaptivePortalTimerBackOffIncrementsInSeconds' -Value 5 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet' -Name 'CaptivePortalTimerMaxInSeconds' -Value 30 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet' -Name 'EnableActiveProbing' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet' -Name 'PassivePollPeriod' -Value 15 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet' -Name 'StaleThreshold' -Value 30 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet' -Name 'WebTimeout' -Value 35 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\NlaSvc\Parameters\Internet' -Name 'CaptivePortalTimerBackOffInc#entsInSeconds' -Value 5 -PropertyType DWord -Force -Verbose
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Name 'AddrConfigControl' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Name 'DisableParallelAandAAAA' -Value 1 -PropertyType DWord -Force -Verbose
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient' -Name 'UseDomainNameDevolution' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient' -Name 'DisableSmartNameResolution' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient' -Name 'EnableMDNS' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient' -Name 'EnableMulticast' -Value 0 -PropertyType DWord -Force -Verbose
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkConnectivityStatusIndicator") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkConnectivityStatusIndicator" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkConnectivityStatusIndicator' -Name 'UseGlobalDNS' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkConnectivityStatusIndicator' -Name 'NoActiveProbe' -Value 1 -PropertyType DWord -Force -Verbose
+
 # internet settings
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" /v "CertificateRevocation" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" /v "DisableCachingOfSSLPages" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" /v "PrivacyAdvanced" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" /v "SecureProtocols" /t REG_DWORD /d "10912" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" /v "EnableNegotiate" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" /v "MigrateProxy" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" /v "ProxyEnable" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" /v "WarnonZoneCrossing" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" /v "EnableHttp1_1" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" /v "ProxyHttp1.1" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" /v "EnableHTTP2" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" /v "EnablePunycode" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" /v "UrlEncoding" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" /v "DisableIDNPrompt" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" /v "ShowPunycode" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" /v "WarnonBadCertRecving" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" /v "WarnOnPostRedirect" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" /v "SyncMode5" /t REG_DWORD /d "3" /f
-reg add "HKU\.DEFAULT\Microsoft\Windows\CurrentVersion\Internet Settings" /v "CertificateRevocation" /t REG_DWORD /d "1" /f
-reg add "HKU\.DEFAULT\Microsoft\Windows\CurrentVersion\Internet Settings" /v "DisableCachingOfSSLPages" /t REG_DWORD /d "0" /f
-reg add "HKU\.DEFAULT\Microsoft\Windows\CurrentVersion\Internet Settings" /v "PrivacyAdvanced" /t REG_DWORD /d "1" /f
-reg add "HKU\.DEFAULT\Microsoft\Windows\CurrentVersion\Internet Settings" /v "SecureProtocols" /t REG_DWORD /d "10912" /f
-reg add "HKU\.DEFAULT\Microsoft\Windows\CurrentVersion\Internet Settings" /v "EnableNegotiate" /t REG_DWORD /d "1" /f
-reg add "HKU\.DEFAULT\Microsoft\Windows\CurrentVersion\Internet Settings" /v "MigrateProxy" /t REG_DWORD /d "1" /f
-reg add "HKU\.DEFAULT\Microsoft\Windows\CurrentVersion\Internet Settings" /v "ProxyEnable" /t REG_DWORD /d "0" /f
-reg add "HKU\.DEFAULT\Microsoft\Windows\CurrentVersion\Internet Settings" /v "WarnonZoneCrossing" /t REG_DWORD /d "0" /f
-reg add "HKU\.DEFAULT\Microsoft\Windows\CurrentVersion\Internet Settings" /v "EnableHttp1_1" /t REG_DWORD /d "1" /f
-reg add "HKU\.DEFAULT\Microsoft\Windows\CurrentVersion\Internet Settings" /v "ProxyHttp1.1" /t REG_DWORD /d "1" /f
-reg add "HKU\.DEFAULT\Microsoft\Windows\CurrentVersion\Internet Settings" /v "EnableHTTP2" /t REG_DWORD /d "1" /f
-reg add "HKU\.DEFAULT\Microsoft\Windows\CurrentVersion\Internet Settings" /v "EnablePunycode" /t REG_DWORD /d "1" /f
-reg add "HKU\.DEFAULT\Microsoft\Windows\CurrentVersion\Internet Settings" /v "UrlEncoding" /t REG_DWORD /d "0" /f
-reg add "HKU\.DEFAULT\Microsoft\Windows\CurrentVersion\Internet Settings" /v "DisableIDNPrompt" /t REG_DWORD /d "0" /f
-reg add "HKU\.DEFAULT\Microsoft\Windows\CurrentVersion\Internet Settings" /v "ShowPunycode" /t REG_DWORD /d "0" /f
-reg add "HKU\.DEFAULT\Microsoft\Windows\CurrentVersion\Internet Settings" /v "WarnonBadCertRecving" /t REG_DWORD /d "1" /f
-reg add "HKU\.DEFAULT\Microsoft\Windows\CurrentVersion\Internet Settings" /v "WarnOnPostRedirect" /t REG_DWORD /d "1" /f
-reg add "HKU\.DEFAULT\Microsoft\Windows\CurrentVersion\Internet Settings" /v "SyncMode5" /t REG_DWORD /d "3" /f
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'CertificateRevocation' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'DisableCachingOfSSLPages' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'IE5_UA_Backup_Flag' -Value '5.0' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'PrivacyAdvanced' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'SecureProtocols' -Value 10912 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'User Agent' -Value 'Mozilla/4.0 (compatible; MSIE 8.0; Win32)' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'ZonesSecurityUpgrade' -Value ([byte[]](0x9d, 0x77, 0x83, 0x3f, 0x09, 0xcf, 0xd7, 0x01)) -PropertyType Binary -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'WarnonZoneCrossing' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'EnableNegotiate' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'ProxyEnable' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'MigrateProxy' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'EnableHttp1_1' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'ProxyHttp1.1' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'EnableHTTP2' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'EnablePunycode' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'UrlEncoding' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'DisableIDNPrompt' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'ShowPunycode' -Value 0 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'WarnonBadCertRecving' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'WarnOnPostRedirect' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'SyncMode5' -Value 3 -PropertyType DWord -Force -Verbose
+
 # https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.QualityofService::QosTimerResolution
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Psched" /v "TimerResolution" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Psched" /v "MaxOutstandingSends" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Psched" /v "NonBestEffortLimit" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Psched\DiffservByteMappingConforming" /v "ServiceTypeGuaranteed" /t REG_DWORD /d "46" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Psched\DiffservByteMappingConforming" /v "ServiceTypeNetworkControl" /t REG_DWORD /d "56" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Psched\DiffservByteMappingNonConforming" /v "ServiceTypeGuaranteed" /t REG_DWORD /d "46" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Psched\DiffservByteMappingNonConforming" /v "ServiceTypeNetworkControl" /t REG_DWORD /d "56" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Psched\UserPriorityMapping" /v "ServiceTypeGuaranteed" /t REG_DWORD /d "5" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Psched\UserPriorityMapping" /v "ServiceTypeNetworkControl" /t REG_DWORD /d "7" /f
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched' -Name 'TimerResolution' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched' -Name 'MaxOutstandingSends' -Value 1 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched' -Name 'NonBestEffortLimit' -Value 0 -PropertyType DWord -Force -Verbose
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched\DiffservByteMappingConforming") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched\DiffservByteMappingConforming" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched\DiffservByteMappingConforming' -Name 'ServiceTypeGuaranteed' -Value 46 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched\DiffservByteMappingConforming' -Name 'ServiceTypeNetworkControl' -Value 56 -PropertyType DWord -Force -Verbose
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched\DiffservByteMappingNonConforming") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched\DiffservByteMappingNonConforming" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched\DiffservByteMappingNonConforming' -Name 'ServiceTypeGuaranteed' -Value 46 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched\DiffservByteMappingNonConforming' -Name 'ServiceTypeNetworkControl' -Value 56 -PropertyType DWord -Force -Verbose
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched\UserPriorityMapping") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched\UserPriorityMapping" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched\UserPriorityMapping' -Name 'ServiceTypeGuaranteed' -Value 5 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched\UserPriorityMapping' -Name 'ServiceTypeNetworkControl' -Value 7 -PropertyType DWord -Force -Verbose
 
-# Disable Memory Compression
-Disable-MMAgent -ApplicationLaunchPrefetching -ApplicationPreLaunch -PageCombining -MemoryCompression -Verbose
-Get-Service 'SysMain' | Set-Service -StartupType Disabled -PassThru -Verbose
+# Remove Cast To Device From Context Menus Of Media Files
+New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" -force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{7AD84985-87B4-4a16-BE58-8B72A5B390F7}' -Value '' -PropertyType String -Force -Verbose
 
-# Disable Windows File Compression
-compact /CompactOs:never
+# Remove the Open in Windows Terminal context menu
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{9F156763-7844-4DC4-B2B1-901F640F5155}' -Value '' -PropertyType String -Force -Verbose
 
-# Removing Default Fax Printer
-Remove-Printer -Name 'Fax' -ErrorAction SilentlyContinue -Verbose
-
-# Allows (1) or disallows (0) characters from the extended character set (including diacritic characters) to be used in 8.3 character-length short file names on NTFS volumes
-fsutil behavior set allowextchar 1
-
-# Allows (1) or disallows (0) generation of a bug check when there is corruption on an NTFS volume. This feature can be used to prevent NTFS from silently deleting data when used with the Self-Healing NTFS feature
-fsutil behavior set Bugcheckoncorrupt 0
-
-# Disables (1) or enables (0) NTFS compression
-fsutil behavior set disablecompression 1
-cipher /d /s:C:\
-
-# Disables (1) or enables (0) updates to the Last Access Time stamp on each directory when directories are listed on an NTFS volume
-fsutil behavior set DisableLastAccess 1
-
-# Encrypts (1) or doesn't encrypt (0) the memory paging file in the Windows operating system
-fsutil behavior set encryptpagingfile 0
-
-# Configures the internal cache levels of NTFS paged-pool memory and NTFS nonpaged-pool memory. Set to 1 or 2. When set to 1 (the default), NTFS uses the default amount of paged-pool memory. When set to 2, NTFS increases the size of its lookaside lists and memory thresholds. (A lookaside list is a pool of fixed-size memory buffers that the kernel and device drivers create as private memory caches for file system operations, such as reading a file.)
-fsutil behavior set memoryusage 2
-
-# Sets the size of the MFT Zone, and is expressed as a multiple of 200MB units. Set value to a number from 1 (default is 200 MB) to 4 (maximum is 800 MB)
-fsutil behavior set mftzone 2
-
-# Transactional Resource Manager
-fsutil resource setavailable c:
-fsutil resource setlog shrink 10 C:\
-fsutil resource setavailable d:
-fsutil resource setlog shrink 10 D:\
-fsutil resource setautoreset true c:\
-fsutil usn deletejournal /d /n c:
-
-# Enable TRIM support for NTFS and ReFS file systems for SSD drives
-fsutil behavior set disabledeletenotify 0
-Invoke-Expression -Command ('FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY NTFS 0') | Out-Null
-$QueryReFS = Invoke-Expression -Command ('FSUTIL BEHAVIOR QUERY DISABLEDELETENOTIFY') | Select-String -Pattern ReFS
-If ($QueryReFS) { Invoke-Expression -Command ('FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY REFS 0') | Out-Null }
+# Remove/Restore Rotate Right/Left From Image Filetypes Context Menu
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.bmp\ShellEx\ContextMenuHandlers\ShellImagePreview" -force -Verbose
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.dds\ShellEx\ContextMenuHandlers\ShellImagePreview" -force -Verbose
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.dib\ShellEx\ContextMenuHandlers\ShellImagePreview" -force -Verbose
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.gif\ShellEx\ContextMenuHandlers\ShellImagePreview" -force -Verbose
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.heic\ShellEx\ContextMenuHandlers\ShellImagePreview" -force -Verbose
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.heif\ShellEx\ContextMenuHandlers\ShellImagePreview" -force -Verbose
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.ico\ShellEx\ContextMenuHandlers\ShellImagePreview" -force -Verbose
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.jfif\ShellEx\ContextMenuHandlers\ShellImagePreview" -force -Verbose
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.jpe\ShellEx\ContextMenuHandlers\ShellImagePreview" -force -Verbose
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.jpeg\ShellEx\ContextMenuHandlers\ShellImagePreview" -force -Verbose
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.jpg\ShellEx\ContextMenuHandlers\ShellImagePreview" -force -Verbose
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.jxr\ShellEx\ContextMenuHandlers\ShellImagePreview" -force -Verbose
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.png\ShellEx\ContextMenuHandlers\ShellImagePreview" -force -Verbose
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.rle\ShellEx\ContextMenuHandlers\ShellImagePreview" -force -Verbose
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.tif\ShellEx\ContextMenuHandlers\ShellImagePreview" -force -Verbose
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.tiff\ShellEx\ContextMenuHandlers\ShellImagePreview" -force -Verbose
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.wdp\ShellEx\ContextMenuHandlers\ShellImagePreview" -force -Verbose
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.webp\ShellEx\ContextMenuHandlers\ShellImagePreview" -force -Verbose
 
 # page file
 # Use big system memory caching to improve microstuttering
@@ -1832,10 +2283,6 @@ reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\SQMClient\Windows" /v "C
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "AITEnable" /t REG_DWORD /d "0" /f
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisableInventory" /t REG_DWORD /d "1" /f
 
-# Enforce Security-Only Telemetry (disable other kinds of Telemetry)
-reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "AllowTelemetry" /t REG_DWORD /d "0" /f
-reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v "Disabled" /t REG_DWORD /d "1" /f
-
 # other tweak
 reg add "HKCR\CLSID\ { 018D5C66-4533-4307-9B53-224DE2ED1FE6 }" /v "System.IsPinnedToNameSpaceTree" /d "0" /t REG_DWORD /f
 reg add "HKCR\Wow6432Node\{ 018D5C66-4533-4307-9B53-224DE2ED1FE6 }" /v "System.IsPinnedToNameSpaceTree" /d "0" /t REG_DWORD /f
@@ -1844,7 +2291,6 @@ reg add "HKCR\AllFilesystemObjects" /v "DefaultDropEffect" /t REG_DWORD /d "2" /
 reg add "HKCR\Drive\shell\encrypt-bde" /v "LegacyDisable" /t REG_SZ /d "" /f
 reg add "HKCR\Drive\shell\encrypt-bde-elev" /v "LegacyDisable" /t REG_SZ /d "" /f
 reg add "HKLM\Software\Microsoft\Security Center" /v "cval" /t REG_DWORD /d "0" /f
-reg delete "HKCU\Environment" /v "OneDrive" /f
 reg delete "HKCU\Software\Microsoft\Siuf\Rules" /v "PeriodInNanoSeconds" /f
 reg add "HKCR\CLSID\{ 018D5C66-4533-4307-9B53-224DE2ED1FE6 }" /v "System.IsPinnedToNameSpaceTree" /d "0" /t REG_DWORD /f
 reg add "HKCR\Wow6432Node\{ 018D5C66-4533-4307-9B53-224DE2ED1FE6 }" /v "System.IsPinnedToNameSpaceTree" /d "0" /t REG_DWORD /f
@@ -1862,15 +2308,6 @@ reg add "HKCR\*" /v "DefaultDropEffect" /t REG_DWORD /d "2" /f
 reg add "HKCR\AllFilesystemObjects" /v "DefaultDropEffect" /t REG_DWORD /d "2" /f
 reg add "HKCR\Drive\shell\encrypt-bde" /v "LegacyDisable" /t REG_SZ /d "" /f
 reg add "HKCR\Drive\shell\encrypt-bde-elev" /v "LegacyDisable" /t REG_SZ /d "" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\CrashControl" /v "AutoReboot" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\CrashControl" /v "CrashDumpEnabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\CrashControl" /v "DumpLogLevel" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\CrashControl" /v "EnableLogFile" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\CrashControl" /v "LogEvent" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\CrashControl" /v "MinidumpsCount" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\CrashControl" /v "Overwrite" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\CrashControl" /v "AlwaysKeepMemoryDump" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\CrashControl" /v "DisplayParameters" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\CrashControl\StorageTelemetry" /v "DeviceDumpEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server" /v "AllowRemoteRPC" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server" /v "fDenyTSConnections" /t REG_DWORD /d "1" /f
@@ -1911,15 +2348,6 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Messenger\Client" /v "PreventRun" /t R
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisablePropPage" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisableUAR" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Policies\Microsoft\Windows\AppCompat" /v "DisablePCA" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "AllowDeviceNameInTelemetry" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "DisableDeviceDelete" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "DisableTelemetryOptInChangeNotification" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "DoNotShowFeedbackNotifications" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\OneDrive" /v "DisableFileSync" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\OneDrive" /v "DisableFileSyncNGSC" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\OneDrive" /v "DisableMeteredNetworkFileSync" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\OneDrive" /v "DisableLibrariesDefaultSaveToOneDrive" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\OneDrive" /v "DisablePersonalSync" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "AllowCortana" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "AllowSearchToUseLocation" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "BingSearchEnabled" /t REG_DWORD /d "0" /f
@@ -2000,12 +2428,10 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore" /v "Di
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\PasswordLess\Device" /v "DevicePasswordLessBuildVersion" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "ARSOUserConsent" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "RestartApps" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "EnableFirstLogonAnimation" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\AboveLock" /v "AllowCortanaAboveLock" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\Experience" /v "AllowCortana" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\System" /v "AllowExperimentation" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\System\AllowExperimentation" /v "value" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Policies\Microsoft\Windows\DataCollection" /v "DisableDeviceDelete" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Policies\Microsoft\Messenger\Client" /v "PreventRun" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Policies\Microsoft\Control Panel\International" /v "TurnOffAutocorrectMisspelledWords" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Policies\Microsoft\Control Panel\International" /v "TurnOffHighlightMisspelledWords" /t REG_DWORD /d "1" /f
@@ -2103,7 +2529,6 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies" /v "HideSCAMee
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments" /v "SaveZoneInformation" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Attachments" /v "SaveZoneInformation" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\TextInput" /v "AllowLinguisticDataCollection" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization" /v "OptInOOBE" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Policies\Microsoft\Windows\CurrentVersion\PushNotifications" /v "NoTileApplicationNotification" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "AllowSearchToUseLocation" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "BackgroundAppGlobalToggle" /t REG_DWORD /d "0" /f
@@ -2114,78 +2539,17 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "CortanaConse
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "CortanaInAmbientMode" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "DeviceHistoryEnabled" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "HistoryViewEnabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "SearchboxTaskbarMode" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\SearchSettings" /v "IsDeviceSearchHistoryEnabled" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\SearchSettings" /v "SafeSearchMode" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Windows Search" /v "CortanaConsent" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Windows Search" /v "CortanaIsReplaceable" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Windows Search" /v "CortanaIsReplaced" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Windows Search" /v "SearchboxTaskbarMode" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\AppHost" /v "EnableWebContentEvaluation" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\AppHost" /v "PreventOverride" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "GlobalAssocChangedCounter" /t REG_DWORD /d "13" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "LocalKnownFoldersMigrated" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "TelemetrySalt" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "ShowFrequent" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "ShowRecent" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "EnableSnapAssistFlyout" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "DITest" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "EnableTaskGroups" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_SearchFiles" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ServerAdminUI" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Hidden" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowCompColor" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "HideFileExt" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "DontPrettyPath" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "HideIcons" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "MapNetDrvBtn" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "WebView" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Filter" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowSuperHidden" /t REG_DWORD /d "0" /f
-# Enable Launch Folder Windows in a Separate Process in Windows
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "SeparateProcess" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "AutoCheckSelect" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "IconsOnly" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowTypeOverlay" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowStatusBar" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "StoreAppsOnTaskbar" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAnimations" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "StartMenuInit" /t REG_DWORD /d "13" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowCortanaButton" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ReindexedProfile" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowTaskViewButton" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "DontUsePowerShellOnWinX" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarBadges" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "LaunchTo" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "HideDrivesWithNoMedia" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "HideMergeConflicts" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAppsVisibleInTabletMode" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "JointResize" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "SnapAssist" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "SnapFill" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_TrackDocs" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarGlomLevel" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /V "MMTaskbarEnabled" /T REG_dWORD /D "1" /F
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /V "MMTaskbarGlomLevel" /T REG_dWORD /D "2" /F
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_TrackProgs" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSmallIcons" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowSyncProviderNotifications" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "DisallowShaking" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSizeMove" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "FolderContentsInfoTip" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowInfoTip" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowPreviewHandlers" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "SharingWizardOn" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "MultiTaskingAltTabFilter" /t REG_DWORD /d "3" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "SearchBoxVisibleInTouchImprovement" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "AppIconInTouchImprovement" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "FileExplorerInTouchImprovement" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" /v "PeopleBand" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People\ShoulderTap" /v "ShoulderTap" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel" /v "AllItemsIconView" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel" /v "StartupPage" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\OperationStatusManager" /v "ConfirmationCheckBoxDoForAll" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\OperationStatusManager" /v "EnthusiastMode" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband" /v "FavoritesChanges" /t REG_DWORD /d "2" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband" /v "FavoritesVersion" /t REG_DWORD /d "3" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Serialize" /v "StartupDelayInMSec" /t REG_DWORD /d "0" /f
@@ -2229,7 +2593,6 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "Val
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "ShutdownWithoutLogon" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "PromptOnSecureDesktop" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableVirtualization" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "ConsentPromptBehaviorAdmin" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "VerboseStatus" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CDP\SettingsPage" /v "BluetoothLastDisabledNearShare" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CDP" /v "NearShareChannelUserAuthzPolicy" /t REG_DWORD /d "0" /f
@@ -2238,57 +2601,14 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CDP" /v "CdpSessionUserA
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ImmersiveShell" /v "TabletMode" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ImmersiveShell" /v "ConvertibleSlateModePromptPreference" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ImmersiveShell" /v "SignInMode" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "FeatureManagementEnabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "NoTileApplicationNotification" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "OemPreInstalledAppsEnabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "PreInstalledAppsEnabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "RotatingLockScreenEnabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "RotatingLockScreenOverlayEnabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SilentInstalledAppsEnabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SoftLandingEnabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SystemPaneSuggestionsEnabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SlideshowEnabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "ContentDeliveryAllowed" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "PreInstalledAppsEverEnabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "reInstalledAppsEverEnabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContentEnabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-202914Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-280810Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-280811Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-280813Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-280815Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-310091Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-310092Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-310093Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-314559Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-314563Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338380Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338381Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338387Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338388Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338389Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338393Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-353698Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-353694Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-88000045Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-88000161Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-88000163Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-88000165Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-88000530Enabled" /t REG_DWord /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\AppSync" /v "Enabled" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\DesktopTheme" /v "Enabled" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\PackageState" /v "Enabled" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\StartLayout" /v "Enabled" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Language" /v "Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo" /v "Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo" /v "Id" /t REG_SZ /d "null" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\PenWorkspace" /v "PenWorkspaceAppSuggestionsEnabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Privacy" /v "TailoredExperiencesWithDiagnosticDataEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WinBio\Credential Provider" /v "Domain Accounts" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\SessionData" /v "AllowLockScreen" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\AdvertisingInfo" /v "Enabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\AdvertisingInfo" /v "Id" /t REG_SZ /d "null" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SilentInstalledAppsEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\TabletTip\1.7" /v "DisablePrediction" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Policies\Microsoft\TabletTip\1.7" /v "DisablePrediction" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Network\NetworkLocationWizard" /v "HideWizard" /t REG_DWORD /d "1" /f
@@ -2299,7 +2619,6 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Conferencing" /v "NoRDS" /t REG_DWORD 
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\MDM" /v "DisableRegistration" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Gwx" /v "DisableGwx" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Speech" /v "AllowSpeechModelUpdate" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization" /v "DODownloadMode" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Digital Locker" /v "DoNotRunDigitalLocker" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Assistance\Client\1.0" /v "NoActiveHelp" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\ScheduledDiagnostics" /v "EnabledExecution" /t REG_DWORD /d "0" /f
@@ -2307,7 +2626,6 @@ reg add "HKLM\SOFTWARE\Microsoft\Speech_OneCore\Preferences" /v "ModelDownloadAl
 reg add "HKCU\Software\Microsoft\Feeds" /v "SyncStatus" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Messaging" /v "CloudServiceSyncEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\EventLog\Windows PowerShell" /v "Enabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Policies\Microsoft\Windows\OneDrive" /v "DisableFileSyncNGSC" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\WindowsMitigation" /v "UserPreference" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\SearchCompanion" /v "DisableContentFileUpdates" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\PushToInstall" /v "DisablePushToInstall" /t REG_DWORD /d "1" /f
@@ -2315,9 +2633,7 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\PushNotifications" /v "T
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service\WinRS" /v "AllowRemoteShellAccess" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\WlanSvc\AnqpCache" /v "OsuregistrationStatus" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\ScheduledDiagnostics" /v "EnabledExecution" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows NT\CurrentVersion\Windows" /v "LegacyDefaultPrinterMode" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Settings\FindMyDevice" /v "LocationSyncEnabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo" /v "DisabledByGroupPolicy" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\ScriptedDiagnosticsProvider\Policy" /v "DisableQueryRemoteServer" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\WcmSvc\wifinetworkmanager\config" /v "AutoConnectAllowedOEM" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Connect" /v "AllowProjectionToPC" /t REG_DWORD /d "0" /f
@@ -2347,9 +2663,7 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\MTCUVC" /v "EnableMtc
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\TelemetryController" /v "RunsBlocked" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows Search" /v "AllowCortana" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\WiFi\AllowAutoConnectToWiFiSenseHotspots" /v "value" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo" /v "Id" /t REG_SZ /d "null" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CloudExperienceHost" /v "ETWLoggingEnabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" /v "LongPathsEnabled" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell" /v "EnableScripts" /t reg_DWORD /d "1" /f
 reg add "HKCU\Software\Policies\Microsoft\Windows\PowerShell" /v "EnableScripts" /t reg_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v "ExecutionPolicy" /t reg_SZ /d "Restricted" /f
@@ -2358,7 +2672,6 @@ reg add "HKCU\Software\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v 
 reg add "HKLM\SOFTWARE\Classes\CLSID\{ 645FF040-5081-101B-9F08-00AA002F954E }\shell\Separator" /v "CommandFlags" /t REG_DWORD /d "40" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows Media Foundation\Platform" /v "EnableFrameServerMode" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows Media Foundation\Platform" /v "EnableFrameServerMode" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\UserProfileEngagement" /v "ScoobeSystemSettingEnabled" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Holographic" /v "FirstRunSucceeded" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Holographic" /v "IdleTimerDuration" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Holographic" /v "ScreensaverModeEnabled" /t REG_DWORD /d "0" /f
@@ -2367,7 +2680,8 @@ reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Holographic\StageManagem
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Reliability" /v "TimeStampInterval" /t REG_DWORD /d "0" /f
 
 # Disable Background Activity For ALL Modern Apps
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsRunInBackground" /t REG_DWORD /d "2" /f
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -force -Verbose };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy' -Name 'LetAppsRunInBackground' -Value 2 -PropertyType DWord -Force -Verbose
 
 # no lock Screen
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Personalization" /v "NoLockScreen" /t REG_DWORD /d "1" /f
@@ -2475,34 +2789,6 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "EnableSmartScreen"
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "ShellSmartScreenLevel" /t REG_SZ /d "Warn" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter" /v "EnabledV9" /t REG_DWORD /d "0" /f
 
-disable-computerrestore -drive 'C:\' -Verbose
-disable-computerrestore -drive 'D:\' -Verbose
-reg add "HKCU\Software\Microsoft\Assistance\Client\1.0\Settings" /v "ImplicitFeedback" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Internet Explorer\Download" /v "CheckExeSignatures" /t REG_SZ /d "no" /f
-reg delete "HKCU\Software\Microsoft\OneDrive" /f
-Set-Service -Name 'WalletService' -StartupType Disabled -Status Stopped -Verbose
-Set-Service -Name 'WbioSrvc' -StartupType Disabled -Status Stopped -Verbose
-%Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Classes\AppID\slui.exe" /v "NoGenTicket" /t REG_DWORD /d "1" /f
-%Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\BannerStore\OptIn" /v "URL" /t REG_SZ /d "" /f
-%Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\BannerStore\OptOut" /v "URL" /t REG_SZ /d "" /f
-%Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" /v "DisableWerReporting" /t REG_DWORD /d 1 /f
-%Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter" /v "ActivationType" /t REG_DWORD /d "0" /f
-%Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe add "HKLM\SOFTWARE\WOW6432Node\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter" /v "ActivationType" /t REG_DWORD /d "0" /f
-%Windir%\SysWOW64\PowerRun.exe /SW:0 %Windir%\System32\reg.exe delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel\NameSpace\{ 87D66A43-7B11-4A28-9811-C86EE395ACF7 }" /f
-
-# Windows Update
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "NoAutoUpdate" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "AUOptions" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "ScheduledInstallDay" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "ScheduledInstallEveryWeek" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "ScheduledInstallTime" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Device Metadata" /v "PreventDeviceMetadataFromNetwork" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DriverSearching" /v "DontPromptForWindowsUpdate" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DriverSearching" /v "DontSearchWindowsUpdate" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DriverSearching" /v "DriverUpdateWizardWuSearchEnabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DriverSearching" /v "SearchOrderConfig" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "ExcludeWUDriversInQualityUpdate" /t REG_DWORD /d "1" /f
-
 # DoNotOpenServerManagerAtLogon
 reg add "HKLM\SOFTWARE\Microsoft\ServerManager" /v "DoNotOpenServerManagerAtLogon" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\ServerManager" /v "DoNotPopWACConsoleAtSMLaunch" /t REG_DWORD /d "1" /f
@@ -2533,9 +2819,6 @@ reg add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v "NoUninstallFromS
 
 # Disable Show Recently Added Apps On Start Menu
 Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "HideRecentlyAddedApps" /t REG_DWORD /d "1" /f
-
-# Remove Web Search From Start Menu
-Reg.exe add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v "DisableSearchBoxSuggestions" /t REG_DWORD /d "1" /f
 
 # delete taskbar shortcuts
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband" /f
@@ -2570,7 +2853,6 @@ reg add "HKU\.DEFAULT\Control Panel\Desktop" /v "ForegroundLockTimeout" /t REG_D
 reg add "HKU\.DEFAULT\Control Panel\Desktop" /v "MenuShowDelay" /t REG_SZ /d "0" /f
 reg add "HKCU\Control Panel\Desktop" /v "DockMoving" /t REG_SZ /d "0" /f
 reg add "HKCU\Control Panel\Desktop" /v "WindowArrangementActive" /t REG_DWORD /d "0" /f
-reg add "HKCU\Control Panel\Desktop" /v "JPEGImportQuality" /t REG_DWORD /d "100" /f
 reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "MinAnimate" /t REG_SZ /d "0" /f
 reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "BorderWidth" /t REG_SZ /d "0" /f
 reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "PaddedBorderWidth" /t REG_SZ /d "0" /f
@@ -2609,8 +2891,6 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "L
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "IconsOnly" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAcrylicOpacity" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "EnableTransparency" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "SystemUsesLightTheme" /t REG_DWORD /d 0 /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "AppsUseLightTheme" /t REG_DWORD /d 0 /f
 
 # https://www.tenforums.com/tutorials/103762-prevent-windows-10-deleting-thumbnail-cache.html
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Thumbnail Cache" /v "Autorun" /t REG_DWORD /d "0" /f
@@ -2686,19 +2966,14 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProf
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v "SystemResponsiveness" /t REG_DWORD /d "100" /f
 
 # Gameconfig
+if ((Test-Path -LiteralPath "HKCU:\System\GameConfigStore") -ne $true) { New-Item "HKCU:\System\GameConfigStore" -force -ea SilentlyContinue }
+New-ItemProperty -LiteralPath 'HKCU:\System\GameConfigStore' -Name 'GameDVR_FSEBehavior' -Value 0 -PropertyType DWord -Force -Verbose
 Reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\GameDVR" /v "AppCaptureEnabled" /t REG_DWORD /d "0" /f
-reg add "HKU\.DEFAULT\System\GameConfigStore" /v "GameDVR_Enabled" /t REG_DWORD /d "0" /f
-reg add "HKU\.DEFAULT\System\GameConfigStore" /v "GameDVR_FSEBehaviorMode" /t REG_DWORD /d "2" /f
-reg add "HKU\.DEFAULT\System\GameConfigStore" /v "GameDVR_HonorUserFSEBehaviorMode" /t REG_DWORD /d "1" /f
-reg add "HKU\.DEFAULT\System\GameConfigStore" /v "GameDVR_DXGIHonorFSEWindowsCompatible" /t REG_DWORD /d "1" /f
-reg add "HKU\.DEFAULT\System\GameConfigStore" /v "GameDVR_EFSEFeatureFlags" /t REG_DWORD /d "0" /f
-reg add "HKU\.DEFAULT\System\GameConfigStore" /v "GameDVR_FSEBehavior" /t REG_DWORD /d "2" /f
 reg add "HKCU\System\GameConfigStore" /v "GameDVR_Enabled" /t REG_DWORD /d "0" /f
 reg add "HKCU\System\GameConfigStore" /v "GameDVR_FSEBehaviorMode" /t REG_DWORD /d "2" /f
 reg add "HKCU\System\GameConfigStore" /v "GameDVR_HonorUserFSEBehaviorMode" /t REG_DWORD /d "1" /f
 reg add "HKCU\System\GameConfigStore" /v "GameDVR_DXGIHonorFSEWindowsCompatible" /t REG_DWORD /d "1" /f
 reg add "HKCU\System\GameConfigStore" /v "GameDVR_EFSEFeatureFlags" /t REG_DWORD /d "0" /f
-reg add "HKCU\System\GameConfigStore" /v "GameDVR_FSEBehavior" /t REG_DWORD /d "2" /f
 reg delete "HKCU\System\GameConfigStore\Children" /f
 reg delete "HKCU\System\GameConfigStore\Parents" /f
 reg add "HKU\.DEFAULT\Software\Microsoft\GameBar" /v "AutoGameModeEnabled" /t REG_DWORD /d "1" /f
@@ -2749,9 +3024,6 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager" /v
 # Ungroup icons on all taskbars
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /f /v "NoTaskGrouping" /t REG_DWORD /d 1
 
-# Disable Acrylic Background On Logon Screen
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "DisableAcrylicBackgroundOnLogon" /t REG_DWORD /d "1" /f
-
 # Use realtime priority for csrss.exe and Chrome
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\chrome.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "3" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\chrome.exe\PerfOptions" /v "IoPriority" /t REG_DWORD /d "3" /f
@@ -2778,17 +3050,13 @@ attrib +r "C:\Program Files\NVIDIA Corporation\Display.NvContainer\nvtopps.db3"
 Net start NVDisplay.ContainerLocalSystem
 Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\Dwm" /v "OverlayTestMode" /t REG_DWORD /d "5" /f
 
-# Win11 - Start Button on left alignment
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAl" /t REG_DWORD /d 0 /f
+# Ping Fang Font
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name '苹方-简 中黑体 (TrueType)' -Value 'PingFangSC-17.d1e2-Medium.otf' -PropertyType String -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts' -Name '苹方-简 中黑体 (TrueType)' -Value 'PingFangSC-17.d1e2-Medium.otf' -PropertyType String -Force -Verbose
 
 # Win11 - No Startup Sound
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\EditionOverrides" /v "UserSetting_DisableStartupSound" /t REG_DWORD /d "1" /f
-
-# Win11 - Remove Widgets Button on Taskbar
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarDa" /t REG_DWORD /d "0" /f
-
-# Win11 - Disable Snap Assist Flyout
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "EnableSnapAssistFlyout" /t REG_DWORD /d "0" /f
+if ((Test-Path -LiteralPath "HKLM:\Software\Microsoft\Windows\CurrentVersion\EditionOverrides") -ne $true) { New-Item "HKLM:\Software\Microsoft\Windows\CurrentVersion\EditionOverrides" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows\CurrentVersion\EditionOverrides' -Name 'UserSetting_DisableStartupSound' -Value 1 -PropertyType DWord -Force -Verbose
 
 # Win11 - Disable_rminimize_windows_when_monitor_is_disconnected
 reg add "HKCU\Control Panel\Desktop" /v "MonitorRemovalRecalcBehavior" /t REG_DWORD /d "1" /f
@@ -2798,10 +3066,6 @@ reg add "HKCU\Control Panel\Desktop" /v "DragFullWindows" /t REG_SZ /d "0" /f
 
 # Win11 - Enable Remember Window Locations
 reg add "HKCU\Control Panel\Desktop" /v "RestorePreviousStateRecalcBehavior" /t REG_DWORD /d "0" /f
-
-# Win11 - No Chat Icon in Taskbar
-reg add "HKLM\Software\Policies\Microsoft\Windows\Windows Chat" /v "ChatIcon" /t REG_DWORD /d "3" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarMn" /t REG_DWORD /d "0" /f
 
 # Win11 - Restore full right click context menu in Windows 11 via Registry
 Reg.exe add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f
