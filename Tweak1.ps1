@@ -1,21 +1,25 @@
 # Enable script logging.
 # To stop logging just close the console or type "Stop-Transcript"
-Start-Transcript -Path c:\TweakLog.txt -Force
+Start-Transcript -Path c:\Tweak1Log.txt -Force
 
 # Assign the default preferences to their own variables so we can restore then once the function completes.
 $ErrorActionPreference = 'SilentlyContinue'
 $ProgressPreference = 'SilentlyContinue'
 
-# Set the PowerShell Execution Policy for the CurrentUser and LocalMachine to Unrestricted.
-Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -Confirm:$false -Verbose
-Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope LocalMachine -Confirm:$false -Verbose
+$Host.UI.RawUI.WindowTitle = "Tweak Script that need to be run with NSudo or Powerrun"
+
+# Set the PowerShell Execution Policy to Unrestricted.
+Set-ItemProperty -path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell" EnableScripts 1 -Force -Verbose
+if ((Test-Path -LiteralPath "HKCU:\Software\Policies\Microsoft\Windows\PowerShell") -ne $true) { New-Item "HKCU:\Software\Policies\Microsoft\Windows\PowerShell" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\PowerShell' -Name 'ExecutionPolicy' -Value 'Unrestricted' -PropertyType String -Force -Verbose
+if ((Test-Path -LiteralPath "HKLM:\Software\Policies\Microsoft\Windows\PowerShell") -ne $true) { New-Item "HKLM:\Software\Policies\Microsoft\Windows\PowerShell" -force -Verbose }
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\PowerShell' -Name 'ExecutionPolicy' -Value 'Unrestricted' -PropertyType String -Force -Verbose
 
 # Disable Scheduled Tasks.
 Get-ScheduledTask -TaskPath '*' | Disable-ScheduledTask -Verbose
 Enable-ScheduledTask -TaskPath '\Microsoft\Windows\SoftwareProtectionPlatform' -TaskName 'SvcRestartTask' -Verbose
 Enable-ScheduledTask -TaskPath '\Microsoft\Windows\SoftwareProtectionPlatform' -TaskName 'SvcRestartTaskLogon' -Verbose
 Enable-ScheduledTask -TaskPath '\Microsoft\Windows\SoftwareProtectionPlatform' -TaskName 'SvcRestartTaskNetwork' -Verbose
-Enable-ScheduledTask -TaskPath '\Microsoft\Windows\SoftwareProtectionPlatform' -TaskName 'SvcTrigger' -Verbose
 Enable-ScheduledTask -TaskPath '\Microsoft\Windows\UPnP' -TaskName 'UPnPHostConfig' -Verbose
 Enable-ScheduledTask -TaskName 'Process Lasso Core Engine Only' -Verbose
 Enable-ScheduledTask -TaskName 'Process Lasso Management Console (GUI)' -Verbose
@@ -49,7 +53,7 @@ Get-Service | Where-Object { $_.Name -eq "SSDPSRV" } | Set-Service -StartupType 
 Get-Service | Where-Object { $_.Name -eq "upnphost" } | Set-Service -StartupType Automatic -Verbose
     
 # Tablet Input
-Get-Service | Where-Object { $_.Name -eq "TextInputManagementService" } | Set-Service -StartupType Automatic -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\TextInputManagementService' -Name 'Start' -Value 2 -PropertyType DWord -Force -Verbose
 
 # Disable main Services
 Get-Service | Where-Object { $_.Name -eq "AJRouter" } | Set-Service -StartupType Disabled -Verbose
@@ -160,53 +164,48 @@ Get-Service | Where-Object { $_.Name -eq "XboxGipSvc" } | Set-Service -StartupTy
 Get-Service | Where-Object { $_.Name -eq "XboxNetApiSvc" } | Set-Service -StartupType Disabled -Verbose
 
 # Disable Drivers
-Get-Service | Where-Object { $_.Name -eq "3ware" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "ADP80XX" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "AppleSSD" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "arcsas" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "b06bdrv" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "bcmfn2" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "cht4iscsi" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "cht4vbd" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "ebdrv" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "ebdrv0" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "HpSAMD" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "ibbus" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "ItSas35i" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "LSI_SAS" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "LSI_SAS2i" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "LSI_SAS3i" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "megasas2i" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "megasas35i" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "megasr" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "mlx4_bus" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "mpi3drvi" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "mvumis" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "ndfltr" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "percsas2i" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "percsas3i" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "pvscsi" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "SiSRaid2" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "SiSRaid4" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "SmartSAMD" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "stexstor" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "vsmraid" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "VSTXRAID" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "WinMad" } | Set-Service -StartupType Disabled -Verbose
-Get-Service | Where-Object { $_.Name -eq "WinVerbs" } | Set-Service -StartupType Disabled -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\3ware' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\ADP80XX' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AppleSSD' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\arcsas' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\b06bdrv' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\bcmfn2' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\cht4iscsi' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\cht4vbd' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\ebdrv' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\ebdrv0' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\HpSAMD' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\ibbus' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\ItSas35i' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\LSI_SAS' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\LSI_SAS2i' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\LSI_SAS3i' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\megasas2i' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\megasas35i' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\megasr' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\mlx4_bus' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\mpi3drvi' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\mvumis' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\ndfltr' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\percsas2i' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\percsas3i' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\pvscsi' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SiSRaid2' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SiSRaid4' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SmartSAMD' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\stexstor' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\vsmraid' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\VSTXRAID' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WinMad' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WinVerbs' -Name 'Start' -Value 4 -PropertyType DWord -Force -Verbose
 
 # Remove Defender
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WinDefend" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\WinDefend" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\Sense" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\Sense" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WdNisDrv" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\WdNisDrv" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WdFilter" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\WdFilter" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WdBoot" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\WdBoot" /f
+Remove-Item -Path HKLM:\SYSTEM\CurrentControlSet\Services\WinDefend -Force -Verbose
+Remove-Item -Path HKLM:\SYSTEM\CurrentControlSet\Services\Sense -Force -Verbose
+Remove-Item -Path HKLM:\SYSTEM\CurrentControlSet\Services\WdNisDrv -Force -Verbose
+Remove-Item -Path HKLM:\SYSTEM\CurrentControlSet\Services\WdFilter -Force -Verbose
+Remove-Item -Path HKLM:\SYSTEM\CurrentControlSet\Services\WdBoot -Force -Verbose
 
 # remove Edge services
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\edgeupdate" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\edgeupdatem" /f
+Remove-Item -Path HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdate -Force -Verbose
+Remove-Item -Path HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdatem -Force -Verbose
