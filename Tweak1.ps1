@@ -47,122 +47,116 @@ Get-ChildItem -Path "HKLM:\SYSTEM\CurrentControlSet\Services" | Where-Object -Pr
 Get-ChildItem -Path "HKLM:\SYSTEM\CurrentControlSet\Services" | Where-Object -Property Name -Like *webthreatdefusersvc* | Set-ItemProperty -Name Start -Value 4 -Force -PassThru | Set-ItemProperty -Name UserServiceFlags -Value 0 -Force
 
 # Enable uPNP.
-Get-Service | Where-Object { $_.Name -eq "FDResPub" } | Set-Service -StartupType Automatic
-Get-Service | Where-Object { $_.Name -eq "fdPHost" } | Set-Service -StartupType Automatic
-Get-Service | Where-Object { $_.Name -eq "SSDPSRV" } | Set-Service -StartupType Automatic
-Get-Service | Where-Object { $_.Name -eq "upnphost" } | Set-Service -StartupType Automatic
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\FDResPub' -Name 'Start' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\fdPHost' -Name 'Start' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SSDPSRV' -Name 'Start' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\upnphost' -Name 'Start' -Value 2 -PropertyType DWord -Force
     
 # Tablet Input
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\TextInputManagementService' -Name 'Start' -Value 2 -PropertyType DWord -Force
 
 # Disable main Services
-Get-Service | Where-Object { $_.Name -eq "AJRouter" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "ALG" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "AppVClient" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "autotimesvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "BTAGService" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "BthAvctpSvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "bthserv" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "CaptureService" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "CertPropSvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "CscService" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "diagnosticshub.standardcollector.service" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "diagsvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "DiagTrack" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "dmwappushservice" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "DoSvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "DusmSvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "edgeupdate" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "edgeupdatem" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "FrameServer" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "CDPSvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "DiagTrack" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "DsSvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "DusmSvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "Fax" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "FrameServer" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "FrameServerMonitor" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "HvHost" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "icssvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "iphlpsvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "iaStorAfsService" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "IrisService" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "lfsvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "MapsBroker" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "MicrosoftEdgeElevationService" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "MixedRealityOpenXRSvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "MSiSCSI" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "NcbService" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "PcaSvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "PeerDistSvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "PenService" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "perceptionsimulation" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "PhoneSvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "PimIndexMaintenanceSvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "NcaSvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "RasAuto" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "RasMan" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "RemoteAccess" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "RemoteRegistry" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "RetailDemo" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "RpcLocator" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "SensorDataService" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "SensorService" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "SensrSvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "SessionEnv" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "SharedAccess" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "SharedRealitySvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "SCardSvr" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "ScDeviceEnum" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "SCPolicySvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "SDRSVC" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "SecurityHealthService" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "ShellHWDetection" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "SgrmBroker" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "SEMgrSvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "Sense" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "shpamsvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "SmsRouter" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "SysMain" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "SNMPTRAP" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "spectrum" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "stisvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "TrkWks" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "TermService" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "TroubleshootingSvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "tzautoupdate" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "UevAgentService" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "UmRdpService" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "vmicguestinterface" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "vmicheartbeat" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "vmickvpexchange" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "vmicrdv" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "vmicshutdown" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "vmictimesync" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "vmicvmsession" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "vmicvss" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "WalletService" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "WbioSrvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "W32Time" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "wbengine" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "WaaSMedicSvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "webthreatdefsvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "webthreatdefusersvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "Wecsvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "wercplsupport" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "WerSvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "WinRM" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "wisvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "WFDSConMgrSvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "WiaRpc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "WpcMonSvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "wscsvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "WMPNetworkSvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "WwanSvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "WSearch" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "XblGameSave" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "XboxGipSvc" } | Set-Service -StartupType Disabled
-Get-Service | Where-Object { $_.Name -eq "XboxNetApiSvc" } | Set-Service -StartupType Disabled
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\ALG' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AppVClient' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\autotimesvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BcastDVRUserService' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BTAGService' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BthAvctpSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\bthserv' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BluetoothUserService' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\CaptureService' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\CertPropSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\CscService' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\DevicePickerUserSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\diagnosticshub.standardcollector.service' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\diagsvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\dmwappushservice' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\DoSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\DusmSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdate' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdatem' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\FrameServer' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\CDPSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\DsSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Fax' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\FrameServerMonitor' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\HvHost' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\icssvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\iphlpsvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\lfsvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\MapsBroker' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\MessagingService' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\MicrosoftEdgeElevationService' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\MixedRealityOpenXRSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\MSiSCSI' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NcbService' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\PcaSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\PeerDistSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\PenService' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\perceptionsimulation' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\PhoneSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\PimIndexMaintenanceSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NcaSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\RasAuto' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\RasMan' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\RemoteAccess' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\RemoteRegistry' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\RetailDemo' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\RpcLocator' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SensorDataService' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SensorService' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SensrSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SessionEnv' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedRealitySvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SgrmBroker' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SCardSvr' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\ScDeviceEnum' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SCPolicySvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SDRSVC' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SecurityHealthService' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SEMgrSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Sense' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\shpamsvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SmsRouter' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SNMPTRAP' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\spectrum' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\stisvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SysMain' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\TermService' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\TroubleshootingSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\tzautoupdate' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\UevAgentService' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\UmRdpService' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\vmicguestinterface' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\vmicheartbeat' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\vmickvpexchange' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\vmicrdv' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\vmicshutdown' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\vmictimesync' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\vmicvmsession' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\vmicvss' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WbioSrvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\W32Time' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\wbengine' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Wecsvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\wercplsupport' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WerSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WinRM' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\wisvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WFDSConMgrSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WiaRpc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WinDefend' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WpcMonSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WwanSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WSearch' -Name 'Start' -Value 4 -PropertyType DWord -Force
+
+# xbox related
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\XblGameSave' -Name 'Start' -Value 3 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\XboxGipSvc' -Name 'Start' -Value 3 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\XboxNetApiSvc' -Name 'Start' -Value 3 -PropertyType DWord -Force
+
 
 # Disable Drivers
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\3ware' -Name 'Start' -Value 4 -PropertyType DWord -Force
@@ -199,6 +193,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\vsmraid' 
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\VSTXRAID' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WinMad' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WinVerbs' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WacomPen' -Name 'Start' -Value 4 -PropertyType DWord -Force
 
 # Remove Defender
 Remove-Item -Path HKLM:\SYSTEM\CurrentControlSet\Services\WinDefend -Recurse -Force
