@@ -1392,8 +1392,8 @@ $pagefile = Get-WmiObject Win32_ComputerSystem -EnableAllPrivileges
 $pagefile.AutomaticManagedPagefile = $false
 $pagefile.put() | Out-Null
 $pagefileset = Get-WmiObject Win32_pagefilesetting
-$pagefileset.InitialSize = 20480
-$pagefileset.MaximumSize = 20480
+$pagefileset.InitialSize = 32768
+$pagefileset.MaximumSize = 32768
 $pagefileset.Put() | Out-Null
 
 # root certificate
@@ -1406,82 +1406,22 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\SystemCertifica
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config' -Name 'CrossCertDownloadIntervalHours' -Value 168 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config' -Name 'Options' -Value 0 -PropertyType DWord -Force
 
-# Disabling Net Adapter QoS
-Disable-NetAdapterQos -Name '*'
-# Disabling Net Adapter Power Management...
-$Adapters = Get-NetAdapter -Physical | Get-NetAdapterPowerManagement | Where-Object -FilterScript { $_.AllowComputerToTurnOffDevice -ne "Unsupported" }
-foreach ($Adapter in $Adapters) {
-    $Adapter.AllowComputerToTurnOffDevice = "Disabled"
-    $Adapter | Set-NetAdapterPowerManagement
-}
-# Enabling Net Adapter Checksum Offload...
-Enable-NetAdapterChecksumOffload -Name '*'
-# Disabling Net Adapter Encapsulated Packet Task Offload...
-Disable-NetAdapterEncapsulatedPacketTaskOffload -Name '*'
-# Enabling Net Adapter IPsec Offload...
-Enable-NetAdapterIPsecOffload -Name '*'
-# Disabling Net Adapter Large Send Offload...
-Disable-NetAdapterLso -Name '*'
-# Enabling Net Adapter Packet Direct...
-Enable-NetAdapterPacketDirect -Name '*'
-# Disabling Net Adapter Receive Side Coalescing...
-Disable-NetAdapterRsc -Name '*'
-# Enabling Net Adapter Receive Side Scaling...
-Enable-NetAdapterRss -Name '*'
-# Enable Teredo and 6to4 (Xbox LIVE fix)
-Set-NetTeredoConfiguration -Type natawareclient
-cmd.exe /c "netsh int teredo set state natawareclient"
-cmd.exe /c "netsh int 6to4 set state state=enabled"
-cmd.exe /c "netsh int teredo set state servername=win1910.ipv6.microsoft.com"
-
-# disable network protocal
-Disable-NetAdapterBinding -Name '*' -ComponentID ms_lldp
-Disable-NetAdapterBinding -Name '*' -ComponentID ms_server
-Disable-NetAdapterBinding -Name '*' -ComponentID ms_msclient
-Disable-NetAdapterBinding -Name '*' -ComponentID ms_rspndr
-Disable-NetAdapterBinding -Name '*' -ComponentID ms_lltdio
-Disable-NetAdapterBinding -Name '*' -ComponentID ms_pacer
-Enable-NetAdapterBinding -Name '*' -ComponentID ms_tcpip6
-
-# Setting up 6to4 tunneling...
-Set-Net6to4Configuration -State Enabled -AutoSharing Enabled -RelayState Enabled -RelayName '6to4.ipv6.microsoft.com'
-cmd.exe /c "netsh int 6to4 set state state=enabled undoonstop=disabled"
-cmd.exe /c "netsh int 6to4 set routing routing=enabled sitelocals=enabled"
-
-# Disable Nagle's Algorithm
-$strGUIDS = [array](Get-WmiObject win32_networkadapter | Select-Object -expand GUID)
-foreach ($strGUID in $strGUIDS) { New-ItemProperty -path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -propertytype DWORD -name TcpAckFrequency -value 1 -Force }
-foreach ($strGUID in $strGUIDS) { New-ItemProperty -path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -propertytype DWORD -name TCPNoDelay -value 1 -Force }
-
-# Disable Memory Compression
-Disable-MMAgent -mc
-
-# Enable TRIM support for NTFS and ReFS file systems for SSD drives
-cmd.exe /c "fsutil behavior set disabledeletenotify 0"
-cmd.exe /c "FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY NTFS 0"
-cmd.exe /c "FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY REFS 0"
-
-# no power saving for USB devices
-$devicesUSB = Get-PnpDevice | Where-Object { $_.InstanceId -like "*USB\ROOT*" }  | 
-ForEach-Object -Process {
-    Get-CimInstance -ClassName MSPower_DeviceEnable -Namespace root\wmi 
-}
-foreach ( $device in $devicesUSB ) {
-    Set-CimInstance -Namespace root\wmi -Query "SELECT * FROM MSPower_DeviceEnable WHERE InstanceName LIKE '%$($device.PNPDeviceID)%'" -Property @{Enable = $False } -PassThru
-}
-
 # Disable System Restore
 disable-computerrestore -drive 'C:\'
 disable-computerrestore -drive 'D:\'
 
-# This disables creation and use of swapfile.sys and frees 256 MB of disk space. Swapfile.sys is used only by UWP apps. The tweak has no effect on the real swap in pagefile.sys.
+# page file
+# Use big system memory caching to improve microstuttering
 if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'ClearPageFileAtShutdown' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'DisablePagingExecutive' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'LargeSystemCache' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'SystemPages' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'FeatureSettings' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'SwapfileControl' -Value '0' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'FeatureSettingsOverride' -Value 3 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'FeatureSettingsOverrideMask' -Value 3 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'EnableCfg' -Value 0 -PropertyType DWord -Force
 
 # Disable Prefetch and Superfetch (optimal for SSD drives).
 If (!(Test-Path -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters")) { New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" -ItemType Directory -Force }
@@ -1903,9 +1843,10 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\GameDVR
 If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors")) { New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors" -Force }
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors" -Name "DisableSensors" -Type DWord -Value 1 -Force
 
-# Disable Tailored Experiences
-If (!(Test-Path "HKCU:\Software\Policies\Microsoft\Windows\CloudContent")) { New-Item -Path "HKCU:\Software\Policies\Microsoft\Windows\CloudContent" -Force }
-Set-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\CloudContent" -Name "DisableTailoredExperiencesWithDiagnosticData" -Type DWord -Value 1 -Force
+# Disable Cloud Taskbar
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent' -Name 'DisableSoftLanding' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent' -Name 'DisableCloudOptimizedContent' -Value 1 -PropertyType DWord -Force
 
 # Disable implicit administrative shares
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" -Name "AutoShareServer" -Type DWord -Value 0 -Force
@@ -1970,11 +1911,6 @@ New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Accessibility\SoundSentry' -N
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Accessibility\StickyKeys' -Name 'Flags' -Value '0' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Accessibility\TimeOut' -Name 'Flags' -Value '0' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Accessibility\ToggleKeys' -Name 'Flags' -Value '0' -PropertyType String -Force
-
-# Enable Experimental Autotuning and NEWRENO congestion provider
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS" -force }
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS' -Name 'Tcp Autotuning Level' -Value 'Experimental' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS' -Name 'Application DSCP Marking Request' -Value 'Allowed' -PropertyType String -Force
 
 # do not disable IPV6
 if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" -force };
@@ -2282,8 +2218,6 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Securit
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Peernet' -Name 'Disabled' -Value 1 -PropertyType DWord -Force
 
 # en-US as first input method
-New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Keyboard Layout\Preload' -Name '1' -Value '00000409' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Keyboard Layout\Preload' -Name '2' -Value '00000804' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Keyboard Layout\Preload' -Name '1' -Value '00000409' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Keyboard Layout\Preload' -Name '2' -Value '00000804' -PropertyType String -Force
 
@@ -2353,7 +2287,6 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\E
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\Themes' -Name 'DefaultApplied' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ThumbnailsOrIcon' -Name 'DefaultApplied' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\TooltipAnimation' -Name 'DefaultApplied' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\DWM' -Name 'Composition' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\DWM' -Name 'ColorizationColor' -Value -1004847782 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\DWM' -Name 'ColorizationColorBalance' -Value 89 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\DWM' -Name 'ColorizationAfterglow' -Value -1004847782 -PropertyType DWord -Force
@@ -2377,6 +2310,194 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\T
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'AppsUseLightTheme' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'SystemUsesLightTheme' -Value 0 -PropertyType DWord -Force
 
+# This policy setting controls the appearance of window animations such as those found when restoring, minimizing, and maximizing windowss
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DWM") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DWM" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DWM' -Name 'DisallowAnimations' -Value 1 -PropertyType DWord -Force
+
+# Disable power management in connected standby mode
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy' -Name 'fDisablePowerManagement' -Value 1 -PropertyType DWord -Force
+
+# Disable LLTDIO driver and Responder RSPNDR driver
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD' -Name 'EnableRspndr' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD' -Name 'EnableLLTDIO' -Value 0 -PropertyType DWord -Force
+
+# Disable Microsoft Store Apps Open Files in Default Desktop App
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Associations") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Associations" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Associations' -Name 'BlockFileElevation' -Value 1 -PropertyType DWord -Force
+
+# Disable Ctrl+Alt+Del login
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'DisableCAD' -Value 1 -PropertyType DWord -Force
+
+# delete taskbar shortcuts
+Remove-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Force -Verbose
+
+# Disable Show Recently Added Apps On Start Menu
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' -Name 'HideRecentlyAddedApps' -Value 1 -PropertyType DWord -Force
+
+# Explorer Policy
+if ((Test-Path -LiteralPath "HKCU:\Software\Policies\Microsoft\Windows\Explorer") -ne $true) { New-Item "HKCU:\Software\Policies\Microsoft\Windows\Explorer" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -Name 'DisableSearchBoxSuggestions' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -Name 'NoPinningStoreToTaskbar' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -Name 'NoPinningToDestinations' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -Name 'DisableThumbsDBOnNetworkFolders' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -Name 'NoUseStoreOpenWith' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -Name 'DisableContextMenusInStart' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -Name 'NoUninstallFromStart' -Value 1 -PropertyType DWord -Force
+
+# unpin Mail app
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband\AuxilliaryPins") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband\AuxilliaryPins" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband\AuxilliaryPins' -Name 'MailPin' -Value 1 -PropertyType DWord -Force
+
+# disable open file warning
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Associations") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Associations" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Associations' -Name 'LowRiskFileTypes' -Value '.zip;.rar;.nfo;.txt;.exe;.bat;.com;.cmd;.reg;.msi;.htm;.html;.gif;.bmp;.jpg;.avi;.mpg;.mpeg;.mov;.mp3;.m3u;.msu;.wav;.bat;.exe;.reg;.vbs;.chm;.msi;.js;.cmd' -PropertyType String -Force
+
+# no shutdown event tracker
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Reliability") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Reliability" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Reliability' -Name 'ShutdownReasonUI' -Value 0 -PropertyType DWord -Force
+
+# DoNotOpenServerManagerAtLogon
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\ServerManager") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\ServerManager" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\ServerManager' -Name 'DoNotOpenServerManagerAtLogon' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\ServerManager' -Name 'DoNotPopWACConsoleAtSMLaunch' -Value 1 -PropertyType DWord -Force
+
+# Edge Policy
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Edge") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'BackgroundModeEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'StartupBoostEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'SleepingTabsEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DefaultBrowserSettingEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'SmartScreenEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'SmartScreenPuaEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'SmartScreenForTrustedDownloadsEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DefaultGeolocationSetting' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'NewTabPageSearchBox' -Value 'redirect' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PasswordManagerEnabled' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ShowHomeButton' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PersonalizationReportingEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PinningWizardAllowed' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'BrowserNetworkTimeQueriesEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'TabFreezingEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AutoplayAllowed' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'UserFeedbackAllowed' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AlwaysOpenPdfExternally' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AutoImportAtFirstRun' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PromotionalTabsEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'FavoritesBarEnabled' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AddressBarMicrosoftSearchInBingProviderEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'HideFirstRunExperience' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ShowMicrosoftRewards' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'BuiltInDnsClientEnabled' -Value 0 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'CreateDesktopShortcut{56EB18F8-B008-4CBD-B6D2-8C97FE7E9062}' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'CreateDesktopShortcut{ 56EB18F8-B008-4CBD-B6D2-8C97FE7E9062 }' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'Update{ 56EB18F8-B008-4CBD-B6D2-8C97FE7E9062 }' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'ProxyMode' -Value 'direct' -PropertyType String -Force
+
+# no upload
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\PerfTrack") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\PerfTrack" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\PerfTrack' -Name 'Disabled' -Value 1 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack' -Name 'DiagTrackAuthorization' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack' -Name 'ConnectivityNoNetworkTime' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack' -Name 'UploadPermissionReceived' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack' -Name 'Disabled' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack' -Name 'DisableAutomaticTelemetryKeywordReporting' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack' -Name 'TelemetryServiceDisabled' -Value 1 -PropertyType DWord -Force
+
+# no lock screen
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization' -Name 'NoLockScreen' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization' -Name 'LockScreenOverlaysDisabled' -Value 1 -PropertyType DWord -Force
+
+# default drag and drop to move only not copy
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\*") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\*" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\*' -Name 'DefaultDropEffect' -Value 2 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\AllFilesystemObjects") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\AllFilesystemObjects" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\AllFilesystemObjects' -Name 'DefaultDropEffect' -Value 2 -PropertyType DWord -Force
+
+# no security centre
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Security Center") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Security Center" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Security Center' -Name 'cval' -Value 0 -PropertyType DWord -Force
+
+# no print for BAT file
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\batfile\shell\print") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\batfile\shell\print" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\batfile\shell\print' -Name 'ProgrammaticAccessOnly' -Value '' -PropertyType String -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\cmdfile\shell\print") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\cmdfile\shell\print" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\cmdfile\shell\print' -Name 'ProgrammaticAccessOnly' -Value '' -PropertyType String -Force
+
+# Remove Meet Now
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies' -Name 'HideSCAMeetNow' -Value 1 -PropertyType DWord -Force
+
+# no Maintenance task start
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance") -ne $true) { New-Item "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance' -Name 'WakeUp' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance' -Name 'MaintenanceDisabled' -Value 1 -PropertyType DWord -Force
+
+# By default, MMCSS will leave 20% of your CPU power for other things besides your multimedia task
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile' -Name 'SystemResponsiveness' -Value 0 -PropertyType DWord -Force
+
+# IP policies for NICs
+Get-NetAdapter -IncludeHidden | Set-NetIPInterface -WeakHostSend Enabled -WeakHostReceive Enabled -RetransmitTimeMs 0 -Forwarding Disabled -EcnMarking Disabled -AdvertiseDefaultRoute Disabled
+
+# Disabling Net Adapter QoS
+Disable-NetAdapterQos -Name '*'
+# Disabling Net Adapter Power Management...
+$Adapters = Get-NetAdapter -Physical | Get-NetAdapterPowerManagement | Where-Object -FilterScript { $_.AllowComputerToTurnOffDevice -ne "Unsupported" }
+foreach ($Adapter in $Adapters) {
+    $Adapter.AllowComputerToTurnOffDevice = "Disabled"
+    $Adapter | Set-NetAdapterPowerManagement
+}
+# Enabling Net Adapter Checksum Offload...
+Enable-NetAdapterChecksumOffload -Name '*'
+# Disabling Net Adapter Encapsulated Packet Task Offload...
+Disable-NetAdapterEncapsulatedPacketTaskOffload -Name '*'
+# Enabling Net Adapter IPsec Offload...
+Enable-NetAdapterIPsecOffload -Name '*'
+# Disabling Net Adapter Large Send Offload...
+Disable-NetAdapterLso -Name '*'
+# Enabling Net Adapter Packet Direct...
+Enable-NetAdapterPacketDirect -Name '*'
+# Disabling Net Adapter Receive Side Coalescing...
+Disable-NetAdapterRsc -Name '*'
+# Enabling Net Adapter Receive Side Scaling...
+Enable-NetAdapterRss -Name '*'
+
+# disable network protocal
+# Get-NetAdapterBinding -IncludeHidden -AllBindings
+Get-NetAdapterBinding -Name "*" | Where-Object { $_.ComponentID -ne 'ms_tcpip' } | ForEach-Object { Disable-NetAdapterBinding -Name $_.Name -ComponentID $_.ComponentID }
+Enable-NetAdapterBinding -Name "*" -ComponentID ms_tcpip6
+
+# Disable Nagle's Algorithm
+$strGUIDS = [array](Get-WmiObject win32_networkadapter | Select-Object -expand GUID)
+foreach ($strGUID in $strGUIDS) { New-ItemProperty -path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -propertytype DWORD -name TcpAckFrequency -value 1 -Force }
+foreach ($strGUID in $strGUIDS) { New-ItemProperty -path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -propertytype DWORD -name TCPNoDelay -value 1 -Force }
+
+# Disable Memory Compression
+Disable-MMAgent -MemoryCompression -ApplicationPreLaunch
+
+# Set Network to Private
+Set-NetConnectionProfile -NetworkCategory Private
+
+# Disable all WAN miniport driver
+Get-PnpDevice -FriendlyName "WAN Miniport (SSTP)" | Disable-PnpDevice -Confirm:$false
+Get-PnpDevice -FriendlyName "Microsoft Kernel Debug Network Adapter" | Disable-PnpDevice -Confirm:$false
+Get-PnpDevice -FriendlyName "Microsoft Wi-Fi Direct Virtual Adapter" | Disable-PnpDevice -Confirm:$false
+
+# no power saving for USB devices
+$devicesUSB = Get-PnpDevice | Where-Object { $_.InstanceId -like "*USB\ROOT*" }  | 
+ForEach-Object -Process {
+    Get-CimInstance -ClassName MSPower_DeviceEnable -Namespace root\wmi 
+}
+foreach ( $device in $devicesUSB ) {
+    Set-CimInstance -Namespace root\wmi -Query "SELECT * FROM MSPower_DeviceEnable WHERE InstanceName LIKE '%$($device.PNPDeviceID)%'" -Property @{Enable = $False } -PassThru
+}
+
 # BCDEDIT Boot Tweaks
 cmd.exe /c "bcdedit /timeout 0"
 cmd.exe /c "bcdedit /set advancedoptions no"
@@ -2389,6 +2510,10 @@ cmd.exe /c "bcdedit /set vsmlaunchtype Off"
 cmd.exe /c "bcdedit /set vm No"
 cmd.exe /c "bcdedit /set isolatedcontext no"
 cmd.exe /c "bcdedit /set allowedinmemorysettings 0x0"
+cmd.exe /c "bcdedit /set useplatformclock No"
+cmd.exe /c "bcdedit /set useplatformtick No"
+cmd.exe /c "bcdedit /set tscsyncpolicy Enhanced"
+cmd.exe /c "bcdedit /set disabledynamictick Yes"
 
 # Apply Best File System Tweaks
 cmd.exe /c "fsutil behavior set disable8dot3 1"
@@ -2396,13 +2521,6 @@ cmd.exe /c "fsutil behavior set disableencryption 1"
 cmd.exe /c "fsutil behavior set disablelastaccess 1"
 cmd.exe /c "fsutil behavior set EncryptPagingFile 0"
 cmd.exe /c "fsutil behavior set symlinkEvaluation L2R:0 R2R:0 R2L:0"
-
-# Disable Uncessary System Devices
-Get-PnpDevice | Where-Object { $_.FriendlyName -match 'Microsoft Kernel Debug Network Adapter' } | Disable-PnpDevice -Confirm:$false
-Get-PnpDevice | Where-Object { $_.FriendlyName -match 'Microsoft Wi-Fi Direct Virtual Adapter' } | Disable-PnpDevice -Confirm:$false
-
-# Set Network to Private
-Set-NetConnectionProfile -NetworkCategory Private
 
 # Netsh
 cmd.exe /c "netsh int tcp set supplemental template=internet"
@@ -2419,7 +2537,7 @@ cmd.exe /c "netsh int tcp set global hystart=disable"
 cmd.exe /c "netsh int tcp set global pacingprofile=off"
 cmd.exe /c "netsh int ip set global minmtu=576"
 cmd.exe /c "netsh int ip set global flowlabel=disable"
-cmd.exe /c "netsh int tcp set supplemental internet congestionprovider=bbr2"
+cmd.exe /c "netsh int tcp set supplemental internet congestionprovider=dctcp"
 cmd.exe /c "netsh int tcp set supplemental internet enablecwndrestart=disable"
 cmd.exe /c "netsh int ip set global icmpredirects=disabled"
 cmd.exe /c "netsh int ip set global multicastforwarding=disabled"
@@ -2465,3 +2583,22 @@ cmd.exe /c "fsutil usn deletejournal /d /n c:"
 
 # Disable hibernation
 cmd.exe /c "POWERCFG /HIBERNATE OFF"
+
+# Setting up 6to4 tunneling...
+Set-Net6to4Configuration -State Enabled -AutoSharing Enabled -RelayState Enabled -RelayName '6to4.ipv6.microsoft.com'
+cmd.exe /c "netsh int 6to4 set state state=enabled undoonstop=disabled"
+cmd.exe /c "netsh int 6to4 set routing routing=enabled sitelocals=enabled"
+
+# Enable Teredo and 6to4 (Xbox LIVE fix)
+Set-NetTeredoConfiguration -Type natawareclient
+cmd.exe /c "netsh int teredo set state natawareclient"
+cmd.exe /c "netsh int 6to4 set state state=enabled"
+cmd.exe /c "netsh int teredo set state servername=win1910.ipv6.microsoft.com"
+
+# Enable TRIM support for NTFS and ReFS file systems for SSD drives
+cmd.exe /c "fsutil behavior set disabledeletenotify 0"
+cmd.exe /c "FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY NTFS 0"
+cmd.exe /c "FSUTIL BEHAVIOR SET DISABLEDELETENOTIFY REFS 0"
+
+# Disable Microsoft Virtual WiFi Miniport Adapter is a virtual adaptor for sharing your internet connection (ie. making a wifi hotspot, or 'hosted network')
+cmd.exe /c "netsh wlan set hostednetwork mode=disallow"
