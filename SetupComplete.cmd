@@ -52,9 +52,6 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassosetup64.exe /S /keyfile=
 rem time sync
 start /wait C:\PROGRA~1\UpdateTime\UpdateTime_x64.exe /SI
 
-rem Nvidia Driver
-start /wait %WINDIR%\Setup\Scripts\nvidia\setup.exe /s
-
 rem remove Edge
 "C:\Program Files (x86)\Microsoft\Edge\Application\92.0.902.67\Installer\setup.exe" --uninstall --system-level --verbose-logging --force-uninstall --delete-profile
 
