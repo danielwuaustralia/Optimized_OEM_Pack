@@ -2515,6 +2515,9 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Na
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\EdgeUpdateDev\CdpNames' -Name 'msedgewebview-stable-win-x64' -Value 'msedge-internal-win-x64' -PropertyType String -Force -ea SilentlyContinue;
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\EdgeUpdateDev\CdpNames' -Name 'msedgewebview-stable-win-x64' -Value 'msedge-internal-win-x64' -PropertyType String -Force -ea SilentlyContinue;
 
+# 关闭启用安全中心的通知
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ShellServiceObjects\{F56F6FDD-AA9D-4618-A949-C1B91AF43B1A}" -force
+
 # no power saving for USB devices
 $devicesUSB = Get-PnpDevice | Where-Object { $_.InstanceId -like "*USB\ROOT*" }  | 
 ForEach-Object -Process {
