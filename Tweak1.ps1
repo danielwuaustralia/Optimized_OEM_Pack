@@ -1,12 +1,11 @@
-# Enable script logging.
-# To stop logging just close the console or type "Stop-Transcript"
+# 记录到c:\Tweak1Log.txt
 Start-Transcript -Path c:\Tweak1Log.txt -Force
 
 # Assign the default preferences to their own variables so we can restore then once the function completes.
 $ErrorActionPreference = 'SilentlyContinue'
 $ProgressPreference = 'SilentlyContinue'
 
-# Set the PowerShell Execution Policy to Unrestricted.
+# 更新powershell安全设置
 Set-ItemProperty -path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell" EnableScripts 1 -Force
 if ((Test-Path -LiteralPath "HKCU:\Software\Policies\Microsoft\Windows\PowerShell") -ne $true) { New-Item "HKCU:\Software\Policies\Microsoft\Windows\PowerShell" -force }
 New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\PowerShell' -Name 'ExecutionPolicy' -Value 'Unrestricted' -PropertyType String -Force
