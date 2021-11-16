@@ -5,32 +5,27 @@
         <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <RunSynchronous>
                 <RunSynchronousCommand wcm:action="add">
-                    <Path>"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -noprofile -Command "Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine"</Path>
-                    <Order>1</Order>
-                    <Description>PowerShell Execution Policy</Description>
-                </RunSynchronousCommand>
-                <RunSynchronousCommand wcm:action="add">
                     <Path>reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OOBE /v UnattendCreatedUser /t REG-DWORD /d 1 /f</Path>
-                    <Order>2</Order>
+                    <Order>1</Order>
                     <Description>Disable create user</Description>
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
                     <Path>net /user administrator /active:yes</Path>
-                    <Order>3</Order>
+                    <Order>2</Order>
                     <Description>EnableAdmin</Description>
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
                     <Path>net /user administrator_ploc /active:yes</Path>
-                    <Order>4</Order>
+                    <Order>3</Order>
                     <Description>EnableAdmin</Description>
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
-                    <Order>5</Order>
+                    <Order>4</Order>
                     <Path>reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableFirstLogonAnimation /t REG_DWORD /d 0 /f</Path>
                     <Description>Disable First Logon Animation</Description>
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
-                    <Order>6</Order>
+                    <Order>5</Order>
                     <Path>C:\Windows\Setup\Scripts\RemoveAppx.cmd</Path>
                     <Description>Uninstall Apps</Description>
                 </RunSynchronousCommand>
@@ -97,38 +92,26 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>1</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\Windows\SysWOW64\PowerRun_x64.exe "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Tweak1.ps1"</CommandLine>
-                    <Description>Powershell Tweak</Description>
+                    <CommandLine>C:\Windows\Setup\Scripts\CMDTweak.cmd</CommandLine>
+                    <Description>CMD Tweak</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>2</Order>
+                    <RequiresUserInput>false</RequiresUserInput>
+                    <CommandLine>"C:\Windows\SysWOW64\NsudoLG.exe" -U:T -P:E -Wait "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Tweak1.ps1"</CommandLine>
+                    <Description>Powershell Tweak</Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>3</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Tweak2.ps1"</CommandLine>
                     <Description>Powershell Tweak</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <Order>3</Order>
+                    <Order>4</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                     <CommandLine>C:\Windows\Setup\Scripts\SOFTWARE\0AAFOptimusAudioPack9231.exe</CommandLine>
                     <Description>Audio Driver</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>4</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>C:\Windows\Setup\Scripts\Acrobat\autoplay.exe</CommandLine>
-                    <Description>Acrobat</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>5</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>C:\Windows\Setup\Scripts\Acrobat\Crack\Keygen\Acrobat_Keygen.exe</CommandLine>
-                    <Description>Acrobat Crack</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>6</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>"C:\Program Files\SysinternalsSuite\Autoruns64.exe"</CommandLine>
-                    <Description>Acrobat Crack</Description>
                 </SynchronousCommand>
             </FirstLogonCommands>
             <UserAccounts>
