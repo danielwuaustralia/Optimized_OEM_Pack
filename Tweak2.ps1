@@ -1487,6 +1487,11 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCol
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting' -Name 'Disabled' -Value 1 -PropertyType DWord -Force
 
+# Remove Background Tasks
+Remove-Item "HKCR:\Extensions\Extensions\ContractId\Windows.BackgroundTasks\PackageId\Microsoft.XboxSpeechToTextOverlay_1.17.29001.0_x64__8wekyb3d8bbwe" -Recurse -Force
+Remove-Item "HKCR:\Extensions\ContractId\Windows.Launch\PackageId\Microsoft.XboxSpeechToTextOverlay_1.17.29001.0_x64__8wekyb3d8bbwe" -Recurse -Force
+Remove-Item "HKCR:\Extensions\ContractId\Windows.Protocol\PackageId\Microsoft.XboxSpeechToTextOverlay_1.17.29001.0_x64__8wekyb3d8bbwe" -Recurse -Force
+
 # SmartScreen
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\System' -Name 'EnableSmartScreen' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter" -force };
@@ -1537,7 +1542,7 @@ New-ItemProperty -Path HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer -Name 
 # Show the "This PC" icon on Desktop
 if (-not (Test-Path -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel))
 { New-Item -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel -Force }
-New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel -Name "{20D04FE0-3AEA-1069-A2D8-08002B30309D}" -PropertyType DWord -Value 0 -Force
+New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel -Name "{ 20D04FE0-3AEA-1069-A2D8-08002B30309D }" -PropertyType DWord -Value 0 -Force
 
 # Advanced Explorer Policy
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -force };
@@ -1559,6 +1564,7 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\E
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'SeparateProcess' -Value 1 -PropertyType DWord -Force
 # Do not use item check boxes
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'AutoCheckSelect' -Value 0 -PropertyType DWord -Force
+# Turn_on_thumbnail_previews
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'IconsOnly' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ShowTypeOverlay' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ShowStatusBar' -Value 1 -PropertyType DWord -Force
@@ -1711,9 +1717,9 @@ New-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\.NETFramework -Name OnlyUseLates
 New-ItemProperty -Path HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NETFramework -Name OnlyUseLatestCLR -PropertyType DWord -Value 1 -Force
 
 # Disable help lookup via F1
-if (-not (Test-Path -Path "HKCU:\SOFTWARE\Classes\Typelib\{8cec5860-07a1-11d9-b15e-000d56bfe6ee}\1.0\0\win64"))
-{ New-Item -Path "HKCU:\SOFTWARE\Classes\Typelib\{8cec5860-07a1-11d9-b15e-000d56bfe6ee}\1.0\0\win64" -Force }
-New-ItemProperty -Path "HKCU:\SOFTWARE\Classes\Typelib\{8cec5860-07a1-11d9-b15e-000d56bfe6ee}\1.0\0\win64" -Name "(default)" -PropertyType String -Value "" -Force
+if (-not (Test-Path -Path "HKCU:\SOFTWARE\Classes\Typelib\{ 8cec5860-07a1-11d9-b15e-000d56bfe6ee }\1.0\0\win64"))
+{ New-Item -Path "HKCU:\SOFTWARE\Classes\Typelib\{ 8cec5860-07a1-11d9-b15e-000d56bfe6ee }\1.0\0\win64" -Force }
+New-ItemProperty -Path "HKCU:\SOFTWARE\Classes\Typelib\{ 8cec5860-07a1-11d9-b15e-000d56bfe6ee }\1.0\0\win64" -Name "(default)" -PropertyType String -Value "" -Force
 
 # Enable Num Lock at startup
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Keyboard' -Name 'InitialKeyboardIndicators' -Value '80000007' -PropertyType String -Force
@@ -1767,7 +1773,7 @@ if (-not (Test-Path -Path HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\S
 New-ItemProperty -Path HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging -Name EnableScriptBlockLogging -PropertyType DWord -Value 1 -Force
 
 # Removing Windows Defender context menu item
-Set-Item "HKLM:\SOFTWARE\Classes\CLSID\{09A47860-11B0-4DA5-AFA5-26D86198A780}\InprocServer32" "" -Force
+Set-Item "HKLM:\SOFTWARE\Classes\CLSID\{ 09A47860-11B0-4DA5-AFA5-26D86198A780 }\InprocServer32" "" -Force
 
 # Hide the "Run as different user" item from the .exe filename extensions context menu
 New-ItemProperty -Path Registry::HKEY_CLASSES_ROOT\exefile\shell\runasuser -Name Extended -PropertyType String -Value "" -Force
@@ -1775,7 +1781,7 @@ New-ItemProperty -Path Registry::HKEY_CLASSES_ROOT\exefile\shell\runasuser -Name
 # Hide the "Cast to Device" item from the media files and folders context menu
 if (-not (Test-Path -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked"))
 { New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" -Force }
-New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" -Name "{7AD84985-87B4-4a16-BE58-8B72A5B390F7}" -PropertyType String -Value "Play to menu" -Force
+New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" -Name " { 7AD84985-87B4-4a16-BE58-8B72A5B390F7 }" -PropertyType String -Value "Play to menu" -Force
 
 # Hide the "Share" item from the context menu
 Remove-Item -Path "Registry::HKEY_CLASSES_ROOT\AllFilesystemObjects\shellex\ContextMenuHandlers\ModernSharing" -Recurse -Force
@@ -1791,7 +1797,7 @@ New-ItemProperty -Path "Registry::HKEY_CLASSES_ROOT\batfile\shell\print" -Name "
 New-ItemProperty -Path "Registry::HKEY_CLASSES_ROOT\cmdfile\shell\print" -Name "ProgrammaticAccessOnly" -PropertyType String -Value "" -Force
 
 # Hide the "Include in Library" item from the folders and drives context menu
-New-ItemProperty -Path "Registry::HKEY_CLASSES_ROOT\Folder\ShellEx\ContextMenuHandlers\Library Location" -Name "(default)" -PropertyType String -Value "-{3dad6c5d-2167-4cae-9914-f99e41c12cfa}" -Force
+New-ItemProperty -Path "Registry::HKEY_CLASSES_ROOT\Folder\ShellEx\ContextMenuHandlers\Library Location" -Name "(default)" -PropertyType String -Value "- { 3dad6c5d-2167-4cae-9914-f99e41c12cfa }" -Force
 
 # Hide the "Send to" item from the folders context menu
 New-ItemProperty -Path "Registry::HKEY_CLASSES_ROOT\AllFilesystemObjects\shellex\ContextMenuHandlers\SendTo" -Name "(default)" -PropertyType String -Value "- { 7BA4C740-9E81-11CF-99D3-00AA004AE837 }" -Force
@@ -1885,7 +1891,6 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Multimedia\Audio' -Name 
 Rename-Computer -NewName 'Alienware'
 
 # Disable Firewall
-cmd.exe /c "Netsh advfirewall set allprofile state off"
 If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile")) { New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile" -Force }
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile" -Name "EnableFirewall" -Type DWord -Value 0 -Force
 
@@ -2052,17 +2057,17 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Control
 New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Control Panel\Desktop' -Name 'MonitorRemovalRecalcBehavior' -Value '0' -PropertyType String -Force
 
 # Remove Extract All Right Click Menu
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CompressedFolder\ShellEx\ContextMenuHandlers\{b8cdcb65-b1bf-4b42-9428-1dfdb7ee92af}" -force
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CompressedFolder\ShellEx\ContextMenuHandlers\{ b8cdcb65-b1bf-4b42-9428-1dfdb7ee92af }" -force
 
 # remove previous version from file menu
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\AllFilesystemObjects\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{450D8FBA-AD25-11D0-98A8-0800361B1103}\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\AllFilesystemObjects\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{450D8FBA-AD25-11D0-98A8-0800361B1103}\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\AllFilesystemObjects\shellex\PropertySheetHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" -force
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\ { 450D8FBA-AD25-11D0-98A8-0800361B1103 }\shellex\PropertySheetHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" -force
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\shellex\PropertySheetHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" -force
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shellex\PropertySheetHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" -force
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\AllFilesystemObjects\shellex\ContextMenuHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" -force
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\ { 450D8FBA-AD25-11D0-98A8-0800361B1103 }\shellex\ContextMenuHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" -force
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\shellex\ContextMenuHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" -force
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shellex\ContextMenuHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" -force
 
 # no troubleshooting context menu
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\DesktopBackground\Shell\Troubleshooters" -force
@@ -2149,7 +2154,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\System'
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager' -Name 'ProtectionMode' -Value 0 -PropertyType DWord -Force
 
 # Microsoft PinYin
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' -Name 'PinYin' -Value '\"C:\Windows\System32\ctfmon.exe\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' -Name 'PinYin' -Value 'C:\Windows\System32\ctfmon.exe' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\InputMethod\CandidateWindow\CHS\1' -Name 'EnableFixedCandidateCountMode' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\InputMethod\CandidateWindow\CHS\1' -Name 'FontStyleTSF3' -Value '20.00pt; Regular; ; Microsoft YaHei UI' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\InputMethod\CandidateWindow\CHS\1' -Name 'MaxCandidates' -Value 9 -PropertyType DWord -Force
@@ -2235,7 +2240,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\P
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'InactivityTimeoutSecs' -Value 5871936 -PropertyType DWord -Force
 
 # Win 11 - Restore Win10 Right Click Menu
-if ((Test-Path -LiteralPath "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32") -ne $true) { New-Item "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" -force };
+if ((Test-Path -LiteralPath "HKCU:\Software\Classes\CLSID\{ 86ca1aa0-34aa-4e8b-a509-50c905bae2a2 }\InprocServer32") -ne $true) { New-Item "HKCU:\Software\Classes\CLSID\ { 86ca1aa0-34aa-4e8b-a509-50c905bae2a2 }\InprocServer32" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32' -Name '(default)' -Value '””' -PropertyType String -Force
 
 # visual
@@ -2447,14 +2452,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\kbdclass\
 # IP policies for NICs
 Get-NetAdapter -IncludeHidden | Set-NetIPInterface -WeakHostSend Enabled -WeakHostReceive Enabled -RetransmitTimeMs 0 -Forwarding Disabled -EcnMarking Disabled -AdvertiseDefaultRoute Disabled
 
-# Disabling Net Adapter QoS
-Disable-NetAdapterQos -Name '*'
-# Disabling Net Adapter Power Management...
-$Adapters = Get-NetAdapter -Physical | Get-NetAdapterPowerManagement | Where-Object -FilterScript { $_.AllowComputerToTurnOffDevice -ne "Unsupported" }
-foreach ($Adapter in $Adapters) {
-    $Adapter.AllowComputerToTurnOffDevice = "Disabled"
-    $Adapter | Set-NetAdapterPowerManagement
-}
 # Enabling Net Adapter Checksum Offload...
 Enable-NetAdapterChecksumOffload -Name '*'
 # Disabling Net Adapter Encapsulated Packet Task Offload...
@@ -2470,16 +2467,6 @@ Disable-NetAdapterRsc -Name '*'
 # Enabling Net Adapter Receive Side Scaling...
 Enable-NetAdapterRss -Name '*'
 
-# disable network protocal
-# Get-NetAdapterBinding -IncludeHidden -AllBindings
-Get-NetAdapterBinding -Name "*" | Where-Object { $_.ComponentID -ne 'ms_tcpip' } | ForEach-Object { Disable-NetAdapterBinding -Name $_.Name -ComponentID $_.ComponentID }
-Enable-NetAdapterBinding -Name "*" -ComponentID ms_tcpip6
-
-# Disable Nagle's Algorithm
-$strGUIDS = [array](Get-WmiObject win32_networkadapter | Select-Object -expand GUID)
-foreach ($strGUID in $strGUIDS) { New-ItemProperty -path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -propertytype DWORD -name TcpAckFrequency -value 1 -Force }
-foreach ($strGUID in $strGUIDS) { New-ItemProperty -path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -propertytype DWORD -name TCPNoDelay -value 1 -Force }
-
 # Disable Memory Compression
 Disable-MMAgent -MemoryCompression -ApplicationPreLaunch -Verbose
 
@@ -2487,9 +2474,9 @@ Disable-MMAgent -MemoryCompression -ApplicationPreLaunch -Verbose
 Set-NetConnectionProfile -NetworkCategory Private -Verbose
 
 # Disable all WAN miniport driver
-Get-PnpDevice -FriendlyName "WAN Miniport (SSTP)" | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -FriendlyName "Microsoft Kernel Debug Network Adapter" | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -FriendlyName "Microsoft Wi-Fi Direct Virtual Adapter" | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -FriendlyName 'WAN Miniport (SSTP)' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -FriendlyName 'Microsoft Kernel Debug Network Adapter' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -FriendlyName 'Microsoft Wi-Fi Direct Virtual Adapter' | Disable-PnpDevice -Confirm:$false -Verbose
 
 # Windows 10 implements parallel loading by creating a thread pool of worker threads when the process initializes. MaxLoaderThreads set to 1 to disable parallel loading.
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\svchost.exe") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\svchost.exe" -force };
@@ -2540,6 +2527,24 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\E
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer' -Name 'PageSpaceControlSizer' -Value 'hex(3):A0,00,00,00,00,00,00,00,00,00,00,00,70,0D,00,00' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer' -Name 'DetailsContainerSizer' -Value 'hex(3):15,01,00,00,01,00,00,00,00,00,00,00,CD,0C,00,00' -PropertyType String -Force
 
+# 关闭启用安全中心的通知
+Remove-Item -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\CloudStore" -Recurse -Force
+
+# Stopping the Windows Feedback Experience program
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Siuf\Rules") -ne $true) { New-Item "HKCU:\Software\Microsoft\Siuf\Rules" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Siuf\Rules' -Name 'PeriodInNanoSeconds' -Value 0 -PropertyType DWord -Force
+
+# disable network protocal
+# Get-NetAdapterBinding -IncludeHidden -AllBindings
+Get-NetAdapterBinding -Name "*" | Where-Object { $_.ComponentID -ne 'ms_tcpip' } | ForEach-Object { Disable-NetAdapterBinding -Name $_.Name -ComponentID $_.ComponentID }
+Enable-NetAdapterBinding -Name "*" -ComponentID ms_tcpip6
+
+# Setting up 6to4 tunneling...
+Set-Net6to4Configuration -State Enabled -AutoSharing Enabled -RelayState Enabled -RelayName '6to4.ipv6.microsoft.com'
+
+# Enable Teredo and 6to4 (Xbox LIVE fix)
+Set-NetTeredoConfiguration -Type natawareclient
+
 # no power saving for USB devices
 $devicesUSB = Get-PnpDevice | Where-Object { $_.InstanceId -like "*USB\ROOT*" }  | 
 ForEach-Object -Process {
@@ -2549,103 +2554,16 @@ foreach ( $device in $devicesUSB ) {
     Set-CimInstance -Namespace root\wmi -Query "SELECT * FROM MSPower_DeviceEnable WHERE InstanceName LIKE '%$($device.PNPDeviceID)%'" -Property @{Enable = $False } -PassThru
 }
 
-# BCDEDIT Boot Tweaks
-cmd.exe /c "bcdedit /timeout 0"
-cmd.exe /c "bcdedit /set advancedoptions no"
-cmd.exe /c "bcdedit /set bootems no"
-cmd.exe /c "bcdedit /set testsigning no"
-cmd.exe /c "bcdedit /set disableelamdrivers yes"
-cmd.exe /c "bcdedit /set bootmenupolicy Legacy"
-cmd.exe /c "bcdedit /set hypervisorlaunchtype off"
-cmd.exe /c "bcdedit /set vsmlaunchtype Off"
-cmd.exe /c "bcdedit /set vm No"
-cmd.exe /c "bcdedit /set isolatedcontext no"
-cmd.exe /c "bcdedit /set allowedinmemorysettings 0x0"
-cmd.exe /c "bcdedit /set disabledynamictick Yes"
+# Disable Nagle's Algorithm
+$strGUIDS = [array](Get-WmiObject win32_networkadapter | Select-Object -expand GUID)
+foreach ($strGUID in $strGUIDS) { New-ItemProperty -path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -propertytype DWORD -name TcpAckFrequency -value 1 -Force }
+foreach ($strGUID in $strGUIDS) { New-ItemProperty -path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -propertytype DWORD -name TCPNoDelay -value 1 -Force }
 
-# Apply Best File System Tweaks
-cmd.exe /c "fsutil behavior set disable8dot3 1"
-cmd.exe /c "fsutil behavior set disableencryption 1"
-cmd.exe /c "fsutil behavior set disablelastaccess 1"
-cmd.exe /c "fsutil behavior set EncryptPagingFile 0"
-cmd.exe /c "fsutil behavior set symlinkEvaluation L2R:0 R2R:0 R2L:0"
-
-# Netsh
-cmd.exe /c "netsh int tcp set supplemental template=internet"
-# Enabling URO
-cmd.exe /c "netsh int udp set global uro=enabled"
-cmd.exe /c "netsh int tcp set global rss=enable"
-cmd.exe /c "netsh int tcp set global autotuninglevel=experimental"
-cmd.exe /c "netsh int tcp set global ecncapability=disable"
-cmd.exe /c "netsh int tcp set global timestamps=enable"
-cmd.exe /c "netsh int tcp set global initialrto=300"
-cmd.exe /c "netsh int tcp set global rsc=disable"
-cmd.exe /c "netsh int tcp set global fastopen=enable"
-cmd.exe /c "netsh int tcp set global hystart=disable"
-cmd.exe /c "netsh int tcp set global pacingprofile=off"
-cmd.exe /c "netsh int ip set global minmtu=576"
-cmd.exe /c "netsh int ip set global flowlabel=disable"
-cmd.exe /c "netsh int tcp set supplemental internet congestionprovider=dctcp"
-cmd.exe /c "netsh int tcp set supplemental internet enablecwndrestart=disable"
-cmd.exe /c "netsh int ip set global icmpredirects=disabled"
-cmd.exe /c "netsh int ip set global multicastforwarding=disabled"
-cmd.exe /c "netsh int ip set global groupforwardedfragments=disable"
-cmd.exe /c "netsh int tcp set security mpp=disabled profiles=disabled"
-cmd.exe /c "netsh int tcp set heur forcews=disable"
-
-# Enable Winsock Send Autotuning (dynamic send-buffer)
-cmd.exe /c "netsh winsock set autotuning on"
-
-# Disable Windows File Compression
-cmd.exe /c "compact /CompactOs:never"
-
-# Allows (1) or disallows (0) characters from the extended character set (including diacritic characters) to be used in 8.3 character-length short file names on NTFS volumes
-cmd.exe /c "fsutil behavior set allowextchar 1"
-
-# Allows (1) or disallows (0) generation of a bug check when there is corruption on an NTFS volume. This feature can be used to prevent NTFS from silently deleting data when used with the Self-Healing NTFS feature
-cmd.exe /c "fsutil behavior set Bugcheckoncorrupt 0"
-
-# Disables (1) or enables (0) NTFS compression
-cmd.exe /c "fsutil behavior set disablecompression 1"
-cmd.exe /c "cipher /d /s:C:\"
-
-# Disables (1) or enables (0) updates to the Last Access Time stamp on each directory when directories are listed on an NTFS volume
-cmd.exe /c "fsutil behavior set DisableLastAccess 1"
-
-# Encrypts (1) or doesn't encrypt (0) the memory paging file in the Windows operating system
-cmd.exe /c "fsutil behavior set encryptpagingfile 0"
-
-# Configures the internal cache levels of NTFS paged-pool memory and NTFS nonpaged-pool memory. Set to 1 or 2. When set to 1 (the default), NTFS uses the default amount of paged-pool memory. When set to 2, NTFS increases the size of its lookaside lists and memory thresholds. (A lookaside list is a pool of fixed-size memory buffers that the kernel and device drivers create as private memory caches for file system operations, such as reading a file.)
-cmd.exe /c "fsutil behavior set memoryusage 2"
-
-# Sets the size of the MFT Zone, and is expressed as a multiple of 200MB units. Set value to a number from 1 (default is 200 MB) to 4 (maximum is 800 MB)
-cmd.exe /c "fsutil behavior set mftzone 2"
-
-# Transactional Resource Manager
-cmd.exe /c "fsutil resource setavailable c:"
-cmd.exe /c "fsutil resource setlog shrink 10 C:\"
-cmd.exe /c "fsutil resource setavailable d:"
-cmd.exe /c "fsutil resource setlog shrink 10 D:\"
-cmd.exe /c "fsutil resource setautoreset true c:\"
-cmd.exe /c "fsutil usn deletejournal /d /n c:"
-cmd.exe /c "fsutil usn deletejournal /d /n d:"
-
-# Disable hibernation
-cmd.exe /c "POWERCFG /HIBERNATE OFF"
-
-# Setting up 6to4 tunneling...
-Set-Net6to4Configuration -State Enabled -AutoSharing Enabled -RelayState Enabled -RelayName '6to4.ipv6.microsoft.com'
-cmd.exe /c "netsh int 6to4 set state state=enabled undoonstop=disabled"
-cmd.exe /c "netsh int 6to4 set routing routing=enabled sitelocals=enabled"
-
-# Enable Teredo and 6to4 (Xbox LIVE fix)
-Set-NetTeredoConfiguration -Type natawareclient
-cmd.exe /c "netsh int teredo set state natawareclient"
-cmd.exe /c "netsh int 6to4 set state state=enabled"
-cmd.exe /c "netsh int teredo set state servername=win1910.ipv6.microsoft.com"
-
-# Enable TRIM support
-cmd.exe /c "fsutil behavior set disabledeletenotify 0"
-
-# Disable Microsoft Virtual WiFi Miniport Adapter is a virtual adaptor for sharing your internet connection (ie. making a wifi hotspot, or 'hosted network')
-cmd.exe /c "netsh wlan set hostednetwork mode=disallow"
+# Disabling Net Adapter QoS
+Disable-NetAdapterQos -Name '*'
+# Disabling Net Adapter Power Management...
+$Adapters = Get-NetAdapter -Physical | Get-NetAdapterPowerManagement | Where-Object -FilterScript { $_.AllowComputerToTurnOffDevice -ne "Unsupported" }
+foreach ($Adapter in $Adapters) {
+    $Adapter.AllowComputerToTurnOffDevice = "Disabled"
+    $Adapter | Set-NetAdapterPowerManagement
+}
