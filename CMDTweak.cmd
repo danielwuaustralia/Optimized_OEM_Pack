@@ -1,0 +1,104 @@
+@echo off
+
+rem Disable Firewall
+Netsh advfirewall set allprofile state off
+
+rem Setting up 6to4 tunneling...
+netsh int 6to4 set state state=enabled undoonstop=disabled
+netsh int 6to4 set routing routing=enabled sitelocals=enabled
+
+rem Enable Teredo and 6to4 (Xbox LIVE fix)
+netsh int teredo set state natawareclient
+netsh int 6to4 set state state=enabled
+netsh int teredo set state servername=win1910.ipv6.microsoft.com
+
+rem BCDEDIT Boot Tweaks
+bcdedit /timeout 0
+bcdedit /set advancedoptions no
+bcdedit /set bootems no
+bcdedit /set testsigning no
+bcdedit /set disableelamdrivers yes
+bcdedit /set bootmenupolicy Legacy
+bcdedit /set hypervisorlaunchtype off
+bcdedit /set vsmlaunchtype Off
+bcdedit /set vm No
+bcdedit /set isolatedcontext no
+bcdedit /set allowedinmemorysettings 0x0
+bcdedit /set disabledynamictick Yes
+bcdedit /set bootlog Yes
+
+rem Apply Best File System Tweaks
+fsutil behavior set disable8dot3 1
+fsutil behavior set disableencryption 1
+fsutil behavior set disablelastaccess 1
+fsutil behavior set EncryptPagingFile 0
+fsutil behavior set symlinkEvaluation L2R:0 R2R:0 R2L:0
+
+rem Netsh
+netsh int tcp set supplemental template=internet
+rem Enabling URO
+netsh int udp set global uro=enabled
+netsh int tcp set global rss=enable
+netsh int tcp set global autotuninglevel=experimental
+netsh int tcp set global ecncapability=disable
+netsh int tcp set global timestamps=enable
+netsh int tcp set global initialrto=300
+netsh int tcp set global rsc=disable
+netsh int tcp set global fastopen=enable
+netsh int tcp set global hystart=disable
+netsh int tcp set global pacingprofile=off
+netsh int ip set global minmtu=576
+netsh int ip set global flowlabel=disable
+netsh int tcp set supplemental internet congestionprovider=dctcp
+netsh int tcp set supplemental internet enablecwndrestart=disable
+netsh int ip set global icmpredirects=disabled
+netsh int ip set global multicastforwarding=disabled
+netsh int ip set global groupforwardedfragments=disable
+netsh int tcp set security mpp=disabled profiles=disabled
+netsh int tcp set heur forcews=disable
+
+rem Enable Winsock Send Autotuning (dynamic send-buffer)
+netsh winsock set autotuning on
+
+rem Disable Windows File Compression
+compact /CompactOs:never
+
+rem Allows (1) or disallows (0) characters from the extended character set (including diacritic characters) to be used in 8.3 character-length short file names on NTFS volumes
+fsutil behavior set allowextchar 1
+
+rem Allows (1) or disallows (0) generation of a bug check when there is corruption on an NTFS volume. This feature can be used to prevent NTFS from silently deleting data when used with the Self-Healing NTFS feature
+fsutil behavior set Bugcheckoncorrupt 0
+
+rem Disables (1) or enables (0) NTFS compression
+fsutil behavior set disablecompression 1
+cipher /d /s:C:\
+
+rem Disables (1) or enables (0) updates to the Last Access Time stamp on each directory when directories are listed on an NTFS volume
+fsutil behavior set DisableLastAccess 1
+
+rem Encrypts (1) or doesn't encrypt (0) the memory paging file in the Windows operating system
+fsutil behavior set encryptpagingfile 0
+
+rem Configures the internal cache levels of NTFS paged-pool memory and NTFS nonpaged-pool memory. Set to 1 or 2. When set to 1 (the default), NTFS uses the default amount of paged-pool memory. When set to 2, NTFS increases the size of its lookaside lists and memory thresholds. (A lookaside list is a pool of fixed-size memory buffers that the kernel and device drivers create as private memory caches for file system operations, such as reading a file.)
+fsutil behavior set memoryusage 2
+
+rem Sets the size of the MFT Zone, and is expressed as a multiple of 200MB units. Set value to a number from 1 (default is 200 MB) to 4 (maximum is 800 MB)
+fsutil behavior set mftzone 2
+
+rem Transactional Resource Manager
+fsutil resource setavailable c:
+fsutil resource setlog shrink 10 C:\
+fsutil resource setavailable d:
+fsutil resource setlog shrink 10 D:\
+fsutil resource setautoreset true c:\
+fsutil usn deletejournal /d /n c:
+fsutil usn deletejournal /d /n d:
+
+rem Disable hibernation
+POWERCFG /HIBERNATE OFF
+
+rem Enable TRIM support
+fsutil behavior set disabledeletenotify 0
+
+rem Disable Microsoft Virtual WiFi Miniport Adapter is a virtual adaptor for sharing your internet connection (ie. making a wifi hotspot, or 'hosted network')
+netsh wlan set hostednetwork mode=disallow
