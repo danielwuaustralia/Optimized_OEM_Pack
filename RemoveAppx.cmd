@@ -2,7 +2,6 @@
 
 set "windowsappx=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Applications"
 for %%i in (
-Microsoft.549981C3F5F10
 Microsoft.BingNews
 Microsoft.BingWeather
 Microsoft.GetHelp
@@ -17,7 +16,6 @@ Microsoft.Paint
 Microsoft.People
 Microsoft.ScreenSketch
 Microsoft.SecHealthUI
-Microsoft.StorePurchaseApp
 Microsoft.Todos
 Microsoft.VP9VideoExtensions
 Microsoft.WebMediaExtensions
