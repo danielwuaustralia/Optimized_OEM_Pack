@@ -24,6 +24,9 @@ regsvr32.exe "C:\Program Files\madVR\madVR64.ax" /s
 rem Powershell 7
 %windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.2.0-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
+rem 7ZIP
+%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\7z2104-x64.msi" /quiet /norestart
+
 rem lav
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.75.1-10.exe /VERYSILENT
 
@@ -40,7 +43,7 @@ rem Net Framework
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-6.0.0-win-x64.exe /quiet /norestart
 
 rem VSCode
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VSCodeSetup-x64-1.62.0-insider.exe /SP- /VERYSILENT /NORESTART /SUPPRESSMSGBOXES /mergetasks=!runcode
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VSCodeSetup-x64-1.63.0-insider.exe /SP- /VERYSILENT /NORESTART /SUPPRESSMSGBOXES /mergetasks=!runcode
 
 rem chipset driver
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Drivers_3.10.22.706.exe /S
