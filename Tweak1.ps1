@@ -24,12 +24,12 @@ Enable-ScheduledTask -TaskName 'Process Lasso Management Console (GUI)'
 Enable-ScheduledTask -TaskName 'Session agent for Process Lasso'
 
 # 移除Defender
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\WinDefend" -Recurse -force
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\Sense" -Recurse -Force
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\WdNisSvc" -Recurse -Force
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\WdNisDrv" -Recurse -Force
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\WdFilter" -Recurse -Force
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\WdBoot" -Recurse -Force
+Remove-Item -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\WinDefend" -Recurse -force
+Remove-Item -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\WdBoot" -Recurse -force
+Remove-Item -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\WdFilter" -Recurse -force
+Remove-Item -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\Sense" -Recurse -force
+Remove-Item -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\WdNisDrv" -Recurse -force
+Remove-Item -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\WdNisSvc" -Recurse -force
 
 # Edge浏览器
 Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdate" -Recurse -Force
@@ -72,6 +72,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WinMad' -
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WacomPen' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WinVerbs' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\UnionFS' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\rt640x64' -Name 'Start' -Value 4 -PropertyType DWord -Force
 
 #Intel平台串行GPIO
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\iagpio' -Name 'Start' -Value 4 -PropertyType DWord -Force
@@ -116,6 +117,26 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\XboxGipSv
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\XblAuthManager' -Name 'Start' -Value 3 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\XboxNetApiSvc' -Name 'Start' -Value 3 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\XblGameSave' -Name 'Start' -Value 3 -PropertyType DWord -Force
+
+# NetBIOS
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NetBIOS' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NetBT' -Name 'Start' -Value 4 -PropertyType DWord -Force
+
+# NDIS
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NdisCap' -Name 'Start' -Value 4 -PropertyType DWord -Force
+
+# NETRASA.INF -- WAN Miniports and wrappers
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AsyncMac' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Rasl2tp' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\PptpMiniport' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NdisWan' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\RasPppoe' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# NETAVPNA.INF -- Agile VPN Tunneling Protocol WAN Miniport
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\RasAgileVpn' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# vwifimp.INF -- Microsoft Virtual WiFi Virtual Miniport Wireless Adapter
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\vwifimp' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# KDNIC.INF -- Microsoft Kernel Network Debug Adapter
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\kdnic' -Name 'Start' -Value 4 -PropertyType DWord -Force
 
 # 为从 Internet 安装 ActiveX 控件提供用户帐户控制验证
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AxInstSV' -Name 'Start' -Value 4 -PropertyType DWord -Force
@@ -335,8 +356,3 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\DusmSvc' 
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\tzautoupdate' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # 自然身份验证
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NaturalAuthentication' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# NetBIOS
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NetBIOS' -Name 'Start' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NetBT' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# NDIS
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NdisCap' -Name 'Start' -Value 4 -PropertyType DWord -Force
