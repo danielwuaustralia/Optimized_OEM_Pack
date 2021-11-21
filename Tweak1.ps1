@@ -125,14 +125,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NetBT' -N
 # NDIS
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NdisCap' -Name 'Start' -Value 4 -PropertyType DWord -Force
 
-# NETRASA.INF -- WAN Miniports and wrappers
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AsyncMac' -Name 'Start' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Rasl2tp' -Name 'Start' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\PptpMiniport' -Name 'Start' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NdisWan' -Name 'Start' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\RasPppoe' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# NETAVPNA.INF -- Agile VPN Tunneling Protocol WAN Miniport
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\RasAgileVpn' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # vwifimp.INF -- Microsoft Virtual WiFi Virtual Miniport Wireless Adapter
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\vwifimp' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # KDNIC.INF -- Microsoft Kernel Network Debug Adapter
