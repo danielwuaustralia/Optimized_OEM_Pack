@@ -1485,6 +1485,10 @@ Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyCo
 Remove-Item -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{A0953C92-50DC-43bf-BE83-3742FED03C9C}" -Force -Verbose
 Remove-Item -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" -Force -Verbose
 
+# No Recycle Bin Icon
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\NonEnum") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\NonEnum" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\NonEnum' -Name '{645FF040-5081-101B-9F08-00AA002F954E}' -Value 1 -PropertyType DWord -Force
+
 # Set the diagnostic data collection to minimum
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\AppV\CEIP") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\AppV\CEIP" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\AppV\CEIP' -Name 'CEIPEnable' -Value 0 -PropertyType DWord -Force
@@ -1704,6 +1708,29 @@ New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\
 # Use the Print screen button to open screen snipping
 New-ItemProperty -Path "HKCU:\Control Panel\Keyboard" -Name PrintScreenKeyForSnippingEnabled -PropertyType DWord -Value 1 -Force
 
+# Power Config
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\29f6c1db-86da-48c5-9fdb-f2b67b1f44da") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\29f6c1db-86da-48c5-9fdb-f2b67b1f44da" -force };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\3c0bc021-c8a8-4e07-a973-6b14cbcb2b7e") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\3c0bc021-c8a8-4e07-a973-6b14cbcb2b7e" -force };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\5CA83367-6E45-459F-A27B-476B1D01C936") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\5CA83367-6E45-459F-A27B-476B1D01C936" -force };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\7648EFA3-DD9C-4E3E-B566-50F929386280") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\7648EFA3-DD9C-4E3E-B566-50F929386280" -force };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\833a6b62-dfa4-46d1-82f8-e09e34d029d6") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\833a6b62-dfa4-46d1-82f8-e09e34d029d6" -force };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\96996bc0-ad50-47ec-923b-6f41874dd9eb") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\96996bc0-ad50-47ec-923b-6f41874dd9eb" -force };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\99ff10e7-23b1-4c07-a9d1-5c3206d741b4") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\99ff10e7-23b1-4c07-a9d1-5c3206d741b4" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\29f6c1db-86da-48c5-9fdb-f2b67b1f44da' -Name 'ACSettingIndex' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\29f6c1db-86da-48c5-9fdb-f2b67b1f44da' -Name 'DCSettingIndex' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\3c0bc021-c8a8-4e07-a973-6b14cbcb2b7e' -Name 'ACSettingIndex' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\3c0bc021-c8a8-4e07-a973-6b14cbcb2b7e' -Name 'DCSettingIndex' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\5CA83367-6E45-459F-A27B-476B1D01C936' -Name 'ACSettingIndex' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\5CA83367-6E45-459F-A27B-476B1D01C936' -Name 'DCSettingIndex' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\7648EFA3-DD9C-4E3E-B566-50F929386280' -Name 'ACSettingIndex' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\7648EFA3-DD9C-4E3E-B566-50F929386280' -Name 'DCSettingIndex' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\833a6b62-dfa4-46d1-82f8-e09e34d029d6' -Name 'ACSettingIndex' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\833a6b62-dfa4-46d1-82f8-e09e34d029d6' -Name 'DCSettingIndex' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\96996bc0-ad50-47ec-923b-6f41874dd9eb' -Name 'ACSettingIndex' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\96996bc0-ad50-47ec-923b-6f41874dd9eb' -Name 'DCSettingIndex' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\99ff10e7-23b1-4c07-a9d1-5c3206d741b4' -Name 'ACSettingIndex' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\99ff10e7-23b1-4c07-a9d1-5c3206d741b4' -Name 'DCSettingIndex' -Value 0 -PropertyType DWord -Force
+
 # OneDrive
 Remove-ItemProperty -Path HKCU:\Environment -Name OneDrive, OneDriveConsumer -Force
 Remove-Item -Path HKCU:\SOFTWARE\Microsoft\OneDrive -Recurse -Force
@@ -1725,7 +1752,13 @@ New-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem -Name L
 New-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl -Name DisplayParameters -PropertyType DWord -Value 1 -Force
 
 # Never notify The User Account Control (UAC) behavior
-New-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -PropertyType DWord -Value 0 -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'EnableLUA' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'ConsentPromptBehaviorAdmin' -PropertyType DWord -Value 0 -Force
+
+# 无睡眠按钮
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings' -Name 'ShowSleepOption' -Value 0 -PropertyType DWord -Force
 
 # Turn on access to mapped drives from app running with elevated permissions with Admin Approval Mode enabled
 New-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System -Name EnableLinkedConnections -PropertyType DWord -Value 1 -Force
@@ -1767,15 +1800,11 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\Curr
 New-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name RestartApps -Value 0 -Force
 
 # Windows Update
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Policies\Microsoft\Windows\WindowsUpdate\AU") -ne $true) { New-Item "HKLM:\SOFTWARE\WOW6432Node\Policies\Microsoft\Windows\WindowsUpdate\AU" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'NoAutoUpdate' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'AUOptions' -Value 2 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'ScheduledInstallDay' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'ScheduledInstallTime' -Value 3 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings' -Name 'SmartActiveHoursState' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings' -Name 'RestartNotificationsAllowed2' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings' -Name 'IsExpedited' -Value 0 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'NoAutoUpdate' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'AUOptions' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'ScheduledInstallDay' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'ScheduledInstallTime' -Value 3 -PropertyType DWord -Force
 
 # Disabling automatic driver update
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata" -force };
@@ -2506,7 +2535,16 @@ Disable-MMAgent -MemoryCompression -ApplicationPreLaunch -Verbose
 Set-NetConnectionProfile -NetworkCategory Private -Verbose
 
 # Disable all WAN miniport driver
-Get-PnpDevice -FriendlyName 'WAN Miniport (SSTP)' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'ROOT\KDNIC\0000' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId '{5D624F94-8850-40C3-A3FA-A4FD2080BAF3}\VWIFIMP_WFD\7&39C145B2&1&13' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_PPPOEMINIPORT' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_NDISWANIP' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_NDISWANIPV6' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_L2TPMINIPORT' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_NDISWANBH' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_AGILEVPNMINIPORT' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_PPTPMINIPORT' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_SSTPMINIPORT' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -FriendlyName 'Microsoft Kernel Debug Network Adapter' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -FriendlyName 'Microsoft Wi-Fi Direct Virtual Adapter' | Disable-PnpDevice -Confirm:$false -Verbose
 
