@@ -1731,19 +1731,13 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSett
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\99ff10e7-23b1-4c07-a9d1-5c3206d741b4' -Name 'ACSettingIndex' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\99ff10e7-23b1-4c07-a9d1-5c3206d741b4' -Name 'DCSettingIndex' -Value 0 -PropertyType DWord -Force
 
-# OneDrive
-Remove-ItemProperty -Path HKCU:\Environment -Name OneDrive, OneDriveConsumer -Force
-Remove-Item -Path HKCU:\SOFTWARE\Microsoft\OneDrive -Recurse -Force
-Remove-Item -Path HKLM:\SOFTWARE\WOW6432Node\Microsoft\OneDrive -Recurse -Force
-Remove-Item -Path "$env:ProgramData\Microsoft OneDrive" -Recurse -Force
-Remove-Item -Path $env:SystemDrive\OneDriveTemp -Recurse -Force
-
 # Turn on Storage Sense
-if (-not (Test-Path -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy))
-{ New-Item -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy -ItemType Directory -Force }
-New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy -Name 01 -PropertyType DWord -Value 1 -Force
-New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy -Name 04 -PropertyType DWord -Value 1 -Force
-New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy -Name 2048 -PropertyType DWord -Value 30 -Force
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy" -force };
+if ((Test-Path -LiteralPath "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks\{53144BF7-6F43-4135-8266-A2587E5097E0}") -ne $true) { New-Item "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks\{53144BF7-6F43-4135-8266-A2587E5097E0}" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy' -Name '256' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy' -Name '2048' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy' -Name '04' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks\{53144BF7-6F43-4135-8266-A2587E5097E0}' -Name 'Triggers' -Value 'hex(3):17,00,00,00,00,00,00,00,00,F1,C7,39,F0,C3,91,00,FF,FF,FF,FF,FF,FF,FF,FF,00,F1,C7,39,F0,C3,91,00,00,00,00,00,00,00,00,00,7E,A1,40,43,48,48,48,48,CA,72,23,FC,48,48,48,48,28,00,00,00,48,48,48,48,41,00,75,00,74,00,68,00,65,00,6E,00,74,00,69,00,63,00,61,00,74,00,65,00,64,00,20,00,55,00,73,00,65,00,72,00,73,00,00,00,00,00,00,00,48,48,48,48,00,48,48,48,48,48,48,48,00,48,48,48,48,48,48,48,04,00,00,00,48,48,48,48,10,00,00,00,48,48,48,48,01,02,00,00,00,00,00,05,20,00,00,00,21,02,00,00,00,00,00,00,48,48,48,48,58,00,00,00,48,48,48,48,00,00,00,00,FF,FF,FF,FF,84,03,00,00,FF,FF,FF,FF,07,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,01,01,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,01,00,00,00,00,00,00,00,00,00,01,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00' -PropertyType String -Force
 
 # Disable the Windows 260 character path limit
 New-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem -Name LongPathsEnabled -PropertyType DWord -Value 1 -Force
@@ -2577,16 +2571,13 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched\
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched\UserPriorityMapping' -Name 'ServiceTypeNetworkControl' -Value 7 -PropertyType DWord -Force
 
 # no webview2 update
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\EdgeUpdateDev\CdpNames") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\EdgeUpdateDev\CdpNames" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Wow6432Node\Microsoft\EdgeUpdateDev\CdpNames") -ne $true) { New-Item "HKLM:\SOFTWARE\Wow6432Node\Microsoft\EdgeUpdateDev\CdpNames" -force -ea SilentlyContinue };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'UpdaterExperimentationAndConfigurationServiceControl' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'Update{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\EdgeUpdateDev\CdpNames' -Name 'msedgewebview-stable-win-x64' -Value 'msedge-internal-win-x64' -PropertyType String -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\EdgeUpdateDev\CdpNames' -Name 'msedgewebview-stable-win-x64' -Value 'msedge-internal-win-x64' -PropertyType String -Force -ea SilentlyContinue;
-
-# 关闭启用安全中心的通知
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ShellServiceObjects\{F56F6FDD-AA9D-4618-A949-C1B91AF43B1A}" -force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate" -force };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\EdgeUpdateDev\CdpNames") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\EdgeUpdateDev\CdpNames" -force };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Wow6432Node\Microsoft\EdgeUpdateDev\CdpNames") -ne $true) { New-Item "HKLM:\SOFTWARE\Wow6432Node\Microsoft\EdgeUpdateDev\CdpNames" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'UpdaterExperimentationAndConfigurationServiceControl' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'Update{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\EdgeUpdateDev\CdpNames' -Name 'msedgewebview-stable-win-x64' -Value 'msedge-internal-win-x64' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\EdgeUpdateDev\CdpNames' -Name 'msedgewebview-stable-win-x64' -Value 'msedge-internal-win-x64' -PropertyType String -Force
 
 # 回收站确认删除
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer' -Name 'ShellState' -Value 'hex(3):24,00,00,00,33,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,01,00,00,00,13,00,00,00,00,00,00,00,63,00,00,00' -PropertyType String -Force
