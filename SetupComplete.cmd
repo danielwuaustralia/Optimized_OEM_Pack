@@ -31,7 +31,7 @@ rem lav
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.75.1-10.exe /VERYSILENT
 
 rem vulkan runtime
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.2.189.2-Installer.exe /S
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.2.198.0-Installer.exe /S
 
 rem Visual Runtime
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VisualCppRedist_AIO_x86_x64.exe /ai /gm2
