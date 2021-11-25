@@ -2119,17 +2119,17 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Control
 New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Control Panel\Desktop' -Name 'MonitorRemovalRecalcBehavior' -Value '0' -PropertyType String -Force
 
 # Remove Extract All Right Click Menu
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CompressedFolder\ShellEx\ContextMenuHandlers\{ b8cdcb65-b1bf-4b42-9428-1dfdb7ee92af }" -force
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CompressedFolder\ShellEx\ContextMenuHandlers\{b8cdcb65-b1bf-4b42-9428-1dfdb7ee92af}" -force
 
 # remove previous version from file menu
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\AllFilesystemObjects\shellex\PropertySheetHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" -force
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\ { 450D8FBA-AD25-11D0-98A8-0800361B1103 }\shellex\PropertySheetHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" -force
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\shellex\PropertySheetHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" -force
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shellex\PropertySheetHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" -force
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\AllFilesystemObjects\shellex\ContextMenuHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" -force
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\ { 450D8FBA-AD25-11D0-98A8-0800361B1103 }\shellex\ContextMenuHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" -force
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\shellex\ContextMenuHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" -force
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shellex\ContextMenuHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153 }" -force
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\AllFilesystemObjects\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{450D8FBA-AD25-11D0-98A8-0800361B1103}\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\AllFilesystemObjects\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{450D8FBA-AD25-11D0-98A8-0800361B1103}\shellex\ContextMenuHandlers\ { 596AB062-B4D2-4215-9F74-E9109B0A8153}" -force
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force
 
 # no troubleshooting context menu
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\DesktopBackground\Shell\Troubleshooters" -force
@@ -2369,6 +2369,8 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\T
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'EnableTransparency' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'AppsUseLightTheme' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'SystemUsesLightTheme' -Value 0 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'IconsOnly' -Value 1 -PropertyType DWord -Force
 
 # This policy setting controls the appearance of window animations such as those found when restoring, minimizing, and maximizing windowss
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DWM") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DWM" -force };
@@ -2531,15 +2533,6 @@ Set-NetConnectionProfile -NetworkCategory Private -Verbose
 
 # Disable all WAN miniport driver
 Get-PnpDevice -InstanceId 'ROOT\KDNIC\0000' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -InstanceId '{5D624F94-8850-40C3-A3FA-A4FD2080BAF3}\VWIFIMP_WFD\7&39C145B2&1&13' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_PPPOEMINIPORT' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_NDISWANIP' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_NDISWANIPV6' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_L2TPMINIPORT' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_NDISWANBH' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_AGILEVPNMINIPORT' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_PPTPMINIPORT' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_SSTPMINIPORT' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -FriendlyName 'Microsoft Kernel Debug Network Adapter' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -FriendlyName 'Microsoft Wi-Fi Direct Virtual Adapter' | Disable-PnpDevice -Confirm:$false -Verbose
 
@@ -2607,6 +2600,10 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defende
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Siuf\Rules") -ne $true) { New-Item "HKCU:\Software\Microsoft\Siuf\Rules" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Siuf\Rules' -Name 'PeriodInNanoSeconds' -Value 0 -PropertyType DWord -Force
 
+# 设置所有网络类型为“专用“而非”公共“
+Set-NetConnectionProfile -InterfaceAlias WLAN -NetworkCategory "Private"
+Set-NetConnectionProfile -InterfaceAlias Ethernet -NetworkCategory "Private"
+
 # disable network protocal
 # Get-NetAdapterBinding -IncludeHidden -AllBindings | Format-Table -AutoSize
 Get-NetAdapterBinding | Where-Object { $_.Enabled -eq 'True' } | Set-NetAdapterBinding -Enabled 0 -IncludeHidden -AllBindings -Verbose
@@ -2619,6 +2616,14 @@ Set-Net6to4Configuration -State Enabled -AutoSharing Enabled -RelayState Enabled
 # Enable Teredo and 6to4 (Xbox LIVE fix)
 Set-NetTeredoConfiguration -Type natawareclient
 
+# Page File
+if ((Test-Path -LiteralPath "HKLM:\System\ControlSet001\Control\Session Manager\Memory Management") -ne $true) { New-Item "HKLM:\System\ControlSet001\Control\Session Manager\Memory Management" -force };
+New-ItemProperty -LiteralPath 'HKLM:\System\ControlSet001\Control\Session Manager\Memory Management' -Name 'PagingFiles' -Value @("c:\pagefile.sys 20480 20480") -PropertyType MultiString -Force
+
+# Windows Server - Give Process to forehand Applications
+if ((Test-Path -LiteralPath "HKLM:\System\ControlSet001\Control\PriorityControl") -ne $true) { New-Item "HKLM:\System\ControlSet001\Control\PriorityControl" -force };
+New-ItemProperty -LiteralPath 'HKLM:\System\ControlSet001\Control\PriorityControl' -Name 'Win32PrioritySeparation' -Value 38 -PropertyType DWord -Force
+
 # Disable the automatic disabling of network cards to save power.
 Get-NetAdapter -Physical | Get-NetAdapterPowerManagement | Where-Object -Property AllowComputerToTurnOffDevice -NE Unsupported | ForEach-Object -Process {
     $PSItem.AllowComputerToTurnOffDevice = 'Disabled'
@@ -2629,15 +2634,6 @@ Get-NetAdapter -Physical | Get-NetAdapterPowerManagement | Where-Object -Propert
 $Memory = (Get-CimInstance -ClassName Win32_PhysicalMemory | Measure-Object -Property Capacity -Sum).Sum / 1KB
 If ($Memory -is [Double]) { Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name SvcHostSplitThresholdInKB -Value $Memory -Force }
 
-# no power saving for USB devices
-$devicesUSB = Get-PnpDevice | Where-Object { $_.InstanceId -like "*USB\ROOT*" }  | 
-ForEach-Object -Process {
-    Get-CimInstance -ClassName MSPower_DeviceEnable -Namespace root\wmi 
-}
-foreach ( $device in $devicesUSB ) {
-    Set-CimInstance -Namespace root\wmi -Query "SELECT * FROM MSPower_DeviceEnable WHERE InstanceName LIKE '%$($device.PNPDeviceID)%'" -Property @{Enable = $False } -PassThru
-}
-
 # Disable Nagle's Algorithm
 $strGUIDS = [array](Get-WmiObject win32_networkadapter | Select-Object -expand GUID)
 foreach ($strGUID in $strGUIDS) { New-ItemProperty -path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -propertytype DWORD -name TcpAckFrequency -value 1 -Force }
@@ -2645,9 +2641,3 @@ foreach ($strGUID in $strGUIDS) { New-ItemProperty -path HKLM:\System\CurrentCon
 
 # Disabling Net Adapter QoS
 Disable-NetAdapterQos -Name '*'
-# Disabling Net Adapter Power Management...
-$Adapters = Get-NetAdapter -Physical | Get-NetAdapterPowerManagement | Where-Object -FilterScript { $_.AllowComputerToTurnOffDevice -ne "Unsupported" }
-foreach ($Adapter in $Adapters) {
-    $Adapter.AllowComputerToTurnOffDevice = "Disabled"
-    $Adapter | Set-NetAdapterPowerManagement
-}
