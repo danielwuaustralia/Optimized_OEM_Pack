@@ -124,18 +124,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\XblAuthMa
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\XboxNetApiSvc' -Name 'Start' -Value 3 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\XblGameSave' -Name 'Start' -Value 3 -PropertyType DWord -Force
 
-# NetBIOS
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NetBIOS' -Name 'Start' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NetBT' -Name 'Start' -Value 4 -PropertyType DWord -Force
-
-# NDIS
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NdisCap' -Name 'Start' -Value 4 -PropertyType DWord -Force
-
-# vwifimp.INF -- Microsoft Virtual WiFi Virtual Miniport Wireless Adapter
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\vwifimp' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# KDNIC.INF -- Microsoft Kernel Network Debug Adapter
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\kdnic' -Name 'Start' -Value 4 -PropertyType DWord -Force
-
 # 为从 Internet 安装 ActiveX 控件提供用户帐户控制验证
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AxInstSV' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # 路由本地 AllJoyn 客户端的 AllJoyn 消息。如果停止此服务，则自身没有捆绑路由器的 AllJoyn 客户端将无法运行。
