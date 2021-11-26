@@ -26,6 +26,7 @@ bcdedit /set isolatedcontext no
 bcdedit /set allowedinmemorysettings 0x0
 bcdedit /set disabledynamictick Yes
 bcdedit /set bootlog Yes
+BCDEDIT /set nx OptIn
 
 rem Apply Best File System Tweaks
 fsutil behavior set disable8dot3 1
@@ -102,3 +103,7 @@ fsutil behavior set disabledeletenotify 0
 
 rem Disable Microsoft Virtual WiFi Miniport Adapter is a virtual adaptor for sharing your internet connection (ie. making a wifi hotspot, or 'hosted network')
 netsh wlan set hostednetwork mode=disallow
+
+rem 关闭nvidia持续写入记录
+attrib +r "C:\ProgramData\NVIDIA Corporation\nvtopps\nvtopps.db3"
+attrib +r "C:\ProgramData\NVIDIA Corporation\nvtopps\nvtopps.log"
