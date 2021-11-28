@@ -1772,8 +1772,16 @@ New-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl -Name
 
 # Never notify The User Account Control (UAC) behavior
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'ConsentPromptBehaviorAdmin' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'ConsentPromptBehaviorUser' -Value 3 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'EnableSecureUIAPaths' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'ValidateAdminCodeSignatures' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'FilterAdministratorToken' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'LocalAccountTokenFilterPolicy' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'EnableVirtualization' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'EnableLUA' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'ConsentPromptBehaviorAdmin' -PropertyType DWord -Value 0 -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'EnableInstallerDetection' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'PromptOnSecureDesktop' -Value 0 -PropertyType DWord -Force
 
 # 无睡眠按钮
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" -force };
@@ -2555,9 +2563,17 @@ Disable-MMAgent -MemoryCompression -ApplicationPreLaunch -Verbose
 Set-NetConnectionProfile -NetworkCategory Private -Verbose
 
 # Disable all WAN miniport driver
-Get-PnpDevice -InstanceId 'ROOT\KDNIC\0000' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -FriendlyName 'Microsoft Kernel Debug Network Adapter' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -FriendlyName 'Microsoft Wi-Fi Direct Virtual Adapter' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'ROOT\KDNIC\0000' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_AGILEVPNMINIPORT' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_NDISWANIP' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_NDISWANIPV6' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_L2TPMINIPORT' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_NDISWANBH' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_PPPOEMINIPORT' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_PPTPMINIPORT' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'SWD\MSRRAS\MS_SSTPMINIPORT' | Disable-PnpDevice -Confirm:$false -Verbose
 
 # Windows 10 implements parallel loading by creating a thread pool of worker threads when the process initializes. MaxLoaderThreads set to 1 to disable parallel loading.
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\svchost.exe") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\svchost.exe" -force };
