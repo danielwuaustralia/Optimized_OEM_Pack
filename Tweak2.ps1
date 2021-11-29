@@ -2299,6 +2299,9 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Securit
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Security\Trusted Locations\Location0' -Name 'Path' -Value '%APPDATA%\Microsoft\Templates' -PropertyType ExpandString -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Security\Trusted Locations\Location0' -Name 'AllowSubfolders' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Security\Trusted Locations\Location0' -Name 'Description' -Value '0' -PropertyType String -Force
+# No more forced O365 login requests
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Office\16.0\Outlook\AutoDiscover") -ne $true) { New-Item "HKCU:\Software\Microsoft\Office\16.0\Outlook\AutoDiscover" -force s };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Outlook\AutoDiscover' -Name 'ExcludeExplicitO365Endpoint' -Value 1 -PropertyType DWord -Force
 
 # Disable Peer-to-Peer Networking
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Peernet' -Name 'Disabled' -Value 1 -PropertyType DWord -Force
@@ -2555,6 +2558,8 @@ Enable-NetAdapterPacketDirect -Name '*'
 Disable-NetAdapterRsc -Name '*'
 # Enabling Net Adapter Receive Side Scaling...
 Enable-NetAdapterRss -Name '*'
+# Disabling Net Adapter QoS
+Disable-NetAdapterQos -Name '*'
 
 # Disable Memory Compression
 Disable-MMAgent -MemoryCompression -ApplicationPreLaunch -Verbose
@@ -2673,6 +2678,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\P
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'shutdownwithoutlogon' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'undockwithoutlogon' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Reliability' -Name 'ShutDownReasonOn' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Reliability' -Name 'ShutdownReasonUI' -Value 0 -PropertyType DWord -Force
 # Windows Server - No Server Manager auto start
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\ServerManager' -Name 'DoNotOpenServerManagerAtLogon' -Value 1 -PropertyType DWord -Force
 # no hight Internet Security
@@ -2681,6 +2687,9 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Ma
 # Give Process to forehand Applications
 if ((Test-Path -LiteralPath "HKLM:\System\ControlSet001\Control\PriorityControl") -ne $true) { New-Item "HKLM:\System\ControlSet001\Control\PriorityControl" -force };
 New-ItemProperty -LiteralPath 'HKLM:\System\ControlSet001\Control\PriorityControl' -Name 'Win32PrioritySeparation' -Value 38 -PropertyType DWord -Force
+# 允许空密码
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\PasswordLess\Device") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\PasswordLess\Device" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\PasswordLess\Device' -Name 'DevicePasswordLessBuildVersion' -Value 0 -PropertyType DWord -Force
 
 # Disable the automatic disabling of network cards to save power.
 Get-NetAdapter -Physical | Get-NetAdapterPowerManagement | Where-Object -Property AllowComputerToTurnOffDevice -NE Unsupported | ForEach-Object -Process {
@@ -2696,6 +2705,3 @@ If ($Memory -is [Double]) { Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlS
 $strGUIDS = [array](Get-WmiObject win32_networkadapter | Select-Object -expand GUID)
 foreach ($strGUID in $strGUIDS) { New-ItemProperty -path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -propertytype DWORD -name TcpAckFrequency -value 1 -Force }
 foreach ($strGUID in $strGUIDS) { New-ItemProperty -path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -propertytype DWORD -name TCPNoDelay -value 1 -Force }
-
-# Disabling Net Adapter QoS
-Disable-NetAdapterQos -Name '*'
