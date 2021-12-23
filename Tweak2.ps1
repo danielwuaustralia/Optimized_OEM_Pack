@@ -1190,204 +1190,6 @@ New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'SizeNESW' -Va
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'SizeNS' -Value '' -PropertyType ExpandString -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Wait' -Value '' -PropertyType ExpandString -Force
 
-# No Windows Sound
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes") -ne $true) { New-Item "HKCU:\AppEvents\Schemes" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\.Default\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\.Default\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\.Default\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\.Default\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\AppGPFault\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\AppGPFault\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\AppGPFault\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\AppGPFault\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\CCSelect\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\CCSelect\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\CCSelect\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\CCSelect\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\ChangeTheme\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\ChangeTheme\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\ChangeTheme\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\ChangeTheme\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Close\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Close\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Close\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Close\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\CriticalBatteryAlarm\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\CriticalBatteryAlarm\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\CriticalBatteryAlarm\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\CriticalBatteryAlarm\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceConnect\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceConnect\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceConnect\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceConnect\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceDisconnect\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceDisconnect\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceDisconnect\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceDisconnect\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceFail\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceFail\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceFail\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\DeviceFail\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\FaxBeep\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\FaxBeep\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\FaxBeep\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\FaxBeep\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\LowBatteryAlarm\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\LowBatteryAlarm\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\LowBatteryAlarm\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\LowBatteryAlarm\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\MailBeep\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\MailBeep\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\MailBeep\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\MailBeep\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Maximize\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Maximize\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Maximize\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Maximize\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\MenuCommand\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\MenuCommand\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\MenuCommand\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\MenuCommand\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\MenuPopup\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\MenuPopup\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\MenuPopup\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\MenuPopup\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\MessageNudge\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\MessageNudge\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\MessageNudge\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\MessageNudge\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Minimize\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Minimize\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Minimize\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Minimize\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Default\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Default\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Default\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Default\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.IM\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.IM\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.IM\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.IM\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Mail\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Mail\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Mail\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Mail\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Proximity\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Proximity\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Proximity\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Proximity\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Reminder\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Reminder\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Reminder\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Reminder\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.SMS\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.SMS\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.SMS\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Notification.SMS\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Open\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Open\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\Open\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\Open\.None" -force } 
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\PrintComplete\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\PrintComplete\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\PrintComplete\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\PrintComplete\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\ProximityConnection\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\ProximityConnection\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\ProximityConnection\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\ProximityConnection\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\RestoreDown\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\RestoreDown\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\RestoreDown\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\RestoreDown\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\RestoreUp\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\RestoreUp\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\RestoreUp\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\RestoreUp\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\ShowBand\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\ShowBand\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\ShowBand\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\ShowBand\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\SystemAsterisk\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\SystemAsterisk\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\SystemAsterisk\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\SystemAsterisk\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\SystemExclamation\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\SystemExclamation\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\SystemExclamation\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\SystemExclamation\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\SystemHand\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\SystemHand\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\SystemHand\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\SystemHand\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\SystemNotification\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\SystemNotification\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\SystemNotification\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\SystemNotification\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\SystemQuestion\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\SystemQuestion\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\SystemQuestion\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\SystemQuestion\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\WindowsUAC\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\WindowsUAC\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\.Default\WindowsUAC\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\.Default\WindowsUAC\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\ActivatingDocument\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\ActivatingDocument\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\ActivatingDocument\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\ActivatingDocument\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\BlockedPopup\.current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\BlockedPopup\.current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\BlockedPopup\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\BlockedPopup\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\EmptyRecycleBin\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\EmptyRecycleBin\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\EmptyRecycleBin\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\EmptyRecycleBin\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\FeedDiscovered\.current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\FeedDiscovered\.current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\FeedDiscovered\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\FeedDiscovered\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\MoveMenuItem\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\MoveMenuItem\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\MoveMenuItem\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\MoveMenuItem\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\Navigating\.Current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\Navigating\.Current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\Navigating\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\Navigating\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\SecurityBand\.current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\SecurityBand\.current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\Explorer\SecurityBand\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\Explorer\SecurityBand\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\DisNumbersSound\.current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\DisNumbersSound\.current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\DisNumbersSound\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\DisNumbersSound\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOffSound\.current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOffSound\.current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOffSound\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOffSound\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOnSound\.current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOnSound\.current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOnSound\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOnSound\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubSleepSound\.current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubSleepSound\.current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubSleepSound\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\HubSleepSound\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\MisrecoSound\.current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\MisrecoSound\.current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\MisrecoSound\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\MisrecoSound\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\PanelSound\.current") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\PanelSound\.current" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Apps\sapisvr\PanelSound\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Apps\sapisvr\PanelSound\.None" -force }
-if ((Test-Path -LiteralPath "HKCU:\AppEvents\Schemes\Names\.None") -ne $true) { New-Item "HKCU:\AppEvents\Schemes\Names\.None" -force }
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes' -Name '(default)' -Value '.None' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\.Default\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\.Default\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\AppGPFault\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\AppGPFault\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\CCSelect\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\CCSelect\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\ChangeTheme\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\ChangeTheme\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Close\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Close\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\CriticalBatteryAlarm\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\CriticalBatteryAlarm\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\DeviceConnect\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\DeviceConnect\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\DeviceDisconnect\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\DeviceDisconnect\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\DeviceFail\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\DeviceFail\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\FaxBeep\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\FaxBeep\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\LowBatteryAlarm\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\LowBatteryAlarm\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\MailBeep\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\MailBeep\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Maximize\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Maximize\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\MenuCommand\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\MenuCommand\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\MenuPopup\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\MenuPopup\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\MessageNudge\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\MessageNudge\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Minimize\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Minimize\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Default\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Default\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.IM\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.IM\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Mail\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Mail\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Proximity\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Proximity\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Reminder\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.Reminder\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.SMS\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Notification.SMS\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Open\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\Open\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\PrintComplete\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\PrintComplete\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\ProximityConnection\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\ProximityConnection\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\RestoreDown\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\RestoreDown\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\RestoreUp\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\RestoreUp\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\ShowBand\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\ShowBand\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\SystemAsterisk\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\SystemAsterisk\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\SystemExclamation\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\SystemExclamation\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\SystemHand\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\SystemHand\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\SystemNotification\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\SystemNotification\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\SystemQuestion\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\SystemQuestion\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\WindowsUAC\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\.Default\WindowsUAC\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\ActivatingDocument\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\ActivatingDocument\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\BlockedPopup\.current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\BlockedPopup\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\EmptyRecycleBin\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\EmptyRecycleBin\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\FeedDiscovered\.current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\FeedDiscovered\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\MoveMenuItem\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\MoveMenuItem\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\Navigating\.Current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\Navigating\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\SecurityBand\.current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\Explorer\SecurityBand\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\DisNumbersSound\.current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\DisNumbersSound\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOffSound\.current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOffSound\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOnSound\.current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\HubOnSound\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\HubSleepSound\.current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\HubSleepSound\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\MisrecoSound\.current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\MisrecoSound\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\PanelSound\.current' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Apps\sapisvr\PanelSound\.None' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\AppEvents\Schemes\Names\.None' -Name '(default)' -Value '无声' -PropertyType String -Force
-
 # Set Page File size
 $pagefile = Get-WmiObject Win32_ComputerSystem -EnableAllPrivileges
 $pagefile.AutomaticManagedPagefile = $false
@@ -2366,32 +2168,32 @@ if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Office\Common\UserInfo") -
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Shared Tools\Proofing Tools\1.0\Office") -ne $true) { New-Item "HKCU:\Software\Microsoft\Shared Tools\Proofing Tools\1.0\Office" -force -ea SilentlyContinue };
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\VBA\Forms3\Controls") -ne $true) { New-Item "HKCU:\Software\Microsoft\VBA\Forms3\Controls" -force -ea SilentlyContinue };
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\VBA\Trusted") -ne $true) { New-Item "HKCU:\Software\Microsoft\VBA\Trusted" -force -ea SilentlyContinue };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\security\filevalidation' -Name 'disablereporting' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\Toolbars\Word' -Name 'WordIsSearchBoxAlwaysCollapsed' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\wef\trustedcatalogs' -Name 'disableomexcatalogs' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word' -Name 'AutoSaveByDefaultUserChoice' -Value 2 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'RenderForMonitorDpi' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'DisableBootToOfficeStart' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'DOC-PATH' -Value 'D:\Downloads\' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'AUTOSAVE-PATH' -Value 'C:\Windows\Temp\' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'AutosaveInterval' -Value 5 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'IMEControlActive' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'AutoHideRuler' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'AnimateScreenMove' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'ShowStats' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'VisiFlm' -Value 3 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'DraftFont' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Security' -Name 'VBAWarnings' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Security' -Name 'AccessVBOM' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Security\FileBlock' -Name 'OpenInProtectedView' -Value 2 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Security\ProtectedView' -Name 'DisableAttachmentsInPV' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Security\ProtectedView' -Name 'DisableInternetFilesInPV' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Security\ProtectedView' -Name 'DisableUnsafeLocationsInPV' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Security\Trusted Locations' -Name 'AllowNetworkLocations' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Security\Trusted Locations\Location0' -Name 'AllowSubfolders' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Security\Trusted Locations\Location1' -Name 'AllowSubFolders' -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Security\Trusted Locations\Location1' -Name 'AllowSubfolders' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\Common\Security' -Name 'UFIControls' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\security\filevalidation' -Name 'disablereporting' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\Toolbars\Word' -Name 'WordIsSearchBoxAlwaysCollapsed' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\wef\trustedcatalogs' -Name 'disableomexcatalogs' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word' -Name 'AutoSaveByDefaultUserChoice' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'RenderForMonitorDpi' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'DisableBootToOfficeStart' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'DOC-PATH' -Value 'D:\Downloads\' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'AUTOSAVE-PATH' -Value 'C:\Windows\Temp\' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'AutosaveInterval' -Value 5 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'IMEControlActive' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'AutoHideRuler' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'AnimateScreenMove' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'ShowStats' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'VisiFlm' -Value 3 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'DraftFont' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Security' -Name 'VBAWarnings' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Security' -Name 'AccessVBOM' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Security\FileBlock' -Name 'OpenInProtectedView' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Security\ProtectedView' -Name 'DisableAttachmentsInPV' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Security\ProtectedView' -Name 'DisableInternetFilesInPV' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Security\ProtectedView' -Name 'DisableUnsafeLocationsInPV' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Security\Trusted Locations' -Name 'AllowNetworkLocations' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Security\Trusted Locations\Location0' -Name 'AllowSubfolders' -Value 1 -PropertyType DWord -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Security\Trusted Locations\Location1' -Name 'AllowSubFolders' -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Security\Trusted Locations\Location1' -Name 'AllowSubfolders' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\Common\Security' -Name 'UFIControls' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\Common\UserInfo' -Name 'UserName' -Value 'Daniel' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\Common\UserInfo' -Name 'UserInitials' -Value 'Dan' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Shared Tools\Proofing Tools\1.0\Office' -Name 'WordSpellingOptions' -Value 5 -PropertyType DWord -Force
@@ -2548,80 +2350,80 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\P
 # Edge Policy
 # https://docs.microsoft.com/en-us/deployedge/microsoft-edge-policies
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Edge") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -force -ea SilentlyContinue };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'BackgroundModeEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'StartupBoostEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'SleepingTabsEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DefaultBrowserSettingEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'SmartScreenEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'SmartScreenPuaEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'SmartScreenForTrustedDownloadsEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DefaultGeolocationSetting' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'NewTabPageSearchBox' -Value 'redirect' -PropertyType String -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PasswordManagerEnabled' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ShowHomeButton' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PersonalizationReportingEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PinningWizardAllowed' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'BrowserNetworkTimeQueriesEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'TabFreezingEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AutoplayAllowed' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'UserFeedbackAllowed' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AlwaysOpenPdfExternally' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AutoImportAtFirstRun' -Value 4 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PromotionalTabsEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'FavoritesBarEnabled' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AddressBarMicrosoftSearchInBingProviderEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'HideFirstRunExperience' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ShowMicrosoftRewards' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'BuiltInDnsClientEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'OpenMicrosoftLinksInEdgeEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DefaultNotificationsSetting' -Value 2 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DefaultPopupsSetting' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PasswordGeneratorEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PasswordMonitorAllowed' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PasswordRevealEnabled' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'EfficiencyMode' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'NewSmartScreenLibraryEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'NewTabPageAllowedBackgroundTypes' -Value 3 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'NewTabPageContentEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'RestoreOnStartup' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'NewTabPageHideDefaultTopSites' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'NewTabPagePrerenderEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'TyposquattingCheckerEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AdsSettingForIntrusiveAdsSites' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AlternateErrorPagesEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AutoLaunchProtocolsComponentEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AutofillAddressEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AutofillCreditCardEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'BingAdsSuppression' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ClearCachedImagesAndFilesOnExit' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ConfigureDoNotTrack' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DNSInterceptionChecksEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DiagnosticData' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DnsOverHttpsMode' -Value 'off' -PropertyType String -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DownloadDirectory' -Value 'D:\Downloads' -PropertyType String -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DownloadRestrictions' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'EdgeCollectionsEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'EdgeDiscoverEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'FamilySafetySettingsEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ForceBingSafeSearch' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ForceGoogleSafeSearch' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'HardwareAccelerationModeEnabled' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ImportAutofillFormData' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ImportBrowserSettings' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ImportFavorites' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ImportSavedPasswords' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'NetworkPredictionOptions' -Value 2 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PromptForDownloadLocation' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'RelaunchNotification' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'SearchSuggestEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ShowRecommendationsEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'SpellcheckEnabled' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'TrackingPrevention' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'VerticalTabsAllowed' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'WebRtcLocalhostIpHandling' -Value 'disable_non_proxied_udp' -PropertyType String -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'WebWidgetAllowed' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'WebWidgetIsEnabledOnStartup' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'WindowOcclusionEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'BackgroundModeEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'StartupBoostEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'SleepingTabsEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DefaultBrowserSettingEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'SmartScreenEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'SmartScreenPuaEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'SmartScreenForTrustedDownloadsEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DefaultGeolocationSetting' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'NewTabPageSearchBox' -Value 'redirect' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PasswordManagerEnabled' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ShowHomeButton' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PersonalizationReportingEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PinningWizardAllowed' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'BrowserNetworkTimeQueriesEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'TabFreezingEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AutoplayAllowed' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'UserFeedbackAllowed' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AlwaysOpenPdfExternally' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AutoImportAtFirstRun' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PromotionalTabsEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'FavoritesBarEnabled' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AddressBarMicrosoftSearchInBingProviderEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'HideFirstRunExperience' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ShowMicrosoftRewards' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'BuiltInDnsClientEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'OpenMicrosoftLinksInEdgeEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DefaultNotificationsSetting' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DefaultPopupsSetting' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PasswordGeneratorEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PasswordMonitorAllowed' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PasswordRevealEnabled' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'EfficiencyMode' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'NewSmartScreenLibraryEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'NewTabPageAllowedBackgroundTypes' -Value 3 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'NewTabPageContentEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'RestoreOnStartup' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'NewTabPageHideDefaultTopSites' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'NewTabPagePrerenderEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'TyposquattingCheckerEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AdsSettingForIntrusiveAdsSites' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AlternateErrorPagesEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AutoLaunchProtocolsComponentEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AutofillAddressEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AutofillCreditCardEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'BingAdsSuppression' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ClearCachedImagesAndFilesOnExit' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ConfigureDoNotTrack' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DNSInterceptionChecksEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DiagnosticData' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DnsOverHttpsMode' -Value 'off' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DownloadDirectory' -Value 'D:\Downloads' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DownloadRestrictions' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'EdgeCollectionsEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'EdgeDiscoverEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'FamilySafetySettingsEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ForceBingSafeSearch' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ForceGoogleSafeSearch' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'HardwareAccelerationModeEnabled' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ImportAutofillFormData' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ImportBrowserSettings' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ImportFavorites' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ImportSavedPasswords' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'NetworkPredictionOptions' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PromptForDownloadLocation' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'RelaunchNotification' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'SearchSuggestEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ShowRecommendationsEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'SpellcheckEnabled' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'TrackingPrevention' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'VerticalTabsAllowed' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'WebRtcLocalhostIpHandling' -Value 'disable_non_proxied_udp' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'WebWidgetAllowed' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'WebWidgetIsEnabledOnStartup' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'WindowOcclusionEnabled' -Value 0 -PropertyType DWord -Force
 # https://docs.microsoft.com/en-us/deployedge/microsoft-edge-update-policies
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'Update{56EB18F8-B008-4CBD-B6D2-8C97FE7E9062}' -Value 1 -PropertyType DWord -Force
@@ -2629,7 +2431,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Na
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'Update{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}' -Value 1 -PropertyType DWord -Force
 
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Edge Dev\PreferenceMACs\Default") -ne $true) { New-Item "HKCU:\Software\Microsoft\Edge Dev\PreferenceMACs\Default" -force -ea SilentlyContinue };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Edge Dev\PreferenceMACs\Default' -Name 'default_search_provider_data.template_url_data' -Value '001CD7BA78DA395CFF24D7CF2E4E6F4D55C0D23AA12378CE6B1CA37341B76AAF' -PropertyType String -Force -ea SilentlyContinue;
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Edge Dev\PreferenceMACs\Default' -Name 'default_search_provider_data.template_url_data' -Value '001CD7BA78DA395CFF24D7CF2E4E6F4D55C0D23AA12378CE6B1CA37341B76AAF' -PropertyType String -Force
 
 # no upload
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\PerfTrack") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\PerfTrack" -force };
@@ -2681,15 +2483,80 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows NT\C
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance' -Name 'MaintenanceDisabled' -Value 1 -PropertyType DWord -Force
 
 # By default, MMCSS will leave 20% of your CPU power for other things besides your multimedia task
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile' -Name 'SystemResponsiveness' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile' -Name 'NoLazyMode' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile' -Name 'AlwaysOn' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile' -Name 'NetworkThrottlingIndex' -Value -1 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -force };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks" -force -ea SilentlyContinue };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Audio") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Audio" -force -ea SilentlyContinue };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Capture") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Capture" -force -ea SilentlyContinue };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\DisplayPostProcessing") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\DisplayPostProcessing" -force -ea SilentlyContinue };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Distribution") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Distribution" -force -ea SilentlyContinue };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" -force -ea SilentlyContinue };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Playback") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Playback" -force -ea SilentlyContinue };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Pro Audio") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Pro Audio" -force -ea SilentlyContinue };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Window Manager") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Window Manager" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Audio' -Name 'Affinity' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Audio' -Name 'Background Only' -Value 'True' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Audio' -Name 'Clock Rate' -Value 10000 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Audio' -Name 'GPU Priority' -Value 8 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Audio' -Name 'Priority' -Value 6 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Audio' -Name 'Scheduling Category' -Value 'Medium' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Audio' -Name 'SFIO Priority' -Value 'Normal' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Capture' -Name 'Affinity' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Capture' -Name 'Background Only' -Value 'True' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Capture' -Name 'Clock Rate' -Value 10000 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Capture' -Name 'GPU Priority' -Value 8 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Capture' -Name 'Priority' -Value 5 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Capture' -Name 'Scheduling Category' -Value 'Medium' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Capture' -Name 'SFIO Priority' -Value 'Normal' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\DisplayPostProcessing' -Name 'Affinity' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\DisplayPostProcessing' -Name 'Background Only' -Value 'True' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\DisplayPostProcessing' -Name 'BackgroundPriority' -Value 8 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\DisplayPostProcessing' -Name 'Clock Rate' -Value 10000 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\DisplayPostProcessing' -Name 'GPU Priority' -Value 8 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\DisplayPostProcessing' -Name 'Priority' -Value 8 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\DisplayPostProcessing' -Name 'Scheduling Category' -Value 'High' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\DisplayPostProcessing' -Name 'SFIO Priority' -Value 'Normal' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Distribution' -Name 'Affinity' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Distribution' -Name 'Background Only' -Value 'True' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Distribution' -Name 'Clock Rate' -Value 10000 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Distribution' -Name 'GPU Priority' -Value 8 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Distribution' -Name 'Priority' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Distribution' -Name 'Scheduling Category' -Value 'Medium' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Distribution' -Name 'SFIO Priority' -Value 'Normal' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games' -Name 'Affinity' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games' -Name 'Background Only' -Value 'False' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games' -Name 'Clock Rate' -Value 10000 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games' -Name 'GPU Priority' -Value 8 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games' -Name 'Priority' -Value 6 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games' -Name 'Scheduling Category' -Value 'High' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games' -Name 'SFIO Priority' -Value 'High' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Playback' -Name 'Affinity' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Playback' -Name 'Background Only' -Value 'False' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Playback' -Name 'BackgroundPriority' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Playback' -Name 'Clock Rate' -Value 10000 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Playback' -Name 'GPU Priority' -Value 8 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Playback' -Name 'Priority' -Value 3 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Playback' -Name 'Scheduling Category' -Value 'Medium' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Playback' -Name 'SFIO Priority' -Value 'Normal' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Pro Audio' -Name 'Affinity' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Pro Audio' -Name 'Background Only' -Value 'False' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Pro Audio' -Name 'Clock Rate' -Value 10000 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Pro Audio' -Name 'GPU Priority' -Value 8 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Pro Audio' -Name 'Priority' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Pro Audio' -Name 'Scheduling Category' -Value 'High' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Pro Audio' -Name 'SFIO Priority' -Value 'Normal' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Window Manager' -Name 'Affinity' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Window Manager' -Name 'Background Only' -Value 'True' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Window Manager' -Name 'Clock Rate' -Value 10000 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Window Manager' -Name 'GPU Priority' -Value 8 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Window Manager' -Name 'Priority' -Value 5 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Window Manager' -Name 'Scheduling Category' -Value 'Medium' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Window Manager' -Name 'SFIO Priority' -Value 'Normal' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games' -Name 'Affinity' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games' -Name 'Background Only' -Value 'False' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games' -Name 'Clock Rate' -Value 10000 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games' -Name 'GPU Priority' -Value 8 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games' -Name 'Priority' -Value 6 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games' -Name 'Scheduling Category' -Value 'High' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games' -Name 'SFIO Priority' -Value 'High' -PropertyType String -Force
 
 # Mouse and Keyboard Buffer
 if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\mouclass\Parameters") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\mouclass\Parameters" -force };
