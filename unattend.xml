@@ -98,19 +98,19 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>2</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>"C:\Windows\SysWOW64\NsudoLG.exe" -U:T -P:E -Wait "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Tweak1.ps1"</CommandLine>
+                    <CommandLine>"C:\Windows\SysWOW64\NsudoLG.exe" -U:T -P:E -Wait "C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Tweak1.ps1"</CommandLine>
                     <Description>Powershell Tweak</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>3</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Tweak2.ps1"</CommandLine>
+                    <CommandLine>"C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Tweak2.ps1"</CommandLine>
                     <Description>Powershell Tweak</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>4</Order>
                     <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>C:\Windows\Setup\Scripts\SOFTWARE\0AAFOptimusAudioPack9231.exe</CommandLine>
+                    <CommandLine>C:\Windows\Setup\Scripts\SOFTWARE\AAFOptimusAudioPack9282.exe</CommandLine>
                     <Description>Audio Driver</Description>
                 </SynchronousCommand>
             </FirstLogonCommands>
