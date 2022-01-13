@@ -1201,7 +1201,7 @@ $pagefileset.Put() | Out-Null
 
 # root certificate
 # http://woshub.com/updating-trusted-root-certificates-in-windows-10/
-# "C:\Program Files\PowerShell\7\pwsh.exe" -Command "certutil.exe -f -generateSSTFromWU %WINDIR%\Setup\Scripts\roots.sst"
+# "C:\Program Files\PowerShell\7-preview\pwsh.exe" -Command "certutil.exe -f -generateSSTFromWU %WINDIR%\Setup\Scripts\roots.sst"
 Get-ChildItem -Path %WINDIR%\Setup\Scripts\roots.sst | Import-Certificate -CertStoreLocation Cert:\LocalMachine\Root
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config' -Name 'ChainRevAccumulativeUrlRetrievalTimeoutMilliseconds' -Value 20000 -PropertyType DWord -Force
@@ -1698,7 +1698,7 @@ New-ItemProperty -Path Registry::HKEY_CLASSES_ROOT\exefile\shell\runasuser -Name
 # Hide the "Cast to Device" item from the media files and folders context menu
 if (-not (Test-Path -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked"))
 { New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" -Force }
-New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" -Name " { 7AD84985-87B4-4a16-BE58-8B72A5B390F7 }" -PropertyType String -Value "Play to menu" -Force
+New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" -Name " {7AD84985-87B4-4a16-BE58-8B72A5B390F7}" -PropertyType String -Value "Play to menu" -Force
 
 # Hide the "Share" item from the context menu
 Remove-Item -Path "Registry::HKEY_CLASSES_ROOT\AllFilesystemObjects\shellex\ContextMenuHandlers\ModernSharing" -Recurse -Force
@@ -1714,10 +1714,7 @@ New-ItemProperty -Path "Registry::HKEY_CLASSES_ROOT\batfile\shell\print" -Name "
 New-ItemProperty -Path "Registry::HKEY_CLASSES_ROOT\cmdfile\shell\print" -Name "ProgrammaticAccessOnly" -PropertyType String -Value "" -Force
 
 # Hide the "Include in Library" item from the folders and drives context menu
-New-ItemProperty -Path "Registry::HKEY_CLASSES_ROOT\Folder\ShellEx\ContextMenuHandlers\Library Location" -Name "(default)" -PropertyType String -Value "- { 3dad6c5d-2167-4cae-9914-f99e41c12cfa }" -Force
-
-# Hide the "Send to" item from the folders context menu
-New-ItemProperty -Path "Registry::HKEY_CLASSES_ROOT\AllFilesystemObjects\shellex\ContextMenuHandlers\SendTo" -Name "(default)" -PropertyType String -Value "- { 7BA4C740-9E81-11CF-99D3-00AA004AE837 }" -Force
+New-ItemProperty -Path "Registry::HKEY_CLASSES_ROOT\Folder\ShellEx\ContextMenuHandlers\Library Location" -Name "(default)" -PropertyType String -Value "- {3dad6c5d-2167-4cae-9914-f99e41c12cfa}" -Force
 
 # Hide the "Turn on BitLocker" item from the drives context menu
 New-ItemProperty -Path "Registry::HKEY_CLASSES_ROOT\Drive\shell\encrypt-bde-elev" -Name "ProgrammaticAccessOnly" -PropertyType String -Value "" -Force
@@ -2029,8 +2026,10 @@ if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Pol
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer' -Name 'UseDefaultTile' -Value 1 -PropertyType DWord -Force
 
 # no background apps
-if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications' -Name 'GlobalUserDisabled' -Value 1 -PropertyType DWord -Force
+Get-ChildItem -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" -Exclude "Microsoft.Windows.Cortana*" | ForEach-Object {
+    Set-ItemProperty -Path $_.PsPath -Name "Disabled" -Type DWord -Value 1
+    Set-ItemProperty -Path $_.PsPath -Name "DisabledByUser" -Type DWord -Value 1
+}
 
 # Win 11 - No Widgets
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Dsh") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Dsh" -force };
@@ -2640,8 +2639,8 @@ if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Exp
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer' -Name 'ShellState' -Value 'hex(3):24,00,00,00,33,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,01,00,00,00,13,00,00,00,00,00,00,00,63,00,00,00' -PropertyType String -Force
 
 # 关闭预览窗格
-if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer' -Name 'PageSpaceControlSizer' -Value 'hex(3):0F,01,00,00,00,00,00,00,00,00,00,00,70,0D,00,00' -PropertyType String -Force
+if ((Test-Path -LiteralPath "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer") -ne $true) { New-Item "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer" -force };
+New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer' -Name 'PageSpaceControlSizer' -Value ([byte[]](0xa0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xec, 0x03, 0x00, 0x00)) -PropertyType Binary -Force
 
 #回收站无需确认即可删除
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\{6b755b3f-b7c5-4866-8662-e3a2a6f9374b}") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\{6b755b3f-b7c5-4866-8662-e3a2a6f9374b}" -force };
@@ -2684,6 +2683,37 @@ Get-AutologgerConfig | Set-AutologgerConfig -Start 0 -InitStatus 0 -Confirm:$fal
 # Page File
 if ((Test-Path -LiteralPath "HKLM:\System\ControlSet001\Control\Session Manager\Memory Management") -ne $true) { New-Item "HKLM:\System\ControlSet001\Control\Session Manager\Memory Management" -force };
 New-ItemProperty -LiteralPath 'HKLM:\System\ControlSet001\Control\Session Manager\Memory Management' -Name 'PagingFiles' -Value @("c:\pagefile.sys 20480 20480") -PropertyType MultiString -Force
+
+# 删除右键windows media player菜单
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.3G2\shell\Enqueue" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.3GP\shell\Enqueue" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.ADTS\shell\Enqueue" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.AIFF\shell\Enqueue" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.ASF\shell\Enqueue" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.ASX\shell\Enqueue" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.AU\shell\Enqueue" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.AVI\shell\Enqueue" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.M2TS\shell\Enqueue" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.m3u\shell\Enqueue" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.M4A\shell\Enqueue" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.MIDI\shell\Enqueue" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.MOV\shell\Enqueue" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.MP3\shell\Enqueue" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.MP4\shell\Enqueue" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.MPEG\shell\Enqueue" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.TTS\shell\Enqueue" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.WAV\shell\Enqueue" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.WAX\shell\Enqueue" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.wma\shell\Enqueue" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.WMV\shell\Enqueue" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.WPL\shell\Enqueue" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.WVX\shell\Enqueue" -force -Recurse
+
+#去除右键defender扫描
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\*\shellex\ContextMenuHandlers\EPP" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{09A47860-11B0-4DA5-AFA5-26D86198A780}" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\shellex\ContextMenuHandlers\EPP" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shellex\ContextMenuHandlers\EPP" -force -Recurse
 
 # Windows Server - 
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -force };
