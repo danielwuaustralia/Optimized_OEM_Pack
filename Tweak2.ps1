@@ -2715,6 +2715,10 @@ Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{09A47860-11B0-4DA5-AFA5-
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\shellex\ContextMenuHandlers\EPP" -force -Recurse
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shellex\ContextMenuHandlers\EPP" -force -Recurse
 
+#nvidia驱动设置
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS' -Name 'EnableGR535' -Value 0 -PropertyType DWord -Force
+
 # Windows Server - 
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'DisableCAD' -Value 1 -PropertyType DWord -Force
