@@ -16,32 +16,26 @@ rem Visual Runtime
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VisualCppRedist_AIO_x86_x64.exe /ai /gm2
 
 rem Powershell 7
-%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.2.0-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
-
-rem 7ZIP
-%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\7z2106-x64.msi" /quiet /norestart
+%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.3.0-preview.1-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
 rem lav
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.75.1-10.exe /VERYSILENT
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.75.1-52.exe /VERYSILENT
 
 rem vulkan runtime
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.2.198.0-Installer.exe /S
-
-rem DirectX Runtime
-start /wait %WINDIR%\Setup\Scripts\DirectX\DXSETUP.exe /silent
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.2.198.1-Installer.exe /S
 
 rem Net Framework
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-6.0.0-win-x64.exe /quiet /norestart
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-6.0.1-win-x64.exe /quiet /norestart
 
 rem VSCode
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VSCodeSetup-x64-1.63.0-insider.exe /SP- /VERYSILENT /NORESTART /SUPPRESSMSGBOXES /mergetasks=!runcode
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VSCodeSetup-x64-1.64.0-insider.exe /SP- /VERYSILENT /NORESTART /SUPPRESSMSGBOXES /mergetasks=!runcode
 
 rem chipset driver
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Drivers_3.10.22.706.exe /S
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Software_3.10.22.706.exe /S
 
 rem process lasso
-rem start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassoActivator.exe -makekeyfile -product:2 -output:"%WINDIR%\Setup\Scripts\SOFTWARE"
-rem start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassosetup64.exe /S /keyfile=%WINDIR%\Setup\Scripts\SOFTWARE\prolasso.key /launch_gui=false /gui_start_type=all /governor_start_type=all /language=SimpChinese
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassoActivator.exe -makekeyfile -product:2 -output:"%WINDIR%\Setup\Scripts\SOFTWARE"
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassosetup64.exe /S /keyfile=%WINDIR%\Setup\Scripts\SOFTWARE\prolasso.key /launch_gui=false /gui_start_type=all /governor_start_type=all /language=SimpChinese
 
 rem time sync
 start /wait C:\PROGRA~1\UpdateTime\UpdateTime_x64.exe /SI
