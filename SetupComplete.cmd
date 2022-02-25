@@ -16,22 +16,25 @@ rem Visual Runtime
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VisualCppRedist_AIO_x86_x64.exe /ai /gm2
 
 rem Powershell 7
-%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.3.0-preview.1-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
+%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.3.0-preview.2-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
 rem lav
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.75.1-52.exe /VERYSILENT
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.76.0-9.exe /VERYSILENT
 
 rem vulkan runtime
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.2.198.1-Installer.exe /S
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.3.204.0-Installer.exe /S
+
+rem Direct X
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\DirectXRedist.exe /ai
 
 rem Net Framework
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-6.0.1-win-x64.exe /quiet /norestart
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-6.0.2-win-x64.exe /quiet /norestart
 
 rem VSCode
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VSCodeSetup-x64-1.64.0-insider.exe /SP- /VERYSILENT /NORESTART /SUPPRESSMSGBOXES /mergetasks=!runcode
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VSCodeSetup-x64-1.65.0-insider.exe /SP- /VERYSILENT /NORESTART /SUPPRESSMSGBOXES /mergetasks=!runcode
 
 rem chipset driver
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Software_3.10.22.706.exe /S
+rem start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Software_3.10.22.706.exe /S
 
 rem process lasso
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassoActivator.exe -makekeyfile -product:2 -output:"%WINDIR%\Setup\Scripts\SOFTWARE"
