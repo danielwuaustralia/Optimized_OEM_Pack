@@ -6,11 +6,6 @@ Start-Transcript -Path c:\Tweak2Log.txt -Force
 $ErrorActionPreference = "SilentlyContinue"
 $ProgressPreference = "SilentlyContinue"
 
-# 更改TEMP文件夹位置
-if ((Test-Path -LiteralPath "HKCU:\Environment") -ne $true) { New-Item "HKCU:\Environment" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TEMP' -Value '%SystemRoot%\Temp' -PropertyType ExpandString -Force
-New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TMP' -Value '%SystemRoot%\Temp' -PropertyType ExpandString -Force
-
 # Potplayer Setting
 if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayer64") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayer64" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayer64' -Name 'ProgramAPI' -Value '1' -PropertyType String -Force
@@ -1169,6 +1164,14 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'ac3' 
 New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'aac' -Value 1 -PropertyType DWord -Force;
 New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'mp3' -Value 1 -PropertyType DWord -Force;
 New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'flac' -Value 1 -PropertyType DWord -Force;
+
+# 更改TEMP文件夹位置
+if ((Test-Path -LiteralPath "HKCU:\Environment") -ne $true) { New-Item "HKCU:\Environment" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TEMP' -Value '%SystemRoot%\Temp' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TMP' -Value '%SystemRoot%\Temp' -PropertyType ExpandString -Force
+
+# 增加环境变量
+[Environment]::SetEnvironmentVariable("PATH", $Env:PATH + ";C:\Windows\SysWOW64", [EnvironmentVariableTarget]::Machine)
 
 # XP样式鼠标
 if ((Test-Path -LiteralPath "HKCU:\Control Panel\Cursors") -ne $true) { New-Item "HKCU:\Control Panel\Cursors" -force };
