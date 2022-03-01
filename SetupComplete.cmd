@@ -19,10 +19,10 @@ rem Powershell 7
 %windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.3.0-preview.2-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
 rem lav
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.76.0-9.exe /VERYSILENT
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.76.1.exe /VERYSILENT
 
 rem vulkan runtime
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.3.204.0-Installer.exe /S
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.3.204.1-Installer.exe /S
 
 rem Direct X
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\DirectXRedist.exe /ai
