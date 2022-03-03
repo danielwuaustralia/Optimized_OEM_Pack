@@ -23,12 +23,20 @@ Enable-ScheduledTask -TaskName 'Process Lasso Management Console (GUI)'
 Enable-ScheduledTask -TaskName 'Session agent for Process Lasso'
 
 # 移除Defender
+Remove-Item -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\MsSecFlt" -Recurse -force
 Remove-Item -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\WinDefend" -Recurse -force
 Remove-Item -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\WdBoot" -Recurse -force
 Remove-Item -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\WdFilter" -Recurse -force
 Remove-Item -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\Sense" -Recurse -force
 Remove-Item -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\WdNisDrv" -Recurse -force
 Remove-Item -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\WdNisSvc" -Recurse -force
+Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\MsSecFlt" -Recurse -force
+Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\WinDefend" -Recurse -force
+Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\WdBoot" -Recurse -force
+Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\WdFilter" -Recurse -force
+Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\Sense" -Recurse -force
+Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\WdNisDrv" -Recurse -force
+Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\WdNisSvc" -Recurse -force
 
 # Edge浏览器
 Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdate" -Recurse -Force
