@@ -1,32 +1,61 @@
 @echo off
 
+rem check Direct I/O status
+fsutil bypassIo state C:\
+
+rem Turn on file and printer sharing for all network profiles
+netsh advfirewall firewall set rule group="File and Printer Sharing" new enable=Yes
+
+rem Turn on network discovery for all network profiles
+netsh advfirewall firewall set rule group="Network Discovery" new enable=Yes
+
 rem Disable Firewall
 Netsh advfirewall set allprofile state off
 
-rem Setting up 6to4 tunneling...
+rem ipv6
 netsh int 6to4 set state state=enabled undoonstop=disabled
 netsh int 6to4 set routing routing=enabled sitelocals=enabled
-
-rem Enable Teredo and 6to4 (Xbox LIVE fix)
+netsh int ipv6 isatap set state enabled
 netsh int teredo set state natawareclient
-netsh int 6to4 set state state=enabled
 netsh int teredo set state servername=win1910.ipv6.microsoft.com
 
 rem BCDEDIT Boot Tweaks
+bcdedit /deletevalue {current} safeboot
+bcdedit /deletevalue {current} safebootalternateshell
+bcdedit /deletevalue {current} removememory
+bcdedit /deletevalue {current} truncatememory
+bcdedit /deletevalue {current} useplatformclock
+bcdedit /deletevalue {default} safeboot
+bcdedit /deletevalue {default} safebootalternateshell
+bcdedit /deletevalue {default} removememory
+bcdedit /deletevalue {default} truncatememory
+bcdedit /deletevalue {default} useplatformclock
+bcdedit /set {current} hypervisorlaunchtype off
+Bcdedit /set {current} flightsigning on
+bcdedit /set {bootmgr} displaybootmenu no
+Bcdedit /set {bootmgr} flightsigning on
+bcdedit /set {current} bootems no
+bcdedit /set {current} bootmenupolicy legacy
+bcdedit /set {current} bootstatuspolicy IgnoreAllFailures
+bcdedit /set {current} disabledynamictick yes
+bcdedit /set {current} lastknowngood yes
+bcdedit /set {current} recoveryenabled no
+bcdedit /set {default} bootems no
+bcdedit /set {default} bootmenupolicy legacy
+bcdedit /set {default} bootstatuspolicy IgnoreAllFailures
+bcdedit /set {default} disabledynamictick yes
+bcdedit /set {default} lastknowngood yes
+bcdedit /set {default} recoveryenabled no
 bcdedit /timeout 0
-bcdedit /set advancedoptions no
-bcdedit /set bootems no
-bcdedit /set testsigning no
-bcdedit /set disableelamdrivers yes
-bcdedit /set bootmenupolicy Legacy
-bcdedit /set hypervisorlaunchtype off
-bcdedit /set vsmlaunchtype Off
-bcdedit /set vm No
-bcdedit /set isolatedcontext no
-bcdedit /set allowedinmemorysettings 0x0
-bcdedit /set disabledynamictick Yes
-bcdedit /set bootlog Yes
-BCDEDIT /set nx OptIn
+bcdedit /set {current} advancedoptions no
+bcdedit /set {current} testsigning no
+bcdedit /set {current} disableelamdrivers yes
+bcdedit /set {current} vsmlaunchtype Off
+bcdedit /set {current} vm No
+bcdedit /set {current} isolatedcontext no
+bcdedit /set {current} allowedinmemorysettings 0x0
+bcdedit /set {current} bootlog Yes
+BCDEDIT /set {current} nx OptIn
 
 rem Apply Best File System Tweaks
 fsutil behavior set disable8dot3 1
@@ -34,6 +63,7 @@ fsutil behavior set disableencryption 1
 fsutil behavior set disablelastaccess 1
 fsutil behavior set EncryptPagingFile 0
 fsutil behavior set symlinkEvaluation L2R:0 R2R:0 R2L:0
+cipher /d /s:C:\
 
 rem Netsh
 netsh int tcp set supplemental template=internet
@@ -50,7 +80,7 @@ netsh int tcp set global hystart=disable
 netsh int tcp set global pacingprofile=off
 netsh int ip set global minmtu=576
 netsh int ip set global flowlabel=disable
-netsh int tcp set supplemental internet congestionprovider=dctcp
+netsh int tcp set supplemental Internet congestionprovider=bbr2
 netsh int tcp set supplemental internet enablecwndrestart=disable
 netsh int ip set global icmpredirects=disabled
 netsh int ip set global multicastforwarding=disabled
@@ -72,7 +102,6 @@ fsutil behavior set Bugcheckoncorrupt 0
 
 rem Disables (1) or enables (0) NTFS compression
 fsutil behavior set disablecompression 1
-cipher /d /s:C:\
 
 rem Disables (1) or enables (0) updates to the Last Access Time stamp on each directory when directories are listed on an NTFS volume
 fsutil behavior set DisableLastAccess 1
@@ -104,6 +133,12 @@ fsutil behavior set disabledeletenotify 0
 rem Disable Microsoft Virtual WiFi Miniport Adapter is a virtual adaptor for sharing your internet connection (ie. making a wifi hotspot, or 'hosted network')
 netsh wlan set hostednetwork mode=disallow
 
-rem 关闭nvidia持续写入记录
+rem Remove GameBarPresenceWriter.exe (to restore run SFC scan)
+takeown /s %computername% /u %username% /f "%WINDIR%\System32\GameBarPresenceWriter.exe"
+icacls "%WINDIR%\System32\GameBarPresenceWriter.exe" /inheritance:r /grant:r %username%:F
+taskkill /im GameBarPresenceWriter.exe /f
+del "%WINDIR%\System32\GameBarPresenceWriter.exe" /s /f /q
+
+rem stop Nvidia
 attrib +r "C:\ProgramData\NVIDIA Corporation\nvtopps\nvtopps.db3"
 attrib +r "C:\ProgramData\NVIDIA Corporation\nvtopps\nvtopps.log"
