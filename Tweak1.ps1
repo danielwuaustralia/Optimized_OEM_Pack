@@ -298,6 +298,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WiaRpc' -
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SysMain' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # 提供 TCP/IP (NetBT) 服务上的 NetBIOS 和网络上客户端的 NetBIOS 名称解析的支持
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\lmhosts' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NetBIOS' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # 提供电话服务 API (TAPI)支持
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\TapiSrv' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # 协调执行 WinRT 应用程序的后台作业
@@ -401,3 +402,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\tsusbhub'
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\TsUsbFlt' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # 管理“网络和拨号连接”文件夹中对象，在其中你可以查看局域网和远程连接
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Netman' -Name 'Start' -Value 2 -PropertyType DWord -Force
+# NDIS Cap
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NdisCap' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# PNRPAutoReg
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\PNRPAutoReg' -Name 'Start' -Value 4 -PropertyType DWord -Force
