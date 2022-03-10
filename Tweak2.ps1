@@ -2735,12 +2735,6 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\DirectX\UserGpuPreferenc
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer' -Name 'NoDrivesInSendToMenu' -Value 1 -PropertyType DWord -Force
 
-#无固定到快速访问菜单
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\AllFilesystemObjects\shell\pintohome" -force
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shell\pintohome" -force
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Folder\shell\pintohome" -force
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Network\shell\pintohome" -force
-
 # 额外网络优化
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion' -Name 'MaxConnectionPerServer' -Value 22 -PropertyType DWord -Force
@@ -2819,19 +2813,13 @@ Disable-NetAdapterBinding -Name "*" -ComponentID ms_server
 Disable-NetAdapterBinding -Name "*" -ComponentID ms_msclient
 Disable-NetAdapterBinding -Name "*" -ComponentID ms_pacer
 
-# Setting up 6to4 tunneling...
-Set-Net6to4Configuration -State Enabled -AutoSharing Enabled -RelayState Enabled -RelayName '6to4.ipv6.microsoft.com'
-
-# Enable Teredo and 6to4 (Xbox LIVE fix)
-Set-NetTeredoConfiguration -Type natawareclient
-
 # IP policies for NICs
 Get-NetAdapter -IncludeHidden | Set-NetIPInterface -WeakHostSend Enabled -WeakHostReceive Enabled -RetransmitTimeMs 0 -Forwarding Disabled -EcnMarking Disabled -AdvertiseDefaultRoute Disabled
 
 # Disable all WAN miniport driver
 Get-PnpDevice -FriendlyName 'Microsoft Kernel Debug Network Adapter' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -FriendlyName 'Microsoft Wi-Fi Direct Virtual Adapter' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -InstanceId 'ROOT\KDNIC\0000' | Disable-PnpDevice -Confirm:$false -Verbose
+# Get-PnpDevice -InstanceId 'ROOT\KDNIC\0000' | Disable-PnpDevice -Confirm:$false -Verbose
 
 # Enabling Net Adapter Checksum Offload...
 Enable-NetAdapterChecksumOffload -Name '*'
@@ -2855,7 +2843,8 @@ $Memory = (Get-CimInstance -ClassName Win32_PhysicalMemory | Measure-Object -Pro
 If ($Memory -is [Double]) { Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name SvcHostSplitThresholdInKB -Value $Memory -Force }
 
 # Disable Nagle's Algorithm
-$strGUIDS = [array] (Get-WmiObject win32_networkadapter -filter "netconnectionstatus = 2" | Select-Object -expand GUID) 
+# $strGUIDS = [array] (Get-WmiObject win32_networkadapter -filter "netconnectionstatus = 2" | Select-Object -expand GUID) 
+$strGUIDS = [array] (Get-WmiObject win32_networkadapter | Select-Object -expand GUID) 
 foreach ($strGUID in $strGUIDS)
 { New-ItemProperty -path HKLM:\System\CurrentControlSet\services\Tcpip\Parameters\Interfaces\$strGUID -propertytype DWORD -name TcpAckFrequency -value 1 -Force }
 foreach ($strGUID in $strGUIDS)
