@@ -406,3 +406,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Netman' -
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NdisCap' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # PNRPAutoReg
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\PNRPAutoReg' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# System Guard
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SgrmAgent' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SgrmBroker' -Name 'Start' -Value 4 -PropertyType DWord -Force
