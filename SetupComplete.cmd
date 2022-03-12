@@ -28,13 +28,10 @@ rem Direct X
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\DirectXRedist.exe /ai
 
 rem Net Framework
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-6.0.2-win-x64.exe /quiet /norestart
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-3.1.22-win-x64.exe /quiet /norestart
 
 rem VSCode
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VSCodeSetup-x64-1.65.0-insider.exe /SP- /VERYSILENT /NORESTART /SUPPRESSMSGBOXES /mergetasks=!runcode
-
-rem chipset driver
-rem start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Software_3.10.22.706.exe /S
 
 rem process lasso
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassoActivator.exe -makekeyfile -product:2 -output:"%WINDIR%\Setup\Scripts\SOFTWARE"
@@ -44,6 +41,6 @@ rem time sync
 start /wait C:\PROGRA~1\UpdateTime\UpdateTime_x64.exe /SI
 
 rem remove Edge
-"C:\Program Files (x86)\Microsoft\Edge\Application\92.0.902.67\Installer\setup.exe" --uninstall --system-level --verbose-logging --force-uninstall --delete-profile
+"C:\Program Files (x86)\Microsoft\Edge\Application\98.0.1108.43\Installer\setup.exe" --uninstall --system-level --verbose-logging --force-uninstall --delete-profile
 
 %windir%\System32\UsoClient.exe RefreshSettings
