@@ -13,9 +13,8 @@ rem Disable Firewall
 Netsh advfirewall set allprofile state off
 
 rem BCDEDIT Boot Tweaks
-bcdedit /set useplatformclock false
-bcdedit /set useplatformtick yes
-bcdedit /set tscsyncpolicy legacy
+bcdedit /deletevalue useplatformclock
+bcdedit /set tscsyncpolicy enhanced
 bcdedit /set disabledynamictick yes
 bcdedit /timeout 0
 bcdedit /set advancedoptions no
@@ -119,12 +118,6 @@ fsutil behavior set disabledeletenotify 0
 
 rem Disable Microsoft Virtual WiFi Miniport Adapter is a virtual adaptor for sharing your internet connection (ie. making a wifi hotspot, or 'hosted network')
 netsh wlan set hostednetwork mode=disallow
-
-rem Remove GameBarPresenceWriter.exe (to restore run SFC scan)
-takeown /s %computername% /u %username% /f "%WINDIR%\System32\GameBarPresenceWriter.exe"
-icacls "%WINDIR%\System32\GameBarPresenceWriter.exe" /inheritance:r /grant:r %username%:F
-taskkill /im GameBarPresenceWriter.exe /f
-del "%WINDIR%\System32\GameBarPresenceWriter.exe" /s /f /q
 
 rem stop Nvidia
 attrib +r "C:\ProgramData\NVIDIA Corporation\nvtopps\nvtopps.db3"
