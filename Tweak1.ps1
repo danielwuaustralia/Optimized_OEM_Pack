@@ -1,7 +1,7 @@
 # 记录到c:\Tweak1Log.txt
 Start-Transcript -Path c:\Tweak1Log.txt -Force
 
-# Assign the default preferences to their own variables so we can restore then once the function completes.
+# 无需确认
 $ErrorActionPreference = 'SilentlyContinue'
 $ProgressPreference = 'SilentlyContinue'
 
@@ -22,21 +22,25 @@ Enable-ScheduledTask -TaskName 'Process Lasso Core Engine Only'
 Enable-ScheduledTask -TaskName 'Process Lasso Management Console (GUI)'
 Enable-ScheduledTask -TaskName 'Session agent for Process Lasso'
 
-# 移除Defender
-Remove-Item -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\MsSecFlt" -Recurse -force
-Remove-Item -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\WinDefend" -Recurse -force
-Remove-Item -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\WdBoot" -Recurse -force
-Remove-Item -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\WdFilter" -Recurse -force
-Remove-Item -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\Sense" -Recurse -force
-Remove-Item -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\WdNisDrv" -Recurse -force
-Remove-Item -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\WdNisSvc" -Recurse -force
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\MsSecFlt" -Recurse -force
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\WinDefend" -Recurse -force
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\WdBoot" -Recurse -force
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\WdFilter" -Recurse -force
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\Sense" -Recurse -force
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\WdNisDrv" -Recurse -force
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\WdNisSvc" -Recurse -force
+# 禁用Defender
+New-ItemProperty -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\MsSecFlt" -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\WinDefend" -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\WdBoot" -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\WdFilter" -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\Sense" -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\WdNisDrv" -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath "HKLM:\SYSTEM\ControlSet001\Services\WdNisSvc" -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\wscsvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\SecurityHealthService' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\MsSecFlt" -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\WinDefend" -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\WdBoot" -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\WdFilter" -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\Sense" -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\WdNisDrv" -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\WdNisSvc" -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\wscsvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SecurityHealthService' -Name 'Start' -Value 4 -PropertyType DWord -Force
 
 # Edge浏览器
 Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdate" -Recurse -Force
@@ -79,7 +83,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WacomPen'
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WinVerbs' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\UnionFS' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\rt640x64' -Name 'Start' -Value 4 -PropertyType DWord -Force
-
 #Intel平台串行GPIO
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\iagpio' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\iai2c' -Name 'Start' -Value 4 -PropertyType DWord -Force
@@ -102,6 +105,28 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\intelpep'
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\intelpmax' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\IntelPMT' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\intelppm' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# NDIS Cap
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NdisCap' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# PNRPAutoReg
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\PNRPAutoReg' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# System Guard
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SgrmAgent' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SgrmBroker' -Name 'Start' -Value 4 -PropertyType DWord -Force
+#nVidia SATA
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nvraid' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nvstor' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# 1394ohci
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\1394ohci' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# SCSI miniport
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\3ware' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# Windows Cloud Files Filter Driver
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\CldFlt' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# Floppy Disk Controller Driver
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\fdc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# Floppy Disk Driver
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\flpydisk' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# High-Capacity Floppy Disk Drive
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\sfloppy' -Name 'Start' -Value 4 -PropertyType DWord -Force
 
 # 禁用分用户服务
 Get-ChildItem -Path "HKLM:\SYSTEM\CurrentControlSet\Services" | Where-Object -Property Name -Like *AarSvc* | Set-ItemProperty -Name Start -Value 4 -Force -PassThru | Set-ItemProperty -Name UserServiceFlags -Value 0 -Force
@@ -134,17 +159,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\XblGameSa
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SSDPSRV' -Name 'Start' -Value 2 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\upnphost' -Name 'Start' -Value 2 -PropertyType DWord -Force
 
-# 禁用底层驱动
-# SCSI miniport
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\3ware' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# Windows Cloud Files Filter Driver
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\CldFlt' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# Floppy Disk Controller Driver
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\fdc' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# Floppy Disk Driver
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\flpydisk' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# High-Capacity Floppy Disk Drive
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\sfloppy' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # 管理此计算机对智能卡的取读访问
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SCardSvr' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\ScDeviceEnum' -Name 'Start' -Value 4 -PropertyType DWord -Force
@@ -170,7 +184,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BthAvctpS
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BTAGService' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\bthserv' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # 使用空闲网络带宽在后台传送文件
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BITS' -Name 'Start' -Value 3 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BITS' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # 维护网络上计算机的更新列表，并将列表提供给计算机指定浏览
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Browser' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # 承载 BitLocker 驱动器加密服务
@@ -278,8 +292,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\UmRdpServ
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\RemoteRegistry' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # 在局域网以及广域网环境中为企业提供路由服务
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\RemoteAccess' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# WSCSVC(Windows 安全中心)服务监视并报告计算机上的安全健康设置
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\wscsvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # 从各种传感器传送数据
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SensorDataService' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SensrSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
@@ -329,8 +341,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WSearch' 
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WinRM' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # 维护在网络上的所有客户端和服务器的时间和日期同步
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\W32Time' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# Windows 安全中心
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SecurityHealthService' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # Windows 备份
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SDRSVC' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # 启用空间感知、空间输入和全息绘制
@@ -402,10 +412,3 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\TsUsbFlt'
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Netman' -Name 'Start' -Value 2 -PropertyType DWord -Force
 # 用于管理显示增强(如亮度控制)的服务
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\DisplayEnhancementService' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# NDIS Cap
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NdisCap' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# PNRPAutoReg
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\PNRPAutoReg' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# System Guard
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SgrmAgent' -Name 'Start' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SgrmBroker' -Name 'Start' -Value 4 -PropertyType DWord -Force
