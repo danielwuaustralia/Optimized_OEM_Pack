@@ -2570,14 +2570,17 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'We
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'WebWidgetAllowed' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'WebWidgetIsEnabledOnStartup' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'WindowOcclusionEnabled' -Value 0 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Edge Dev\PreferenceMACs\Default") -ne $true) { New-Item "HKCU:\Software\Microsoft\Edge Dev\PreferenceMACs\Default" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Edge Dev\PreferenceMACs\Default' -Name 'default_search_provider_data.template_url_data' -Value '001CD7BA78DA395CFF24D7CF2E4E6F4D55C0D23AA12378CE6B1CA37341B76AAF' -PropertyType String -Force
 # https://docs.microsoft.com/en-us/deployedge/microsoft-edge-update-policies
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'Update{56EB18F8-B008-4CBD-B6D2-8C97FE7E9062}' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'ProxyMode' -Value 'direct' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'Update{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}' -Value 1 -PropertyType DWord -Force
+# prevent from re-install
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\EdgeUpdate") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\EdgeUpdate" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\EdgeUpdate' -Name 'DoNotUpdateToEdgeWithChromium' -Value 1 -PropertyType DWord -Force
 
-if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Edge Dev\PreferenceMACs\Default") -ne $true) { New-Item "HKCU:\Software\Microsoft\Edge Dev\PreferenceMACs\Default" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Edge Dev\PreferenceMACs\Default' -Name 'default_search_provider_data.template_url_data' -Value '001CD7BA78DA395CFF24D7CF2E4E6F4D55C0D23AA12378CE6B1CA37341B76AAF' -PropertyType String -Force
 
 # no upload
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\PerfTrack") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\PerfTrack" -force };
