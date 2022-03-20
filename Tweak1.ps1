@@ -133,42 +133,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\flpydisk'
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\sfloppy' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # Windows Network Data Usage Monitoring Driver
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Ndu' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# Multi-Transport Composite Bus Enumerator
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\CompositeBus_3208CCE6E4B86CAD' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# User-Mode Bus Enumerator
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\umbus_F7FF788CAA4EEE56' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# Hyper-V infrastructure
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Vid' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# Remote Desktop Device Redirector Bus Driver
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\rdpbus' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# QoS Packet Scheduler
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Psched' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# ACPI Wake Alarm Driver
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\acpitime' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# ACPI Power Meter Driver
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AcpiPmi' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# ACPI Devices driver
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AcpiDev' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# ACPI Processor Aggregator Driver
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\acpipagr' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# Microsoft Windows Management Interface for ACPI
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WmiAcpi' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# https://docs.microsoft.com/en-us/windows/compatibility/desktop-activity-moderator
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\dam' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# Background Activity Moderator
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\bam' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# audio error control
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Audiosrv' -Name 'ErrorControl' -Value 2 -PropertyType DWord -Force
-# Virtual Drives Enumerator
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\vdrvroot' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# Disk I/O Rate Filter Driver
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\iorate' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# ready boost
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\rdyboost' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# Beep
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Beep' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# Performance Counters for Windows Driver
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\pcw' -Name 'Start' -Value 4 -PropertyType DWord -Force
 
 # 禁用分用户服务
 Get-ChildItem -Path "HKLM:\SYSTEM\CurrentControlSet\Services" | Where-Object -Property Name -Like *AarSvc* | Set-ItemProperty -Name Start -Value 4 -Force -PassThru | Set-ItemProperty -Name UserServiceFlags -Value 0 -Force
