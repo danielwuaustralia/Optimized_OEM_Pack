@@ -13,9 +13,10 @@ rem Disable Firewall
 Netsh advfirewall set allprofile state off
 
 rem BCDEDIT Boot Tweaks
+bcdedit /set allowedinmemorysettings 0x0
 bcdedit /deletevalue useplatformclock
 bcdedit /set disabledynamictick yes
-bcdedit /set tscsyncpolicy enhanced
+bcdedit /set tscsyncpolicy legacy
 bcdedit /timeout 0
 bcdedit /set advancedoptions no
 bcdedit /set bootems no
@@ -39,14 +40,10 @@ fsutil behavior set symlinkEvaluation L2R:0 R2R:0 R2L:0
 cipher /d /s:C:\
 
 rem Netsh
-netsh int tcp set supplemental template=Internet
-netsh int udp set global uro=enable
 netsh int tcp set global rss=enable
-netsh interface tcp set heuristics wsh=enabled
 netsh int tcp set global autotuninglevel=experimental
-netsh int tcp set global ecn=enabled
-netsh int tcp set heuristics disabled
-netsh int tcp set global timestamps=disable
+netsh int tcp set global ecncapability=disable
+netsh int tcp set global timestamps=enable
 netsh int tcp set global initialrto=300
 netsh int tcp set global rsc=disable
 netsh int tcp set global fastopen=enable
@@ -54,26 +51,15 @@ netsh int tcp set global hystart=disable
 netsh int tcp set global pacingprofile=off
 netsh int ip set global minmtu=576
 netsh int ip set global flowlabel=disable
-netsh int tcp set supplemental Internet congestionprovider=dctcp
+netsh int tcp set supplemental internet congestionprovider=dctcp
 netsh int tcp set supplemental internet enablecwndrestart=disable
 netsh int ip set global icmpredirects=disabled
 netsh int ip set global multicastforwarding=disabled
 netsh int ip set global groupforwardedfragments=disable
 netsh int tcp set security mpp=disabled profiles=disabled
 netsh int tcp set heur forcews=disable
-netsh int tcp set global dca=enabled
-netsh int tcp set global nonsackrttresiliency=enabled
-netsh int tcp set security mpp=disabled
-netsh int tcp set security profiles=disabled
 
-rem Set Maximum Transmission Unit to 1492: MTU (Maximum Transmission Unit) is the greatest amount of data that can be transferred in one physical frame on the network. If a packet that has a smaller MTU than the packet's frame length is sent, fragmentation will occur. For TCP (Transmission Control Protocol) MTU can range from 68 to 1500 bytes. Larger MTUs provide for lower overhead (fewer headers). (Needed to rework)
-netsh int ipv4 set subinterface "1" mtu=1492 store=persistent
-netsh int ipv4 set subinterface "2" mtu=1492 store=persistent
-
-rem Enable Auto-Tuning: Auto-tuning enables dynamic send buffering for overall better throughput
-netsh winsock set autotuning on
-
-rem ipv6
+rem 6to4
 netsh int 6to4 set state state=enabled undoonstop=disabled
 netsh int 6to4 set routing routing=enabled sitelocals=enabled
 
