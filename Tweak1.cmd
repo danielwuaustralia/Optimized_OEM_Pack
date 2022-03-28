@@ -13,23 +13,41 @@ rem Disable Firewall
 Netsh advfirewall set allprofile state off
 
 rem BCDEDIT Boot Tweaks
-bcdedit /set allowedinmemorysettings 0x0
-bcdedit /deletevalue useplatformclock
 bcdedit /set disabledynamictick yes
-bcdedit /set tscsyncpolicy legacy
-bcdedit /timeout 0
-bcdedit /set advancedoptions no
-bcdedit /set bootems no
-bcdedit /set testsigning no
-bcdedit /set disableelamdrivers yes
+bcdedit /set useplatformtick yes
+bcdedit /set allowedinmemorysettings 0
+bcdedit /set tscsyncpolicy Enhanced
+bcdedit /set debug No
+bcdedit /set isolatedcontext No
+bcdedit /set pae ForceEnable
 bcdedit /set bootmenupolicy Legacy
-bcdedit /set hypervisorlaunchtype off
-bcdedit /set vsmlaunchtype Off
-bcdedit /set vm No
-bcdedit /set isolatedcontext no
-bcdedit /set bootlog Yes
-BCDEDIT /set nx OptIn
+bcdedit /set usefirmwarepcisettings No
+bcdedit /set sos Yes
+bcdedit /set disabledynamictick Yes
+bcdedit /set disableelamdrivers Yes
 bcdedit /set quietboot Yes
+bcdedit /set x2apicpolicy Enable
+bcdedit /set vsmlaunchtype Off
+bcdedit /set usephysicaldestination No
+bcdedit /set ems No
+bcdedit /set firstmegabytepolicy UseAll
+bcdedit /set configaccesspolicy Default
+bcdedit /set linearaddress57 optin
+bcdedit /set noumex Yes
+bcdedit /set bootems No
+bcdedit /set graphicsmodedisabled No
+bcdedit /set extendedinput Yes
+bcdedit /set highestmode Yes
+bcdedit /set forcefipscrypto No
+bcdedit /set perfmem 0
+bcdedit /set clustermodeaddressing 1
+bcdedit /set configflags 0
+bcdedit /set uselegacyapicmode No
+bcdedit /set onecpu No
+bcdedit /set halbreakpoint No
+bcdedit /set forcelegacyplatform No
+bcdedit /set {bootmgr} flightsigning on
+bcdedit /set {current} flightsigning on
 
 rem Apply Best File System Tweaks
 fsutil behavior set disable8dot3 1
@@ -101,6 +119,9 @@ POWERCFG /HIBERNATE OFF
 
 rem Enable TRIM support
 fsutil behavior set disabledeletenotify 0
+
+rem disable auditing of successful events
+Auditpol /set /category:* /Success:disable
 
 rem Disable Microsoft Virtual WiFi Miniport Adapter is a virtual adaptor for sharing your internet connection (ie. making a wifi hotspot, or 'hosted network')
 netsh wlan set hostednetwork mode=disallow
