@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <unattend xmlns="urn:schemas-microsoft-com:unattend">
     <servicing></servicing>
+    <settings pass="windowsPE">
+        <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <UserData>
+                <ProductKey>
+                    <Key>NRG8B-VKK3Q-CXVCJ-9G2XF-6Q84J</Key>
+                    <WillShowUI>Never</WillShowUI>
+                </ProductKey>
+                <AcceptEula>true</AcceptEula>
+            </UserData>
+            <ComplianceCheck>
+                <DisplayReport>Never</DisplayReport>
+            </ComplianceCheck>
+            <Diagnostics>
+                <OptIn>false</OptIn>
+            </Diagnostics>
+            <DynamicUpdate>
+                <Enable>true</Enable>
+                <WillShowUI>Never</WillShowUI>
+            </DynamicUpdate>
+            <EnableNetwork>false</EnableNetwork>
+            <RunSynchronous>
+                <RunSynchronousCommand wcm:action="add">
+                    <Path>cmd /c for %a in (TPM SecureBoot Storage RAM CPU) do reg add HKLM\SYSTEM\Setup\LabConfig /t REG_DWORD /v Bypass%aCheck /d 1 /f</Path>
+                    <Order>1</Order>
+                    <Description>Bypass the Windows 11 installation restrictions (TPM, SecureBoot, Storage, RAM, CPU check)</Description>
+                </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Path>cmd /c reg add HKLM\SYSTEM\Setup\MoSetup /t REG_DWORD /v AllowUpgradesWithUnsupportedTPMOrCPU /d 1 /f</Path>
+                    <Order>2</Order>
+                    <Description>Allow Upgrade</Description>
+                </RunSynchronousCommand>
+            </RunSynchronous>
+        </component>
+    </settings>
+    <settings pass="offlineServicing">
+        <component name="Microsoft-Windows-LUA-Settings" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <EnableLUA>false</EnableLUA>
+        </component>
+    </settings>
     <settings pass="specialize">
         <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <RunSynchronous>
@@ -26,6 +65,11 @@
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
                     <Order>5</Order>
+                    <Path>reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE /v BypassNRO /t reg_dword /d 1 /f</Path>
+                    <Description>offline local account via OOBE\BYPASSNRO on every site</Description>
+                </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>6</Order>
                     <Path>C:\Windows\Setup\Scripts\RemoveAppx.cmd</Path>
                     <Description>Uninstall Apps</Description>
                 </RunSynchronousCommand>
@@ -87,30 +131,37 @@
                 <ProtectYourPC>3</ProtectYourPC>
                 <SkipMachineOOBE>true</SkipMachineOOBE>
                 <SkipUserOOBE>true</SkipUserOOBE>
+                <NetworkLocation>Home</NetworkLocation>
             </OOBE>
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
                     <Order>1</Order>
+                    <Description>Clean Up</Description>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\Windows\Setup\Scripts\CMDTweak.cmd</CommandLine>
-                    <Description>CMD Tweak</Description>
+                    <CommandLine>C:\Windows\Setup\Scripts\CleanUp.cmd</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>2</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>"C:\Windows\SysWOW64\NsudoLG.exe" -U:T -P:E -Wait "C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Tweak1.ps1"</CommandLine>
-                    <Description>Powershell Tweak</Description>
+                    <CommandLine>C:\Windows\Setup\Scripts\Tweak1.cmd</CommandLine>
+                    <Description>CMD Tweak</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>3</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>"C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Tweak2.ps1"</CommandLine>
+                    <CommandLine>"C:\Windows\SysWOW64\NsudoLG.exe" -U:T -P:E -Wait "C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Tweak2.ps1"</CommandLine>
                     <Description>Powershell Tweak</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>4</Order>
+                    <RequiresUserInput>false</RequiresUserInput>
+                    <CommandLine>"C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Tweak3.ps1"</CommandLine>
+                    <Description>Powershell Tweak</Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>5</Order>
                     <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>C:\Windows\Setup\Scripts\SOFTWARE\AAFOptimusAudioPack9282.exe</CommandLine>
+                    <CommandLine>C:\Windows\Setup\Scripts\SOFTWARE\AAFOptimusDCHAudioPack9313.exe</CommandLine>
                     <Description>Audio Driver</Description>
                 </SynchronousCommand>
             </FirstLogonCommands>
@@ -134,16 +185,5 @@
             <DisableAntiSpyware>true</DisableAntiSpyware>
         </component>
     </settings>
-    <settings pass="windowsPE">
-        <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <RunSynchronous>
-                <RunSynchronousCommand wcm:action="add">
-                    <Path>cmd /c for %a in (TPM SecureBoot Storage RAM CPU) do reg add HKLM\SYSTEM\Setup\LabConfig /t REG_DWORD /v Bypass%aCheck /d 1 /f</Path>
-                    <Order>1</Order>
-                    <Description>Bypass the Windows 11 installation restrictions (TPM, SecureBoot, Storage, RAM, CPU check)</Description>
-                </RunSynchronousCommand>
-            </RunSynchronous>
-        </component>
-    </settings>
-    <cpi:offlineImage cpi:source="wim:d:/optimizeoffline/wim/install.wim#Windows 11 专业版" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+    <cpi:offlineImage cpi:source="catalog://d:/optimizeoffline/wim/install_windows 11 专业版.clg" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
 </unattend>
