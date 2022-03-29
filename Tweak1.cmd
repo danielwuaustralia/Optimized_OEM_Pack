@@ -13,10 +13,11 @@ rem Disable Firewall
 Netsh advfirewall set allprofile state off
 
 rem BCDEDIT Boot Tweaks
+bcdedit /set useplatformtick no
+bcdedit /set useplatformclock no
 bcdedit /set disabledynamictick yes
-bcdedit /set useplatformtick yes
+bcdedit /set tscsyncpolicy legacy
 bcdedit /set allowedinmemorysettings 0
-bcdedit /set tscsyncpolicy Enhanced
 bcdedit /set debug No
 bcdedit /set isolatedcontext No
 bcdedit /set pae ForceEnable
