@@ -1,4 +1,7 @@
+@cls
 @echo off
+>nul chcp 437
+setlocal enabledelayedexpansion
 
 rem check Direct I/O status
 fsutil bypassIo state C:\
