@@ -480,6 +480,10 @@ Set-ItemProperty -Path "REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\
 Remove-Item -Path "REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*" -Include *Owner* -Recurse -Force | Out-Null
 Get-ChildItem -Path "REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*" -Name | ForEach-Object { dism /online /remove-package /PackageName:$_ /NoRestart }
 
+Set-ItemProperty -Path "REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Microsoft-Windows-OneDrive*" -Name Visibility -Value "1" -Force
+Remove-Item -Path "REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Microsoft-Windows-OneDrive*" -Include *Owner* -Recurse -Force | Out-Null
+Get-ChildItem -Path "REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Microsoft-Windows-OneDrive*" -Name | ForEach-Object { dism /online /remove-package /PackageName:$_ /NoRestart }
+
 # prevent computer from sending data to microsoft regarding its activation state
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\AppID\slui.exe") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\AppID\slui.exe" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\AppID\slui.exe' -Name 'NoGenTicket' -Value 1 -PropertyType DWord -Force
@@ -517,7 +521,7 @@ if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Exp
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{59031A47-3F72-44A7-89C5-5595FE6B30EE}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsvistaimageres.dll,106' -PropertyType ExpandString -Force
 # 下载文件夹图标
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{088e3905-0323-4b02-9826-5d99428e115f}\DefaultIcon") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\CLSID\{088e3905-0323-4b02-9826-5d99428e115f}\DefaultIcon" -force -ea SilentlyContinue };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{088e3905-0323-4b02-9826-5d99428e115f}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsvistaimageres.dll,173' -PropertyType ExpandString -Force -ea SilentlyContinue;
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{088e3905-0323-4b02-9826-5d99428e115f}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsvistaimageres.dll,173' -PropertyType ExpandString -Force
 # 音乐文件夹图标
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}\DefaultIcon") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\CLSID\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}\DefaultIcon" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsvistaimageres.dll,169' -PropertyType ExpandString -Force
@@ -533,6 +537,15 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\E
 # D盘图标
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\DriveIcons\D\DefaultIcon") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\DriveIcons\D\DefaultIcon" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\DriveIcons\D\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsxpshell32.dll,7' -PropertyType String -Force
+# bat
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\batfile\DefaultIcon") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\batfile\DefaultIcon" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\batfile\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsxpshell32.dll,24' -PropertyType ExpandString -Force
+if ((Test-Path -LiteralPath "HKLM:\Software\Classes\Directory\DefaultIcon") -ne $true) { New-Item "HKLM:\Software\Classes\Directory\DefaultIcon" -force };
+if ((Test-Path -LiteralPath "HKLM:\Software\Classes\Drive\DefaultIcon") -ne $true) { New-Item "HKLM:\Software\Classes\Drive\DefaultIcon" -force };
+if ((Test-Path -LiteralPath "HKLM:\Software\Classes\Folder\DefaultIcon") -ne $true) { New-Item "HKLM:\Software\Classes\Folder\DefaultIcon" -force };
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\Directory\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsxpshell32.dll,3' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\Drive\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsxpshell32.dll,8' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\Folder\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsxpshell32.dll,3' -PropertyType String -Force
 #　默认文件夹图标
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '0' -Value '%SystemRoot%\windowsxpshell32.dll,0' -PropertyType String -Force
