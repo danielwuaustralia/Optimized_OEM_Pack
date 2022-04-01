@@ -476,13 +476,13 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\exfat' -N
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Filetrace' -Name 'Start' -Value 4 -PropertyType DWord -Force
 
 # Remove Packages
-Set-ItemProperty -Path "REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*" -Name Visibility -Value "1" -Force
-Remove-Item -Path "REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*" -Include *Owner* -Recurse -Force | Out-Null
-Get-ChildItem -Path "REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*" -Name | ForEach-Object { dism /online /remove-package /PackageName:$_ /NoRestart }
+# Set-ItemProperty -Path "REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*" -Name Visibility -Value "1" -Force
+# Remove-Item -Path "REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*" -Include *Owner* -Recurse -Force | Out-Null
+# Get-ChildItem -Path "REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*" -Name | ForEach-Object { dism /online /remove-package /PackageName:$_ /NoRestart }
 
-Set-ItemProperty -Path "REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Microsoft-Windows-OneDrive*" -Name Visibility -Value "1" -Force
-Remove-Item -Path "REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Microsoft-Windows-OneDrive*" -Include *Owner* -Recurse -Force | Out-Null
-Get-ChildItem -Path "REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Microsoft-Windows-OneDrive*" -Name | ForEach-Object { dism /online /remove-package /PackageName:$_ /NoRestart }
+# Set-ItemProperty -Path "REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Microsoft-Windows-OneDrive*" -Name Visibility -Value "1" -Force
+# Remove-Item -Path "REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Microsoft-Windows-OneDrive*" -Include *Owner* -Recurse -Force | Out-Null
+# Get-ChildItem -Path "REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Microsoft-Windows-OneDrive*" -Name | ForEach-Object { dism /online /remove-package /PackageName:$_ /NoRestart }
 
 # prevent computer from sending data to microsoft regarding its activation state
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\AppID\slui.exe") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\AppID\slui.exe" -force };
