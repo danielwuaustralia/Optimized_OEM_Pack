@@ -1076,6 +1076,129 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64' -Name 'AddMy
 New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64' -Name 'ServiceValue' -Value 0 -PropertyType DWord -Force;
 New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64' -Name 'Check118_119' -Value 4 -PropertyType DWord -Force;
 
+# block potplayer ad
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 p1-play.edge4k.com"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 p2-play.edge4k.com"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 p1-play.kgslb.com"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 kyson.ad.daum.net"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 display.ad.daum.net"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 analytics.ad.daum.net"
+
+# link
+if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\FileIconList") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\FileIconList" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '110' -Value '.XSS*XSS - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '109' -Value '.XSPF*XSPF - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '108' -Value '.WVX*WVX - Windows 媒体文件*C:\Program Files\PotPlayer\PotIcons64.dll*9' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '107' -Value '.WV*WV - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '106' -Value '.WTV*WTV - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '105' -Value '.WMX*WMX - Windows 媒体文件*C:\Program Files\PotPlayer\PotIcons64.dll*8' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '104' -Value '.WMV*WMV - Windows 媒体文件*C:\Program Files\PotPlayer\PotIcons64.dll*7' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '103' -Value '.WMP*WMP - Windows 媒体文件*C:\Program Files\PotPlayer\PotIcons64.dll*6' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '102' -Value '.WMA*WMA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*47' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '111' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '100' -Value '.WEBM*WEBM - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '99' -Value '.WAX*WAX - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*55' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '98' -Value '.WAV*WAV - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*70' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '97' -Value '.VTT*VTT - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '96' -Value '.VOB*VOB - DVD 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*18' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '95' -Value '.USF*USF - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '94' -Value '.TTML*TTML - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '93' -Value '.TTA*TTA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '92' -Value '.TS*TS - MPEG2 Transport 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*33' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '91' -Value '.TRP*TRP - MPEG2 Transport 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*34' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '90' -Value '.TPR*TPR - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*35' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '89' -Value '.TP*TP - MPEG2 Transport 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*16' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '88' -Value '.TAK*TAK - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '87' -Value '.SUP*SUP - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '86' -Value '.SUB*SUB - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*76' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '85' -Value '.SSF*SSF - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '84' -Value '.SSA*SSA - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*74' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '101' -Value '.WM*WM - Windows 媒体文件*C:\Program Files\PotPlayer\PotIcons64.dll*5' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '83' -Value '.SRT*SRT - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*72' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '0' -Value '.3G2*3G2 - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*41' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '1' -Value '.3GP*3GP - 手机电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*28' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '2' -Value '.3GP2*3GP2 - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*42' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '3' -Value '.3GPP*3GPP - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*40' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '4' -Value '.AAC*AAC - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*63' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '5' -Value '.AC3*AC3 - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*62' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '6' -Value '.AIF*AIF - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '7' -Value '.AIFF*AIFF - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '8' -Value '.AMR*AMR - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*46' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '9' -Value '.AMV*AMV - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '10' -Value '.APE*APE - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*64' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '11' -Value '.ASF*ASF - Windows 媒体文件*C:\Program Files\PotPlayer\PotIcons64.dll*3' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '12' -Value '.ASS*ASS - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*73' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '13' -Value '.ASX*ASX - Windows 媒体文件*C:\Program Files\PotPlayer\PotIcons64.dll*4' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '14' -Value '.AVI*AVI - Windows 标准视频文件*C:\Program Files\PotPlayer\PotIcons64.dll*1' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '15' -Value '.CDA*CDA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '16' -Value '.CUE*CUE - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '17' -Value '.DIVX*DIVX - 视频文件*C:\Program Files\PotPlayer\PotIcons64.dll*2' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '18' -Value '.DMSKM*DMSKM - 手机电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*31' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '19' -Value '.DPG*DPG - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '20' -Value '.DPL*DPL - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '21' -Value '.DSF*DSF - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '22' -Value '.DTS*DTS - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*67' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '23' -Value '.DTSHD*DTSHD - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '24' -Value '.DVR-MS*DVR-MS - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '25' -Value '.EAC3*EAC3 - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '26' -Value '.EVO*EVO - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '27' -Value '.F4V*F4V - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '28' -Value '.FLAC*FLAC - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*68' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '29' -Value '.FLV*FLV - Flash(FLV) 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*32' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '30' -Value '.IDX*IDX - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*75' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '31' -Value '.IFO*IFO - DVD 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*17' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '32' -Value '.K3G*K3G - 手机电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*29' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '33' -Value '.LMP4*LMP4 - MPEG-4 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*27' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '34' -Value '.M1A*M1A - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*49' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '35' -Value '.M1V*M1V - MPEG 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*10' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '36' -Value '.M2A*M2A - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*50' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '37' -Value '.M2T*M2T - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '38' -Value '.M2TS*M2TS - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*77' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '39' -Value '.M2V*M2V - MPEG 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*11' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '40' -Value '.M3U*M3U - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*53' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '41' -Value '.M3U8*M3U8 - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '42' -Value '.M4A*M4A - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*51' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '43' -Value '.M4B*M4B - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*39' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '44' -Value '.M4P*M4P - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*38' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '45' -Value '.M4V*M4V - MPEG-4 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*26' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '46' -Value '.MKA*MKA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*69' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '47' -Value '.MKV*MKV - Matroska 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*20' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '48' -Value '.MOD*MOD - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*65' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '49' -Value '.MOV*MOV - Quicktime 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*23' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '50' -Value '.MP2*MP2 - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*59' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '51' -Value '.MP2V*MP2V - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*37' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '52' -Value '.MP3*MP3 - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*60' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '53' -Value '.MP4*MP4 - MPEG-4 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*25' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '54' -Value '.MPA*MPA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*48' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '55' -Value '.MPC*MPC - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*66' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '56' -Value '.MPE*MPE - MPEG 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*12' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '57' -Value '.MPEG*MPEG - MPEG 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*13' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '58' -Value '.MPG*MPG - MPEG 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*14' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '59' -Value '.MPL*MPL - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '60' -Value '.MPLS*MPLS - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '61' -Value '.MPV2*MPV2 - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*36' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '62' -Value '.MQV*MQV - QT 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*24' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '63' -Value '.MTS*MTS - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*78' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '64' -Value '.MXF*MXF - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*79' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '65' -Value '.NSR*NSR - DRM 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '66' -Value '.NSV*NSV - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '67' -Value '.OGG*OGG - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*61' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '68' -Value '.OGM*OGM - OGM 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*19' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '69' -Value '.OGV*OGV - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*80' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '70' -Value '.OPUS*OPUS - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '71' -Value '.PLS*PLS - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*54' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '72' -Value '.PSB*PSB - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '73' -Value '.QT*QT - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*45' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '74' -Value '.RA*RA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*52' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '75' -Value '.RAM*RAM - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*43' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '76' -Value '.RM*RM - RealMedia 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*21' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '77' -Value '.RMVB*RMVB - RealMedia 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*22' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '78' -Value '.RPM*RPM - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*44' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '79' -Value '.RT*RT - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '80' -Value '.SBV*SBV - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '81' -Value '.SKM*SKM - 手机电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*30' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '82' -Value '.SMI*SMI - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*71' -PropertyType String -Force
+
 # LAV Filter Settings
 if ((Test-Path -LiteralPath "HKCU:\Software\LAV") -ne $true) { New-Item "HKCU:\Software\LAV" -force };
 if ((Test-Path -LiteralPath "HKCU:\Software\LAV\Audio") -ne $true) { New-Item "HKCU:\Software\LAV\Audio" -force };
@@ -1809,6 +1932,7 @@ New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\Windows
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate' -Name 'SetDisablePauseUXAccess' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate' -Name 'ActiveHoursStart' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate' -Name 'UpdateNotificationLevel' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate' -Name 'DisableWUfBSafeguards' -Value 1 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'DetectionFrequency' -Value 20 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'DetectionFrequencyEnabled' -Value 1 -PropertyType DWord -Force
@@ -2617,92 +2741,35 @@ if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Pol
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Associations' -Name 'ModRiskFileTypes' -Value '.bat;.exe;.reg;.vbs;.chm;.msi;.js;.cmd' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Associations' -Name 'ModRiskFileTypes' -Value '.bat;.exe;.reg;.vbs;.chm;.msi;.js;.cmd' -PropertyType String -Force
 
-# Edge Policy
-# https://docs.microsoft.com/en-us/deployedge/microsoft-edge-policies
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'BackgroundModeEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'StartupBoostEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'SleepingTabsEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DefaultBrowserSettingEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'SmartScreenPuaEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'SmartScreenForTrustedDownloadsEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DefaultGeolocationSetting' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'NewTabPageSearchBox' -Value 'redirect' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PasswordManagerEnabled' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ShowHomeButton' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PersonalizationReportingEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PinningWizardAllowed' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'BrowserNetworkTimeQueriesEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'TabFreezingEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AutoplayAllowed' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'UserFeedbackAllowed' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AlwaysOpenPdfExternally' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AutoImportAtFirstRun' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PromotionalTabsEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'FavoritesBarEnabled' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AddressBarMicrosoftSearchInBingProviderEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'HideFirstRunExperience' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ShowMicrosoftRewards' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'BuiltInDnsClientEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'OpenMicrosoftLinksInEdgeEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DefaultNotificationsSetting' -Value 2 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DefaultPopupsSetting' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PasswordGeneratorEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PasswordMonitorAllowed' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PasswordRevealEnabled' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'EfficiencyMode' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'NewSmartScreenLibraryEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'NewTabPageAllowedBackgroundTypes' -Value 3 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'NewTabPageContentEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'RestoreOnStartup' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'NewTabPageHideDefaultTopSites' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'NewTabPagePrerenderEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'TyposquattingCheckerEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AdsSettingForIntrusiveAdsSites' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AlternateErrorPagesEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AutoLaunchProtocolsComponentEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AutofillAddressEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'AutofillCreditCardEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'BingAdsSuppression' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ClearCachedImagesAndFilesOnExit' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ConfigureDoNotTrack' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DNSInterceptionChecksEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DiagnosticData' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DnsOverHttpsMode' -Value 'off' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DownloadDirectory' -Value 'D:\Downloads' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DownloadRestrictions' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'EdgeCollectionsEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'EdgeDiscoverEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'FamilySafetySettingsEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ForceBingSafeSearch' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ForceGoogleSafeSearch' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'HardwareAccelerationModeEnabled' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ImportAutofillFormData' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ImportBrowserSettings' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ImportFavorites' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ImportSavedPasswords' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'NetworkPredictionOptions' -Value 2 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'PromptForDownloadLocation' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'RelaunchNotification' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'SearchSuggestEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ShowRecommendationsEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'SpellcheckEnabled' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'TrackingPrevention' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'VerticalTabsAllowed' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'WebRtcLocalhostIpHandling' -Value 'disable_non_proxied_udp' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'WebWidgetAllowed' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'WebWidgetIsEnabledOnStartup' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'WindowOcclusionEnabled' -Value 0 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Edge Dev\PreferenceMACs\Default") -ne $true) { New-Item "HKCU:\Software\Microsoft\Edge Dev\PreferenceMACs\Default" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Edge Dev\PreferenceMACs\Default' -Name 'default_search_provider_data.template_url_data' -Value '001CD7BA78DA395CFF24D7CF2E4E6F4D55C0D23AA12378CE6B1CA37341B76AAF' -PropertyType String -Force
-# https://docs.microsoft.com/en-us/deployedge/microsoft-edge-update-policies
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'Update{56EB18F8-B008-4CBD-B6D2-8C97FE7E9062}' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'ProxyMode' -Value 'direct' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'Update{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}' -Value 1 -PropertyType DWord -Force
-# prevent from re-install
+#　Edge浏览器
+# 禁止重装
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\EdgeUpdate") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\EdgeUpdate" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\EdgeUpdate' -Name 'DoNotUpdateToEdgeWithChromium' -Value 1 -PropertyType DWord -Force
-
+# Fake MDM-Enrollment - Key 1 of 2 - let a Win10 Machine "feel" MDM-Managed
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Enrollments\FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF ") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Enrollments\FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF " -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Enrollments\FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF' -Name 'EnrollmentState' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Enrollments\FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF' -Name 'EnrollmentType' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Enrollments\FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF' -Name 'IsFederated' -Value 0 -PropertyType DWord -Force
+# Fake MDM-Enrollment - Key 2 of 2 - let a Win10 Machine "feel" MDM-Managed
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Provisioning\OMADM\Accounts\FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Provisioning\OMADM\Accounts\FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Provisioning\OMADM\Accounts\FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF' -Name 'Flags' -Value 14089087 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Provisioning\OMADM\Accounts\FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF' -Name 'AcctUId' -Value '0x000000000000000000000000000000000000000000000000000000000000000000000000' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Provisioning\OMADM\Accounts\FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF' -Name 'RoamingCount' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Provisioning\OMADM\Accounts\FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF' -Name 'SslClientCertReference' -Value 'MY;User;0000000000000000000000000000000000000000' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Provisioning\OMADM\Accounts\FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF' -Name 'ProtoVer' -Value '1.2' -PropertyType String -Force
+# Edge策略
+# https://docs.microsoft.com/en-us/deployedge/microsoft-edge-policies
+# https://docs.microsoft.com/en-us/deployedge/microsoft-edge-update-policies
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Edge") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -force -ea SilentlyContinue };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Edge\RestoreOnStartupURLs") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Edge\RestoreOnStartupURLs" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DefaultSearchProviderEnabled' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DefaultSearchProviderSearchURL' -Value '{google:baseURL}search?q={searchTerms}&{google:RLZ}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchFieldtrialParameter}{google:searchClient}{google:sourceId}ie={inputEncoding}' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'DefaultSearchProviderName' -Value 'Google-Policy-Locked' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'RestoreOnStartup' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'ShowHomeButton' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'HomepageLocation' -Value 'about:blank' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'NewTabPageLocation' -Value 'about:blank' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Edge\RestoreOnStartupURLs' -Name '1' -Value 'about:blank' -PropertyType String -Force
 
 # no upload
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\PerfTrack") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\PerfTrack" -force };
@@ -3224,12 +3291,10 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Direct3D' -N
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Direct3D\Drivers' -Name 'SoftwareOnly' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\DirectDraw' -Name 'EmulationOnly' -Value 0 -PropertyType DWord -Force
 
-#
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager' -Name 'AlpcWakePolicy' -Value 1 -PropertyType DWord -Force
-
 # Win32PrioritySeparation
 if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl' -Name 'Win32PrioritySeparation' -Value 40 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager' -Name 'AlpcWakePolicy' -Value 1 -PropertyType DWord -Force
 
 # 额外网络优化
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -force };
@@ -3273,9 +3338,64 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDr
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'RmDisableRegistryCaching' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'RMDisablePostL2Compression' -Value 1 -PropertyType DWord -Force
 
-# 开机启动RetroBar
-if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run" -force　};
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' -Name 'RetroBar' -Value 'C:\Program Files\RetroBar\RetroBar.exe' -PropertyType String -Force
+# Chrome 策略
+if ((Test-Path -LiteralPath "HKLM:\Software\Policies\Google\Chrome") -ne $true) { New-Item "HKLM:\Software\Policies\Google\Chrome" -force -ea SilentlyContinue };
+if ((Test-Path -LiteralPath "HKLM:\Software\Policies\Google\Chrome\ForcedLanguages") -ne $true) { New-Item "HKLM:\Software\Policies\Google\Chrome\ForcedLanguages" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'ScreenCaptureAllowed' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'DefaultGeolocationSetting' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'DefaultNotificationsSetting' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'DefaultSensorsSetting' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'AdditionalDnsQueryTypesEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'AdsSettingForIntrusiveAdsSites' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'AdvancedProtectionAllowed' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'AudioProcessHighPriorityEnabled' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'AudioSandboxEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'AutofillCreditCardEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'AutoplayAllowed' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'BackgroundModeEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'BookmarkBarEnabled' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'BrowserNetworkTimeQueriesEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'BuiltInDnsClientEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'ChromeCleanupEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'ChromeCleanupReportingEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'CommandLineFlagSecurityWarningsEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'DNSInterceptionChecksEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'DefaultDownloadDirectory' -Value 'D:\Downloads' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'DiskCacheDir' -Value '%SystemRoot%\Temp' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'DiskCacheSize' -Value -2147483648 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'DnsOverHttpsMode' -Value 'off' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'DownloadRestrictions' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'FetchKeepaliveDurationSecondsOnShutdown' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'ForceGoogleSafeSearch' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'ForceYouTubeRestrict' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'HardwareAccelerationModeEnabled' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'HttpsOnlyMode' -Value 'disallowed' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'IntensiveWakeUpThrottlingEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'IntranetRedirectBehavior' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'MaxConnectionsPerProxy' -Value 100 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'MaxInvalidationFetchDelay' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'MediaRecommendationsEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'MetricsReportingEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'NTPCardsVisible' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'NTPMiddleSlotAnnouncementVisible' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'NetworkPredictionOptions' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'PolicyRefreshRate' -Value 86400000 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'PromotionalTabsEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'PromptForDownloadLocation' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'ProxySettings' -Value '{\"ProxyMode\": \"direct\"}' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'SafeSitesFilterBehavior' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'ShowFullUrlsInAddressBar' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'SpellCheckServiceEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'SpellcheckEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'TotalMemoryLimitMb' -Value 20480 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'UserFeedbackAllowed' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'PasswordLeakDetectionEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'PasswordProtectionWarningTrigger' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'SafeBrowsingExtendedReportingEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'SafeBrowsingProtectionLevel' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome' -Name 'ShowHomeButton' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome\ForcedLanguages' -Name '1' -Value 'zh-CN' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Google\Chrome\ForcedLanguages' -Name '2' -Value 'en-US' -PropertyType String -Force
 
 # 设置所有网络类型为专用而非公共
 Set-NetConnectionProfile -NetworkCategory Private -Verbose
@@ -3295,8 +3415,10 @@ Get-PnpDevice -InstanceId 'ROOT\KDNIC\0000' | Disable-PnpDevice -Confirm:$false 
 Get-PnpDevice -InstanceId 'ROOT\VID\0000' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -InstanceId 'ROOT\NDISVIRTUALBUS\0000' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -friendlyname '高精度事件计时器' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -friendlyname 'Microsoft Wi-Fi Direct 虚拟适配器' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -friendlyname 'UMBus Root Bus Enumerator' | Disable-PnpDevice -Confirm:$false -Verbose
+
+# remove Microsoft Wi-Fi Direct Virtual Adapter
+Remove-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\WlanSvc\Parameters\HostedNetworkSettings" -Name "HostedNetworkSettings" -Force
 
 # Changing IP policies for your NICs
 Get-NetAdapter -IncludeHidden | Set-NetIPInterface -WeakHostSend Enabled -WeakHostReceive Enabled -RetransmitTimeMs 0 -Forwarding Disabled -EcnMarking Disabled -AdvertiseDefaultRoute Disabled
