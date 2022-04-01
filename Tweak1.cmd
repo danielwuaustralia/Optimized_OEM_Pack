@@ -128,6 +128,7 @@ rem disable auditing of successful events
 Auditpol /set /category:* /Success:disable
 
 rem Disable Microsoft Virtual WiFi Miniport Adapter is a virtual adaptor for sharing your internet connection (ie. making a wifi hotspot, or 'hosted network')
+netsh wlan stop hostednetwork
 netsh wlan set hostednetwork mode=disallow
 
 rem stop Nvidia
