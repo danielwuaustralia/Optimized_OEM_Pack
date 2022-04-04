@@ -1,11 +1,9 @@
-# 记录到c:\Tweak1Log.txt
+# Powershell设置
+$ErrorActionPreference = "SilentlyContinue"
+$ProgressPreference = "SilentlyContinue"
+$ConfirmPreference = "None"
+$PSModuleAutoloadingPreference = "All"
 Start-Transcript -Path c:\Tweak1Log.txt -Force
-
-# 无需确认
-$ErrorActionPreference = 'SilentlyContinue'
-$ProgressPreference = 'SilentlyContinue'
-
-# 更新powershell安全设置
 Set-ItemProperty -path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell" EnableScripts 1 -Force
 if ((Test-Path -LiteralPath "HKCU:\Software\Policies\Microsoft\Windows\PowerShell") -ne $true) { New-Item "HKCU:\Software\Policies\Microsoft\Windows\PowerShell" -force }
 New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\PowerShell' -Name 'ExecutionPolicy' -Value 'Unrestricted' -PropertyType String -Force
