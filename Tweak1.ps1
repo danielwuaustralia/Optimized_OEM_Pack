@@ -1,5 +1,5 @@
 # 记录到c:\Tweak1Log.txt
-Start-Transcript -Path c:\Tweak2Log.txt -Force
+Start-Transcript -Path c:\Tweak1Log.txt -Force
 
 # 无需确认
 $ErrorActionPreference = 'SilentlyContinue'
