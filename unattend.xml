@@ -136,33 +136,21 @@
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
                     <Order>1</Order>
-                    <Description>Clean Up</Description>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\Windows\Setup\Scripts\CleanUp.cmd</CommandLine>
+                    <CommandLine>"C:\Windows\SysWOW64\NsudoLG.exe" -U:T -P:E -Wait "C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Tweak1.ps1"</CommandLine>
+                    <Description>Powershell Tweak</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>2</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\Windows\Setup\Scripts\Tweak1.cmd</CommandLine>
-                    <Description>CMD Tweak</Description>
+                    <CommandLine>"C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Tweak2.ps1"</CommandLine>
+                    <Description>Powershell Tweak</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>3</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>"C:\Windows\SysWOW64\NsudoLG.exe" -U:T -P:E -Wait "C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Tweak2.ps1"</CommandLine>
-                    <Description>Powershell Tweak</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>4</Order>
-                    <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>"C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Tweak3.ps1"</CommandLine>
-                    <Description>Powershell Tweak</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>5</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>C:\Windows\Setup\Scripts\SOFTWARE\AAFOptimusDCHAudioPack9313.exe</CommandLine>
-                    <Description>Audio Driver</Description>
+                    <CommandLine>cmd /c reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnce" /f /v "RunOnce" /t Reg_SZ /d "C:\AAFOptimusDCHAudioPack.exe"</CommandLine>
+                    <Description>AudioDriver</Description>
                 </SynchronousCommand>
             </FirstLogonCommands>
             <UserAccounts>
@@ -185,5 +173,5 @@
             <DisableAntiSpyware>true</DisableAntiSpyware>
         </component>
     </settings>
-    <cpi:offlineImage cpi:source="catalog://d:/optimizeoffline/wim/install_windows 11 专业版.clg" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+    <cpi:offlineImage cpi:source="catalog://d:/debloater/temp/install_windows 11 专业版.clg" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
 </unattend>
