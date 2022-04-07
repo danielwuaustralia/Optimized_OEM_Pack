@@ -1,0 +1,11 @@
+For Unstaged image, here's the ngen.exe runonce without command prompt flash:
+
+reg load HKLM\SOFTWARE1 %MT%\Windows\System32\config\SOFTWARE >nul
+reg add "HKLM\SOFTWARE1\Microsoft\Windows\CurrentVersion\RunOnce" /v "NativeImages_v4.0.30319_32" /t REG_SZ /d "cmd.exe /c start /min %WINDIR%\Microsoft.NET\Framework\v4.0.30319\ngen.exe executeQueuedItems /nologo" /f >NUL 2>&1
+reg add "HKLM\SOFTWARE1\Microsoft\Windows\CurrentVersion\RunOnce" /v "NativeImages_v4.0.30319_64" /t REG_SZ /d "cmd.exe /c start /min %WINDIR%\Microsoft.NET\Framework64\v4.0.30319\ngen.exe executeQueuedItems /nologo" /f >NUL 2>&1
+reg unload HKLM\SOFTWARE1 >nul
+
+
+<Path>reg delete &quot;HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications\Microsoft.Windows.SecHealthUI_10.0.19041.1023_neutral__cw5n1h2txyewy&quot; /f</Path>
+<Path>reg delete &quot;HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications\Microsoft.MicrosoftEdge_44.19041.1266.0_neutral__8wekyb3d8bbwe&quot; /f</Path>
+<Path>reg delete &quot;HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications\Microsoft.MicrosoftEdgeDevToolsClient_10.0.19041.1023_neutral__8wekyb3d8bbwe&quot; /f</Path>
