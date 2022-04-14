@@ -574,93 +574,53 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersio
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter' -force }
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter' -Name 'ActivationType' -Value 0 -PropertyType DWord -Force
 
-# 此电脑图标
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\DefaultIcon') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\DefaultIcon' -force }
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsxpshell32.dll, 15' -PropertyType ExpandString -Force
-# 用户文件夹图标
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{59031A47-3F72-44A7-89C5-5595FE6B30EE}\DefaultIcon') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{59031A47-3F72-44A7-89C5-5595FE6B30EE}\DefaultIcon' -force }
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{59031A47-3F72-44A7-89C5-5595FE6B30EE}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsxpshell32.dll, 21' -PropertyType ExpandString -Force
-# 回收站图标
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{645FF040-5081-101B-9F08-00AA002F954E}\DefaultIcon') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{645FF040-5081-101B-9F08-00AA002F954E}\DefaultIcon' -force }
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{645FF040-5081-101B-9F08-00AA002F954E}\DefaultIcon' -Name 'empty' -Value '%SystemRoot%\windowsxpshell32.dll, 31' -PropertyType ExpandString -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{645FF040-5081-101B-9F08-00AA002F954E}\DefaultIcon' -Name 'full' -Value '%SystemRoot%\windowsxpshell32.dll, 32' -PropertyType ExpandString -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{645FF040-5081-101B-9F08-00AA002F954E}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsxpshell32.dll, 31' -PropertyType ExpandString -Force
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}\DefaultIcon') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}\DefaultIcon' -force }
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsxpshell32.dll, 17' -PropertyType ExpandString -Force
-# 桌面文件夹图标
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsvistaimageres.dll, 175' -PropertyType ExpandString -Force
-# 文档文件夹图标
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{59031A47-3F72-44A7-89C5-5595FE6B30EE}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsvistaimageres.dll, 106' -PropertyType ExpandString -Force
-# 下载文件夹图标
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{088e3905 - 0323 - 4b02-9826-5d99428e115f}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsvistaimageres.dll, 173' -PropertyType ExpandString -Force
-# 音乐文件夹图标
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsvistaimageres.dll, 169' -PropertyType ExpandString -Force
-#图片文件夹图标
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsvistaimageres.dll, 107' -PropertyType ExpandString -Force
-# 视频文件夹图标
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsvistaimageres.dll, 176' -PropertyType ExpandString -Force
-# C盘图标
-if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\DriveIcons\C\DefaultIcon') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\DriveIcons\C\DefaultIcon' -force }
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\DriveIcons\C\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsxpshell32.dll, 8' -PropertyType String -Force
-# D盘图标
-if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\DriveIcons\D\DefaultIcon') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\DriveIcons\D\DefaultIcon' -force }
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\DriveIcons\D\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsxpshell32.dll, 7' -PropertyType String -Force
-# bat
-if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Classes\batfile\DefaultIcon') -ne $true) { New-Item 'HKLM:\SOFTWARE\Classes\batfile\DefaultIcon' -force }
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\batfile\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsxpshell32.dll, 24' -PropertyType ExpandString -Force
-if ((Test-Path -LiteralPath 'HKLM:\Software\Classes\Directory\DefaultIcon') -ne $true) { New-Item 'HKLM:\Software\Classes\Directory\DefaultIcon' -force };
-if ((Test-Path -LiteralPath 'HKLM:\Software\Classes\Drive\DefaultIcon') -ne $true) { New-Item 'HKLM:\Software\Classes\Drive\DefaultIcon' -force };
-if ((Test-Path -LiteralPath 'HKLM:\Software\Classes\Folder\DefaultIcon') -ne $true) { New-Item 'HKLM:\Software\Classes\Folder\DefaultIcon' -force };
-New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\Directory\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsxpshell32.dll, 3' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\Drive\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsxpshell32.dll, 8' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\Folder\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsxpshell32.dll, 3' -PropertyType String -Force
 # 默认文件夹图标
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -force }
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '0' -Value '%SystemRoot%\windowsxpshell32.dll, 0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '1' -Value '%SystemRoot%\windowsxpshell32.dll, 1' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '2' -Value '%SystemRoot%\windowsxpshell32.dll, 2' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '3' -Value '%SystemRoot%\windowsxpshell32.dll, 3' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '4' -Value '%SystemRoot%\windowsxpshell32.dll, 4' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '5' -Value '%SystemRoot%\windowsxpshell32.dll, 5' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '6' -Value '%SystemRoot%\windowsxpshell32.dll, 6' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '7' -Value '%SystemRoot%\windowsxpshell32.dll, 7' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '8' -Value '%SystemRoot%\windowsxpshell32.dll, 8' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '9' -Value '%SystemRoot%\windowsxpshell32.dll, 9' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '10' -Value '%SystemRoot%\windowsxpshell32.dll, 10' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '11' -Value '%SystemRoot%\windowsxpshell32.dll, 11' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '12' -Value '%SystemRoot%\windowsxpshell32.dll, 12' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '13' -Value '%SystemRoot%\windowsxpshell32.dll, 13' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '14' -Value '%SystemRoot%\windowsxpshell32.dll, 14' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '15' -Value '%SystemRoot%\windowsxpshell32.dll, 15' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '16' -Value '%SystemRoot%\windowsxpshell32.dll, 16' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '17' -Value '%SystemRoot%\windowsxpshell32.dll, 17' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '18' -Value '%SystemRoot%\windowsxpshell32.dll, 18' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '19' -Value '%SystemRoot%\windowsxpshell32.dll, 19' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '20' -Value '%SystemRoot%\windowsxpshell32.dll, 20' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '21' -Value '%SystemRoot%\windowsxpshell32.dll, 21' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '22' -Value '%SystemRoot%\windowsxpshell32.dll, 22' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '23' -Value '%SystemRoot%\windowsxpshell32.dll, 23' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '24' -Value '%SystemRoot%\windowsxpshell32.dll, 24' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '25' -Value '%SystemRoot%\windowsxpshell32.dll, 25' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '26' -Value '%SystemRoot%\windowsxpshell32.dll, 26' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '27' -Value '%SystemRoot%\windowsxpshell32.dll, 27' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '28' -Value '%SystemRoot%\windowsxpshell32.dll, 28' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '29' -Value '%SystemRoot%\windowsxpshell32.dll, 29' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '30' -Value '%SystemRoot%\windowsxpshell32.dll, 30' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '31' -Value '%SystemRoot%\windowsxpshell32.dll, 31' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '32' -Value '%SystemRoot%\windowsxpshell32.dll, 32' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '33' -Value '%SystemRoot%\windowsxpshell32.dll, 33' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '34' -Value '%SystemRoot%\windowsxpshell32.dll, 34' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '35' -Value '%SystemRoot%\windowsxpshell32.dll, 35' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '36' -Value '%SystemRoot%\windowsxpshell32.dll, 36' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '37' -Value '%SystemRoot%\windowsxpshell32.dll, 37' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '38' -Value '%SystemRoot%\windowsxpshell32.dll, 38' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '39' -Value '%SystemRoot%\windowsxpshell32.dll, 39' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '40' -Value '%SystemRoot%\windowsxpshell32.dll, 40' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '41' -Value '%SystemRoot%\windowsxpshell32.dll, 41' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '42' -Value '%SystemRoot%\windowsxpshell32.dll, 42' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '43' -Value '%SystemRoot%\windowsxpshell32.dll, 43' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '44' -Value '%SystemRoot%\windowsxpshell32.dll, 44' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '0' -Value '%SystemRoot%\windowsxpshell32.dll,0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '1' -Value '%SystemRoot%\windowsxpshell32.dll,1' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '2' -Value '%SystemRoot%\windowsxpshell32.dll,2' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '3' -Value '%SystemRoot%\windowsxpshell32.dll,3' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '4' -Value '%SystemRoot%\windowsxpshell32.dll,4' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '5' -Value '%SystemRoot%\windowsxpshell32.dll,5' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '6' -Value '%SystemRoot%\windowsxpshell32.dll,6' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '7' -Value '%SystemRoot%\windowsxpshell32.dll,7' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '8' -Value '%SystemRoot%\windowsxpshell32.dll,8' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '9' -Value '%SystemRoot%\windowsxpshell32.dll,9' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '10' -Value '%SystemRoot%\windowsxpshell32.dll,10' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '11' -Value '%SystemRoot%\windowsxpshell32.dll,11' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '12' -Value '%SystemRoot%\windowsxpshell32.dll,12' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '13' -Value '%SystemRoot%\windowsxpshell32.dll,13' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '14' -Value '%SystemRoot%\windowsxpshell32.dll,14' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '15' -Value '%SystemRoot%\windowsxpshell32.dll,15' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '16' -Value '%SystemRoot%\windowsxpshell32.dll,16' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '17' -Value '%SystemRoot%\windowsxpshell32.dll,17' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '18' -Value '%SystemRoot%\windowsxpshell32.dll,18' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '19' -Value '%SystemRoot%\windowsxpshell32.dll,19' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '20' -Value '%SystemRoot%\windowsxpshell32.dll,20' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '21' -Value '%SystemRoot%\windowsxpshell32.dll,21' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '22' -Value '%SystemRoot%\windowsxpshell32.dll,22' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '23' -Value '%SystemRoot%\windowsxpshell32.dll,23' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '24' -Value '%SystemRoot%\windowsxpshell32.dll,24' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '25' -Value '%SystemRoot%\windowsxpshell32.dll,25' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '26' -Value '%SystemRoot%\windowsxpshell32.dll,26' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '27' -Value '%SystemRoot%\windowsxpshell32.dll,27' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '28' -Value '%SystemRoot%\windowsxpshell32.dll,28' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '29' -Value '%SystemRoot%\windowsxpshell32.dll,29' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '30' -Value '%SystemRoot%\windowsxpshell32.dll,30' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '31' -Value '%SystemRoot%\windowsxpshell32.dll,31' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '32' -Value '%SystemRoot%\windowsxpshell32.dll,32' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '33' -Value '%SystemRoot%\windowsxpshell32.dll,33' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '34' -Value '%SystemRoot%\windowsxpshell32.dll,34' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '35' -Value '%SystemRoot%\windowsxpshell32.dll,35' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '36' -Value '%SystemRoot%\windowsxpshell32.dll,36' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '37' -Value '%SystemRoot%\windowsxpshell32.dll,37' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '38' -Value '%SystemRoot%\windowsxpshell32.dll,38' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '39' -Value '%SystemRoot%\windowsxpshell32.dll,39' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '40' -Value '%SystemRoot%\windowsxpshell32.dll,40' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '41' -Value '%SystemRoot%\windowsxpshell32.dll,41' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '42' -Value '%SystemRoot%\windowsxpshell32.dll,42' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '43' -Value '%SystemRoot%\windowsxpshell32.dll,43' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '44' -Value '%SystemRoot%\windowsxpshell32.dll,44' -PropertyType String -Force
 
 # 禁用无用广告追踪
 Remove-Item -Path 'HKLM:\SOFTWARE\Classes\WOW6432Node\AppID\RemoteAppLifetimeManager.exe' -Force -Verbose
