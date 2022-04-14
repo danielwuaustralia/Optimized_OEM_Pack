@@ -3,7 +3,14 @@ $ErrorActionPreference = "SilentlyContinue"
 $ProgressPreference = "SilentlyContinue"
 $ConfirmPreference = "None"
 $PSModuleAutoloadingPreference = "All"
-Start-Transcript -Path c:\Tweak2Log.txt -Force
+Start-Transcript -Path c:\OptimizeOnline2.txt -Force
+Set-ItemProperty -path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell" EnableScripts 1 -Force
+if ((Test-Path -LiteralPath "HKCU:\Software\Policies\Microsoft\Windows\PowerShell") -ne $true) { New-Item "HKCU:\Software\Policies\Microsoft\Windows\PowerShell" -force }
+New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\PowerShell' -Name 'ExecutionPolicy' -Value 'Unrestricted' -PropertyType String -Force
+if ((Test-Path -LiteralPath "HKLM:\Software\Policies\Microsoft\Windows\PowerShell") -ne $true) { New-Item "HKLM:\Software\Policies\Microsoft\Windows\PowerShell" -force }
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\PowerShell' -Name 'ExecutionPolicy' -Value 'Unrestricted' -PropertyType String -Force
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell") -ne $true) { New-Item "HKCU:\Software\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell' -Name 'ExecutionPolicy' -Value 'Unrestricted' -PropertyType String -Force
 
 # 命令行优化
 "fsutil bypassIo state C:\" | cmd
@@ -43,6 +50,7 @@ Start-Transcript -Path c:\Tweak2Log.txt -Force
 "bcdedit /set onecpu No" | cmd
 "bcdedit /set halbreakpoint No" | cmd
 "bcdedit /set forcelegacyplatform No" | cmd
+"bcdedit /set flightsigning Yes" | cmd
 "fsutil behavior set disable8dot3 1" | cmd
 "fsutil behavior set disableencryption 1" | cmd
 "fsutil behavior set disablelastaccess 1" | cmd
@@ -98,6 +106,31 @@ Start-Transcript -Path c:\Tweak2Log.txt -Force
 # https://github.com/thebookisclosed/ViVe
 # Enable Tabs in File Explorer
 "vivetool addconfig 34370472 2" | cmd
+
+# 根目录证书
+# http://woshub.com/updating-trusted-root-certificates-in-windows-10/
+# "C:\Program Files\PowerShell\7-preview\pwsh.exe" -Command "certutil.exe -f -generateSSTFromWU %SystemDrive%\TEMP\roots.sst"
+Get-ChildItem -Path %SystemDrive%\TEMP\roots.sst | Import-Certificate -CertStoreLocation Cert:\LocalMachine\Root
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config' -Name 'ChainRevAccumulativeUrlRetrievalTimeoutMilliseconds' -Value 20000 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config' -Name 'ChainUrlRetrievalTimeoutMilliseconds' -Value 15000 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config' -Name 'CrossCertDownloadIntervalHours' -Value 168 -PropertyType DWord -Force
+
+# 更改TEMP文件夹位置
+if ((Test-Path -LiteralPath "HKCU:\Environment") -ne $true) { New-Item "HKCU:\Environment" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TEMP' -Value '%SystemDrive%\TEMP' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TMP' -Value '%SystemDrive%\TEMP' -PropertyType ExpandString -Force
+
+# 更改颜色配置
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles' -Name 'sRGB' -Value 'DCI-P3-D65.icc' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles' -Name 'camp' -Value 'D50.camp' -PropertyType String -Force
+if ((Test-Path -LiteralPath "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles") -ne $true) { New-Item "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles' -Name 'sRGB' -Value 'DCI-P3-D65.icc' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles' -Name 'camp' -Value 'D50.camp' -PropertyType String -Force
+
+# 增加环境变量
+[Environment]::SetEnvironmentVariable("PATH", $Env:PATH + "; C:\Windows\SysWOW64", [EnvironmentVariableTarget]::Machine)
 
 # Potplayer Setting
 if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayer64") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayer64" -force };
@@ -1379,26 +1412,10 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'aac' 
 New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'mp3' -Value 1 -PropertyType DWord -Force;
 New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'flac' -Value 1 -PropertyType DWord -Force;
 
-# 根目录证书
-# http://woshub.com/updating-trusted-root-certificates-in-windows-10/
-# "C:\Program Files\PowerShell\7-preview\pwsh.exe" -Command "certutil.exe -f -generateSSTFromWU %WINDIR%\Setup\Scripts\roots.sst"
-Get-ChildItem -Path %WINDIR%\Setup\Scripts\roots.sst | Import-Certificate -CertStoreLocation Cert:\LocalMachine\Root
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config' -Name 'ChainRevAccumulativeUrlRetrievalTimeoutMilliseconds' -Value 20000 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config' -Name 'ChainUrlRetrievalTimeoutMilliseconds' -Value 15000 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config' -Name 'CrossCertDownloadIntervalHours' -Value 168 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config' -Name 'Options' -Value 0 -PropertyType DWord -Force
-
-# 更改TEMP文件夹位置
-if ((Test-Path -LiteralPath "HKCU:\Environment") -ne $true) { New-Item "HKCU:\Environment" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TEMP' -Value '%SystemRoot%\Temp' -PropertyType ExpandString -Force
-New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TMP' -Value '%SystemRoot%\Temp' -PropertyType ExpandString -Force
-
-# 增加环境变量
-[Environment]::SetEnvironmentVariable("PATH", $Env:PATH + ";C:\Windows\SysWOW64", [EnvironmentVariableTarget]::Machine)
+# Powershell Module
+Import-Module PSWindowsUpdate
 
 # XP样式鼠标
-# if ((Test-Path -LiteralPath "HKCU:\Control Panel\Cursors") -ne $true) { New-Item "HKCU:\Control Panel\Cursors" -force };
 # New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Pin' -Value '' -PropertyType ExpandString -Force
 # New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Person' -Value '' -PropertyType ExpandString -Force
 # New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'UpArrow' -Value '' -PropertyType ExpandString -Force
@@ -1417,34 +1434,33 @@ New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TMP' -Value '%SystemRoo
 # New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'SizeNS' -Value '' -PropertyType ExpandString -Force
 # New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Wait' -Value '' -PropertyType ExpandString -Force
 # macOS鼠标
-if ((Test-Path -LiteralPath "HKCU:\Control Panel\Cursors") -ne $true) { New-Item "HKCU:\Control Panel\Cursors" -force -ea SilentlyContinue };
 if ((Test-Path -LiteralPath "HKCU:\Control Panel\Cursors\Schemes") -ne $true) { New-Item "HKCU:\Control Panel\Cursors\Schemes" -force -ea SilentlyContinue };
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Pin' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Pin.cur' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Zoom-out' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Zoom-out.cur' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Zoom-in' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Zoom-in.cur' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'AppStarting' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Working.ani' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Arrow' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Normal.cur' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Crosshair' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Precision.cur' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Hand' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Link.cur' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Help' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Help.cur' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'IBeam' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Text.cur' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'No' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Unavailable.cur' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'NWPen' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Handwriting.cur' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Scheme Source' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'SizeAll' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Move.cur' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'SizeNESW' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Diagonal Resize 2.cur' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'SizeNS' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Vertical Resize.cur' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'SizeNWSE' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Diagonal Resize 1.cur' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'SizeWE' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Horizontal Resize.cur' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'UpArrow' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Alternate.cur' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Wait' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Busy.ani' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name '(default)' -Value 'macOS Cursors L With Shadow Newer' -PropertyType String -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Grabbing' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Closehand.cur' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Person' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Person.cur' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'precisionhair' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Precision.cur' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Pan' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Pan.cur' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Grab' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Move.cur' -PropertyType ExpandString -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors\Schemes' -Name 'macOS Cursors L With Shadow Newer' -Value '%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Normal.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Help.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Working.ani,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Busy.ani,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Precision.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Text.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Handwriting.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Unavailable.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Vertical Resize.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Horizontal Resize.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Diagonal Resize 1.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Diagonal Resize 2.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Move.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Alternate.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Link.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Pin.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Person.cur' -PropertyType ExpandString -Force -ea SilentlyContinue;
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Pin' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Pin.cur' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Zoom-out' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Zoom-out.cur' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Zoom-in' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Zoom-in.cur' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'AppStarting' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Working.ani' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Arrow' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Normal.cur' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Crosshair' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Precision.cur' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Hand' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Link.cur' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Help' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Help.cur' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'IBeam' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Text.cur' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'No' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Unavailable.cur' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'NWPen' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Handwriting.cur' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Scheme Source' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'SizeAll' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Move.cur' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'SizeNESW' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Diagonal Resize 2.cur' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'SizeNS' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Vertical Resize.cur' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'SizeNWSE' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Diagonal Resize 1.cur' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'SizeWE' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Horizontal Resize.cur' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'UpArrow' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Alternate.cur' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Wait' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Busy.ani' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name '(default)' -Value 'macOS Cursors L With Shadow Newer' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Grabbing' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Closehand.cur' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Person' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Person.cur' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'precisionhair' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Precision.cur' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Pan' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Pan.cur' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Grab' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Move.cur' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors\Schemes' -Name 'macOS Cursors L With Shadow Newer' -Value '%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Normal.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Help.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Working.ani,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Busy.ani,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Precision.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Text.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Handwriting.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Unavailable.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Vertical Resize.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Horizontal Resize.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Diagonal Resize 1.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Diagonal Resize 2.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Move.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Alternate.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Link.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Pin.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Person.cur' -PropertyType ExpandString -Force
 
 # 桌面设置
 if ((Test-Path -LiteralPath "HKCU:\Control Panel\Desktop") -ne $true) { New-Item "HKCU:\Control Panel\Desktop" -force };
@@ -1645,10 +1661,10 @@ Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyCo
 Remove-Item -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{A8CDFF1C-4878-43be-B5FD-F8091C1C60D0}" -Force -Verbose
 Remove-Item -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{d3162b92-9365-467a-956b-92703aca08af}" -Force -Verbose
 # Remove Downloads from This PC
-Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{374DE290-123F-4565-9164-39C4925E467B}" -Force -Verbose
-Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{088e3905-0323-4b02-9826-5d99428e115f}" -Force -Verbose
+Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{374DE290-123F-4565-9164-39C4925E467B }" -Force -Verbose
+Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{088e3905 - 0323 - 4b02-9826-5d99428e115f}" -Force -Verbose
 Remove-Item -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{374DE290-123F-4565-9164-39C4925E467B}" -Force -Verbose
-Remove-Item -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{088e3905-0323-4b02-9826-5d99428e115f}" -Force -Verbose
+Remove-Item -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{088e3905 - 0323 - 4b02-9826-5d99428e115f}" -Force -Verbose
 # Remove Music from This PC
 Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" -Force -Verbose
 Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" -Force -Verbose
@@ -1692,12 +1708,12 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\Curr
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{35286a68-3c57-41a1-bbb1-0eae73d76c95}\PropertyBag' -Name 'ThisPCPolicy' -Value 'Hide' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{a0c69a99-21c8-4671-8703-7934162fcf1d}\PropertyBag' -Name 'ThisPCPolicy' -Value 'Hide' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{31C0DD25-9439-4F12-BF41-7FF4EDA38722}\PropertyBag' -Name 'ThisPCPolicy' -Value 'Hide' -PropertyType String -Force
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}\ShellFolder") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}\ShellFolder" -force };
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}\ShellFolder") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}\ShellFolder" -force };
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{323CA680-C24D-4099-B94D-446DD2D7249E}\ShellFolder") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\CLSID\{323CA680-C24D-4099-B94D-446DD2D7249E}\ShellFolder" -force };
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{323CA680-C24D-4099-B94D-446DD2D7249E}\ShellFolder") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{323CA680-C24D-4099-B94D-446DD2D7249E}\ShellFolder" -force };
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{679f85cb-0220-4080-b29b-5540cc05aab6}\ShellFolder") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\CLSID\{679f85cb-0220-4080-b29b-5540cc05aab6}\ShellFolder" -force };
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{679f85cb-0220-4080-b29b-5540cc05aab6}\ShellFolder") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{679f85cb-0220-4080-b29b-5540cc05aab6}\ShellFolder" -force };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{ 031E4825 - 7B94-4dc3-B131-E946B44C8DD5 }\ShellFolder") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\CLSID\ { 031E4825 - 7B94-4dc3-B131-E946B44C8DD5 }\ShellFolder" -force };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{ 031E4825 - 7B94-4dc3-B131-E946B44C8DD5 }\ShellFolder") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\ { 031E4825 - 7B94-4dc3-B131-E946B44C8DD5 }\ShellFolder" -force };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{ 323CA680-C24D-4099-B94D-446DD2D7249E }\ShellFolder") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\CLSID\ { 323CA680-C24D-4099-B94D-446DD2D7249E }\ShellFolder" -force };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{ 323CA680-C24D-4099-B94D-446DD2D7249E }\ShellFolder") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\ { 323CA680-C24D-4099-B94D-446DD2D7249E }\ShellFolder" -force };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{ 679f85cb-0220-4080-b29b-5540cc05aab6 }\ShellFolder") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\CLSID\ { 679f85cb-0220-4080-b29b-5540cc05aab6 }\ShellFolder" -force };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{ 679f85cb-0220-4080-b29b-5540cc05aab6 }\ShellFolder") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\ { 679f85cb-0220-4080-b29b-5540cc05aab6 }\ShellFolder" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}\ShellFolder' -Name 'Attributes' -Value -1332739827 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}\ShellFolder' -Name 'Attributes' -Value -1332739827 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{323CA680-C24D-4099-B94D-446DD2D7249E}\ShellFolder' -Name 'Attributes' -Value -1598029568 -PropertyType DWord -Force
@@ -1832,6 +1848,7 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\E
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer' -Name 'EnableAutoTray' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer' -Name 'GlobalAssocChangedCounter' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer' -Name 'DesktopProcess' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer' -Name 'ShowRecent' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'Start_SearchFiles' -Value 2 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'ServerAdminUI' -Value 0 -PropertyType DWord -Force
@@ -1955,9 +1972,9 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\E
 # 强制Explorer刷新
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\CLSID" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID' -Name 'DontRefresh' -Value 0 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{BDEADE7F-C265-11D0-BCED-00A0C90AB50F}\Instance") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\CLSID\{BDEADE7F-C265-11D0-BCED-00A0C90AB50F}\Instance" -force };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{ BDEADE7F-C265-11D0-BCED-00A0C90AB50F }\Instance") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\CLSID\ { BDEADE7F-C265-11D0-BCED-00A0C90AB50F }\Instance" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{BDEADE7F-C265-11D0-BCED-00A0C90AB50F}\Instance' -Name 'DontRefresh' -Value 0 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{BDEADE7F-C265-11D0-BCED-00A0C90AB50F}\Instance") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{BDEADE7F-C265-11D0-BCED-00A0C90AB50F}\Instance" -force };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{ BDEADE7F-C265-11D0-BCED-00A0C90AB50F }\Instance") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\ { BDEADE7F-C265-11D0-BCED-00A0C90AB50F }\Instance" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{BDEADE7F-C265-11D0-BCED-00A0C90AB50F}\Instance' -Name 'DontRefresh' -Value 0 -PropertyType DWord -Force
 
 # 无小娜功能
@@ -1985,6 +2002,8 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search' -Name 'DoNotUseWebResults' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search' -Name 'PreventIndexingOutlook' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search' -Name 'PreventRemoteQueries' -Value 1 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Search' -Name 'SearchboxTaskbarMode' -Value 0 -PropertyType DWord -Force
 
 # Prevent access to 16-bit applications
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat' -Name 'VDMDisallowed' -Value 1 -PropertyType DWord -Force
@@ -2017,7 +2036,7 @@ New-ItemProperty -LiteralPath 'HKCU:\Console' -Name 'QuickEdit' -Value 0 -Proper
 
 # Turn on Storage Sense
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy" -force };
-if ((Test-Path -LiteralPath "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks\{12D482B0-0934-4041-8562-B378BFB15347}") -ne $true) { New-Item "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks\{12D482B0-0934-4041-8562-B378BFB15347}" -force };
+if ((Test-Path -LiteralPath "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks\ { 12D482B0-0934-4041-8562-B378BFB15347 }") -ne $true) { New-Item "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks\ { 12D482B0-0934-4041-8562-B378BFB15347 }" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy' -Name '256' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy' -Name '1024' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy' -Name '01' -Value 1 -PropertyType DWord -Force
@@ -2063,14 +2082,18 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\.NETFramework' -Name 'On
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\.NETFramework' -Name 'OnlyUseLatestCLR' -Value 1 -PropertyType DWord -Force
 
 # 关闭F1帮助按钮
-if ((Test-Path -LiteralPath "HKCU:\Software\Classes\Typelib\{8cec5860-07a1-11d9-b15e-000d56bfe6ee}\1.0\0") -ne $true) { New-Item "HKCU:\Software\Classes\Typelib\{8cec5860-07a1-11d9-b15e-000d56bfe6ee}\1.0\0" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKCU:\Software\Classes\Typelib\{8cec5860-07a1-11d9-b15e-000d56bfe6ee}\1.0\0\win32") -ne $true) { New-Item "HKCU:\Software\Classes\Typelib\{8cec5860-07a1-11d9-b15e-000d56bfe6ee}\1.0\0\win32" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKCU:\Software\Classes\Typelib\{8cec5860-07a1-11d9-b15e-000d56bfe6ee}\1.0\0\win64") -ne $true) { New-Item "HKCU:\Software\Classes\Typelib\{8cec5860-07a1-11d9-b15e-000d56bfe6ee}\1.0\0\win64" -force -ea SilentlyContinue };
+if ((Test-Path -LiteralPath "HKCU:\Software\Classes\Typelib\{ 8cec5860-07a1-11d9-b15e-000d56bfe6ee }\1.0\0") -ne $true) { New-Item "HKCU:\Software\Classes\Typelib\ { 8cec5860-07a1-11d9-b15e-000d56bfe6ee }\1.0\0" -force -ea SilentlyContinue };
+if ((Test-Path -LiteralPath "HKCU:\Software\Classes\Typelib\{ 8cec5860-07a1-11d9-b15e-000d56bfe6ee }\1.0\0\win32") -ne $true) { New-Item "HKCU:\Software\Classes\Typelib\ { 8cec5860-07a1-11d9-b15e-000d56bfe6ee }\1.0\0\win32" -force -ea SilentlyContinue };
+if ((Test-Path -LiteralPath "HKCU:\Software\Classes\Typelib\{ 8cec5860-07a1-11d9-b15e-000d56bfe6ee }\1.0\0\win64") -ne $true) { New-Item "HKCU:\Software\Classes\Typelib\ { 8cec5860-07a1-11d9-b15e-000d56bfe6ee }\1.0\0\win64" -force -ea SilentlyContinue };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\Typelib\{8cec5860-07a1-11d9-b15e-000d56bfe6ee}\1.0\0\win32' -Name '(default)' -Value '' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\Typelib\{8cec5860-07a1-11d9-b15e-000d56bfe6ee}\1.0\0\win64' -Name '(default)' -Value '' -PropertyType String -Force
 
 # Enable Num Lock at startup
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Keyboard' -Name 'InitialKeyboardIndicators' -Value '2' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Control Panel\Keyboard' -Name 'InitialKeyboardIndicators' -Value '2147483650' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\S-1-5-18\Control Panel\Keyboard' -Name 'InitialKeyboardIndicators' -Value '2147483650' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\S-1-5-19\Control Panel\Keyboard' -Name 'InitialKeyboardIndicators' -Value '2147483650' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\S-1-5-20\Control Panel\Keyboard' -Name 'InitialKeyboardIndicators' -Value '2147483650' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'Registry::\HKCU\Control Panel\Keyboard' -Name 'InitialKeyboardIndicators' -Value '2147483650' -PropertyType String -Force
 
 # Don't use AutoPlay for all media and devices
 New-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers" -Name "DisableAutoplay" -PropertyType DWord -Value "1" -Force
@@ -2081,7 +2104,6 @@ if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\Curren
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Thumbnail Cache' -Name 'Autorun' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Thumbnail Cache' -Name 'Autorun' -Value 0 -PropertyType DWord -Force
 
-# Windows Update
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization" -force };
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config' -Name 'DownloadMode' -Value 0 -PropertyType DWord -Force
@@ -2113,13 +2135,43 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'NoAutoRebootWithLoggedOnUsers' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'NoAUAsDefaultShutdownOption' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'UseWUServer' -Value 0 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKLM:\Software\Microsoft\WindowsUpdate\UX\Settings") -ne $true) { New-Item "HKLM:\Software\Microsoft\WindowsUpdate\UX\Settings" -force };
+New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\WindowsUpdate\UX\Settings' -Name 'SmartActiveHoursState' -Value 0 -PropertyType DWord -Force
 
 # 去除提示 Your PC does not meet the mínimum hardware requirements for Windows 11. Your device is not eligible to join the Windows Insider Programo n Windows 11. 
 if ((Test-Path -LiteralPath "HKCU:\Control Panel\UnsupportedHardwareNotificationCache") -ne $true) { New-Item "HKCU:\Control Panel\UnsupportedHardwareNotificationCache" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\UnsupportedHardwareNotificationCache' -Name 'SV1' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\UnsupportedHardwareNotificationCache' -Name 'SV2' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name 'TargetReleaseVersion' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name 'TargetReleaseVersionInfo' -Value '25H1' -PropertyType String -Force
+
+# Disabling automatic driver update
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata" -force };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DriverSearching") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DriverSearching" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DriverSearching' -Name 'DontPromptForWindowsUpdate' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DriverSearching' -Name 'DontSearchWindowsUpdate' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DriverSearching' -Name 'DriverUpdateWizardWuSearchEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DriverSearching' -Name 'SearchOrderConfig' -Value 0 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name 'ExcludeWUDriversInQualityUpdate' -Value 1 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\WindowsUpdate\UpdatePolicy\PolicyState") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\WindowsUpdate\UpdatePolicy\PolicyState" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsUpdate\UpdatePolicy\PolicyState' -Name 'ExcludeWUDrivers' -Value 1 -PropertyType DWord -Force
+
+# no auto update for windows store
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore' -Name 'AutoDownload' -Value 2 -PropertyType DWord -Force
+
+# 加入Windows Insider
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\WindowsSelfHost\Applicability") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\WindowsSelfHost\Applicability" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsSelfHost\Applicability' -Name 'EnablePreviewBuilds' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsSelfHost\Applicability' -Name 'BranchName' -Value 'Dev' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsSelfHost\Applicability' -Name 'Ring' -Value 'External' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsSelfHost\Applicability' -Name 'ContentType' -Value 'Mainline' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsSelfHost\Applicability' -Name 'IsBuildFlightingEnabled' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsSelfHost\Applicability' -Name 'BranchBackup' -Value 'Dev' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsSelfHost\Applicability' -Name 'TestFlags' -Value 32 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\WindowsSelfHost\UI\Visibility") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\WindowsSelfHost\UI\Visibility" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsSelfHost\UI\Visibility' -Name 'UIHiddenElements_Rejuv' -Value 254 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\SLS\Programs\RingExternal") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\SLS\Programs\RingExternal" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\SLS\Programs\RingExternal' -Name 'Enabled' -Value '1' -PropertyType String -Force
 
 # 错误报告
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\Windows Error Reporting") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\Windows Error Reporting" -force };
@@ -2212,18 +2264,6 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\InputPersonalization\Tra
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\InputPersonalization\TrainedDataStore' -Name 'RestrictImplicitInkCollection' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\InputPersonalization\TrainedDataStore' -Name 'RestrictImplicitTextCollection' -Value 1 -PropertyType DWord -Force
 
-# Disabling automatic driver update
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata" -force };
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DriverSearching") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DriverSearching" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DriverSearching' -Name 'DontPromptForWindowsUpdate' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DriverSearching' -Name 'DontSearchWindowsUpdate' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DriverSearching' -Name 'DriverUpdateWizardWuSearchEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DriverSearching' -Name 'SearchOrderConfig' -Value 0 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name 'ExcludeWUDriversInQualityUpdate' -Value 1 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\WindowsUpdate\UpdatePolicy\PolicyState") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\WindowsUpdate\UpdatePolicy\PolicyState" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsUpdate\UpdatePolicy\PolicyState' -Name 'ExcludeWUDrivers' -Value 1 -PropertyType DWord -Force
-
 # Enable hardware-accelerated GPU scheduling
 New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" -Name HwSchMode -PropertyType DWord -Value 2 -Force
 
@@ -2231,13 +2271,14 @@ New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" 
 Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "MultipleInvokePromptMinimum" -Force
 
 # Explorer Policy
-if ((Test-Path -LiteralPath "HKCU:\Software\Policies\Microsoft\Windows\Explorer") -ne $true) { New-Item "HKCU:\Software\Policies\Microsoft\Windows\Explorer" -force };
-Remove-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -Name 'NoUseStoreOpenWith' -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' -Name 'NoUseStoreOpenWith' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' -Name 'NoDataExecutionPrevention' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' -Name 'HideRecentlyAddedApps' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' -Name 'DisableGraphRecentItems' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' -Name 'ShowRunasDifferentuserinStart' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\Explorer' -Name 'NoUseStoreOpenWith' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\Explorer' -Name 'DisableSearchBoxSuggestions' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\Explorer' -Name 'DisableThumbsDBOnNetworkFolders' -Value 1 -PropertyType DWord -Force
 
 # Hide the "Open in Windows Terminal" item in the folders context menu
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" -force };
@@ -2319,7 +2360,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Enum\USB\VID_8087&
 # Disable power management in connected standby mode
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy" -force };
 # High Performance Burst
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\ControlSet001\Control\Power\Profile\Events\{54533251-82be-4824-96c1-47b60b740d00}\{0DA965DC-8FCF-4c0b-8EFE-8DD5E7BC959A}\{7E01ADEF-81E6-4e1b-8075-56F373584694}") -ne $true) { New-Item "HKLM:\SYSTEM\ControlSet001\Control\Power\Profile\Events\{54533251-82be-4824-96c1-47b60b740d00}\{0DA965DC-8FCF-4c0b-8EFE-8DD5E7BC959A}\{7E01ADEF-81E6-4e1b-8075-56F373584694}" -force };
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\ControlSet001\Control\Power\Profile\Events\{ 54533251 - 82be-4824-96c1-47b60b740d00 }\ { 0DA965DC-8FCF-4c0b-8EFE-8DD5E7BC959A }\ { 7E01ADEF-81E6-4e1b-8075-56F373584694 }") -ne $true) { New-Item "HKLM:\SYSTEM\ControlSet001\Control\Power\Profile\Events\ { 54533251 - 82be-4824-96c1-47b60b740d00 }\ { 0DA965DC-8FCF-4c0b-8EFE-8DD5E7BC959A }\ { 7E01ADEF-81E6-4e1b-8075-56F373584694 }" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\Power\Profile\Events\{54533251-82be-4824-96c1-47b60b740d00}\{0DA965DC-8FCF-4c0b-8EFE-8DD5E7BC959A}\{7E01ADEF-81E6-4e1b-8075-56F373584694}' -Name 'TimeLimitInSeconds' -Value 2 -PropertyType DWord -Force
 
 # no volume down when detect other audio
@@ -2461,7 +2502,7 @@ if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Para
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet' -Name 'ActiveWebProbeContent' -Value 'Microsoft NCSI' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet' -Name 'ActiveWebProbeContentV6' -Value 'Microsoft NCSI' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet' -Name 'ActiveWebProbeHost' -Value 'www.msftncsi.com' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet' -Name 'ActiveWebProbeHostV6' -Value 'www.msftncsi.com' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet' -Name 'ActiveWebProbeHostV6' -Value 'ipv6.msftncsi.com' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet' -Name 'ActiveWebProbePath' -Value 'ncsi.txt' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet' -Name 'ActiveWebProbePathV6' -Value 'ncsi.txt' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet' -Name 'EnableActiveProbing' -Value 1 -PropertyType DWord -Force
@@ -2473,19 +2514,9 @@ if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkCo
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkConnectivityStatusIndicator' -Name 'UseGlobalDNS' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkConnectivityStatusIndicator' -Name 'NoActiveProbe' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkConnectivityStatusIndicator' -Name 'DisablePassivePolling' -Value 0 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters" -force -ea SilentlyContinue };
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Name 'DisableParallelAandAAAA' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Name 'EnableAutoDoh' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Name 'negativesoacachetime' -Value 120 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Name 'netfailurecachetime' -Value 30 -PropertyType DWord -Force
 
 # Disabling Link-Local Multicast Name Resolution (LLMNR)
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient' -Name 'EnableMulticast' -Value 0 -PropertyType DWord -Force
-
-# Disable NetBIOS
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\NetBT\Parameters\Interfaces\Tcpip") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\NetBT\Parameters\Interfaces\Tcpip" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NetBT\Parameters\Interfaces\Tcpip' -Name 'NetbiosOptions' -Value 2 -PropertyType DWord -Force
-set-ItemProperty HKLM:\SYSTEM\CurrentControlSet\services\NetBT\Parameters\Interfaces\tcpip* -Name NetbiosOptions -Value 2 -Force
 
 # https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.QualityofService::QosTimerResolution
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched" -force }
@@ -2508,6 +2539,8 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS' -N
 # Ping Fang Font
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name '苹方-简 中黑体 (TrueType)' -Value 'PingFangSC-17.d1e2-Medium.otf' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts' -Name '苹方-简 中黑体 (TrueType)' -Value 'PingFangSC-17.d1e2-Medium.otf' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name 'SF Mono Medium (TrueType)' -Value 'SF-Mono-Medium.otf' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts' -Name 'SF Mono Medium (TrueType)' -Value 'SF-Mono-Medium.otf' -PropertyType String -Force
 
 # Sound
 if ((Test-Path -LiteralPath "HKCU:\Control Panel\Sound") -ne $true) { New-Item "HKCU:\Control Panel\Sound" -force };
@@ -2543,9 +2576,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudCo
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent' -Name 'DisableTailoredExperiencesWithDiagnosticData' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent' -Name 'DisableThirdPartySuggestions' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent' -Name 'DisableWindowsSpotlightFeatures' -Value 0 -PropertyType DWord -Force
-
-# disable Windows Thumbs.db files from being created
-New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -Name 'DisableThumbsDBOnNetworkFolders' -Value 1 -PropertyType DWord -Force
 
 # Turn Autocorrect Off
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\TabletTip\1.7") -ne $true) { New-Item "HKCU:\Software\Microsoft\TabletTip\1.7" -force };
@@ -2782,6 +2812,8 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\Common\UserInfo' 
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Shared Tools\Proofing Tools\1.0\Office' -Name 'WordSpellingOptions' -Value 5 -PropertyType DWord -Force
 Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\VBA\Forms3\Controls' -Name 'EnableActiveXControlArchitetureIndependent' -Force
 Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\VBA\Forms3\Controls' -Name 'EnableActiveXControlMSWebBrowserArchiteturePersistenceIssue' -Force
+New-ItemProperty -Path "HKCU:\SOFTWARE\Policies\Microsoft\Office\16.0\osm" -Name Enablelogging -Type DWord -Value 0 -Force
+New-ItemProperty -Path "HKCU:\SOFTWARE\Policies\Microsoft\Office\16.0\osm" -Name EnableUpload -Type DWord -Value 0 -Force
 # No more forced O365 login requests
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Office\16.0\Outlook\AutoDiscover") -ne $true) { New-Item "HKCU:\Software\Microsoft\Office\16.0\Outlook\AutoDiscover" -force s };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Outlook\AutoDiscover' -Name 'ExcludeExplicitO365Endpoint' -Value 1 -PropertyType DWord -Force
@@ -2852,10 +2884,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD' -
 # Disable Microsoft Store Apps Open Files in Default Desktop App
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Associations") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Associations" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Associations' -Name 'BlockFileElevation' -Value 1 -PropertyType DWord -Force
-
-# no auto update for windows store
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore' -Name 'AutoDownload' -Value 2 -PropertyType DWord -Force
 
 # Removing Kernel Blacklist
 Remove-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\BlockList\Kernel" -Recurse -Force -Verbose
@@ -3088,8 +3116,8 @@ if ((Test-Path -LiteralPath "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Exp
 New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer' -Name 'PageSpaceControlSizer' -Value ([byte[]](0xa0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xec, 0x03, 0x00, 0x00)) -PropertyType Binary -Force
 
 #回收站无需确认即可删除
-if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\{6b755b3f-b7c5-4866-8662-e3a2a6f9374b}") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\{6b755b3f-b7c5-4866-8662-e3a2a6f9374b}" -force };
-if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\{cca4ea49-44e6-43ef-a623-ebc88725c706}") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\{cca4ea49-44e6-43ef-a623-ebc88725c706}" -force };
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\{ 6b755b3f-b7c5-4866-8662-e3a2a6f9374b }") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\ { 6b755b3f-b7c5-4866-8662-e3a2a6f9374b }" -force };
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\ { cca4ea49-44e6-43ef-a623-ebc88725c706 }") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\ { cca4ea49-44e6-43ef-a623-ebc88725c706 }" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\{6b755b3f-b7c5-4866-8662-e3a2a6f9374b}' -Name 'NukeOnDelete' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\{cca4ea49-44e6-43ef-a623-ebc88725c706}' -Name 'NukeOnDelete' -Value 1 -PropertyType DWord -Force
 # delete taskbar shortcuts
@@ -3621,6 +3649,10 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\B
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Associations' -Name 'LowRiskFileTypes' -Value '.zip;.rar;.nfo;.txt;.exe;.bat;.com;.cmd;.reg;.msi;.htm;.html;.gif;.bmp;.jpg;.avi;.mpg;.mpeg;.mov;.mp3;.m3u;.msu;.wav' -PropertyType String -Force
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments' -Name 'SaveZoneInformation' -Value 1 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Security") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Security" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Security' -Name 'DisableSecuritySettingsCheck' -Value 1 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3' -Name '1806' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" -force -ea SilentlyContinue };
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowRun") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowRun" -force -ea SilentlyContinue };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer' -Name 'DisallowRun' -Value 1 -PropertyType DWord -Force
@@ -3639,6 +3671,12 @@ Remove-Item -Path "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Send
 Remove-Item -Path "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\Mail Recipient.MAPIMail" -Force -Recurse
 Remove-Item -Path "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\蓝牙文件传送.LNK" -Force -Recurse
 Remove-Item -Path "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\文档.mydocs" -Force -Recurse
+Remove-Item -LiteralPath "HKLM:\Software\Classes\.zip\CompressedFolder\ShellNew" -Force -Recurse
+Remove-Item -LiteralPath "HKLM:\Software\Classes\AllFilesystemObjects\shellex\ContextMenuHandlers\ModernSharing" -Force -Recurse
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\Drive\shell\encrypt-bde-elev' -Name 'ProgrammaticAccessOnly' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\exefile\shell\runasuser' -Name 'Extended' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\Folder\ShellEx\ContextMenuHandlers\Library Location' -Name '(default)' -Value '-{3dad6c5d-2167-4cae-9914-f99e41c12cfa}' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{7AD84985-87B4-4a16-BE58-8B72A5B390F7}' -Value 'Play to menu' -PropertyType String -Force
 # onedrive
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers\ OneDrive1" -force -Recurse
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers\ OneDrive2" -force -Recurse
@@ -3654,25 +3692,25 @@ Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVe
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers\ OneDrive5" -force -Recurse
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers\ OneDrive6" -force -Recurse
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers\ OneDrive7" -force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Classes\CLSID\{78DE489B-7931-4f14-83B4-C56D38AC9FFA}" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Classes\CLSID\{ 78DE489B-7931-4f14-83B4-C56D38AC9FFA }" -force -Recurse
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\OneDriveRamps" -force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{24D89E24-2F19-4534-9DDE-6A6671FBB8FE}" -force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{339719B5-8C47-4894-94C2-D8F77ADD44A6}" -force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{767E6811-49CB-4273-87C2-20F355E1085B}" -force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{A52BBA46-E9E1-435f-B3D9-28DAA648C0F6}" -force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{C3F2459E-80D6-45DC-BFEF-1F769F2BE730}" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{ 24D89E24-2F19-4534-9DDE-6A6671FBB8FE }" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\ { 339719B5-8C47-4894-94C2-D8F77ADD44A6 }" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\ { 767E6811 - 49CB-4273-87C2-20F355E1085B }" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\ { A52BBA46-E9E1-435f-B3D9-28DAA648C0F6 }" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\ { C3F2459E-80D6-45DC-BFEF-1F769F2BE730 }" -force -Recurse
 # WinInetCacheServer
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Classes\AppID\{3eb3c877-1f16-487c-9050-104dbcd66683}" -force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\DelegateFolders\{b155bdf8-02f0-451e-9a26-ae317cfd7779}" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Classes\AppID\ { 3eb3c877-1f16-487c-9050-104dbcd66683 }" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\DelegateFolders\ { b155bdf8-02f0-451e-9a26-ae317cfd7779 }" -force -Recurse
 # Hide Public Folder from Folders List in Explorer Navigation Pane
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{4336a54d-038b-4685-ab02-99bb52d3fb8b}" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\ { 4336a54d-038b-4685-ab02-99bb52d3fb8b }" -force -Recurse
 # Delete Recent, Frequent from File Explorer
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\HomeFolderDesktop\NameSpace\DelegateFolders\{3134ef9c-6b18-4996-ad04-ed5912e00eb5}" -force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\HomeFolderDesktop\NameSpace\DelegateFolders\{3134ef9c-6b18-4996-ad04-ed5912e00eb5}" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\HomeFolderDesktop\NameSpace\DelegateFolders\ { 3134ef9c-6b18-4996-ad04-ed5912e00eb5 }" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\HomeFolderDesktop\NameSpace\DelegateFolders\ { 3134ef9c-6b18-4996-ad04-ed5912e00eb5 }" -force -Recurse
 #  Remove New Text Document
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\.txt\ShellNew" -force -Recurse
 #  Remove pin to taskbar
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\*\shellex\ContextMenuHandlers\{90AA3A4E-1CBA-4233-B8BB-535773D48449}" -force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\*\shellex\ContextMenuHandlers\{ 90AA3A4E-1CBA-4233-B8BB-535773D48449 }" -force -Recurse
 #  Remove pin to start
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Folder\shellex\ContextMenuHandlers\PintoStartScreen" -force -Recurse
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\exefile\shellex\ContextMenuHandlers\PintoStartScreen" -force -Recurse
@@ -3741,6 +3779,11 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\VBEFile\Shell\Print' -Name
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\VBSFile\Shell\Print' -Name 'ProgrammaticAccessOnly' -Value '' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\WSFFile\Shell\Print' -Name 'ProgrammaticAccessOnly' -Value '' -PropertyType String -Force
 
+# SMB 1.0
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\Browser\Parameters") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\Browser\Parameters" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Browser\Parameters' -Name 'MaintainServerList' -Value 'Yes' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Browser\Parameters' -Name 'IsDomainMaster' -Value 'True' -PropertyType String -Force
+
 # 设置所有网络类型为专用而非公共
 Set-NetConnectionProfile -NetworkCategory Private -Verbose
 Set-NetConnectionProfile -InterfaceAlias WLAN -NetworkCategory "Private"
@@ -3786,12 +3829,22 @@ Disable-NetAdapterRsc -Name "*"
 # Enabling Net Adapter Receive Side Scaling...
 Enable-NetAdapterRss -Name "*"
 
-# IPV6
+# 修复XBOX网络
 if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters' -Name 'DisabledComponents' -Value 0 -PropertyType DWord -Force
-Set-NetTeredoConfiguration -Type natawareclient
-Set-NetTeredoConfiguration -ServerName "win1910.ipv6.microsoft.com"
+Set-NetTeredoConfiguration -Type Enterpriseclient
+Set-NetTeredoConfiguration -ServerName "teredo.remlab.net"
 Set-Net6to4Configuration -State Enabled -AutoSharing Enabled -RelayState Enabled -RelayName "6to4.ipv6.microsoft.com"
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Name 'DisableParallelAandAAAA' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Name 'EnableAutoDoh' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Name 'negativesoacachetime' -Value 120 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Name 'netfailurecachetime' -Value 30 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Name 'AddrConfigControl' -Value 0 -PropertyType DWord -Force
+
+# Disable NetBIOS
+$NetBIOS = "HKLM:SYSTEM\CurrentControlSet\services\NetBT\Parameters\Interfaces"
+Get-ChildItem $NetBIOS | ForEach-Object { Set-ItemProperty -Path "$NetBIOS\$($_.pschildname)" -Name NetbiosOptions -Value 2 -Verbose }
 
 # Use the total amount of memory installed on the device to modify the svchost.exe split threshold to reduce the amount of svchost.exe processes that run simultaneously.
 $Memory = (Get-CimInstance -ClassName Win32_PhysicalMemory | Measure-Object -Property Capacity -Sum).Sum / 1KB
@@ -3803,7 +3856,6 @@ $powerMgmt = Get-CimInstance -ClassName MSPower_DeviceEnable -Namespace root/WMI
 
 # All USB devices
 $UsbDevices = Get-CimInstance -ClassName Win32_PnPEntity -Filter 'PNPClass = "USB"'
-
 $UsbDevices | ForEach-Object {
     # Get the power management instance for this device, if there is one
     $powerMgmt | Where-Object InstanceName -Like "*$($_.InstanceId)*"
@@ -3822,6 +3874,57 @@ foreach ($strGUID in $strGUIDS)
 
 # 清理文件夹
 Get-ChildItem "C:\Windows\Setup\Scripts" | Remove-Item -Recurse -Force -Verbose
+
+# 清理垃圾文件
+$SageSet = "StateFlags0099"
+$Base = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\"
+$Locations = @(
+    "Active Setup Temp Folders"
+    "BranchCache"
+    "Content Indexer Cleaner"
+    "D3D Shader Cache"
+    "Delivery Optimization Files"
+    "Device Driver Packages"
+    "Diagnostic Data Viewer database files"
+    "Downloaded Program Files"
+    "Feedback Hub Archive log files"
+    "Internet Cache Files"
+    "Language Pack"
+    "Offline Pages Files"
+    "Old ChkDsk Files"
+    "Previous Installations"
+    "Recycle Bin"
+    "RetailDemo Offline Content"
+    "Setup Log Files"
+    "System error memory dump files"
+    "System error minidump files"
+    "Temporary Files"
+    "Temporary Setup Files"
+    "Temporary Sync Files"
+    "Thumbnail Cache"
+    "Update Cleanup"
+    "Upgrade Discarded Files"
+    "User file versions"
+    "Windows Defender"
+    "Windows Error Reporting Files"
+    "Windows ESD installation files"
+    "Windows Reset Log Files"
+    "Windows Upgrade Log Files"
+)
+
+# -ea silentlycontinue will supress error messages
+ForEach ($Location in $Locations) {
+    Set-ItemProperty -Path $($Base + $Location) -Name $SageSet -Type DWORD -Value 2 -ea silentlycontinue
+}
+
+# Do the clean-up. Have to convert the SageSet number
+$CleanupArgs = "/sagerun:$([string]([int]$SageSet.Substring($SageSet.Length-4)))"
+Start-Process -Wait "$env:SystemRoot\System32\cleanmgr.exe" -ArgumentList $CleanupArgs
+
+# Remove the Stateflags
+ForEach ($Location in $Locations) {
+    Remove-ItemProperty -Path $($Base + $Location) -Name $SageSet -Force -ea silentlycontinue
+}
 
 # 重启
 Restart-Computer
