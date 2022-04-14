@@ -29,9 +29,6 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.3.204.1-Installer.exe /S
 rem Direct X
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\DirectXRedist.exe /ai
 
-rem Net Core Runtime
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-3.1.23-win-x64.exe /install /quiet /norestart
-
 rem VSCode
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VSCodeSetup-x64-1.67.0-insider.exe /SP- /VERYSILENT /NORESTART /SUPPRESSMSGBOXES /mergetasks=!runcode
 
@@ -43,7 +40,7 @@ rem chipset driver
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Software.exe /S
 
 rem startisback
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\StartBack.exe /SILENT
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\StartBack.exe /S
 
 rem time sync
 start /wait C:\PROGRA~1\UpdateTime\UpdateTime_x64.exe /SI
@@ -51,7 +48,7 @@ start /wait C:\PROGRA~1\UpdateTime\UpdateTime_x64.exe /SI
 rem remove Edge
 "C:\Program Files (x86)\Microsoft\Edge\Application\98.0.1108.43\Installer\setup.exe" --uninstall --system-level --verbose-logging --force-uninstall --delete-profile
 
-del /f /q %SystemDrive%\unattend.xml
+del /f /q %SystemDrive%\Panther\unattend.xml
 del /f /q %ProgramData%\Microsoft\Diagnosis\*.rbs
 del /f /q /s %ProgramData%\Microsoft\Diagnosis\ETLLogs\*
 %windir%\System32\UsoClient.exe RefreshSettings
