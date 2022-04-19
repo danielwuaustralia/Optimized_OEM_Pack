@@ -59,7 +59,7 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\PowerShell\1\ShellIds\Mi
 "cipher /d /s:C:\" | cmd
 "netsh int tcp set global rss=enable" | cmd
 "netsh int tcp set global autotuninglevel=experimental" | cmd
-"netsh int tcp set global ecncapability=disable" | cmd
+"netsh int tcp set global ecncapability=enable" | cmd
 "netsh int tcp set global timestamps=enable" | cmd
 "netsh int tcp set global initialrto=300" | cmd
 "netsh int tcp set global rsc=disable" | cmd
@@ -1412,8 +1412,11 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'aac' 
 New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'mp3' -Value 1 -PropertyType DWord -Force;
 New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'flac' -Value 1 -PropertyType DWord -Force;
 
-# Powershell Module
-Import-Module PSWindowsUpdate
+# Powershell Module from https://www.powershellgallery.com/packages
+# Save-Module -Name PSWindowsUpdate -Path D:\Downloads\ -Repository PSGallery
+# Save-Module -Name RobocopyPS -Path D:\Downloads\ -Repository PSGallery
+Import-Module -SkipEditionCheck PSWindowsUpdate
+Import-Module -SkipEditionCheck RobocopyPS
 
 # XP样式鼠标
 # New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Pin' -Value '' -PropertyType ExpandString -Force
@@ -1606,7 +1609,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Syst
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\DeviceInstall\Settings") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\DeviceInstall\Settings" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\DeviceInstall\Settings' -Name 'DisableSystemRestore' -Value 1 -PropertyType DWord -Force
 
-# 页面文件优化
+# 内存设置优化
 if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'ClearPageFileAtShutdown' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'DisablePagingExecutive' -Value 1 -PropertyType DWord -Force
@@ -1620,9 +1623,8 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Ma
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'NonPagedPoolSize' -Value 192 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'PagedPoolSize' -Value 192 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'PoolUsageMaximum' -Value 192 -PropertyType DWord -Force
-# 页面文件大小
-if ((Test-Path -LiteralPath "HKLM:\System\ControlSet001\Control\Session Manager\Memory Management") -ne $true) { New-Item "HKLM:\System\ControlSet001\Control\Session Manager\Memory Management" -force };
-New-ItemProperty -LiteralPath 'HKLM:\System\ControlSet001\Control\Session Manager\Memory Management' -Name 'PagingFiles' -Value @("c:\pagefile.sys 20480 20480") -PropertyType MultiString -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'PagingFiles' -Value @("c:\pagefile.sys 20480 20480") -PropertyType MultiString -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'MoveImages' -Value 0 -PropertyType DWord -Force
 # 关闭硬盘预先存取
 If (!(Test-Path -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters")) { New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" -ItemType Directory -Force }
 New-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters' -Name 'EnableBoottrace' -Value '0' -PropertyType DWord -Force
@@ -1771,14 +1773,14 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\E
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Edge") -ne $true) { New-Item "HKCU:\Software\Microsoft\Edge" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Edge' -Name 'SmartScreenEnabled' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Edge' -Name 'SmartScreenPuaEnabled' -Value 0 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe' -Name 'Debugger' -Value 'C:\Windows\system32\systray.exe' -PropertyType String -Force
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows Security Health\State") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows Security Health\State" -force -ea SilentlyContinue };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows Security Health\State' -Name 'AppAndBrowser_StoreAppsSmartScreenOff' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows Security Health\State' -Name 'AppAndBrowser_EdgeSmartScreenOff' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows Security Health\State' -Name 'AppAndBrowser_PhishingSensorsOff' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows Security Health\State' -Name 'AccountProtection_MicrosoftAccount_Disconnected' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows Security Health\State' -Name 'AccountProtection_WindowsHello_Available' -Value 0 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GameBarPresenceWriter.exe") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GameBarPresenceWriter.exe" -force -ea SilentlyContinue };
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe" -force -ea SilentlyContinue };
 
 # 删除无用菜单
 Remove-Item -Path "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\Compressed (zipped) Folder.ZFSendToTarget" -Force -Recurse
@@ -2639,8 +2641,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows NT\C
 
 # 微软雅黑
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name 'SimSun & NSimSun (TrueType)' -Value 'msyh.ttc' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes' -Name 'MS Shell Dlg 2' -Value 'Microsoft YaHei' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes' -Name 'MS Shell Dlg' -Value 'Microsoft YaHei' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes' -Name 'SimSun' -Value 'Microsoft YaHei' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes' -Name 'NSimSun' -Value 'Microsoft YaHei' -PropertyType String -Force
 
@@ -3795,12 +3795,12 @@ Disable-NetAdapterQos -Name "*"
 # Disabling Net Adapter Power Management...
 Disable-NetAdapterPowerManagement -Name "*"
 # Enabling Net Adapter Checksum Offload...
-Disable-NetAdapterChecksumOffload -Name "*"
+Enable-NetAdapterChecksumOffload -Name "*"
 # Disabling Net Adapter Encapsulated Packet Task Offload...
 Disable-NetAdapterEncapsulatedPacketTaskOffload -Name "*"
 # Enabling Net Adapter IPsec Offload...
 Enable-NetAdapterIPsecOffload -Name "*"
-# Disabling Net Adapter Large Send Offload...
+# The Disable-NetAdapterLso cmdlet disables the state of the large send offload (LSO) settings, such as LSOv4 and LSOv6, on the network adapter. If neither LSOv4 or LSOv6 is specified, then both are disabled. LSO is a technology in which the work of segmenting data into network frames is performed by the network adapter instead of by the TCP/IP stack. With LSO, TCP/IP sends very large data packets down to the network adapter driver and the network adapter hardware. The network adapter breaks up the data into smaller network-sized frames. This increases the speed of large packet send operations and decreases the processor usage of the computer, because the work is performed on the network adapter.
 Disable-NetAdapterLso -Name "*"
 # Enabling Net Adapter Packet Direct...
 Enable-NetAdapterPacketDirect -Name "*"
@@ -3808,6 +3808,17 @@ Enable-NetAdapterPacketDirect -Name "*"
 Disable-NetAdapterRsc -Name "*"
 # Enabling Net Adapter Receive Side Scaling...
 Enable-NetAdapterRss -Name "*"
+# Get-NetAdapterAdvancedProperty -Name "以太网" -AllProperties
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "流控制" -DisplayValue "关闭"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "Power Saving Mode" -DisplayValue "关闭"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "网络唤醒和关机连接速度" -DisplayValue "不降速"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "中断调整" -DisplayValue "Disabled"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "环保节能" -DisplayValue "关闭"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "节能乙太网路" -DisplayValue "关闭"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "Advanced EEE" -DisplayValue "关闭"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "ARP 减负" -DisplayValue "关闭"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "NS 减负" -DisplayValue "关闭"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "Gigabit Lite" -DisplayValue "关闭"
 
 # 修复XBOX网络
 if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" -force };
