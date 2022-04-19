@@ -40,13 +40,15 @@ rem chipset driver
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Software.exe /S
 
 rem startisback
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\StartBack.exe /S
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\StartBack.exe /ai /gm2
 
 rem time sync
 start /wait C:\PROGRA~1\UpdateTime\UpdateTime_x64.exe /SI
 
 rem remove Edge
-"C:\Program Files (x86)\Microsoft\Edge\Application\98.0.1108.43\Installer\setup.exe" --uninstall --system-level --verbose-logging --force-uninstall --delete-profile
+"C:\Program Files (x86)\Microsoft\EdgeCore\98.0.1108.43\Installer\setup.exe" --uninstall --system-level --verbose-logging --force-uninstall --delete-profile
+rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeCore"
+rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeUpdate"
 
 del /f /q %SystemDrive%\Panther\unattend.xml
 del /f /q %ProgramData%\Microsoft\Diagnosis\*.rbs
