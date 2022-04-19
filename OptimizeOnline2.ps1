@@ -2636,8 +2636,8 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS' -N
 # 安装新字体
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name '苹方-简 中黑体 (TrueType)' -Value 'PingFangSC-17.d1e2-Medium.otf' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts' -Name '苹方-简 中黑体 (TrueType)' -Value 'PingFangSC-17.d1e2-Medium.otf' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name '更紗黑體 CL & 更纱黑体 SC & 更紗黑體 TC & 更紗黑體 HC & Sarasa Gothic J & Sarasa Gothic K & 更紗黑體 UI CL & 更纱黑体 UI SC & 更紗黑體 UI TC & 更紗黑體 UI HC & Sarasa UI J & Sarasa UI K & 等距更紗黑體 CL & 等距更纱黑体 SC & 等距更紗黑體 TC & 等距更紗黑體 HC & Sarasa Mono J & Sarasa Mono K & 等距更紗黑體 Slab CL & 等距更纱黑体' -Value 'sarasa-regular.ttc' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts' -Name '更紗黑體 CL & 更纱黑体 SC & 更紗黑體 TC & 更紗黑體 HC & Sarasa Gothic J & Sarasa Gothic K & 更紗黑體 UI CL & 更纱黑体 UI SC & 更紗黑體 UI TC & 更紗黑體 UI HC & Sarasa UI J & Sarasa UI K & 等距更紗黑體 CL & 等距更纱黑体 SC & 等距更紗黑體 TC & 等距更紗黑體 HC & Sarasa Mono J & Sarasa Mono K & 等距更紗黑體 Slab CL & 等距更纱黑体' -Value 'sarasa-regular.ttc' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name 'Noto Sans CJK SC (TrueType)' -Value 'NotoSansCJKsc-VF.ttf' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts' -Name 'Noto Sans CJK SC (TrueType)' -Value 'NotoSansCJKsc-VF.ttf' -PropertyType String -Force
 
 # 微软雅黑
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name 'SimSun & NSimSun (TrueType)' -Value 'msyh.ttc' -PropertyType String -Force
@@ -2784,7 +2784,7 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\InputMethod\Settings\CHS
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\InputMethod\Settings\CHS' -Name 'EnableVMode' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\InputMethod\Settings\CHS' -Name 'EnableSmartFuzzyPinyin' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\InputMethod\Settings\CHS' -Name 'Enable Auto Correction' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\InputMethod\Settings\CHS' -Name 'English Switch Key' -Value 6 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\InputMethod\Settings\CHS' -Name 'English Switch Key' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\InputMethod\Settings\CHS' -Name 'EnableSimplifiedTraditionalOutputSwitch' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\InputMethod\Settings\CHS' -Name 'Enable Cloud Candidate' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\InputMethod\Settings\CHS' -Name 'Enable Dynamic Candidate Ranking' -Value 1 -PropertyType DWord -Force
@@ -2916,6 +2916,8 @@ Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\VBA\Forms3\Controls' 
 Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\VBA\Forms3\Controls' -Name 'EnableActiveXControlMSWebBrowserArchiteturePersistenceIssue' -Force
 New-ItemProperty -Path "HKCU:\SOFTWARE\Policies\Microsoft\Office\16.0\osm" -Name Enablelogging -Type DWord -Value 0 -Force
 New-ItemProperty -Path "HKCU:\SOFTWARE\Policies\Microsoft\Office\16.0\osm" -Name EnableUpload -Type DWord -Value 0 -Force
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Office\16.0\OneNote\Options\Other") -ne $true) { New-Item "HKCU:\Software\Microsoft\Office\16.0\OneNote\Options\Other" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\OneNote\Options\Other' -Name 'RunSystemTrayApp' -Value 0 -PropertyType DWord -Force
 # No more forced O365 login requests
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Office\16.0\Outlook\AutoDiscover") -ne $true) { New-Item "HKCU:\Software\Microsoft\Office\16.0\Outlook\AutoDiscover" -force s };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Outlook\AutoDiscover' -Name 'ExcludeExplicitO365Endpoint' -Value 1 -PropertyType DWord -Force
@@ -3255,108 +3257,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defende
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\MRT") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\MRT" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\MRT' -Name 'DontOfferThroughWUAU' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\MRT' -Name 'DontReportInfectionInformation' -Value 1 -PropertyType DWord -Force
-
-# Disable WMI Autologgers
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Cellcore") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Cellcore" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Circular Kernel Context Logger") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Circular Kernel Context Logger" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\CloudExperienceHostOobe") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\CloudExperienceHostOobe" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DataMarket") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DataMarket" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderAuditLogger") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderAuditLogger" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DiagLog") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DiagLog" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-Application") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-Application" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\FaceRecoTel") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\FaceRecoTel" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\FaceTel") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\FaceTel" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\FaceUnlock") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\FaceUnlock" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\HolographicDevice") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\HolographicDevice" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\iclsClient") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\iclsClient" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\iclsProxy") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\iclsProxy" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\IntelPTTEKRecertification") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\IntelPTTEKRecertification" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\IntelRST") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\IntelRST" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\LwtNetLog") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\LwtNetLog" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Mellanox-Kernel") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Mellanox-Kernel" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Microsoft-Windows-AssignedAccess-Trace") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Microsoft-Windows-AssignedAccess-Trace" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Microsoft-Windows-Rdp-Graphics-RdpIdd-Trace") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Microsoft-Windows-Rdp-Graphics-RdpIdd-Trace" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Microsoft-Windows-Setup") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Microsoft-Windows-Setup" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\NBSMBLOGGER") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\NBSMBLOGGER" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\NetCore") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\NetCore" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\NtfsLog") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\NtfsLog" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\PEAuthLog") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\PEAuthLog" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\RadioMgr") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\RadioMgr" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\RdrLog") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\RdrLog" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\ReadyBoot") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\ReadyBoot" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\ReFSLog") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\ReFSLog" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SetupPlatform") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SetupPlatform" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SetupPlatformTel") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SetupPlatformTel" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SocketHeciServer") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SocketHeciServer" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SpoolerLogger") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SpoolerLogger" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SQMLogger") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SQMLogger" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\TCPIPLOGGER") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\TCPIPLOGGER" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\TileStore") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\TileStore" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Tpm") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Tpm" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\TPMProvisioningService") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\TPMProvisioningService" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\UBPM") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\UBPM" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\UnionFS-Filter") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\UnionFS-Filter" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WdiContextLog") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WdiContextLog" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WFP-IPsec Trace") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WFP-IPsec Trace" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiDriverIHVSession") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiDriverIHVSession" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiDriverIHVSessionRepro") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiDriverIHVSessionRepro" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WifiDriverSession") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WifiDriverSession" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiSession") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiSession" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WinPhoneCritical") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WinPhoneCritical" -force -ea SilentlyContinue };
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WMI_Traces") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WMI_Traces" -force -ea SilentlyContinue };
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Cellcore' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Circular Kernel Context Logger' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\CloudExperienceHostOobe' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DataMarket' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderAuditLogger' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DiagLog' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-Application' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\FaceRecoTel' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\FaceTel' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\FaceUnlock' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\HolographicDevice' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\iclsClient' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\iclsProxy' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\IntelPTTEKRecertification' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\IntelRST' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\LwtNetLog' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Mellanox-Kernel' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Microsoft-Windows-AssignedAccess-Trace' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Microsoft-Windows-Rdp-Graphics-RdpIdd-Trace' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Microsoft-Windows-Setup' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\NBSMBLOGGER' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\NetCore' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\NtfsLog' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\PEAuthLog' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\RadioMgr' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\RdrLog' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\ReadyBoot' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\ReFSLog' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SetupPlatform' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SetupPlatformTel' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SocketHeciServer' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SpoolerLogger' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SQMLogger' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\TCPIPLOGGER' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\TileStore' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Tpm' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\TPMProvisioningService' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\UBPM' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\UnionFS-Filter' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WdiContextLog' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WFP-IPsec Trace' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiDriverIHVSession' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiDriverIHVSessionRepro' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WifiDriverSession' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiSession' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WinPhoneCritical' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WMI_Traces' -Name 'Start' -Value 0 -PropertyType DWord -Force
 
 #
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft" -force };
