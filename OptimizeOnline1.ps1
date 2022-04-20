@@ -308,9 +308,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\FDResPub'
 # 禁用Defender
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\wscsvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SecurityHealthService' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# Edge浏览器
-Remove-Item -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\edgeupdate' -Recurse -Force
-Remove-Item -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\edgeupdatem' -Recurse -Force
 # 蓝牙
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BthA2dp' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BthEnum' -Name 'Start' -Value 4 -PropertyType DWord -Force
@@ -510,7 +507,6 @@ Remove-Item -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\lfsvc' -Recurse -F
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\pla' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\PNRPAutoReg' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\SecurityHealthService' -Recurse -Force
-Remove-Item -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\Sense' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\UsoSvc' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\wercplsupport' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WerSvc' -Recurse -Force
