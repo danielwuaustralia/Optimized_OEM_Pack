@@ -1187,121 +1187,6 @@ Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 p1-
 Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 kyson.ad.daum.net"
 Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 display.ad.daum.net"
 Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 analytics.ad.daum.net"
-# Potplayer关联
-if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayerMini64\FileIconList") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayerMini64\FileIconList" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '110' -Value '.XSS*XSS - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '109' -Value '.XSPF*XSPF - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '108' -Value '.WVX*WVX - Windows 媒体文件*C:\Program Files\PotPlayer\PotIcons64.dll*9' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '107' -Value '.WV*WV - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '106' -Value '.WTV*WTV - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '105' -Value '.WMX*WMX - Windows 媒体文件*C:\Program Files\PotPlayer\PotIcons64.dll*8' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '104' -Value '.WMV*WMV - Windows 媒体文件*C:\Program Files\PotPlayer\PotIcons64.dll*7' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '103' -Value '.WMP*WMP - Windows 媒体文件*C:\Program Files\PotPlayer\PotIcons64.dll*6' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '102' -Value '.WMA*WMA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*47' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '111' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '100' -Value '.WEBM*WEBM - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '99' -Value '.WAX*WAX - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*55' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '98' -Value '.WAV*WAV - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*70' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '97' -Value '.VTT*VTT - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '96' -Value '.VOB*VOB - DVD 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*18' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '95' -Value '.USF*USF - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '94' -Value '.TTML*TTML - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '93' -Value '.TTA*TTA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '92' -Value '.TS*TS - MPEG2 Transport 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*33' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '91' -Value '.TRP*TRP - MPEG2 Transport 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*34' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '90' -Value '.TPR*TPR - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*35' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '89' -Value '.TP*TP - MPEG2 Transport 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*16' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '88' -Value '.TAK*TAK - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '87' -Value '.SUP*SUP - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '86' -Value '.SUB*SUB - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*76' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '85' -Value '.SSF*SSF - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '84' -Value '.SSA*SSA - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*74' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '101' -Value '.WM*WM - Windows 媒体文件*C:\Program Files\PotPlayer\PotIcons64.dll*5' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '83' -Value '.SRT*SRT - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*72' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '0' -Value '.3G2*3G2 - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*41' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '1' -Value '.3GP*3GP - 手机电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*28' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '2' -Value '.3GP2*3GP2 - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*42' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '3' -Value '.3GPP*3GPP - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*40' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '4' -Value '.AAC*AAC - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*63' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '5' -Value '.AC3*AC3 - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*62' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '6' -Value '.AIF*AIF - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '7' -Value '.AIFF*AIFF - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '8' -Value '.AMR*AMR - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*46' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '9' -Value '.AMV*AMV - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '10' -Value '.APE*APE - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*64' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '11' -Value '.ASF*ASF - Windows 媒体文件*C:\Program Files\PotPlayer\PotIcons64.dll*3' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '12' -Value '.ASS*ASS - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*73' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '13' -Value '.ASX*ASX - Windows 媒体文件*C:\Program Files\PotPlayer\PotIcons64.dll*4' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '14' -Value '.AVI*AVI - Windows 标准视频文件*C:\Program Files\PotPlayer\PotIcons64.dll*1' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '15' -Value '.CDA*CDA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '16' -Value '.CUE*CUE - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '17' -Value '.DIVX*DIVX - 视频文件*C:\Program Files\PotPlayer\PotIcons64.dll*2' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '18' -Value '.DMSKM*DMSKM - 手机电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*31' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '19' -Value '.DPG*DPG - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '20' -Value '.DPL*DPL - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '21' -Value '.DSF*DSF - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '22' -Value '.DTS*DTS - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*67' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '23' -Value '.DTSHD*DTSHD - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '24' -Value '.DVR-MS*DVR-MS - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '25' -Value '.EAC3*EAC3 - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '26' -Value '.EVO*EVO - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '27' -Value '.F4V*F4V - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '28' -Value '.FLAC*FLAC - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*68' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '29' -Value '.FLV*FLV - Flash(FLV) 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*32' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '30' -Value '.IDX*IDX - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*75' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '31' -Value '.IFO*IFO - DVD 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*17' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '32' -Value '.K3G*K3G - 手机电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*29' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '33' -Value '.LMP4*LMP4 - MPEG-4 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*27' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '34' -Value '.M1A*M1A - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*49' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '35' -Value '.M1V*M1V - MPEG 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*10' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '36' -Value '.M2A*M2A - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*50' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '37' -Value '.M2T*M2T - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '38' -Value '.M2TS*M2TS - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*77' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '39' -Value '.M2V*M2V - MPEG 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*11' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '40' -Value '.M3U*M3U - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*53' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '41' -Value '.M3U8*M3U8 - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '42' -Value '.M4A*M4A - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*51' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '43' -Value '.M4B*M4B - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*39' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '44' -Value '.M4P*M4P - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*38' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '45' -Value '.M4V*M4V - MPEG-4 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*26' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '46' -Value '.MKA*MKA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*69' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '47' -Value '.MKV*MKV - Matroska 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*20' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '48' -Value '.MOD*MOD - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*65' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '49' -Value '.MOV*MOV - Quicktime 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*23' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '50' -Value '.MP2*MP2 - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*59' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '51' -Value '.MP2V*MP2V - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*37' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '52' -Value '.MP3*MP3 - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*60' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '53' -Value '.MP4*MP4 - MPEG-4 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*25' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '54' -Value '.MPA*MPA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*48' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '55' -Value '.MPC*MPC - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*66' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '56' -Value '.MPE*MPE - MPEG 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*12' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '57' -Value '.MPEG*MPEG - MPEG 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*13' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '58' -Value '.MPG*MPG - MPEG 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*14' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '59' -Value '.MPL*MPL - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '60' -Value '.MPLS*MPLS - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '61' -Value '.MPV2*MPV2 - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*36' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '62' -Value '.MQV*MQV - QT 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*24' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '63' -Value '.MTS*MTS - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*78' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '64' -Value '.MXF*MXF - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*79' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '65' -Value '.NSR*NSR - DRM 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '66' -Value '.NSV*NSV - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '67' -Value '.OGG*OGG - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*61' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '68' -Value '.OGM*OGM - OGM 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*19' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '69' -Value '.OGV*OGV - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*80' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '70' -Value '.OPUS*OPUS - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '71' -Value '.PLS*PLS - Playlist File*C:\Program Files\PotPlayer\PotIcons64.dll*54' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '72' -Value '.PSB*PSB - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '73' -Value '.QT*QT - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*45' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '74' -Value '.RA*RA - Audio File*C:\Program Files\PotPlayer\PotIcons64.dll*52' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '75' -Value '.RAM*RAM - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*43' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '76' -Value '.RM*RM - RealMedia 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*21' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '77' -Value '.RMVB*RMVB - RealMedia 电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*22' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '78' -Value '.RPM*RPM - Video File*C:\Program Files\PotPlayer\PotIcons64.dll*44' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '79' -Value '.RT*RT - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '80' -Value '.SBV*SBV - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '81' -Value '.SKM*SKM - 手机电影文件*C:\Program Files\PotPlayer\PotIcons64.dll*30' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\FileIconList' -Name '82' -Value '.SMI*SMI - Subtitle File*C:\Program Files\PotPlayer\PotIcons64.dll*71' -PropertyType String -Force
-
 # LAV Filter Settings
 if ((Test-Path -LiteralPath "HKCU:\Software\LAV") -ne $true) { New-Item "HKCU:\Software\LAV" -force };
 if ((Test-Path -LiteralPath "HKCU:\Software\LAV\Audio") -ne $true) { New-Item "HKCU:\Software\LAV\Audio" -force };
@@ -1468,8 +1353,8 @@ New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Pan' -Value '
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Grab' -Value 'C:\Windows\Cursors\macosCursorsL-s-n\Move.cur' -PropertyType ExpandString -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors\Schemes' -Name 'macOS Cursors L With Shadow Newer' -Value '%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Normal.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Help.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Working.ani,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Busy.ani,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Precision.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Text.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Handwriting.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Unavailable.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Vertical Resize.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Horizontal Resize.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Diagonal Resize 1.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Diagonal Resize 2.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Move.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Alternate.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Link.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Pin.cur,%SYSTEMROOT%\Cursors\macosCursorsL-s-n\Person.cur' -PropertyType ExpandString -Force
 
-
 # 广告追踪
+Get-AutologgerConfig | Set-AutologgerConfig -Start 0 -InitStatus 0 -Confirm:$false -EA Ignore -Verbose
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack' -Name 'DiagTrackStatus' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack' -Name 'DiagTrackAuthorization' -Value 0 -PropertyType DWord -Force
@@ -1661,10 +1546,10 @@ if ((Test-Path -LiteralPath "HKCU:\Control Panel\Desktop") -ne $true) { New-Item
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'AutoColorization' -Value '0' -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'MenuShowDelay' -Value '0' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'ForegroundLockTimeout' -Value '0' -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'WaitToKillAppTimeout' -Value '2500' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'HungAppTimeout' -Value '2500' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'LowLevelHooksTimeout' -Value '2500' -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'WaitToKillServiceTimeout' -Value '2500' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'WaitToKillAppTimeout' -Value '1500' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'HungAppTimeout' -Value '1500' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'LowLevelHooksTimeout' -Value '1500' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'WaitToKillServiceTimeout' -Value '1500' -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'DockMoving' -Value '0' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'WindowArrangementActive' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'DragFullWindows' -Value '0' -PropertyType String -Force
@@ -1700,13 +1585,11 @@ New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'MessageFont' -Value ([byte[]](0xf4, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x90, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x05, 0x00, 0x4d, 0x00, 0x69, 0x00, 0x63, 0x00, 0x72, 0x00, 0x6f, 0x00, 0x73, 0x00, 0x6f, 0x00, 0x66, 0x00, 0x74, 0x00, 0x20, 0x00, 0x59, 0x00, 0x61, 0x00, 0x48, 0x00, 0x65, 0x00, 0x69, 0x00, 0x20, 0x00, 0x55, 0x00, 0x49, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'ScrollHeight' -Value '-240' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'ScrollWidth' -Value '-240' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'Shell Icon Size' -Value '32' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'SmCaptionFont' -Value ([byte[]](0xf4, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x90, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x05, 0x00, 0x4d, 0x00, 0x69, 0x00, 0x63, 0x00, 0x72, 0x00, 0x6f, 0x00, 0x73, 0x00, 0x6f, 0x00, 0x66, 0x00, 0x74, 0x00, 0x20, 0x00, 0x59, 0x00, 0x61, 0x00, 0x48, 0x00, 0x65, 0x00, 0x69, 0x00, 0x20, 0x00, 0x55, 0x00, 0x49, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'SmCaptionHeight' -Value '-180' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'SmCaptionWidth' -Value '-180' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'StatusFont' -Value ([byte[]](0xf4, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x90, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x05, 0x00, 0x4d, 0x00, 0x69, 0x00, 0x63, 0x00, 0x72, 0x00, 0x6f, 0x00, 0x73, 0x00, 0x6f, 0x00, 0x66, 0x00, 0x74, 0x00, 0x20, 0x00, 0x59, 0x00, 0x61, 0x00, 0x48, 0x00, 0x65, 0x00, 0x69, 0x00, 0x20, 0x00, 0x55, 0x00, 0x49, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'PaddedBorderWidth' -Value '0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'AppliedDPI' -Value 96 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'IconSpacing' -Value '-1125' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'IconVerticalSpacing' -Value '-1150' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'MinAnimate' -Value '0' -PropertyType String -Force
@@ -1741,48 +1624,29 @@ if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DWM") -ne
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DWM' -Name 'DisallowAnimations' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DWM' -Name 'DWMWA_TRANSITIONS_FORCEDISABLED' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DWM' -Name 'AnimationAttributionEnabled' -Value 0 -PropertyType DWord -Force
-Remove-Item -LiteralPath "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Accent" -recurse -force;
-if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'AppsUseLightTheme' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'SystemUsesLightTheme' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'EnabledBlurBehind' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'EnableTransparency' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\Personalization' -Name 'NoLockScreen' -Value 1 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\System' -Name 'DisableAcrylicBackgroundOnLogon' -Value 1 -PropertyType DWord -Force
-Remove-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\Personalization' -Name 'PersonalColors_Accent' -Force
-New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\Personalization' -Name 'NoLockScreen' -Value 1 -PropertyType DWord -Force
 
-# Vista颜色样式
-if ((Test-Path -LiteralPath "HKCU:\Control Panel\Colors") -ne $true) { New-Item "HKCU:\Control Panel\Colors" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'ActiveBorder' -Value '212 208 200' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'ActiveTitle' -Value '10 36 106' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'AppWorkSpace' -Value '128 128 128' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'ButtonAlternateFace' -Value '181 181 181' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'ButtonDkShadow' -Value '64 64 64' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'ButtonFace' -Value '212 208 200' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'ButtonHilight' -Value '255 255 255' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'ButtonLight' -Value '212 208 200' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'ButtonShadow' -Value '128 128 128' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'ButtonText' -Value '0 0 0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'GradientActiveTitle' -Value '166 202 240' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'GradientInactiveTitle' -Value '192 192 192' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'GrayText' -Value '128 128 128' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'Hilight' -Value '10 36 106' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'HilightText' -Value '255 255 255' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'HotTrackingColor' -Value '0 0 128' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'InactiveBorder' -Value '212 208 200' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'InactiveTitle' -Value '128 128 128' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'InactiveTitleText' -Value '212 208 200' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'InfoText' -Value '0 0 0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'InfoWindow' -Value '255 255 225' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'Menu' -Value '212 208 200' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'MenuText' -Value '0 0 0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'Scrollbar' -Value '212 208 200' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'TitleText' -Value '255 255 255' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'Window' -Value '255 255 255' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'WindowFrame' -Value '0 0 0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'WindowText' -Value '0 0 0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'Background' -Value '58 110 165' -PropertyType String -Force
+# https://gist.github.com/AveYo/80fc6677b9f34939e44364880fbf3768
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent' -Name 'AccentColorMenu' -Value 520093696 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent' -Name 'StartColorMenu' -Value 522199072 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent' -Name 'AccentPalette' -Value ([byte[]](0xb5, 0x66, 0xff, 0x1f, 0x6c, 0x3a, 0x98, 0x1f, 0x8a, 0x2c, 0xdd, 0xff, 0x9d, 0x5c, 0xd6, 0x1f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\DWM") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\DWM" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\DWM' -Name 'ColorPrevalence' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\DWM' -Name 'AccentColor' -Value 520093696 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\DWM' -Name 'AccentColorInactive' -Value 522199072 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'ColorPrevalence' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'AppsUseLightTheme' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'SystemUsesLightTheme' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'EnabledBlurBehind' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'EnableTransparency' -Value 1 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKCU:\Control Panel\Colors") -ne $true) { New-Item "HKCU:\Control Panel\Colors" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'Hilight' -Value '181 102 255' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'HotTrackingColor' -Value '181 102 255' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'MenuHilight' -Value '181 102 255' -PropertyType String -Force
 
 # 系统区域
 if ((Test-Path -LiteralPath "HKCU:\Control Panel\International\Geo") -ne $true) { New-Item "HKCU:\Control Panel\International\Geo" -force };
@@ -1939,6 +1803,21 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows Security Health\
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows Security Health\State' -Name 'AccountProtection_WindowsHello_Available' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GameBarPresenceWriter.exe") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GameBarPresenceWriter.exe" -force };
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Associations' -Name 'LowRiskFileTypes' -Value '.zip;.rar;.nfo;.txt;.exe;.bat;.com;.cmd;.reg;.msi;.htm;.html;.gif;.bmp;.jpg;.avi;.mpg;.mpeg;.mov;.mp3;.m3u;.msu;.wav' -PropertyType String -Force
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments' -Name 'SaveZoneInformation' -Value 1 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Security") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Security" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Security' -Name 'DisableSecuritySettingsCheck' -Value 1 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3' -Name '1806' -Value 0 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowRun") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowRun" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer' -Name 'DisallowRun' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowRun' -Name '1' -Value 'CompatTelRunner.exe' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowRun' -Name '2' -Value 'MRT.exe' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowRun' -Name '3' -Value 'Narrator.exe' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowRun' -Name '4' -Value 'smartscreen.exe' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowRun' -Name '5' -Value 'software_reporter_tool.exe' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowRun' -Name '6' -Value 'SppExtComObj.Exe' -PropertyType String -Force
 
 # 删除无用菜单
 Remove-Item -Path "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\Compressed (zipped) Folder.ZFSendToTarget" -Force -Recurse
@@ -2287,6 +2166,8 @@ if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\.NETFramework") -ne $true)
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\.NETFramework") -ne $true) { New-Item "HKLM:\SOFTWARE\WOW6432Node\Microsoft\.NETFramework" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\.NETFramework' -Name 'OnlyUseLatestCLR' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\.NETFramework' -Name 'OnlyUseLatestCLR' -Value 1 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\.NET") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\.NET" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\.NET' -Name 'AllowAUOnServerOS' -Value 1 -PropertyType DWord -Force
 
 # 关闭F1帮助按钮
 if ((Test-Path -LiteralPath "HKCU:\Software\Classes\Typelib\{ 8cec5860-07a1-11d9-b15e-000d56bfe6ee }\1.0\0") -ne $true) { New-Item "HKCU:\Software\Classes\Typelib\ { 8cec5860-07a1-11d9-b15e-000d56bfe6ee }\1.0\0" -force };
@@ -2300,7 +2181,7 @@ New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Control Panel\Keyb
 New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\S-1-5-18\Control Panel\Keyboard' -Name 'InitialKeyboardIndicators' -Value '2147483650' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\S-1-5-19\Control Panel\Keyboard' -Name 'InitialKeyboardIndicators' -Value '2147483650' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\S-1-5-20\Control Panel\Keyboard' -Name 'InitialKeyboardIndicators' -Value '2147483650' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'Registry::\HKCU\Control Panel\Keyboard' -Name 'InitialKeyboardIndicators' -Value '2147483650' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'Registry::\HKLM\NTUSER\Control Panel\Keyboard' -Name 'InitialKeyboardIndicators' -Value '2147483650' -PropertyType String -Force
 
 # Don't use AutoPlay for all media and devices
 New-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers" -Name "DisableAutoplay" -PropertyType DWord -Value "1" -Force
@@ -2655,8 +2536,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows NT\C
 
 # 微软雅黑
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name 'SimSun & NSimSun (TrueType)' -Value 'msyh.ttc' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes' -Name 'SimSun' -Value 'Microsoft YaHei' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes' -Name 'NSimSun' -Value 'Microsoft YaHei' -PropertyType String -Force
 
 # Sound
 if ((Test-Path -LiteralPath "HKCU:\Control Panel\Sound") -ne $true) { New-Item "HKCU:\Control Panel\Sound" -force };
@@ -3684,23 +3563,6 @@ if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Bac
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications' -Name 'Migrated' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications' -Name 'GlobalUserDisabled' -Value 0 -PropertyType DWord -Force
 
-# 去除不安全文件警告
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Associations' -Name 'LowRiskFileTypes' -Value '.zip;.rar;.nfo;.txt;.exe;.bat;.com;.cmd;.reg;.msi;.htm;.html;.gif;.bmp;.jpg;.avi;.mpg;.mpeg;.mov;.mp3;.m3u;.msu;.wav' -PropertyType String -Force
-if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments' -Name 'SaveZoneInformation' -Value 1 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Security") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Security" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Security' -Name 'DisableSecuritySettingsCheck' -Value 1 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3' -Name '1806' -Value 0 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowRun") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowRun" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer' -Name 'DisallowRun' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowRun' -Name '1' -Value 'CompatTelRunner.exe' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowRun' -Name '2' -Value 'MRT.exe' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowRun' -Name '3' -Value 'Narrator.exe' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowRun' -Name '4' -Value 'smartscreen.exe' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowRun' -Name '5' -Value 'software_reporter_tool.exe' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowRun' -Name '6' -Value 'SppExtComObj.Exe' -PropertyType String -Force
-
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\VideoSettings") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\VideoSettings" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\VideoSettings' -Name 'EnableAutoEnhanceDuringPlayback' -Value 1 -PropertyType DWord -Force
 
@@ -3708,6 +3570,18 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\V
 if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\Browser\Parameters") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\Browser\Parameters" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Browser\Parameters' -Name 'MaintainServerList' -Value 'Yes' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Browser\Parameters' -Name 'IsDomainMaster' -Value 'True' -PropertyType String -Force
+
+# 服务器版本优化
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\ServerManager") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\ServerManager" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\ServerManager' -Name 'DoNotOpenServerManagerAtLogon' -Value 1 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\PasswordLess\Device") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\PasswordLess\Device" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\PasswordLess\Device' -Name 'DevicePasswordLessBuildVersion' -Value 0 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\Reliability") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\Reliability" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\Reliability' -Name 'ShutDownReasonOn' -Value 0 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WSMAN\Service") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WSMAN\Service" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WSMAN\Service' -Name 'allow_remote_requests' -Value 0 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\NoExecuteState") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\NoExecuteState" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\NoExecuteState' -Name 'LastNoExecuteRadioButtonState' -Value 14012 -PropertyType DWord -Force
 
 # 设置所有网络类型为专用而非公共
 Set-NetConnectionProfile -NetworkCategory Private -Verbose
