@@ -1,5 +1,7 @@
-@setlocal DisableDelayedExpansion
+@cls
 @echo off
+>nul chcp 437
+setlocal enabledelayedexpansion
 rem Setupcomplete.cmd is ran after oobe and just before the desktop appears when using windows setup.
 rem Oobe.cmd is run after the the screen about copying of files/expanding files part is shown via setup and the bit when it says it will reboot in x seconds...
 
@@ -24,7 +26,7 @@ rem lav
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.76.1.exe /VERYSILENT
 
 rem vulkan runtime
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.3.204.1-Installer.exe /S
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.3.211.0-Installer.exe /S
 
 rem Direct X
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\DirectXRedist.exe /ai
@@ -45,12 +47,24 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\StartBack.exe /ai /gm2
 rem time sync
 start /wait C:\PROGRA~1\UpdateTime\UpdateTime_x64.exe /SI
 
+rem https://docs.microsoft.com/en-us/microsoft-edge/webview2/concepts/distribution
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\MicrosoftEdgeWebView2RuntimeInstallerX64.exe /silent /install
+
 rem remove Edge
 "C:\Program Files (x86)\Microsoft\EdgeCore\98.0.1108.43\Installer\setup.exe" --uninstall --system-level --verbose-logging --force-uninstall --delete-profile
+"C:\Program Files (x86)\Microsoft\EdgeUpdate\MicrosoftEdgeUpdate.exe" /uninstall
 rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeCore"
 rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeUpdate"
+md "C:\Program Files (x86)\Microsoft\EdgeCore"
+md "C:\Program Files (x86)\Microsoft\EdgeUpdate"
+icacls "C:\Program Files (x86)\Microsoft\EdgeCore" /inheritance:r
+icacls "C:\Program Files (x86)\Microsoft\EdgeUpdate" /inheritance:r
 
 del /f /q %SystemDrive%\Panther\unattend.xml
 del /f /q %ProgramData%\Microsoft\Diagnosis\*.rbs
 del /f /q /s %ProgramData%\Microsoft\Diagnosis\ETLLogs\*
+del /f /q /s %Windir%\Temp\*
+del /f /q /s %Windir%\assembly\tmp\*
+del /f /q /s %Windir%\assembly\temp\*
+del /f /q /s %LOCALAPPDATA%\Temp\*
 %windir%\System32\UsoClient.exe RefreshSettings
