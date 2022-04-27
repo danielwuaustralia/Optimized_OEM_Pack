@@ -3530,9 +3530,9 @@ ForEach ($item in $AsmediaInterruptAffinity) { $path = $item -replace "HKEY_LOCA
 $MSIMode = Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum\PCI' -Recurse -Depth 5 | Where-Object { $_.PSChildName -Like 'MessageSignaledInterruptProperties' }
 ForEach ($item in $MSIMode) { $path = $item -replace "HKEY_LOCAL_MACHINE", "HKLM:"; Set-ItemProperty -Path $path -Name 'MSISupported' -Value 1 -Force }
 
-# Use the total amount of memory installed on the device to modify the svchost.exe split threshold to reduce the amount of svchost.exe processes that run simultaneously.
-$Memory = (Get-CimInstance -ClassName Win32_PhysicalMemory | Measure-Object -Property Capacity -Sum).Sum / 1KB
-If ($Memory -is [Double]) { Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name SvcHostSplitThresholdInKB -Value $Memory -Force }
+# svchost.exe split threshold to reduce the amount of svchost.exe processes that run simultaneously.
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control' -Name 'SvcHostSplitThresholdInKB' -Value 376926742 -PropertyType DWord -Force
 
 # uncheck "Allow the computer to turn off this device to save power" on all USB Controllers
 # Dynamic power devices
