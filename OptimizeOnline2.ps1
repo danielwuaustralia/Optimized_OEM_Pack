@@ -102,6 +102,112 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\PowerShell\1\ShellIds\Mi
 "attrib +r 'C:\ProgramData\NVIDIA Corporation\nvtopps\nvtopps.db3'" | cmd
 "attrib +r 'C:\ProgramData\NVIDIA Corporation\nvtopps\nvtopps.log'" | cmd
 
+# 增加环境变量
+[Environment]::SetEnvironmentVariable("PATH", $Env:PATH + "; C:\Windows\SysWOW64", [EnvironmentVariableTarget]::Machine)
+
+# https://docs.microsoft.com/en-us/powershell/module/appbackgroundtask/disable-appbackgroundtaskdiagnosticlog
+Disable-AppBackgroundTaskDiagnosticLog
+
+# 更改TEMP文件夹位置
+if ((Test-Path -LiteralPath "HKCU:\Environment") -ne $true) { New-Item "HKCU:\Environment" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TEMP' -Value '%SystemDrive%\TEMP' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TMP' -Value '%SystemDrive%\TEMP' -PropertyType ExpandString -Force
+
+# 设置所有网络类型为专用而非公共
+Set-NetConnectionProfile -NetworkCategory Private -Verbose
+Set-NetConnectionProfile -InterfaceAlias WLAN -NetworkCategory "Private"
+Set-NetConnectionProfile -InterfaceAlias Ethernet -NetworkCategory "Private"
+
+# disable network protocal
+# Get-NetAdapterBinding -IncludeHidden -AllBindings | Format-Table -AutoSize
+# Get-NetAdapterBinding | Where-Object { $_.Enabled -eq 'True' } | Set-NetAdapterBinding -Enabled 0 -IncludeHidden -AllBindings -Verbose
+Disable-NetAdapterBinding -Name "*" -ComponentID ms_pacer
+Disable-NetAdapterBinding -Name "*" -ComponentID ms_ndiscap
+Enable-NetAdapterBinding -Name "*" -ComponentID ms_tcpip6
+
+# Disable all WAN miniport driver
+# Get-pnpdevice -friendlyname '高精度事件计时器' | select-object -expandproperty instanceid
+Get-PnpDevice -InstanceId 'ROOT\KDNIC\0000' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'ROOT\VID\0000' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'ROOT\NDISVIRTUALBUS\0000' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -friendlyname '高精度事件计时器' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -friendlyname 'UMBus Root Bus Enumerator' | Disable-PnpDevice -Confirm:$false -Verbose
+
+# remove Microsoft Wi-Fi Direct Virtual Adapter
+Remove-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\WlanSvc\Parameters\HostedNetworkSettings" -Name "HostedNetworkSettings" -Force
+
+# Changing IP policies for your NICs
+Get-NetAdapter -IncludeHidden | Set-NetIPInterface -WeakHostSend Enabled -WeakHostReceive Enabled -RetransmitTimeMs 0 -Forwarding Disabled -EcnMarking Disabled -AdvertiseDefaultRoute Disabled
+
+# Disabling Net Adapter QoS...
+Disable-NetAdapterQos -Name "*"
+# Disabling Net Adapter Power Management...
+Disable-NetAdapterPowerManagement -Name "*"
+# Enabling Net Adapter Checksum Offload...
+Enable-NetAdapterChecksumOffload -Name "*"
+# Disabling Net Adapter Encapsulated Packet Task Offload...
+Disable-NetAdapterEncapsulatedPacketTaskOffload -Name "*"
+# Enabling Net Adapter IPsec Offload...
+Enable-NetAdapterIPsecOffload -Name "*"
+# The Disable-NetAdapterLso cmdlet disables the state of the large send offload (LSO) settings, such as LSOv4 and LSOv6, on the network adapter. If neither LSOv4 or LSOv6 is specified, then both are disabled. LSO is a technology in which the work of segmenting data into network frames is performed by the network adapter instead of by the TCP/IP stack. With LSO, TCP/IP sends very large data packets down to the network adapter driver and the network adapter hardware. The network adapter breaks up the data into smaller network-sized frames. This increases the speed of large packet send operations and decreases the processor usage of the computer, because the work is performed on the network adapter.
+Disable-NetAdapterLso -Name "*"
+# Enabling Net Adapter Packet Direct...
+Enable-NetAdapterPacketDirect -Name "*"
+# Disabling Net Adapter Receive Side Coalescing...
+Disable-NetAdapterRsc -Name "*"
+# Enabling Net Adapter Receive Side Scaling...
+Enable-NetAdapterRss -Name "*"
+
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion' -Name 'MaxConnectionPerServer' -Value 22 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion' -Name 'MaxconnectionPer1_0Server' -Value 22 -PropertyType DWord -Force
+
+# Get-NetAdapterAdvancedProperty -Name "以太网" -AllProperties
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "流控制" -DisplayValue "关闭"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "Power Saving Mode" -DisplayValue "关闭"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "网络唤醒和关机连接速度" -DisplayValue "不降速"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "中断调整" -DisplayValue "Disabled"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "环保节能" -DisplayValue "关闭"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "节能乙太网路" -DisplayValue "关闭"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "Advanced EEE" -DisplayValue "关闭"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "ARP 减负" -DisplayValue "关闭"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "NS 减负" -DisplayValue "关闭"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "Gigabit Lite" -DisplayValue "关闭"
+
+# 修复XBOX网络
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters' -Name 'DisabledComponents' -Value 0 -PropertyType DWord -Force
+Set-NetTeredoConfiguration -Type Enterpriseclient
+Set-NetTeredoConfiguration -ServerName "teredo.remlab.net"
+Set-Net6to4Configuration -State Enabled -AutoSharing Enabled -RelayState Enabled -RelayName "6to4.ipv6.microsoft.com"
+
+# 根目录证书
+# http://woshub.com/updating-trusted-root-certificates-in-windows-10/
+# "C:\Program Files\PowerShell\7-preview\pwsh.exe" -Command "certutil.exe -f -generateSSTFromWU C:\TEMP\roots.sst"
+Get-ChildItem -Path C:\TEMP\roots.sst | Import-Certificate -CertStoreLocation Cert:\LocalMachine\Root
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config' -Name 'ChainRevAccumulativeUrlRetrievalTimeoutMilliseconds' -Value 20000 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config' -Name 'ChainUrlRetrievalTimeoutMilliseconds' -Value 15000 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config' -Name 'CrossCertDownloadIntervalHours' -Value 168 -PropertyType DWord -Force
+
+# https://github.com/thebookisclosed/ViVe
+# Enable Tabs in File Explorer
+# "vivetool addconfig 34370472 2" | cmd
+
+# 更改颜色配置
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles' -Name 'sRGB' -Value 'DCI-P3-D65.icc' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles' -Name 'camp' -Value 'D50.camp' -PropertyType String -Force
+if ((Test-Path -LiteralPath "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles") -ne $true) { New-Item "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles" -force };
+New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles' -Name 'sRGB' -Value 'DCI-P3-D65.icc' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles' -Name 'camp' -Value 'D50.camp' -PropertyType String -Force
+
+# Powershell Module from https://www.powershellgallery.com/packages
+# Save-Module -Name PSWindowsUpdate -Path D:\Downloads\ -Repository PSGallery
+# Save-Module -Name RobocopyPS -Path D:\Downloads\ -Repository PSGallery
+Import-Module -SkipEditionCheck PSWindowsUpdate
+Import-Module -SkipEditionCheck RobocopyPS
+
 # Potplayer Setting
 if ((Test-Path -LiteralPath "HKCU:\Software\Daum\PotPlayer64") -ne $true) { New-Item "HKCU:\Software\Daum\PotPlayer64" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayer64' -Name 'ProgramAPI' -Value '1' -PropertyType String -Force
@@ -1267,84 +1373,6 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'aac' 
 New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'mp3' -Value 1 -PropertyType DWord -Force;
 New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'flac' -Value 1 -PropertyType DWord -Force;
 
-# 增加环境变量
-[Environment]::SetEnvironmentVariable("PATH", $Env:PATH + "; C:\Windows\SysWOW64", [EnvironmentVariableTarget]::Machine)
-
-# https://docs.microsoft.com/en-us/powershell/module/appbackgroundtask/disable-appbackgroundtaskdiagnosticlog
-Disable-AppBackgroundTaskDiagnosticLog
-
-# 更改TEMP文件夹位置
-if ((Test-Path -LiteralPath "HKCU:\Environment") -ne $true) { New-Item "HKCU:\Environment" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TEMP' -Value '%SystemDrive%\TEMP' -PropertyType ExpandString -Force
-New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TMP' -Value '%SystemDrive%\TEMP' -PropertyType ExpandString -Force
-
-# 设置所有网络类型为专用而非公共
-Set-NetConnectionProfile -NetworkCategory Private -Verbose
-Set-NetConnectionProfile -InterfaceAlias WLAN -NetworkCategory "Private"
-Set-NetConnectionProfile -InterfaceAlias Ethernet -NetworkCategory "Private"
-
-# disable network protocal
-# Get-NetAdapterBinding -IncludeHidden -AllBindings | Format-Table -AutoSize
-# Get-NetAdapterBinding | Where-Object { $_.Enabled -eq 'True' } | Set-NetAdapterBinding -Enabled 0 -IncludeHidden -AllBindings -Verbose
-Disable-NetAdapterBinding -Name "*" -ComponentID ms_pacer
-Disable-NetAdapterBinding -Name "*" -ComponentID ms_ndiscap
-Enable-NetAdapterBinding -Name "*" -ComponentID ms_tcpip6
-
-# Disable all WAN miniport driver
-# Get-pnpdevice -friendlyname '高精度事件计时器' | select-object -expandproperty instanceid
-Get-PnpDevice -InstanceId 'ROOT\KDNIC\0000' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -InstanceId 'ROOT\VID\0000' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -InstanceId 'ROOT\NDISVIRTUALBUS\0000' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -friendlyname '高精度事件计时器' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -friendlyname 'UMBus Root Bus Enumerator' | Disable-PnpDevice -Confirm:$false -Verbose
-
-# remove Microsoft Wi-Fi Direct Virtual Adapter
-Remove-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\WlanSvc\Parameters\HostedNetworkSettings" -Name "HostedNetworkSettings" -Force
-
-# Changing IP policies for your NICs
-Get-NetAdapter -IncludeHidden | Set-NetIPInterface -WeakHostSend Enabled -WeakHostReceive Enabled -RetransmitTimeMs 0 -Forwarding Disabled -EcnMarking Disabled -AdvertiseDefaultRoute Disabled
-
-# Disabling Net Adapter QoS...
-Disable-NetAdapterQos -Name "*"
-# Disabling Net Adapter Power Management...
-Disable-NetAdapterPowerManagement -Name "*"
-# Enabling Net Adapter Checksum Offload...
-Enable-NetAdapterChecksumOffload -Name "*"
-# Disabling Net Adapter Encapsulated Packet Task Offload...
-Disable-NetAdapterEncapsulatedPacketTaskOffload -Name "*"
-# Enabling Net Adapter IPsec Offload...
-Enable-NetAdapterIPsecOffload -Name "*"
-# The Disable-NetAdapterLso cmdlet disables the state of the large send offload (LSO) settings, such as LSOv4 and LSOv6, on the network adapter. If neither LSOv4 or LSOv6 is specified, then both are disabled. LSO is a technology in which the work of segmenting data into network frames is performed by the network adapter instead of by the TCP/IP stack. With LSO, TCP/IP sends very large data packets down to the network adapter driver and the network adapter hardware. The network adapter breaks up the data into smaller network-sized frames. This increases the speed of large packet send operations and decreases the processor usage of the computer, because the work is performed on the network adapter.
-Disable-NetAdapterLso -Name "*"
-# Enabling Net Adapter Packet Direct...
-Enable-NetAdapterPacketDirect -Name "*"
-# Disabling Net Adapter Receive Side Coalescing...
-Disable-NetAdapterRsc -Name "*"
-# Enabling Net Adapter Receive Side Scaling...
-Enable-NetAdapterRss -Name "*"
-
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion' -Name 'MaxConnectionPerServer' -Value 22 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion' -Name 'MaxconnectionPer1_0Server' -Value 22 -PropertyType DWord -Force
-
-# Get-NetAdapterAdvancedProperty -Name "以太网" -AllProperties
-Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "流控制" -DisplayValue "关闭"
-Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "Power Saving Mode" -DisplayValue "关闭"
-Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "网络唤醒和关机连接速度" -DisplayValue "不降速"
-Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "中断调整" -DisplayValue "Disabled"
-Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "环保节能" -DisplayValue "关闭"
-Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "节能乙太网路" -DisplayValue "关闭"
-Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "Advanced EEE" -DisplayValue "关闭"
-Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "ARP 减负" -DisplayValue "关闭"
-Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "NS 减负" -DisplayValue "关闭"
-Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "Gigabit Lite" -DisplayValue "关闭"
-
-# 修复XBOX网络
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters' -Name 'DisabledComponents' -Value 0 -PropertyType DWord -Force
-Set-NetTeredoConfiguration -Type Enterpriseclient
-Set-NetTeredoConfiguration -ServerName "teredo.remlab.net"
-Set-Net6to4Configuration -State Enabled -AutoSharing Enabled -RelayState Enabled -RelayName "6to4.ipv6.microsoft.com"
 
 # 关闭Defender和smartscreen
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications" -force };
@@ -1387,35 +1415,17 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows Security Health\
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Edge") -ne $true) { New-Item "HKCU:\Software\Microsoft\Edge" -force -ea SilentlyContinue };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Edge' -Name 'SmartScreenEnabled' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Edge' -Name 'SmartScreenPuaEnabled' -Value 0 -PropertyType DWord -Force
-Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MRT.exe" -Force -Verbose
-
-
-# 根目录证书
-# http://woshub.com/updating-trusted-root-certificates-in-windows-10/
-# "C:\Program Files\PowerShell\7-preview\pwsh.exe" -Command "certutil.exe -f -generateSSTFromWU %SystemDrive%\TEMP\roots.sst"
-Get-ChildItem -Path %SystemDrive%\TEMP\roots.sst | Import-Certificate -CertStoreLocation Cert:\LocalMachine\Root
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config' -Name 'ChainRevAccumulativeUrlRetrievalTimeoutMilliseconds' -Value 20000 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config' -Name 'ChainUrlRetrievalTimeoutMilliseconds' -Value 15000 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\ChainEngine\Config' -Name 'CrossCertDownloadIntervalHours' -Value 168 -PropertyType DWord -Force
-
-# https://github.com/thebookisclosed/ViVe
-# Enable Tabs in File Explorer
-# "vivetool addconfig 34370472 2" | cmd
-
-# 更改颜色配置
-if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles' -Name 'sRGB' -Value 'DCI-P3-D65.icc' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles' -Name 'camp' -Value 'D50.camp' -PropertyType String -Force
-if ((Test-Path -LiteralPath "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles") -ne $true) { New-Item "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles" -force };
-New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles' -Name 'sRGB' -Value 'DCI-P3-D65.icc' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles' -Name 'camp' -Value 'D50.camp' -PropertyType String -Force
-
-# Powershell Module from https://www.powershellgallery.com/packages
-# Save-Module -Name PSWindowsUpdate -Path D:\Downloads\ -Repository PSGallery
-# Save-Module -Name RobocopyPS -Path D:\Downloads\ -Repository PSGallery
-Import-Module -SkipEditionCheck PSWindowsUpdate
-Import-Module -SkipEditionCheck RobocopyPS
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MsMpEng.exe' -Name 'Debugger' -Value 'svchost.exe' -PropertyType String -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe' -Name 'Debugger' -Value 'svchost.exe' -PropertyType String -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MRT.exe") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MRT.exe" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MRT.exe' -Name 'Debugger' -Value 'svchost.exe' -PropertyType String -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SecurityHealthService.exe") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SecurityHealthService.exe" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SecurityHealthService.exe' -Name 'Debugger' -Value 'svchost.exe' -PropertyType String -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SecurityHealthSystray.exe") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SecurityHealthSystray.exe" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SecurityHealthSystray.exe' -Name 'Debugger' -Value 'svchost.exe' -PropertyType String -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MpCmdRun.exe") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MpCmdRun.exe" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MpCmdRun.exe' -Name 'Debugger' -Value 'svchost.exe' -PropertyType String -Force
 
 # XP样式鼠标
 # New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Pin' -Value '' -PropertyType ExpandString -Force
@@ -1504,6 +1514,10 @@ if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Messenger\Client"
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Messenger\Client' -Name 'CEIP' -Value 2 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer' -Name 'NoInternetOpenWith' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer' -Name 'UseDefaultTile' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer' -Name 'NoLowDiskSpaceChecks' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer' -Name 'NoDrivesInSendToMenu' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer' -Name 'NoPublishingWizard' -Value 1 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Internet Connection Wizard") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Internet Connection Wizard" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Internet Connection Wizard' -Name 'ExitOnMSICW' -Value 1 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\EventViewer") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\EventViewer" -force };
@@ -1797,7 +1811,6 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\E
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\MenuAnimation' -Name 'DefaultApplied' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\SelectionFade' -Name 'DefaultApplied' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\TaskbarAnimations' -Name 'DefaultApplied' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\Themes' -Name 'DefaultApplied' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ThumbnailsOrIcon' -Name 'DefaultApplied' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\TooltipAnimation' -Name 'DefaultApplied' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\DWM") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\DWM" -force };
@@ -1829,7 +1842,7 @@ New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\T
 New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'AppsUseLightTheme' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'SystemUsesLightTheme' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'EnabledBlurBehind' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'EnableTransparency' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'EnableTransparency' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath "HKCU:\Control Panel\Colors") -ne $true) { New-Item "HKCU:\Control Panel\Colors" -force -ea SilentlyContinue };
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'Hilight' -Value '0 157 255' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'HotTrackingColor' -Value '0 157 255' -PropertyType String -Force
@@ -1956,10 +1969,8 @@ Remove-Item -Path "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Send
 Remove-Item -Path "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\Mail Recipient.MAPIMail" -Force -Recurse
 Remove-Item -Path "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\蓝牙文件传送.LNK" -Force -Recurse
 Remove-Item -Path "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\文档.mydocs" -Force -Recurse
-#  Remove Turn on BitLocker
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shell\encrypt-bde") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\Drive\shell\encrypt-bde" -force };
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shell\encrypt-bde-elev") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\Drive\shell\encrypt-bde-elev" -force };
-#  Remove Give access to
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\*\shellex\ContextMenuHandlers\Sharing" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\Background\shellex\ContextMenuHandlers\Sharing" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\shellex\ContextMenuHandlers\Sharing" -recurse -force;
@@ -1969,39 +1980,20 @@ Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shellex\ContextMenuHandle
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shellex\PropertySheetHandlers\Sharing" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\LibraryFolder\background\shellex\ContextMenuHandlers\Sharing" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\UserLibraryFolder\shellex\ContextMenuHandlers\Sharing" -recurse -force;
-#  Remove Pin to Start
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Folder\shellex\ContextMenuHandlers\PintoStartScreen" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\exefile\shellex\ContextMenuHandlers\PintoStartScreen" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Microsoft.Website\ShellEx\ContextMenuHandlers\PintoStartScreen" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\mscfile\shellex\ContextMenuHandlers\PintoStartScreen" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\*\shellex\ContextMenuHandlers\{a2a9545d-a0c2-42b4-9708-a0b2badd77c8}" -recurse -force;
-#  Remove Pin to Quick access
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Folder\shell\pintohome" -recurse -force;
-#  Remove Include in library
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Folder\ShellEx\ContextMenuHandlers\Library Location" -recurse -force;
-#  Remove Share
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\*\shellex\ContextMenuHandlers\ModernSharing" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\AllFilesystemObjects\shellex\ContextMenuHandlers\ModernSharing" -recurse -force;
-#  Remove Restore previous versions from Properties tab
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\AllFilesystemObjects\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{450D8FBA-AD25-11D0-98A8-0800361B1103}\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -recurse -force;
-#  Remove Restore previous versions from context menu
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\AllFilesystemObjects\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{450D8FBA-AD25-11D0-98A8-0800361B1103}\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -recurse -force;
-#  Remove Restore previous versions from any policies
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer" -force };
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\PreviousVersions") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\PreviousVersions" -force };
 if ((Test-Path -LiteralPath "HKCU:\Software\Policies\Microsoft\PreviousVersions") -ne $true) { New-Item "HKCU:\Software\Policies\Microsoft\PreviousVersions" -force };
-#  Remove Cast to Device
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" -force };
-#  Remove New .rtf .zip
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\.rtf\ShellNew" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\.zip\CompressedFolder\ShellNew" -recurse -force;
-#  Remove Edit with Paint 3D
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.3mf\Shell\3D Edit" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.bmp\Shell\3D Edit" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.fbx\Shell\3D Edit" -recurse -force;
@@ -2013,12 +2005,9 @@ Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.jpg\She
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.png\Shell\3D Edit" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.tif\Shell\3D Edit" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\SystemFileAssociations\.tiff\Shell\3D Edit" -recurse -force;
-#  Remove Create a new video
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\AppX43hnxtbyyps62jhe9sqpdzxn1790zetc\Shell\ShellCreateVideo") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\AppX43hnxtbyyps62jhe9sqpdzxn1790zetc\Shell\ShellCreateVideo" -force };
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\ShellCreateVideo") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\ShellCreateVideo" -force };
-#  Remove Edit with Photos
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Classes\AppX43hnxtbyyps62jhe9sqpdzxn1790zetc\Shell\ShellEdit") -ne $true) { New-Item "HKLM:\SOFTWARE\Classes\AppX43hnxtbyyps62jhe9sqpdzxn1790zetc\Shell\ShellEdit" -force };
-#  Remove Burn disc image
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Windows.IsoFile\shell\burn" -recurse -force;
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\Drive\shell\encrypt-bde' -Name 'LegacyDisable' -Value '' -PropertyType String -recurse -force;
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\Drive\shell\encrypt-bde-elev' -Name 'LegacyDisable' -Value '' -PropertyType String -recurse -force;
@@ -2026,11 +2015,21 @@ Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersio
 Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer' -Name 'NoPreviousVersionsPage' -recurse -force;
 Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\PreviousVersions' -Name 'DisableLocalPage' -recurse -force;
 Remove-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\PreviousVersions' -Name 'DisableLocalPage' -recurse -force;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{7AD84985-87B4-4a16-BE58-8B72A5B390F7}' -Value 'Play to Menu' -PropertyType String -recurse -force;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{1d27f844-3a1f-4410-85ac-14651078412d}' -Value '' -PropertyType String -recurse -force;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\AppX43hnxtbyyps62jhe9sqpdzxn1790zetc\Shell\ShellCreateVideo' -Name 'ProgrammaticAccessOnly' -Value '' -PropertyType String -recurse -force;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\ShellCreateVideo' -Name 'ProgrammaticAccessOnly' -Value '' -PropertyType String -recurse -force;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\AppX43hnxtbyyps62jhe9sqpdzxn1790zetc\Shell\ShellEdit' -Name 'ProgrammaticAccessOnly' -Value '' -PropertyType String -recurse -force;
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{9F156763-7844-4DC4-B2B1-901F640F5155}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{7AD84985-87B4-4a16-BE58-8B72A5B390F7}' -Value 'Play to Menu' -PropertyType String -force;
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{1d27f844-3a1f-4410-85ac-14651078412d}' -Value '' -PropertyType String -force;
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\AppX43hnxtbyyps62jhe9sqpdzxn1790zetc\Shell\ShellCreateVideo' -Name 'ProgrammaticAccessOnly' -Value '' -PropertyType String -force;
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt\Shell\ShellCreateVideo' -Name 'ProgrammaticAccessOnly' -Value '' -PropertyType String -force;
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\AppX43hnxtbyyps62jhe9sqpdzxn1790zetc\Shell\ShellEdit' -Name 'ProgrammaticAccessOnly' -Value '' -PropertyType String -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\AllFilesystemObjects\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{450D8FBA-AD25-11D0-98A8-0800361B1103}\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\AllFilesystemObjects\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{450D8FBA-AD25-11D0-98A8-0800361B1103}\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -recurse -force;
 
 # winlogon
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -force };
@@ -2223,23 +2222,13 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\S
 # Prevent access to 16-bit applications
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat' -Name 'VDMDisallowed' -Value 1 -PropertyType DWord -Force
 
-# Control Panel
-if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel' -Name 'AllItemsIconView' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel' -Name 'StartupPage' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel' -Name 'ForceClassicControlPanel' -Value 1 -PropertyType DWord -Force
-
 # Do not add the "- Shortcut" suffix to the file name of created shortcuts
-if (-not (Test-Path -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\NamingTemplates))
-{ New-Item -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\NamingTemplates -Force }
-New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\NamingTemplates -Name ShortcutNameTemplate -PropertyType String -Value "%s.lnk" -Force
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer' -Name 'link' -Value ([byte[]](0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
+Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\NamingTemplates" -Name "ShortcutNameTemplate" -Force
 
 # Use the Print screen button to open screen snipping
 New-ItemProperty -Path "HKCU:\Control Panel\Keyboard" -Name PrintScreenKeyForSnippingEnabled -PropertyType DWord -Value 1 -Force
-
-# No quick edit for Console
-if ((Test-Path -LiteralPath "HKCU:\Console") -ne $true) { New-Item "HKCU:\Console" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Console' -Name 'QuickEdit' -Value 0 -PropertyType DWord -Force
 
 # Turn on Storage Sense
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy" -force };
@@ -2278,10 +2267,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\E
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings' -Name 'ShowHibernateOption' -Value 0 -PropertyType DWord -Force
 
 # Turn on access to mapped drives from app running with elevated permissions with Admin Approval Mode enabled
-New-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System -Name EnableLinkedConnections -PropertyType DWord -Value 1 -Force
-
-# Do not let Windows manage my default printer
-New-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows" -Name LegacyDefaultPrinterMode -PropertyType DWord -Value 1 -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'EnableLinkedConnections' -Value 1 -PropertyType DWord -Force
 
 # Use the latest installed .NET runtime for all apps
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\.NETFramework") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\.NETFramework" -force };
@@ -2290,13 +2276,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\.NETFramework' -Name 'On
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\.NETFramework' -Name 'OnlyUseLatestCLR' -Value 1 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\.NET") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\.NET" -force -ea SilentlyContinue };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\.NET' -Name 'AllowAUOnServerOS' -Value 1 -PropertyType DWord -Force
-
-# 关闭F1帮助按钮
-if ((Test-Path -LiteralPath "HKCU:\Software\Classes\Typelib\{ 8cec5860-07a1-11d9-b15e-000d56bfe6ee }\1.0\0") -ne $true) { New-Item "HKCU:\Software\Classes\Typelib\ { 8cec5860-07a1-11d9-b15e-000d56bfe6ee }\1.0\0" -force };
-if ((Test-Path -LiteralPath "HKCU:\Software\Classes\Typelib\{ 8cec5860-07a1-11d9-b15e-000d56bfe6ee }\1.0\0\win32") -ne $true) { New-Item "HKCU:\Software\Classes\Typelib\ { 8cec5860-07a1-11d9-b15e-000d56bfe6ee }\1.0\0\win32" -force };
-if ((Test-Path -LiteralPath "HKCU:\Software\Classes\Typelib\{ 8cec5860-07a1-11d9-b15e-000d56bfe6ee }\1.0\0\win64") -ne $true) { New-Item "HKCU:\Software\Classes\Typelib\ { 8cec5860-07a1-11d9-b15e-000d56bfe6ee }\1.0\0\win64" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\Typelib\{8cec5860-07a1-11d9-b15e-000d56bfe6ee}\1.0\0\win32' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\Typelib\{8cec5860-07a1-11d9-b15e-000d56bfe6ee}\1.0\0\win64' -Name '(default)' -Value '' -PropertyType String -Force
 
 # Don't use AutoPlay for all media and devices
 New-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers" -Name "DisableAutoplay" -PropertyType DWord -Value "1" -Force
@@ -2341,13 +2320,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'UseWUServer' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath "HKLM:\Software\Microsoft\WindowsUpdate\UX\Settings") -ne $true) { New-Item "HKLM:\Software\Microsoft\WindowsUpdate\UX\Settings" -force };
 New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\WindowsUpdate\UX\Settings' -Name 'SmartActiveHoursState' -Value 0 -PropertyType DWord -Force
-
-# 去除提示 Your PC does not meet the mínimum hardware requirements for Windows 11. Your device is not eligible to join the Windows Insider Programo n Windows 11. 
-if ((Test-Path -LiteralPath "HKCU:\Control Panel\UnsupportedHardwareNotificationCache") -ne $true) { New-Item "HKCU:\Control Panel\UnsupportedHardwareNotificationCache" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\UnsupportedHardwareNotificationCache' -Name 'SV1' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\UnsupportedHardwareNotificationCache' -Name 'SV2' -Value 0 -PropertyType DWord -Force
-
-# Disabling automatic driver update
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata" -force };
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DriverSearching") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DriverSearching" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DriverSearching' -Name 'DontPromptForWindowsUpdate' -Value 1 -PropertyType DWord -Force
@@ -2358,6 +2330,11 @@ if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUp
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name 'ExcludeWUDriversInQualityUpdate' -Value 1 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\WindowsUpdate\UpdatePolicy\PolicyState") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\WindowsUpdate\UpdatePolicy\PolicyState" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsUpdate\UpdatePolicy\PolicyState' -Name 'ExcludeWUDrivers' -Value 1 -PropertyType DWord -Force
+
+# 去除提示 Your PC does not meet the mínimum hardware requirements for Windows 11. Your device is not eligible to join the Windows Insider Programo n Windows 11. 
+if ((Test-Path -LiteralPath "HKCU:\Control Panel\UnsupportedHardwareNotificationCache") -ne $true) { New-Item "HKCU:\Control Panel\UnsupportedHardwareNotificationCache" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\UnsupportedHardwareNotificationCache' -Name 'SV1' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\UnsupportedHardwareNotificationCache' -Name 'SV2' -Value 0 -PropertyType DWord -Force
 
 # no auto update for windows store
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore" -force };
@@ -2378,13 +2355,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explore
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\Explorer' -Name 'NoUseStoreOpenWith' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\Explorer' -Name 'DisableSearchBoxSuggestions' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\Explorer' -Name 'DisableThumbsDBOnNetworkFolders' -Value 1 -PropertyType DWord -Force
-
-# Hide the "Open in Windows Terminal" item in the folders context menu
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{9F156763-7844-4DC4-B2B1-901F640F5155}' -Value '' -PropertyType String -Force
-
-# Determines in milliseconds how long the System waits for services to stop after notifying the service that the System is shutting down
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control' -Name 'WaitToKillServiceTimeout' -Value '25000' -PropertyType String -Force
 
 # 关闭主动游戏优化
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR" -force };
@@ -2416,15 +2386,17 @@ New-ItemProperty -LiteralPath 'HKCU:\System\GameConfigStore' -Name 'GameDVR_DXGI
 New-ItemProperty -LiteralPath 'HKCU:\System\GameConfigStore' -Name 'GameDVR_EFSEFeatureFlags' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\System\GameConfigStore' -Name 'GameDVR_DSEBehavior' -Value 2 -PropertyType DWord -Force
 # 为单独程序关闭全屏优化
-if ((Test-Path -LiteralPath "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers") -ne $true) { New-Item "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" -force };
-New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' -Name 'D:\\Steam\\steamapps\\Common\\Counter-Strike Global Offensive\\csgo.exe' -Value '~ DISABLEDXMAXIMIZEDWINDOWEDMODE' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' -Name 'C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome SxS\\Application\\chrome.exe' -Value '~ DISABLEDXMAXIMIZEDWINDOWEDMODE' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' -Name 'C:\\Program Files\\PotPlayer\\PotPlayerMini64.exe' -Value '~ DISABLEDXMAXIMIZEDWINDOWEDMODE' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' -Name 'C:\\Program Files\\mpvnet\\mpvnet.exe' -Value '~ DISABLEDXMAXIMIZEDWINDOWEDMODE' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' -Name 'C:\\Program Files\\Microsoft VS Code Insiders\\Code - Insiders.exe' -Value '~ DISABLEDXMAXIMIZEDWINDOWEDMODE' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' -Name 'D:\\Steam\\steam.exe' -Value '~ DISABLEDXMAXIMIZEDWINDOWEDMODE' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' -Name 'D:\\RockStarLauncher\\Launcher.exe' -Value '~ DISABLEDXMAXIMIZEDWINDOWEDMODE' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' -Name 'D:\\UbisoftConnect\\UbisoftConnect.exe' -Value '~ DISABLEDXMAXIMIZEDWINDOWEDMODE' -PropertyType String -Force
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' -Name 'D:\\Games\\Diablo III\\Diablo III Launcher.exe' -Value '~ DISABLEDXMAXIMIZEDWINDOWEDMODE' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' -Name 'D:\\Games\\Diablo III\\Diablo III.exe' -Value '~ DISABLEDXMAXIMIZEDWINDOWEDMODE' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' -Name 'D:\\Steam\\steamapps\\Common\\Counter-Strike Global Offensive\\csgo.exe' -Value '~ DISABLEDXMAXIMIZEDWINDOWEDMODE' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' -Name 'C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome SxS\\Application\\chrome.exe' -Value '~ DISABLEDXMAXIMIZEDWINDOWEDMODE' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' -Name 'C:\\Program Files\\PotPlayer\\PotPlayerMini64.exe' -Value '~ DISABLEDXMAXIMIZEDWINDOWEDMODE' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' -Name 'C:\\Program Files\\mpvnet\\mpvnet.exe' -Value '~ DISABLEDXMAXIMIZEDWINDOWEDMODE' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' -Name 'C:\\Program Files\\Microsoft VS Code Insiders\\Code - Insiders.exe' -Value '~ DISABLEDXMAXIMIZEDWINDOWEDMODE' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' -Name 'D:\\Steam\\steam.exe' -Value '~ DISABLEDXMAXIMIZEDWINDOWEDMODE' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' -Name 'D:\\RockStarLauncher\\Launcher.exe' -Value '~ DISABLEDXMAXIMIZEDWINDOWEDMODE' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' -Name 'D:\\UbisoftConnect\\UbisoftConnect.exe' -Value '~ DISABLEDXMAXIMIZEDWINDOWEDMODE' -PropertyType String -Force
 
 # Disable implicit administrative shares
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" -Name "AutoShareServer" -Type DWord -Value 0 -Force
@@ -2446,11 +2418,10 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Enum\USB\VID_8087&
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Enum\USB\VID_8087&PID_0026\5&423ce07&0&14\Device Parameters' -Name 'SelectiveSuspendSupported' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Enum\USB\VID_8087&PID_0026\5&423ce07&0&14\Device Parameters\1a75888d-6e63-4978-b88e-b92747df5e8c' -Name 'LEExtendedAdvertisingOptIn' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Enum\USB\VID_8087&PID_0026\5&423ce07&0&14\Device Parameters\1a75888d-6e63-4978-b88e-b92747df5e8c' -Name 'MsftHciExtensionsTelemetryOptIn' -Value 0 -PropertyType DWord -Force
-
 # Disable power management in connected standby mode
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy" -force };
 # High Performance Burst
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\ControlSet001\Control\Power\Profile\Events\{ 54533251 - 82be-4824-96c1-47b60b740d00 }\ { 0DA965DC-8FCF-4c0b-8EFE-8DD5E7BC959A }\ { 7E01ADEF-81E6-4e1b-8075-56F373584694 }") -ne $true) { New-Item "HKLM:\SYSTEM\ControlSet001\Control\Power\Profile\Events\ { 54533251 - 82be-4824-96c1-47b60b740d00 }\ { 0DA965DC-8FCF-4c0b-8EFE-8DD5E7BC959A }\ { 7E01ADEF-81E6-4e1b-8075-56F373584694 }" -force };
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\ControlSet001\Control\Power\Profile\Events\{54533251-82be-4824-96c1-47b60b740d00}\{0DA965DC-8FCF-4c0b-8EFE-8DD5E7BC959A}\{7E01ADEF-81E6-4e1b-8075-56F373584694}") -ne $true) { New-Item "HKLM:\SYSTEM\ControlSet001\Control\Power\Profile\Events\{54533251-82be-4824-96c1-47b60b740d00}\{0DA965DC-8FCF-4c0b-8EFE-8DD5E7BC959A}\{7E01ADEF-81E6-4e1b-8075-56F373584694}" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\Power\Profile\Events\{54533251-82be-4824-96c1-47b60b740d00}\{0DA965DC-8FCF-4c0b-8EFE-8DD5E7BC959A}\{7E01ADEF-81E6-4e1b-8075-56F373584694}' -Name 'TimeLimitInSeconds' -Value 2 -PropertyType DWord -Force
 
 # no volume down when detect other audio
@@ -2534,13 +2505,6 @@ New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Accessibility\SlateLaunch' -N
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Accessibility\SlateLaunch' -Name 'LaunchAT' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Accessibility\StickyKeys' -Name 'Flags' -Value '0' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Accessibility\ToggleKeys' -Name 'Flags' -Value '0' -PropertyType String -Force
-
-# Enable Num Lock at startup
-New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Control Panel\Keyboard' -Name 'InitialKeyboardIndicators' -Value '2147483650' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\S-1-5-18\Control Panel\Keyboard' -Name 'InitialKeyboardIndicators' -Value '2147483650' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\S-1-5-19\Control Panel\Keyboard' -Name 'InitialKeyboardIndicators' -Value '2147483650' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\S-1-5-20\Control Panel\Keyboard' -Name 'InitialKeyboardIndicators' -Value '2147483650' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'Registry::\HKLM\NTUSER\Control Panel\Keyboard' -Name 'InitialKeyboardIndicators' -Value '2147483650' -PropertyType String -Force
 
 # Tcpip Parameters
 if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" -force }
@@ -2681,13 +2645,6 @@ Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Serialize") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Serialize" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Serialize' -Name 'StartupDelayInMSec' -Value 0 -PropertyType DWord -Force
 
-# Apply default User account picture to all accounts
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer' -Name 'UseDefaultTile' -Value 1 -PropertyType DWord -Force
-
-# Disable Low Disk Space Alerts
-if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer' -Name 'NoLowDiskSpaceChecks' -Value 1 -PropertyType DWord -Force
-
 # Win 11 - No Widgets
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Dsh") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Dsh" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Dsh' -Name 'AllowNewsAndInterests' -Value 0 -PropertyType DWord -Force
@@ -2811,6 +2768,9 @@ if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Com
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Communications' -Name 'ConfigureChatAutoInstall' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Office\16.0\Common\OfficeUpdate") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Office\16.0\Common\OfficeUpdate" -force -ea SilentlyContinue };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Office\16.0\Common\OfficeUpdate' -Name 'PreventTeamsInstall' -Value 1 -PropertyType DWord -Force
+# Remove Meet Now
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies' -Name 'HideSCAMeetNow' -Value 1 -PropertyType DWord -Force
 
 # Office 365
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Office\16.0\Common\PersonalMenu") -ne $true) { New-Item "HKCU:\Software\Microsoft\Office\16.0\Common\PersonalMenu" -force };
@@ -2966,7 +2926,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\P
 Remove-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\BlockList\Kernel" -Recurse -Force -Verbose
 
 #　Edge浏览器
-# 禁止重装
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\EdgeUpdate") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\EdgeUpdate" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\EdgeUpdate' -Name 'DoNotUpdateToEdgeWithChromium' -Value 1 -PropertyType DWord -Force
 # Fake MDM-Enrollment - Key 1 of 2 - let a Win10 Machine "feel" MDM-Managed
@@ -3046,6 +3005,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\LanmanWor
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters' -Name 'DirectoryCacheEntriesMax' -Value 1024 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters' -Name 'FileNotFoundCacheEntriesMax' -Value 1024 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters' -Name 'DormantFileLimit' -Value 256 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters' -Name 'AllowInsecureGuestAuth' -Value 1 -PropertyType DWord -Force
 
 # no lock screen
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization" -force };
@@ -3068,10 +3028,6 @@ if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\Network\Netw
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Network\NetworkLocationWizard' -Name 'HideWizard' -Value 1 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\Network\SharedAccessConnection") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\Network\SharedAccessConnection" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Network\SharedAccessConnection' -Name 'EnableControl' -Value 0 -PropertyType DWord -Force
-
-# Remove Meet Now
-if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies' -Name 'HideSCAMeetNow' -Value 1 -PropertyType DWord -Force
 
 # no Maintenance task start
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance") -ne $true) { New-Item "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance" -force };
@@ -3154,7 +3110,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersio
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Window Manager' -Name 'Scheduling Category' -Value 'Medium' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Window Manager' -Name 'SFIO Priority' -Value 'Normal' -PropertyType String -Force
 
-
 # Windows 10 implements parallel loading by creating a thread pool of worker threads when the process initializes. MaxLoaderThreads set to 1 to disable parallel loading.
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\svchost.exe") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\svchost.exe" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\svchost.exe' -Name 'MaxLoaderThreads' -Value 1 -PropertyType DWord -Force
@@ -3175,54 +3130,16 @@ if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched\Us
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched' -Name 'MaxOutstandingSends' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched' -Name 'NonBestEffortLimit' -Value 0 -PropertyType DWord -Force
 
-# 回收站确认删除
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer' -Name 'ShellState' -Value 'hex(3):24,00,00,00,33,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,01,00,00,00,13,00,00,00,00,00,00,00,63,00,00,00' -PropertyType String -Force
-
-# 关闭预览窗格
-if ((Test-Path -LiteralPath "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer") -ne $true) { New-Item "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer" -force };
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer' -Name 'PageSpaceControlSizer' -Value ([byte[]](0xa0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xec, 0x03, 0x00, 0x00)) -PropertyType Binary -Force
-
 #回收站无需确认即可删除
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\{ 6b755b3f-b7c5-4866-8662-e3a2a6f9374b }") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\ { 6b755b3f-b7c5-4866-8662-e3a2a6f9374b }" -force };
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\ { cca4ea49-44e6-43ef-a623-ebc88725c706 }") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\ { cca4ea49-44e6-43ef-a623-ebc88725c706 }" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\{6b755b3f-b7c5-4866-8662-e3a2a6f9374b}' -Name 'NukeOnDelete' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\{cca4ea49-44e6-43ef-a623-ebc88725c706}' -Name 'NukeOnDelete' -Value 1 -PropertyType DWord -Force
-# delete taskbar shortcuts
+
+# 任务栏无多于图标
 Remove-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Recurse -Force -Verbose
-# unpin Mail app
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband\AuxilliaryPins") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband\AuxilliaryPins" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband\AuxilliaryPins' -Name 'MailPin' -Value 1 -PropertyType DWord -Force
-
-# nVidia设置
-# NIS is performed on shaders for Pascal and Maxwell rather than the dedicated hardware present for Ampere and Turing based cards
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS' -Name 'EnableGR535' -Value 0 -PropertyType DWord -Force
-# Unlocking SILK Smoothness
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS' -Name 'EnableRID61684' -Value 1 -PropertyType DWord -Force
-# Disable Nvidia MPO
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\Dwm") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\Dwm" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\Dwm' -Name 'OverlayTestMode' -Value 5 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath "HKCU:\Software\NVIDIA Corporation\Ansel") -ne $true) { New-Item "HKCU:\Software\NVIDIA Corporation\Ansel" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Ansel' -Name 'FreestyleEnabled' -Value 'False' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Ansel' -Name 'IPCenabled' -Value '0' -PropertyType String -Force
-if ((Test-Path -LiteralPath "HKCU:\Software\NVIDIA Corporation\Global\ShadowPlay\NVSPCAPS") -ne $true) { New-Item "HKCU:\Software\NVIDIA Corporation\Global\ShadowPlay\NVSPCAPS" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Global\ShadowPlay\NVSPCAPS' -Name '{1B1D3DAA-601D-49E5-8508-81736CA28C6D}' -Value ([byte[]](0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Global\ShadowPlay\NVSPCAPS' -Name 'DVRBufferLen' -Value ([byte[]](0x0f, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Global\ShadowPlay\NVSPCAPS' -Name 'DwmEnabled' -Value ([byte[]](0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Global\ShadowPlay\NVSPCAPS' -Name 'DwmEnabledUser' -Value ([byte[]](0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Global\ShadowPlay\NVSPCAPS' -Name 'EncoderProfile' -Value ([byte[]](0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Global\ShadowPlay\NVSPCAPS' -Name 'HLEnabled' -Value ([byte[]](0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Global\ShadowPlay\NVSPCAPS' -Name 'IsShadowPlayEnabled' -Value ([byte[]](0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Global\ShadowPlay\NVSPCAPS' -Name 'IsShadowPlayEnabledUser' -Value ([byte[]](0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\NVIDIA Corporation\NvStream") -ne $true) { New-Item "HKLM:\SOFTWARE\NVIDIA Corporation\NvStream" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\NVIDIA Corporation\NvStream' -Name 'EnableStreaming' -Value 0 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\NVIDIA Corporation\Global\FTS") -ne $true) { New-Item "HKLM:\SOFTWARE\NVIDIA Corporation\Global\FTS" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\NVIDIA Corporation\Global\FTS' -Name 'EnableRID44231' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\NVIDIA Corporation\Global\FTS' -Name 'EnableRID64640' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\NVIDIA Corporation\Global\FTS' -Name 'EnableRID66610' -Value 0 -PropertyType DWord -Force
-# https://docs.microsoft.com/en-us/windows-hardware/drivers/display/seamless-state-transitions-in-wddm-1-2-and-later
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm' -Name 'WDDMv22EnableSmoothTransition' -Value 1 -PropertyType DWord -Force
 
 # Disabling Ease of Access
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Ease of Access") -ne $true) { New-Item "HKCU:\Software\Microsoft\Ease of Access" -force };
@@ -3259,12 +3176,6 @@ if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\DirectX\UserGpuPreferences
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\DirectX\GraphicsSettings' -Name 'SwapEffectUpgradeCache' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\DirectX\UserGpuPreferences' -Name 'DirectXUserGlobalSettings' -Value 'SwapEffectUpgradeEnable=1;' -PropertyType String -Force
 
-#右键发送到菜单无驱动器选项
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer' -Name 'NoDrivesInSendToMenu' -Value 1 -PropertyType DWord -Force
-
-# NoPublishingWizard
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer' -Name 'NoPublishingWizard' -Value 1 -PropertyType DWord -Force
-
 #无时间同步
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\W32time\TimeProviders\NtpClient") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\W32time\TimeProviders\NtpClient" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\W32time\TimeProviders\NtpClient' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
@@ -3291,6 +3202,9 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NetBT\Par
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows' -Name 'DwmInputUsesIoCompletionPort' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows' -Name 'EnableDwmInputProcessing' -Value 0 -PropertyType DWord -Force
+
+# Do not let Windows manage my default printer
+New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows' -Name 'LegacyDefaultPrinterMode' -Value 1 -PropertyType DWord -Force
 
 # Set a reliable 1 ms (minimum) timestamp. Only for untweaked systems (disabling it with 0 is recommended on tweaked systems).
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Reliability") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Reliability" -force };
@@ -3388,9 +3302,36 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ResourcePolicyStore\ResourceSets\Pol
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ResourcePolicyStore\ResourceSets\Policies\Memory\NoCap' -Name 'CommitLimit' -Value -1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ResourcePolicyStore\ResourceSets\Policies\Memory\NoCap' -Name 'CommitTarget' -Value -1 -PropertyType DWord -Force
 
-# 允许未授权用户登录网络
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters' -Name 'AllowInsecureGuestAuth' -Value 1 -PropertyType DWord -Force
-
+# nVidia设置
+# NIS is performed on shaders for Pascal and Maxwell rather than the dedicated hardware present for Ampere and Turing based cards
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS' -Name 'EnableGR535' -Value 0 -PropertyType DWord -Force
+# Unlocking SILK Smoothness
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS' -Name 'EnableRID61684' -Value 1 -PropertyType DWord -Force
+# Disable Nvidia MPO
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\Dwm") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\Dwm" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\Dwm' -Name 'OverlayTestMode' -Value 5 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKCU:\Software\NVIDIA Corporation\Ansel") -ne $true) { New-Item "HKCU:\Software\NVIDIA Corporation\Ansel" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Ansel' -Name 'FreestyleEnabled' -Value 'False' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Ansel' -Name 'IPCenabled' -Value '0' -PropertyType String -Force
+if ((Test-Path -LiteralPath "HKCU:\Software\NVIDIA Corporation\Global\ShadowPlay\NVSPCAPS") -ne $true) { New-Item "HKCU:\Software\NVIDIA Corporation\Global\ShadowPlay\NVSPCAPS" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Global\ShadowPlay\NVSPCAPS' -Name '{1B1D3DAA-601D-49E5-8508-81736CA28C6D}' -Value ([byte[]](0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Global\ShadowPlay\NVSPCAPS' -Name 'DVRBufferLen' -Value ([byte[]](0x0f, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Global\ShadowPlay\NVSPCAPS' -Name 'DwmEnabled' -Value ([byte[]](0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Global\ShadowPlay\NVSPCAPS' -Name 'DwmEnabledUser' -Value ([byte[]](0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Global\ShadowPlay\NVSPCAPS' -Name 'EncoderProfile' -Value ([byte[]](0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Global\ShadowPlay\NVSPCAPS' -Name 'HLEnabled' -Value ([byte[]](0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Global\ShadowPlay\NVSPCAPS' -Name 'IsShadowPlayEnabled' -Value ([byte[]](0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Global\ShadowPlay\NVSPCAPS' -Name 'IsShadowPlayEnabledUser' -Value ([byte[]](0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\NVIDIA Corporation\NvStream") -ne $true) { New-Item "HKLM:\SOFTWARE\NVIDIA Corporation\NvStream" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\NVIDIA Corporation\NvStream' -Name 'EnableStreaming' -Value 0 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\NVIDIA Corporation\Global\FTS") -ne $true) { New-Item "HKLM:\SOFTWARE\NVIDIA Corporation\Global\FTS" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\NVIDIA Corporation\Global\FTS' -Name 'EnableRID44231' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\NVIDIA Corporation\Global\FTS' -Name 'EnableRID64640' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\NVIDIA Corporation\Global\FTS' -Name 'EnableRID66610' -Value 0 -PropertyType DWord -Force
+# https://docs.microsoft.com/en-us/windows-hardware/drivers/display/seamless-state-transitions-in-wddm-1-2-and-later
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm' -Name 'WDDMv22EnableSmoothTransition' -Value 1 -PropertyType DWord -Force
 # https://docs.microsoft.com/en-us/dotnet/desktop/wpf/graphics-multimedia/graphics-rendering-registry-settings?view=netframeworkdesktop-4.8
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Avalon.Graphics") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Avalon.Graphics" -force };
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Avalon.Graphics") -ne $true) { New-Item "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Avalon.Graphics" -force };
@@ -3436,25 +3377,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Direct3D' -N
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Direct3D' -Name 'FlipNoVsync' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Direct3D\Drivers' -Name 'SoftwareOnly' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\DirectDraw' -Name 'EmulationOnly' -Value 0 -PropertyType DWord -Force
-
-# ClearType
-if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY1") -ne $true) { New-Item "HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY1" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY1' -Name 'ClearTypeLevel' -Value 100 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY1' -Name 'TextContrastLevel' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY1' -Name 'PixelStructure' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY1' -Name 'GammaLevel' -Value 1800 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY2") -ne $true) { New-Item "HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY2" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY2' -Name 'ClearTypeLevel' -Value 100 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY2' -Name 'TextContrastLevel' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY2' -Name 'PixelStructure' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY2' -Name 'GammaLevel' -Value 1800 -PropertyType DWord -Force
-
-# Win32PrioritySeparation
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl' -Name 'Win32PrioritySeparation' -Value 40 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager' -Name 'AlpcWakePolicy' -Value 1 -PropertyType DWord -Force
-
-# Graphic Driver
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WUDF") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WUDF" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WUDF' -Name 'LogEnable' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WUDF' -Name 'LogLevel' -Value 0 -PropertyType DWord -Force
@@ -3489,6 +3411,23 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDr
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'LOWLATENCY' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'RmDisableRegistryCaching' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'RMDisablePostL2Compression' -Value 1 -PropertyType DWord -Force
+
+# ClearType
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY1") -ne $true) { New-Item "HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY1" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY1' -Name 'ClearTypeLevel' -Value 100 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY1' -Name 'TextContrastLevel' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY1' -Name 'PixelStructure' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY1' -Name 'GammaLevel' -Value 1800 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY2") -ne $true) { New-Item "HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY2" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY2' -Name 'ClearTypeLevel' -Value 100 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY2' -Name 'TextContrastLevel' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY2' -Name 'PixelStructure' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY2' -Name 'GammaLevel' -Value 1800 -PropertyType DWord -Force
+
+# Win32PrioritySeparation
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl' -Name 'Win32PrioritySeparation' -Value 40 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager' -Name 'AlpcWakePolicy' -Value 1 -PropertyType DWord -Force
 
 # Chrome 策略
 if ((Test-Path -LiteralPath "HKLM:\Software\Policies\Google\Chrome") -ne $true) { New-Item "HKLM:\Software\Policies\Google\Chrome" -force };
@@ -3586,7 +3525,6 @@ If ($Memory -is [Double]) { Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlS
 # uncheck "Allow the computer to turn off this device to save power" on all USB Controllers
 # Dynamic power devices
 $powerMgmt = Get-CimInstance -ClassName MSPower_DeviceEnable -Namespace root/WMI
-
 # All USB devices
 $UsbDevices = Get-CimInstance -ClassName Win32_PnPEntity -Filter 'PNPClass = "USB"'
 $UsbDevices | ForEach-Object {
