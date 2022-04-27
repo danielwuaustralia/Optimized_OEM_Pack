@@ -166,7 +166,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\svsvc' -N
 # 启动与静态映像获取事件关联的应用程序
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WiaRpc' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # Disable Memory Compression
-Disable-MMAgent -MemoryCompression -ApplicationPreLaunch
+Disable-MMAgent -MemoryCompression -PageCombining -ApplicationPreLaunch
 # 维护和提高一段时间内的系统性能
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SysMain' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # 提供 TCP/IP (NetBT) 服务上的 NetBIOS 和网络上客户端的 NetBIOS 名称解析的支持
@@ -485,8 +485,25 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\exfat' -N
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Filetrace' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # CD
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\cdrom' -Name 'AutoRun' -Value 0 -PropertyType DWord -Force
-# nsi分离出svchost
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nsi' -Name 'Type' -Value 16 -PropertyType DWord -Force
+# volmgrx
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\volmgrx' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# wcifs
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\wcifs' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# storqosflt
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\storqosflt' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# lltdio
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\lltdio' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# MsLldp
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\MsLldp' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# rspndr
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\rspndr' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# spaceport
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\spaceport' -Name 'Start' -Value 4 -PropertyType DWord -Force
+
+# Adjust failure actions
+"sc failure bits reset= 60 actions= '' actions= ''" | cmd
+"sc failure wuauserv reset= 60 actions= '' actions= ''" | cmd
+"sc failure WaaSMedicSvc reset= 60 actions= '' actions= ''" | cmd
 
 # 移除服务
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WdBoot' -Recurse -Force
