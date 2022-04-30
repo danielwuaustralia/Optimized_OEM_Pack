@@ -23,6 +23,19 @@ Enable-ScheduledTask -TaskName 'Process Lasso Core Engine Only'
 Enable-ScheduledTask -TaskName 'Process Lasso Management Console (GUI)'
 Enable-ScheduledTask -TaskName 'Session agent for Process Lasso'
 
+#移除无用的Packages
+Set-ItemProperty -Path 'REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Name Visibility -Value '1' -Force
+Remove-Item -Path 'REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Include *Owner* -Recurse -Force
+Get-ChildItem -Path 'REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Name | ForEach-Object { dism /online /remove-package /PackageName:$_ /NoRestart }
+
+# Defender服务
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdBoot' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdFilter' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Sense' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdNisDrv' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdNisSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WinDefend' -Name 'Start' -Value 4 -PropertyType DWord -Force
+
 # 管理此计算机对智能卡的取读访问
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SCardSvr' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\ScDeviceEnum' -Name 'Start' -Value 4 -PropertyType DWord -Force
@@ -505,19 +518,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\spaceport
 "sc failure wuauserv reset= 60 actions= '' actions= ''" | cmd
 "sc failure WaaSMedicSvc reset= 60 actions= '' actions= ''" | cmd
 
-# 移除服务
-Remove-Item -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WdBoot' -Recurse -Force
-Remove-Item -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WdFilter' -Recurse -Force
-Remove-Item -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\Sense' -Recurse -Force
-Remove-Item -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WdNisDrv' -Recurse -Force
-Remove-Item -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WdNisSvc' -Recurse -Force
-Remove-Item -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WinDefend' -Recurse -Force
-
-#移除无用的Packages
-Set-ItemProperty -Path 'REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Name Visibility -Value '1' -Force
-Remove-Item -Path 'REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Include *Owner* -Recurse -Force
-Get-ChildItem -Path 'REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Name | ForEach-Object { dism /online /remove-package /PackageName:$_ /NoRestart }
-
 # prevent computer from sending data to microsoft regarding its activation state
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Classes\AppID\slui.exe') -ne $true) { New-Item 'HKLM:\SOFTWARE\Classes\AppID\slui.exe' -force }
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\AppID\slui.exe' -Name 'NoGenTicket' -Value 1 -PropertyType DWord -Force
@@ -600,18 +600,6 @@ Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\WindowsRuntime\Activatab
 Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Internal.FeedbackHub.FeedbackHubInternal' -Force -Recurse -Verbose
 Remove-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Publishers\{3cb2a168-fe34-4a4e-bdad-dcf422f34473}' -Force -Recurse -Verbose
 Remove-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels\Microsoft-Windows-SmartScreen/Debug' -Force -Recurse -Verbose
-
-# 删除Windows Defender文件夹
-Get-ChildItem "C:\Program Files\Windows Defender" | Remove-Item -Recurse -Force -Verbose
-Get-ChildItem "C:\Program Files (x86)\Windows Defender" | Remove-Item -Recurse -Force -Verbose
-Get-ChildItem "C:\ProgramData\Windows Defender" | Remove-Item -Recurse -Force -Verbose
-Get-ChildItem "C:\Program Files\Windows Defender Advanced Threat Protection" | Remove-Item -Recurse -Force -Verbose
-Get-ChildItem "C:\Program Files (x86)\Windows Defender Advanced Threat Protection" | Remove-Item -Recurse -Force -Verbose
-Get-ChildItem "C:\ProgramData\Microsoft\Windows Defender Advanced Threat Protection" | Remove-Item -Recurse -Force -Verbose
-Remove-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows Defender' -Force -Recurse -Verbose
-Remove-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Defender' -Force -Recurse -Verbose
-Remove-Item -Path 'HKLM:\SOFTWARE\SOFTWARE\Policies\Microsoft\Windows Defender' -Force -Recurse -Verbose
-Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Policies\Microsoft\Windows Defender' -Force -Recurse -Verbose
 
 # 默认文件夹图标
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -force }
