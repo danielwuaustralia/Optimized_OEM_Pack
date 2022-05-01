@@ -35,6 +35,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Sense' -N
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdNisDrv' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdNisSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WinDefend' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MsSense.exe' -Name 'Debugger' -Value 'C:\Program Files\Windows Defender Advanced Threat Protection\MsSense.exe' -PropertyType String -Force
 
 # 管理此计算机对智能卡的取读访问
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SCardSvr' -Name 'Start' -Value 4 -PropertyType DWord -Force
@@ -535,71 +536,10 @@ if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsRuntime\Activatable
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter' -Name 'ActivationType' -Value 0 -PropertyType DWord -Force
 
 # 禁用AutoLogger
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\Cellcore' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\Circular Kernel Context Logger' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\CloudExperienceHostOobe' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\DataMarket' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\DefenderApiLogger' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\DefenderAuditLogger' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\DiagLog' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\Diagtrack-Listener' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\EventLog-Application' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\EventLog-Security' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\EventLog-System' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\FaceRecoTel' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\FaceTel' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\FaceUnlock' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\HolographicDevice' -Name 'Status' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\iclsClient' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\iclsProxy' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\IntelPTTEKRecertification' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\IntelRST' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\LwtNetLog' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\Mellanox-Kernel' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\Microsoft-Windows-Rdp-Graphics-RdpIdd-Trace' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\Microsoft-Windows-Setup' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\NBSMBLOGGER' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\NetCore' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\NtfsLog' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\PEAuthLog' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\RadioMgr' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\RdrLog' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\ReadyBoot' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\ReFSLog' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\SetupPlatform' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\SetupPlatformTel' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\SocketHeciServer' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\SpoolerLogger' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\SQMLogger' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\TCPIPLOGGER' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\TileStore' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\Tpm' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\TPMProvisioningService' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\UBPM' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\UnionFS-Filter' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\WdiContextLog' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\WFP-IPsec Trace' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\WiFiDriverIHVSession' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\WiFiDriverIHVSessionRepro' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\WifiDriverSession' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\WiFiSession' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\WinPhoneCritical' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\WMI_Traces' -Name 'Start' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-
-# 禁用无用广告追踪
-Remove-Item -Path 'HKLM:\SOFTWARE\Classes\WOW6432Node\AppID\RemoteAppLifetimeManager.exe' -Force -Verbose
-Remove-Item -Path 'HKLM:\SOFTWARE\Classes\WOW6432Node\AppID\{A79DB36D-6218-48e6-9EC9-DCBA9A39BF0F}' -Force -Recurse -Verbose
-Remove-Item -Path 'HKLM:\SOFTWARE\Classes\WOW6432Node\AppID\{2781761E-28E2-4109-99FE-B9D127C57AFE}' -Force -Recurse -Verbose
-Remove-Item -Path 'HKLM:\SOFTWARE\Classes\WOW6432Node\AppID\{CD57F3A9-8247-496F-B51F-00EAE15128BE}' -Force -Recurse -Verbose
-Remove-Item -Path 'HKLM:\SOFTWARE\Classes\WOW6432Node\AppID\{a463fcb9-6b1c-4e0d-a80b-a2ca7999e25d}' -Force -Recurse -Verbose
-Remove-Item -Path 'HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{a463fcb9-6b1c-4e0d-a80b-a2ca7999e25d}' -Force -Recurse -Verbose
-Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Internal.Security.SmartScreen.AppReputationService' -Force -Recurse -Verbose
-Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Internal.Security.SmartScreen.EventLogger' -Force -Recurse -Verbose
-Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Internal.Security.SmartScreen.UriReputationService' -Force -Recurse -Verbose
-Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Internal.Feedback.FeedbackBroker' -Force -Recurse -Verbose
-Remove-Item -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Internal.FeedbackHub.FeedbackHubInternal' -Force -Recurse -Verbose
-Remove-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Publishers\{3cb2a168-fe34-4a4e-bdad-dcf422f34473}' -Force -Recurse -Verbose
-Remove-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels\Microsoft-Windows-SmartScreen/Debug' -Force -Recurse -Verbose
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\DefenderApiLogger' -Name 'Start' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\DefenderAuditLogger' -Name 'Start' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\DiagLog' -Name 'Start' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\WMI\Autologger\Diagtrack-Listener' -Name 'Start' -Value 0 -PropertyType DWord -Force
 
 # 默认文件夹图标
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -force }
@@ -648,3 +588,13 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\E
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '42' -Value '%SystemRoot%\windowsxpshell32.dll,42' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '43' -Value '%SystemRoot%\windowsxpshell32.dll,43' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '44' -Value '%SystemRoot%\windowsxpshell32.dll,44' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '45' -Value '%SystemRoot%\windowsxpshell32.dll,45' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '46' -Value '%SystemRoot%\windowsxpshell32.dll,46' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '47' -Value '%SystemRoot%\windowsxpshell32.dll,47' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '48' -Value '%SystemRoot%\windowsxpshell32.dll,48' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '49' -Value '%SystemRoot%\windowsxpshell32.dll,49' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '50' -Value '%SystemRoot%\windowsxpshell32.dll,50' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '51' -Value '%SystemRoot%\windowsxpshell32.dll,51' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '52' -Value '%SystemRoot%\windowsxpshell32.dll,52' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '53' -Value '%SystemRoot%\windowsxpshell32.dll,53' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Name '54' -Value '%SystemRoot%\windowsxpshell32.dll,54' -PropertyType String -Force
