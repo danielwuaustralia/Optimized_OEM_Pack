@@ -96,17 +96,18 @@ ForEach ($Location in $Locations) {
 "fsutil behavior set symlinkEvaluation L2R:0 R2R:0 R2L:0" | cmd
 "cipher /d /s:C:\" | cmd
 "netsh int tcp set global rss=enable" | cmd
-"netsh int tcp set global autotuninglevel=experimental" | cmd
+"netsh int tcp set global autotuninglevel=normal" | cmd
+"netsh int tcp set heuristics disabled" | cmd
 "netsh int tcp set global ecncapability=enable" | cmd
-"netsh int tcp set global timestamps=enable" | cmd
-"netsh int tcp set global initialrto=300" | cmd
+"netsh int tcp set global timestamps=disabled" | cmd
+"netsh int tcp set global initialrto=2000" | cmd
 "netsh int tcp set global rsc=disable" | cmd
 "netsh int tcp set global fastopen=enable" | cmd
 "netsh int tcp set global hystart=disable" | cmd
 "netsh int tcp set global pacingprofile=off" | cmd
 "netsh int ip set global minmtu=576" | cmd
 "netsh int ip set global flowlabel=disable" | cmd
-"netsh int tcp set supplemental internet congestionprovider=newreno" | cmd
+"netsh int tcp set supplemental internet congestionprovider=CTCP" | cmd
 "netsh int tcp set supplemental internet enablecwndrestart=disable" | cmd
 "netsh int ip set global icmpredirects=disabled" | cmd
 "netsh int ip set global multicastforwarding=disabled" | cmd
@@ -115,6 +116,7 @@ ForEach ($Location in $Locations) {
 "netsh int tcp set heur forcews=disable" | cmd
 "netsh int 6to4 set state state=enabled undoonstop=disabled" | cmd
 "netsh int 6to4 set routing routing=enabled sitelocals=enabled" | cmd
+"netsh int tcp set global nonsackrttresiliency=disabled" | cmd
 "compact /CompactOs:never" | cmd
 "fsutil behavior set allowextchar 1" | cmd
 "fsutil behavior set Bugcheckoncorrupt 0" | cmd
@@ -187,6 +189,14 @@ Get-PnpDevice -friendlyname 'AMD PSP 11.0 Device' | Disable-PnpDevice -Confirm:$
 # remove Microsoft Wi-Fi Direct Virtual Adapter
 Remove-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\WlanSvc\Parameters\HostedNetworkSettings" -Name "HostedNetworkSettings" -Force
 
+# When creating a TCP connection, the sending side performs a "TCP slow start" regardles of the receiver RWIN value. TCP slow start only sends two frames, waits for ACK response, and increases speed exponentially provided there are no dropped packets. This slow start algorithm can also be activated if there is no traffic for 200ms. This is not optimal for fast internet connections with intermittent bursts of data. This bottleneck can be avoided by increasing the "InitialcongestionWindow" from the default 2 (or 4) frames to 10+ (See RFC 3390 and RFC 6928).
+Set-NetTCPSetting -SettingName Internet -InitialCongestionWindow 10
+# Sets the number of times to attempt to reestablish a connection with SYN packets
+Set-NetTCPSetting -SettingName Internet -MaxSynRetransmissions 2
+# MinRTO Default value: 300 (ms) Recommended: 300 (ms)
+set-NetTCPSetting -SettingName Internet -MinRto 300
+# disabled (for gaming and slightly lower latency at the expense of higher CPU usage and more multicast traffic, and when using Wi-Fi adapters), enabled (for pure throughput when lower CPU utilization is important)
+Set-NetOffloadGlobalSetting -PacketCoalescingFilter enabled
 # Disabling Net Adapter QoS...
 Disable-NetAdapterQos -Name "*"
 # Disabling Net Adapter Power Management...
@@ -2335,7 +2345,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\E
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings' -Name 'ShowHibernateOption' -Value 0 -PropertyType DWord -Force
 
 # 盘符在名称之前
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -force -ea SilentlyContinue };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer' -Name 'ShowDriveLettersFirst' -Value 4 -PropertyType DWord -Force
 
 # Turn on access to mapped drives from app running with elevated permissions with Admin Approval Mode enabled
@@ -2675,7 +2684,6 @@ if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched\Us
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched\UserPriorityMapping' -Name 'ServiceTypeGuaranteed' -Value 5 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched\UserPriorityMapping' -Name 'ServiceTypeNetworkControl' -Value 7 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS' -Name 'Tcp Autotuning Level' -Value 'Experimental' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS' -Name 'Application DSCP Marking Request' -Value 'Allowed' -PropertyType String -Force
 
 # 安装新字体
