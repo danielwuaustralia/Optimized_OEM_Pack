@@ -41,9 +41,6 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassosetup64.exe /S /keyfile=
 rem chipset driver
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Software.exe /S
 
-rem startisback
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\StartBack.exe /SILENT
-
 rem time sync
 start /wait C:\PROGRA~1\UpdateTime\UpdateTime_x64.exe /SI
 
