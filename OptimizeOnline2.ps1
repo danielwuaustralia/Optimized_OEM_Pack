@@ -48,16 +48,13 @@ $Locations = @(
     "Windows Upgrade Log Files"
 )
 
-# -ea silentlycontinue will supress error messages
 ForEach ($Location in $Locations) {
     Set-ItemProperty -Path $($Base + $Location) -Name $SageSet -Type DWORD -Value 2 -ea silentlycontinue
 }
 
-# Do the clean-up. Have to convert the SageSet number
 $CleanupArgs = "/sagerun:$([string]([int]$SageSet.Substring($SageSet.Length-4)))"
 Start-Process -Wait "$env:SystemRoot\System32\cleanmgr.exe" -ArgumentList $CleanupArgs
 
-# Remove the Stateflags
 ForEach ($Location in $Locations) {
     Remove-ItemProperty -Path $($Base + $Location) -Name $SageSet -Force -ea silentlycontinue
 }
@@ -2344,9 +2341,6 @@ if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Exp
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings' -Name 'ShowSleepOption' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings' -Name 'ShowHibernateOption' -Value 0 -PropertyType DWord -Force
 
-# 盘符在名称之前
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer' -Name 'ShowDriveLettersFirst' -Value 4 -PropertyType DWord -Force
-
 # Turn on access to mapped drives from app running with elevated permissions with Admin Approval Mode enabled
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'EnableLinkedConnections' -Value 1 -PropertyType DWord -Force
 
@@ -3456,7 +3450,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\DirectDraw' 
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WUDF") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WUDF" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WUDF' -Name 'LogEnable' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WUDF' -Name 'LogLevel' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'HwSchedMode' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'HwSchedMode' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'PlatformSupportMiracast' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'TdrLevel' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'UseGpuTimer' -Value 1 -PropertyType DWord -Force
@@ -3704,22 +3698,7 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\StartIsBack' -Name 'TaskbarColor' 
 New-ItemProperty -LiteralPath 'HKCU:\Software\StartIsBack' -Name 'CustomColors' -Value 'ColorA=FFFFFFFF' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\StartIsBack' -Name 'TaskbarBlur' -Value 0 -PropertyType DWord -Force
 
-# uncheck "Allow the computer to turn off this device to save power" on all USB Controllers
-# Dynamic power devices
-$powerMgmt = Get-CimInstance -ClassName MSPower_DeviceEnable -Namespace root/WMI
-# All USB devices
-$UsbDevices = Get-CimInstance -ClassName Win32_PnPEntity -Filter 'PNPClass = "USB"'
-$UsbDevices | ForEach-Object {
-    # Get the power management instance for this device, if there is one
-    $powerMgmt | Where-Object InstanceName -Like "*$($_.InstanceId)*"
-} | Set-CimInstance -Property @{Enable = $false }
-
-# Disable Nagle's Algorithm
-$i = 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces'  
-Get-ChildItem $i | ForEach-Object {  
-    Set-ItemProperty -Path "$i\$($_.pschildname)" -name TcpAckFrequency -value 1
-    Set-ItemProperty -Path "$i\$($_.pschildname)" -name TCPNoDelay -value 1
-}
+###############################################################################################################################################
 
 # Neuter Stubborn Services by removing them from this list (UsoSvc, Bits, etc)
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Svchost' -Name 'netsvcs' -Value @(
@@ -3787,6 +3766,25 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersio
     "MsKeyboardFilter"
     "wuauserv"
 ) -PropertyType MultiString -Force
+
+# Disable Nagle's Algorithm
+$i = 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces'  
+Get-ChildItem $i | ForEach-Object {  
+    Set-ItemProperty -Path "$i\$($_.pschildname)" -name TcpAckFrequency -value 1
+    Set-ItemProperty -Path "$i\$($_.pschildname)" -name TCPNoDelay -value 1
+}
+
+# uncheck "Allow the computer to turn off this device to save power" on all USB Controllers
+# Dynamic power devices
+$powerMgmt = Get-CimInstance -ClassName MSPower_DeviceEnable -Namespace root/WMI
+
+# All USB devices
+$UsbDevices = Get-CimInstance -ClassName Win32_PnPEntity -Filter 'PNPClass = "USB"'
+
+$UsbDevices | ForEach-Object {
+    # Get the power management instance for this device, if there is one
+    $powerMgmt | Where-Object InstanceName -Like "*$($_.InstanceId)*"
+} | Set-CimInstance -Property @{Enable = $false }
 
 # 清理文件夹
 Get-ChildItem "C:\Windows\Setup\Scripts" | Remove-Item -Recurse -Force -Verbose
