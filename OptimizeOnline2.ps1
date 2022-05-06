@@ -1251,14 +1251,7 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\Settings' -Na
 New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64' -Name 'AddMyComPL' -Value 1 -PropertyType DWord -Force;
 New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64' -Name 'ServiceValue' -Value 0 -PropertyType DWord -Force;
 New-ItemProperty -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64' -Name 'Check118_119' -Value 4 -PropertyType DWord -Force;
-# block potplayer ad
-Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 p1-play.edge4k.com"
-Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 p2-play.edge4k.com"
-Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 p1-play.kgslb.com"
-Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 kyson.ad.daum.net"
-Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 display.ad.daum.net"
-Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 analytics.ad.daum.net"
-Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 blog.counter-strike.net"
+
 # LAV Filter Settings
 if ((Test-Path -LiteralPath "HKCU:\Software\LAV") -ne $true) { New-Item "HKCU:\Software\LAV" -force };
 if ((Test-Path -LiteralPath "HKCU:\Software\LAV\Audio") -ne $true) { New-Item "HKCU:\Software\LAV\Audio" -force };
@@ -1348,6 +1341,65 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'aac' 
 New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'mp3' -Value 1 -PropertyType DWord -Force;
 New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Splitter\Formats' -Name 'flac' -Value 1 -PropertyType DWord -Force;
 
+# Hosts
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 p1-play.edge4k.com"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 p2-play.edge4k.com"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 p1-play.kgslb.com"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 kyson.ad.daum.net"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 display.ad.daum.net"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 analytics.ad.daum.net"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 blog.counter-strike.net"
+Start-Sleep -Milliseconds "10"
+# https://docs.microsoft.com/en-us/windows/privacy/configure-windows-diagnostic-data-in-your-organization
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 v10.events.data.microsoft.com"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 v10c.events.data.microsoft.com"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 v10.vortex-win.data.microsoft.com"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 watson.telemetry.microsoft.com"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 watson.microsoft.com"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 umwatsonc.telemetry.microsoft.com"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 umwatsonc.events.data.microsoft.com"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 *-umwatsonc.events.data.microsoft.com"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 ceuswatcab01.blob.core.windows.net"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 ceuswatcab02.blob.core.windows.net"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 eaus2watcab01.blob.core.windows.net"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 eaus2watcab02.blob.core.windows.net"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 weus2watcab01.blob.core.windows.net"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 weus2watcab02.blob.core.windows.net"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 oca.telemetry.microsoft.com"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 oca.microsoft.com"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 kmwatsonc.telemetry.microsoft.com"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 *-kmwatsonc.telemetry.microsoft.com"
+Start-Sleep -Milliseconds "10"
+# The following endpoint is used for Windows Defender when Cloud-based Protection is enabled. If you turn off traffic for this endpoint, the device will not use Cloud-based Protection.
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 wdcp.microsoft.com"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 smartscreen-prod.microsoft.com"
+Start-Sleep -Milliseconds "10"
+Add-Content -Encoding UTF8  C:\Windows\system32\drivers\etc\hosts "127.0.0.1 checkappexec.microsoft.com"
+Start-Sleep -Milliseconds "10"
 
 # 关闭Defender和smartscreen
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications" -force };
@@ -1401,16 +1453,12 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\I
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'LegacyTLSAppcompat' -Value 1 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe" -force -ea SilentlyContinue };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe' -Name 'Debugger' -Value 'C:\Windows\System32\smartscreen.exe' -PropertyType String -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SecurityHealthService.exe") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SecurityHealthService.exe" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SecurityHealthService.exe' -Name 'Debugger' -Value 'C:\Windows\System32\SecurityHealthService.exe' -PropertyType String -Force
+if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SecurityHealthSystray.exe") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SecurityHealthSystray.exe" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SecurityHealthSystray.exe' -Name 'Debugger' -Value 'C:\Windows\System32\SecurityHealthSystray.exe' -PropertyType String -Force
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MpCmdRun.exe") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MpCmdRun.exe" -force -ea SilentlyContinue };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MpCmdRun.exe' -Name 'Debugger' -Value 'C:\Program Files\Windows Defender\MpCmdRun.exe' -PropertyType String -Force
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MpCopyAccelerator.exe") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MpCopyAccelerator.exe" -force -ea SilentlyContinue };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MpCopyAccelerator.exe' -Name 'Debugger' -Value 'C:\Program Files\Windows Defender\MpCopyAccelerator.exe' -PropertyType String -Force
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MsMpEng.exe") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MsMpEng.exe" -force -ea SilentlyContinue };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MsMpEng.exe' -Name 'Debugger' -Value 'C:\Program Files\Windows Defender\MsMpEng.exe' -PropertyType String -Force
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SenseNdr.exe") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SenseNdr.exe" -force -ea SilentlyContinue };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SenseNdr.exe' -Name 'Debugger' -Value 'C:\Program Files\Windows Defender Advanced Threat Protection\SenseNdr.exe' -PropertyType String -Force
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SenseSampleUploader.exe") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SenseSampleUploader.exe" -force -ea SilentlyContinue };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SenseSampleUploader.exe' -Name 'Debugger' -Value 'C:\Program Files\Windows Defender Advanced Threat Protection\SenseSampleUploader.exe' -PropertyType String -Force
 
 # XP样式鼠标
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Pin' -Value '' -PropertyType ExpandString -Force
@@ -1699,6 +1747,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\PassportForWork
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\MRT") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\MRT" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\MRT' -Name 'DontOfferThroughWUAU' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\MRT' -Name 'DontReportInfectionInformation' -Value 1 -PropertyType DWord -Force
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MRT.exe" -force;
 
 # 桌面设置
 if ((Test-Path -LiteralPath "HKCU:\Control Panel\Desktop") -ne $true) { New-Item "HKCU:\Control Panel\Desktop" -force };
