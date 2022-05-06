@@ -155,83 +155,6 @@ if ((Test-Path -LiteralPath "HKCU:\Environment") -ne $true) { New-Item "HKCU:\En
 New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TEMP' -Value 'C:\TEMP' -PropertyType ExpandString -Force
 New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TMP' -Value 'C:\TEMP' -PropertyType ExpandString -Force
 
-# 设置所有网络类型为专用而非公共
-Set-NetConnectionProfile -NetworkCategory Private -Verbose
-Set-NetConnectionProfile -InterfaceAlias WLAN -NetworkCategory "Private"
-Set-NetConnectionProfile -InterfaceAlias Ethernet -NetworkCategory "Private"
-
-# disable network protocal
-# Get-NetAdapterBinding -IncludeHidden -AllBindings | Format-Table -AutoSize
-# Get-NetAdapterBinding | Where-Object { $_.Enabled -eq 'True' } | Set-NetAdapterBinding -Enabled 0 -IncludeHidden -AllBindings -Verbose
-Set-NetIPinterface -InterfaceAlias '*' -NlMtuBytes 1440
-Set-NetAdapterBinding -Name '*' -ComponentID ms_pacer -Enabled 0
-Set-NetAdapterBinding -Name '*' -ComponentID ms_ndiscap -Enabled 0
-Set-NetAdapterBinding -Name '*' -ComponentID ms_lldp -Enabled 0
-Set-NetAdapterBinding -Name '*' -ComponentID ms_msclient -Enabled 0
-Set-NetAdapterBinding -Name '*' -ComponentID ms_lltdio -Enabled 0
-Set-NetAdapterBinding -Name '*' -ComponentID ms_rspndr -Enabled 0
-Set-NetAdapterBinding -Name '*' -ComponentID ms_implat -Enabled 0
-Set-NetAdapterBinding -Name '*' -ComponentID ms_server -Enabled 0
-Set-NetAdapterBinding -Name '*' -ComponentID ms_tcpip6 -Enabled 1
-
-# Disable all WAN miniport driver
-# Get-pnpdevice -friendlyname 'Microsoft 存储空间控制器' | select-object -expandproperty instanceid
-Get-PnpDevice -InstanceId 'ROOT\KDNIC\0000' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -InstanceId 'ROOT\VID\0000' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -InstanceId 'ROOT\NDISVIRTUALBUS\0000' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -InstanceId 'ROOT\SPACEPORT\0000' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -friendlyname '高精度事件计时器' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -friendlyname 'AMD PSP 11.0 Device' | Disable-PnpDevice -Confirm:$false -Verbose
-
-# remove Microsoft Wi-Fi Direct Virtual Adapter
-Remove-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\WlanSvc\Parameters\HostedNetworkSettings" -Name "HostedNetworkSettings" -Force
-
-# When creating a TCP connection, the sending side performs a "TCP slow start" regardles of the receiver RWIN value. TCP slow start only sends two frames, waits for ACK response, and increases speed exponentially provided there are no dropped packets. This slow start algorithm can also be activated if there is no traffic for 200ms. This is not optimal for fast internet connections with intermittent bursts of data. This bottleneck can be avoided by increasing the "InitialcongestionWindow" from the default 2 (or 4) frames to 10+ (See RFC 3390 and RFC 6928).
-Set-NetTCPSetting -SettingName Internet -InitialCongestionWindow 10
-# Sets the number of times to attempt to reestablish a connection with SYN packets
-Set-NetTCPSetting -SettingName Internet -MaxSynRetransmissions 2
-# MinRTO Default value: 300 (ms) Recommended: 300 (ms)
-set-NetTCPSetting -SettingName Internet -MinRto 300
-# disabled (for gaming and slightly lower latency at the expense of higher CPU usage and more multicast traffic, and when using Wi-Fi adapters), enabled (for pure throughput when lower CPU utilization is important)
-Set-NetOffloadGlobalSetting -PacketCoalescingFilter enabled
-# Disabling Net Adapter QoS...
-Disable-NetAdapterQos -Name "*"
-# Disabling Net Adapter Power Management...
-Disable-NetAdapterPowerManagement -Name "*"
-# Enabling Net Adapter Checksum Offload...
-Enable-NetAdapterChecksumOffload -Name "*"
-# Disabling Net Adapter Encapsulated Packet Task Offload...
-Disable-NetAdapterEncapsulatedPacketTaskOffload -Name "*"
-# Enabling Net Adapter IPsec Offload...
-Enable-NetAdapterIPsecOffload -Name "*"
-# The Disable-NetAdapterLso cmdlet disables the state of the large send offload (LSO) settings, such as LSOv4 and LSOv6, on the network adapter. If neither LSOv4 or LSOv6 is specified, then both are disabled. LSO is a technology in which the work of segmenting data into network frames is performed by the network adapter instead of by the TCP/IP stack. With LSO, TCP/IP sends very large data packets down to the network adapter driver and the network adapter hardware. The network adapter breaks up the data into smaller network-sized frames. This increases the speed of large packet send operations and decreases the processor usage of the computer, because the work is performed on the network adapter.
-Disable-NetAdapterLso -Name "*"
-# Enabling Net Adapter Packet Direct...
-Enable-NetAdapterPacketDirect -Name "*"
-# Disabling Net Adapter Receive Side Coalescing...
-Disable-NetAdapterRsc -Name "*"
-# Enabling Net Adapter Receive Side Scaling...
-Enable-NetAdapterRss -Name "*"
-
-# Get-NetAdapterAdvancedProperty -Name "以太网" -AllProperties
-Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "流控制" -DisplayValue "关闭"
-Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "Power Saving Mode" -DisplayValue "关闭"
-Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "网络唤醒和关机连接速度" -DisplayValue "不降速"
-Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "中断调整" -DisplayValue "Disabled"
-Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "环保节能" -DisplayValue "关闭"
-Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "节能乙太网路" -DisplayValue "关闭"
-Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "Advanced EEE" -DisplayValue "关闭"
-Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "ARP 减负" -DisplayValue "关闭"
-Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "NS 减负" -DisplayValue "关闭"
-Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "Gigabit Lite" -DisplayValue "关闭"
-
-# 修复XBOX网络
-if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters' -Name 'DisabledComponents' -Value 0 -PropertyType DWord -Force
-Set-NetTeredoConfiguration -Type Enterpriseclient
-Set-NetTeredoConfiguration -ServerName "teredo.remlab.net"
-Set-Net6to4Configuration -State Enabled -AutoSharing Enabled -RelayState Enabled -RelayName "6to4.ipv6.microsoft.com"
-
 # 根目录证书
 # http://woshub.com/updating-trusted-root-certificates-in-windows-10/
 # "C:\Program Files\PowerShell\7-preview\pwsh.exe" -Command "certutil.exe -f -generateSSTFromWU C:\TEMP\roots.sst"
@@ -2022,8 +1945,8 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\E
 
 # 关闭左侧树菜单
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer" -force -ea SilentlyContinue };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer' -Name 'ReadingPaneSizer' -Value 'hex(3):04,01,00,00,00,00,00,00,00,00,00,00,CD,0C,00,00' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer' -Name 'PageSpaceControlSizer' -Value 'hex(3):A0,00,00,00,00,00,00,00,00,00,00,00,70,0D,00,00' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer' -Name 'ReadingPaneSizer' -Value 'hex(3):BE,09,00,00,00,00,00,00,00,00,00,00,8C,0C,00,00' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer' -Name 'PageSpaceControlSizer' -Value 'hex(3):E1,00,00,00,00,00,00,00,00,00,00,00,70,0D,00,00' -PropertyType String -Force
 
 # 删除无用菜单
 Remove-Item -Path "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\Compressed (zipped) Folder.ZFSendToTarget" -Force -Recurse
@@ -2369,30 +2292,12 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\D
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Settings") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Settings" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Settings' -Name 'DownloadMode' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate") -ne $true) { New-Item "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate" -force };
-New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate' -Name 'SetDisablePauseUXAccess' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate' -Name 'UpdateNotificationLevel' -Value 2 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate' -Name 'DisableWUfBSafeguards' -Value 1 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update' -Name 'EnableFeaturedSoftware' -Value 1 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Services") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Services" -force };
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Services\7971F918-A847-4430-9279-4A52D1EFE18D") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Services\7971F918-A847-4430-9279-4A52D1EFE18D" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Services' -Name 'DefaultService' -Value '7971f918-a847-4430-9279-4a52d1efe18d' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Services\7971F918-A847-4430-9279-4A52D1EFE18D' -Name 'RegisteredWithAU' -Value 1 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\BITS") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\BITS" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\BITS' -Name 'DisablePeerCachingClient' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\BITS' -Name 'DisablePeerCachingServer' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\BITS' -Name 'EnableBandwidthLimits' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\BITS' -Name 'EnableBITSMaxBandwidth' -Value 0 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'DetectionFrequency' -Value 20 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'DetectionFrequencyEnabled' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'EnableFeaturedSoftware' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'AllowMUUpdateService' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'AUPowerManagement' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'IncludeRecommendedUpdates' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'NoAutoRebootWithLoggedOnUsers' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'NoAUAsDefaultShutdownOption' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'UseWUServer' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath "HKLM:\Software\Microsoft\WindowsUpdate\UX\Settings") -ne $true) { New-Item "HKLM:\Software\Microsoft\WindowsUpdate\UX\Settings" -force };
 New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\WindowsUpdate\UX\Settings' -Name 'SmartActiveHoursState' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata") -ne $true) { New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata" -force };
@@ -3220,8 +3125,7 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Ease of Access' -Name 's
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Ease of Access' -Name 'selfvoice' -Value 0 -PropertyType DWord -Force
 
 #关闭系统级代理开关
-if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections" -force -ea SilentlyContinue };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections' -Name 'DefaultConnectionSettings' -Value 'hex(3):46,00,00,00,04,00,00,00,01,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'ProxyEnable' -Value 0 -PropertyType DWord -Force
 
 # 开启多显示器光标跳动
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'CursorDeadzoneJumpingSetting' -Value 1 -PropertyType DWord -Force
@@ -3704,72 +3608,81 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\StartIsBack' -Name 'TaskbarBlur' -
 
 ###############################################################################################################################################
 
-# Neuter Stubborn Services by removing them from this list (UsoSvc, Bits, etc)
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Svchost' -Name 'netsvcs' -Value @(
-    "CertPropSvc",
-    "SCPolicySvc",
-    "lanmanserver",
-    "gpsvc",
-    "IKEEXT",
-    "iphlpsvc",
-    "seclogon",
-    "msiscsi",
-    "EapHost",
-    "schedule",
-    "winmgmt",
-    "ProfSvc",
-    "SessionEnv",
-    "wercplsupport",
-    "InstallService",
-    "PushToInstall",
-    "TroubleshootingSvc",
-    "LxpSvc",
-    "shpamsvc",
-    "XblGameSave",
-    "DmEnrollmentSvc",
-    "WManSvc",
-    "Themes",
-    "UserManager",
-    "NetSetupSvc",
-    "wlidsvc",
-    "TokenBroker",
-    "lfsvc",
-    "NaturalAuthentication",
-    "FastUserSwitchingCompatibility",
-    "Ias",
-    "Irmon",
-    "Nla",
-    "Ntmssvc",
-    "NWCWorkstation",
-    "Nwsapagent",
-    "Rasauto",
-    "Rasman",
-    "Remoteaccess",
-    "SENS",
-    "Sharedaccess",
-    "SRService",
-    "Tapisrv",
-    "Wmi",
-    "WmdmPmSp",
-    "ShellHWDetection",
-    "LogonHours",
-    "PCAudit",
-    "helpsvc",
-    "uploadmgr",
-    "dmwappushservice",
-    "wisvc",
-    "WpnService",
-    "AppInfo",
-    "XboxNetApiSvc",
-    "XboxGipSvc",
-    "NcaSvc",
-    "XblAuthManager",
-    "DsmSvc",
-    "AppMgmt",
-    "BDESVC",
-    "MsKeyboardFilter"
-    "wuauserv"
-) -PropertyType MultiString -Force
+# 设置所有网络类型为专用而非公共
+Set-NetConnectionProfile -NetworkCategory Private -Verbose
+Set-NetConnectionProfile -InterfaceAlias WLAN -NetworkCategory "Private"
+Set-NetConnectionProfile -InterfaceAlias Ethernet -NetworkCategory "Private"
+
+# disable network protocal
+# Get-NetAdapterBinding -IncludeHidden -AllBindings | Format-Table -AutoSize
+# Get-NetAdapterBinding | Where-Object { $_.Enabled -eq 'True' } | Set-NetAdapterBinding -Enabled 0 -IncludeHidden -AllBindings -Verbose
+Set-NetIPinterface -InterfaceAlias '*' -NlMtuBytes 1440
+Set-NetAdapterBinding -Name '*' -ComponentID ms_pacer -Enabled 0
+Set-NetAdapterBinding -Name '*' -ComponentID ms_ndiscap -Enabled 0
+Set-NetAdapterBinding -Name '*' -ComponentID ms_lldp -Enabled 0
+Set-NetAdapterBinding -Name '*' -ComponentID ms_msclient -Enabled 0
+Set-NetAdapterBinding -Name '*' -ComponentID ms_lltdio -Enabled 0
+Set-NetAdapterBinding -Name '*' -ComponentID ms_rspndr -Enabled 0
+Set-NetAdapterBinding -Name '*' -ComponentID ms_implat -Enabled 0
+Set-NetAdapterBinding -Name '*' -ComponentID ms_server -Enabled 0
+Set-NetAdapterBinding -Name '*' -ComponentID ms_tcpip6 -Enabled 1
+
+# Disable all WAN miniport driver
+# Get-pnpdevice -friendlyname 'Microsoft 存储空间控制器' | select-object -expandproperty instanceid
+Get-PnpDevice -InstanceId 'ROOT\KDNIC\0000' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'ROOT\VID\0000' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'ROOT\NDISVIRTUALBUS\0000' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'ROOT\SPACEPORT\0000' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -friendlyname 'AMD PSP 11.0 Device' | Disable-PnpDevice -Confirm:$false -Verbose
+
+# remove Microsoft Wi-Fi Direct Virtual Adapter
+Remove-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\WlanSvc\Parameters\HostedNetworkSettings" -Name "HostedNetworkSettings" -Force
+
+# When creating a TCP connection, the sending side performs a "TCP slow start" regardles of the receiver RWIN value. TCP slow start only sends two frames, waits for ACK response, and increases speed exponentially provided there are no dropped packets. This slow start algorithm can also be activated if there is no traffic for 200ms. This is not optimal for fast internet connections with intermittent bursts of data. This bottleneck can be avoided by increasing the "InitialcongestionWindow" from the default 2 (or 4) frames to 10+ (See RFC 3390 and RFC 6928).
+Set-NetTCPSetting -SettingName Internet -InitialCongestionWindow 10
+# Sets the number of times to attempt to reestablish a connection with SYN packets
+Set-NetTCPSetting -SettingName Internet -MaxSynRetransmissions 2
+# MinRTO Default value: 300 (ms) Recommended: 300 (ms)
+set-NetTCPSetting -SettingName Internet -MinRto 300
+# disabled (for gaming and slightly lower latency at the expense of higher CPU usage and more multicast traffic, and when using Wi-Fi adapters), enabled (for pure throughput when lower CPU utilization is important)
+Set-NetOffloadGlobalSetting -PacketCoalescingFilter enabled
+# Disabling Net Adapter QoS...
+Disable-NetAdapterQos -Name "*"
+# Disabling Net Adapter Power Management...
+Disable-NetAdapterPowerManagement -Name "*"
+# Enabling Net Adapter Checksum Offload...
+Enable-NetAdapterChecksumOffload -Name "*"
+# Disabling Net Adapter Encapsulated Packet Task Offload...
+Disable-NetAdapterEncapsulatedPacketTaskOffload -Name "*"
+# Enabling Net Adapter IPsec Offload...
+Enable-NetAdapterIPsecOffload -Name "*"
+# The Disable-NetAdapterLso cmdlet disables the state of the large send offload (LSO) settings, such as LSOv4 and LSOv6, on the network adapter. If neither LSOv4 or LSOv6 is specified, then both are disabled. LSO is a technology in which the work of segmenting data into network frames is performed by the network adapter instead of by the TCP/IP stack. With LSO, TCP/IP sends very large data packets down to the network adapter driver and the network adapter hardware. The network adapter breaks up the data into smaller network-sized frames. This increases the speed of large packet send operations and decreases the processor usage of the computer, because the work is performed on the network adapter.
+Disable-NetAdapterLso -Name "*"
+# Enabling Net Adapter Packet Direct...
+Enable-NetAdapterPacketDirect -Name "*"
+# Disabling Net Adapter Receive Side Coalescing...
+Disable-NetAdapterRsc -Name "*"
+# Enabling Net Adapter Receive Side Scaling...
+Enable-NetAdapterRss -Name "*"
+
+# Get-NetAdapterAdvancedProperty -Name "以太网" -AllProperties
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "流控制" -DisplayValue "关闭"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "Power Saving Mode" -DisplayValue "关闭"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "网络唤醒和关机连接速度" -DisplayValue "不降速"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "中断调整" -DisplayValue "Disabled"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "环保节能" -DisplayValue "关闭"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "节能乙太网路" -DisplayValue "关闭"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "Advanced EEE" -DisplayValue "关闭"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "ARP 减负" -DisplayValue "关闭"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "NS 减负" -DisplayValue "关闭"
+Set-NetAdapterAdvancedProperty -Name "以太网" -DisplayName "Gigabit Lite" -DisplayValue "关闭"
+
+# 修复XBOX网络
+if ((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters") -ne $true) { New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters' -Name 'DisabledComponents' -Value 0 -PropertyType DWord -Force
+Set-NetTeredoConfiguration -Type Enterpriseclient
+Set-NetTeredoConfiguration -ServerName "teredo.remlab.net"
+Set-Net6to4Configuration -State Enabled -AutoSharing Enabled -RelayState Enabled -RelayName "6to4.ipv6.microsoft.com"
 
 # Disable Nagle's Algorithm
 $i = 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces'  
