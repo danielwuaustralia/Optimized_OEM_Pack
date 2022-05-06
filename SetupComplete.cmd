@@ -31,15 +31,12 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.3.211.0-Installer.exe /S
 rem Direct X
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\DirectXRedist.exe /ai
 
-rem VSCode
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VSCodeSetup-x64-1.67.0-insider.exe /SP- /VERYSILENT /NORESTART /SUPPRESSMSGBOXES /mergetasks=!runcode
-
 rem process lasso
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassoActivator.exe -makekeyfile -product:2 -output:"%WINDIR%\Setup\Scripts\SOFTWARE"
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassosetup64.exe /S /keyfile=%WINDIR%\Setup\Scripts\SOFTWARE\prolasso.key /launch_gui=false /gui_start_type=all /governor_start_type=all /language=SimpChinese
 
 rem chipset driver
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Software.exe /S
+rem start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Software.exe /S
 
 rem time sync
 start /wait C:\PROGRA~1\UpdateTime\UpdateTime_x64.exe /SI
@@ -57,11 +54,5 @@ md "C:\Program Files (x86)\Microsoft\EdgeUpdate"
 icacls "C:\Program Files (x86)\Microsoft\EdgeCore" /inheritance:r
 icacls "C:\Program Files (x86)\Microsoft\EdgeUpdate" /inheritance:r
 
-del /f /q %SystemDrive%\Panther\unattend.xml
-del /f /q %ProgramData%\Microsoft\Diagnosis\*.rbs
-del /f /q /s %ProgramData%\Microsoft\Diagnosis\ETLLogs\*
-del /f /q /s %Windir%\Temp\*
-del /f /q /s %Windir%\assembly\tmp\*
-del /f /q /s %Windir%\assembly\temp\*
-del /f /q /s %LOCALAPPDATA%\Temp\*
+del /f /q C:\Windows\Panther\unattend.xml
 %windir%\System32\UsoClient.exe RefreshSettings
