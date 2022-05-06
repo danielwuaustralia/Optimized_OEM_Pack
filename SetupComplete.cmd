@@ -47,12 +47,6 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\MicrosoftEdgeWebView2RuntimeInstalle
 rem remove Edge
 "C:\Program Files (x86)\Microsoft\Edge\Application\100.0.1185.36\Installer\setup.exe" --uninstall --system-level --verbose-logging --force-uninstall --delete-profile
 "C:\Program Files (x86)\Microsoft\EdgeUpdate\MicrosoftEdgeUpdate.exe" /uninstall
-rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeCore"
-rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeUpdate"
-md "C:\Program Files (x86)\Microsoft\EdgeCore"
-md "C:\Program Files (x86)\Microsoft\EdgeUpdate"
-icacls "C:\Program Files (x86)\Microsoft\EdgeCore" /inheritance:r
-icacls "C:\Program Files (x86)\Microsoft\EdgeUpdate" /inheritance:r
 
 del /f /q C:\Windows\Panther\unattend.xml
 %windir%\System32\UsoClient.exe RefreshSettings
