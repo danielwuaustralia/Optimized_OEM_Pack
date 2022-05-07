@@ -12,53 +12,6 @@ New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\PowerSh
 if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell") -ne $true) { New-Item "HKCU:\Software\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell' -Name 'ExecutionPolicy' -Value 'Unrestricted' -PropertyType String -Force
 
-# 清理垃圾文件
-$SageSet = "StateFlags0099"
-$Base = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\"
-$Locations = @(
-    "Active Setup Temp Folders"
-    "BranchCache"
-    "Content Indexer Cleaner"
-    "D3D Shader Cache"
-    "Delivery Optimization Files"
-    "Device Driver Packages"
-    "Diagnostic Data Viewer database files"
-    "Downloaded Program Files"
-    "Feedback Hub Archive log files"
-    "Internet Cache Files"
-    "Language Pack"
-    "Offline Pages Files"
-    "Old ChkDsk Files"
-    "Previous Installations"
-    "Recycle Bin"
-    "RetailDemo Offline Content"
-    "Setup Log Files"
-    "System error memory dump files"
-    "System error minidump files"
-    "Temporary Files"
-    "Temporary Setup Files"
-    "Temporary Sync Files"
-    "Thumbnail Cache"
-    "Update Cleanup"
-    "Upgrade Discarded Files"
-    "User file versions"
-    "Windows Error Reporting Files"
-    "Windows ESD installation files"
-    "Windows Reset Log Files"
-    "Windows Upgrade Log Files"
-)
-
-ForEach ($Location in $Locations) {
-    Set-ItemProperty -Path $($Base + $Location) -Name $SageSet -Type DWORD -Value 2 -ea silentlycontinue
-}
-
-$CleanupArgs = "/sagerun:$([string]([int]$SageSet.Substring($SageSet.Length-4)))"
-Start-Process -Wait "$env:SystemRoot\System32\cleanmgr.exe" -ArgumentList $CleanupArgs
-
-ForEach ($Location in $Locations) {
-    Remove-ItemProperty -Path $($Base + $Location) -Name $SageSet -Force -ea silentlycontinue
-}
-
 # 命令行优化
 # Disable some of the kernel memory mitigations. Causes boot crash/loops if Intel SGX is enforced and not set to "Application Controlled" or "Off" in your Firmware. Gamers don't use SGX under any possible circumstance.
 "bcdedit /set isolatedcontext No" | cmd
