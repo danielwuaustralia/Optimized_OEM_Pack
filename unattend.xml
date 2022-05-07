@@ -23,14 +23,12 @@
             <EnableNetwork>false</EnableNetwork>
             <RunSynchronous>
                 <RunSynchronousCommand wcm:action="add">
-                    <Path>cmd /c for %a in (TPM SecureBoot Storage RAM CPU) do reg add HKLM\SYSTEM\Setup\LabConfig /t REG_DWORD /v Bypass%aCheck /d 1 /f</Path>
+                    <Path>cmd /c for %$ IN (TPM, SecureBoot, RAM, Storage, CPU) do reg add HKLM\SYSTEM\Setup\LabConfig /v Bypass%$Check /d 1 /t reg_dword /f</Path>
                     <Order>1</Order>
-                    <Description>Bypass the Windows 11 installation restrictions (TPM, SecureBoot, Storage, RAM, CPU check)</Description>
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
-                    <Path>cmd /c reg add HKLM\SYSTEM\Setup\MoSetup /t REG_DWORD /v AllowUpgradesWithUnsupportedTPMOrCPU /d 1 /f</Path>
+                    <Path>reg add HKLM\SYSTEM\Setup\MoSetup /f /v AllowUpgradesWithUnsupportedTPMorCPU /d 1 /t reg_dword</Path>
                     <Order>2</Order>
-                    <Description>Allow Upgrade</Description>
                 </RunSynchronousCommand>
             </RunSynchronous>
         </component>
@@ -137,13 +135,13 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>1</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>"C:\Windows\SysWOW64\NsudoLG.exe" -U:T -P:E -Wait "C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Tweak1.ps1"</CommandLine>
+                    <CommandLine>"C:\Windows\SysWOW64\NsudoLG.exe" -U:T -P:E -Wait "C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\OptimizeOnline1.ps1"</CommandLine>
                     <Description>Powershell Tweak</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>2</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>"C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Tweak2.ps1"</CommandLine>
+                    <CommandLine>"C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\OptimizeOnline2.ps1"</CommandLine>
                     <Description>Powershell Tweak</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
