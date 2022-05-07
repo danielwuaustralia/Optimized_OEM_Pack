@@ -1,4 +1,4 @@
-﻿@echo off
+@echo off
 SetLocal EnableDelayedExpansion
 color 17
 title WIM镜像优化
