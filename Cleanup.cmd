@@ -4,25 +4,43 @@
 setlocal enabledelayedexpansion
 title CleanUp
 
-:::: Run as administrator, AveYo: ps\vbs version
+rem Run as administrator, AveYo: ps\vbs version
 1>nul 2>nul fltmc || (
 	set "_=call "%~f0" %*" & powershell -nop -c start cmd -args'/d/x/r',$env:_ -verb runas || (
 	>"%temp%\Elevate.vbs" echo CreateObject^("Shell.Application"^).ShellExecute "%~dpf0", "%*" , "", "runas", 1
 	>nul "%temp%\Elevate.vbs" & del /q "%temp%\Elevate.vbs" )
 	exit)
 
-del /f /q C:\ProgramData\Microsoft\Diagnosis\*.rbs
-del /f /q /s C:\ProgramData\Microsoft\Diagnosis\ETLLogs\*
-del /f /q /s C:\Temp\*
-del /f /q /s C:\Windows\assembly\temp\*
-del /f /q /s C:\Windows\assembly\temp\*
-del /f /q /s %LOCALAPPDATA%\Temp\*
+takeown /f "%WINDIR%\winsxs\pending.xml" /a
+icacls "%WINDIR%\winsxs\pending.xml" /grant:r Administrators:F /c
+del "%WINDIR%\winsxs\pending.xml" /s /f /q
+del "%ALLUSERSPROFILE%\Application Data\Microsoft\Network\Downloader\qmgr*.dat" /s /f /q
+del "%ALLUSERSPROFILE%\Microsoft\Network\Downloader\qmgr*.dat" /s /f /q
+del "%LocalAppData%\Microsoft\Windows\WebCache" /s /f /q
+del "%LocalAppData%\Temp" /s /f /q
+del "%ProgramData%\USOPrivate\UpdateStore" /s /f /q
+del "%ProgramData%\USOShared\Logs" /s /f /q
+rd "%SystemDrive%\$GetCurrent" /s /q
+rd "%SystemDrive%\$SysReset" /s /q
+rd "%SystemDrive%\$Windows.~BT" /s /q
+rd "%SystemDrive%\$Windows.~WS" /s /q
+rd "%SystemDrive%\$WinREAgent" /s /q
+rd "%SystemDrive%\OneDriveTemp" /s /q
+rd "%SystemDrive%\Recovery" /s /q
+del "%temp%" /s /f /q
+del "%WINDIR%\Logs" /s /f /q
+del "%WINDIR%\Installer\$PatchCache$" /s /f /q
+del "%WINDIR%\SoftwareDistribution\Download" /s /f /q
+del "%WINDIR%\System32\LogFiles" /s /f /q
+del "%WINDIR%\System32\winevt\Logs" /s /f /q
+del "%WINDIR%\Temp" /s /f /q
+del "%WINDIR%\WinSxS\Backup" /s /f /q
 
-:::: Clean Folder "%Windir%\System32\config\systemprofile\AppData\Local"
+rem Clean Folder "%Windir%\System32\config\systemprofile\AppData\Local"
 set "tPath=%Windir%\System32\config\systemprofile\AppData\Local"
 >"%temp%\result" 2>&1 dir /ad /b "%tPath%\*tmp" && for /f "tokens=*" %%# in ('type "%temp%\result"') do >nul 2>&1 rd /s /q "%tPath%\%%#"
 
-:::: Disk Cleaner
+rem Disk Cleaner
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /t REG_DWORD /d "2" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\BranchCache" /v "StateFlags0001" /t REG_DWORD /d "2" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Content Indexer Cleaner" /v "StateFlags0001" /t REG_DWORD /d "2" /f
@@ -89,7 +107,7 @@ reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Reset Log Files" /v "StateFlags0001" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Upgrade Log Files" /v "StateFlags0001" /f
 
-:::: Refresh DNS Cache
+rem Refresh DNS Cache
 ipconfig /flushdns
 
 exit
