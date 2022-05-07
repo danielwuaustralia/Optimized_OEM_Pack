@@ -518,10 +518,11 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\rspndr' -
 # spaceport
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\spaceport' -Name 'Start' -Value 4 -PropertyType DWord -Force
 
-# Adjust failure actions
-"sc failure bits reset= 60 actions= '' actions= ''" | cmd
-"sc failure wuauserv reset= 60 actions= '' actions= ''" | cmd
-"sc failure WaaSMedicSvc reset= 60 actions= '' actions= ''" | cmd
+# 禁用AutoLogger
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener' -Name 'Start' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DiagLog' -Name 'Start' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener' -Name 'Start' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiSession' -Name 'Start' -Value 0 -PropertyType DWord -Force
 
 # prevent computer from sending data to microsoft regarding its activation state
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Classes\AppID\slui.exe') -ne $true) { New-Item 'HKLM:\SOFTWARE\Classes\AppID\slui.exe' -force }
@@ -539,43 +540,16 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersio
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter' -force }
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter' -Name 'ActivationType' -Value 0 -PropertyType DWord -Force
 
-# 禁用AutoLogger
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AppModel" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Cellcore" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Circular Kernel Context Logger" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\CloudExperienceHostOobe" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DataMarket" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderAuditLogger" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DiagLog" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\HolographicDevice" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\iclsClient" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\iclsProxy" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\LwtNetLog" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Mellanox-Kernel" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Microsoft-Windows-AssignedAccess-Trace" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Microsoft-Windows-Setup" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\NBSMBLOGGER" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\PEAuthLog" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\RdrLog" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\ReadyBoot" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SetupPlatform" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SetupPlatformTel" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SocketHeciServer" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SpoolerLogger" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SQMLogger" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\TCPIPLOGGER" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\TileStore" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Tpm" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\TPMProvisioningService" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\UBPM" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WdiContextLog" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WFP-IPsec Trace" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiDriverIHVSession" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiDriverIHVSessionRepro" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiSession" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WinPhoneCritical" -recurse -force;
+# https://docs.microsoft.com/en-us/windows/win32/wininet/caching?
+# https://www.codeproject.com/articles/1158641/windows-continuous-disk-write-plus-webcachev-dat-p
+# Disable WinInetCacheServer (WinINet Caching/V01.log/WebCacheV01.dat)
+# %LocalAppData%\Microsoft\Windows\WebCache
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\AppID\{3eb3c877-1f16-487c-9050-104dbcd66683}" -force;
+Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{0358b920-0ac7-461f-98f4-58e32cd89148}' -Name 'AppID' -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WOW6432Node\AppID\{3eb3c877-1f16-487c-9050-104dbcd66683}" -force;
+Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{0358b920-0ac7-461f-98f4-58e32cd89148}' -Name 'AppID' -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Classes\AppID\{3eb3c877-1f16-487c-9050-104dbcd66683}" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Classes\CLSID\{0358b920-0ac7-461f-98f4-58e32cd89148}" -Recurse -force;
 
 # 默认文件夹图标
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -force }
