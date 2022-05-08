@@ -112,7 +112,7 @@ reg add "HKLM\OfflineSOFTWARE\Microsoft\Windows Defender\Features" /v "DisableAn
 %systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Run" -ot reg -actn ace -ace "n:Administrators;p:full"
 reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SecurityHealth" /f
 reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "WindowsDefender" /f
-reg add "HKLM\OfflineSOFTWARE\Policies\Microsoft\EdgeUpdate" /v "CreateDesktopShortcut{56EB18F8-B008-4CBD-B6D2-8C97FE7E9062}" /t REG_DWORD /d "0" /f
+reg add "HKLM\OfflineSOFTWARE\Policies\Microsoft\EdgeUpdate" /v "CreateDesktopShortcutDefault" /t REG_DWORD /d "0" /f
 %systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineNTUSER\Software\Microsoft\Windows\CurrentVersion\Run" -ot reg -actn setowner -ownr "n:Administrators"
 %systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineNTUSER\Software\Microsoft\Windows\CurrentVersion\Run" -ot reg -actn ace -ace "n:Administrators;p:full"
 reg delete "HKLM\OfflineNTUSER\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
@@ -120,15 +120,12 @@ rem %systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineSOFTWARE\Microsoft\Windows
 rem %systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" -ot reg -actn ace -ace "n:Administrators;p:full"
 rem "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -EP Bypass -MTA -NOL -NONI -NOP -C "Set-ItemProperty -Path 'HKLM:OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Name Visibility -Value 1 -Force -Verbose"
 rem "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -EP Bypass -MTA -NOL -NONI -NOP -C "Remove-Item -Path 'HKLM:OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Include *Owner* -Recurse -Force -Verbose"
-rem "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -EP Bypass -MTA -NOL -NONI -NOP -C "Set-ItemProperty -Path 'HKLM:OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Microsoft-Windows-OneDrive*' -Name Visibility -Value 1 -Force -Verbose"
-rem "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -EP Bypass -MTA -NOL -NONI -NOP -C "Remove-Item -Path 'HKLM:OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Microsoft-Windows-OneDrive*' -Include *Owner* -Recurse -Force -Verbose"
 echo *****************************************************************
 reg unload "HKLM\OfflineNTUSER"
 reg unload "HKLM\OfflineSOFTWARE"
 reg unload "HKLM\OfflineSYSTEM"
 echo ***********删除无用的Packages***********
 rem "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -EP Bypass -MTA -NOL -NONI -NOP -C "Get-WindowsPackage -Path 'D:\Debloater\Mount' | Where-Object { $_.PackageName -like '*Windows-Defender*' } | Remove-WindowsPackage -Path 'D:\Debloater\Mount' -Recurse -Force -Verbose"
-rem "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -EP Bypass -MTA -NOL -NONI -NOP -C "Get-WindowsPackage -Path 'D:\Debloater\Mount' | Where-Object { $_.PackageName -like '*Microsoft-Windows-OneDrive*' } | Remove-WindowsPackage -Path 'D:\Debloater\Mount' -Recurse -Force -Verbose"
 echo ***********保存WIM镜像***********
 echo *****************************************************************
 DISM /Unmount-Image /MountDir:"D:\Debloater\Mount" /Commit /CheckIntegrity
