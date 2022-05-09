@@ -34,7 +34,6 @@ del "%WINDIR%\SoftwareDistribution\Download" /s /f /q
 del "%WINDIR%\System32\LogFiles" /s /f /q
 del "%WINDIR%\System32\winevt\Logs" /s /f /q
 del "%WINDIR%\Temp" /s /f /q
-del "%WINDIR%\WinSxS\Backup" /s /f /q
 
 rem Clean Folder "%Windir%\System32\config\systemprofile\AppData\Local"
 set "tPath=%Windir%\System32\config\systemprofile\AppData\Local"
