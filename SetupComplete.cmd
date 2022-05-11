@@ -19,6 +19,9 @@ regsvr32.exe "C:\Program Files\madVR\madVR64.ax" /s
 rem Visual Runtime
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VisualCppRedist_AIO_x86_x64.exe /ai /gm2
 
+rem .Net 6.0
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-6.0.5-win-x64.exe /install /quiet /norestart
+
 rem Powershell 7
 %windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.3.0-preview.3-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
@@ -45,5 +48,8 @@ rem remove Edge
 "C:\Program Files (x86)\Microsoft\Edge\Application\100.0.1185.36\Installer\setup.exe" --uninstall --system-level --verbose-logging --force-uninstall --delete-profile
 "C:\Program Files (x86)\Microsoft\EdgeUpdate\MicrosoftEdgeUpdate.exe" /uninstall
 
+%systemroot%\SysWOW64\SetACL.exe -on "C:\Windows\System32\smartscreen.exe" -ot file -actn setowner -ownr "n:Administrators"
+%systemroot%\SysWOW64\SetACL.exe -on "C:\Windows\System32\smartscreen.exe" -ot file -actn ace -ace "n:Administrators;p:full"
+icacls C:\Windows\System32\smartscreen.exe /deny Everyone:(X)
 del /f /q C:\Windows\Panther\unattend.xml
 %windir%\System32\UsoClient.exe RefreshSettings
