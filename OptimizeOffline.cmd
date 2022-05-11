@@ -79,8 +79,8 @@ rem https://store.rg-adguard.net/
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'D:\Debloater\Mount' -PackagePath 'D:\Debloater\UWP\Runtime\Microsoft.UI.Xaml.x64.2.7.appx' -SkipLicense -Verbose"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'D:\Debloater\Mount' -PackagePath 'D:\Debloater\UWP\Runtime\Microsoft.VCLibs.x64.14.00.appx' -SkipLicense -Verbose"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'D:\Debloater\Mount' -PackagePath 'D:\Debloater\UWP\Runtime\Microsoft.VCLibs.x64.14.00.Desktop.appx' -SkipLicense -Verbose"
-rem https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/downloads
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'D:\Debloater\Mount' -PackagePath 'D:\Debloater\UWP\Runtime\Microsoft.WindowsAppRuntime.1.0.msix' -SkipLicense -Verbose"
+rem CategoryID: 9640a414-18fc-4cad-b860-bc01e00c84f6
+"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'D:\Debloater\Mount' -PackagePath 'D:\Debloater\UWP\Microsoft.WindowsAppRuntime.1.1_1000.488.537.0_x64__8wekyb3d8bbwe.Msix' -SkipLicense -Verbose"
 rem CategoryID: df8ea8e7-16ad-45d8-bbd0-75f6358bec33
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'D:\Debloater\Mount' -PackagePath 'D:\Debloater\UWP\Microsoft.LanguageExperiencePackzh-CN_22618.0.1.0_neutral__8wekyb3d8bbwe.Appx' -SkipLicense -Verbose"
 rem CategoryID: 5e60c346-7f52-4a6f-98c0-70fef2dd1d01
@@ -92,13 +92,11 @@ rem CategoryID: 64293252-5926-453c-9494-2d4021f1c78d
 rem CategoryID: 214308d7-4262-449d-a78d-9a2306144b11
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'D:\Debloater\Mount' -PackagePath 'D:\Debloater\UWP\Microsoft.StorePurchaseApp_12203.44.0.0_neutral___8wekyb3d8bbwe.AppxBundle' -SkipLicense -Verbose"
 rem https://github.com/M2Team/NanaZip/releases
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'D:\Debloater\Mount' -PackagePath 'D:\Debloater\UWP\40174MouriNaruto.NanaZipPreview_1.2.225.0_gnj4mf6z9tkrc.msixbundle' -SkipLicense -Verbose"
+"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'D:\Debloater\Mount' -PackagePath 'D:\Debloater\UWP\40174MouriNaruto.NanaZipPreview_1.2.253.0_gnj4mf6z9tkrc.msixbundle' -SkipLicense -Verbose"
 rem https://github.com/beeradmoore/dlss-swapper
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'D:\Debloater\Mount' -PackagePath 'D:\Debloater\UWP\55588beeradmoore.DLSSSwapper_0.9.9.0_neutral___xkmnm3dc34gb4.Msixbundle' -SkipLicense -Verbose"
 rem https://github.com/MicaForEveryone/MicaForEveryone/releases
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'D:\Debloater\Mount' -PackagePath 'D:\Debloater\UWP\MicaForEveryone-v1.0.6.2-x64-Release.msixbundle' -SkipLicense -Verbose"
-rem https://github.com/microsoft/terminal/releases
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'D:\Debloater\Mount' -PackagePath 'D:\Debloater\UWP\Microsoft.WindowsTerminalPreview_Win11_1.13.10984.0_8wekyb3d8bbwe.msixbundle' -SkipLicense -Verbose"
 echo ***********离线注册表优化***********
 reg load "HKLM\OfflineNTUSER" "D:\Debloater\Mount\Users\Default\NTUSER.DAT"
 reg load "HKLM\OfflineSOFTWARE" "D:\Debloater\Mount\Windows\System32\config\software"
