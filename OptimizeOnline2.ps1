@@ -1327,7 +1327,7 @@ New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TMP' -Value 'C:\TEMP' -
 # 根目录证书
 # http://woshub.com/updating-trusted-root-certificates-in-windows-10/
 # "certutil.exe -f -generateSSTFromWU C:\TEMP\trustedcerts.sst" | cmd
-Get-ChildItem -Path C:\TEMP\trustedcerts.sst | Import-Certificate -CertStoreLocation Cert:\LocalMachine\Root
+# Get-ChildItem -Path C:\TEMP\trustedcerts.sst | Import-Certificate -CertStoreLocation Cert:\LocalMachine\Root
 # https://docs.microsoft.com/en-us/troubleshoot/windows-server/windows-security/microsoft-trusted-root-store-removal-of-us-federal-common-policy
 if ((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\AutoUpdate") -ne $true) { New-Item "HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\AutoUpdate" -force -ea SilentlyContinue };
 Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\AutoUpdate' -Name 'EncodedCtl' -Force
@@ -1341,8 +1341,8 @@ Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\C
 # "vivetool addconfig 34370472 2" | cmd
 
 # Powershell Module from https://www.powershellgallery.com/packages
-# Save-Module -Name PSWindowsUpdate -Path D:\Downloads\ -Repository PSGallery
-# Save-Module -Name RobocopyPS -Path D:\Downloads\ -Repository PSGallery
+# Save-Module -Name PSWindowsUpdate -Path C:\Windows\System32\WindowsPowerShell\v1.0\Modules -Repository PSGallery
+# Save-Module -Name RobocopyPS -Path C:\Windows\System32\WindowsPowerShell\v1.0\Modules -Repository PSGallery
 Import-Module -SkipEditionCheck PSWindowsUpdate
 Import-Module -SkipEditionCheck RobocopyPS
 
