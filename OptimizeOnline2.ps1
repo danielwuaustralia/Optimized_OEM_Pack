@@ -3698,14 +3698,14 @@ Set-NetTeredoConfiguration -ServerName "teredo.remlab.net"
 Set-Net6to4Configuration -State Enabled -AutoSharing Enabled -RelayState Enabled -RelayName "6to4.ipv6.microsoft.com"
 
 # XP图标
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsxpshell32.dll,15' -PropertyType ExpandString -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{59031A47-3F72-44A7-89C5-5595FE6B30EE}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsxpshell32.dll,5' -PropertyType ExpandString -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{645FF040-5081-101B-9F08-00AA002F954E}\DefaultIcon' -Name 'empty' -Value '%SystemRoot%\windowsxpshell32.dll,31' -PropertyType ExpandString -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{645FF040-5081-101B-9F08-00AA002F954E}\DefaultIcon' -Name 'full' -Value '%SystemRoot%\windowsxpshell32.dll,32' -PropertyType ExpandString -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{645FF040-5081-101B-9F08-00AA002F954E}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsxpshell32.dll,31' -PropertyType ExpandString -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsxpshell32.dll,14' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\XP_SP2_shell32.dll,15' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{59031A47-3F72-44A7-89C5-5595FE6B30EE}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\XP_SP2_shell32.dll,5' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{645FF040-5081-101B-9F08-00AA002F954E}\DefaultIcon' -Name 'empty' -Value '%SystemRoot%\XP_SP2_shell32.dll,31' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{645FF040-5081-101B-9F08-00AA002F954E}\DefaultIcon' -Name 'full' -Value '%SystemRoot%\XP_SP2_shell32.dll,32' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{645FF040-5081-101B-9F08-00AA002F954E}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\XP_SP2_shell32.dll,31' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\XP_SP2_shell32.dll,14' -PropertyType ExpandString -Force
 if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{5399E694-6CE5-4D6C-8FCE-1D8870FDCBA0}\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{5399E694-6CE5-4D6C-8FCE-1D8870FDCBA0}\DefaultIcon" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{5399E694-6CE5-4D6C-8FCE-1D8870FDCBA0}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\windowsxpshell32.dll,19' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{5399E694-6CE5-4D6C-8FCE-1D8870FDCBA0}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\XP_SP2_shell32.dll,19' -PropertyType String -Force
 
 # 设置所有网络类型为专用而非公共
 Set-NetConnectionProfile -NetworkCategory Private -Verbose
