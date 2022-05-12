@@ -10,6 +10,8 @@ rem Office 365
 
 rem KMS
 call %windir%\Setup\Scripts\KMS.cmd
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\0ff1ce15-a989-479d-af46-f275c6370663" /f /v KeyManagementServiceName /t REG_SZ /d "10.0.0.1"
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\0ff1ce15-a989-479d-af46-f275c6370663" /f /v KeyManagementServiceName /t REG_SZ /d "10.0.0.1" /reg:32
 
 rem register video filters
 regsvr32.exe "%windir%\SysWOW64\XySubFilter.dll" /s
@@ -48,8 +50,5 @@ rem remove Edge
 "C:\Program Files (x86)\Microsoft\Edge\Application\100.0.1185.36\Installer\setup.exe" --uninstall --system-level --verbose-logging --force-uninstall --delete-profile
 "C:\Program Files (x86)\Microsoft\EdgeUpdate\MicrosoftEdgeUpdate.exe" /uninstall
 
-%systemroot%\SysWOW64\SetACL.exe -on "C:\Windows\System32\smartscreen.exe" -ot file -actn setowner -ownr "n:Administrators"
-%systemroot%\SysWOW64\SetACL.exe -on "C:\Windows\System32\smartscreen.exe" -ot file -actn ace -ace "n:Administrators;p:full"
-icacls C:\Windows\System32\smartscreen.exe /deny Everyone:(X)
 del /f /q C:\Windows\Panther\unattend.xml
 %windir%\System32\UsoClient.exe RefreshSettings
