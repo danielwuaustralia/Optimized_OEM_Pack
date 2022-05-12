@@ -49,6 +49,35 @@ start /wait C:\PROGRA~1\UpdateTime\UpdateTime_x64.exe /SI
 rem remove Edge
 "C:\Program Files (x86)\Microsoft\Edge\Application\100.0.1185.36\Installer\setup.exe" --uninstall --system-level --verbose-logging --force-uninstall --delete-profile
 "C:\Program Files (x86)\Microsoft\EdgeUpdate\MicrosoftEdgeUpdate.exe" /uninstall
+"C:\Program Files (x86)\Microsoft\EdgeWebView\Application\101.0.1210.39\Installer\setup.exe" --uninstall --msedgewebview --system-level --verbose-logging --force-uninstall
 
 del /f /q C:\Windows\Panther\unattend.xml
+del /s /q /f "%ALLUSERSPROFILE%\Application Data\Microsoft\Network\Downloader\qmgr*.dat"
+del /s /q /f "%ALLUSERSPROFILE%\Microsoft\Network\Downloader\qmgr*.dat"
+del /s /q /f "%SYSTEMROOT%\Logs\WindowsUpdate\*"
+if exist "%SYSTEMROOT%\winsxs\pending.xml.bak" del /s /q /f "%SYSTEMROOT%\winsxs\pending.xml.bak"
+if exist "%SYSTEMROOT%\winsxs\pending.xml" (
+    takeown /f "%SYSTEMROOT%\winsxs\pending.xml"
+    attrib -r -s -h /s /d "%SYSTEMROOT%\winsxs\pending.xml"
+    ren "%SYSTEMROOT%\winsxs\pending.xml" pending.xml.bak
+)
+ 
+if exist "%SYSTEMROOT%\SoftwareDistribution\DataStore.bak" rmdir /s /q "%SYSTEMROOT%\SoftwareDistribution\DataStore.bak"
+if exist "%SYSTEMROOT%\SoftwareDistribution\DataStore" (
+    attrib -r -s -h /s /d "%SYSTEMROOT%\SoftwareDistribution\DataStore"
+    ren "%SYSTEMROOT%\SoftwareDistribution\DataStore" DataStore.bak
+)
+
+if exist "%SYSTEMROOT%\SoftwareDistribution\Download.bak" rmdir /s /q "%SYSTEMROOT%\SoftwareDistribution\Download.bak"
+if exist "%SYSTEMROOT%\SoftwareDistribution\Download" (
+    attrib -r -s -h /s /d "%SYSTEMROOT%\SoftwareDistribution\Download"
+    ren "%SYSTEMROOT%\SoftwareDistribution\Download" Download.bak
+)
+ 
+if exist "%SYSTEMROOT%\system32\Catroot2.bak" rmdir /s /q "%SYSTEMROOT%\system32\Catroot2.bak"
+if exist "%SYSTEMROOT%\system32\Catroot2" (
+    attrib -r -s -h /s /d "%SYSTEMROOT%\system32\Catroot2"
+    ren "%SYSTEMROOT%\system32\Catroot2" Catroot2.bak
+)
+
 %windir%\System32\UsoClient.exe RefreshSettings
