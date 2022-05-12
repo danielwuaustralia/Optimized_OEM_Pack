@@ -11,35 +11,12 @@ rem Run as administrator, AveYo: ps\vbs version
 	>nul "%temp%\Elevate.vbs" & del /q "%temp%\Elevate.vbs" )
 	exit)
 
-takeown /f "%WINDIR%\winsxs\pending.xml" /a
-icacls "%WINDIR%\winsxs\pending.xml" /grant:r Administrators:F /c
-del "%WINDIR%\winsxs\pending.xml" /s /f /q
-del "%ALLUSERSPROFILE%\Application Data\Microsoft\Network\Downloader\qmgr*.dat" /s /f /q
-del "%ALLUSERSPROFILE%\Microsoft\Network\Downloader\qmgr*.dat" /s /f /q
-del "%LocalAppData%\Microsoft\Windows\WebCache" /s /f /q
-del "%LocalAppData%\Temp" /s /f /q
-del "%ProgramData%\USOPrivate\UpdateStore" /s /f /q
-del "%ProgramData%\USOShared\Logs" /s /f /q
-rd "%SystemDrive%\$GetCurrent" /s /q
-rd "%SystemDrive%\$SysReset" /s /q
-rd "%SystemDrive%\$Windows.~BT" /s /q
-rd "%SystemDrive%\$Windows.~WS" /s /q
-rd "%SystemDrive%\$WinREAgent" /s /q
-rd "%SystemDrive%\OneDriveTemp" /s /q
-rd "%SystemDrive%\Recovery" /s /q
-del "%temp%" /s /f /q
-del "%WINDIR%\Logs" /s /f /q
-del "%WINDIR%\Installer\$PatchCache$" /s /f /q
-del "%WINDIR%\SoftwareDistribution\Download" /s /f /q
-del "%WINDIR%\System32\LogFiles" /s /f /q
-del "%WINDIR%\System32\winevt\Logs" /s /f /q
-del "%WINDIR%\Temp" /s /f /q
-
 rem Clean Folder "%Windir%\System32\config\systemprofile\AppData\Local"
 set "tPath=%Windir%\System32\config\systemprofile\AppData\Local"
 >"%temp%\result" 2>&1 dir /ad /b "%tPath%\*tmp" && for /f "tokens=*" %%# in ('type "%temp%\result"') do >nul 2>&1 rd /s /q "%tPath%\%%#"
 
-rem Disk Cleaner
+rem Disk Clean
+rmdir /s /q "C:\TEMP\"
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /t REG_DWORD /d "2" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\BranchCache" /v "StateFlags0001" /t REG_DWORD /d "2" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Content Indexer Cleaner" /v "StateFlags0001" /t REG_DWORD /d "2" /f
