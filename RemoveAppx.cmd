@@ -43,10 +43,11 @@ Microsoft.MicrosoftEdge.Stable
 rem AADBrokerPlugin - needed for Microsoft Account, Windows Store Client - needed for Microsoft DCH drivers, Microsoft AAD Broker Plugin app (Breaks Office app Authentication)
 rem ContentDeliveryManager - this component is responsible for the automatic installation of unwanted advertised applications
 rem Microsoft Accounts Control - Microsoft Accounts Control app (This could prevent sign to microsoft account in UWP apps)
-rem CloudExperienceHost - Cloud Experience Host app (breaks Microsoft cloud/corporate sign in)
+rem CloudExperienceHost - https://docs.microsoft.com/en-us/office365/troubleshoot/authentication/automatic-authentication-fails
 rem Xbox Game Callable UI - Xbox Game Callable UI App (Breaks Xbox Live Games)
 rem MicrosoftWindows.Client.CBS - This prevent Snip & Sketch work and maybe Mail and Calendar
 rem Microsoft.549981C3F5F10 required for store
+rem Windows.CBSPreview - https://docs.microsoft.com/en-us/windows/uwp/devices-sensors/pos-camerabarcode
 set "systemappx=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications"
 for %%i in (
 1527c705-839a-4832-9118-54d4Bd6a0c89
@@ -65,7 +66,7 @@ Microsoft.Windows.AppRep.ChxApp
 Microsoft.Windows.AssignedAccessLockApp
 Microsoft.Windows.CallingShellApp
 Microsoft.Windows.CapturePicker
-Microsoft.Windows.CloudExperienceHost
+Windows.CBSPreview
 Microsoft.Windows.ContentDeliveryManager
 Microsoft.Windows.NarratorQuickStart
 Microsoft.Windows.ParentalControls
