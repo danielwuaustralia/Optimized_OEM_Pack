@@ -4,15 +4,13 @@ $ProgressPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 $PSModuleAutoloadingPreference = 'All'
 Start-Transcript -Path c:\OptimizeOnline2.txt -Force
-Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell' EnableScripts 1 -Force
-if ((Test-Path -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\PowerShell') -ne $true) { New-Item 'HKCU:\Software\Policies\Microsoft\Windows\PowerShell' -Force }
-New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\PowerShell' -Name 'ExecutionPolicy' -Value 'Unrestricted' -PropertyType String -Force
-if ((Test-Path -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\PowerShell') -ne $true) { New-Item 'HKLM:\Software\Policies\Microsoft\Windows\PowerShell' -Force }
-New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\PowerShell' -Name 'ExecutionPolicy' -Value 'Unrestricted' -PropertyType String -Force
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell') -ne $true) { New-Item 'HKCU:\Software\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell' -Force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell' -Name 'ExecutionPolicy' -Value 'Unrestricted' -PropertyType String -Force
 
 #######################################################################################################前置优化##############################################################################################################################
+
+Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell' EnableScripts 1 -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\PowerShell' -Name 'ExecutionPolicy' -Value 'Unrestricted' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\PowerShell' -Name 'ExecutionPolicy' -Value 'Unrestricted' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell' -Name 'ExecutionPolicy' -Value 'Unrestricted' -PropertyType String -Force
 
 # https://github.com/thebookisclosed/ViVe
 # Enable Tabs in File Explorer
@@ -1606,6 +1604,31 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Pa
 Set-NetTeredoConfiguration -Type Enterpriseclient
 Set-NetTeredoConfiguration -ServerName 'teredo.remlab.net'
 Set-Net6to4Configuration -State Enabled -AutoSharing Enabled -RelayState Enabled -RelayName '6to4.ipv6.microsoft.com'
+# CMD优化
+'netsh int tcp set global rss=enable' | cmd
+'netsh int tcp set global autotuninglevel=normal' | cmd
+'netsh int tcp set heuristics disabled' | cmd
+'netsh int tcp set global ecncapability=enable' | cmd
+'netsh int tcp set global timestamps=disabled' | cmd
+'netsh int tcp set global initialrto=2000' | cmd
+'netsh int tcp set global rsc=disable' | cmd
+'netsh int tcp set global fastopen=enable' | cmd
+'netsh int tcp set global hystart=disable' | cmd
+'netsh int tcp set global pacingprofile=off' | cmd
+'netsh int ip set global minmtu=576' | cmd
+'netsh int ip set global flowlabel=disable' | cmd
+'netsh int tcp set supplemental internet congestionprovider=CTCP' | cmd
+'netsh int tcp set supplemental internet enablecwndrestart=disable' | cmd
+'netsh int ip set global icmpredirects=disabled' | cmd
+'netsh int ip set global multicastforwarding=disabled' | cmd
+'netsh int ip set global groupforwardedfragments=disable' | cmd
+'netsh int tcp set security mpp=disabled profiles=disabled' | cmd
+'netsh int tcp set heur forcews=disable' | cmd
+'netsh int 6to4 set state state=enabled undoonstop=disabled' | cmd
+'netsh int 6to4 set routing routing=enabled sitelocals=enabled' | cmd
+'netsh int tcp set global nonsackrttresiliency=disabled' | cmd
+'netsh wlan stop hostednetwork' | cmd
+'netsh wlan set hostednetwork mode=disallow' | cmd
 # 设置所有网络类型为专用而非公共
 Set-NetConnectionProfile -NetworkCategory Private -Verbose
 Set-NetConnectionProfile -InterfaceAlias WLAN -NetworkCategory 'Private'
@@ -2762,28 +2785,6 @@ Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\C
 'fsutil behavior set EncryptPagingFile 0' | cmd
 'fsutil behavior set symlinkEvaluation L2R:0 R2R:0 R2L:0' | cmd
 'cipher /d /s:C:\' | cmd
-'netsh int tcp set global rss=enable' | cmd
-'netsh int tcp set global autotuninglevel=normal' | cmd
-'netsh int tcp set heuristics disabled' | cmd
-'netsh int tcp set global ecncapability=enable' | cmd
-'netsh int tcp set global timestamps=disabled' | cmd
-'netsh int tcp set global initialrto=2000' | cmd
-'netsh int tcp set global rsc=disable' | cmd
-'netsh int tcp set global fastopen=enable' | cmd
-'netsh int tcp set global hystart=disable' | cmd
-'netsh int tcp set global pacingprofile=off' | cmd
-'netsh int ip set global minmtu=576' | cmd
-'netsh int ip set global flowlabel=disable' | cmd
-'netsh int tcp set supplemental internet congestionprovider=CTCP' | cmd
-'netsh int tcp set supplemental internet enablecwndrestart=disable' | cmd
-'netsh int ip set global icmpredirects=disabled' | cmd
-'netsh int ip set global multicastforwarding=disabled' | cmd
-'netsh int ip set global groupforwardedfragments=disable' | cmd
-'netsh int tcp set security mpp=disabled profiles=disabled' | cmd
-'netsh int tcp set heur forcews=disable' | cmd
-'netsh int 6to4 set state state=enabled undoonstop=disabled' | cmd
-'netsh int 6to4 set routing routing=enabled sitelocals=enabled' | cmd
-'netsh int tcp set global nonsackrttresiliency=disabled' | cmd
 'compact /CompactOs:never' | cmd
 'fsutil behavior set allowextchar 1' | cmd
 'fsutil behavior set Bugcheckoncorrupt 0' | cmd
@@ -2804,8 +2805,6 @@ Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\C
 'powercfg -change -monitor-timeout-dc 0' | cmd
 'powercfg -change -monitor-timeout-ac 0' | cmd
 'fsutil behavior set disabledeletenotify 0' | cmd
-'netsh wlan stop hostednetwork' | cmd
-'netsh wlan set hostednetwork mode=disallow' | cmd
 "attrib +r 'C:\ProgramData\NVIDIA Corporation\nvtopps\nvtopps.db3'" | cmd
 "attrib +r 'C:\ProgramData\NVIDIA Corporation\nvtopps\nvtopps.log'" | cmd
 'fsutil bypassIo state C:\' | cmd
