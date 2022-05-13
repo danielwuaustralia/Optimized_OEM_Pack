@@ -1505,13 +1505,13 @@ if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS') -ne
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS' -Name 'Application DSCP Marking Request' -Value 'Allowed' -PropertyType String -Force
 # Disable Peer-to-Peer Networking
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Peernet' -Name 'Disabled' -Value 1 -PropertyType DWord -Force
-# Disable LLTDIO driver and Responder RSPNDR driver
+#
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD' -Name 'EnableRspndr' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD' -Name 'EnableLLTDIO' -Value 0 -PropertyType DWord -Force
-# 0 - Disable LMHOSTS Lookup on all adapters / 1 - Enable
 if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NetBT\Parameters') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\NetBT\Parameters' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NetBT\Parameters' -Name 'EnableLMHOSTS' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Name 'EnableNetbios' -Value 0 -PropertyType DWord -Force
 # SMB 1.0
 if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Browser\Parameters') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\Browser\Parameters' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Browser\Parameters' -Name 'MaintainServerList' -Value 'Yes' -PropertyType String -Force
@@ -1528,15 +1528,12 @@ if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched\Di
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched\UserPriorityMapping') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched\UserPriorityMapping' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched' -Name 'MaxOutstandingSends' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched' -Name 'NonBestEffortLimit' -Value 0 -PropertyType DWord -Force
+# DNS
 if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider' -Force }
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider' -Name 'DnsPriority' -Value 6 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider' -Name 'HostsPriority' -Value 5 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider' -Name 'LocalPriority' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider' -Name 'NetbtPriority' -Value 7 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Force };
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Name 'EnableAutoDoh' -Value 0 -PropertyType DWord -Force
-# https://techcommunity.microsoft.com/t5/networking-blog/aligning-on-mdns-ramping-down-netbios-name-resolution-and-llmnr/ba-p/3290816
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Name 'EnableNetbios' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient' -Force }
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient' -Name 'EnableMDNS' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient' -Name 'EnableMulticast' -Value 0 -PropertyType DWord -Force
@@ -1548,6 +1545,10 @@ New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows NT\DNSC
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows NT\DNSClient' -Name 'DisableSmartProtocolReordering' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows NT\DNSClient' -Name 'PreferLocalOverLowerBindingDNS' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows NT\DNSClient' -Name 'QueryNetBTFQDN' -Value 0 -PropertyType DWord -Force
+# 关闭DNS加密
+if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Force };
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Name 'EnableAutoDoh' -Value 0 -PropertyType DWord -Force
+# 
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkConnectivityStatusIndicator') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkConnectivityStatusIndicator' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkConnectivityStatusIndicator' -Name 'UseGlobalDNS' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkConnectivityStatusIndicator' -Name 'DisablePassivePolling' -Value 1 -PropertyType DWord -Force
@@ -1565,6 +1566,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Pa
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet' -Name 'MinimumInternetHopCount' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet' -Name 'EnableActiveProbing' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet' -Name 'PassivePollPeriod' -Value 120 -PropertyType DWord -Force
+#
 if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Force }
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'DelayedAckFrequency' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'DelayedAckTicks' -Value 1 -PropertyType DWord -Force
@@ -1582,6 +1584,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Par
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'DefaultTTL' -Value 64 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'MaxUserPort' -Value 65534 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'TcpTimedWaitDelay' -Value 30 -PropertyType DWord -Force
+#
 if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AFD\Parameters') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\AFD\Parameters' -Force }
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AFD\Parameters' -Name 'DefaultReceiveWindow' -Value 16384 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AFD\Parameters' -Name 'DefaultSendWindow' -Value 16384 -PropertyType DWord -Force
@@ -1597,6 +1600,7 @@ if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\mrxsmb') -n
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer' -Name 'EnableOplocks' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer' -Name 'OplocksDisabled' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\mrxsmb' -Name 'OplocksDisabled' -Value 1 -PropertyType DWord -Force
+# ipv6
 if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters' -Name 'DisabledComponents' -Value 0 -PropertyType DWord -Force
 Set-NetTeredoConfiguration -Type Enterpriseclient
@@ -1660,32 +1664,76 @@ Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName 'Gigabit Lite' -Di
 
 #######################################################################################################语言键盘鼠标##############################################################################################################################
 
-# 字体
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY1') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY1' -Force };
+# https://docs.microsoft.com/en-us/dotnet/desktop/wpf/advanced/cleartype-registry-settings?view=netframeworkdesktop-4.8
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY1' -Name 'ClearTypeLevel' -Value 100 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY1' -Name 'EnhancedContrastLevel' -Value 200 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY1' -Name 'GrayscaleEnhancedContrastLevel' -Value 50 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY1' -Name 'TextContrastLevel' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY1' -Name 'PixelStructure' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY1' -Name 'GammaLevel' -Value 1800 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY2') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY2' -Force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY2' -Name 'ClearTypeLevel' -Value 100 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY2' -Name 'EnhancedContrastLevel' -Value 200 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY2' -Name 'GrayscaleEnhancedContrastLevel' -Value 50 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY2' -Name 'TextContrastLevel' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY2' -Name 'PixelStructure' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY2' -Name 'GammaLevel' -Value 1800 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY3') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY3' -Force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY3' -Name 'ClearTypeLevel' -Value 100 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY3' -Name 'EnhancedContrastLevel' -Value 200 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY3' -Name 'GrayscaleEnhancedContrastLevel' -Value 50 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY3' -Name 'TextContrastLevel' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY3' -Name 'PixelStructure' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY3' -Name 'GammaLevel' -Value 1800 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY4') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY4' -Force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY4' -Name 'ClearTypeLevel' -Value 100 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY4' -Name 'EnhancedContrastLevel' -Value 200 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY4' -Name 'GrayscaleEnhancedContrastLevel' -Value 50 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY4' -Name 'TextContrastLevel' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY4' -Name 'PixelStructure' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY4' -Name 'GammaLevel' -Value 1800 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY5') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY5' -Force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY5' -Name 'ClearTypeLevel' -Value 100 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY5' -Name 'EnhancedContrastLevel' -Value 200 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY5' -Name 'GrayscaleEnhancedContrastLevel' -Value 50 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY5' -Name 'TextContrastLevel' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY5' -Name 'PixelStructure' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY5' -Name 'GammaLevel' -Value 1800 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY6') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY6' -Force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY6' -Name 'ClearTypeLevel' -Value 100 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY6' -Name 'EnhancedContrastLevel' -Value 200 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY6' -Name 'GrayscaleEnhancedContrastLevel' -Value 50 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY6' -Name 'TextContrastLevel' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY6' -Name 'PixelStructure' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY6' -Name 'GammaLevel' -Value 1800 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY7') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY7' -Force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY7' -Name 'ClearTypeLevel' -Value 100 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY7' -Name 'EnhancedContrastLevel' -Value 200 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY7' -Name 'GrayscaleEnhancedContrastLevel' -Value 50 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY7' -Name 'TextContrastLevel' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY7' -Name 'PixelStructure' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY7' -Name 'GammaLevel' -Value 1800 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY8') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY8' -Force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY8' -Name 'ClearTypeLevel' -Value 100 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY8' -Name 'EnhancedContrastLevel' -Value 200 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY8' -Name 'GrayscaleEnhancedContrastLevel' -Value 50 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY8' -Name 'TextContrastLevel' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY8' -Name 'PixelStructure' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY8' -Name 'GammaLevel' -Value 1800 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY9') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY9' -Force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY9' -Name 'ClearTypeLevel' -Value 100 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY9' -Name 'EnhancedContrastLevel' -Value 200 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY9' -Name 'GrayscaleEnhancedContrastLevel' -Value 50 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY9' -Name 'TextContrastLevel' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY9' -Name 'PixelStructure' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY9' -Name 'GammaLevel' -Value 1800 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY10') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY10' -Force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY10' -Name 'ClearTypeLevel' -Value 100 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY10' -Name 'EnhancedContrastLevel' -Value 200 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY10' -Name 'GrayscaleEnhancedContrastLevel' -Value 50 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY10' -Name 'TextContrastLevel' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY10' -Name 'PixelStructure' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY10' -Name 'GammaLevel' -Value 1800 -PropertyType DWord -Force
+#
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name '苹方-简 中黑体 (TrueType)' -Value 'PingFangSC-17.d1e2-Medium.otf' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts' -Name '苹方-简 中黑体 (TrueType)' -Value 'PingFangSC-17.d1e2-Medium.otf' -PropertyType String -Force
+#
 New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows' -Name 'DisableATMFD' -Value 1 -PropertyType DWord -Force
 Remove-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Font Drivers' -Name 'Adobe Type Manager' -Force
+#
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\System' -Name 'EnableFontProviders' -Value 0 -PropertyType DWord -Force
+#
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'CaptionFont' -Value ([byte[]](0xf3, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x90, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x86, 0x03, 0x02, 0x01, 0x22, 0xae, 0x5f, 0x6f, 0x8f, 0xc5, 0x96, 0xd1, 0x9e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'IconFont' -Value ([byte[]](0xf3, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x90, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x86, 0x03, 0x02, 0x01, 0x22, 0xae, 0x5f, 0x6f, 0x8f, 0xc5, 0x96, 0xd1, 0x9e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'MenuFont' -Value ([byte[]](0xf3, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x90, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x86, 0x03, 0x02, 0x01, 0x22, 0xae, 0x5f, 0x6f, 0x8f, 0xc5, 0x96, 0xd1, 0x9e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
@@ -1712,6 +1760,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Par
 if ((Test-Path -LiteralPath 'HKCU:\Control Panel\International\Geo') -ne $true) { New-Item 'HKCU:\Control Panel\International\Geo' -Force };
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\International\Geo' -Name 'Nation' -Value '244' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\International\Geo' -Name 'Name' -Value 'US' -PropertyType String -Force
+# 鼠标
 if ((Test-Path -LiteralPath 'HKCU:\Control Panel\Mouse') -ne $true) { New-Item 'HKCU:\Control Panel\Mouse' -Force }
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Mouse' -Name 'ActiveWindowTracking' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Mouse' -Name 'Beep' -Value 'No' -PropertyType String -Force
@@ -1727,10 +1776,6 @@ New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'ContactVisual
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'GestureVisualization' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\mouclass\Parameters') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\mouclass\Parameters' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\mouclass\Parameters' -Name 'MouseDataQueueSize' -Value 25 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\kbdclass\Parameters') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\kbdclass\Parameters' -Force };
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\kbdclass\Parameters' -Name 'KeyboardDataQueueSize' -Value 25 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath 'HKCU:\Control Panel\Keyboard') -ne $true) { New-Item 'HKCU:\Control Panel\Keyboard' -Force }
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Keyboard' -Name 'KeyboardDelay' -Value '0' -PropertyType String -Force
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Input\Settings\ControllerProcessor\CursorSpeed') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Input\Settings\ControllerProcessor\CursorSpeed' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Input\Settings\ControllerProcessor\CursorSpeed' -Name 'CursorSensitivity' -Value 100 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Input\Settings\ControllerProcessor\CursorSpeed' -Name 'CursorUpdateInterval' -Value 1 -PropertyType DWord -Force
@@ -1751,6 +1796,12 @@ if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\usbflags') -
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\usbflags' -Name 'fid_D1Latency' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\usbflags' -Name 'fid_D2Latency' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\usbflags' -Name 'fid_D3Latency' -Value 0 -PropertyType DWord -Force
+# 键盘
+if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\kbdclass\Parameters') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\kbdclass\Parameters' -Force };
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\kbdclass\Parameters' -Name 'KeyboardDataQueueSize' -Value 25 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath 'HKCU:\Control Panel\Keyboard') -ne $true) { New-Item 'HKCU:\Control Panel\Keyboard' -Force }
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Keyboard' -Name 'KeyboardDelay' -Value '0' -PropertyType String -Force
+# 
 if ((Test-Path -LiteralPath 'HKCU:\Control Panel\Accessibility') -ne $true) { New-Item 'HKCU:\Control Panel\Accessibility' -Force };
 if ((Test-Path -LiteralPath 'HKCU:\Control Panel\Accessibility\AudioDescription') -ne $true) { New-Item 'HKCU:\Control Panel\Accessibility\AudioDescription' -Force };
 if ((Test-Path -LiteralPath 'HKCU:\Control Panel\Accessibility\Blind Access') -ne $true) { New-Item 'HKCU:\Control Panel\Accessibility\Blind Access' -Force };
@@ -1846,10 +1897,11 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\TabletTip\1.7' -Name 'En
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\TabletTip\1.7' -Name 'TipbandDesiredVisibility' -Value 0 -PropertyType DWord -Force
 
 #######################################################################################################音频设置##############################################################################################################################
-
+#
 if ((Test-Path -LiteralPath 'HKCU:\Control Panel\Sound') -ne $true) { New-Item 'HKCU:\Control Panel\Sound' -Force };
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Sound' -Name 'Beep' -Value 'no' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Sound' -Name 'ExtendedSounds' -Value 'no' -PropertyType String -Force
+#
 if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Multimedia\Audio') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Multimedia\Audio' -Force }
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Multimedia\Audio' -Name 'UserDuckingPreference' -Value 3 -PropertyType DWord -Force
 
@@ -2096,6 +2148,7 @@ New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\T
 New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'SystemUsesLightTheme' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'EnabledBlurBehind' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'EnableTransparency' -Value 1 -PropertyType DWord -Force
+#
 if ((Test-Path -LiteralPath 'HKCU:\Control Panel\Colors') -ne $true) { New-Item 'HKCU:\Control Panel\Colors' -Force };
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'ActiveBorder' -Value '212 208 200' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'ActiveTitle' -Value '10 36 106' -PropertyType String -Force
@@ -2127,102 +2180,8 @@ New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'WindowFrame' -
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'WindowText' -Value '0 0 0' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'Background' -Value '58 110 165' -PropertyType String -Force
 
-#######################################################################################################最佳性能##############################################################################################################################
+#######################################################################################################广告追踪##############################################################################################################################
 
-# 根目录证书
-# http://woshub.com/updating-trusted-root-certificates-in-windows-10/
-# "certutil.exe -f -generateSSTFromWU C:\TEMP\trustedcerts.sst" | cmd
-# Get-ChildItem -Path C:\TEMP\trustedcerts.sst | Import-Certificate -CertStoreLocation Cert:\LocalMachine\Root
-# https://docs.microsoft.com/en-us/troubleshoot/windows-server/windows-security/microsoft-trusted-root-store-removal-of-us-federal-common-policy
-if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\AutoUpdate') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\AutoUpdate' -Force };
-Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\AutoUpdate' -Name 'EncodedCtl' -Force
-Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\AutoUpdate' -Name 'LastSyncTime' -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\AutoUpdate' -Name 'RootDirURL' -Value 'http://ctldl.windowsupdate.com/msdownload/update/v3/static/trustedr/en/test' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\AutoUpdate' -Name 'SyncFromDirUrl' -Value 'http://ctldl.windowsupdate.com/msdownload/update/v3/static/trustedr/en/test' -PropertyType String -Force
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\Certificates' -Recurse -Force;
-# Disable some of the kernel memory mitigations. Causes boot crash/loops if Intel SGX is enforced and not set to "Application Controlled" or "Off" in your Firmware. Gamers don't use SGX under any possible circumstance.
-'bcdedit /set isolatedcontext No' | cmd
-'bcdedit /set allowedinmemorysettings 0x0' | cmd
-# Disable DMA memory protection and cores isolation ("virtualization-based protection").
-'bcdedit /set vsmlaunchtype Off' | cmd
-'bcdedit /set vm No' | cmd
-# Avoid the use of uncontiguous portions of low-memory from the OS. Boosts memory performance and improves microstuttering at least 80% of the cases. Also fixes the command buffer stutter after disabling 5-level paging on 10th gen Intel. Causes system freeze on unstable memory sticks.
-'bcdedit /set firstmegabytepolicy UseAll' | cmd
-'bcdedit /set avoidlowmemory 0x8000000' | cmd
-'bcdedit /set nolowmem Yes' | cmd
-# Enable X2Apic and enable Memory Mapping for PCI-E devices.
-'bcdedit /set x2apicpolicy Enable' | cmd
-'bcdedit /set configaccesspolicy Default' | cmd
-'bcdedit /set MSI Default' | cmd
-'bcdedit /set usephysicaldestination No' | cmd
-'bcdedit /set usefirmwarepcisettings No' | cmd
-'bcdedit /deletevalue useplatformclock' | cmd
-'bcdedit /set disabledynamictick yes' | cmd
-'bcdedit /set debug No' | cmd
-'bcdedit /set disableelamdrivers Yes' | cmd
-'bcdedit /set quietboot Yes' | cmd
-'bcdedit /set hypervisorlaunchtype off' | cmd
-'bcdedit /set bootlog yes' | cmd
-'bcdedit /set recoveryenabled no' | cmd
-'bcdedit /set nx OptIn' | cmd
-'bcdedit /set bootstatuspolicy ignoreallfailures' | cmd
-'fsutil behavior set disable8dot3 1' | cmd
-'fsutil behavior set disableencryption 1' | cmd
-'fsutil behavior set disablelastaccess 1' | cmd
-'fsutil behavior set EncryptPagingFile 0' | cmd
-'fsutil behavior set symlinkEvaluation L2R:0 R2R:0 R2L:0' | cmd
-'cipher /d /s:C:\' | cmd
-'netsh int tcp set global rss=enable' | cmd
-'netsh int tcp set global autotuninglevel=normal' | cmd
-'netsh int tcp set heuristics disabled' | cmd
-'netsh int tcp set global ecncapability=enable' | cmd
-'netsh int tcp set global timestamps=disabled' | cmd
-'netsh int tcp set global initialrto=2000' | cmd
-'netsh int tcp set global rsc=disable' | cmd
-'netsh int tcp set global fastopen=enable' | cmd
-'netsh int tcp set global hystart=disable' | cmd
-'netsh int tcp set global pacingprofile=off' | cmd
-'netsh int ip set global minmtu=576' | cmd
-'netsh int ip set global flowlabel=disable' | cmd
-'netsh int tcp set supplemental internet congestionprovider=CTCP' | cmd
-'netsh int tcp set supplemental internet enablecwndrestart=disable' | cmd
-'netsh int ip set global icmpredirects=disabled' | cmd
-'netsh int ip set global multicastforwarding=disabled' | cmd
-'netsh int ip set global groupforwardedfragments=disable' | cmd
-'netsh int tcp set security mpp=disabled profiles=disabled' | cmd
-'netsh int tcp set heur forcews=disable' | cmd
-'netsh int 6to4 set state state=enabled undoonstop=disabled' | cmd
-'netsh int 6to4 set routing routing=enabled sitelocals=enabled' | cmd
-'netsh int tcp set global nonsackrttresiliency=disabled' | cmd
-'compact /CompactOs:never' | cmd
-'fsutil behavior set allowextchar 1' | cmd
-'fsutil behavior set Bugcheckoncorrupt 0' | cmd
-'fsutil behavior set disablecompression 1' | cmd
-'fsutil behavior set DisableLastAccess 1' | cmd
-'fsutil behavior set encryptpagingfile 0' | cmd
-'fsutil behavior set memoryusage 2' | cmd
-'fsutil behavior set mftzone 2' | cmd
-'fsutil resource setavailable c:' | cmd
-'fsutil resource setavailable d:' | cmd
-'fsutil resource setlog shrink 10 C:\' | cmd
-'fsutil resource setlog shrink 10 D:\' | cmd
-'fsutil resource setautoreset true c:\' | cmd
-'fsutil resource setautoreset true d:\' | cmd
-'fsutil usn deletejournal /d /n c:' | cmd
-'fsutil usn deletejournal /d /n d:' | cmd
-'powercfg -h off' | cmd
-'powercfg -change -monitor-timeout-dc 0' | cmd
-'powercfg -change -monitor-timeout-ac 0' | cmd
-'fsutil behavior set disabledeletenotify 0' | cmd
-'Auditpol /set /category:* /Success:disable' | cmd
-'netsh wlan stop hostednetwork' | cmd
-'netsh wlan set hostednetwork mode=disallow' | cmd
-"attrib +r 'C:\ProgramData\NVIDIA Corporation\nvtopps\nvtopps.db3'" | cmd
-"attrib +r 'C:\ProgramData\NVIDIA Corporation\nvtopps\nvtopps.log'" | cmd
-'fsutil bypassIo state C:\' | cmd
-"netsh advfirewall firewall set rule group='File and Printer Sharing' new enable=Yes" | cmd
-"netsh advfirewall firewall set rule group='Network Discovery' new enable=Yes" | cmd
-'Netsh advfirewall set allprofile state off' | cmd
 # Hosts
 Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 p1-play.edge4k.com'
 Start-Sleep -Milliseconds '10'
@@ -2285,17 +2244,21 @@ Start-Sleep -Milliseconds '10'
 # Edge中国区特供广告
 Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 https://ntp.msn.cn/'
 Start-Sleep -Milliseconds '10'
-# 广告追踪
+#
 Disable-AppBackgroundTaskDiagnosticLog
+#
 Get-AutologgerConfig | Set-AutologgerConfig -Start 0 -InitStatus 0 -Confirm:$false -EA Ignore -Verbose
+#
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack' -Name 'DiagTrackStatus' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack' -Name 'DiagTrackAuthorization' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack' -Name 'Disabled' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack' -Name 'DisableAutomaticTelemetryKeywordReporting' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack' -Name 'TelemetryServiceDisabled' -Value 1 -PropertyType DWord -Force
+#
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\PolicyManager\default\System\AllowTelemetry') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\PolicyManager\default\System\AllowTelemetry' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\PolicyManager\default\System\AllowTelemetry' -Name 'value' -Value 0 -PropertyType DWord -Force
+#
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection' -Name 'AllowTelemetry' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection' -Name 'MaxTelemetryAllowed' -Value 0 -PropertyType DWord -Force
@@ -2313,6 +2276,7 @@ New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\DataCol
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\DataCollection' -Name 'AllowCommercialDataPipeline' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\DataCollection' -Name 'LimitDiagnosticLogCollection' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\DataCollection' -Name 'AllowUpdateComplianceProcessing' -Value 0 -PropertyType DWord -Force
+#
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat' -Name 'AITEnable' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat' -Name 'DisableInventory' -Value 1 -PropertyType DWord -Force
@@ -2322,6 +2286,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppComp
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat' -Name 'DisablePcaUI' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat' -Name 'SbEnable' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat' -Name 'DisableUAR' -Value 1 -PropertyType DWord -Force
+#
 If (!(Test-Path 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile')) { New-Item -Path 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile' -Force }
 Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile' -Name 'EnableFirewall' -Type DWord -Value 0 -Force
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile\Logging') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile\Logging' -Force };
@@ -2632,6 +2597,12 @@ New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\Windows
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'NoAutoUpdate' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\Software\Microsoft\WindowsUpdate\UX\Settings') -ne $true) { New-Item 'HKLM:\Software\Microsoft\WindowsUpdate\UX\Settings' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\WindowsUpdate\UX\Settings' -Name 'SmartActiveHoursState' -Value 0 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization' -Force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization' -Name 'DODownloadMode' -Value 0 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\BITS') -ne $true) { New-Item 'HKLM:\Software\Policies\Microsoft\Windows\BITS' -Force };
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\BITS' -Name 'EnablePeercaching' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\BITS' -Name 'DisableBranchCache' -Value 1 -PropertyType DWord -Force
+# 禁止驱动更新
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata' -Force };
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DriverSearching') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DriverSearching' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DriverSearching' -Name 'DontPromptForWindowsUpdate' -Value 1 -PropertyType DWord -Force
@@ -2642,11 +2613,7 @@ if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUp
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name 'ExcludeWUDriversInQualityUpdate' -Value 1 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsUpdate\UpdatePolicy\PolicyState') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\WindowsUpdate\UpdatePolicy\PolicyState' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsUpdate\UpdatePolicy\PolicyState' -Name 'ExcludeWUDrivers' -Value 1 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization' -Force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization' -Name 'DODownloadMode' -Value 0 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\BITS') -ne $true) { New-Item 'HKLM:\Software\Policies\Microsoft\Windows\BITS' -Force };
-New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\BITS' -Name 'EnablePeercaching' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\BITS' -Name 'DisableBranchCache' -Value 1 -PropertyType DWord -Force
+#
 if ((Test-Path -LiteralPath 'HKCU:\Control Panel\UnsupportedHardwareNotificationCache') -ne $true) { New-Item 'HKCU:\Control Panel\UnsupportedHardwareNotificationCache' -Force };
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\UnsupportedHardwareNotificationCache' -Name 'SV1' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\UnsupportedHardwareNotificationCache' -Name 'SV2' -Value 0 -PropertyType DWord -Force
@@ -2682,9 +2649,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defende
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels\Microsoft-Windows-Windows Defender/Operational' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Attachments' -Name 'ScanWithAntiVirus' -Value 1 -PropertyType DWord -Force
 # 关闭smartscreen
-"%systemroot%\SysWOW64\SetACL.exe -on 'C:\Windows\System32\smartscreen.exe' -ot file -actn setowner -ownr 'n:Administrators'" | cmd
-"%systemroot%\SysWOW64\SetACL.exe -on 'C:\Windows\System32\smartscreen.exe' -ot file -actn ace -ace 'n:Administrators;p:full'" | cmd
-'icacls C:\Windows\System32\smartscreen.exe /deny Everyone:(X)' | cmd
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\System') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\System' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\System' -Name 'EnableSmartScreen' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\SmartScreen') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\SmartScreen' -Force };
@@ -2754,6 +2718,103 @@ New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\EventLo
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\EventLog\System' -Name 'Retention' -Value '1' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\EventLog\System' -Name 'MaxSize' -Value 1024 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\EventLog\System' -Name 'AutoBackupLogFiles' -Value '0' -PropertyType String -Force
+
+#######################################################################################################最佳性能##############################################################################################################################
+
+# 根目录证书
+# http://woshub.com/updating-trusted-root-certificates-in-windows-10/
+# "certutil.exe -f -generateSSTFromWU C:\TEMP\trustedcerts.sst" | cmd
+# Get-ChildItem -Path C:\TEMP\trustedcerts.sst | Import-Certificate -CertStoreLocation Cert:\LocalMachine\Root
+# https://docs.microsoft.com/en-us/troubleshoot/windows-server/windows-security/microsoft-trusted-root-store-removal-of-us-federal-common-policy
+Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\AutoUpdate' -Name 'EncodedCtl' -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\AutoUpdate' -Name 'LastSyncTime' -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\AutoUpdate' -Name 'RootDirURL' -Value 'http://ctldl.windowsupdate.com/msdownload/update/v3/static/trustedr/en/test' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\AutoUpdate' -Name 'SyncFromDirUrl' -Value 'http://ctldl.windowsupdate.com/msdownload/update/v3/static/trustedr/en/test' -PropertyType String -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\Certificates' -Recurse -Force;
+# Disable some of the kernel memory mitigations. Causes boot crash/loops if Intel SGX is enforced and not set to "Application Controlled" or "Off" in your Firmware. Gamers don't use SGX under any possible circumstance.
+'bcdedit /set isolatedcontext No' | cmd
+'bcdedit /set allowedinmemorysettings 0x0' | cmd
+# Disable DMA memory protection and cores isolation ("virtualization-based protection").
+'bcdedit /set vsmlaunchtype Off' | cmd
+'bcdedit /set vm No' | cmd
+# Avoid the use of uncontiguous portions of low-memory from the OS. Boosts memory performance and improves microstuttering at least 80% of the cases. Also fixes the command buffer stutter after disabling 5-level paging on 10th gen Intel. Causes system freeze on unstable memory sticks.
+'bcdedit /set firstmegabytepolicy UseAll' | cmd
+'bcdedit /set avoidlowmemory 0x8000000' | cmd
+'bcdedit /set nolowmem Yes' | cmd
+# Enable X2Apic and enable Memory Mapping for PCI-E devices.
+'bcdedit /set x2apicpolicy Enable' | cmd
+'bcdedit /set configaccesspolicy Default' | cmd
+'bcdedit /set MSI Default' | cmd
+'bcdedit /set usephysicaldestination No' | cmd
+'bcdedit /set usefirmwarepcisettings No' | cmd
+'bcdedit /deletevalue useplatformclock' | cmd
+'bcdedit /set disabledynamictick yes' | cmd
+'bcdedit /set debug No' | cmd
+'bcdedit /set bootmenupolicy legacy' | cmd
+'bcdedit /set disableelamdrivers Yes' | cmd
+'bcdedit /set quietboot Yes' | cmd
+'bcdedit /set hypervisorlaunchtype off' | cmd
+'bcdedit /set bootlog yes' | cmd
+'bcdedit /set recoveryenabled no' | cmd
+'bcdedit /set nx OptIn' | cmd
+'bcdedit /set bootstatuspolicy ignoreallfailures' | cmd
+'fsutil behavior set disable8dot3 1' | cmd
+'fsutil behavior set disableencryption 1' | cmd
+'fsutil behavior set disablelastaccess 1' | cmd
+'fsutil behavior set EncryptPagingFile 0' | cmd
+'fsutil behavior set symlinkEvaluation L2R:0 R2R:0 R2L:0' | cmd
+'cipher /d /s:C:\' | cmd
+'netsh int tcp set global rss=enable' | cmd
+'netsh int tcp set global autotuninglevel=normal' | cmd
+'netsh int tcp set heuristics disabled' | cmd
+'netsh int tcp set global ecncapability=enable' | cmd
+'netsh int tcp set global timestamps=disabled' | cmd
+'netsh int tcp set global initialrto=2000' | cmd
+'netsh int tcp set global rsc=disable' | cmd
+'netsh int tcp set global fastopen=enable' | cmd
+'netsh int tcp set global hystart=disable' | cmd
+'netsh int tcp set global pacingprofile=off' | cmd
+'netsh int ip set global minmtu=576' | cmd
+'netsh int ip set global flowlabel=disable' | cmd
+'netsh int tcp set supplemental internet congestionprovider=CTCP' | cmd
+'netsh int tcp set supplemental internet enablecwndrestart=disable' | cmd
+'netsh int ip set global icmpredirects=disabled' | cmd
+'netsh int ip set global multicastforwarding=disabled' | cmd
+'netsh int ip set global groupforwardedfragments=disable' | cmd
+'netsh int tcp set security mpp=disabled profiles=disabled' | cmd
+'netsh int tcp set heur forcews=disable' | cmd
+'netsh int 6to4 set state state=enabled undoonstop=disabled' | cmd
+'netsh int 6to4 set routing routing=enabled sitelocals=enabled' | cmd
+'netsh int tcp set global nonsackrttresiliency=disabled' | cmd
+'compact /CompactOs:never' | cmd
+'fsutil behavior set allowextchar 1' | cmd
+'fsutil behavior set Bugcheckoncorrupt 0' | cmd
+'fsutil behavior set disablecompression 1' | cmd
+'fsutil behavior set DisableLastAccess 1' | cmd
+'fsutil behavior set encryptpagingfile 0' | cmd
+'fsutil behavior set memoryusage 2' | cmd
+'fsutil behavior set mftzone 2' | cmd
+'fsutil resource setavailable c:' | cmd
+'fsutil resource setavailable d:' | cmd
+'fsutil resource setlog shrink 10 C:\' | cmd
+'fsutil resource setlog shrink 10 D:\' | cmd
+'fsutil resource setautoreset true c:\' | cmd
+'fsutil resource setautoreset true d:\' | cmd
+'fsutil usn deletejournal /d /n c:' | cmd
+'fsutil usn deletejournal /d /n d:' | cmd
+'powercfg -h off' | cmd
+'powercfg -change -monitor-timeout-dc 0' | cmd
+'powercfg -change -monitor-timeout-ac 0' | cmd
+'fsutil behavior set disabledeletenotify 0' | cmd
+'Auditpol /set /category:* /Success:disable' | cmd
+'netsh wlan stop hostednetwork' | cmd
+'netsh wlan set hostednetwork mode=disallow' | cmd
+"attrib +r 'C:\ProgramData\NVIDIA Corporation\nvtopps\nvtopps.db3'" | cmd
+"attrib +r 'C:\ProgramData\NVIDIA Corporation\nvtopps\nvtopps.log'" | cmd
+'fsutil bypassIo state C:\' | cmd
+"netsh advfirewall firewall set rule group='File and Printer Sharing' new enable=Yes" | cmd
+"netsh advfirewall firewall set rule group='Network Discovery' new enable=Yes" | cmd
+'Netsh advfirewall set allprofile state off' | cmd
 # 显卡设置
 if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS' -Name 'EnableGR535' -Value 0 -PropertyType DWord -Force
