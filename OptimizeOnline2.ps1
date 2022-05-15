@@ -2126,8 +2126,8 @@ New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'IconTitleWrap' -Value '1' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'MenuHeight' -Value '-270' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'MenuWidth' -Value '-270' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'ScrollHeight' -Value '-240' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'ScrollWidth' -Value '-240' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'ScrollHeight' -Value '-275' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'ScrollWidth' -Value '-275' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'SmCaptionHeight' -Value '-180' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'SmCaptionWidth' -Value '-180' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'PaddedBorderWidth' -Value '0' -PropertyType String -Force
@@ -2206,6 +2206,7 @@ New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'Background' -V
 #######################################################################################################广告追踪##############################################################################################################################
 
 # Hosts
+# Potplayer
 Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 p1-play.edge4k.com'
 Start-Sleep -Milliseconds '10'
 Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 p2-play.edge4k.com'
@@ -2218,51 +2219,55 @@ Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 disp
 Start-Sleep -Milliseconds '10'
 Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 analytics.ad.daum.net'
 Start-Sleep -Milliseconds '10'
+# CSGO
 Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 blog.counter-strike.net'
 Start-Sleep -Milliseconds '10'
-# https://docs.microsoft.com/en-us/windows/privacy/configure-windows-diagnostic-data-in-your-organization
+# https://docs.microsoft.com/en-us/windows/privacy/windows-11-endpoints-non-enterprise-editions
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 activity.windows.com'
+Start-Sleep -Milliseconds '10'
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 tile-service.weather.microsoft.com'
+Start-Sleep -Milliseconds '10'
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 bing.com'
+Start-Sleep -Milliseconds '10'
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 fp.msedge.net'
+Start-Sleep -Milliseconds '10'
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 k-ring.msedge.net'
+Start-Sleep -Milliseconds '10'
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 cs.dds.microsoft.com'
+Start-Sleep -Milliseconds '10'
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 dmd.metaservices.microsoft.com'
+Start-Sleep -Milliseconds '10'
 Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 v10.events.data.microsoft.com'
-Start-Sleep -Milliseconds '10'
-Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 v10c.events.data.microsoft.com'
-Start-Sleep -Milliseconds '10'
-Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 v10.vortex-win.data.microsoft.com'
 Start-Sleep -Milliseconds '10'
 Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 watson.telemetry.microsoft.com'
 Start-Sleep -Milliseconds '10'
-Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 watson.microsoft.com'
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 fs.microsoft.com'
 Start-Sleep -Milliseconds '10'
-Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 umwatsonc.telemetry.microsoft.com'
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 inference.location.live.net'
 Start-Sleep -Milliseconds '10'
-Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 umwatsonc.events.data.microsoft.com'
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 maps.windows.com'
 Start-Sleep -Milliseconds '10'
-Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 *-umwatsonc.events.data.microsoft.com'
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 edge.activity.windows.com'
 Start-Sleep -Milliseconds '10'
-Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 ceuswatcab01.blob.core.windows.net'
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 edge.microsoft.com'
 Start-Sleep -Milliseconds '10'
-Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 ceuswatcab02.blob.core.windows.net'
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 msedge.api.cdp.microsoft.com'
 Start-Sleep -Milliseconds '10'
-Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 eaus2watcab01.blob.core.windows.net'
-Start-Sleep -Milliseconds '10'
-Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 eaus2watcab02.blob.core.windows.net'
-Start-Sleep -Milliseconds '10'
-Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 weus2watcab01.blob.core.windows.net'
-Start-Sleep -Milliseconds '10'
-Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 weus2watcab02.blob.core.windows.net'
-Start-Sleep -Milliseconds '10'
-Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 oca.telemetry.microsoft.com'
-Start-Sleep -Milliseconds '10'
-Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 oca.microsoft.com'
-Start-Sleep -Milliseconds '10'
-Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 kmwatsonc.telemetry.microsoft.com'
-Start-Sleep -Milliseconds '10'
-Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 *-kmwatsonc.telemetry.microsoft.com'
-Start-Sleep -Milliseconds '10'
-# The following endpoint is used for Windows Defender when Cloud-based Protection is enabled. If you turn off traffic for this endpoint, the device will not use Cloud-based Protection.
 Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 wdcp.microsoft.com'
+Start-Sleep -Milliseconds '10'
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 wdcpalt.microsoft.com'
 Start-Sleep -Milliseconds '10'
 Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 smartscreen-prod.microsoft.com'
 Start-Sleep -Milliseconds '10'
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 smartscreen.microsoft.com'
+Start-Sleep -Milliseconds '10'
 Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 checkappexec.microsoft.com'
+Start-Sleep -Milliseconds '10'
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 arc.msn.com'
+Start-Sleep -Milliseconds '10'
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 ris.api.iris.microsoft.com'
+Start-Sleep -Milliseconds '10'
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 mucp.api.account.microsoft.com'
 Start-Sleep -Milliseconds '10'
 # Edge中国区特供广告
 Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 https://ntp.msn.cn/'
@@ -2331,6 +2336,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\SQMClient\Windo
 if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Privacy') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Privacy' -Force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Privacy' -Name 'PrivacyConsentSettingsVersion' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Privacy' -Name 'TailoredExperiencesWithDiagnosticDataEnabled' -Value 0 -PropertyType DWord -Force
+# https://docs.microsoft.com/en-us/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services#1816-feedback--diagnostics
 if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Siuf\Rules') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Siuf\Rules' -Force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Siuf\Rules' -Name 'PeriodInNanoSeconds' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Siuf\Rules' -Name 'NumberOfSIUFInPeriod' -Value 0 -PropertyType DWord -Force
@@ -2752,40 +2758,45 @@ Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\Au
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\AutoUpdate' -Name 'RootDirURL' -Value 'http://ctldl.windowsupdate.com/msdownload/update/v3/static/trustedr/en/test' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\AutoUpdate' -Name 'SyncFromDirUrl' -Value 'http://ctldl.windowsupdate.com/msdownload/update/v3/static/trustedr/en/test' -PropertyType String -Force
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\Certificates' -Recurse -Force;
-# Disable some of the kernel memory mitigations. Causes boot crash/loops if Intel SGX is enforced and not set to "Application Controlled" or "Off" in your Firmware. Gamers don't use SGX under any possible circumstance.
+# CPU性能优化
+# Dynamic Ticks are a feature that lets windows stop the system timer when nothing is happening in order to conserve power.
+'bcdedit /set disabledynamictick yes' | cmd
+# Controls the times stamp counter synchronization policy
+'bcdedit /set tscsyncpolicy enhanced' | cmd
+# This enables the HPET (High Precision Event Timer), a hardware timer available on many motherboards. It it disabled by default on windows, because it *could* add latency (CPU is faster).
+'bcdedit /set useplatformtick true' | cmd
+'bcdedit /set uselegacyapicmode no' | cmd
+# 关闭核心内存保护
 'bcdedit /set isolatedcontext No' | cmd
 'bcdedit /set allowedinmemorysettings 0x0' | cmd
-# Disable DMA memory protection and cores isolation ("virtualization-based protection").
+# 关闭虚拟机支持
 'bcdedit /set vsmlaunchtype Off' | cmd
 'bcdedit /set vm No' | cmd
-# Avoid the use of uncontiguous portions of low-memory from the OS. Boosts memory performance and improves microstuttering at least 80% of the cases. Also fixes the command buffer stutter after disabling 5-level paging on 10th gen Intel. Causes system freeze on unstable memory sticks.
+'bcdedit /set hypervisorlaunchtype off' | cmd
+# 关闭低内存
 'bcdedit /set firstmegabytepolicy UseAll' | cmd
 'bcdedit /set avoidlowmemory 0x8000000' | cmd
 'bcdedit /set nolowmem Yes' | cmd
-# Enable X2Apic and enable Memory Mapping for PCI-E devices.
+# 启用 X2Apic和内存映射
 'bcdedit /set x2apicpolicy Enable' | cmd
 'bcdedit /set configaccesspolicy Default' | cmd
 'bcdedit /set MSI Default' | cmd
 'bcdedit /set usephysicaldestination No' | cmd
 'bcdedit /set usefirmwarepcisettings No' | cmd
-'bcdedit /deletevalue useplatformclock' | cmd
-'bcdedit /set disabledynamictick yes' | cmd
+# 启动选项
 'bcdedit /set debug No' | cmd
 'bcdedit /set bootmenupolicy legacy' | cmd
 'bcdedit /set disableelamdrivers Yes' | cmd
 'bcdedit /set quietboot Yes' | cmd
-'bcdedit /set hypervisorlaunchtype off' | cmd
-'bcdedit /set bootlog yes' | cmd
 'bcdedit /set recoveryenabled no' | cmd
 'bcdedit /set nx OptIn' | cmd
 'bcdedit /set bootstatuspolicy ignoreallfailures' | cmd
+# fsutil behavior
 'fsutil behavior set disable8dot3 1' | cmd
 'fsutil behavior set disableencryption 1' | cmd
 'fsutil behavior set disablelastaccess 1' | cmd
 'fsutil behavior set EncryptPagingFile 0' | cmd
 'fsutil behavior set symlinkEvaluation L2R:0 R2R:0 R2L:0' | cmd
-'cipher /d /s:C:\' | cmd
-'compact /CompactOs:never' | cmd
 'fsutil behavior set allowextchar 1' | cmd
 'fsutil behavior set Bugcheckoncorrupt 0' | cmd
 'fsutil behavior set disablecompression 1' | cmd
@@ -2793,6 +2804,9 @@ Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\C
 'fsutil behavior set encryptpagingfile 0' | cmd
 'fsutil behavior set memoryusage 2' | cmd
 'fsutil behavior set mftzone 2' | cmd
+'fsutil behavior set disabledeletenotify 0' | cmd
+'cipher /d /s:C:\' | cmd
+'compact /CompactOs:never' | cmd
 'fsutil resource setavailable c:' | cmd
 'fsutil resource setavailable d:' | cmd
 'fsutil resource setlog shrink 10 C:\' | cmd
@@ -2801,13 +2815,15 @@ Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\C
 'fsutil resource setautoreset true d:\' | cmd
 'fsutil usn deletejournal /d /n c:' | cmd
 'fsutil usn deletejournal /d /n d:' | cmd
+'fsutil bypassIo state C:\' | cmd
+#
 'powercfg -h off' | cmd
 'powercfg -change -monitor-timeout-dc 0' | cmd
 'powercfg -change -monitor-timeout-ac 0' | cmd
-'fsutil behavior set disabledeletenotify 0' | cmd
+#
 "attrib +r 'C:\ProgramData\NVIDIA Corporation\nvtopps\nvtopps.db3'" | cmd
 "attrib +r 'C:\ProgramData\NVIDIA Corporation\nvtopps\nvtopps.log'" | cmd
-'fsutil bypassIo state C:\' | cmd
+#
 "netsh advfirewall firewall set rule group='File and Printer Sharing' new enable=Yes" | cmd
 "netsh advfirewall firewall set rule group='Network Discovery' new enable=Yes" | cmd
 'Netsh advfirewall set allprofile state off' | cmd
@@ -3339,6 +3355,11 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuar
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'EnableVirtualization' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios' -Name 'HypervisorEnforcedCodeIntegrity' -Value 0 -PropertyType DWord -Force
+# Smart App Control
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\CI\Policy' -Name 'VerifiedAndReputablePolicyState' -Value 0 -PropertyType DWord -Force
+# Turn Off Suggested Actions
+if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\SmartActionPlatform\SmartClipboard') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Windows\CurrentVersion\SmartActionPlatform\SmartClipboard' -Force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\SmartActionPlatform\SmartClipboard' -Name 'Disabled' -Value 1 -PropertyType DWord -Force
 # Disable all system-wide exploit mitigations. (nx OptIn still enables DEP for Windows Kernel/System processes)
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel' -Name 'DpcWatchdogProfileOffset' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel' -Name 'MitigationOptions' -Value ([byte[]](0x22, 0x22, 0x22, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
