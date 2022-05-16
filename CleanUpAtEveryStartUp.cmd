@@ -10,12 +10,20 @@ rem Run as administrator, AveYo: ps\vbs version
 	>nul "%temp%\Elevate.vbs" & del /q "%temp%\Elevate.vbs" )
 	exit)
 
+rem SpeedyFox
+"C:\Program Files\speedyfox.exe" "/Firefox:all" "/Chrome:all"
+
+timeout 10
+
 rem Clean Folder "%Windir%\System32\config\systemprofile\AppData\Local"
 set "tPath=%Windir%\System32\config\systemprofile\AppData\Local"
 >"%temp%\result" 2>&1 dir /ad /b "%tPath%\*tmp" && for /f "tokens=*" %%# in ('type "%temp%\result"') do >nul 2>&1 rd /s /q "%tPath%\%%#"
 
 rem Default TEMP folder
 rmdir /s /q "C:\TEMP\"
+
+rem Refresh DNS Cache
+ipconfig /flushdns
 
 rem CleanMgr.exe
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /f
@@ -50,7 +58,7 @@ reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Reset Log Files" /v "StateFlags0001" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Upgrade Log Files" /v "StateFlags0001" /f
 
-timeout 5
+timeout 10
 
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /t REG_DWORD /d "2" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\BranchCache" /v "StateFlags0001" /t REG_DWORD /d "2" /f
@@ -84,13 +92,5 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Wi
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Reset Log Files" /v "StateFlags0001" /t REG_DWORD /d "2" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Upgrade Log Files" /v "StateFlags0001" /t REG_DWORD /d "2" /f
 start /high CLEANMGR /sagerun:1
-
-timeout 5
-
-rem SpeedyFox
-"C:\Program Files\speedyfox.exe" "/Firefox:all" "/Chrome:all" 
-
-rem Refresh DNS Cache
-ipconfig /flushdns
 
 exit
