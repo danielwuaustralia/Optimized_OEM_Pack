@@ -520,10 +520,9 @@ Enable-ScheduledTask -TaskName 'Process Lasso Core Engine Only'
 Enable-ScheduledTask -TaskName 'Process Lasso Management Console (GUI)'
 Enable-ScheduledTask -TaskName 'Session agent for Process Lasso'
 
-######################################################################################################禁用AutoLogger##############################################################################################################################
+######################################################################################################停止写入日志##############################################################################################################################
 
-Get-AutologgerConfig | Set-AutologgerConfig -Start 0 -InitStatus 0 -Confirm:$false -EA Ignore -Verbose
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener' -Name 'Start' -Value 0 -PropertyType DWord -Force
+# Get-AutologgerConfig | Set-AutologgerConfig -Start 0 -InitStatus 0 -Confirm:$false -EA Ignore -Verbose
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\CloudExperienceHostOobe' -Name 'Start' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger' -Name 'Start' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderAuditLogger' -Name 'Start' -Value 0 -PropertyType DWord -Force
@@ -532,22 +531,51 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autolo
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SQMLogger' -Name 'Start' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiSession' -Name 'Start' -Value 0 -PropertyType DWord -Force
 
-# 停止写入日志
-Set-ItemProperty -Path 'C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog.etl' -Name IsReadOnly -Value $True
-Set-ItemProperty -Path 'C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog_RunOnce.etl' -Name IsReadOnly -Value $True
-Get-ChildItem -Path 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
-Get-ChildItem 'C:\Windows\System32\SleepStudy' | Remove-Item -Recurse -Force -Verbose
-Get-ChildItem -Path 'C:\Windows\System32\SleepStudy' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
+# Disable Diagtrack-Listener
+$diagtrack = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener'  
+Get-ChildItem $diagtrack | ForEach-Object {  
+    Set-ItemProperty -Path "$diagtrack\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$diagtrack\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# Disable Evenlog
+$eventlog = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-System'  
+Get-ChildItem $eventlog | ForEach-Object {  
+    Set-ItemProperty -Path "$eventlog\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$eventlog\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+#
 Get-ChildItem 'C:\Windows\Logs' | Remove-Item -Recurse -Force -Verbose
 Get-ChildItem -Path 'C:\Windows\Logs' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
+#
+Get-ChildItem 'C:\ProgramData\USOShared\Logs\System' | Remove-Item -Recurse -Force -Verbose
+Get-ChildItem -Path 'C:\ProgramData\USOShared\Logs\System' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
+#
+Set-ItemProperty -Path 'C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog.etl' -Name IsReadOnly -Value $True
+Set-ItemProperty -Path 'C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog_RunOnce.etl' -Name IsReadOnly -Value $True
+#
+Get-ChildItem 'C:\ProgramData\Microsoft\Windows\wfp' | Remove-Item -Recurse -Force -Verbose
+Get-ChildItem -Path 'C:\ProgramData\Microsoft\Windows\wfp' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
+#
+Get-ChildItem 'C:\Windows\System32\SleepStudy' | Remove-Item -Recurse -Force -Verbose
+Get-ChildItem -Path 'C:\Windows\System32\SleepStudy' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
+#
+Get-ChildItem 'C:\ProgramData\NVIDIA Corporation\nvtopps' | Remove-Item -Recurse -Force -Verbose
+Get-ChildItem -Path 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
+#
 Get-ChildItem 'C:\Windows\System32\LogFiles' | Remove-Item -Recurse -Force -Verbose
 Get-ChildItem -Path 'C:\Windows\System32\LogFiles' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
+#
 Get-ChildItem 'C:\Windows\ServiceProfiles\NetworkService\AppData\Local\Microsoft\Windows\DeliveryOptimization\Logs' | Remove-Item -Recurse -Force -Verbose
 Get-ChildItem -Path 'C:\Windows\ServiceProfiles\NetworkService\AppData\Local\Microsoft\Windows\DeliveryOptimization\Logs' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
+#
 Get-ChildItem 'C:\Windows\security\EDP\Logs' | Remove-Item -Recurse -Force -Verbose
 Get-ChildItem -Path 'C:\Windows\security\EDP\Logs' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
+#
 Get-ChildItem 'C:\ProgramData\Microsoft\Diagnosis\ETLLogs' | Remove-Item -Recurse -Force -Verbose
 Get-ChildItem -Path 'C:\ProgramData\Microsoft\Diagnosis\ETLLogs' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
+#
 Get-ChildItem 'C:\Windows\System32\WDI\LogFiles' | Remove-Item -Recurse -Force -Verbose
 Get-ChildItem -Path 'C:\Windows\System32\WDI\LogFiles' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
 
