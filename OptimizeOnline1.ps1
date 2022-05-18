@@ -510,10 +510,10 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersio
 
 ######################################################################################################计划任务##############################################################################################################################
 
+# Export-ScheduledTask -TaskName "TASK-NAME" -TaskPath "\TASK-PATH-TASKSCHEDULER\" | out-file C:\PATH\TO\EXPORT-FOLDER\TASK-EXPORT-NAME.xml
+# Register-ScheduledTask -xml (Get-Content 'C:\PATH\TO\IMPORTED-FOLDER-PATH\TASK-INPORT-NAME.xml' | Out-String) -TaskName "TASK-IMPORT-NAME" -TaskPath "\TASK-PATH-TASKSCHEDULER\" -User COMPUTER-NAME\USER-NAME –Force
+Get-ChildItem 'C:\Windows\System32\Tasks\Microsoft\Office' | Remove-Item -Recurse -Force -Verbose
 Get-ScheduledTask -TaskPath '*' | Disable-ScheduledTask
-Enable-ScheduledTask -TaskPath '\Microsoft\Windows\SoftwareProtectionPlatform' -TaskName 'SvcRestartTask'
-Enable-ScheduledTask -TaskPath '\Microsoft\Windows\SoftwareProtectionPlatform' -TaskName 'SvcRestartTaskLogon'
-Enable-ScheduledTask -TaskPath '\Microsoft\Windows\SoftwareProtectionPlatform' -TaskName 'SvcRestartTaskNetwork'
 Enable-ScheduledTask -TaskPath '\Microsoft\Windows\UPnP' -TaskName 'UPnPHostConfig'
 Enable-ScheduledTask -TaskPath '\Microsoft\Windows\TextServicesFramework' -TaskName 'MsCtfMonitor'
 Enable-ScheduledTask -TaskName 'Process Lasso Core Engine Only'
@@ -531,6 +531,25 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autolo
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener' -Name 'Start' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SQMLogger' -Name 'Start' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiSession' -Name 'Start' -Value 0 -PropertyType DWord -Force
+
+# 停止写入日志
+Set-ItemProperty -Path 'C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog.etl' -Name IsReadOnly -Value $True
+Set-ItemProperty -Path 'C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog_RunOnce.etl' -Name IsReadOnly -Value $True
+Get-ChildItem -Path 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
+Get-ChildItem 'C:\Windows\System32\SleepStudy' | Remove-Item -Recurse -Force -Verbose
+Get-ChildItem -Path 'C:\Windows\System32\SleepStudy' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
+Get-ChildItem 'C:\Windows\Logs' | Remove-Item -Recurse -Force -Verbose
+Get-ChildItem -Path 'C:\Windows\Logs' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
+Get-ChildItem 'C:\Windows\System32\LogFiles' | Remove-Item -Recurse -Force -Verbose
+Get-ChildItem -Path 'C:\Windows\System32\LogFiles' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
+Get-ChildItem 'C:\Windows\ServiceProfiles\NetworkService\AppData\Local\Microsoft\Windows\DeliveryOptimization\Logs' | Remove-Item -Recurse -Force -Verbose
+Get-ChildItem -Path 'C:\Windows\ServiceProfiles\NetworkService\AppData\Local\Microsoft\Windows\DeliveryOptimization\Logs' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
+Get-ChildItem 'C:\Windows\security\EDP\Logs' | Remove-Item -Recurse -Force -Verbose
+Get-ChildItem -Path 'C:\Windows\security\EDP\Logs' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
+Get-ChildItem 'C:\ProgramData\Microsoft\Diagnosis\ETLLogs' | Remove-Item -Recurse -Force -Verbose
+Get-ChildItem -Path 'C:\ProgramData\Microsoft\Diagnosis\ETLLogs' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
+Get-ChildItem 'C:\Windows\System32\WDI\LogFiles' | Remove-Item -Recurse -Force -Verbose
+Get-ChildItem -Path 'C:\Windows\System32\WDI\LogFiles' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
 
 ######################################################################################################其他优化##############################################################################################################################
 
