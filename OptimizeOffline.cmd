@@ -150,6 +150,7 @@ reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\Ta
 reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WaaSMedic" /f
 reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\XblGameSave" /f
 rem system apps
+rem Microsoft.AAD.BrokerPlugin and Microsoft.Windows.CloudExperienceHost required as per https://docs.microsoft.com/en-us/office365/troubleshoot/authentication/automatic-authentication-fails
 %systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications" -ot reg -actn setowner -ownr "n:Administrators"
 %systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications" -ot reg -actn ace -ace "n:Administrators;p:full"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match '1527c705-839a-4832-9118-54d4Bd6a0c89*') { Remove-Item -Path 'Registry::$_' } }"
