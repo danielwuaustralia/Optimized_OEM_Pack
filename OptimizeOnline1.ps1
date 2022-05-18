@@ -538,6 +538,20 @@ Get-ChildItem $diagtrack | ForEach-Object {
     Set-ItemProperty -Path "$diagtrack\$($_.pschildname)" -Name EnableProperty -Value 0
 }
 
+# Disable SQMLogger
+$SQMLogger = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SQMLogger'  
+Get-ChildItem $SQMLogger | ForEach-Object {  
+    Set-ItemProperty -Path "$SQMLogger\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$SQMLogger\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# Disable Evenlog-application
+$application = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-Application'  
+Get-ChildItem $application | ForEach-Object {  
+    Set-ItemProperty -Path "$application\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$application\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
 # Disable Evenlog
 $eventlog = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-System'  
 Get-ChildItem $eventlog | ForEach-Object {  
