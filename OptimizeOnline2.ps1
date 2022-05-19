@@ -2901,8 +2901,11 @@ Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\Au
 'bcdedit /set disabledynamictick yes' | cmd
 # Controls the times stamp counter synchronization policy
 'bcdedit /set tscsyncpolicy enhanced' | cmd
-# This enables the HPET (High Precision Event Timer), a hardware timer available on many motherboards. It it disabled by default on windows, because it *could* add latency (CPU is faster).
-'bcdedit /set useplatformtick true' | cmd
+# https://docs.microsoft.com/en-us/windows/win32/sysinfo/acquiring-high-resolution-time-stamps
+'bcdedit /deletevalue useplatformtick' | cmd
+# Forces Windows to use hardware timer instead of OS default
+'bcdedit /set useplatformclock true' | cmd
+#
 'bcdedit /set uselegacyapicmode no' | cmd
 # 关闭核心内存保护
 'bcdedit /set isolatedcontext No' | cmd
