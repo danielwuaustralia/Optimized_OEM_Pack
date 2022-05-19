@@ -114,11 +114,6 @@ rem onedrive startup
 %systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineNTUSER\Software\Microsoft\Windows\CurrentVersion\Run" -ot reg -actn setowner -ownr "n:Administrators"
 %systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineNTUSER\Software\Microsoft\Windows\CurrentVersion\Run" -ot reg -actn ace -ace "n:Administrators;p:full"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Remove-ItemProperty -Path 'HKLM:\OfflineNTUSER\Software\Microsoft\Windows\CurrentVersion\Run' -Name 'OneDriveSetup' -Force"
-rem Smart App Control
-%systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineSYSTEM\CurrentControlSet\Control\CI\Policy" -ot reg -actn setowner -ownr "n:Administrators"
-%systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineSYSTEM\CurrentControlSet\Control\CI\Policy" -ot reg -actn ace -ace "n:Administrators;p:full"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "New-Item 'HKLM:\OfflineSYSTEM\CurrentControlSet\Control\CI\Policy' -Force"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "New-ItemProperty -LiteralPath 'HKLM:\OfflineSYSTEM\CurrentControlSet\Control\CI\Policy' -Name 'VerifiedAndReputablePolicyState' -Value 0 -PropertyType DWord -Force"
 echo *****************************************************************
 reg unload "HKLM\OfflineNTUSER"
 reg unload "HKLM\OfflineSOFTWARE"
