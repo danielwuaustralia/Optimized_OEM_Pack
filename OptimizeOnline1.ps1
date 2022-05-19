@@ -5,14 +5,14 @@ $ConfirmPreference = 'None'
 $PSModuleAutoloadingPreference = 'All'
 Start-Transcript -Path c:\OptimizeOnline1.txt -Force
 
-#######################################################################################################前置优化##############################################################################################################################
+####################################################################################################### 前置优化 ##############################################################################################################################
 
 Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell' EnableScripts 1 -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\PowerShell' -Name 'ExecutionPolicy' -Value 'Unrestricted' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\PowerShell' -Name 'ExecutionPolicy' -Value 'Unrestricted' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell' -Name 'ExecutionPolicy' -Value 'Unrestricted' -PropertyType String -Force
 
-#######################################################################################################普通服务##############################################################################################################################
+####################################################################################################### 普通服务 ##############################################################################################################################
 
 # 管理此计算机对智能卡的取读访问
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SCardSvr' -Name 'Start' -Value 4 -PropertyType DWord -Force
@@ -483,7 +483,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\intelpmax
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\IntelPMT' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\intelppm' -Name 'Start' -Value 4 -PropertyType DWord -Force
 
-#######################################################################################################Windows Defender##############################################################################################################################
+####################################################################################################### 移除Defender ##############################################################################################################################
 
 Set-ItemProperty -Path 'REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Name Visibility -Value '1' -Force
 Remove-Item -Path 'REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Include *Owner* -Recurse -Force
@@ -508,7 +508,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\SecurityHealt
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe' -Force -ea SilentlyContinue };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe' -Name 'Debugger' -Value '0' -PropertyType String -Force
 
-######################################################################################################计划任务##############################################################################################################################
+###################################################################################################### 计划任务 ##############################################################################################################################
 
 # Export-ScheduledTask -TaskName "TASK-NAME" -TaskPath "\TASK-PATH-TASKSCHEDULER\" | out-file C:\PATH\TO\EXPORT-FOLDER\TASK-EXPORT-NAME.xml
 # Register-ScheduledTask -xml (Get-Content 'C:\PATH\TO\IMPORTED-FOLDER-PATH\TASK-INPORT-NAME.xml' | Out-String) -TaskName "TASK-IMPORT-NAME" -TaskPath "\TASK-PATH-TASKSCHEDULER\" -User COMPUTER-NAME\USER-NAME –Force
@@ -520,7 +520,7 @@ Enable-ScheduledTask -TaskName 'Process Lasso Core Engine Only'
 Enable-ScheduledTask -TaskName 'Process Lasso Management Console (GUI)'
 Enable-ScheduledTask -TaskName 'Session agent for Process Lasso'
 
-######################################################################################################停止写入日志##############################################################################################################################
+###################################################################################################### 关闭事件记录 ##############################################################################################################################
 
 # Get-AutologgerConfig | Set-AutologgerConfig -Start 0 -InitStatus 0 -Confirm:$false -EA Ignore -Verbose
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\CloudExperienceHostOobe' -Name 'Start' -Value 0 -PropertyType DWord -Force
@@ -593,7 +593,7 @@ Get-ChildItem -Path 'C:\ProgramData\Microsoft\Diagnosis\ETLLogs' -Recurse -File 
 Get-ChildItem 'C:\Windows\System32\WDI\LogFiles' | Remove-Item -Recurse -Force -Verbose
 Get-ChildItem -Path 'C:\Windows\System32\WDI\LogFiles' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
 
-######################################################################################################其他优化##############################################################################################################################
+###################################################################################################### 其他优化 ##############################################################################################################################
 
 # XP图标
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Force }
