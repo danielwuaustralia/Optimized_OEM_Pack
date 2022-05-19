@@ -108,6 +108,7 @@ rem Defender
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Remove-ItemProperty -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Run' -Name 'SecurityHealth' -Force"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Remove-ItemProperty -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Run' -Name 'WindowsDefender' -Force"
 rem MS edge shortcut
+"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "New-Item 'HKLM:\OfflineSOFTWARE\Policies\Microsoft\EdgeUpdate' -Force"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "New-ItemProperty -LiteralPath 'HKLM:\OfflineSOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'CreateDesktopShortcutDefault' -Value 0 -PropertyType DWord -Force"
 rem onedrive startup
 %systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineNTUSER\Software\Microsoft\Windows\CurrentVersion\Run" -ot reg -actn setowner -ownr "n:Administrators"
@@ -116,82 +117,12 @@ rem onedrive startup
 rem Smart App Control
 %systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineSYSTEM\CurrentControlSet\Control\CI\Policy" -ot reg -actn setowner -ownr "n:Administrators"
 %systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineSYSTEM\CurrentControlSet\Control\CI\Policy" -ot reg -actn ace -ace "n:Administrators;p:full"
+"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "New-Item 'HKLM:\OfflineSYSTEM\CurrentControlSet\Control\CI\Policy' -Force"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "New-ItemProperty -LiteralPath 'HKLM:\OfflineSYSTEM\CurrentControlSet\Control\CI\Policy' -Name 'VerifiedAndReputablePolicyState' -Value 0 -PropertyType DWord -Force"
-rem scheduled tasks
-%systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache" -ot reg -actn setowner -ownr "n:Administrators"
-%systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache" -ot reg -actn ace -ace "n:Administrators;p:full"
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Application Experience" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\AppxDeploymentClient" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Autochk" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\CloudExperienceHost" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Customer Experience Improvement Program" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Diagnosis" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DiskDiagnostic" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DiskFootprint" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Feedback" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Flighting" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Location" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Maintenance" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Maps" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\NetTrace" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Offline Files" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Power Efficiency Diagnostics" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\PushToInstall" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Ras" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Registry" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Time Synchronization" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Time Zone" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\User Profile Service" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Defender" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Error Reporting" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Filtering Platform" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WindowsUpdate" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WaaSMedic" /f
-reg delete "HKLM\OfflineSOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\XblGameSave" /f
-rem system apps
-rem Microsoft.AAD.BrokerPlugin and Microsoft.Windows.CloudExperienceHost required as per https://docs.microsoft.com/en-us/office365/troubleshoot/authentication/automatic-authentication-fails
-%systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications" -ot reg -actn setowner -ownr "n:Administrators"
-%systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications" -ot reg -actn ace -ace "n:Administrators;p:full"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match '1527c705-839a-4832-9118-54d4Bd6a0c89*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'c5e2524a-ea46-4f67-841f-6a9465d9d515*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'E2A4F912-2574-4A75-9BB0-0D023378592B*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'F46D4000-FD22-4DB4-AC8E-4E1DDDE828FE*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Microsoft.AsyncTextService*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Microsoft.BioEnrollment*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Microsoft.ECApp*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Microsoft.LockApp*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Microsoft.MicrosoftEdge*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Microsoft.MicrosoftEdgeDevToolsClient*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Microsoft.Windows.OOBENetworkCaptivePortal*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Microsoft.Windows.OOBENetworkConnectionFlow*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Microsoft.Windows.AppRep.ChxApp*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Microsoft.Windows.AssignedAccessLockApp*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Microsoft.Windows.CallingShellApp*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Microsoft.Windows.CapturePicker*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Windows.CBSPreview*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Microsoft.Windows.ContentDeliveryManager*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Microsoft.Windows.NarratorQuickStart*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Microsoft.Windows.ParentalControls*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Microsoft.Windows.PrintQueueActionCenter*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Microsoft.Windows.PeopleExperienceHost*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Microsoft.Windows.PinningConfirmationDialog*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Microsoft.Windows.SecureAssessmentBrowser*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Microsoft.Win32WebViewHost*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Microsoft.Windows.XGpuEjectDialog*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Microsoft.XboxGameCallableUI*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'NcsiUwpApp*') { Remove-Item -Path 'Registry::$_' } }"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-ChildItem -Path 'HKLM:\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | ForEach-Object { if ($_ -match 'Windows.PrintDialog*') { Remove-Item -Path 'Registry::$_' } }"
-rem %systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" -ot reg -actn setowner -ownr "n:Administrators"
-rem %systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" -ot reg -actn ace -ace "n:Administrators;p:full"
-rem "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Set-ItemProperty -Path 'HKLM:OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Name Visibility -Value 1 -Force -Verbose"
-rem ""C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Remove-Item -Path 'HKLM:OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Include *Owner* -Recurse -Force -Verbose"
 echo *****************************************************************
 reg unload "HKLM\OfflineNTUSER"
 reg unload "HKLM\OfflineSOFTWARE"
 reg unload "HKLM\OfflineSYSTEM"
-echo ***********删除无用的Packages***********
-rem "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-WindowsPackage -Path 'C:\Mount' | Where-Object { $_.PackageName -like '*Windows-Defender*' } | Remove-WindowsPackage -Path 'C:\Mount' -Recurse -Force -Verbose"
 echo ***********保存WIM镜像***********
 echo *****************************************************************
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Save-WindowsImage -Path 'C:\Mount' -CheckIntegrity -Verbose"
