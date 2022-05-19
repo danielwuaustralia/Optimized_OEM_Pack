@@ -394,6 +394,10 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\MsLldp' -
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\rspndr' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # spaceport
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\spaceport' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# Microsoft Hyper-V Virtualization Infrastructure Driver
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Vid' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# rdpbus
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\rdpbus' -Name 'Start' -Value 4 -PropertyType DWord -Force
 
 #######################################################################################################禁用分用户服务##############################################################################################################################
 
@@ -504,9 +508,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\wscsvc' -Name
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\wscsvc' -Name 'ErrorControl' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\wscsvc' -Name 'LaunchProtected' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\SecurityHealthService' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# SmartScreen
-if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe' -Force -ea SilentlyContinue };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe' -Name 'Debugger' -Value '0' -PropertyType String -Force
 
 ###################################################################################################### 计划任务 ##############################################################################################################################
 
@@ -519,17 +520,44 @@ Enable-ScheduledTask -TaskPath '\Microsoft\Windows\TextServicesFramework' -TaskN
 Enable-ScheduledTask -TaskName 'Process Lasso Core Engine Only'
 Enable-ScheduledTask -TaskName 'Process Lasso Management Console (GUI)'
 Enable-ScheduledTask -TaskName 'Session agent for Process Lasso'
+'schtasks /Delete /F /TN "\Microsoft\Windows\WaaSMedic\PerformRemediation"' | cmd
+'schtasks /Delete /F /TN "\Microsoft\Windows\WaaSMedic"' | cmd
+'schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan"' | cmd
+'schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan Static Task"' | cmd
+'schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator\UpdateModelTask"' | cmd
+'schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator\USO_UxBroker"' | cmd
+'schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator"' | cmd
+'schtasks /Delete /F /TN "\Microsoft\Windows\WindowsUpdate"' | cmd
+'schtasks /Delete /F /TN "\Microsoft\Windows\WindowsUpdate\Scheduled Start"' | cmd
 
 ###################################################################################################### 关闭事件记录 ##############################################################################################################################
 
 # Get-AutologgerConfig | Set-AutologgerConfig -Start 0 -InitStatus 0 -Confirm:$false -EA Ignore -Verbose
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\CloudExperienceHostOobe' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderAuditLogger' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DiagLog' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SQMLogger' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiSession' -Name 'Start' -Value 0 -PropertyType DWord -Force
+$Autologger = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger'  
+Get-ChildItem $Autologger | ForEach-Object {  
+    Set-ItemProperty -Path "$Autologger\$($_.pschildname)" -Name Start -Value 0
+}
+
+# Disable Cellcore
+$Cellcore = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Cellcore'  
+Get-ChildItem $Cellcore | ForEach-Object {  
+    Set-ItemProperty -Path "$Cellcore\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$Cellcore\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# Disable CloudExperienceHostOobe
+$CloudExperienceHostOobe = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\CloudExperienceHostOobe'  
+Get-ChildItem $CloudExperienceHostOobe | ForEach-Object {  
+    Set-ItemProperty -Path "$CloudExperienceHostOobe\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$CloudExperienceHostOobe\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# DefenderApiLogger
+$DefenderApiLogger = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger'  
+Get-ChildItem $DefenderApiLogger | ForEach-Object {  
+    Set-ItemProperty -Path "$DefenderApiLogger\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$DefenderApiLogger\$($_.pschildname)" -Name EnableProperty -Value 0
+}
 
 # Disable Diagtrack-Listener
 $diagtrack = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener'  
@@ -538,11 +566,109 @@ Get-ChildItem $diagtrack | ForEach-Object {
     Set-ItemProperty -Path "$diagtrack\$($_.pschildname)" -Name EnableProperty -Value 0
 }
 
-# Disable SQMLogger
-$SQMLogger = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SQMLogger'  
-Get-ChildItem $SQMLogger | ForEach-Object {  
-    Set-ItemProperty -Path "$SQMLogger\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$SQMLogger\$($_.pschildname)" -Name EnableProperty -Value 0
+# FaceTel
+$FaceTel = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\FaceTel'  
+Get-ChildItem $FaceTel | ForEach-Object {  
+    Set-ItemProperty -Path "$FaceTel\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$FaceTel\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# HolographicDevice
+$HolographicDevice = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\HolographicDevice'  
+Get-ChildItem $HolographicDevice | ForEach-Object {  
+    Set-ItemProperty -Path "$HolographicDevice\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$HolographicDevice\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# LwtNetLog
+$LwtNetLog = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\LwtNetLog'  
+Get-ChildItem $LwtNetLog | ForEach-Object {  
+    Set-ItemProperty -Path "$LwtNetLog\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$LwtNetLog\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# Mellanox-Kernel
+$MellanoxKernel = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Mellanox-Kernel'  
+Get-ChildItem $MellanoxKernel | ForEach-Object {  
+    Set-ItemProperty -Path "$MellanoxKernel\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$MellanoxKernel\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# Microsoft-Windows-AssignedAccess-Trace
+$AssignedAccessTrace = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Microsoft-Windows-AssignedAccess-Trace'  
+Get-ChildItem $AssignedAccessTrace | ForEach-Object {  
+    Set-ItemProperty -Path "$AssignedAccessTrace\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$AssignedAccessTrace\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# Microsoft-Windows-Rdp-Graphics-RdpIdd-Trace
+$RdpIddTrace = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Microsoft-Windows-Rdp-Graphics-RdpIdd-Trace'  
+Get-ChildItem $RdpIddTrace | ForEach-Object {  
+    Set-ItemProperty -Path "$RdpIddTrace\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$RdpIddTrace\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# Microsoft-Windows-Setup
+$WindowsSetup = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Microsoft-Windows-Setup'  
+Get-ChildItem $WindowsSetup | ForEach-Object {  
+    Set-ItemProperty -Path "$WindowsSetup\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$WindowsSetup\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# NBSMBLOGGER
+$NBSMBLOGGER = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\NBSMBLOGGER'  
+Get-ChildItem $NBSMBLOGGER | ForEach-Object {  
+    Set-ItemProperty -Path "$NBSMBLOGGER\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$NBSMBLOGGER\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# NetCore
+$NetCore = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\NetCore'  
+Get-ChildItem $NetCore | ForEach-Object {  
+    Set-ItemProperty -Path "$NetCore\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$NetCore\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# NtfsLog
+$NtfsLog = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\NtfsLog'  
+Get-ChildItem $NtfsLog | ForEach-Object {  
+    Set-ItemProperty -Path "$NtfsLog\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$NtfsLog\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# PEAuthLog
+$PEAuthLog = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\PEAuthLog'  
+Get-ChildItem $PEAuthLog | ForEach-Object {  
+    Set-ItemProperty -Path "$PEAuthLog\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$PEAuthLog\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# RadioMgr
+$RadioMgr = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\RadioMgr'  
+Get-ChildItem $RadioMgr | ForEach-Object {  
+    Set-ItemProperty -Path "$RadioMgr\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$RadioMgr\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# RdrLog
+$RdrLog = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\RdrLog'  
+Get-ChildItem $RdrLog | ForEach-Object {  
+    Set-ItemProperty -Path "$RdrLog\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$RdrLog\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# ReadyBoot
+$ReadyBoot = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\ReadyBoot'  
+Get-ChildItem $ReadyBoot | ForEach-Object {  
+    Set-ItemProperty -Path "$ReadyBoot\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$ReadyBoot\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# ReFSLog
+$ReFSLog = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\ReFSLog'  
+Get-ChildItem $ReFSLog | ForEach-Object {  
+    Set-ItemProperty -Path "$ReFSLog\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$ReFSLog\$($_.pschildname)" -Name EnableProperty -Value 0
 }
 
 # Disable Evenlog-application
@@ -559,41 +685,125 @@ Get-ChildItem $eventlog | ForEach-Object {
     Set-ItemProperty -Path "$eventlog\$($_.pschildname)" -Name EnableProperty -Value 0
 }
 
-#
-Get-ChildItem 'C:\Windows\Logs' | Remove-Item -Recurse -Force -Verbose
-Get-ChildItem -Path 'C:\Windows\Logs' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
-#
-Get-ChildItem 'C:\ProgramData\USOShared\Logs\System' | Remove-Item -Recurse -Force -Verbose
-Get-ChildItem -Path 'C:\ProgramData\USOShared\Logs\System' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
-#
-Set-ItemProperty -Path 'C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog.etl' -Name IsReadOnly -Value $True
-Set-ItemProperty -Path 'C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog_RunOnce.etl' -Name IsReadOnly -Value $True
-#
-Get-ChildItem 'C:\ProgramData\Microsoft\Windows\wfp' | Remove-Item -Recurse -Force -Verbose
-Get-ChildItem -Path 'C:\ProgramData\Microsoft\Windows\wfp' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
+# SetupPlatform
+$SetupPlatform = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SetupPlatform'  
+Get-ChildItem $SetupPlatform | ForEach-Object {  
+    Set-ItemProperty -Path "$SetupPlatform\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$SetupPlatform\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# SetupPlatformTel
+$SetupPlatformTel = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SetupPlatformTel'  
+Get-ChildItem $SetupPlatformTel | ForEach-Object {  
+    Set-ItemProperty -Path "$SetupPlatformTel\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$SetupPlatformTel\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# SpoolerLogger
+$SpoolerLogger = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SpoolerLogger'  
+Get-ChildItem $SpoolerLogger | ForEach-Object {  
+    Set-ItemProperty -Path "$SpoolerLogger\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$SpoolerLogger\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# Disable SQMLogger
+$SQMLogger = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SQMLogger'  
+Get-ChildItem $SQMLogger | ForEach-Object {  
+    Set-ItemProperty -Path "$SQMLogger\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$SQMLogger\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# TCPIPLOGGER
+$TCPIPLOGGER = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\TCPIPLOGGER'  
+Get-ChildItem $TCPIPLOGGER | ForEach-Object {  
+    Set-ItemProperty -Path "$TCPIPLOGGER\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$TCPIPLOGGER\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# TileStore
+$TileStore = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\TileStore'  
+Get-ChildItem $TileStore | ForEach-Object {  
+    Set-ItemProperty -Path "$TileStore\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$TileStore\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# Tpm
+$Tpm = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Tpm'  
+Get-ChildItem $Tpm | ForEach-Object {  
+    Set-ItemProperty -Path "$Tpm\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$Tpm\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# UBPM
+$UBPM = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\UBPM'  
+Get-ChildItem $UBPM | ForEach-Object {  
+    Set-ItemProperty -Path "$UBPM\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$UBPM\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# WFP-IPsec Trace
+$IPsecTrace = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WFP-IPsec Trace'  
+Get-ChildItem $IPsecTrace | ForEach-Object {  
+    Set-ItemProperty -Path "$IPsecTrace\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$IPsecTrace\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# WiFiDriverIHVSession
+$WiFiDriverIHVSession = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiDriverIHVSession'  
+Get-ChildItem $WiFiDriverIHVSession | ForEach-Object {  
+    Set-ItemProperty -Path "$WiFiDriverIHVSession\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$WiFiDriverIHVSession\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# WiFiDriverIHVSessionRepro
+$WiFiDriverIHVSessionRepro = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiDriverIHVSessionRepro'  
+Get-ChildItem $WiFiDriverIHVSessionRepro | ForEach-Object {  
+    Set-ItemProperty -Path "$WiFiDriverIHVSessionRepro\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$WiFiDriverIHVSessionRepro\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# WiFiSession
+$WiFiSession = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiSession'  
+Get-ChildItem $WiFiSession | ForEach-Object {  
+    Set-ItemProperty -Path "$WiFiSession\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$WiFiSession\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
+# WMI_Traces
+$WMITraces = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WMI_Traces'  
+Get-ChildItem $WMITraces | ForEach-Object {  
+    Set-ItemProperty -Path "$WMITraces\$($_.pschildname)" -Name Enabled -Value 0
+    Set-ItemProperty -Path "$WMITraces\$($_.pschildname)" -Name EnableProperty -Value 0
+}
+
 #
 Get-ChildItem 'C:\Windows\System32\SleepStudy' | Remove-Item -Recurse -Force -Verbose
 Get-ChildItem -Path 'C:\Windows\System32\SleepStudy' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
 #
 Get-ChildItem 'C:\ProgramData\NVIDIA Corporation\nvtopps' | Remove-Item -Recurse -Force -Verbose
 Get-ChildItem -Path 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
-#
-Get-ChildItem 'C:\Windows\System32\LogFiles' | Remove-Item -Recurse -Force -Verbose
-Get-ChildItem -Path 'C:\Windows\System32\LogFiles' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
-#
-Get-ChildItem 'C:\Windows\ServiceProfiles\NetworkService\AppData\Local\Microsoft\Windows\DeliveryOptimization\Logs' | Remove-Item -Recurse -Force -Verbose
-Get-ChildItem -Path 'C:\Windows\ServiceProfiles\NetworkService\AppData\Local\Microsoft\Windows\DeliveryOptimization\Logs' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
-#
-Get-ChildItem 'C:\Windows\security\EDP\Logs' | Remove-Item -Recurse -Force -Verbose
-Get-ChildItem -Path 'C:\Windows\security\EDP\Logs' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
-#
-Get-ChildItem 'C:\ProgramData\Microsoft\Diagnosis\ETLLogs' | Remove-Item -Recurse -Force -Verbose
-Get-ChildItem -Path 'C:\ProgramData\Microsoft\Diagnosis\ETLLogs' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
-#
-Get-ChildItem 'C:\Windows\System32\WDI\LogFiles' | Remove-Item -Recurse -Force -Verbose
-Get-ChildItem -Path 'C:\Windows\System32\WDI\LogFiles' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
 
 ###################################################################################################### 其他优化 ##############################################################################################################################
+
+# Image File Execution Options
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe' -Force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe' -Name 'Debugger' -Value '0' -PropertyType String -Force
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe' -Force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe' -Name 'Debugger' -Value '0' -PropertyType String -Force
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SecurityHealthService.exe') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SecurityHealthService.exe' -Force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SecurityHealthService.exe' -Name 'Debugger' -Value '0' -PropertyType String -Force
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SecurityHealthSystray.exe') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SecurityHealthSystray.exe' -Force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\SecurityHealthSystray.exe' -Name 'Debugger' -Value '0' -PropertyType String -Force
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MpCmdRun.exe') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MpCmdRun.exe' -Force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MpCmdRun.exe' -Name 'Debugger' -Value '0' -PropertyType String -Force
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\software_reporter_tool.exe') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\software_reporter_tool.exe' -Force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\software_reporter_tool.exe' -Name 'Debugger' -Value '0' -PropertyType String -Force
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\CompatTelRunner.exe") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\CompatTelRunner.exe" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\CompatTelRunner.exe' -Name 'Debugger' -Value '0' -PropertyType String -Force
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WaaSMedicAgent.exe") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WaaSMedicAgent.exe" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WaaSMedicAgent.exe' -Name 'Debugger' -Value '0' -PropertyType String -Force
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GameBarPresenceWriter.exe") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GameBarPresenceWriter.exe" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\GameBarPresenceWriter.exe' -Name 'Debugger' -Value '0' -PropertyType String -Force
 
 # XP图标
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons' -Force }
@@ -679,3 +889,6 @@ Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\WOW6432Node\AppID\{3eb3c877-1f1
 Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{0358b920-0ac7-461f-98f4-58e32cd89148}' -Name 'AppID' -Force;
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Classes\AppID\{3eb3c877-1f16-487c-9050-104dbcd66683}' -Force;
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Classes\CLSID\{0358b920-0ac7-461f-98f4-58e32cd89148}' -Recurse -Force;
+
+# windows defender application control
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\CI\Policy' -Name 'VerifiedAndReputablePolicyState' -Value 0 -PropertyType DWord -Force
