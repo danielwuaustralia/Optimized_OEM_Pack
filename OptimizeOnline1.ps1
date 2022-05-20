@@ -399,7 +399,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Vid' -Nam
 # rdpbus
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\rdpbus' -Name 'Start' -Value 4 -PropertyType DWord -Force
 
-#######################################################################################################禁用分用户服务##############################################################################################################################
+####################################################################################################### 分用户服务 ##############################################################################################################################
 
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *AarSvc* | Set-ItemProperty -Name Start -Value 4 -Force -PassThru | Set-ItemProperty -Name UserServiceFlags -Value 0 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *BcastDVRUserService* | Set-ItemProperty -Name Start -Value 4 -Force -PassThru | Set-ItemProperty -Name UserServiceFlags -Value 0 -Force
@@ -423,7 +423,11 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Pr
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *P9RdrService* | Set-ItemProperty -Name Start -Value 4 -Force -PassThru | Set-ItemProperty -Name UserServiceFlags -Value 0 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *webthreatdefusersvc* | Set-ItemProperty -Name Start -Value 4 -Force -PassThru | Set-ItemProperty -Name UserServiceFlags -Value 0 -Force
 
-#######################################################################################################第三方厂商驱动##############################################################################################################################
+####################################################################################################### 系统升级 ##############################################################################################################################
+
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\rdpbus' -Name 'UsoSvc' -Value 4 -PropertyType DWord -Force
+
+####################################################################################################### 第三方厂商驱动 ##############################################################################################################################
 
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\ADP80XX' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AppleSSD' -Name 'Start' -Value 4 -PropertyType DWord -Force
@@ -532,17 +536,24 @@ Enable-ScheduledTask -TaskName 'Session agent for Process Lasso'
 
 ###################################################################################################### 关闭事件记录 ##############################################################################################################################
 
-# Get-AutologgerConfig | Set-AutologgerConfig -Start 0 -InitStatus 0 -Confirm:$false -EA Ignore -Verbose
-$Autologger = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger'  
+Get-AutologgerConfig | Update-AutologgerConfig -Start 0 -InitStatus 0 -Confirm:$false -Verbose
+
+$Autologger = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger'
 Get-ChildItem $Autologger | ForEach-Object {  
     Set-ItemProperty -Path "$Autologger\$($_.pschildname)" -Name Start -Value 0
 }
 
+$WINEVT = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels'
+Get-ChildItem $WINEVT | ForEach-Object {  
+    Set-ItemProperty -Path "$WINEVT\$($_.pschildname)" -Name Enabled -Value 0
+}
+
 # Disable Cellcore
-$Cellcore = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Cellcore'  
+$Cellcore = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Cellcore'
 Get-ChildItem $Cellcore | ForEach-Object {  
     Set-ItemProperty -Path "$Cellcore\$($_.pschildname)" -Name Enabled -Value 0
     Set-ItemProperty -Path "$Cellcore\$($_.pschildname)" -Name EnableProperty -Value 0
+    Set-ItemProperty -Path "$Cellcore\$($_.pschildname)" -Name LogFileMode -Value 128
 }
 
 # Disable CloudExperienceHostOobe
@@ -777,8 +788,20 @@ Get-ChildItem $WMITraces | ForEach-Object {
 }
 
 #
-Get-ChildItem 'C:\Windows\System32\SleepStudy' | Remove-Item -Recurse -Force -Verbose
-Get-ChildItem -Path 'C:\Windows\System32\SleepStudy' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
+Remove-Item -LiteralPath "C:\Windows\System32\SleepStudy" -Force -Recurse
+New-Item -ItemType SymbolicLink -Path "C:\Windows\System32\SleepStudy" -Target "C:\TEMP"
+#
+Remove-Item -LiteralPath "C:\ProgramData\USOShared\Logs" -Force -Recurse
+New-Item -ItemType SymbolicLink -Path "C:\ProgramData\USOShared\Logs" -Target "C:\TEMP"
+#
+Remove-Item -LiteralPath "C:\Windows\Logs" -Force -Recurse
+New-Item -ItemType SymbolicLink -Path "C:\Windows\Logs" -Target "C:\TEMP"
+#
+Remove-Item -LiteralPath "C:\Windows\System32\LogFiles\WMI" -Force -Recurse
+New-Item -ItemType SymbolicLink -Path "C:\Windows\System32\LogFiles\WMI" -Target "C:\TEMP"
+#
+Remove-Item -LiteralPath "C:\Windows\ServiceProfiles\NetworkService\AppData\Local\Microsoft\Windows\DeliveryOptimization\Logs" -Force -Recurse
+New-Item -ItemType SymbolicLink -Path "C:\Windows\ServiceProfiles\NetworkService\AppData\Local\Microsoft\Windows\DeliveryOptimization\Logs" -Target "C:\TEMP"
 #
 Get-ChildItem 'C:\ProgramData\NVIDIA Corporation\nvtopps' | Remove-Item -Recurse -Force -Verbose
 Get-ChildItem -Path 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
