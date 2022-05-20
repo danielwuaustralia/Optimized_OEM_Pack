@@ -40,7 +40,7 @@ Microsoft.MicrosoftEdge.Stable
 	for /f %%a in ('reg query "%windowsappx%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
 )
 
-rem AADBrokerPlugin - needed for Microsoft Account, Windows Store Client - needed for Microsoft DCH drivers, Microsoft AAD Broker Plugin app (Breaks Office app Authentication)
+rem AADBrokerPlugin - modern authentication
 rem ContentDeliveryManager - this component is responsible for the automatic installation of unwanted advertised applications
 rem Microsoft Accounts Control - Microsoft Accounts Control app (This could prevent sign to microsoft account in UWP apps)
 rem CloudExperienceHost - https://docs.microsoft.com/en-us/office365/troubleshoot/authentication/automatic-authentication-fails
