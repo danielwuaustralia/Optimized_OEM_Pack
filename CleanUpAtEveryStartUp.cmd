@@ -13,14 +13,19 @@ rem Run as administrator, AveYo: ps\vbs version
 rem SpeedyFox
 "C:\Program Files\speedyfox.exe" "/Firefox:all" "/Chrome:all"
 
-timeout 10
+timeout 5
 
 rem Clean Folder "%Windir%\System32\config\systemprofile\AppData\Local"
 set "tPath=%Windir%\System32\config\systemprofile\AppData\Local"
 >"%temp%\result" 2>&1 dir /ad /b "%tPath%\*tmp" && for /f "tokens=*" %%# in ('type "%temp%\result"') do >nul 2>&1 rd /s /q "%tPath%\%%#"
 
-rem Default TEMP folder
+rem CleanUp Folder
 rmdir /s /q "C:\TEMP\"
+
+rem logman query -ets
+logman stop -ets "WindowsUpdate_trace_log"
+logman stop -ets "SleepStudyTraceSession"
+logman stop -ets "UBPM"
 
 rem Refresh DNS Cache
 ipconfig /flushdns
@@ -58,7 +63,7 @@ reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Reset Log Files" /v "StateFlags0001" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Upgrade Log Files" /v "StateFlags0001" /f
 
-timeout 10
+timeout 5
 
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /t REG_DWORD /d "2" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\BranchCache" /v "StateFlags0001" /t REG_DWORD /d "2" /f
