@@ -3799,6 +3799,3 @@ $UsbDevices | ForEach-Object {
 
 # 清理文件夹
 Get-ChildItem 'C:\Windows\Setup\Scripts' | Remove-Item -Recurse -Force -Verbose
-
-# 重启
-Restart-Computer -Force
