@@ -515,8 +515,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\wscsvc' -Name
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\SecurityHealthService' -Name 'Start' -Value 4 -PropertyType DWord -Force
 #
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\CI\Policy' -Name 'VerifiedAndReputablePolicyState' -Value 0 -PropertyType DWord -Force
-#
-Get-ChildItem 'C:\Windows\System32\CodeIntegrity' | Remove-Item -Recurse -Force -Verbose
 
 ###################################################################################################### 计划任务 ##############################################################################################################################
 
