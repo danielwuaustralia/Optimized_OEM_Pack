@@ -25,8 +25,8 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\luafv' -N
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AxInstSV' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # 路由本地 AllJoyn 客户端的 AllJoyn 消息。如果停止此服务，则自身没有捆绑路由器的 AllJoyn 客户端将无法运行。
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AJRouter' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# 当用户初次登录到这台电脑和添加新应用时，使应用进入就绪可用的状态。
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AppReadiness' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# 当用户初次登录到这台电脑和添加新应用时，使应用进入就绪可用的状态 - Disabling AppReadiness service will make updates which requieres reboot to fail and undo (after a lot of wasted time)
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AppReadiness' -Name 'Start' -Value 3 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AppMgmt' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # 确定并验证应用程序的标识。禁用此服务将阻止强制执行 AppLocker
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AppIDSvc' -Name 'Start' -Value 3 -PropertyType DWord -Force
@@ -137,6 +137,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WPDBusEnu
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\wercplsupport' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # 此服务为程序兼容性助手(PCA)提供支持。PCA 监视由用户安装和运行的程序
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\PcaSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\PcaSvc' -Name 'ErrorControl' -Value 0 -PropertyType DWord -Force
 # 优质 Windows 音频视频体验(qWave)是用于 IP 家庭网络上的音频视频(AV)流应用程序的网络平台
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\QWAVE' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\QWAVEdrv' -Name 'Start' -Value 4 -PropertyType DWord -Force
@@ -423,9 +424,9 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Pr
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *P9RdrService* | Set-ItemProperty -Name Start -Value 4 -Force -PassThru | Set-ItemProperty -Name UserServiceFlags -Value 0 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *webthreatdefusersvc* | Set-ItemProperty -Name Start -Value 4 -Force -PassThru | Set-ItemProperty -Name UserServiceFlags -Value 0 -Force
 
-####################################################################################################### 系统升级 ##############################################################################################################################
+####################################################################################################### Windows Update ##############################################################################################################################
 
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\rdpbus' -Name 'UsoSvc' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WaaSMedicSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
 
 ####################################################################################################### 第三方厂商驱动 ##############################################################################################################################
 
@@ -491,11 +492,13 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\intelpmax
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\IntelPMT' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\intelppm' -Name 'Start' -Value 4 -PropertyType DWord -Force
 
-####################################################################################################### 移除Defender ##############################################################################################################################
+####################################################################################################### 禁用Defender ##############################################################################################################################
 
-Set-ItemProperty -Path 'REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Name Visibility -Value '1' -Force
-Remove-Item -Path 'REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Include *Owner* -Recurse -Force
-Get-ChildItem -Path 'REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Name | ForEach-Object { dism /online /remove-package /PackageName:$_ /NoRestart }
+# Set-ItemProperty -Path 'REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Name Visibility -Value '1' -Force
+# Remove-Item -Path 'REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Include *Owner* -Recurse -Force
+# Get-ChildItem -Path 'REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Name | ForEach-Object { dism /online /remove-package /PackageName:$_ /NoRestart }
+
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\CI\Policy' -Name 'VerifiedAndReputablePolicyState' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WdBoot' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WdBoot' -Name 'ErrorControl' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WdFilter' -Name 'Start' -Value 4 -PropertyType DWord -Force
@@ -517,22 +520,45 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\SecurityHealt
 
 # Export-ScheduledTask -TaskName "TASK-NAME" -TaskPath "\TASK-PATH-TASKSCHEDULER\" | out-file C:\PATH\TO\EXPORT-FOLDER\TASK-EXPORT-NAME.xml
 # Register-ScheduledTask -xml (Get-Content 'C:\PATH\TO\IMPORTED-FOLDER-PATH\TASK-INPORT-NAME.xml' | Out-String) -TaskName "TASK-IMPORT-NAME" -TaskPath "\TASK-PATH-TASKSCHEDULER\" -User COMPUTER-NAME\USER-NAME –Force
-Get-ChildItem 'C:\Windows\System32\Tasks\Microsoft\Office' | Remove-Item -Recurse -Force -Verbose
 Get-ScheduledTask -TaskPath '*' | Disable-ScheduledTask
 Enable-ScheduledTask -TaskPath '\Microsoft\Windows\UPnP' -TaskName 'UPnPHostConfig'
 Enable-ScheduledTask -TaskPath '\Microsoft\Windows\TextServicesFramework' -TaskName 'MsCtfMonitor'
 Enable-ScheduledTask -TaskName 'Process Lasso Core Engine Only'
 Enable-ScheduledTask -TaskName 'Process Lasso Management Console (GUI)'
 Enable-ScheduledTask -TaskName 'Session agent for Process Lasso'
-'schtasks /Delete /F /TN "\Microsoft\Windows\WaaSMedic\PerformRemediation"' | cmd
-'schtasks /Delete /F /TN "\Microsoft\Windows\WaaSMedic"' | cmd
-'schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan"' | cmd
-'schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan Static Task"' | cmd
-'schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator\UpdateModelTask"' | cmd
-'schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator\USO_UxBroker"' | cmd
-'schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator"' | cmd
-'schtasks /Delete /F /TN "\Microsoft\Windows\WindowsUpdate"' | cmd
-'schtasks /Delete /F /TN "\Microsoft\Windows\WindowsUpdate\Scheduled Start"' | cmd
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\MicrosoftEdgeUpdateTaskMachineCore' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\MicrosoftEdgeUpdateTaskMachineUA' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Office' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Application Experience' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\AppxDeploymentClient' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Autochk' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\CloudExperienceHost' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Customer Experience Improvement Program' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Diagnosis' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DiskDiagnostic' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DiskFootprint' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Feedback' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Flighting' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Location' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Maintenance' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Maps' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\NetTrace' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Offline Files' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Power Efficiency Diagnostics' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\PushToInstall' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Ras' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Registry' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Time Synchronization' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Time Zone' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\SettingSync' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\User Profile Service' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Defender' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Error Reporting' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Filtering Platform' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WindowsUpdate' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WaaSMedic' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\XblGameSave' -recurse -Force;
 
 ###################################################################################################### 关闭事件记录 ##############################################################################################################################
 
@@ -787,28 +813,45 @@ Get-ChildItem $WMITraces | ForEach-Object {
     Set-ItemProperty -Path "$WMITraces\$($_.pschildname)" -Name EnableProperty -Value 0
 }
 
-#
-Remove-Item -LiteralPath "C:\Windows\System32\SleepStudy" -Force -Recurse
-New-Item -ItemType SymbolicLink -Path "C:\Windows\System32\SleepStudy" -Target "C:\TEMP"
-#
-Remove-Item -LiteralPath "C:\ProgramData\USOShared\Logs" -Force -Recurse
-New-Item -ItemType SymbolicLink -Path "C:\ProgramData\USOShared\Logs" -Target "C:\TEMP"
-#
-Remove-Item -LiteralPath "C:\Windows\Logs" -Force -Recurse
-New-Item -ItemType SymbolicLink -Path "C:\Windows\Logs" -Target "C:\TEMP"
-#
-Remove-Item -LiteralPath "C:\Windows\System32\LogFiles\WMI" -Force -Recurse
-New-Item -ItemType SymbolicLink -Path "C:\Windows\System32\LogFiles\WMI" -Target "C:\TEMP"
-#
-Remove-Item -LiteralPath "C:\Windows\ServiceProfiles\NetworkService\AppData\Local\Microsoft\Windows\DeliveryOptimization\Logs" -Force -Recurse
-New-Item -ItemType SymbolicLink -Path "C:\Windows\ServiceProfiles\NetworkService\AppData\Local\Microsoft\Windows\DeliveryOptimization\Logs" -Target "C:\TEMP"
-#
+# 禁用nvidia驱动log
 Get-ChildItem 'C:\ProgramData\NVIDIA Corporation\nvtopps' | Remove-Item -Recurse -Force -Verbose
 Get-ChildItem -Path 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
+# 重定向log位置
+Remove-Item -LiteralPath "C:\Windows\System32\SleepStudy" -Force -Recurse
+New-Item -ItemType SymbolicLink -Path "C:\Windows\System32\SleepStudy" -Target "C:\TEMP"
+Remove-Item -LiteralPath "C:\ProgramData\USOShared\Logs" -Force -Recurse
+New-Item -ItemType SymbolicLink -Path "C:\ProgramData\USOShared\Logs" -Target "C:\TEMP"
+Remove-Item -LiteralPath "C:\Windows\Logs" -Force -Recurse
+New-Item -ItemType SymbolicLink -Path "C:\Windows\Logs" -Target "C:\TEMP"
+Remove-Item -LiteralPath "C:\Windows\System32\LogFiles" -Force -Recurse
+New-Item -ItemType SymbolicLink -Path "C:\Windows\System32\LogFiles" -Target "C:\TEMP"
+Remove-Item -LiteralPath "C:\Windows\ServiceProfiles\NetworkService\AppData\Local\Microsoft\Windows\DeliveryOptimization\Logs" -Force -Recurse
+New-Item -ItemType SymbolicLink -Path "C:\Windows\ServiceProfiles\NetworkService\AppData\Local\Microsoft\Windows\DeliveryOptimization\Logs" -Target "C:\TEMP"
+Remove-Item -LiteralPath "C:\ProgramData\Microsoft\EdgeUpdate\Log" -Force -Recurse
+New-Item -ItemType SymbolicLink -Path "C:\ProgramData\Microsoft\EdgeUpdate\Log" -Target "C:\TEMP"
+Remove-Item -LiteralPath "C:\ProgramData\Microsoft\Network\Downloader" -Force -Recurse
+New-Item -ItemType SymbolicLink -Path "C:\ProgramData\Microsoft\Network\Downloader" -Target "C:\TEMP"
+Remove-Item -LiteralPath "C:\ProgramData\Microsoft\Windows\SleepStudy" -Force -Recurse
+New-Item -ItemType SymbolicLink -Path "C:\ProgramData\Microsoft\Windows\SleepStudy" -Target "C:\TEMP"
+Remove-Item -LiteralPath "C:\ProgramData\Microsoft\Windows\WER" -Force -Recurse
+New-Item -ItemType SymbolicLink -Path "C:\ProgramData\Microsoft\Windows\WER" -Target "C:\TEMP"
+Remove-Item -LiteralPath "C:\Windows\Prefetch" -Force -Recurse
+New-Item -ItemType SymbolicLink -Path "C:\Windows\Prefetch" -Target "C:\TEMP"
+Remove-Item -LiteralPath "C:\Windows\System32\MsDtc" -Force -Recurse
+New-Item -ItemType SymbolicLink -Path "C:\Windows\System32\MsDtc" -Target "C:\TEMP"
+
+###################################################################################################### 删除Edge浏览器 ##############################################################################################################################
+
+Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdate' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdatem' -recurse -Force;
+Get-ChildItem 'C:\Program Files (x86)\Microsoft' | Remove-Item -Recurse -Force -Verbose
 
 ###################################################################################################### 其他优化 ##############################################################################################################################
 
-# Image File Execution Options
+# 清除现有搜索记录
+Get-ChildItem 'C:\ProgramData\Microsoft\Search' | Remove-Item -Recurse -Force -Verbose
+
+# 映像劫持
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe' -Name 'Debugger' -Value '0' -PropertyType String -Force
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe' -Force };
@@ -912,6 +955,3 @@ Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\WOW6432Node\AppID\{3eb3c877-1f1
 Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{0358b920-0ac7-461f-98f4-58e32cd89148}' -Name 'AppID' -Force;
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Classes\AppID\{3eb3c877-1f16-487c-9050-104dbcd66683}' -Force;
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Classes\CLSID\{0358b920-0ac7-461f-98f4-58e32cd89148}' -Recurse -Force;
-
-# windows defender application control
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\CI\Policy' -Name 'VerifiedAndReputablePolicyState' -Value 0 -PropertyType DWord -Force
