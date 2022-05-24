@@ -147,13 +147,13 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>3</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>cmd /c reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnce" /f /v "1" /t Reg_SZ /d "C:\Windows\Setup\Scripts\AAFOptimusDCHAudioPack.exe"</CommandLine>
+                    <CommandLine>cmd /c reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnce" /f /v "1" /t Reg_SZ /d "C:\TEMP\AAFOptimusDCHAudioPack.exe"</CommandLine>
                     <Description>AudioDriver</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>4</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>cmd /c reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnce" /f /v "2" /t Reg_SZ /d "C:\Windows\Setup\Scripts\StartAllBack.exe"</CommandLine>
+                    <CommandLine>cmd /c reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnce" /f /v "2" /t Reg_SZ /d "C:\TEMP\StartAllBack.exe"</CommandLine>
                     <Description>startallback</Description>
                 </SynchronousCommand>
             </FirstLogonCommands>
