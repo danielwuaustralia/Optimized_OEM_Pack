@@ -82,7 +82,7 @@ rem https://store.rg-adguard.net/
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Runtime\Microsoft.VCLibs.x64.14.00.appx' -SkipLicense -Verbose"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Runtime\Microsoft.VCLibs.x64.14.00.Desktop.appx' -SkipLicense -Verbose"
 rem CategoryID: 9640a414-18fc-4cad-b860-bc01e00c84f6
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Runtime\Microsoft.WindowsAppRuntime.1.1_1000.488.537.0_x64__8wekyb3d8bbwe.Msix' -SkipLicense -Verbose"
+"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Runtime\Microsoft.WindowsAppRuntime.1.1_1000.503.513.0_x64__8wekyb3d8bbwe.Msix' -SkipLicense -Verbose"
 rem CategoryID: df8ea8e7-16ad-45d8-bbd0-75f6358bec33
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Microsoft.LanguageExperiencePackzh-CN_22621.1.1.0_neutral__8wekyb3d8bbwe.Appx' -SkipLicense -Verbose"
 rem CategoryID: 5e60c346-7f52-4a6f-98c0-70fef2dd1d01
@@ -93,6 +93,8 @@ rem https://github.com/M2Team/NanaZip/releases
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\40174MouriNaruto.NanaZipPreview_1.2.253.0_gnj4mf6z9tkrc.msixbundle' -SkipLicense -Verbose"
 rem https://github.com/MicaForEveryone/MicaForEveryone/releases
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\MicaForEveryone-v1.0.6.2-x64-Release.msixbundle' -SkipLicense -Verbose"
+rem https://github.com/microsoft/terminal/releases
+"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Microsoft.WindowsTerminalPreview_Win11_1.14.1433.0_8wekyb3d8bbwe.msixbundle' -SkipLicense -Verbose"
 echo ***********离线注册表优化***********
 reg load "HKLM\OfflineNTUSER" "C:\Mount\Users\Default\NTUSER.DAT"
 reg load "HKLM\OfflineSOFTWARE" "C:\Mount\Windows\System32\config\software"
