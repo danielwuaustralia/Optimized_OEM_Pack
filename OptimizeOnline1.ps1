@@ -43,10 +43,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AppIDSvc'
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\ALG' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # 为部署 Microsoft Store 应用程序提供基础结构支持
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AppXSvc' -Name 'Start' -Value 3 -PropertyType DWord -Force
-# 蓝牙音频视频控制传输协议服务
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BthAvctpSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BTAGService' -Name 'Start' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\bthserv' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # 使用空闲网络带宽在后台传送文件
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BITS' -Name 'Start' -Value 3 -PropertyType DWord -Force
 # 维护网络上计算机的更新列表，并将列表提供给计算机指定浏览
@@ -63,8 +59,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\CertPropS
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\ClipSVC' -Name 'Start' -Value 3 -PropertyType DWord -Force
 # Connected User Experiences and Telemetry 服务所启用的功能支持应用程序中用户体验和连接的用户体验
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack' -Name 'Start' -Value 4 -PropertyType DWord -Force
-# 执行内容传递优化任务
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\DoSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # Executes diagnostic actions for troubleshooting support
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\diagsvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # 诊断策略服务启用了 Windows 组件的问题检测、疑难解答和解决方案
@@ -286,15 +280,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SSDPSRV' 
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\upnphost' -Name 'Start' -Value 2 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\FdPHost' -Name 'Start' -Value 2 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\FDResPub' -Name 'Start' -Value 2 -PropertyType DWord -Force
-# 蓝牙
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BthA2dp' -Name 'Start' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BthEnum' -Name 'Start' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BthHFEnum' -Name 'Start' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BthLEEnum' -Name 'Start' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BthMini' -Name 'Start' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BTHMODEM' -Name 'Start' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BTHPORT' -Name 'Start' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BTHUSB' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # TieringEngineService
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\TieringEngineService' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # Theme
@@ -356,6 +341,8 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\bam' -Nam
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\bttflt' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # amdsata
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\amdsata' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# amdpsp
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\amdpsp' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # amdsbs
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\amdsbs' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # amdxata
@@ -408,9 +395,34 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\spaceport
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Vid' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # rdpbus
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\rdpbus' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# SpatialGraphFilter
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SpatialGraphFilter' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# vmbus
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\vmbus' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\VMBusHID' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# VirtualRender
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\VirtualRender' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# vhdmp
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\vhdmp' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# VerifierExt
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\VerifierExt' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# usbcir
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\usbcir' -Name 'Start' -Value 4 -PropertyType DWord -Force
 
-####################################################################################################### 分用户服务 ##############################################################################################################################
+<# 蓝牙 #>
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BthA2dp' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BthEnum' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BthHFEnum' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BthLEEnum' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BthMini' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BTHMODEM' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BTHPORT' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BTHUSB' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BthAvctpSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\BTAGService' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\bthserv' -Name 'Start' -Value 4 -PropertyType DWord -Force
 
+<# 分用户服务 #>
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *AarSvc* | Set-ItemProperty -Name Start -Value 4 -Force -PassThru | Set-ItemProperty -Name UserServiceFlags -Value 0 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *BcastDVRUserService* | Set-ItemProperty -Name Start -Value 4 -Force -PassThru | Set-ItemProperty -Name UserServiceFlags -Value 0 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *BluetoothUserService* | Set-ItemProperty -Name Start -Value 4 -Force -PassThru | Set-ItemProperty -Name UserServiceFlags -Value 0 -Force
@@ -432,15 +444,14 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Pr
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *PenService* | Set-ItemProperty -Name Start -Value 4 -Force -PassThru | Set-ItemProperty -Name UserServiceFlags -Value 0 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *P9RdrService* | Set-ItemProperty -Name Start -Value 4 -Force -PassThru | Set-ItemProperty -Name UserServiceFlags -Value 0 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *webthreatdefusersvc* | Set-ItemProperty -Name Start -Value 4 -Force -PassThru | Set-ItemProperty -Name UserServiceFlags -Value 0 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *SystemIdleDetectionSvc* | Set-ItemProperty -Name Start -Value 4 -Force -PassThru | Set-ItemProperty -Name UserServiceFlags -Value 0 -Force
 
-####################################################################################################### 开启MSI模式 ##############################################################################################################################
-
+<# 开启MSI模式 #>
 # https://forums.guru3d.com/threads/windows-line-based-vs-message-signaled-based-interrupts-msi-tool.378044/
 $MSIMode = Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum\PCI' -Recurse -Depth 5 | Where-Object { $_.PSChildName -Like 'MessageSignaledInterruptProperties' }
 ForEach ($item in $MSIMode) { $path = $item -replace "HKEY_LOCAL_MACHINE","HKLM:"; Set-ItemProperty -Path $path -Name 'MSISupported' -Value 1 -Force }
 
-####################################################################################################### 第三方厂商驱动 ##############################################################################################################################
-
+<# 第三方厂商驱动 #>
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\ADP80XX' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AppleSSD' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\arcsas' -Name 'Start' -Value 4 -PropertyType DWord -Force
@@ -482,7 +493,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nvstor' -
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Acx01000' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\atapi' -Name 'Start' -Value 4 -PropertyType DWord -Force
 
-# *************Intel平台*************
+<# Intel驱动 #>
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\iagpio' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\iai2c' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\iaLPSS2i_GPIO2' -Name 'Start' -Value 4 -PropertyType DWord -Force
@@ -503,27 +514,26 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\intelpmax
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\IntelPMT' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\intelppm' -Name 'Start' -Value 4 -PropertyType DWord -Force
 
-####################################################################################################### 禁用Defender ##############################################################################################################################
-
+<# 禁用Defender #>
 # Set-ItemProperty -Path 'REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Name Visibility -Value '1' -Force
 # Remove-Item -Path 'REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Include *Owner* -Recurse -Force
 # Get-ChildItem -Path 'REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Name | ForEach-Object { dism /online /remove-package /PackageName:$_ /NoRestart }
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WdBoot' -Name 'Start' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WdBoot' -Name 'ErrorControl' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WdFilter' -Name 'Start' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WdFilter' -Name 'ErrorControl' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WdNisDrv' -Name 'Start' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WdNisDrv' -Name 'ErrorControl' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WdNisSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WdNisSvc' -Name 'ErrorControl' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WdNisSvc' -Name 'LaunchProtected' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WinDefend' -Name 'Start' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WinDefend' -Name 'ErrorControl' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WinDefend' -Name 'LaunchProtected' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\wscsvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\wscsvc' -Name 'ErrorControl' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\wscsvc' -Name 'LaunchProtected' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\SecurityHealthService' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdBoot' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdBoot' -Name 'ErrorControl' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdFilter' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdFilter' -Name 'ErrorControl' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdNisDrv' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdNisDrv' -Name 'ErrorControl' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdNisSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdNisSvc' -Name 'ErrorControl' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdNisSvc' -Name 'LaunchProtected' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WinDefend' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WinDefend' -Name 'ErrorControl' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WinDefend' -Name 'LaunchProtected' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\wscsvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\wscsvc' -Name 'ErrorControl' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\wscsvc' -Name 'LaunchProtected' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SecurityHealthService' -Name 'Start' -Value 4 -PropertyType DWord -Force
 #
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\CI\Policy' -Name 'VerifiedAndReputablePolicyState' -Value 0 -PropertyType DWord -Force
 #
@@ -544,8 +554,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows Defender\UX Conf
 #
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows Defender\Windows Defender Exploit Guard\Network Protection' -Name 'EnableNetworkProtection' -Value 0 -PropertyType DWord -Force
 
-###################################################################################################### 计划任务 ##############################################################################################################################
-
+<# 计划任务 #>
 # Export-ScheduledTask -TaskName "TASK-NAME" -TaskPath "\TASK-PATH-TASKSCHEDULER\" | out-file C:\PATH\TO\EXPORT-FOLDER\TASK-EXPORT-NAME.xml
 # Register-ScheduledTask -xml (Get-Content 'C:\PATH\TO\IMPORTED-FOLDER-PATH\TASK-INPORT-NAME.xml' | Out-String) -TaskName "TASK-IMPORT-NAME" -TaskPath "\TASK-PATH-TASKSCHEDULER\" -User COMPUTER-NAME\USER-NAME –Force
 Get-ScheduledTask -TaskPath '*' | Disable-ScheduledTask
@@ -554,323 +563,37 @@ Enable-ScheduledTask -TaskPath '\Microsoft\Windows\TextServicesFramework' -TaskN
 Enable-ScheduledTask -TaskName 'Process Lasso Core Engine Only'
 Enable-ScheduledTask -TaskName 'Process Lasso Management Console (GUI)'
 Enable-ScheduledTask -TaskName 'Session agent for Process Lasso'
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\MicrosoftEdgeUpdateTaskMachineCore' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\MicrosoftEdgeUpdateTaskMachineUA' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Office' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Application Experience' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\AppxDeploymentClient' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Autochk' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\CloudExperienceHost' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Customer Experience Improvement Program' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Diagnosis' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DiskDiagnostic' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DiskFootprint' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Feedback' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Flighting' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Location' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Maintenance' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Maps' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\NetTrace' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Offline Files' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Power Efficiency Diagnostics' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\PushToInstall' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Ras' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Registry' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Time Synchronization' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Time Zone' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\SettingSync' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\User Profile Service' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Defender' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Error Reporting' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Filtering Platform' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WindowsUpdate' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WaaSMedic' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\XblGameSave' -recurse -Force;
+
+###################################################################################################### Windows Update ##############################################################################################################################
+
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\wuauserv' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\DoSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WaaSMedicSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\bits' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\UsoSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
+sc failure DoSvc reset= 60 actions= "" actions= ""
+sc failure UsoSvc reset= 60 actions= "" actions= ""
+sc failure bits reset= 60 actions= "" actions= ""
+sc failure WaaSMedicSvc reset= 60 actions= "" actions= ""
+sc failure wuauserv reset= 60 actions= "" actions= ""
 
 ###################################################################################################### 关闭事件记录 ##############################################################################################################################
 
 Get-AutologgerConfig | Update-AutologgerConfig -Start 0 -InitStatus 0 -Confirm:$false -Verbose
 
-$Autologger = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger'
-Get-ChildItem $Autologger | ForEach-Object {  
-    Set-ItemProperty -Path "$Autologger\$($_.pschildname)" -Name Start -Value 0
-}
-
-$WINEVT = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels'
-Get-ChildItem $WINEVT | ForEach-Object {  
-    Set-ItemProperty -Path "$WINEVT\$($_.pschildname)" -Name Enabled -Value 0
-}
-
-# Disable Cellcore
-$Cellcore = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Cellcore'
-Get-ChildItem $Cellcore | ForEach-Object {  
-    Set-ItemProperty -Path "$Cellcore\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$Cellcore\$($_.pschildname)" -Name EnableProperty -Value 0
-    Set-ItemProperty -Path "$Cellcore\$($_.pschildname)" -Name LogFileMode -Value 128
-}
-
-# Disable CloudExperienceHostOobe
-$CloudExperienceHostOobe = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\CloudExperienceHostOobe'  
-Get-ChildItem $CloudExperienceHostOobe | ForEach-Object {  
-    Set-ItemProperty -Path "$CloudExperienceHostOobe\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$CloudExperienceHostOobe\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# DefenderApiLogger
-$DefenderApiLogger = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger'  
-Get-ChildItem $DefenderApiLogger | ForEach-Object {  
-    Set-ItemProperty -Path "$DefenderApiLogger\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$DefenderApiLogger\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# Disable Diagtrack-Listener
-$diagtrack = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener'  
-Get-ChildItem $diagtrack | ForEach-Object {  
-    Set-ItemProperty -Path "$diagtrack\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$diagtrack\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# FaceTel
-$FaceTel = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\FaceTel'  
-Get-ChildItem $FaceTel | ForEach-Object {  
-    Set-ItemProperty -Path "$FaceTel\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$FaceTel\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# HolographicDevice
-$HolographicDevice = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\HolographicDevice'  
-Get-ChildItem $HolographicDevice | ForEach-Object {  
-    Set-ItemProperty -Path "$HolographicDevice\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$HolographicDevice\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# LwtNetLog
-$LwtNetLog = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\LwtNetLog'  
-Get-ChildItem $LwtNetLog | ForEach-Object {  
-    Set-ItemProperty -Path "$LwtNetLog\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$LwtNetLog\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# Mellanox-Kernel
-$MellanoxKernel = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Mellanox-Kernel'  
-Get-ChildItem $MellanoxKernel | ForEach-Object {  
-    Set-ItemProperty -Path "$MellanoxKernel\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$MellanoxKernel\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# Microsoft-Windows-AssignedAccess-Trace
-$AssignedAccessTrace = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Microsoft-Windows-AssignedAccess-Trace'  
-Get-ChildItem $AssignedAccessTrace | ForEach-Object {  
-    Set-ItemProperty -Path "$AssignedAccessTrace\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$AssignedAccessTrace\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# Microsoft-Windows-Rdp-Graphics-RdpIdd-Trace
-$RdpIddTrace = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Microsoft-Windows-Rdp-Graphics-RdpIdd-Trace'  
-Get-ChildItem $RdpIddTrace | ForEach-Object {  
-    Set-ItemProperty -Path "$RdpIddTrace\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$RdpIddTrace\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# Microsoft-Windows-Setup
-$WindowsSetup = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Microsoft-Windows-Setup'  
-Get-ChildItem $WindowsSetup | ForEach-Object {  
-    Set-ItemProperty -Path "$WindowsSetup\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$WindowsSetup\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# NBSMBLOGGER
-$NBSMBLOGGER = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\NBSMBLOGGER'  
-Get-ChildItem $NBSMBLOGGER | ForEach-Object {  
-    Set-ItemProperty -Path "$NBSMBLOGGER\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$NBSMBLOGGER\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# NetCore
-$NetCore = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\NetCore'  
-Get-ChildItem $NetCore | ForEach-Object {  
-    Set-ItemProperty -Path "$NetCore\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$NetCore\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# NtfsLog
-$NtfsLog = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\NtfsLog'  
-Get-ChildItem $NtfsLog | ForEach-Object {  
-    Set-ItemProperty -Path "$NtfsLog\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$NtfsLog\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# PEAuthLog
-$PEAuthLog = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\PEAuthLog'  
-Get-ChildItem $PEAuthLog | ForEach-Object {  
-    Set-ItemProperty -Path "$PEAuthLog\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$PEAuthLog\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# RadioMgr
-$RadioMgr = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\RadioMgr'  
-Get-ChildItem $RadioMgr | ForEach-Object {  
-    Set-ItemProperty -Path "$RadioMgr\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$RadioMgr\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# RdrLog
-$RdrLog = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\RdrLog'  
-Get-ChildItem $RdrLog | ForEach-Object {  
-    Set-ItemProperty -Path "$RdrLog\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$RdrLog\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# ReadyBoot
-$ReadyBoot = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\ReadyBoot'  
-Get-ChildItem $ReadyBoot | ForEach-Object {  
-    Set-ItemProperty -Path "$ReadyBoot\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$ReadyBoot\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# ReFSLog
-$ReFSLog = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\ReFSLog'  
-Get-ChildItem $ReFSLog | ForEach-Object {  
-    Set-ItemProperty -Path "$ReFSLog\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$ReFSLog\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# Disable Evenlog-application
-$application = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-Application'  
-Get-ChildItem $application | ForEach-Object {  
-    Set-ItemProperty -Path "$application\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$application\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# Disable Evenlog
-$eventlog = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-System'  
-Get-ChildItem $eventlog | ForEach-Object {  
-    Set-ItemProperty -Path "$eventlog\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$eventlog\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# SetupPlatform
-$SetupPlatform = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SetupPlatform'  
-Get-ChildItem $SetupPlatform | ForEach-Object {  
-    Set-ItemProperty -Path "$SetupPlatform\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$SetupPlatform\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# SetupPlatformTel
-$SetupPlatformTel = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SetupPlatformTel'  
-Get-ChildItem $SetupPlatformTel | ForEach-Object {  
-    Set-ItemProperty -Path "$SetupPlatformTel\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$SetupPlatformTel\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# SpoolerLogger
-$SpoolerLogger = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SpoolerLogger'  
-Get-ChildItem $SpoolerLogger | ForEach-Object {  
-    Set-ItemProperty -Path "$SpoolerLogger\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$SpoolerLogger\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# Disable SQMLogger
-$SQMLogger = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SQMLogger'  
-Get-ChildItem $SQMLogger | ForEach-Object {  
-    Set-ItemProperty -Path "$SQMLogger\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$SQMLogger\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# TCPIPLOGGER
-$TCPIPLOGGER = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\TCPIPLOGGER'  
-Get-ChildItem $TCPIPLOGGER | ForEach-Object {  
-    Set-ItemProperty -Path "$TCPIPLOGGER\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$TCPIPLOGGER\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# TileStore
-$TileStore = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\TileStore'  
-Get-ChildItem $TileStore | ForEach-Object {  
-    Set-ItemProperty -Path "$TileStore\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$TileStore\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# Tpm
-$Tpm = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Tpm'  
-Get-ChildItem $Tpm | ForEach-Object {  
-    Set-ItemProperty -Path "$Tpm\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$Tpm\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# UBPM
-$UBPM = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\UBPM'  
-Get-ChildItem $UBPM | ForEach-Object {  
-    Set-ItemProperty -Path "$UBPM\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$UBPM\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# WFP-IPsec Trace
-$IPsecTrace = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WFP-IPsec Trace'  
-Get-ChildItem $IPsecTrace | ForEach-Object {  
-    Set-ItemProperty -Path "$IPsecTrace\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$IPsecTrace\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# WiFiDriverIHVSession
-$WiFiDriverIHVSession = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiDriverIHVSession'  
-Get-ChildItem $WiFiDriverIHVSession | ForEach-Object {  
-    Set-ItemProperty -Path "$WiFiDriverIHVSession\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$WiFiDriverIHVSession\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# WiFiDriverIHVSessionRepro
-$WiFiDriverIHVSessionRepro = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiDriverIHVSessionRepro'  
-Get-ChildItem $WiFiDriverIHVSessionRepro | ForEach-Object {  
-    Set-ItemProperty -Path "$WiFiDriverIHVSessionRepro\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$WiFiDriverIHVSessionRepro\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# WiFiSession
-$WiFiSession = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiSession'  
-Get-ChildItem $WiFiSession | ForEach-Object {  
-    Set-ItemProperty -Path "$WiFiSession\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$WiFiSession\$($_.pschildname)" -Name EnableProperty -Value 0
-}
-
-# WMI_Traces
-$WMITraces = 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WMI_Traces'  
-Get-ChildItem $WMITraces | ForEach-Object {  
-    Set-ItemProperty -Path "$WMITraces\$($_.pschildname)" -Name Enabled -Value 0
-    Set-ItemProperty -Path "$WMITraces\$($_.pschildname)" -Name EnableProperty -Value 0
-}
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Cellcore' -Name 'Start' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Cellcore' -Name 'Status' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\CloudExperienceHostOobe' -Name 'Start' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\CloudExperienceHostOobe' -Name 'Status' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener' -Name 'Start' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener' -Name 'Status' -Value 0 -PropertyType DWord -Force
 
 # 禁用nvidia驱动log
-Get-ChildItem 'C:\ProgramData\NVIDIA Corporation\nvtopps' | Remove-Item -Recurse -Force -Verbose
 Get-ChildItem -Path 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
-
-# 重定向log位置
-Remove-Item -LiteralPath "C:\Windows\System32\SleepStudy" -Force -Recurse
-New-Item -ItemType SymbolicLink -Path "C:\Windows\System32\SleepStudy" -Target "C:\TEMP"
-Remove-Item -LiteralPath "C:\ProgramData\USOShared\Logs" -Force -Recurse
-New-Item -ItemType SymbolicLink -Path "C:\ProgramData\USOShared\Logs" -Target "C:\TEMP"
-Remove-Item -LiteralPath "C:\Windows\Logs" -Force -Recurse
-New-Item -ItemType SymbolicLink -Path "C:\Windows\Logs" -Target "C:\TEMP"
-Remove-Item -LiteralPath "C:\Windows\System32\LogFiles" -Force -Recurse
-New-Item -ItemType SymbolicLink -Path "C:\Windows\System32\LogFiles" -Target "C:\TEMP"
-Remove-Item -LiteralPath "C:\Windows\ServiceProfiles\NetworkService\AppData\Local\Microsoft\Windows\DeliveryOptimization\Logs" -Force -Recurse
-New-Item -ItemType SymbolicLink -Path "C:\Windows\ServiceProfiles\NetworkService\AppData\Local\Microsoft\Windows\DeliveryOptimization\Logs" -Target "C:\TEMP"
-Remove-Item -LiteralPath "C:\ProgramData\Microsoft\EdgeUpdate\Log" -Force -Recurse
-New-Item -ItemType SymbolicLink -Path "C:\ProgramData\Microsoft\EdgeUpdate\Log" -Target "C:\TEMP"
-Remove-Item -LiteralPath "C:\ProgramData\Microsoft\Network\Downloader" -Force -Recurse
-New-Item -ItemType SymbolicLink -Path "C:\ProgramData\Microsoft\Network\Downloader" -Target "C:\TEMP"
-Remove-Item -LiteralPath "C:\ProgramData\Microsoft\Windows\SleepStudy" -Force -Recurse
-New-Item -ItemType SymbolicLink -Path "C:\ProgramData\Microsoft\Windows\SleepStudy" -Target "C:\TEMP"
-Remove-Item -LiteralPath "C:\ProgramData\Microsoft\Windows\WER" -Force -Recurse
-New-Item -ItemType SymbolicLink -Path "C:\ProgramData\Microsoft\Windows\WER" -Target "C:\TEMP"
-Remove-Item -LiteralPath "C:\Windows\Prefetch" -Force -Recurse
-New-Item -ItemType SymbolicLink -Path "C:\Windows\Prefetch" -Target "C:\TEMP"
-Remove-Item -LiteralPath "C:\Windows\System32\MsDtc" -Force -Recurse
-New-Item -ItemType SymbolicLink -Path "C:\Windows\System32\MsDtc" -Target "C:\TEMP"
 
 ###################################################################################################### 删除Edge浏览器 ##############################################################################################################################
 
+Stop-Process -Name "MicrosoftEdgeUpdate.exe" -Force
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdate' -recurse -Force;
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdatem' -recurse -Force;
 Remove-Item -LiteralPath "HKCU:\Software\Microsoft\EdgeUpdate" -recurse -force;
@@ -987,9 +710,3 @@ Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\WOW6432Node\AppID\{3eb3c877-1f1
 Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{0358b920-0ac7-461f-98f4-58e32cd89148}' -Name 'AppID' -Force;
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Classes\AppID\{3eb3c877-1f16-487c-9050-104dbcd66683}' -Force;
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Classes\CLSID\{0358b920-0ac7-461f-98f4-58e32cd89148}' -Recurse -Force;
-
-#
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Diagnostics\Performance' -Name 'DisableDiagnosticTracing' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Diagnostics\Performance\BootCKCLSettings' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Diagnostics\Performance\SecondaryLogonCKCLSettings' -Name 'Start' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Diagnostics\Performance\ShutdownCKCLSettings' -Name 'Start' -Value 0 -PropertyType DWord -Force
