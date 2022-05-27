@@ -25,7 +25,10 @@ rmdir /s /q "C:\TEMP\"
 rem logman query -ets
 C:\Windows\SysWOW64\NSudoLG.exe -U:T -P:E cmd /c "logman stop -ets UBPM"
 C:\Windows\SysWOW64\NSudoLG.exe -U:T -P:E cmd /c "logman stop -ets WindowsUpdate_trace_log"
+C:\Windows\SysWOW64\NSudoLG.exe -U:T -P:E cmd /c "logman stop -ets Diagtrack-Listener"
 C:\Windows\SysWOW64\NSudoLG.exe -U:T -P:E cmd /c "logman stop -ets SleepStudyTraceSession"
+C:\Windows\SysWOW64\NSudoLG.exe -U:T -P:E cmd /c "logman stop -ets EventLog-Application"
+C:\Windows\SysWOW64\NSudoLG.exe -U:T -P:E cmd /c "logman stop -ets EventLog-System"
 
 rem Refresh DNS Cache
 ipconfig /flushdns
