@@ -561,6 +561,16 @@ Enable-ScheduledTask -TaskName 'Process Lasso Core Engine Only'
 Enable-ScheduledTask -TaskName 'Process Lasso Management Console (GUI)'
 Enable-ScheduledTask -TaskName 'Session agent for Process Lasso'
 
+'schtasks /Delete /F /TN "\Microsoft\Windows\WaaSMedic\PerformRemediation"' | cmd
+'schtasks /Delete /F /TN "\Microsoft\Windows\WaaSMedic"' | cmd
+'schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan"' | cmd
+'schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan Static Task"' | cmd
+'schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator\UpdateModelTask"' | cmd
+'schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator\USO_UxBroker"' | cmd
+'schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator"' | cmd
+'schtasks /Delete /F /TN "\Microsoft\Windows\WindowsUpdate"' | cmd
+'schtasks /Delete /F /TN "\Microsoft\Windows\WindowsUpdate\Scheduled Start"' | cmd
+
 <# Windows Update #>
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\wuauserv' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\DoSvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
