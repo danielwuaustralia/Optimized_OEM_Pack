@@ -134,27 +134,21 @@
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
                     <Order>1</Order>
-                    <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>"C:\Windows\SysWOW64\NsudoLG.exe" -U:T -P:E -Wait "C:\Program Files\PowerShell\7\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\OptimizeOnline1.ps1"</CommandLine>
-                    <Description>Powershell Tweak</Description>
+                    <RequiresUserInput>true</RequiresUserInput>
+                    <CommandLine>C:\Windows\Setup\Scripts\SOFTWARE\AAFOptimusDCHAudioPack.exe</CommandLine>
+                    <Description>AudioDriver</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>2</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>"C:\Program Files\PowerShell\7\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\OptimizeOnline2.ps1"</CommandLine>
+                    <CommandLine>"C:\Windows\SysWOW64\NsudoLG.exe" -U:T -P:E -Wait "C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\OptimizeOnline1.ps1"</CommandLine>
                     <Description>Powershell Tweak</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>3</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>cmd /c reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnce" /f /v "1" /t Reg_SZ /d "C:\TEMP\AAFOptimusDCHAudioPack.exe"</CommandLine>
-                    <Description>AudioDriver</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>4</Order>
-                    <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>cmd /c reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnce" /f /v "2" /t Reg_SZ /d "C:\TEMP\StartAllBack.exe"</CommandLine>
-                    <Description>startallback</Description>
+                    <CommandLine>"C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\OptimizeOnline2.ps1"</CommandLine>
+                    <Description>Powershell Tweak</Description>
                 </SynchronousCommand>
             </FirstLogonCommands>
             <UserAccounts>
