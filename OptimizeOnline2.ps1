@@ -3081,10 +3081,9 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm'
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WUDF') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WUDF' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WUDF' -Name 'LogEnable' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WUDF' -Name 'LogLevel' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'HwSchedMode' -Value 1 -PropertyType DWord -Force
+#
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'HwSchMode' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'PlatformSupportMiracast' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'TdrDdiDelay' -Value 60 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'TdrDelay' -Value 60 -PropertyType DWord -Force
 # Removing Kernel Blacklist
 Remove-Item -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\BlockList\Kernel' -Recurse -Force -Verbose
 # https://docs.microsoft.com/en-us/dotnet/desktop/wpf/graphics-multimedia/graphics-rendering-registry-settings?view=netframeworkdesktop-4.8
@@ -3809,6 +3808,10 @@ $UsbDevices | ForEach-Object {
 } | Set-CimInstance -Property @{Enable = $false }
 
 ####################################################################################################### 总结工作 #######################################################################################################
+Get-ChildItem 'C:\Windows\SoftwareDistribution' | Remove-Item -Recurse -Force -Verbose
+Get-ChildItem 'C:\Users\Administrator\AppData\Local\Temp' | Remove-Item -Recurse -Force -Verbose
+Remove-Item c:\Users\Public\Desktop\desktop.ini -Force
+Remove-Item c:\Users\Administrator\Desktop\desktop.ini -Force
 Copy-Item "C:\Windows\Setup\Scripts\Runstartuptask.lnk" -Destination "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup" -Force
 Start-Sleep -Seconds '2'
 Get-ChildItem 'C:\Windows\Setup\Scripts' | Remove-Item -Recurse -Force -Verbose
