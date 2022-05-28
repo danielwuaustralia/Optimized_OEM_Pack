@@ -10,8 +10,18 @@ rem Office 365
 
 rem KMS
 call %windir%\Setup\Scripts\KMS.cmd
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\0ff1ce15-a989-479d-af46-f275c6370663" /f /v KeyManagementServiceName /t REG_SZ /d "10.0.0.1"
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\0ff1ce15-a989-479d-af46-f275c6370663" /f /v KeyManagementServiceName /t REG_SZ /d "10.0.0.1" /reg:32
+reg add "HKLM\SOFTWARE\Microsoft\OfficeSoftwareProtectionPlatform" /v "KeyManagementServiceName" /t REG_SZ /d "172.16.0.2" /f
+reg add "HKLM\SOFTWARE\Microsoft\OfficeSoftwareProtectionPlatform" /v "KeyManagementServicePort" /t REG_SZ /d "1688" /f
+reg add "HKLM\SOFTWARE\Microsoft\OfficeSoftwareProtectionPlatform" /v "DisableDnsPublishing" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\OfficeSoftwareProtectionPlatform" /v "DisableKeyManagementServiceHostCaching" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /v "KeyManagementServiceName" /t REG_SZ /d "172.16.0.2" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /v "KeyManagementServicePort" /t REG_SZ /d "1688" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /v "DisableDnsPublishing" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /v "DisableKeyManagementServiceHostCaching" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /v "KeyManagementServiceName" /t REG_SZ /d "172.16.0.2" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /v "KeyManagementServicePort" /t REG_SZ /d "1688" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /v "DisableDnsPublishing" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /v "DisableKeyManagementServiceHostCaching" /t REG_DWORD /d "0" /f
 
 rem register video filters
 regsvr32.exe "%windir%\SysWOW64\XySubFilter.dll" /s
