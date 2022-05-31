@@ -30,6 +30,11 @@
                     <Path>reg add HKLM\SYSTEM\Setup\MoSetup /f /v AllowUpgradesWithUnsupportedTPMorCPU /d 1 /t reg_dword</Path>
                     <Order>2</Order>
                 </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>3</Order>
+                    <Path>C:\Windows\Setup\Scripts\RemoveAppx.cmd</Path>
+                    <Description>Uninstall Apps</Description>
+                </RunSynchronousCommand>
             </RunSynchronous>
         </component>
     </settings>
