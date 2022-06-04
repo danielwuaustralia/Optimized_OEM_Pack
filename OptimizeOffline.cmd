@@ -35,8 +35,6 @@ echo ***********关闭无用功能***********
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Enable-WindowsOptionalFeature -Path 'C:\Mount' -FeatureName 'SMB1Protocol-Client' -Verbose"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Enable-WindowsOptionalFeature -Path 'C:\Mount' -FeatureName 'SMB1Protocol-Server' -Verbose"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Enable-WindowsOptionalFeature -Path 'C:\Mount' -FeatureName 'SmbDirect' -Verbose"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Enable-WindowsOptionalFeature -Path 'C:\Mount' -FeatureName 'WCF-HTTP-Activation' -Verbose"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Enable-WindowsOptionalFeature -Path 'C:\Mount' -FeatureName 'WCF-NonHTTP-Activation' -Verbose"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Disable-WindowsOptionalFeature -Path 'C:\Mount' -FeatureName 'Windows-Defender-Default-Definitions' -Verbose"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Disable-WindowsOptionalFeature -Path 'C:\Mount' -FeatureName 'Printing-XPSServices-Features' -Verbose"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Disable-WindowsOptionalFeature -Path 'C:\Mount' -FeatureName 'SearchEngine-Client-Package' -Verbose"
@@ -84,13 +82,11 @@ rem https://store.rg-adguard.net/
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Runtime\Microsoft.VCLibs.x64.14.00.appx' -SkipLicense -Verbose"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Runtime\Microsoft.VCLibs.x64.14.00.Desktop.appx' -SkipLicense -Verbose"
 rem CategoryID: 9640a414-18fc-4cad-b860-bc01e00c84f6
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Runtime\Microsoft.WindowsAppRuntime.1.1_1000.503.513.0_x64__8wekyb3d8bbwe.Msix' -SkipLicense -Verbose"
+"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Runtime\Microsoft.WindowsAppRuntime.1.1_1000.516.2156.0_x64__8wekyb3d8bbwe.msix' -SkipLicense -Verbose"
 rem CategoryID: df8ea8e7-16ad-45d8-bbd0-75f6358bec33
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Microsoft.LanguageExperiencePackzh-CN_22621.1.1.0_neutral__8wekyb3d8bbwe.Appx' -SkipLicense -Verbose"
+rem "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Microsoft.LanguageExperiencePackzh-CN_22621.1.1.0_neutral__8wekyb3d8bbwe.Appx' -SkipLicense -Verbose"
 rem CategoryID: 5e60c346-7f52-4a6f-98c0-70fef2dd1d01
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Microsoft.HEVCVideoExtension_2.0.51121.0_x64__8wekyb3d8bbwe.Appx' -SkipLicense -Verbose"
-rem CategoryID: 613f6011-adac-4bd6-8c3e-3679dfa89fc5
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\NVIDIACorp.NVIDIAControlPanel_8.1.962.0_x64__56jybvy8sckqj.Appx' -SkipLicense -Verbose"
 rem https://github.com/M2Team/NanaZip/releases
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\40174MouriNaruto.NanaZipPreview_1.2.253.0_gnj4mf6z9tkrc.msixbundle' -SkipLicense -Verbose"
 rem https://github.com/MicaForEveryone/MicaForEveryone/releases
@@ -103,9 +99,8 @@ echo *****************************************************************
 rem Defender
 %systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineSOFTWARE\Microsoft\Windows Defender\Features" -ot reg -actn setowner -ownr "n:Administrators"
 %systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineSOFTWARE\Microsoft\Windows Defender\Features" -ot reg -actn ace -ace "n:Administrators;p:full"
-%systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineSOFTWARE\Policies\Microsoft\Windows Defender" -ot reg -actn setowner -ownr "n:Administrators"
-%systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineSOFTWARE\Policies\Microsoft\Windows Defender" -ot reg -actn ace -ace "n:Administrators;p:full"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "New-ItemProperty -LiteralPath 'HKLM:\OfflineSOFTWARE\Microsoft\Windows Defender\Features' -Name 'TamperProtection' -Value 0 -PropertyType DWord -Force"
+"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "New-Item 'HKLM:\OfflineSOFTWARE\Policies\Microsoft\Windows Defender' -force"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "New-ItemProperty -LiteralPath 'HKLM:\OfflineSOFTWARE\Policies\Microsoft\Windows Defender' -Name 'DisableAntiSpyware' -Value 1 -PropertyType DWord -Force"
 %systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Run" -ot reg -actn setowner -ownr "n:Administrators"
 %systemroot%\SysWOW64\SetACL.exe -on "HKLM\OfflineSOFTWARE\Microsoft\Windows\CurrentVersion\Run" -ot reg -actn ace -ace "n:Administrators;p:full"
