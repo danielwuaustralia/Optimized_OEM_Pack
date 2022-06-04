@@ -10,13 +10,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerSh
 
 Start-Transcript -Path c:\OptimizeOnline2.txt -Force
 
-# Powershell设置
-$ErrorActionPreference = 'SilentlyContinue'
-$ProgressPreference = 'SilentlyContinue'
-$ConfirmPreference = 'None'
-$PSModuleAutoloadingPreference = 'All'
-Start-Transcript -Path c:\OptimizeOnline2.txt -Force
-
 #######################################################################################################前置优化##############################################################################################################################
 
 # https://github.com/thebookisclosed/ViVe
