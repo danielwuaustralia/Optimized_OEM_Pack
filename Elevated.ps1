@@ -10,14 +10,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerSh
 
 Start-Transcript -Path c:\OptimizeOnline1.txt -Force
 
-# Powershell设置
-$ErrorActionPreference = 'SilentlyContinue'
-$ProgressPreference = 'SilentlyContinue'
-$ConfirmPreference = 'None'
-$PSModuleAutoloadingPreference = 'All'
-Start-Transcript -Path c:\OptimizeOnline1.txt -Force
-
-
 ####################################################################################################   普通服务  #########################################################################################################################
 
 # 管理此计算机对智能卡的取读访问
