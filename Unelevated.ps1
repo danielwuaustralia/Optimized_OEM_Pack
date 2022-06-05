@@ -1684,7 +1684,7 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\VirusScan' -Name 'Prompt' -
 'netsh int tcp set global pacingprofile=off' | cmd
 'netsh int ip set global minmtu=576' | cmd
 'netsh int ip set global flowlabel=disable' | cmd
-'netsh int tcp set supplemental internet congestionprovider=CTCP' | cmd
+'netsh int tcp set supplemental internet congestionprovider=CUBIC' | cmd
 'netsh int tcp set supplemental internet enablecwndrestart=disable' | cmd
 'netsh int ip set global icmpredirects=disabled' | cmd
 'netsh int ip set global multicastforwarding=disabled' | cmd
@@ -3551,7 +3551,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows NT\C
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance' -Name 'MaintenanceDisabled' -Value 1 -PropertyType DWord -Force
 # By default, MMCSS will leave 20% of your CPU power for other things besides your multimedia task
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile' -Force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile' -Name 'NetworkThrottlingIndex' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile' -Name 'NetworkThrottlingIndex' -Value -1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile' -Name 'SystemResponsiveness' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile' -Name 'NoLazyMode' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile' -Name 'LazyModeTimeout' -Value 10000 -PropertyType DWord -Force
@@ -3663,6 +3663,7 @@ $i = 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces'
 Get-ChildItem $i | ForEach-Object {  
     Set-ItemProperty -Path "$i\$($_.pschildname)" -Name TcpAckFrequency -Value 1
     Set-ItemProperty -Path "$i\$($_.pschildname)" -Name TCPNoDelay -Value 1
+    Set-ItemProperty -Path "$i\$($_.pschildname)" -Name TcpDelAckTicks 0
 }
 
 # uncheck "Allow the computer to turn off this device to save power" on all USB Controllers
