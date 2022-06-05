@@ -1991,6 +1991,21 @@ Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Folder\ShellEx\ContextMenuHandl
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Folder\ShellEx\ContextMenuHandlers\{a2a9545d-a0c2-42b4-9708-a0b2badd77c8}"  -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Folder\ShellEx\PropertySheetHandlers\Offline Files" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\background\shellex\ContextMenuHandlers\Sharing" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\.library-ms\ShellNew" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\.zip\CompressedFolder\ShellNew" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shell\encrypt-bde" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shell\encrypt-bde-elev" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shell\manage-bde" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shell\pintohome" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shell\resume-bde" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shell\resume-bde-elev" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shell\unlock-bde" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Folder\shell\pintohome" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Network\shell\pintohome" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\MSGraphRecentDocument\shell\pintohomefile" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{f81e9010-6ea4-11ce-a7ff-00aa003ca9f6}" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\*\shellex\ContextMenuHandlers\Open With EncryptionMenu" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\*\shellex\ContextMenuHandlers\Sharing" -recurse -force;
 
 # 无用的我的电脑项目
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" -Force -Recurse
