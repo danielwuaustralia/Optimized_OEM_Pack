@@ -1522,6 +1522,153 @@ if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Outlook\AutoDi
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Outlook\AutoDiscover' -Name 'ExcludeExplicitO365Endpoint' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'IMEControlActive' -Value 0 -PropertyType DWord -Force
 
+# WinRAR
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\General") -ne $true) {  New-Item "HKCU:\Software\WinRAR\General" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Paths") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Paths" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.001") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.001" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.7z") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.7z" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.arj") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.arj" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.bz") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.bz" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.bz2") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.bz2" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.cab") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.cab" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.gz") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.gz" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.iso") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.iso" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.jar") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.jar" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.lha") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.lha" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.lz") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.lz" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.lzh") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.lzh" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.rar") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.rar" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.tar") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.tar" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.taz") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.taz" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.tbz") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.tbz" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.tbz2") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.tbz2" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.tgz") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.tgz" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.tlz") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.tlz" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.txz") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.txz" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.tzst") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.tzst" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.uu") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.uu" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.uue") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.uue" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.xxe") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.xxe" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.xz") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.xz" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.z") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.z" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.zip") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.zip" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.zipx") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.zipx" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\.zst") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\.zst" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\Setup\Links") -ne $true) {  New-Item "HKCU:\Software\WinRAR\Setup\Links" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKCU:\Software\WinRAR\VirusScan") -ne $true) {  New-Item "HKCU:\Software\WinRAR\VirusScan" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\General' -Name 'Priority' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\General' -Name 'Log' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\General' -Name 'LimitLog' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\General' -Name 'WipeTemp' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Paths' -Name 'TempFolder' -Value 'C:\TEMP' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Paths' -Name 'TempRemovableOnly' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup' -Name 'ShellExt' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup' -Name 'CascadedMenu' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup' -Name 'MenuIcons' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup' -Name 'LegacyMenu' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup' -Name 'NewContextMenu' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.001' -Name 'Set' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.001' -Name 'Exist' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.001' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.001' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.7z' -Name 'Set' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.7z' -Name 'Exist' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.7z' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.7z' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.arj' -Name 'Set' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.arj' -Name 'Exist' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.arj' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.arj' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.bz' -Name 'Exist' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.bz' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.bz' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.bz2' -Name 'Set' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.bz2' -Name 'Exist' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.bz2' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.bz2' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.cab' -Name 'Set' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.cab' -Name 'Exist' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.cab' -Name 'Type' -Value 'CABFolder' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.cab' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.gz' -Name 'Set' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.gz' -Name 'Exist' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.gz' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.gz' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.iso' -Name 'Set' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.jar' -Name 'Set' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.lha' -Name 'Exist' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.lha' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.lha' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.lz' -Name 'Set' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.lz' -Name 'Exist' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.lz' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.lz' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.lzh' -Name 'Set' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.lzh' -Name 'Exist' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.lzh' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.lzh' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.rar' -Name 'Set' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.rar' -Name 'Exist' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.rar' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.rar' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.tar' -Name 'Set' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.tar' -Name 'Exist' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.tar' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.tar' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.taz' -Name 'Exist' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.taz' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.taz' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.tbz' -Name 'Exist' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.tbz' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.tbz' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.tbz2' -Name 'Exist' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.tbz2' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.tbz2' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.tgz' -Name 'Exist' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.tgz' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.tgz' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.tlz' -Name 'Exist' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.tlz' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.tlz' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.txz' -Name 'Exist' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.txz' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.txz' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.tzst' -Name 'Exist' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.tzst' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.tzst' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.uu' -Name 'Exist' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.uu' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.uu' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.uue' -Name 'Set' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.uue' -Name 'Exist' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.uue' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.uue' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.xxe' -Name 'Exist' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.xxe' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.xxe' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.xz' -Name 'Set' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.xz' -Name 'Exist' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.xz' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.xz' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.z' -Name 'Set' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.z' -Name 'Exist' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.z' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.z' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.zip' -Name 'Set' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.zip' -Name 'Exist' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.zip' -Name 'Type' -Value 'CompressedFolder' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.zip' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.zipx' -Name 'Set' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.zipx' -Name 'Exist' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.zipx' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.zipx' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.zst' -Name 'Set' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.zst' -Name 'Exist' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.zst' -Name 'Type' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\Setup\.zst' -Name 'ShellNew' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\WinRAR\VirusScan' -Name 'Prompt' -Value 0 -PropertyType DWord -Force
+
 #######################################################################################################网络优化##############################################################################################################################
 
 # CMD优化
@@ -2008,32 +2155,14 @@ Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\*\shellex\ContextMenuHandlers\O
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\*\shellex\ContextMenuHandlers\Sharing" -recurse -force;
 
 # 无用的我的电脑项目
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" -Force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" -Force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" -Force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" -Force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" -Force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{A0953C92-50DC-43bf-BE83-3742FED03C9C}" -Force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}" -Force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{374DE290-123F-4565-9164-39C4925E467B}" -Force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" -Force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" -Force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" -Force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" -Force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" -Force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{A0953C92-50DC-43bf-BE83-3742FED03C9C}" -Force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}" -Force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{374DE290-123F-4565-9164-39C4925E467B}" -Force -Recurse
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}\ShellFolder' -Name 'Attributes' -Value '2962227469' -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Classes\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}\ShellFolder' -Name 'Attributes' -Value '2962227469' -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{323CA680-C24D-4099-B94D-446DD2D7249E}\ShellFolder' -Name 'Attributes' -Value '2696937728' -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Classes\CLSID\{323CA680-C24D-4099-B94D-446DD2D7249E}\ShellFolder' -Name 'Attributes' -Value '2696937728' -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{B4FB3F98-C1EA-428d-A78A-D1F5659CBA93}\ShellFolder' -Name 'Attributes' -Value '2962489612' -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Classes\CLSID\{B4FB3F98-C1EA-428d-A78A-D1F5659CBA93}\ShellFolder' -Name 'Attributes' -Value '2962489612' -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}\ShellFolder' -Name 'Attributes' -Value '2962489612' -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Classes\CLSID\{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}\ShellFolder' -Name 'Attributes' -Value '2962489612' -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{679f85cb-0220-4080-b29b-5540cc05aab6}\ShellFolder' -Name 'Attributes' -Value '2689597440' -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Classes\CLSID\{679f85cb-0220-4080-b29b-5540cc05aab6}\ShellFolder' -Name 'Attributes' -Value '2689597440' -PropertyType DWord -Force
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{088e3905-0323-4b02-9826-5d99428e115f}" -Force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{088e3905-0323-4b02-9826-5d99428e115f}" -Force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{A8CDFF1C-4878-43be-B5FD-F8091C1C60D0}" -Force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{A8CDFF1C-4878-43be-B5FD-F8091C1C60D0}" -Force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}" -Force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}" -Force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{d3162b92-9365-467a-956b-92703aca08af}" -Force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{d3162b92-9365-467a-956b-92703aca08af}" -Force -Recurse
 
 # 桌面显示我的电脑和控制面板
 if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel' -Force };
@@ -2140,15 +2269,17 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\E
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\XP_SP2_shell32.dll,14' -PropertyType ExpandString -Force
 if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{5399E694-6CE5-4D6C-8FCE-1D8870FDCBA0}\DefaultIcon') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{5399E694-6CE5-4D6C-8FCE-1D8870FDCBA0}\DefaultIcon' -Force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CLSID\{5399E694-6CE5-4D6C-8FCE-1D8870FDCBA0}\DefaultIcon' -Name '(default)' -Value '%SystemRoot%\XP_SP2_shell32.dll,19' -PropertyType String -Force
+
 # 控制面板小图标
 if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel' -Force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel' -Name 'StartupPage' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel' -Name 'AllItemsIconView' -Value 0 -PropertyType DWord -Force
+
 # 为单独程序关闭全屏优化
-# if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" -force };
-# New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' -Name 'D:\\Steam\\steam.exe' -Value '~ DISABLEDXMAXIMIZEDWINDOWEDMODE' -PropertyType String -Force
-'setx __COMPAT_LAYER DISABLEDXMAXIMIZEDWINDOWEDMODE' | cmd
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment' -Name '__COMPAT_LAYER' -Value '~ DISABLEDXMAXIMIZEDWINDOWEDMODE' -PropertyType String -Force
+if ((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers") -ne $true) { New-Item "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' -Name 'D:\\Steam\\steam.exe' -Value '~ DISABLEDXMAXIMIZEDWINDOWEDMODE' -PropertyType String -Force
+# New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment' -Name '__COMPAT_LAYER' -Value '~ DISABLEDXMAXIMIZEDWINDOWEDMODE' -PropertyType String -Force
+
 #　设置默认文件夹类型为普通
 New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\Bags\AllFolders\Shell' -Name 'FolderType' -Value 'NotSpecified' -PropertyType String -Force
 # 回收站
@@ -2533,17 +2664,25 @@ if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\A
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\ClientTelemetry' -Name 'DontRetryOnError' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\ClientTelemetry' -Name 'IsCensusDisabled' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\ClientTelemetry' -Name 'TaskEnableRun' -Value 0 -PropertyType DWord -Force
+
 #
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\PerfTrack") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\PerfTrack" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\PerfTrack' -Name 'Disabled' -Value 1 -PropertyType DWord -Force
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack" -force -ea SilentlyContinue };
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack\TestHooks") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack\TestHooks" -force -ea SilentlyContinue };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack' -Name 'DiagTrackAuthorization' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack' -Name 'ConnectivityRestrictedNetworkTime' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack' -Name 'ConnectivityNoNetworkTime' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack' -Name 'UploadPermissionReceived' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack' -Name 'Disabled' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack' -Name 'DisableAutomaticTelemetryKeywordReporting' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack' -Name 'TelemetryServiceDisabled' -Value 1 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack\TestHooks") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack\TestHooks" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack\TestHooks' -Name 'DisableAsimovUpload' -Value 1 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\PerfTrack") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\PerfTrack" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\PerfTrack' -Name 'Disabled' -Value 1 -PropertyType DWord -Force
+
 #
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\PolicyManager\default\System\AllowTelemetry') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\PolicyManager\default\System\AllowTelemetry' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\PolicyManager\default\System\AllowTelemetry' -Name 'value' -Value 0 -PropertyType DWord -Force
+
 #
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection' -Name 'AllowTelemetry' -Value 0 -PropertyType DWord -Force
@@ -2884,8 +3023,6 @@ Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\Au
 'Netsh advfirewall set allprofile state off' | cmd
 #
 'netsh wfp set options netevents = off' | cmd
-#
-'Auditpol /set /category:* /Success:disable /failure:disable' | cmd
 
 #
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance' -Force };
@@ -3589,6 +3726,9 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WDI\Config
 
 # 关闭显示器时不关闭其他USB设备
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\USB\AutomaticSurpriseRemoval' -Name 'AttemptRecoveryFromUsbPowerDrain' -Value 0 -PropertyType DWord -Force
+
+#
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack\TelemetryNamespaces" -recurse -force;
 
 # Disable all WAN miniport driver
 # Get-pnpdevice -friendlyname 'Microsoft 存储空间控制器' | select-object -expandproperty instanceid
