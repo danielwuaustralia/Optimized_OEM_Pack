@@ -3,10 +3,10 @@ $ErrorActionPreference = 'SilentlyContinue'
 $ProgressPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 $PSModuleAutoloadingPreference = 'All'
+
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell' -Name 'EnableScripts' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell' -Name 'ExecutionPolicy' -Value 'Unrestricted' -PropertyType String -Force
-Start-Transcript -Path c:\OptimizeOnline1.txt -Force
 %systemroot%\SysWOW64\SetACL.exe -on "HKEY_CLASSES_ROOT\Drive\shell\PowerShell7-previewx64" -ot reg -actn setowner -ownr "n:Administrators"
 %systemroot%\SysWOW64\SetACL.exe -on "HKEY_CLASSES_ROOT\Drive\shell\PowerShell7-previewx64" -ot reg -actn ace -ace "n:Administrators;p:full"
 %systemroot%\SysWOW64\SetACL.exe -on "HKEY_CLASSES_ROOT\Directory\background\shell\PowerShell7-previewx64" -ot reg -actn setowner -ownr "n:Administrators"
@@ -14,8 +14,7 @@ Start-Transcript -Path c:\OptimizeOnline1.txt -Force
 %systemroot%\SysWOW64\SetACL.exe -on "HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}" -ot reg -actn setowner -ownr "n:Administrators"
 %systemroot%\SysWOW64\SetACL.exe -on "HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}" -ot reg -actn ace -ace "n:Administrators;p:full"
 
-<# Net 3.5 #>
-# dism /online /enable-feature /featurename:NetFX3 /All /Source:"D:\Debloater\$OEM$\$$\Setup\Scripts\SOFTWARE\sxs" /NoRestart /LimitAccess
+Start-Transcript -Path c:\OptimizeOnline1.txt -Force
 
 ####################################################################################################W#########################################################################################################################
 
@@ -296,6 +295,9 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\DispBroke
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\cloudidsvc' -Name 'Start' -Value 4 -PropertyType DWord -Force
 # GpuEnergyDrv
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\GpuEnergyDrv' -Name 'Start' -Value 4 -PropertyType DWord -Force
+# System Guard Runtime Monitor
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SgrmAgent' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SgrmBroker' -Name 'Start' -Value 4 -PropertyType DWord -Force
 
 <# uPnP #>
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SSDPSRV' -Name 'Start' -Value 2 -PropertyType DWord -Force
@@ -437,8 +439,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\CI\Policy'
 #
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Attachments' -Name 'ScanWithAntiVirus' -Value 1 -PropertyType DWord -Force
 #
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Lsa' -Name 'LsaCfgFlags' -Value 0 -PropertyType DWord -Force
-#
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -force };
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" -force };
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting" -force };
@@ -471,7 +471,7 @@ Get-ScheduledTask -TaskPath "\*" | Where-Object {$_.Taskname -match 'MicrosoftEd
 # Disable all Windows Default Tasks, with exceptions.
 Get-ScheduledTask -TaskPath "\Microsoft\*" | Where-Object {$_.Taskname -notmatch 'MsCtfMonitor' -and $_.Taskname -notmatch 'RemoteFXvGPUDisableTask' `
 -and $_.Taskname -notmatch 'Sysprep Generalize Drivers' -and $_.Taskname -notmatch 'Device Install Group Policy' -and $_.Taskname -notmatch 'ResPriStaticDbSync' -and $_.Taskname -notmatch 'WsSwapAssessmentTask' `
- -and $_.Taskname -notmatch 'DXGIAdapterCache' -and $_.Taskname -notmatch 'UninstallDeviceTask' -and $_.Taskname -notmatch 'ExploitGuard MDM policy Refresh' -and $_.Taskname -notmatch 'GatherNetworkInfo'} | Disable-ScheduledTask
+ -and $_.Taskname -notmatch 'DXGIAdapterCache' -and $_.Taskname -notmatch 'UninstallDeviceTask' -and $_.Taskname -notmatch 'GatherNetworkInfo'} | Disable-ScheduledTask
 # Completely remove some in attempt to kill persistent tasks being recreated/enabled.
 schtasks /Delete /F /TN "\Microsoft\Windows\WaaSMedic\PerformRemediation"
 schtasks /Delete /F /TN "\Microsoft\Windows\WaaSMedic"
@@ -487,6 +487,11 @@ schtasks /Delete /F /TN "\Microsoft\Windows\WindowsUpdate\Scheduled Start"
 
 auditpol /remove /allusers
 auditpol /Set /Category:* /success:disable /failure:disable
+
+Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DiagLog" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderAuditLogger" -recurse -force;
 
 $Logger = Get-ChildItem -Path 'HKLM:\System\CurrentControlSet\Control\WMI\Autologger' -Recurse -Depth 3 | Where-Object { $_.PSChildName -NotLike 'Circular Kernel Context Logger' -and $_.PSChildName -NotLike 'EventLog-Application' `
  -and $_.PSChildName -NotLike 'EventLog-Security' -and $_.PSChildName -NotLike 'EventLog-System' -and $_.PSChildName -NotLike 'NtfsLog' -and $_.PSChildName -NotLike 'WdiContextLog' `
