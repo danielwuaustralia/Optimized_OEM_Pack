@@ -2,19 +2,6 @@
 SetLocal EnableDelayedExpansion
 color 17
 title WIM镜像优化
-echo *****************************************************************
-echo ------------------- 获得管理员权限 ---------------------
-echo *****************************************************************
-REM  --> Check for permissions  
->nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"  
-REM --> If error flag set, we do not have admin.  
-if '%errorlevel%' NEQ '0' (    echo Requesting administrative privileges...    goto UACPrompt) else ( goto gotAdmin )  
-:UACPrompt  
-echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"  
-echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"  
-"%temp%\getadmin.vbs"  
-exit /B
-:gotAdmin
 echo ***********载入WIM镜像***********
 DISM /Export-Image /SourceImageFile:"D:\Debloater\install.wim" /ALL /DestinationImageFile:"C:\install.wim" /Compress:max /CheckIntegrity
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "New-Item -Path 'C:\Mount' -ItemType Directory -Force -Verbose"
@@ -55,6 +42,7 @@ echo ***********移除无用Capabilites***********
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-WindowsCapability -Path 'C:\Mount' | Where-Object { $_.Name -like 'Language.OCR~~~zh-CN*' } | Remove-WindowsCapability -Path 'C:\Mount' -Verbose"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-WindowsCapability -Path 'C:\Mount' | Where-Object { $_.Name -like 'Language.Speech~~~zh-CN*' } | Remove-WindowsCapability -Path 'C:\Mount' -Verbose"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-WindowsCapability -Path 'C:\Mount' | Where-Object { $_.Name -like 'Language.TextToSpeech~~~zh-CN*' } | Remove-WindowsCapability -Path 'C:\Mount' -Verbose"
+"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-WindowsCapability -Path 'C:\Mount' | Where-Object { $_.Name -like 'Language.Fonts.Hans~~~und-HANS*' } | Remove-WindowsCapability -Path 'C:\Mount' -Verbose"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-WindowsCapability -Path 'C:\Mount' | Where-Object { $_.Name -like 'Microsoft.Windows.Notepad.System*' } | Remove-WindowsCapability -Path 'C:\Mount' -Verbose"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-WindowsCapability -Path 'C:\Mount' | Where-Object { $_.Name -like 'Microsoft.Windows.PowerShell.ISE*' } | Remove-WindowsCapability -Path 'C:\Mount' -Verbose"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Get-WindowsCapability -Path 'C:\Mount' | Where-Object { $_.Name -like 'Print.Management.Console*' } | Remove-WindowsCapability -Path 'C:\Mount' -Verbose"
@@ -81,12 +69,18 @@ rem https://store.rg-adguard.net/
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Microsoft.UI.Xaml.x64.2.7.appx' -SkipLicense -Verbose"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Microsoft.VCLibs.x64.14.00.appx' -SkipLicense -Verbose"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Microsoft.VCLibs.x64.14.00.Desktop.appx' -SkipLicense -Verbose"
-rem CategoryID: 9640a414-18fc-4cad-b860-bc01e00c84f6
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Microsoft.WindowsAppRuntime.1.1_1000.516.2156.0_x64__8wekyb3d8bbwe.msix' -SkipLicense -Verbose"
-rem CategoryID: df8ea8e7-16ad-45d8-bbd0-75f6358bec33
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Microsoft.LanguageExperiencePackzh-CN_22621.1.1.0_neutral__8wekyb3d8bbwe.Appx' -SkipLicense -Verbose"
-rem CategoryID: 5e60c346-7f52-4a6f-98c0-70fef2dd1d01
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Microsoft.HEVCVideoExtension_2.0.51121.0_x64__8wekyb3d8bbwe.Appx' -SkipLicense -Verbose"
+rem 3ece63c1-ae51-4414-9064-b4ff1e0a9017
+"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Microsoft.549981C3F5F10_4.2204.13303.0_neutral___8wekyb3d8bbwe.Msixbundle' -SkipLicense -Verbose"
+rem b4f3025d-a236-44b0-8d4c-849bed549259
+"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Microsoft.WebMediaExtensions_1.0.42192.0_neutral___8wekyb3d8bbwe.AppxBundle' -SkipLicense -Verbose"
+rem a304d32c-4f92-4797-ac65-faa7c81638de
+"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Microsoft.HEVCVideoExtensions_2.0.51122.0_x64__8wekyb3d8bbwe.Appx' -SkipLicense -Verbose"
+rem 83edba13-a396-483f-82ab-9ec16f1ba07f
+"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Microsoft.RawImageExtension_2.1.31392.0_neutral___8wekyb3d8bbwe.AppxBundle' -SkipLicense -Verbose"
+rem 65b58c5c-5c7e-4b72-9d9f-9bdd15c506b3
+"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Microsoft.VP9VideoExtensions_1.0.51171.0_x64__8wekyb3d8bbwe.Appx' -SkipLicense -Verbose"
+rem 00c2490a-ef1d-43c9-bdba-b84ecc77d2ea
+"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-AppxProvisionedPackage -Path 'C:\Mount' -PackagePath 'D:\Debloater\UWP\Microsoft.WebpImageExtension_1.0.42351.0_x64__8wekyb3d8bbwe.Appx' -SkipLicense -Verbose"
 echo ***********离线注册表优化***********
 reg load "HKLM\OfflineNTUSER" "C:\Mount\Users\Default\NTUSER.DAT"
 reg load "HKLM\OfflineSOFTWARE" "C:\Mount\Windows\System32\config\software"
