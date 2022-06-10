@@ -17,10 +17,12 @@ Start-Transcript -Path c:\OptimizeOnline2.txt -Force
 # "vivetool addconfig 34370472 2" | cmd
 
 # Powershell Module from https://www.powershellgallery.com/packages
-# Save-Module -Name PSWindowsUpdate -Path C:\Windows\System32\WindowsPowerShell\v1.0\Modules -Repository PSGallery
-# Save-Module -Name RobocopyPS -Path C:\Windows\System32\WindowsPowerShell\v1.0\Modules -Repository PSGallery
+# Save-Module -Name PSWindowsUpdate -Path 'D:\Debloater\$OEM$\$1\Windows\System32\WindowsPowerShell\v1.0\Modules' -Repository PSGallery
+# Save-Module -Name RobocopyPS -Path 'D:\Debloater\$OEM$\$1\Windows\System32\WindowsPowerShell\v1.0\Modules' -Repository PSGallery
+# Save-Module -Name PowerShellGet -AllowPrerelease -Path 'D:\Debloater\$OEM$\$1\Windows\System32\WindowsPowerShell\v1.0\Modules' -Repository PSGallery
 # Import-Module -SkipEditionCheck PSWindowsUpdate
 # Import-Module -SkipEditionCheck RobocopyPS
+# Import-Module -SkipEditionCheck PowerShellGet
 
 # 增加环境变量
 [Environment]::SetEnvironmentVariable('PATH', $Env:PATH + '; C:\Windows\SysWOW64', [EnvironmentVariableTarget]::Machine)
@@ -32,9 +34,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Ma
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment' -Name 'TMP' -Value 'C:\TEMP' -PropertyType ExpandString -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\DefaultUserEnvironment' -Name 'TEMP' -Value 'C:\TEMP' -PropertyType ExpandString -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\DefaultUserEnvironment' -Name 'TMP' -Value 'C:\TEMP' -PropertyType ExpandString -Force
-
-<# Net 3.5 #>
-# dism /online /enable-feature /featurename:NetFX3 /All /Source:"D:\Debloater\$OEM$\$$\Setup\Scripts\SOFTWARE\sxs" /NoRestart /LimitAccess
 
 #####################################################################################################################################################################################################################################
 
@@ -1845,17 +1844,16 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\DownloadManager\Scheduler' -Name '
 New-ItemProperty -LiteralPath 'HKCU:\Software\DownloadManager\Scheduler' -Name 'm_MBytes' -Value 200 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\DownloadManager\Scheduler' -Name 'm_hours' -Value 5 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\DownloadManager\Scheduler' -Name 'showLimitExceededWarning' -Value 1 -PropertyType DWord -Force
-# Office套件 - Teams
+
+# Office套件
 if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Office\Teams') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Office\Teams' -Force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\Teams' -Name 'PreventInstallationFromMsi' -Value 1 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Communications') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Communications' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Communications' -Name 'ConfigureChatAutoInstall' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Office\16.0\Common\OfficeUpdate') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Office\16.0\Common\OfficeUpdate' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Office\16.0\Common\OfficeUpdate' -Name 'PreventTeamsInstall' -Value 1 -PropertyType DWord -Force
-# Office套件 - OneNote
 if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\OneNote\Options\Other') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Office\16.0\OneNote\Options\Other' -Force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\OneNote\Options\Other' -Name 'RunSystemTrayApp' -Value 0 -PropertyType DWord -Force
-# Office套件 - 通用
 if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Outlook\AutoDiscover') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Office\16.0\Outlook\AutoDiscover' -Force s };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Outlook\AutoDiscover' -Name 'ExcludeExplicitO365Endpoint' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'IMEControlActive' -Value 0 -PropertyType DWord -Force
@@ -2459,6 +2457,7 @@ Remove-Item -Path 'C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Send
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\*\shellex\ContextMenuHandlers\EPP" -Force
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shellex\ContextMenuHandlers\EPP" -Force
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\shellex\ContextMenuHandlers\EPP" -Force
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -Force
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\*\shell\pintohomefile" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Folder\ShellEx\ContextMenuHandlers\Library Location"  -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Folder\ShellEx\ContextMenuHandlers\Offline Files"  -recurse -force;
@@ -2564,16 +2563,70 @@ Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.ASX" -recurse -
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.AU" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.AVI" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WMP11.AssocFile.CDA" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\AllFilesystemObjects\shellex\ContextMenuHandlers\ModernSharing" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\MSGraphDocument\shellex\ContextMenuHandlers\ModernSharing" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\exefile\shellex\ContextMenuHandlers\NvAppShExt" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\exefile\shellex\ContextMenuHandlers\OpenGLShExt" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\exefile\shellex\ContextMenuHandlers\PintoStartScreen" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Folder\ShellEx\ContextMenuHandlers\PintoStartScreen" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\*\shellex\ContextMenuHandlers\{a2a9545d-a0c2-42b4-9708-a0b2badd77c8}" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\AVIFile\shellex\ContextMenuHandlers\NvPlayOnMyTV" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\batfile\shellex\ContextMenuHandlers\OpenGLShExt" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{450D8FBA-AD25-11D0-98A8-0800361B1103}\shellex\ContextMenuHandlers\Offline Files" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\cmdfile\shellex\ContextMenuHandlers\OpenGLShExt" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CompressedFolder\ShellEx\ContextMenuHandlers\{b8cdcb65-b1bf-4b42-9428-1dfdb7ee92af}" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\DesktopBackground\shellex\ContextMenuHandlers\DesktopSlideshow" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\background\shellex\ContextMenuHandlers\NvCplDesktopContext" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\shellex\ContextMenuHandlers\EncryptionMenu" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\shellex\ContextMenuHandlers\Offline Files" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\shellex\ContextMenuHandlers\Sharing" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\shellex\PropertySheetHandlers\Offline Files" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\shellex\PropertySheetHandlers\Sharing" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shellex\ContextMenuHandlers\Sharing" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\LibraryFolder\background\shellex\ContextMenuHandlers\Sharing" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\LibraryFolder\ShellEx\ContextMenuHandlers\LibraryFolder" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\lnkfile\shellex\ContextMenuHandlers\NvAppShExt" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\lnkfile\shellex\ContextMenuHandlers\OpenContainingFolderMenu" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\lnkfile\shellex\ContextMenuHandlers\OpenGLShExt" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\mpegfile\shellex\ContextMenuHandlers\NvPlayOnMyTV" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Stack.Audio\shellex\ContextMenuHandlers\PlayTo" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Stack.Image\shellex\ContextMenuHandlers\PlayTo" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Stack.Video\shellex\ContextMenuHandlers\PlayTo" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\.3g2\shellex\ContextMenuHandlers\PlayTo" -force;
+Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved' -Name '{08165EA0-E946-11CF-9C87-00AA005127ED}' -Force -ea SilentlyContinue;
+Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved' -Name '{09A47860-11B0-4DA5-AFA5-26D86198A780}' -Force -ea SilentlyContinue;
+Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved' -Name '{0F8604A5-4ECE-4DE1-BA7D-CF10F8AA4F48}' -Force -ea SilentlyContinue;
+Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved' -Name '{13D3C4B8-B179-4ebb-BF62-F704173E7448}' -Force -ea SilentlyContinue;
+Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved' -Name '{A70C977A-BF00-412C-90B7-034C51DA2439}' -Force -ea SilentlyContinue;
+Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved' -Name '{A929C4CE-FD36-4270-B4F5-34ECAC5BD63C}' -Force -ea SilentlyContinue;
+Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved' -Name '{E97DEC16-A50D-49bb-AE24-CF682282E08D}' -Force -ea SilentlyContinue;
+Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved' -Name '{3D1975AF-48C6-4f8e-A182-BE0E08FA86A9}' -Force -ea SilentlyContinue;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\AllFilesystemObjects\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\AllFilesystemObjects\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{450D8FBA-AD25-11D0-98A8-0800361B1103}\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{450D8FBA-AD25-11D0-98A8-0800361B1103}\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Drive\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{450D8FBA-AD25-11D0-98A8-0800361B1103}\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{450D8FBA-AD25-11D0-98A8-0800361B1103}\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\AllFilesystemObjects\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -force;
 
 # 无用的我的电脑项目
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{088e3905-0323-4b02-9826-5d99428e115f}" -Force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{088e3905-0323-4b02-9826-5d99428e115f}" -Force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{A8CDFF1C-4878-43be-B5FD-F8091C1C60D0}" -Force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{A8CDFF1C-4878-43be-B5FD-F8091C1C60D0}" -Force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}" -Force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}" -Force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{d3162b92-9365-467a-956b-92703aca08af}" -Force -Recurse
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{d3162b92-9365-467a-956b-92703aca08af}" -Force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" -Force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" -Force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" -Force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" -Force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{374DE290-123F-4565-9164-39C4925E467B}" -Force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{374DE290-123F-4565-9164-39C4925E467B}" -Force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" -Force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" -Force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" -Force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" -Force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{A0953C92-50DC-43bf-BE83-3742FED03C9C}" -Force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{A0953C92-50DC-43bf-BE83-3742FED03C9C}" -Force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" -Force -Recurse
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" -Force -Recurse
 
 # 桌面显示我的电脑和控制面板
 if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel' -Force };
@@ -2724,44 +2777,14 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DWM' -N
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DWM' -Name 'AnimationAttributionEnabled' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\Personalization' -Name 'NoLockScreen' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\System' -Name 'DisableAcrylicBackgroundOnLogon' -Value 1 -PropertyType DWord -Force
+
+#
 if ((Test-Path -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize') -ne $true) { New-Item 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Force };
 New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'ColorPrevalence' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'AppsUseLightTheme' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'SystemUsesLightTheme' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'EnabledBlurBehind' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name 'EnableTransparency' -Value 1 -PropertyType DWord -Force
-#
-if ((Test-Path -LiteralPath 'HKCU:\Control Panel\Colors') -ne $true) { New-Item 'HKCU:\Control Panel\Colors' -Force };
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'ActiveBorder' -Value '212 208 200' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'ActiveTitle' -Value '10 36 106' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'AppWorkSpace' -Value '128 128 128' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'ButtonAlternateFace' -Value '181 181 181' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'ButtonDkShadow' -Value '64 64 64' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'ButtonFace' -Value '212 208 200' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'ButtonHilight' -Value '255 255 255' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'ButtonLight' -Value '212 208 200' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'ButtonShadow' -Value '128 128 128' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'ButtonText' -Value '0 0 0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'GradientActiveTitle' -Value '166 202 240' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'GradientInactiveTitle' -Value '192 192 192' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'GrayText' -Value '128 128 128' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'Hilight' -Value '10 36 106' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'HilightText' -Value '255 255 255' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'HotTrackingColor' -Value '0 0 128' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'InactiveBorder' -Value '212 208 200' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'InactiveTitle' -Value '128 128 128' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'InactiveTitleText' -Value '212 208 200' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'InfoText' -Value '0 0 0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'InfoWindow' -Value '255 255 225' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'Menu' -Value '212 208 200' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'MenuText' -Value '0 0 0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'Scrollbar' -Value '212 208 200' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'TitleText' -Value '255 255 255' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'Window' -Value '255 255 255' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'WindowFrame' -Value '0 0 0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'WindowText' -Value '0 0 0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'Background' -Value '58 110 165' -PropertyType String -Force
-
 #
 if ((Test-Path -LiteralPath 'HKCU:\Control Panel\Desktop') -ne $true) { New-Item 'HKCU:\Control Panel\Desktop' -Force };
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'AutoColorization' -Value '0' -PropertyType DWord -Force
@@ -2782,8 +2805,370 @@ New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'ForegroundLoc
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'JPEGImportQuality' -Value 100 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'FontSmoothingGamma' -Value 1400 -PropertyType DWord -Force
 
+#
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'Hilight' -Value '181 102 255' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'HotTrackingColor' -Value '181 102 255' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Colors' -Name 'MenuHilight' -Value '181 102 255' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\DWM' -Name 'AccentColor' -Value 520093696 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows\DWM' -Name 'AccentColorInactive' -Value 522199072 -PropertyType DWord -Force
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent' -Name 'AccentPalette' -Value ([byte[]](0xb5,0x66,0xff,0x1f,0x6c,0x3a,0x98,0x1f,0x8a,0x2c,0xdd,0xff,0x9d,0x5c,0xd6,0x1f,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00)) -PropertyType Binary -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent' -Name 'StartColorMenu' -Value 522199072 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent' -Name 'AccentColorMenu' -Value 520093696 -PropertyType DWord -Force
+
 #　设置默认文件夹类型为普通
 New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\Bags\AllFolders\Shell' -Name 'FolderType' -Value 'NotSpecified' -PropertyType String -Force
+
+# 文件关联
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.3g2' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.3g2' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt_.3g2' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.3g2' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.3gp' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.3gp' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt_.3gp' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.3gp' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.3gp2' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt_.3gp2' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.3gpp' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.3gpp' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt_.3gpp' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.3gpp' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmgw6pxxs62rbgfp9petmdyb4fx7rnd4k_.3mf' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcdh38jxzbcberv50vxg2tg4k84kfnewn_.3mf' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXr0rz9yckydawgnrx5df1t9s57ne60yhn_.3mf' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvhc4p7vz4b485xfp46hhk3fq3grkdgjg_.3mf' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9v2an58zgtq78h18jgmp43b5gza6b2jp_.aac' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.aac' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.ac3' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9v2an58zgtq78h18jgmp43b5gza6b2jp_.adt' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.adt' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9v2an58zgtq78h18jgmp43b5gza6b2jp_.adts' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.adts' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.amr' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9rkaq77s0jzh1tyccadx9ghba15r6t3h_.arw' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.ASF_.asf' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt_.asf' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcesbfs704v2mjbts9dkr42s9vmrhxbkj_.avci' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.avi' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.avi' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt_.avi' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.avi' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcesbfs704v2mjbts9dkr42s9vmrhxbkj_.avif' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcesbfs704v2mjbts9dkr42s9vmrhxbkj_.bmp' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcdh38jxzbcberv50vxg2tg4k84kfnewn_.bmp' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9rkaq77s0jzh1tyccadx9ghba15r6t3h_.cr2' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9rkaq77s0jzh1tyccadx9ghba15r6t3h_.crw' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcdh38jxzbcberv50vxg2tg4k84kfnewn_.dib' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcesbfs704v2mjbts9dkr42s9vmrhxbkj_.dib' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.divx' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.divx' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.ec3' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcesbfs704v2mjbts9dkr42s9vmrhxbkj_.emf' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvepbp3z66accmsd0x877zbbxjctkpr6t_.epub' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9rkaq77s0jzh1tyccadx9ghba15r6t3h_.erf' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmgw6pxxs62rbgfp9petmdyb4fx7rnd4k_.fbx' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcdh38jxzbcberv50vxg2tg4k84kfnewn_.fbx' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXr0rz9yckydawgnrx5df1t9s57ne60yhn_.fbx' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvhc4p7vz4b485xfp46hhk3fq3grkdgjg_.fbx' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9v2an58zgtq78h18jgmp43b5gza6b2jp_.flac' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.flac' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcdh38jxzbcberv50vxg2tg4k84kfnewn_.gif' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcesbfs704v2mjbts9dkr42s9vmrhxbkj_.gif' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmgw6pxxs62rbgfp9petmdyb4fx7rnd4k_.glb' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcdh38jxzbcberv50vxg2tg4k84kfnewn_.glb' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXr0rz9yckydawgnrx5df1t9s57ne60yhn_.glb' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvhc4p7vz4b485xfp46hhk3fq3grkdgjg_.glb' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmgw6pxxs62rbgfp9petmdyb4fx7rnd4k_.gltf' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcdh38jxzbcberv50vxg2tg4k84kfnewn_.gltf' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXr0rz9yckydawgnrx5df1t9s57ne60yhn_.gltf' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvhc4p7vz4b485xfp46hhk3fq3grkdgjg_.gltf' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcesbfs704v2mjbts9dkr42s9vmrhxbkj_.heic' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcesbfs704v2mjbts9dkr42s9vmrhxbkj_.heif' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcesbfs704v2mjbts9dkr42s9vmrhxbkj_.hif' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX4hxtad77fbk3jkkeerkrm0ze94wjf3s9_.htm' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX4hxtad77fbk3jkkeerkrm0ze94wjf3s9_.html' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcdh38jxzbcberv50vxg2tg4k84kfnewn_.ico' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcesbfs704v2mjbts9dkr42s9vmrhxbkj_.ico' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXzwr976v2e060wada4gabrk1x69h2dbwy_.inf' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXhk4des8gf2xat3wtyzc5q06ny78jhkqx_.ini' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcdh38jxzbcberv50vxg2tg4k84kfnewn_.jfif' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcesbfs704v2mjbts9dkr42s9vmrhxbkj_.jfif' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcdh38jxzbcberv50vxg2tg4k84kfnewn_.jpe' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcesbfs704v2mjbts9dkr42s9vmrhxbkj_.jpe' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcdh38jxzbcberv50vxg2tg4k84kfnewn_.jpeg' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcesbfs704v2mjbts9dkr42s9vmrhxbkj_.jpegAppXcdh38jxzbcberv50vxg2tg4k84kfnewn_.jpg' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcesbfs704v2mjbts9dkr42s9vmrhxbkj_.jpg' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXfeqk92xmhxtyxytgbhn7tdqk70syjc6v_.jpg' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9rkaq77s0jzh1tyccadx9ghba15r6t3h_.kdc' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX4ztfk9wxr86nxmzzq47px0nh0e58b8fw_.log' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.M2TS_.m2t' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.m2t' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.m2t' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt_.m2t' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.m2t' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.M2TS_.m2ts' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.m2ts' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.m2ts' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt_.m2ts' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.m2ts' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.m3u_.m3u' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9v2an58zgtq78h18jgmp43b5gza6b2jp_.m3u' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.m3u' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX5sy1gww9q4g2gt941cdxxd7s07xe5vph_.m4a' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9v2an58zgtq78h18jgmp43b5gza6b2jp_.m4a' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.m4a' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.m4r' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.m4v' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.m4v' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt_.m4v' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.m4v' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.mka' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.MKV_.mkv' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.mkv' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.mkv' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt_.mkv' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.mkv' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.MPEG_.mod' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.mod' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.mod' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.mod' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.mov' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.mov' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt_.mov' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.mov' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.mp2' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9v2an58zgtq78h18jgmp43b5gza6b2jp_.mp3' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.mp3' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.mp4' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.mp4' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt_.mp4' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.mp4' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.mp4v' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.mp4v' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt_.mp4v' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.mp4v' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9v2an58zgtq78h18jgmp43b5gza6b2jp_.mpa' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.mpa' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.mpe' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.mpe' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.mpe' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.mpeg' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.mpeg' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.mpeg' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.mpg' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.mpg' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.mpg' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.MPEG_.mpv2' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.mpv2' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.mpv2' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.mpv2' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9rkaq77s0jzh1tyccadx9ghba15r6t3h_.mrw' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.mts' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.mts' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt_.mts' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.mts' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9rkaq77s0jzh1tyccadx9ghba15r6t3h_.nef' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9rkaq77s0jzh1tyccadx9ghba15r6t3h_.nrw' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmgw6pxxs62rbgfp9petmdyb4fx7rnd4k_.obj' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcdh38jxzbcberv50vxg2tg4k84kfnewn_.obj' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXr0rz9yckydawgnrx5df1t9s57ne60yhn_.obj' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvhc4p7vz4b485xfp46hhk3fq3grkdgjg_.obj' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXd7df65yysmdaz9xc1vjxts4ng22x2n5f_.obj' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.oga' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.ogg' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.ogm' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.ogm' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.ogv' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.ogv' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.ogx' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.ogx' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.opus' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9rkaq77s0jzh1tyccadx9ghba15r6t3h_.orf' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXd4nrz8ff68srnhf9t5a8sbjyar1cr723_.pdf' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9rkaq77s0jzh1tyccadx9ghba15r6t3h_.pef' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmgw6pxxs62rbgfp9petmdyb4fx7rnd4k_.ply' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcdh38jxzbcberv50vxg2tg4k84kfnewn_.ply' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXr0rz9yckydawgnrx5df1t9s57ne60yhn_.ply' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvhc4p7vz4b485xfp46hhk3fq3grkdgjg_.ply' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcdh38jxzbcberv50vxg2tg4k84kfnewn_.png' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcesbfs704v2mjbts9dkr42s9vmrhxbkj_.png' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXxf01pj590w7z9mxmyv3nx0a9ewj3e51g_.ps1' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXc9vj55m1n3559gcjff0scsqeket80zp7_.psd1' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX1b0e9ytcwx0wcmvkdey0h6af04t1ta3z_.psm1' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9rkaq77s0jzh1tyccadx9ghba15r6t3h_.raf' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9rkaq77s0jzh1tyccadx9ghba15r6t3h_.raw' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcesbfs704v2mjbts9dkr42s9vmrhxbkj_.rle' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9rkaq77s0jzh1tyccadx9ghba15r6t3h_.rw2' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9rkaq77s0jzh1tyccadx9ghba15r6t3h_.rwl' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX4ztfk9wxr86nxmzzq47px0nh0e58b8fw_.scp' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9rkaq77s0jzh1tyccadx9ghba15r6t3h_.sr2' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9rkaq77s0jzh1tyccadx9ghba15r6t3h_.srw' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmgw6pxxs62rbgfp9petmdyb4fx7rnd4k_.stl' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcdh38jxzbcberv50vxg2tg4k84kfnewn_.stl' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXr0rz9yckydawgnrx5df1t9s57ne60yhn_.stl' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvhc4p7vz4b485xfp46hhk3fq3grkdgjg_.stl' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXde74bfzw9j31bzhcvsrxsyjnhhbq66cs_.svg' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX43hnxtbyyps62jhe9sqpdzxn1790zetc_.tif' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX86746z2101ayy2ygv3g96e4eqdf8r99j_.tif' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcdh38jxzbcberv50vxg2tg4k84kfnewn_.tif' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcesbfs704v2mjbts9dkr42s9vmrhxbkj_.tif' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX43hnxtbyyps62jhe9sqpdzxn1790zetc_.tiff' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX86746z2101ayy2ygv3g96e4eqdf8r99j_.tiff' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcdh38jxzbcberv50vxg2tg4k84kfnewn_.tiff' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcesbfs704v2mjbts9dkr42s9vmrhxbkj_.tiff' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.tod' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.tod' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.tod' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.ts' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.ts' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.ts' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.tts' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.tts' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.tts' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX4ztfk9wxr86nxmzzq47px0nh0e58b8fw_.txt' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'vcard_wab_auto_file_.vcf' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9v2an58zgtq78h18jgmp43b5gza6b2jp_.wav' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.wav' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.webm' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.webm' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcesbfs704v2mjbts9dkr42s9vmrhxbkj_.webp' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.wm' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.wm' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt_.wm' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.wm' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9v2an58zgtq78h18jgmp43b5gza6b2jp_.wma' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.wma' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcesbfs704v2mjbts9dkr42s9vmrhxbkj_.wmf' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.wmv' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.wmv' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXk0g4vb8gvt7b93tg50ybcy892pge6jmt_.wmv' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.wmv' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9v2an58zgtq78h18jgmp43b5gza6b2jp_.wpl' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.wpl' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX4ztfk9wxr86nxmzzq47px0nh0e58b8fw_.wtx' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXcc58vyzkbjbs4ky0mxrmxf8278rk9b3t_.xml' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.xvid' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6eg8h5sxqq90pv53845wmnbewywdqq5h_.xvid' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXmk63adfvvewttqzmezsgagxtcyyr84tx_.xvid' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs_.zpl' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX9v2an58zgtq78h18jgmp43b5gza6b2jp_.zpl' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXtggqqtcfspt6ks3fjzyfppwc05yxwtwy_mswindowsmusic' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX6w6n4f8xch1s3vzwf3af6bfe88qhxbza_mswindowsvideo' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.bmp' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.dib' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.gif' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.ico' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.jfif' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.jpe' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.jpeg' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.jpg' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.png' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.tiff' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.tif' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.arw' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.cr2' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.crw' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.erf' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.kdc' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.mrw' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.nef' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.nrw' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.orf' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.pef' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.raw' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.rw2' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.rwl' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.sr2' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.srw' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.jxr' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.wdp' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'Windows.Sandbox_.wsb' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX2jm25qtmp2qxstv333wv5mne3k5bf4bm_.dng' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXq0fevzme2pys62n3e0fbqa7peapykr8v_http' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX90nv6nhay5n6a98fnetv7tpk64pp35es_https' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX7rm9drdg8sk7vqndwj3sdjw11x96jc0y_microsoft-edge' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppX3xxs313wwkfjhythsb8q46xdsq8d2cvv_microsoft-edge-holographic' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXdn5b0j699ka5fqvrr3pgjad0evqarm6d_ms-xbl-3d8b930f' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXe862j7twqs4aww05211jaakwxyfjx4da_read' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.3g2' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.3gp' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.aac' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.aiff' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.asf' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.avi' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.divx' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.f4a' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.f4v' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.flac' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.flv' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.gif' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.heic' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.jpeg' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.jpg' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.m2ts' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.m2v' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.m4a' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.m4v' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.mkv' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.mov' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.mp2' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.mp3' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.mp4' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.mpe' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.mpeg' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.mpg' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.mpv' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.mts' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.mxf' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.oga' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.ogg' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.ogv' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.opus' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.png' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.qt' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.r3d' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.rm' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.rmv' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.rmvb' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.vob' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.wav' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.webm' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.wma' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.wmv' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'AppXvsqkg1th80rv6s2rkh5m1hjp3hxryydd_.yuv' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.3G2_.3g2' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.3GP_.3gp' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.3G2_.3gp2' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.3GP_.3gpp' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.ADTS_.aac' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.ADTS_.adt' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.ADTS_.adts' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.AVI_.avi' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.FLAC_.flac' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.MPEG_.m1v' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.MPEG_.m2v' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.M4A_.m4a' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.MP4_.m4v' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.MKA_.mka' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.MOV_.mov' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.MP3_.MP2' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.MPEG_.mp2v' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.MP3_.mp3' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.MP4_.mp4' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.MP4_.mp4v' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.MPEG_.mpa' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.MPEG_.MPE' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.MPEG_.mpeg' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.MPEG_.mpg' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.M2TS_.mts' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.TTS_.TS' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.TTS_.TTS' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.WAV_.wav' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.ASF_.wm' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.WMA_.wma' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.WMV_.wmv' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts' -Name 'WMP11.AssocFile.WPL_.WPL' -Force
 
 #####################################################################################################################################################################################################################################
 
@@ -2808,8 +3193,8 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'NoAutoRebootWithLoggedOnUsers' -Value 1 -PropertyType DWord -Force
 
 # Windows间谍软件监控
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\MRT") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\MRT" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\MRT' -Name 'DontOfferThroughWUAU' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\MRT' -Name 'DontReportInfectionInformation' -Value 1 -PropertyType DWord -Force
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MRT.exe' -Recurse -Force;
 
 # Windows商店
@@ -3062,12 +3447,12 @@ if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\Do
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" -force -ea SilentlyContinue };
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile" -force -ea SilentlyContinue };
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile\Logging") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile\Logging" -force -ea SilentlyContinue };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile' -Name 'EnableFirewall' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging' -Name 'LogDroppedPackets' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging' -Name 'LogSuccessfulConnections' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile' -Name 'EnableFirewall' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile\Logging' -Name 'LogDroppedPackets' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile\Logging' -Name 'LogSuccessfulConnections' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile' -Name 'EnableFirewall' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging' -Name 'LogDroppedPackets' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging' -Name 'LogSuccessfulConnections' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile' -Name 'EnableFirewall' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile\Logging' -Name 'LogDroppedPackets' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile\Logging' -Name 'LogSuccessfulConnections' -Value 0 -PropertyType DWord -Force
 
 # This setting will disable Events.asp hyperlinks in Event Viewer to prevent links to the internet from within events.
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EventViewer') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\EventViewer' -Force };
@@ -3427,6 +3812,9 @@ if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\NVIDIA Corporation\Global\FTS') -ne 
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\NVIDIA Corporation\Global\FTS' -Name 'EnableRID44231' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\NVIDIA Corporation\Global\FTS' -Name 'EnableRID64640' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\NVIDIA Corporation\Global\FTS' -Name 'EnableRID66610' -Value 0 -PropertyType DWord -Force
+#
+if((Test-Path -LiteralPath "HKCU:\Software\NVIDIA Corporation\NvTray") -ne $true) {  New-Item "HKCU:\Software\NVIDIA Corporation\NvTray" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\NvTray' -Name 'StartOnLogin' -Value 0 -PropertyType DWord -Force
 # https://docs.microsoft.com/en-us/windows-hardware/drivers/display/seamless-state-transitions-in-wddm-1-2-and-later
 if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm' -Name 'WDDMv22EnableSmoothTransition' -Value 1 -PropertyType DWord -Force
@@ -4114,7 +4502,7 @@ $UsbDevices | ForEach-Object {
     $powerMgmt | Where-Object InstanceName -Like "*$($_.InstanceId)*"
 } | Set-CimInstance -Property @{Enable = $false }
 
-####################################################################################################### 总结工作 #######################################################################################################
+##############################################################################################################################################################################################################
 Get-ChildItem 'C:\Windows\SoftwareDistribution' | Remove-Item -Recurse -Force -Verbose
 Get-ChildItem 'C:\Users\Administrator\AppData\Local\Temp' | Remove-Item -Recurse -Force -Verbose
 Remove-Item c:\Users\Public\Desktop\desktop.ini -Force
