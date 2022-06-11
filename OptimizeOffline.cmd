@@ -7,8 +7,8 @@ DISM /Export-Image /SourceImageFile:"D:\Debloater\install.wim" /ALL /Destination
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "New-Item -Path 'C:\Mount' -ItemType Directory -Force -Verbose"
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Mount-WindowsImage -Checkintegrity -ImagePath 'C:\install.wim' -Index 1 -Path 'C:\Mount' -Verbose"
 echo ***********转换为专业工作站版本***********
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Set-WindowsEdition -Path 'C:\Mount' -Edition 'ProfessionalWorkstation' -Verbose"
-"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Set-WindowsProductKey -Path 'C:\Mount' -ProductKey 'NRG8B-VKK3Q-CXVCJ-9G2XF-6Q84J' -Verbose"
+"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Set-WindowsEdition -Path 'C:\Mount' -Edition 'Education' -Verbose"
+"C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Set-WindowsProductKey -Path 'C:\Mount' -ProductKey 'NW6C2-QMPVW-D7KKK-3GKT6-VCFB2' -Verbose"
 echo ***********注入驱动***********
 "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe" -Command "Add-WindowsDriver -Path 'C:\Mount' -Driver 'D:\Debloater\Drivers' -Recurse -ForceUnsigned -Verbose"
 echo ***********去除默认文件关联***********
