@@ -14,7 +14,7 @@ Start-Transcript -Path c:\OptimizeOnline2.txt -Force
 
 # https://github.com/thebookisclosed/ViVe
 # Enable Tabs in File Explorer
-# "vivetool addconfig 34370472 2" | cmd
+"C:\Windows\System32\vivetool.exe addconfig 37634385 2" | cmd
 
 # Powershell Module from https://www.powershellgallery.com/packages
 # Save-Module -Name PSWindowsUpdate -Path 'D:\Debloater\$OEM$\$1\Windows\System32\WindowsPowerShell\v1.0\Modules' -Repository PSGallery
