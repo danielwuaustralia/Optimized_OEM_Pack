@@ -14,7 +14,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerSh
 %systemroot%\SysWOW64\SetACL.exe -on "HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}" -ot reg -actn setowner -ownr "n:Administrators"
 %systemroot%\SysWOW64\SetACL.exe -on "HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}" -ot reg -actn ace -ace "n:Administrators;p:full"
 
-Start-Transcript -Path c:\OptimizeOnline1.txt -Force
+Start-Transcript -Path c:\1.txt -Force
 
 ####################################################################################################W#########################################################################################################################
 
@@ -226,9 +226,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defende
 # Disable tasks in root dir, only inclusions.
 Get-ScheduledTask -TaskPath "\*" | Where-Object {$_.Taskname -match 'MicrosoftEdge*' } | Disable-ScheduledTask
 # Disable all Windows Default Tasks, with exceptions.
-Get-ScheduledTask -TaskPath "\Microsoft\*" | Where-Object {$_.Taskname -notmatch 'MsCtfMonitor' -and $_.Taskname -notmatch 'RemoteFXvGPUDisableTask' `
--and $_.Taskname -notmatch 'Sysprep Generalize Drivers' -and $_.Taskname -notmatch 'Device Install Group Policy' -and $_.Taskname -notmatch 'ResPriStaticDbSync' -and $_.Taskname -notmatch 'WsSwapAssessmentTask' `
- -and $_.Taskname -notmatch 'DXGIAdapterCache' -and $_.Taskname -notmatch 'UninstallDeviceTask' -and $_.Taskname -notmatch 'GatherNetworkInfo'} | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath "\Microsoft\*" | Where-Object {$_.Taskname -notmatch 'MsCtfMonitor' -and $_.Taskname -notmatch 'RemoteFXvGPUDisableTask' -and $_.Taskname -notmatch 'Sysprep Generalize Drivers' -and $_.Taskname -notmatch 'Device Install Group Policy' -and $_.Taskname -notmatch 'ResPriStaticDbSync' -and $_.Taskname -notmatch 'WsSwapAssessmentTask' -and $_.Taskname -notmatch 'DXGIAdapterCache' -and $_.Taskname -notmatch 'UninstallDeviceTask' -and $_.Taskname -notmatch 'SoftwareProtectionPlatform' -and $_.Taskname -notmatch 'GatherNetworkInfo'} | Disable-ScheduledTask
 # Completely remove some in attempt to kill persistent tasks being recreated/enabled.
 schtasks /Delete /F /TN "\Microsoft\Windows\WaaSMedic\PerformRemediation"
 schtasks /Delete /F /TN "\Microsoft\Windows\WaaSMedic"
