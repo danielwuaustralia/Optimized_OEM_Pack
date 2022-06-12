@@ -9,30 +9,16 @@ rem Office 365
 "%windir%\Setup\Scripts\Office365\setup.exe" /configure "%windir%\Setup\Scripts\Office365\O365Preview.xml"
 
 rem KMS
-call %windir%\Setup\Scripts\KMS.cmd
-reg add "HKLM\SOFTWARE\Microsoft\OfficeSoftwareProtectionPlatform" /v "KeyManagementServiceName" /t REG_SZ /d "172.16.0.2" /f
-reg add "HKLM\SOFTWARE\Microsoft\OfficeSoftwareProtectionPlatform" /v "KeyManagementServicePort" /t REG_SZ /d "1688" /f
-reg add "HKLM\SOFTWARE\Microsoft\OfficeSoftwareProtectionPlatform" /v "DisableDnsPublishing" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Microsoft\OfficeSoftwareProtectionPlatform" /v "DisableKeyManagementServiceHostCaching" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /v "KeyManagementServiceName" /t REG_SZ /d "172.16.0.2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /v "KeyManagementServicePort" /t REG_SZ /d "1688" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /v "DisableDnsPublishing" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /v "DisableKeyManagementServiceHostCaching" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /v "KeyManagementServiceName" /t REG_SZ /d "172.16.0.2" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /v "KeyManagementServicePort" /t REG_SZ /d "1688" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /v "DisableDnsPublishing" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform" /v "DisableKeyManagementServiceHostCaching" /t REG_DWORD /d "0" /f
+call %windir%\Setup\Scripts\KMS_VL_ALL_AIO.cmd /s /a
 
 rem register video filters
-regsvr32.exe "%windir%\SysWOW64\XySubFilter.dll" /s
-regsvr32.exe "%windir%\SysWOW64\VSFilter.dll" /s
 regsvr32.exe "C:\Program Files\madVR\madVR64.ax" /s
 
-rem Visual Runtime
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VisualCppRedist_AIO_x86_x64.exe /ai /gm2
+rem 7zip
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\7z2107-x64.exe /S /D="C:\Program Files\7-Zip"
 
-rem https://dotnet.microsoft.com/en-us/download/dotnet/6.0
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-6.0.5-win-x64.exe /install /quiet /norestart
+rem https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VisualCppRedist_AIO_x86_x64.exe /ai /gm2
 
 rem Powershell 7
 %windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.3.0-preview.4-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
@@ -51,7 +37,7 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassoActivator.exe -makekeyfi
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassosetup64.exe /S /keyfile=%WINDIR%\Setup\Scripts\SOFTWARE\prolasso.key /launch_gui=false /gui_start_type=all /governor_start_type=all /language=SimpChinese
 
 rem chipset driver
-rem start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Software.exe /S
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Software.exe /S
 
 rem time sync
 start /wait C:\PROGRA~1\UpdateTime\UpdateTime_x64.exe /SI
