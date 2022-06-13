@@ -11,7 +11,8 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerSh
 
 ####################################################################################################W#########################################################################################################################
 
-<# 组件开关 #>
+Dism.exe /Online /Remove-DefaultAppAssociations
+
 Enable-WindowsOptionalFeature -Online -FeatureName 'LegacyComponents' -NoRestart
 Enable-WindowsOptionalFeature -Online -FeatureName 'DirectPlay' -NoRestart
 Enable-WindowsOptionalFeature -Online -FeatureName 'SMB1Protocol' -NoRestart
@@ -34,11 +35,11 @@ Get-WindowsCapability -Online | Where-Object { $_.Name -like 'App.StepsRecorder*
 Get-WindowsCapability -Online | Where-Object { $_.Name -like 'App.Support.QuickAssist*' } | Remove-WindowsCapability -Online
 Get-WindowsCapability -Online | Where-Object { $_.Name -like 'Browser.InternetExplorer*' } | Remove-WindowsCapability -Online
 Get-WindowsCapability -Online | Where-Object { $_.Name -like 'DirectX.Configuration.Database*' } | Remove-WindowsCapability -Online
-Get-WindowsCapability -Online | Where-Object { $_.Name -like 'Language.Handwriting*' } | Remove-WindowsCapability -Online
-Get-WindowsCapability -Online | Where-Object { $_.Name -like 'Language.OCR*' } | Remove-WindowsCapability -Online
-Get-WindowsCapability -Online | Where-Object { $_.Name -like 'Language.Speech*' } | Remove-WindowsCapability -Online
-Get-WindowsCapability -Online | Where-Object { $_.Name -like 'Language.TextToSpeech*' } | Remove-WindowsCapability -Online
-Get-WindowsCapability -Online | Where-Object { $_.Name -like 'Language.Fonts*' } | Remove-WindowsCapability -Online
+Get-WindowsCapability -Online | Where-Object { $_.Name -like 'Language.Handwriting~~~zh-CN*' } | Remove-WindowsCapability -Online
+Get-WindowsCapability -Online | Where-Object { $_.Name -like 'Language.OCR~~~zh-CN*' } | Remove-WindowsCapability -Online
+Get-WindowsCapability -Online | Where-Object { $_.Name -like 'Language.Speech~~~zh-CN*' } | Remove-WindowsCapability -Online
+Get-WindowsCapability -Online | Where-Object { $_.Name -like 'Language.TextToSpeech~~~zh-CN*' } | Remove-WindowsCapability -Online
+Get-WindowsCapability -Online | Where-Object { $_.Name -like 'Language.Fonts.Hans~~~und-HANS*' } | Remove-WindowsCapability -Online
 Get-WindowsCapability -Online | Where-Object { $_.Name -like 'Microsoft.Windows.Notepad.System*' } | Remove-WindowsCapability -Online
 Get-WindowsCapability -Online | Where-Object { $_.Name -like 'Microsoft.Windows.PowerShell.ISE*' } | Remove-WindowsCapability -Online
 Get-WindowsCapability -Online | Where-Object { $_.Name -like 'Print.Management.Console*' } | Remove-WindowsCapability -Online
@@ -300,10 +301,10 @@ if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender S
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications' -Name 'DisableNotifications' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications' -Name 'DisableEnhancedNotifications' -Value 1 -PropertyType DWord -Force
 #
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance" -force -ea SilentlyContinue };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.StartupApp") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.StartupApp" -force -ea SilentlyContinue };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance' -Name 'Enabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.StartupApp' -Name 'Enabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue;
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.StartupApp") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.StartupApp" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.StartupApp' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
 
 <# Game PresenceWriter #>
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter' -Name 'ActivationType' -Value 0 -PropertyType DWord -Force
