@@ -347,12 +347,27 @@ Get-ChildItem -Path 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Recurse -File |
 
 <# 删除Edge浏览器 #>
 Stop-Process -Name "MicrosoftEdgeUpdate.exe" -Force
+Stop-Service -Name "edgeupdate" -Force
+Stop-Service -Name "edgeupdatem" -Force
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdate' -recurse -Force;
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdatem' -recurse -Force;
 Remove-Item -LiteralPath "HKCU:\Software\Microsoft\EdgeUpdate" -recurse -force;
 Remove-Item -LiteralPath "HKCU:\Software\Microsoft\EdgeWebView" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Edge" -recurse -force;
-Get-ChildItem 'C:\Program Files (x86)\Microsoft' | Remove-Item -Recurse -Force -Verbose
+Get-ChildItem 'C:\Program Files (x86)\Microsoft' | Remove-Item -Recurse -Force
+
+<# 删除OneDrive #>
+Stop-Process -Name "OneDrive.exe" -Force
+Stop-Process -Name "OneDriveSetup.exe" -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}' -recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}' -recurse -Force;
+'C:\Windows\SysWOW64\OneDriveSetup.exe /uninstall /allusers' | cmd
+Get-ChildItem 'C:\OneDriveTemp' | Remove-Item -Recurse -Force
+Get-ChildItem '%USERPROFILE%\OneDrive' | Remove-Item -Recurse -Force
+Get-ChildItem '%LOCALAPPDATA%\Microsoft\OneDrive' | Remove-Item -Recurse -Force
+Get-ChildItem '%PROGRAMDATA%\Microsoft OneDrive' | Remove-Item -Recurse -Force
+Get-ChildItem '%ProgramFiles%\Microsoft OneDrive' | Remove-Item -Recurse -Force
+Get-ChildItem '%ProgramFiles(x86)%\Microsoft OneDrive' | Remove-Item -Recurse -Force
 
 # 右键　Give Access to
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{f81e9010-6ea4-11ce-a7ff-00aa003ca9f6}" -recurse -force;
