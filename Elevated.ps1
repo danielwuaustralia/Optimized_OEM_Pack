@@ -127,6 +127,7 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Pr
 <# UWP #>
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *ClipSVC* | Set-ItemProperty -Name Start -Value 3 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *LicenseManager* | Set-ItemProperty -Name Start -Value 3 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *AppXSvc* | Set-ItemProperty -Name Start -Value 3 -Force
 
 <# UUnP #>
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *SSDPSRV* | Set-ItemProperty -Name Start -Value 2 -Force
@@ -341,6 +342,11 @@ schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator\USO_UxBroker"
 schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator"
 schtasks /Delete /F /TN "\Microsoft\Windows\WindowsUpdate"
 schtasks /Delete /F /TN "\Microsoft\Windows\WindowsUpdate\Scheduled Start"
+schtasks /Delete /F /TN "\Microsoft\Windows\Windows Defender\Windows Defender Cache Maintenance"
+schtasks /Delete /F /TN "\Microsoft\Windows\Windows Defender\Windows Defender Cleanup"
+schtasks /Delete /F /TN "\Microsoft\Windows\Windows Defender\Windows Defender Scheduled Scan"
+schtasks /Delete /F /TN "\Microsoft\Windows\Windows Defender\Windows Defender Verification"
+schtasks /Delete /F /TN "\Microsoft\Windows\Windows Defender"
 
 <# 禁用nvidia驱动log #>
 Get-ChildItem -Path 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
