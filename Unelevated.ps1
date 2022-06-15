@@ -2546,7 +2546,7 @@ Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 dmd.
 Start-Sleep -Milliseconds '90'
 Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 v10.events.data.microsoft.com'
 Start-Sleep -Milliseconds '90'
-Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 watson.telemetry.microsoft.com'
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 telemetry.microsoft.com'
 Start-Sleep -Milliseconds '90'
 Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 fs.microsoft.com'
 Start-Sleep -Milliseconds '90'
@@ -2577,6 +2577,16 @@ Start-Sleep -Milliseconds '90'
 Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 ris.api.iris.microsoft.com'
 Start-Sleep -Milliseconds '90'
 Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 mucp.api.account.microsoft.com'
+Start-Sleep -Milliseconds '90'
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 v10c.events.data.microsoft.com'
+Start-Sleep -Milliseconds '90'
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 umwatsonc.events.data.microsoft.com'
+Start-Sleep -Milliseconds '90'
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 kmwatsonc.events.data.microsoft.com'
+Start-Sleep -Milliseconds '90'
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 settings-win.data.microsoft.com'
+Start-Sleep -Milliseconds '90'
+Add-Content -Encoding UTF8 C:\Windows\system32\drivers\etc\hosts '127.0.0.1 blob.core.windows.net'
 Start-Sleep -Milliseconds '90'
 
 # OneDrive
@@ -2948,11 +2958,12 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Hvsi' -Name 'DisableHvsi
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard' -Name 'HVCIMATRequired' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard' -Name 'ConfigureSystemGuardLaunch' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard' -Name 'HypervisorEnforcedCodeIntegrity' -Value 0 -PropertyType DWord -Force
+Remove-Item -Path 'C:\Windows\System32\CodeIntegrity\SIPolicy.p7b' -Force
 Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Lsa' -Name 'LsaCfgFlags' -Force
 Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard' -Name 'EnableVirtualizationBasedSecurity' -Force
 Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard' -Name 'LsaCfgFlags' -Force
 Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard' -Name 'RequirePlatformSecurityFeatures' -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard' -Name 'HypervisorEnforcedCodeIntegrity' -Force
 
 # 文件系统
 if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Force };
