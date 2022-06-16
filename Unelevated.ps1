@@ -2520,6 +2520,39 @@ Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Compon
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Low Rights\ElevationPolicy\{c9abcf16-8dc2-4a95-bae3-24fd98f2ed29}" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Main\EnterpriseMode" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\msedge.exe" -recurse -force;
+if((Test-Path -LiteralPath "Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.htm\UserChoice") -ne $true) {  New-Item "Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.htm\UserChoice" -force };
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.htm\UserChoice' -Name 'ProgId' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.htm\UserChoice' -Name 'Hash' -Value '' -PropertyType String -Force
+if((Test-Path -LiteralPath "Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.html\UserChoice") -ne $true) {  New-Item "Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.html\UserChoice" -force };
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.html\UserChoice' -Name 'ProgId' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.html\UserChoice' -Name 'Hash' -Value '' -PropertyType String -Force
+if((Test-Path -LiteralPath "Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.mht\UserChoice") -ne $true) {  New-Item "Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.mht\UserChoice" -force };
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.mht\UserChoice' -Name 'ProgId' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.mht\UserChoice' -Name 'Hash' -Value '' -PropertyType String -Force
+if((Test-Path -LiteralPath "Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.mhtml\UserChoice") -ne $true) {  New-Item "Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.mhtml\UserChoice" -force };
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.mhtml\UserChoice' -Name 'ProgId' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.mhtml\UserChoice' -Name 'Hash' -Value '' -PropertyType String -Force
+if((Test-Path -LiteralPath "Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.pdf\UserChoice") -ne $true) {  New-Item "Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.pdf\UserChoice" -force };
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.pdf\UserChoice' -Name 'ProgId' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.pdf\UserChoice' -Name 'Hash' -Value '' -PropertyType String -Force
+if((Test-Path -LiteralPath "Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.svg\UserChoice") -ne $true) {  New-Item "Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.svg\UserChoice" -force };
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.svg\UserChoice' -Name 'ProgId' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.svg\UserChoice' -Name 'Hash' -Value '' -PropertyType String -Force
+if((Test-Path -LiteralPath "Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.xht\UserChoice") -ne $true) {  New-Item "Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.xht\UserChoice" -force };
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.xht\UserChoice' -Name 'ProgId' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.xht\UserChoice' -Name 'Hash' -Value '' -PropertyType String -Force
+if((Test-Path -LiteralPath "Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.xhtml\UserChoice") -ne $true) {  New-Item "Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.xhtml\UserChoice" -force };
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.xhtml\UserChoice' -Name 'ProgId' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.xhtml\UserChoice' -Name 'Hash' -Value '' -PropertyType String -Force
+if((Test-Path -LiteralPath "Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\ftp") -ne $true) {  New-Item "Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\ftp" -force };
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\ftp' -Name 'ProgId' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\ftp' -Name 'Hash' -Value '' -PropertyType String -Force
+if((Test-Path -LiteralPath "Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http") -ne $true) {  New-Item "Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http" -force };
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http' -Name 'ProgId' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http' -Name 'Hash' -Value '' -PropertyType String -Force
+if((Test-Path -LiteralPath "Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https") -ne $true) {  New-Item "Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https" -force };
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https' -Name 'ProgId' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\.DEFAULT\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https' -Name 'Hash' -Value '' -PropertyType String -Force
 
 # OneDrive
 Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' -Name 'OneDriveSetup' -Force
