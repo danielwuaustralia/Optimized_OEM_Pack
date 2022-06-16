@@ -1631,7 +1631,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Mozilla\Firefox\SanitizeO
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Mozilla\Firefox\SanitizeOnShutdown' -Name 'SiteSettings' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Mozilla\Firefox\SanitizeOnShutdown' -Name 'OfflineApps' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Mozilla\Firefox\SanitizeOnShutdown' -Name 'Locked' -Value 1 -PropertyType DWord -Force
-# Edge策略
+# Edge浏览器
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'InstallDefault' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'UpdateDefault' -Value 4 -PropertyType DWord -Force
@@ -1645,6 +1645,9 @@ if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\Curren
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge' -Name 'NoRemove' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\EdgeUpdate') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\EdgeUpdate' -Force -ea };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\EdgeUpdate' -Name 'DoNotUpdateToEdgeWithChromium' -Value 1 -PropertyType DWord -Force
+# https://docs.microsoft.com/en-us/deployedge/edge-ie-disable-ie11
+if((Test-Path -LiteralPath "HKLM:\Software\Policies\Microsoft\Internet Explorer\Main") -ne $true) {  New-Item "HKLM:\Software\Policies\Microsoft\Internet Explorer\Main" -force };
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Internet Explorer\Main' -Name 'NotifyDisableIEOptions' -Value 1 -PropertyType DWord -Force
 # SysinternalsSuite
 if((Test-Path -LiteralPath "HKCU:\Software\Sysinternals\AccessChk") -ne $true) {  New-Item "HKCU:\Software\Sysinternals\AccessChk" -force -ea SilentlyContinue };
 if((Test-Path -LiteralPath "HKCU:\Software\Sysinternals\AccessEnum") -ne $true) {  New-Item "HKCU:\Software\Sysinternals\AccessEnum" -force -ea SilentlyContinue };
@@ -1895,9 +1898,10 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Office\16.0\Com
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Office\16.0\Common\OfficeUpdate' -Name 'PreventBingInstall' -Value 1 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\OneNote\Options\Other') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Office\16.0\OneNote\Options\Other' -Force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\OneNote\Options\Other' -Name 'RunSystemTrayApp' -Value 0 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Outlook\AutoDiscover') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Office\16.0\Outlook\AutoDiscover' -Force s };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Office\16.0\Outlook\AutoDiscover") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Office\16.0\Outlook\AutoDiscover" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Outlook\AutoDiscover' -Name 'ExcludeExplicitO365Endpoint' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'IMEControlActive' -Value 0 -PropertyType DWord -Force
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Office\16.0\Word\options") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Office\16.0\Word\options" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\options' -Name 'IMEControlActive' -Value 0 -PropertyType DWord -Force
 
 # 7zip
 if ((Test-Path -LiteralPath 'HKCU:\Software\7-Zip') -ne $true) { New-Item 'HKCU:\Software\7-Zip' -Force };
@@ -1911,7 +1915,6 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\7-Zip\Options' -Name 'WorkDirPath'
 New-ItemProperty -LiteralPath 'HKCU:\Software\7-Zip\Options' -Name 'TempRemovableOnly' -Value 0 -PropertyType DWord -Force
 
 #####################################################################################################################################################################################################################################
-
 
 'netsh int tcp set global rss=enable' | cmd
 'netsh int tcp set global autotuninglevel=normal' | cmd
