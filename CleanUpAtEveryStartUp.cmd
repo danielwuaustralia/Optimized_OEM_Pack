@@ -3,30 +3,18 @@
 >nul chcp 437
 setlocal enabledelayedexpansion
 
-rem Run as administrator, AveYo: ps\vbs version
-1>nul 2>nul fltmc || (
-	set "_=call "%~f0" %*" & powershell -nop -c start cmd -args'/d/x/r',$env:_ -verb runas || (
-	>"%temp%\Elevate.vbs" echo CreateObject^("Shell.Application"^).ShellExecute "%~dpf0", "%*" , "", "runas", 1
-	>nul "%temp%\Elevate.vbs" & del /q "%temp%\Elevate.vbs" )
-	exit)
-
 rem SpeedyFox
 "C:\Program Files\speedyfox.exe" "/Firefox:all" "/Chrome:all"
 
-timeout 5
-
-rem Clean Folder "%Windir%\System32\config\systemprofile\AppData\Local"
-set "tPath=%Windir%\System32\config\systemprofile\AppData\Local"
->"%temp%\result" 2>&1 dir /ad /b "%tPath%\*tmp" && for /f "tokens=*" %%# in ('type "%temp%\result"') do >nul 2>&1 rd /s /q "%tPath%\%%#"
+timeout 2
 
 rem CleanUp Folder
 rmdir /s /q "C:\TEMP\"
 
 rem logman query -ets
-C:\Windows\SysWOW64\NSudoLG.exe -U:T -P:E cmd /c "logman stop -ets UBPM"
-C:\Windows\SysWOW64\NSudoLG.exe -U:T -P:E cmd /c "logman stop -ets WindowsUpdate_trace_log"
-C:\Windows\SysWOW64\NSudoLG.exe -U:T -P:E cmd /c "logman stop -ets Diagtrack-Listener"
-C:\Windows\SysWOW64\NSudoLG.exe -U:T -P:E cmd /c "logman stop -ets SleepStudyTraceSession"
+C:\Windows\System32\NSudoLG.exe -U:T -P:E cmd /c "logman stop -ets UBPM"
+C:\Windows\System32\NSudoLG.exe -U:T -P:E cmd /c "logman stop -ets WindowsUpdate_trace_log"
+C:\Windows\System32\NSudoLG.exe -U:T -P:E cmd /c "logman stop -ets SleepStudyTraceSession"
 
 rem Refresh DNS Cache
 ipconfig /flushdns
