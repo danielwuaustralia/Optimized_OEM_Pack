@@ -363,7 +363,7 @@ Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppMod
 Remove-ItemProperty -LiteralPath 'HKCR:\AppUserModelId\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge' -Name 'ExcludeFromTabbedSetsSettings' -Force
 Remove-Item -LiteralPath "HKCR:\AppUserModelId\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge" -recurse -force;
 
-#
+<# 去除固定到我的电脑 #>
 Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{f874310e-b6b7-47dc-bc84-b9e6b38f5903}\shell\pintohome" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\Windows.PinToHome" -recurse -force;
 
@@ -374,6 +374,17 @@ Remove-Item -LiteralPath "HKCR:\Wow6432Node\AppID\{3eb3c877-1f16-487c-9050-104db
 Remove-Item -LiteralPath "HKCR:\Wow6432Node\AppID\{0358b920-0ac7-461f-98f4-58e32cd89148}" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\Software\Wow6432Node\Classes\AppID\{3eb3c877-1f16-487c-9050-104dbcd66683}" -force;
 Remove-Item -LiteralPath "HKLM:\Software\Wow6432Node\Classes\CLSID\{0358b920-0ac7-461f-98f4-58e32cd89148}" -recurse -force;
+
+<# 重置windows update #>
+Stop-Service -Name "CryptSvc" -Force
+Stop-Service -Name "BITS" -Force
+Stop-Service -Name "wuauserv" -Force
+Stop-Service -Name "AppIDSvc" -Force
+Get-ChildItem 'C:\Windows\System32\catroot2' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\SoftwareDistribution' | Remove-Item -Recurse -Force
+Remove-Item -Path 'C:\ProgramData\Application Data\Microsoft\Network\Downloader\qmgr.db' -Force
+Remove-Item -Path 'C:\ProgramData\Application Data\Microsoft\Network\Downloader\qmgr.jfm' -Force
+Remove-Item -Path 'C:\Windows\WindowsUpdate.log' -Force
 
 #####################################################################################################################################################################################
 Remove-PSDrive -Name HKCR
