@@ -15,7 +15,7 @@ rem register video filters
 regsvr32.exe "C:\Program Files\madVR\madVR64.ax" /s
 
 rem 7zip
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\7z2107-x64.exe /S /D="C:\Program Files\7-Zip"
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\7z2200-x64.exe /S /D="C:\Program Files\7-Zip"
 
 rem https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VisualCppRedist_AIO_x86_x64.exe /ai /gm2
@@ -27,7 +27,7 @@ rem lav
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.76.1-3.exe /VERYSILENT
 
 rem vulkan runtime
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.3.211.0-Installer.exe /S
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.3.216.0-Installer.exe /S
 
 rem Direct X
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\DirectXRedist.exe /ai
@@ -43,9 +43,7 @@ rem time sync
 start /wait C:\PROGRA~1\UpdateTime\UpdateTime_x64.exe /SI
 
 rem remove Edge
-"C:\Program Files (x86)\Microsoft\Edge\Application\100.0.1185.36\Installer\setup.exe" --uninstall --system-level --verbose-logging --force-uninstall --delete-profile
 "C:\Program Files (x86)\Microsoft\EdgeUpdate\MicrosoftEdgeUpdate.exe" /uninstall
-"C:\Program Files (x86)\Microsoft\EdgeWebView\Application\101.0.1210.39\Installer\setup.exe" --uninstall --msedgewebview --system-level --verbose-logging --force-uninstall
 
 del /f /q C:\Windows\Panther\unattend.xml
 %windir%\System32\UsoClient.exe RefreshSettings
