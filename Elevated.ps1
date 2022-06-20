@@ -353,7 +353,6 @@ Stop-Process -Name "OneDrive.exe" -Force
 Stop-Process -Name "OneDriveSetup.exe" -Force
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}' -recurse -Force;
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}' -recurse -Force;
-'C:\Windows\SysWOW64\OneDriveSetup.exe /uninstall /allusers' | cmd
 Get-ChildItem 'C:\OneDriveTemp' | Remove-Item -Recurse -Force
 Get-ChildItem '%USERPROFILE%\OneDrive' | Remove-Item -Recurse -Force
 Get-ChildItem '%LOCALAPPDATA%\Microsoft\OneDrive' | Remove-Item -Recurse -Force
@@ -361,15 +360,8 @@ Get-ChildItem '%PROGRAMDATA%\Microsoft OneDrive' | Remove-Item -Recurse -Force
 Get-ChildItem '%ProgramFiles%\Microsoft OneDrive' | Remove-Item -Recurse -Force
 Get-ChildItem '%ProgramFiles(x86)%\Microsoft OneDrive' | Remove-Item -Recurse -Force
 
-<# 右键　Give Access to #>
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\CLSID\{f81e9010-6ea4-11ce-a7ff-00aa003ca9f6}" -recurse -force;
-
 # Component Based Servicing
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing' -Name 'DisableWerReporting' -Value 1 -PropertyType DWord -Force
-
-<# 去除固定到我的电脑 #>
-Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{f874310e-b6b7-47dc-bc84-b9e6b38f5903}\shell\pintohome" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\CommandStore\shell\Windows.PinToHome" -recurse -force;
 
 <# https://www.ntlite.com/community/index.php?threads/closed-disable-wininet-task-and-webcache-folder.846/ #>
 Remove-Item -LiteralPath "HKCR:\CLSID\{0358b920-0ac7-461f-98f4-58e32cd89148}" -recurse -force;
