@@ -1,23 +1,10 @@
-<# Powershell #>
 $ErrorActionPreference = 'SilentlyContinue'
 $ProgressPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 $PSModuleAutoloadingPreference = 'All'
 
-if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell' -Force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell' -Name 'EnableScripts' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell' -Name 'ExecutionPolicy' -Value 'Unrestricted' -PropertyType String -Force
-%systemroot%\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\Drive\shell\PowerShell7-previewx64' -ot reg -actn setowner -ownr 'n:Administrators'
-%systemroot%\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\Drive\shell\PowerShell7-previewx64' -ot reg -actn ace -ace 'n:Administrators;p:full'
-%systemroot%\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\Directory\background\shell\PowerShell7-previewx64' -ot reg -actn setowner -ownr 'n:Administrators'
-%systemroot%\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\Directory\background\shell\PowerShell7-previewx64' -ot reg -actn ace -ace 'n:Administrators;p:full'
-%systemroot%\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}' -ot reg -actn setowner -ownr 'n:Administrators'
-%systemroot%\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}' -ot reg -actn ace -ace 'n:Administrators;p:full'
+
 New-PSDrive -PSProvider Registry -Name HKCR -Root HKEY_CLASSES_ROOT
-
-Start-Transcript -Path c:\1.txt -Force
-
-#####################################################################################################################################################################################################################################
 
 # https://github.com/thebookisclosed/ViVe
 # Enable Tabs in File Explorer
@@ -31,13 +18,25 @@ Start-Transcript -Path c:\1.txt -Force
 # Import-Module -SkipEditionCheck RobocopyPS
 # Import-Module -SkipEditionCheck PowerShellGet
 
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell' -Force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell' -Name 'EnableScripts' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell' -Name 'ExecutionPolicy' -Value 'Unrestricted' -PropertyType String -Force
+%systemroot%\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\Drive\shell\PowerShell7-previewx64' -ot reg -actn setowner -ownr 'n:Administrators'
+%systemroot%\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\Drive\shell\PowerShell7-previewx64' -ot reg -actn ace -ace 'n:Administrators;p:full'
+%systemroot%\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\Directory\background\shell\PowerShell7-previewx64' -ot reg -actn setowner -ownr 'n:Administrators'
+%systemroot%\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\Directory\background\shell\PowerShell7-previewx64' -ot reg -actn ace -ace 'n:Administrators;p:full'
+%systemroot%\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}' -ot reg -actn setowner -ownr 'n:Administrators'
+%systemroot%\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}' -ot reg -actn ace -ace 'n:Administrators;p:full'
+
+Start-Transcript -Path c:\1.txt -Force
+
+#####################################################################################################################################################################################################################################
+
+
 "Dism.exe /Online /Remove-DefaultAppAssociations" | cmd
 
 Enable-WindowsOptionalFeature -Online -FeatureName 'LegacyComponents' -NoRestart
 Enable-WindowsOptionalFeature -Online -FeatureName 'DirectPlay' -NoRestart
-Disable-WindowsOptionalFeature -Online -FeatureName 'SMB1Protocol' -NoRestart
-Disable-WindowsOptionalFeature -Online -FeatureName 'SMB1Protocol-Client' -NoRestart
-Disable-WindowsOptionalFeature -Online -FeatureName 'SMB1Protocol-Server' -NoRestart
 Disable-WindowsOptionalFeature -Online -FeatureName 'SmbDirect' -NoRestart
 Disable-WindowsOptionalFeature -Online -FeatureName 'Windows-Defender-Default-Definitions' -NoRestart
 Disable-WindowsOptionalFeature -Online -FeatureName 'Printing-XPSServices-Features' -NoRestart
@@ -2202,6 +2201,8 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched'
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD' -Name 'EnableRspndr' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD' -Name 'EnableLLTDIO' -Value 0 -PropertyType DWord -Force
+
+#####################################################################################################################################################################################################################################
 
 # Dynamic Ticks are a feature that lets windows stop the system timer when nothing is happening in order to conserve power.
 'bcdedit /set disabledynamictick yes' | cmd
