@@ -12,8 +12,6 @@ rem CleanUp Folder
 rmdir /s /q "C:\TEMP\"
 
 rem logman query -ets
-C:\Windows\System32\NSudoLG.exe -U:T -P:E cmd /c "logman stop -ets UBPM"
-C:\Windows\System32\NSudoLG.exe -U:T -P:E cmd /c "logman stop -ets WindowsUpdate_trace_log"
 C:\Windows\System32\NSudoLG.exe -U:T -P:E cmd /c "logman stop -ets SleepStudyTraceSession"
 
 rem Refresh DNS Cache
