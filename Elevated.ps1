@@ -83,6 +83,11 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Pr
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *diagsvc* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *webthreatdefsvc* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *RemoteRegistry* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *MessagingService* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *PimIndexMaintenanceSvc* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *RetailDemo* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *OneSyncSvc* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *dmwappushservice* | Set-ItemProperty -Name Start -Value 4 -Force
 
 <# 打印机 #>
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *Spooler* | Set-ItemProperty -Name Start -Value 3 -Force
@@ -186,6 +191,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\intelppm'
 New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\CompatTelRunner.exe" | New-ItemProperty -Name 'Debugger' -PropertyType String -Value "0" -Force
 New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WaaSMedicAgent.exe" | New-ItemProperty -Name 'Debugger' -PropertyType String -Value "0" -Force
 New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smartscreen.exe" | New-ItemProperty -Name 'Debugger' -PropertyType String -Value "0" -Force
+New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\software_reporter_tool.exe" | New-ItemProperty -Name 'Debugger' -PropertyType String -Value "0" -Force
 #
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smss.exe\PerfOptions") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smss.exe\PerfOptions" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\smss.exe\PerfOptions' -Name 'CpuPriorityClass' -Value 4 -PropertyType DWord -Force
@@ -323,6 +329,9 @@ schtasks /Delete /F /TN "\Microsoft\Office\Office Performance Monitor"
 schtasks /Delete /F /TN "\Microsoft\Office\OfficeTelemetryAgentFallBack2016"
 schtasks /Delete /F /TN "\Microsoft\Office\OfficeTelemetryAgentLogOn2016"
 #
+Get-ScheduledTask -TaskName "GoogleUpdateTaskMachineCore" | Disable-ScheduledTask
+Get-ScheduledTask -TaskName "GoogleUpdateTaskMachineUA" | Disable-ScheduledTask
+#
 Get-ScheduledTask -TaskPath "\Microsoft\*" | Where-Object {$_.TaskName -notmatch 'MsCtfMonitor' -and $_.TaskName -notmatch 'Sysprep Generalize Drivers' -and $_.TaskName -notmatch 'Device Install Group Policy' -and $_.TaskName -notmatch 'ResPriStaticDbSync' -and $_.TaskName -notmatch 'WsSwapAssessmentTask' -and $_.TaskName -notmatch 'DXGIAdapterCache' -and $_.TaskName -notmatch 'UninstallDeviceTask' -and $_.TaskName -notmatch 'SvcRestartTask' -and $_.TaskName -notmatch 'SvcRestartTaskLogon' -and $_.TaskName -notmatch 'SvcRestartTaskNetwork' -and $_.TaskName -notmatch 'SvcTrigger' -and $_.TaskName -notmatch 'GatherNetworkInfo'} | Disable-ScheduledTask
 
 <# 禁用nvidia驱动log #>
@@ -384,7 +393,29 @@ Get-ChildItem 'C:\Windows\SoftwareDistribution' | Remove-Item -Recurse -Force
 Remove-Item -Path 'C:\ProgramData\Application Data\Microsoft\Network\Downloader\qmgr.db' -Force
 Remove-Item -Path 'C:\ProgramData\Application Data\Microsoft\Network\Downloader\qmgr.jfm' -Force
 Remove-Item -Path 'C:\Windows\WindowsUpdate.log' -Force
+Remove-Item -Path 'C:\Windows\System32\catroot2.log' -Force
+Remove-Item -Path 'C:\Windows\System32\catroot2.jrs' -Force
+Remove-Item -Path 'C:\Windows\System32\catroot2.edb' -Force
+Remove-Item -Path 'C:\Windows\System32\catroot2.chk' -Force
+
+<# 删除无用目录 #>
+Remove-Item  'C:\Windows\System32\DriverStore\FileRepository\NvTelemetry*.dll' -Recurse -Force
+Get-ChildItem 'C:\ProgramData\Microsoft\Windows\WER' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\ProgramData\Microsoft\Diagnosis\ETLLogs' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\ProgramData\Microsoft\Windows\RetailDemo' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\Temp' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Users\Administrator\AppData\Local\Temp' | Remove-Item -Recurse -Force
+Remove-Item -Path 'C:\Windows\DtcInstall.log' -Force
+Remove-Item -Path 'C:\Windows\comsetup.log' -Force
+Remove-Item -Path 'C:\Windows\PFRO.log' -Force
+Remove-Item -Path 'C:\Windows\Performance\WinSAT\winsat.log' -Force
+Remove-Item -Path 'C:\Windows\debug\PASSWD.LOG' -Force
+Get-ChildItem 'C:\Users\Administrator\AppData\Local\Microsoft\Windows\WebCache' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\ServiceProfiles\LocalService\AppData\Local\Temp' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\System32\LogFiles\setupcln' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\Logs' | Remove-Item -Recurse -Force
 
 #####################################################################################################################################################################################
+
 Remove-PSDrive -Name HKCR
 Restart-Computer -Force
