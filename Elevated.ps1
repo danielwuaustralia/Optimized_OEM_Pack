@@ -338,6 +338,22 @@ ForEach ($item in $Logger) { $path = $item -replace "HKEY_LOCAL_MACHINE","HKLM:"
 ForEach ($item in $Logger) { $path = $item -replace "HKEY_LOCAL_MACHINE","HKLM:"; Set-ItemProperty -Path $path -Name 'EnableProperty' -Value 0 -Force }
 #
 $WINEVT = 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels'; Get-ChildItem $WINEVT | ForEach-Object { Set-ItemProperty -Path "$WINEVT\$($_.pschildname)" -Name Enabled -Value 0 -Verbose }
+#
+Remove-Item  'C:\Windows\System32\DriverStore\FileRepository\NvTelemetry*.dll' -Recurse -Force
+Get-ChildItem 'C:\ProgramData\Microsoft\Windows\WER' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\ProgramData\Microsoft\Diagnosis\ETLLogs' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\ProgramData\Microsoft\Windows\RetailDemo' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\Temp' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Users\Administrator\AppData\Local\Temp' | Remove-Item -Recurse -Force
+Remove-Item -Path 'C:\Windows\DtcInstall.log' -Force
+Remove-Item -Path 'C:\Windows\comsetup.log' -Force
+Remove-Item -Path 'C:\Windows\PFRO.log' -Force
+Remove-Item -Path 'C:\Windows\Performance\WinSAT\winsat.log' -Force
+Remove-Item -Path 'C:\Windows\debug\PASSWD.LOG' -Force
+Get-ChildItem 'C:\Users\Administrator\AppData\Local\Microsoft\Windows\WebCache' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\ServiceProfiles\LocalService\AppData\Local\Temp' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\System32\LogFiles\setupcln' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\Logs' | Remove-Item -Recurse -Force
 
 <# 计划任务 #>
 schtasks /Delete /F /TN "\Microsoft\Windows\WaaSMedic\PerformRemediation"
@@ -357,9 +373,10 @@ schtasks /Delete /F /TN "\Microsoft\Windows\Windows Defender"
 schtasks /Delete /F /TN "\Microsoft\Windows\ExploitGuard\ExploitGuard MDM policy Refresh"
 schtasks /Delete /F /TN "\Microsoft\XblGameSave\XblGameSaveTask"
 schtasks /Delete /F /TN "\Microsoft\Windows\Wininet\CacheTask"
-schtasks /Delete /F /TN "\Microsoft\Office\Office Performance Monitor"
-schtasks /Delete /F /TN "\Microsoft\Office\OfficeTelemetryAgentFallBack2016"
-schtasks /Delete /F /TN "\Microsoft\Office\OfficeTelemetryAgentLogOn2016"
+#
+Get-ScheduledTask -TaskPath "\Microsoft\Office\Office Performance Monitor" | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath "\Microsoft\Office\OfficeTelemetryAgentFallBack2016" | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath "\Microsoft\Office\OfficeTelemetryAgentLogOn2016" | Disable-ScheduledTask
 #
 Get-ScheduledTask -TaskName "GoogleUpdateTaskMachineCore" | Disable-ScheduledTask
 Get-ScheduledTask -TaskName "GoogleUpdateTaskMachineUA" | Disable-ScheduledTask
@@ -414,23 +431,6 @@ Remove-Item -LiteralPath "HKCR:\Wow6432Node\AppID\{3eb3c877-1f16-487c-9050-104db
 Remove-Item -LiteralPath "HKCR:\Wow6432Node\AppID\{0358b920-0ac7-461f-98f4-58e32cd89148}" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\Software\Wow6432Node\Classes\AppID\{3eb3c877-1f16-487c-9050-104dbcd66683}" -force;
 Remove-Item -LiteralPath "HKLM:\Software\Wow6432Node\Classes\CLSID\{0358b920-0ac7-461f-98f4-58e32cd89148}" -recurse -force;
-
-<# 删除无用目录 #>
-Remove-Item  'C:\Windows\System32\DriverStore\FileRepository\NvTelemetry*.dll' -Recurse -Force
-Get-ChildItem 'C:\ProgramData\Microsoft\Windows\WER' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\ProgramData\Microsoft\Diagnosis\ETLLogs' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\ProgramData\Microsoft\Windows\RetailDemo' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\Temp' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Users\Administrator\AppData\Local\Temp' | Remove-Item -Recurse -Force
-Remove-Item -Path 'C:\Windows\DtcInstall.log' -Force
-Remove-Item -Path 'C:\Windows\comsetup.log' -Force
-Remove-Item -Path 'C:\Windows\PFRO.log' -Force
-Remove-Item -Path 'C:\Windows\Performance\WinSAT\winsat.log' -Force
-Remove-Item -Path 'C:\Windows\debug\PASSWD.LOG' -Force
-Get-ChildItem 'C:\Users\Administrator\AppData\Local\Microsoft\Windows\WebCache' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\ServiceProfiles\LocalService\AppData\Local\Temp' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\System32\LogFiles\setupcln' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\Logs' | Remove-Item -Recurse -Force
 
 #####################################################################################################################################################################################
 
