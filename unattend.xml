@@ -5,7 +5,7 @@
         <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <UserData>
                 <ProductKey>
-                    <Key>NPPR9-FWDCX-D2C8J-H872K-2YT43</Key>
+                    <Key>NRG8B-VKK3Q-CXVCJ-9G2XF-6Q84J</Key>
                     <WillShowUI>Never</WillShowUI>
                 </ProductKey>
                 <AcceptEula>true</AcceptEula>
@@ -100,7 +100,7 @@
             <RegisteredOwner>Bill Gates</RegisteredOwner>
             <RegisteredOrganization>Microsoft</RegisteredOrganization>
             <TimeZone>AUS Eastern Standard Time</TimeZone>
-            <ProductKey>NPPR9-FWDCX-D2C8J-H872K-2YT43</ProductKey>
+            <ProductKey>NRG8B-VKK3Q-CXVCJ-9G2XF-6Q84J</ProductKey>
         </component>
         <component name="Microsoft-Windows-SQMApi" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <CEIPEnabled>0</CEIPEnabled>
@@ -151,15 +151,19 @@
                     <Order>1</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                     <CommandLine>C:\Windows\Setup\Scripts\SOFTWARE\AAFOptimusDCHAudioPack.exe</CommandLine>
-                    <Description>AudioDriver</Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>2</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                    <CommandLine>C:\Windows\Setup\Scripts\SOFTWARE\StartAllBack.exe</CommandLine>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>3</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>"C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Unelevated.ps1"</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <Order>3</Order>
+                    <Order>4</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>"C:\Windows\System32\NsudoLG.exe" -U:T -P:E -Wait "C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Elevated.ps1"</CommandLine>
                 </SynchronousCommand>
