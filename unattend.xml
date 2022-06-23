@@ -165,7 +165,7 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>4</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>"C:\Windows\System32\NsudoLG.exe" -U:T -P:E -Wait "C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Elevated.ps1"</CommandLine>
+                    <CommandLine>"C:\Windows\System32\PowerRun_x64.exe" "C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Elevated.ps1"</CommandLine>
                 </SynchronousCommand>
             </FirstLogonCommands>
             <UserAccounts>
