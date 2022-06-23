@@ -168,11 +168,9 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Pr
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *embeddedmode* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *TrkWks* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *mpssvc* | Set-ItemProperty -Name Start -Value 4 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *BFE* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *BFE* | Set-ItemProperty -Name Start -Value 3 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *Psched* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *BDESVC* | Set-ItemProperty -Name Start -Value 4 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *fvevol* | Set-ItemProperty -Name Start -Value 4 -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\fvevol' -Name 'ErrorControl' -Value 0 -PropertyType DWord -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *PushToInstall* | Set-ItemProperty -Name Start -Value 3 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *InstallService* | Set-ItemProperty -Name Start -Value 3 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *NgcCtnrSvc* | Set-ItemProperty -Name Start -Value 3 -Force
@@ -205,7 +203,7 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Pr
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *Ndu* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *NetBT* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *RasAuto* | Set-ItemProperty -Name Start -Value 4 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *RpcLocator* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *RpcLocator* | Set-ItemProperty -Name Start -Value 3 -Force
 
 <# xbox #>
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *XblAuthManager* | Set-ItemProperty -Name Start -Value 4 -Force
@@ -413,9 +411,7 @@ Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppMod
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel\StateRepository\Cache\Protocol\Index\Name\microsoft-edge-holographic" -recurse -force;
 Remove-ItemProperty -LiteralPath 'HKCR:\AppUserModelId\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge' -Name 'ExcludeFromTabbedSetsSettings' -Force
 Remove-Item -LiteralPath "HKCR:\AppUserModelId\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge" -recurse -force;
-Stop-Process -Name "MicrosoftEdgeUpdate.exe" -Force
-Stop-Service -Name "edgeupdate" -Force
-Stop-Service -Name "edgeupdatem" -Force
+'taskkill /f /im "MicrosoftEdgeUpdate.exe"' | cmd
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdate' -recurse -Force;
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdatem' -recurse -Force;
 Remove-Item -LiteralPath "HKCU:\Software\Microsoft\EdgeUpdate" -recurse -force;
@@ -428,18 +424,62 @@ Get-ChildItem 'C:\Windows\System32\config\systemprofile\AppData\Roaming\Microsof
 Remove-Item -Path 'C:\Windows\System32\Tasks\MicrosoftEdgeUpdateTaskMachineCore' -Force
 Remove-Item -Path 'C:\Windows\System32\Tasks\MicrosoftEdgeUpdateTaskMachineUA' -Force
 Remove-Item -Path 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk' -Force
+Remove-Item -Path 'C:\Users\Administrator\Desktop\Microsoft Edge.lnk' -Force
 
 <# 删除OneDrive #>
-Stop-Process -Name "OneDrive.exe" -Force
-Stop-Process -Name "OneDriveSetup.exe" -Force
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}' -recurse -Force;
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}' -recurse -Force;
-Get-ChildItem 'C:\OneDriveTemp' | Remove-Item -Recurse -Force
-Get-ChildItem '%USERPROFILE%\OneDrive' | Remove-Item -Recurse -Force
-Get-ChildItem '%LOCALAPPDATA%\Microsoft\OneDrive' | Remove-Item -Recurse -Force
-Get-ChildItem '%PROGRAMDATA%\Microsoft OneDrive' | Remove-Item -Recurse -Force
-Get-ChildItem '%ProgramFiles%\Microsoft OneDrive' | Remove-Item -Recurse -Force
-Get-ChildItem '%ProgramFiles(x86)%\Microsoft OneDrive' | Remove-Item -Recurse -Force
+'taskkill /f /im "OneDrive.exe"' | cmd
+'C:\Windows\System32\OneDriveSetup.exe /uninstall /allusers' | cmd
+Remove-Item -LiteralPath 'HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\CLSID\{021E4F06-9DCC-49AD-88CF-ECC2DA314C8A}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{021E4F06-9DCC-49AD-88CF-ECC2DA314C8A}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\CLSID\{0827D883-485C-4D62-BA2C-A332DBF3D4B0}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{0827D883-485C-4D62-BA2C-A332DBF3D4B0}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\CLSID\{1BF42E4C-4AF4-4CFD-A1A0-CF2960B8F63E}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{1BF42E4C-4AF4-4CFD-A1A0-CF2960B8F63E}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\CLSID\{20894375-46AE-46E2-BAFD-CB38975CDCE6}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{20894375-46AE-46E2-BAFD-CB38975CDCE6}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\CLSID\{2e7c0a19-0438-41e9-81e3-3ad3d64f55ba}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{2e7c0a19-0438-41e9-81e3-3ad3d64f55ba}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\CLSID\{389510b7-9e58-40d7-98bf-60b911cb0ea9}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{389510b7-9e58-40d7-98bf-60b911cb0ea9}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\CLSID\{4410DC33-BC7C-496B-AA84-4AEA3EEE75F7}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{4410DC33-BC7C-496B-AA84-4AEA3EEE75F7}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\CLSID\{47E6DCAF-41F8-441C-BD0E-A50D5FE6C4D1}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{47E6DCAF-41F8-441C-BD0E-A50D5FE6C4D1}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\CLSID\{5999E1EE-711E-48D2-9884-851A709F543D}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{5999E1EE-711E-48D2-9884-851A709F543D}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\CLSID\{5AB7172C-9C11-405C-8DD5-AF20F3606282}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{5AB7172C-9C11-405C-8DD5-AF20F3606282}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\CLSID\{6bb93b4e-44d8-40e2-bd97-42dbcf18a40f}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{6bb93b4e-44d8-40e2-bd97-42dbcf18a40f}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\CLSID\{71DCE5D6-4B57-496B-AC21-CD5B54EB93FD}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{71DCE5D6-4B57-496B-AC21-CD5B54EB93FD}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\CLSID\{7AFDFDDB-F914-11E4-8377-6C3BE50D980C}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{7AFDFDDB-F914-11E4-8377-6C3BE50D980C}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\CLSID\{7B37E4E2-C62F-4914-9620-8FB5062718CC}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{7B37E4E2-C62F-4914-9620-8FB5062718CC}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\CLSID\{82CA8DE3-01AD-4CEA-9D75-BE4C51810A9E}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{82CA8DE3-01AD-4CEA-9D75-BE4C51810A9E}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\CLSID\{917E8742-AA3B-7318-FA12-10485FB322A2}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{917E8742-AA3B-7318-FA12-10485FB322A2}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\CLSID\{94269C4E-071A-4116-90E6-52E557067E4E}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{94269C4E-071A-4116-90E6-52E557067E4E}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\CLSID\{9489FEB2-1925-4D01-B788-6D912C70F7F2}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{9489FEB2-1925-4D01-B788-6D912C70F7F2}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\CLSID\{9AA2F32D-362A-42D9-9328-24A483E2CCC3}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{9AA2F32D-362A-42D9-9328-24A483E2CCC3}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\CLSID\{A0396A93-DC06-4AEF-BEE9-95FFCCAEF20E}' -recurse -Force;
+Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{A0396A93-DC06-4AEF-BEE9-95FFCCAEF20E}' -recurse -Force;
+Get-ChildItem 'C:\Users\Administrator\AppData\Local\Microsoft\OneDrive' | Remove-Item -Recurse -Force
+Remove-Item 'C:\Users\Administrator\OneDrive' -recurse -Force
+Remove-Item 'C:\ProgramData\Microsoft OneDrive' -recurse -Force
+Remove-Item -Path 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\OneDrive.lnk' -Force
+New-ItemProperty -LiteralPath 'HKCR:\.fluid\shell\open\command' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCR:\.loop\shell\open\command' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCR:\.note\shell\open\command' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCR:\.whiteboard\shell\open\command' -Name '(default)' -Value '' -PropertyType String -Force
+Remove-Item -LiteralPath "HKCR:\AppID\OneDrive.EXE" -force;
 
 # Component Based Servicing
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing' -Name 'DisableWerReporting' -Value 1 -PropertyType DWord -Force
