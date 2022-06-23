@@ -10,6 +10,7 @@ rem Office 365
 
 rem KMS
 call %windir%\Setup\Scripts\KMS_VL_ALL_AIO.cmd /s /a
+rem call %windir%\Setup\Scripts\HEUKMSActivator.exe /kwi /kof /ren /dig /nologo
 
 rem register video filters
 regsvr32.exe "C:\Program Files\madVR\madVR64.ax" /s
@@ -21,7 +22,7 @@ rem https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VisualCppRedist_AIO_x86_x64.exe /ai /gm2
 
 rem Powershell 7
-%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.3.0-preview.4-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
+%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.3.0-preview.5-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
 rem lav
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.76.1-3.exe /VERYSILENT
