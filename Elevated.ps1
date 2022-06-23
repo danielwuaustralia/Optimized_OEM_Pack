@@ -349,6 +349,15 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\N
 Remove-Item -LiteralPath "HKCR:\AppUserModelId\Microsoft.Windows.Defender" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\AppUserModelId\Windows.Defender" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\CLSID\{09A47860-11B0-4DA5-AFA5-26D86198A780}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\AppX9kvz3rdv8t7twanaezbwfcdgrbg3bck0" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WindowsDefender" -recurse -force;
+Remove-Item -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\PushNotifications\Backup\Windows.Defender" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Extensions\windows.protocol\windowsdefender" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Google\Chrome\NativeMessagingHosts\com.microsoft.defender.browser_extension.native_message_host" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\CspSchema\defender" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\DeclaredConfiguration\CspSchema\1.0\defender" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel\StateRepository\Cache\Protocol\Index\Name\windowsdefender" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PushNotifications\Applications\Windows.Defender" -recurse -force;
 
 <# Game PresenceWriter #>
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter' -Name 'ActivationType' -Value 0 -PropertyType DWord -Force
@@ -427,7 +436,6 @@ Remove-Item -Path 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsof
 Remove-Item -Path 'C:\Users\Administrator\Desktop\Microsoft Edge.lnk' -Force
 
 <# 删除OneDrive #>
-'taskkill /f /im "OneDrive.exe"' | cmd
 'C:\Windows\System32\OneDriveSetup.exe /uninstall /allusers' | cmd
 Remove-Item -LiteralPath 'HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}' -recurse -Force;
 Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}' -recurse -Force;
@@ -471,6 +479,7 @@ Remove-Item -LiteralPath 'HKCR:\CLSID\{9AA2F32D-362A-42D9-9328-24A483E2CCC3}' -r
 Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{9AA2F32D-362A-42D9-9328-24A483E2CCC3}' -recurse -Force;
 Remove-Item -LiteralPath 'HKCR:\CLSID\{A0396A93-DC06-4AEF-BEE9-95FFCCAEF20E}' -recurse -Force;
 Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{A0396A93-DC06-4AEF-BEE9-95FFCCAEF20E}' -recurse -Force;
+'taskkill /f /im "OneDrive.exe"' | cmd
 Get-ChildItem 'C:\Users\Administrator\AppData\Local\Microsoft\OneDrive' | Remove-Item -Recurse -Force
 Remove-Item 'C:\Users\Administrator\OneDrive' -recurse -Force
 Remove-Item 'C:\ProgramData\Microsoft OneDrive' -recurse -Force
