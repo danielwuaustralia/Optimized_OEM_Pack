@@ -159,11 +159,16 @@
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>3</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                    <CommandLine>C:\Windows\Setup\Scripts\Acrobat\autoplay.exe</CommandLine>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>4</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>"C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Unelevated.ps1"</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <Order>4</Order>
+                    <Order>5</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>"C:\Windows\System32\PowerRun_x64.exe" "C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Elevated.ps1"</CommandLine>
                 </SynchronousCommand>
