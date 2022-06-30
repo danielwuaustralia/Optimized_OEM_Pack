@@ -1,49 +1,73 @@
-@cls
 @echo off
->nul chcp 437
-setlocal enabledelayedexpansion
-rem Setupcomplete.cmd is ran after oobe and just before the desktop appears when using windows setup.
-rem Oobe.cmd is run after the the screen about copying of files/expanding files part is shown via setup and the bit when it says it will reboot in x seconds...
 
-rem Office 365
-"%windir%\Setup\Scripts\Office365\setup.exe" /configure "%windir%\Setup\Scripts\Office365\O365Preview.xml"
+set "windowsappx=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Applications"
+for %%i in (
+Microsoft.SecHealthUI
+Microsoft.MicrosoftEdge.Stable
+) do (
+	for /f %%a in ('reg query "%windowsappx%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
+)
 
-rem KMS
-call %windir%\Setup\Scripts\KMS_VL_ALL_AIO.cmd /s /a
-
-rem register video filters
-regsvr32.exe "C:\Program Files\madVR\madVR64.ax" /s
-
-rem 7zip
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\7z2107-x64.exe /S /D="C:\Program Files\7-Zip"
-
-rem https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VisualCppRedist_AIO_x86_x64.exe /ai /gm2
-
-rem Powershell 7
-%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.3.0-preview.4-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
-
-rem lav
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.76.1-3.exe /VERYSILENT
-
-rem vulkan runtime
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.3.216.0-Installer.exe /S
-
-rem Direct X
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\DirectXRedist.exe /ai
-
-rem process lasso
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassoActivator.exe -makekeyfile -product:2 -output:"%WINDIR%\Setup\Scripts\SOFTWARE"
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassosetup64.exe /S /keyfile=%WINDIR%\Setup\Scripts\SOFTWARE\prolasso.key /launch_gui=false /gui_start_type=all /governor_start_type=all /language=SimpChinese
-
-rem chipset driver
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Software.exe /S
-
-rem time sync
-start /wait C:\PROGRA~1\UpdateTime\UpdateTime_x64.exe /SI
-
-rem remove Edge
-"C:\Program Files (x86)\Microsoft\EdgeUpdate\MicrosoftEdgeUpdate.exe" /uninstall
-
-del /f /q C:\Windows\Panther\unattend.xml
-%windir%\System32\UsoClient.exe RefreshSettings
+rem AADBrokerPlugin                       -  Credential Handler for Microsoft Azure Logon | Needed for: WindowsStoreApp
+rem AccountsControl                       -  App to add Microsft Account for Microsoft Apps | Needed for: WindowsStoreApp
+rem AddSuggestedFoldersToLibraryDialog    -  Add Suggested Folders to Library Dialog
+rem AppResolverUX                         -  Modern Open With Dialog
+rem AsyncTextService                      -  Messaging extensions for People and Maps Apps
+rem BioEnrollment                         -  Windows Hello Setup
+rem CapturePicker                         -  A system picker UI control to select an item on the screen to capture | Needed for: Screen snip
+rem CBSPreview                            -  App for Camera Barcode Scanner
+rem ContentDeliveryManager                -  Automatic installation of sponsored or promoted apps, suggesstions and Ads | Needed for: OOBE and Microsoft Account
+rem CredDialogHost                        -  Authentication (Sign-in) shell support for Windows Hello
+rem ECApp                                 -  Modern UI Dialog App for Eye Movement Control | Depends on: WindowsMixedReality
+rem EdgeDevToolsClient                    -  An extension to edge containing tools for web developers | Depends on: Edge
+rem FileExplorer                          -  Modern File Explorer App
+rem FilePicker                            -  Modern File Picker Dialog
+rem LockApp                               -  Container App for Apps and Messages on the Lockscreen
+rem MapControl                            -  Map Control
+rem NarratorQuickStart                    -  QuickStart Guide for Narrator
+rem NcsiUwpApp                            -  Network Connectivity Status Indicator (NCSI)
+rem OOBENetworkCaptivePortal              -  Captive Network Portals support during OOBE-Phase of Windows
+rem OOBENetworkConnectionFlow             -  Connection Flow Network Portals support during OOBE-Phase of Windows
+rem ParentalControls                      -  App for Parental Controls
+rem PeopleExperienceHost                  -  People Bar (People Hub)
+rem PinningConfirmationDialog             -  Pinning Confirmation Dialog
+rem PrintDialog                           -  Modern Print Dialog | Needed for: Printing
+rem RetailDemoContent                     -  Retail Demo Content
+rem SettingSync                           -  Setting Sync
+rem SkypeORTC                             -  Skype ORTC
+rem SmartScreen                           -  Windows Defender SmartScreen Functionality for Modern Apps
+rem WebcamExperience                      -  Webcam Experience
+rem Win32WebViewHost                      -  Desktop App Web Viewer
+rem WindowsDefender                       -  Windows Defender
+rem WindowsMixedReality                   -  Windows Mixed Reality
+rem WindowsReaderPDF                      -  Windows Reader (PDF) | Depends on: Edge
+rem WindowsStoreClient                    -  Windows Store Back-end Client | Depends on: SmartScreen
+rem XboxClient                            -  Xbox Back-end Client | Depends on: XboxGameCallableUI
+rem XboxGameCallableUI                    -  Xbox Live
+rem XGpuEjectDialog                       -  Modern Dialog App for safe removal of external GPUs
+set "systemappx=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications"
+for %%i in (
+Microsoft.AsyncTextService
+Microsoft.BioEnrollment
+Microsoft.ECApp
+Microsoft.LockApp
+Microsoft.Windows.ContentDeliveryManager
+Microsoft.Windows.NarratorQuickStart
+Microsoft.MicrosoftEdge
+Microsoft.MicrosoftEdgeDevToolsClient
+Microsoft.Win32WebViewHost
+Microsoft.Windows.ParentalControls
+Microsoft.Windows.PeopleExperienceHost
+Microsoft.Windows.AppRep.ChxApp
+Microsoft.Windows.CloudExperienceHost
+Microsoft.Windows.OOBENetworkCaptivePortal
+Microsoft.Windows.OOBENetworkConnectionFlow
+Microsoft.Windows.XGpuEjectDialog
+Windows.CBSPreview
+MicrosoftWindows.UndockedDevKit
+Microsoft.Windows.SecureAssessmentBrowser
+Windows.PrintDialog
+Microsoft.Windows.PrintQueueActionCenter
+) do (
+	for /f %%a in ('reg query "%systemappx%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
+)
