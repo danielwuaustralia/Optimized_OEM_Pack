@@ -60,6 +60,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nvraid' -
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nvstor' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Acx01000' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\atapi' -Name 'Start' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NVHDA' -Name 'Start' -Value 4 -PropertyType DWord -Force
 
 <# Intel驱动 #>
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\iagpio' -Name 'Start' -Value 4 -PropertyType DWord -Force
@@ -342,16 +343,11 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defende
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications' -Name 'DisableNotifications' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications' -Name 'DisableEnhancedNotifications' -Value 1 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.StartupApp") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.StartupApp" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.StartupApp' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
 Remove-Item -LiteralPath "HKCR:\AppUserModelId\Microsoft.Windows.Defender" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\AppUserModelId\Windows.Defender" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\CLSID\{09A47860-11B0-4DA5-AFA5-26D86198A780}" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\AppX9kvz3rdv8t7twanaezbwfcdgrbg3bck0" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\WindowsDefender" -recurse -force;
-Remove-Item -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\PushNotifications\Backup\Windows.Defender" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Extensions\windows.protocol\windowsdefender" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Google\Chrome\NativeMessagingHosts\com.microsoft.defender.browser_extension.native_message_host" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\CspSchema\defender" -recurse -force;
@@ -426,8 +422,6 @@ Remove-Item -LiteralPath "HKCR:\AppUserModelId\Microsoft.MicrosoftEdge_8wekyb3d8
 'taskkill /f /im "MicrosoftEdgeUpdate.exe"' | cmd
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdate' -recurse -Force;
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdatem' -recurse -Force;
-Remove-Item -LiteralPath "HKCU:\Software\Microsoft\EdgeUpdate" -recurse -force;
-Remove-Item -LiteralPath "HKCU:\Software\Microsoft\EdgeWebView" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Edge" -recurse -force;
 Get-ChildItem 'C:\Program Files (x86)\Microsoft' | Remove-Item -Recurse -Force
 Get-ChildItem 'C:\Users\Administrator\AppData\Local\Microsoft\Edge' | Remove-Item -Recurse -Force
@@ -491,10 +485,6 @@ New-ItemProperty -LiteralPath 'HKCR:\.loop\shell\open\command' -Name '(default)'
 New-ItemProperty -LiteralPath 'HKCR:\.note\shell\open\command' -Name '(default)' -Value '' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCR:\.whiteboard\shell\open\command' -Name '(default)' -Value '' -PropertyType String -Force
 Remove-Item -LiteralPath "HKCR:\AppID\OneDrive.EXE" -force;
-Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' -Name 'OneDrive' -Force
-Remove-Item -LiteralPath "HKCU:\Software\Classes\*\shellex\ContextMenuHandlers\ FileSyncEx" -force;
-Remove-Item -LiteralPath "HKCU:\Software\Classes\Directory\shellex\ContextMenuHandlers\ FileSyncEx" -force;
-Remove-Item -LiteralPath "HKCU:\Software\Classes\Directory\Background\shellex\ContextMenuHandlers\ FileSyncEx" -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers\ OneDrive1" -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers\ OneDrive2" -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers\ OneDrive3" -force;
@@ -609,6 +599,7 @@ Remove-Item -LiteralPath "HKCR:\Folder\shell\opennewprocess" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\Folder\shell\opennewtab" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\Folder\shell\opennewwindow" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\Unknown\shell\InvokeDefaultVerbInOtherProcess" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\Directory\background\shellex\ContextMenuHandlers\NvCplDesktopContext" -force;
 Remove-Item -LiteralPath "HKCR:\Network\shell\pintohome" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\*\shell\pintohomefile" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\MSGraphRecentDocument\shell\pintohomefile" -recurse -force;
@@ -620,11 +611,6 @@ Remove-Item -LiteralPath "HKCR:\cmdfile\shell\runasuser" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\exefile\shell\runasuser" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\mscfile\shell\runasuser" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\Msi.Package\shell\runasuser" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\batfile\shell\runas" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\cmdfile\shell\runas" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\cplfile\shell\runas" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\exefile\shell\runas" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\mscfile\shell\RunAs" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\PinnedFrequentPlace" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\PinnedRecentDocument" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\.library-ms\ShellNew" -recurse -force;
@@ -669,9 +655,54 @@ Remove-Item -LiteralPath "HKCR:\Folder\shellex\ContextMenuHandlers\PintoStartScr
 Remove-Item -LiteralPath "HKCR:\exefile\shellex\ContextMenuHandlers\PintoStartScreen" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\Microsoft.Website\ShellEx\ContextMenuHandlers\PintoStartScreen" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\mscfile\shellex\ContextMenuHandlers\PintoStartScreen" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects\{1FD49718-1D00-4B19-AF5F-070AF6D5D54C}" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects\{AE7CD045-E861-484f-8273-0445EE161910}" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects\{F4971EE7-DAA0-4053-9964-665D8EE6A077}" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects\{1FD49718-1D00-4B19-AF5F-070AF6D5D54C}" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects\{AE7CD045-E861-484f-8273-0445EE161910}" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects\{F4971EE7-DAA0-4053-9964-665D8EE6A077}" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects\{31D09BA0-12F5-4CCE-BE8A-2923E76605DA}" -force;
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{7AD84985-87B4-4a16-BE58-8B72A5B390F7}' -Value '' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{1d27f844-3a1f-4410-85ac-14651078412d}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{55B3A0BD-4D28-42fe-8CFB-FA3EDFF969B8}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{474C98EE-CF3D-41f5-80E3-4AAB0AB04301}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{7EFA68C6-086B-43e1-A2D2-55A113531240}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{CF67796C-F57F-45f8-92FB-AD698826C602}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{8082C5E6-4C27-48ec-A809-B8E1122E8F97}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{16C2C29D-0E5F-45f3-A445-03E03F587B7D}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{4F58F63F-244B-4c07-B29F-210BE59BE9B4}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{BD7A2E7B-21CB-41b2-A086-B309680C6B7E}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{89D83576-6BD1-4c86-9454-BEB04E94C819}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{9C60DE1E-E5FC-40f4-A487-460851A8D915}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{DE661907-527D-4d6a-B6A6-EBC7F88D9B95}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{b8cdcb65-b1bf-4b42-9428-1dfdb7ee92af}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{ed9d80b9-d157-457b-9192-0e7280313bf0}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{BD472F60-27FA-11cf-B8B4-444553540000}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{888DCA60-FC0A-11CF-8F0F-00C04FD7D062}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{A70C977A-BF00-412C-90B7-034C51DA2439}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{8FD8B88D-30E1-4F25-AC2B-553D3D65F0EA}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{2F6CE85C-F9EE-43CA-90C7-8A9BD53A2467}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{CB3D0F55-BC2C-4C1A-85ED-23ED75B5106B}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{FF393560-C2A7-11CF-BFF4-444553540000}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{F6B6E965-E9B2-444B-9286-10C9152EDBC5}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{A929C4CE-FD36-4270-B4F5-34ECAC5BD63C}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{3D1975AF-48C6-4f8e-A182-BE0E08FA86A9}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{E97DEC16-A50D-49bb-AE24-CF682282E08D}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{596AB062-B4D2-4215-9F74-E9109B0A8153}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{BB64F8A7-BEE7-4E1A-AB8D-7D8273F7FDB6}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{D9EF8727-CAC2-4e60-809E-86F80A666C91}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{9C73F5E5-7AE7-4E32-A8E8-8D23B85255BF}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{A78ED123-AB77-406B-9962-2A5D9D2F7F30}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{F241C880-6982-4CE5-8CF7-7085BA96DA5A}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{C5FF006E-2AE9-408C-B85B-2DFDD5449D9C}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{BBACC218-34EA-4666-9D7A-C78F2274A524}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{E64164EB-1AE0-4C50-BAEF-A413C2B3A4BC}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{4E77131D-3629-431c-9818-C5679DC83E81}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{13D3C4B8-B179-4ebb-BF62-F704173E7448}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{241D7C96-F8BF-4F85-B01F-E2B043341A4B}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{e2bf9676-5f8f-435c-97eb-11607a5bedf7}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{09A47860-11B0-4DA5-AFA5-26D86198A780}' -Value '' -PropertyType String -Force
 
 #####################################################################################################################################################################################
 
