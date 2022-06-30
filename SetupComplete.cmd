@@ -10,7 +10,6 @@ rem Office 365
 
 rem KMS
 call %windir%\Setup\Scripts\KMS_VL_ALL_AIO.cmd /s /a
-rem call %windir%\Setup\Scripts\HEUKMSActivator.exe /kwi /kof /ren /dig /nologo
 
 rem register video filters
 regsvr32.exe "C:\Program Files\madVR\madVR64.ax" /s
