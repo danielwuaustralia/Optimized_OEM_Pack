@@ -29,9 +29,6 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.76.1-3.exe /VERYSILENT
 rem vulkan runtime
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.3.216.0-Installer.exe /S
 
-rem Direct X
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\DirectXRedist.exe /ai
-
 rem process lasso
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassoActivator.exe -makekeyfile -product:2 -output:"%WINDIR%\Setup\Scripts\SOFTWARE"
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassosetup64.exe /S /keyfile=%WINDIR%\Setup\Scripts\SOFTWARE\prolasso.key /launch_gui=false /gui_start_type=all /governor_start_type=all /language=SimpChinese
