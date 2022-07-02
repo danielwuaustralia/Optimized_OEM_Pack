@@ -220,7 +220,7 @@ echo %_schtasks% "%_schedule%\SettingSync\BackgroundUploadTask"
 )>%windir%\SystemTasks.cmd
 SCHTASKS /Create /F /RU "SYSTEM" /RL HIGHEST /SC HOURLY /TN SystemTasks /TR "cmd /c %windir%\SystemTasks.cmd"
 SCHTASKS /Run /I /TN SystemTasks
-TIMEOUT /T 10
+TIMEOUT /T 2
 SCHTASKS /Delete /F /TN SystemTasks
 del /f /q %windir%\SystemTasks.cmd
 
