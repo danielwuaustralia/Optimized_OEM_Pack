@@ -348,16 +348,41 @@ Remove-Item -LiteralPath "HKCR:\AppUserModelId\Windows.Defender" -recurse -force
 Remove-Item -LiteralPath "HKCR:\CLSID\{09A47860-11B0-4DA5-AFA5-26D86198A780}" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\AppX9kvz3rdv8t7twanaezbwfcdgrbg3bck0" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\WindowsDefender" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\AppID\{A79DB36D-6218-48e6-9EC9-DCBA9A39BF0F}" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Extensions\windows.protocol\windowsdefender" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Google\Chrome\NativeMessagingHosts\com.microsoft.defender.browser_extension.native_message_host" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\CspSchema\defender" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\DeclaredConfiguration\CspSchema\1.0\defender" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel\StateRepository\Cache\Protocol\Index\Name\windowsdefender" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\PushNotifications\Applications\Windows.Defender" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{195B4D07-3DE2-4744-BBF2-D90121AE785B}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{2781761E-28E0-4109-99FE-B9D127C57AFE}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{361290c0-cb1b-49ae-9f3e-ba1cbe5dab35}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{8a696d12-576b-422e-9712-01b9dd84b446}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{A2D75874-6750-4931-94C1-C99D3BC9D0C7}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{A7C452EF-8E9F-42EB-9F2B-245613CA0DC9}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{DACA056E-216A-4FD1-84A6-C306A017ECEC}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{F80FC80C-6A04-46FB-8555-D769E334E9FC}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{FEEE9C23-C4E2-4A34-8C73-FE8F9786C8B4}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\TypeLib\{8C389764-F036-48F2-9AE2-88C260DCF43B}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{195B4D07-3DE2-4744-BBF2-D90121AE785B}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{2781761E-28E0-4109-99FE-B9D127C57AFE}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{361290c0-cb1b-49ae-9f3e-ba1cbe5dab35}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{8a696d12-576b-422e-9712-01b9dd84b446}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{A2D75874-6750-4931-94C1-C99D3BC9D0C7}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{A7C452EF-8E9F-42EB-9F2B-245613CA0DC9}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{DACA056E-216A-4FD1-84A6-C306A017ECEC}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{F80FC80C-6A04-46FB-8555-D769E334E9FC}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{FEEE9C23-C4E2-4A34-8C73-FE8F9786C8B4}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{a463fcb9-6b1c-4e0d-a80b-a2ca7999e25d}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{a463fcb9-6b1c-4e0d-a80b-a2ca7999e25d}" -recurse -force;
 
 <# Game PresenceWriter #>
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter' -Name 'ActivationType' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter' -Name 'ActivationType' -Value 0 -PropertyType DWord -Force
+Remove-Item -LiteralPath "HKCR:\CLSID\{3E73C6F7-8937-4C07-85D9-D4447A4BE072}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Interface\{782674D9-5CBB-4FCA-AD72-D9AC5F7AE963}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{3E73C6F7-8937-4C07-85D9-D4447A4BE072}" -recurse -force;
 
 <# 事件记录 #>
 Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DiagLog" -recurse -force;
@@ -395,7 +420,9 @@ Get-ChildItem 'C:\Windows\Logs' | Remove-Item -Recurse -Force
 <# 计划任务 #>
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WindowsUpdate" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Wininet\CacheTask" -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Defender" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Error Reporting" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Wininet" -recurse -force;
 #
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\MicrosoftEdgeUpdateTaskMachineCore" -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\MicrosoftEdgeUpdateTaskMachineUA" -force;
@@ -433,48 +460,6 @@ Remove-Item -Path 'C:\Users\Administrator\Desktop\Microsoft Edge.lnk' -Force
 
 <# 删除OneDrive #>
 'C:\Windows\System32\OneDriveSetup.exe /uninstall /allusers' | cmd
-Remove-Item -LiteralPath 'HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\CLSID\{021E4F06-9DCC-49AD-88CF-ECC2DA314C8A}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{021E4F06-9DCC-49AD-88CF-ECC2DA314C8A}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\CLSID\{0827D883-485C-4D62-BA2C-A332DBF3D4B0}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{0827D883-485C-4D62-BA2C-A332DBF3D4B0}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\CLSID\{1BF42E4C-4AF4-4CFD-A1A0-CF2960B8F63E}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{1BF42E4C-4AF4-4CFD-A1A0-CF2960B8F63E}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\CLSID\{20894375-46AE-46E2-BAFD-CB38975CDCE6}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{20894375-46AE-46E2-BAFD-CB38975CDCE6}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\CLSID\{2e7c0a19-0438-41e9-81e3-3ad3d64f55ba}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{2e7c0a19-0438-41e9-81e3-3ad3d64f55ba}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\CLSID\{389510b7-9e58-40d7-98bf-60b911cb0ea9}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{389510b7-9e58-40d7-98bf-60b911cb0ea9}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\CLSID\{4410DC33-BC7C-496B-AA84-4AEA3EEE75F7}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{4410DC33-BC7C-496B-AA84-4AEA3EEE75F7}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\CLSID\{47E6DCAF-41F8-441C-BD0E-A50D5FE6C4D1}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{47E6DCAF-41F8-441C-BD0E-A50D5FE6C4D1}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\CLSID\{5999E1EE-711E-48D2-9884-851A709F543D}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{5999E1EE-711E-48D2-9884-851A709F543D}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\CLSID\{5AB7172C-9C11-405C-8DD5-AF20F3606282}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{5AB7172C-9C11-405C-8DD5-AF20F3606282}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\CLSID\{6bb93b4e-44d8-40e2-bd97-42dbcf18a40f}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{6bb93b4e-44d8-40e2-bd97-42dbcf18a40f}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\CLSID\{71DCE5D6-4B57-496B-AC21-CD5B54EB93FD}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{71DCE5D6-4B57-496B-AC21-CD5B54EB93FD}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\CLSID\{7AFDFDDB-F914-11E4-8377-6C3BE50D980C}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{7AFDFDDB-F914-11E4-8377-6C3BE50D980C}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\CLSID\{7B37E4E2-C62F-4914-9620-8FB5062718CC}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{7B37E4E2-C62F-4914-9620-8FB5062718CC}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\CLSID\{82CA8DE3-01AD-4CEA-9D75-BE4C51810A9E}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{82CA8DE3-01AD-4CEA-9D75-BE4C51810A9E}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\CLSID\{917E8742-AA3B-7318-FA12-10485FB322A2}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{917E8742-AA3B-7318-FA12-10485FB322A2}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\CLSID\{94269C4E-071A-4116-90E6-52E557067E4E}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{94269C4E-071A-4116-90E6-52E557067E4E}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\CLSID\{9489FEB2-1925-4D01-B788-6D912C70F7F2}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{9489FEB2-1925-4D01-B788-6D912C70F7F2}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\CLSID\{9AA2F32D-362A-42D9-9328-24A483E2CCC3}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{9AA2F32D-362A-42D9-9328-24A483E2CCC3}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\CLSID\{A0396A93-DC06-4AEF-BEE9-95FFCCAEF20E}' -recurse -Force;
-Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{A0396A93-DC06-4AEF-BEE9-95FFCCAEF20E}' -recurse -Force;
 'taskkill /f /im "OneDrive.exe"' | cmd
 Get-ChildItem 'C:\Users\Administrator\AppData\Local\Microsoft\OneDrive' | Remove-Item -Recurse -Force
 Remove-Item 'C:\Users\Administrator\OneDrive' -recurse -Force
@@ -484,7 +469,6 @@ New-ItemProperty -LiteralPath 'HKCR:\.fluid\shell\open\command' -Name '(default)
 New-ItemProperty -LiteralPath 'HKCR:\.loop\shell\open\command' -Name '(default)' -Value '' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCR:\.note\shell\open\command' -Name '(default)' -Value '' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCR:\.whiteboard\shell\open\command' -Name '(default)' -Value '' -PropertyType String -Force
-Remove-Item -LiteralPath "HKCR:\AppID\OneDrive.EXE" -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers\ OneDrive1" -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers\ OneDrive2" -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers\ OneDrive3" -force;
@@ -514,30 +498,15 @@ Remove-Item -LiteralPath "HKLM:\Software\Wow6432Node\Classes\AppID\{3eb3c877-1f1
 Remove-Item -LiteralPath "HKLM:\Software\Wow6432Node\Classes\CLSID\{0358b920-0ac7-461f-98f4-58e32cd89148}" -recurse -force;
 
 # 右键菜单
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.AIFF\shell\Enqueue\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.AIFF\shell\open\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.AIFF\shell\play\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.ASX\shell\Enqueue\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.ASX\shell\open\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.ASX\shell\play\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.AU\shell\Enqueue\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.AU\shell\open\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.AU\shell\play\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.MIDI\shell\Enqueue\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.MIDI\shell\open\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.MIDI\shell\play\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.MK3D\shell\Enqueue\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.MK3D\shell\open\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.MK3D\shell\play\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.MP3\shell\Enqueue\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.MP3\shell\open\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.MP3\shell\play\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.WAX\shell\Enqueue\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.WAX\shell\open\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.WAX\shell\play\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.WVX\shell\Enqueue\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.WVX\shell\open\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.WVX\shell\play\command" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.AIFF\shell" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.ASX\shell" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.AU\shell" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.CDA\shell" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.MIDI\shell" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.MK3D\shell" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.MP3\shell" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.WAX\shell" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.WVX\shell" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\audio\shell\Enqueue\command" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\audio\shell\Play\command" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\Directory.Audio\shell\Enqueue\command" -recurse -force;
@@ -703,6 +672,36 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\S
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{241D7C96-F8BF-4F85-B01F-E2B043341A4B}' -Value '' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{e2bf9676-5f8f-435c-97eb-11607a5bedf7}' -Value '' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{09A47860-11B0-4DA5-AFA5-26D86198A780}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{A470F8CF-A1E8-4f65-8335-227475AA5C46}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{B98A2BEA-7D42-4558-8BD1-832F41BAC6FD}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{4026492F-2F69-46B8-B9BF-5654FC07E423}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{C58C4893-3BE0-4B45-ABB5-A63E4B8C8651}' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{9FE63AFD-59CF-4419-9775-ABCC3849F861}' -Value '' -PropertyType String -Force
+Remove-Item -LiteralPath "HKCR:\AllFilesystemObjects\shell\OfflineFilesLaunchSyncCenter" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\RecentDocument\shell\remove" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\FrequentPlace\shell\removefromhome" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.avci\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.avcs\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.avif\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.avifs\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.bmp\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.dib\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.gif\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.heic\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.heics\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.hif\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.jfif\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.jpe\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.jpeg\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.jpg\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.png\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.tif\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.tiff\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.wdp\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.heif\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.heifs\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\PinnedFrequentPlace\shell\unpinfromhome" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\PinnedRecentDocument\shell\unpinfromhomefile" -recurse -force;
 
 #####################################################################################################################################################################################
 
