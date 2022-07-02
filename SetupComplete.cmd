@@ -42,6 +42,10 @@ start /wait C:\PROGRA~1\UpdateTime\UpdateTime_x64.exe /SI
 rem remove Edge
 "C:\Program Files (x86)\Microsoft\EdgeUpdate\MicrosoftEdgeUpdate.exe" /uninstall
 
+rem install OEM drivers
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1" /f /v Path /t REG_SZ /d "C:\Windows\Setup\Scripts\Drivers"
+"C:\Windows\System32\pnpunattend.exe" AuditSystem /L
+
 del /f /q C:\Windows\Panther\unattend.xml
 del /f /q /s "C:\ProgramData\Microsoft\Diagnosis\ETLLogs\*"
 del /f /q "C:\ProgramData\Microsoft\Diagnosis\*.rbs"
