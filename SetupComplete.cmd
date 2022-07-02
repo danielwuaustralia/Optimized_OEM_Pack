@@ -43,4 +43,6 @@ rem remove Edge
 "C:\Program Files (x86)\Microsoft\EdgeUpdate\MicrosoftEdgeUpdate.exe" /uninstall
 
 del /f /q C:\Windows\Panther\unattend.xml
+del /f /q /s "C:\ProgramData\Microsoft\Diagnosis\ETLLogs\*"
+del /f /q "C:\ProgramData\Microsoft\Diagnosis\*.rbs"
 %windir%\System32\UsoClient.exe RefreshSettings
