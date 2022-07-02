@@ -84,7 +84,7 @@
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
                     <Order>10</Order>
-                    <Path>C:\Windows\Setup\Scripts\Additional.cmd</Path>
+                    <Path>C:\Windows\Setup\Scripts\RemoveAppx.cmd</Path>
                 </RunSynchronousCommand>
             </RunSynchronous>
         </component>
