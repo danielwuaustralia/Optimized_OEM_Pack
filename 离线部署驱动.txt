@@ -1,5 +1,0 @@
-1. Extract the driver CAB (expand -f) or self-extracting EXE to a folder (C:\Drivers)
-
-2. REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1" /v Path /t REG_SZ /d "C:\Drivers"
-
-3. C:\Windows\System32\pnpunattend.exe AuditSystem /L
