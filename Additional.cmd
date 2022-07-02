@@ -8,6 +8,26 @@ for %%G in ("AutoLogger-Diagtrack-Listener","Diagtrack-Listener","Circular Kerne
 reg delete "HKLM\SYSTEM\ControlSet001\Control\WMI\AutoLogger\%%~G" /f
 )
 
+rem windows update
+set "key=HKLM\SYSTEM\ControlSet001\Control\Ubpm"
+for /f "tokens=1" %%a in ('reg query "%key%" 2^>nul ^| find /i "REG_SZ"') do reg delete %key% /v "%%a" /f 2
+
+set "key=HKLM\Software\Microsoft\WindowsUpdate\Orchestrator\UScheduler_Oobe"
+for /f %%a in ('reg query "%key%" /f * /k 2^>nul ^| find /i "Orchestrator"') do reg delete %%a /f 2
+
+rem folder permissions
+C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:np"
+C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:sc,io;m:grant"
+C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Update" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:np"
+C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Update" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:sc,io;m:grant"
+C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Classes\xmlfile\CLSID" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:np"
+C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Classes\xmlfile\CLSID" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:sc,io;m:grant"
+C:\Windows\SysWOW64\SetACL.exe -on "C:\Windows\Logs\CBS" -ot file -actn ace -ace "n:S-1-5-32-544;p:full"
+C:\Windows\SysWOW64\SetACL.exe -on "C:\Windows\Logs\WaaSMedic" -ot file -actn ace -ace "n:S-1-5-32-544;p:full"
+md "C:\Windows\Logs\WaaSMedic"
+C:\Windows\SysWOW64\SetACL.exe -on "C:\Windows\WinSxS\Backup" -ot file -actn ace -ace "n:S-1-5-32-544;p:full"
+C:\Windows\SysWOW64\SetACL.exe -on "C:\ProgramData\Microsoft\Diagnosis" -ot file -actn ace -ace "n:S-1-5-32-544;p:full;i:so,sc,io"
+
 rem scheduled task
 set "_schtasks=SCHTASKS /Change /DISABLE /TN"
 set "_schedule=Microsoft\Windows"
