@@ -284,7 +284,8 @@ ForEach ($item in $WDF) { $path = $item -replace "HKEY_LOCAL_MACHINE","HKLM:"; S
 ForEach ($item in $WDF) { $path = $item -replace "HKEY_LOCAL_MACHINE","HKLM:"; Set-ItemProperty -Path $path -Name 'IdleInWorkingState' -Value 0 -Force }
 
 <# 禁用Defender #>
-"regsvr32 /u /s '%ProgramFiles%\Windows Defender\shellext.dll'" | cmd
+"regsvr32 /u /s 'C:\Program Files\Windows Defender\shellext.dll'" | cmd
+"'C:\Program Files\Windows Defender\MpCmdRun.exe' -DisableService" | cmd
 Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run' -Name 'SecurityHealth' -Force
 # Set-ItemProperty -Path 'REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Name Visibility -Value '1' -Force
 # Remove-Item -Path 'REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Include *Owner* -Recurse -Force
@@ -379,10 +380,6 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Pr
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *UsoSvc* | Set-ItemProperty -Name Start -Value 3 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *WaaSMedicSvc* | Set-ItemProperty -Name Start -Value 3 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *wuauserv* | Set-ItemProperty -Name Start -Value 3 -Force
-Remove-Item -LiteralPath "HKLM:\SYSTEM\ControlSet001\Control\Ubpm" -recurse -force;
-New-Item "HKLM:\SYSTEM\ControlSet001\Control\Ubpm" -force
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\WindowsUpdate\Orchestrator\UScheduler_Oobe" -recurse -force;
-New-Item "HKLM:\SOFTWARE\Microsoft\WindowsUpdate\Orchestrator\UScheduler_Oobe" -force
 
 <# 事件记录 #>
 # $Logger = Get-ChildItem -Path 'HKLM:\System\CurrentControlSet\Control\WMI\Autologger' -Recurse -Depth 3 | Where-Object { $_.PSChildName -NotLike 'Circular Kernel Context Logger' -and $_.PSChildName -NotLike 'EventLog-Application' -and $_.PSChildName -NotLike 'EventLog-Security' -and $_.PSChildName -NotLike 'EventLog-System' -and $_.PSChildName -NotLike 'NtfsLog' -and $_.PSChildName -NotLike 'WdiContextLog' -and $_.PSChildName -NotLike 'NetCore' -and $_.PSChildName -NotLike 'LwtNetLog' -and $_.PSChildName -NotLike 'AppModel' -and $_.PSChildName -NotLike 'UBPM' -and $_.PSChildName -NotLike 'TileStore' -and $_.PSChildName -NotLike 'WifiSession' }
@@ -470,6 +467,11 @@ Remove-Item -LiteralPath "HKLM:\Software\Wow6432Node\Classes\CLSID\{0358b920-0ac
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CloudExperienceHost\Broker\ElevatedClsids\{2b2cad40-19c1-4794-b32d-397e41d5e8a7}' -Name 'AutoElevationAllowed' -Value 1 -PropertyType DWord -Force
 
 <# 无用Key #>
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}\ShellFolder' -Name 'Attributes' -Value -1332739827 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}\ShellFolder' -Name 'Attributes' -Value -1332739827 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{B4FB3F98-C1EA-428d-A78A-D1F5659CBA93}\ShellFolder' -Name 'Attributes' -Value -1332739827 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}\ShellFolder' -Name 'Attributes' -Value -1332739827 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}\ShellFolder' -Name 'Attributes' -Value -1332739827 -PropertyType DWord -Force
 Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.AIFF\shell" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.ASX\shell" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\WMP11.AssocFile.AU\shell" -recurse -force;
@@ -671,24 +673,6 @@ Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.heif\Shell\setdesktopwal
 Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.heifs\Shell\setdesktopwallpaper" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\PinnedFrequentPlace\shell\unpinfromhome" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\PinnedRecentDocument\shell\unpinfromhomefile" -recurse -force;
-
-<# 无用文件夹 #>
-Remove-Item  'C:\Windows\System32\DriverStore\FileRepository\NvTelemetry*.dll' -Recurse -Force
-Get-ChildItem 'C:\ProgramData\Microsoft\Windows\WER' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\ProgramData\Microsoft\Diagnosis\ETLLogs' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\ProgramData\Microsoft\Windows\RetailDemo' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\Temp' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Users\Administrator\AppData\Local\Temp' | Remove-Item -Recurse -Force
-Remove-Item -Path 'C:\Windows\DtcInstall.log' -Force
-Remove-Item -Path 'C:\Windows\comsetup.log' -Force
-Remove-Item -Path 'C:\Windows\PFRO.log' -Force
-Remove-Item -Path 'C:\Windows\Performance\WinSAT\winsat.log' -Force
-Remove-Item -Path 'C:\Windows\debug\PASSWD.LOG' -Force
-Get-ChildItem 'C:\Users\Administrator\AppData\Local\Microsoft\Windows\WebCache' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\ServiceProfiles\LocalService\AppData\Local\Temp' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\System32\LogFiles\setupcln' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\Logs' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\Prefetch' | Remove-Item -Recurse -Force
 
 #####################################################################################################################################################################################
 
