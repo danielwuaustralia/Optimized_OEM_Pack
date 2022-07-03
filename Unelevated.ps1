@@ -2024,7 +2024,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Javasoft\Java Update\P
 'netsh int tcp set global pacingprofile=off' | cmd
 'netsh int ip set global minmtu=576' | cmd
 'netsh int ip set global flowlabel=disable' | cmd
-'netsh int tcp set supplemental internet congestionprovider=CUBIC' | cmd
+'netsh int tcp set supplemental internet congestionprovider=CTCP' | cmd
 'netsh int tcp set supplemental internet enablecwndrestart=disable' | cmd
 'netsh int ip set global icmpredirects=disabled' | cmd
 'netsh int ip set global multicastforwarding=disabled' | cmd
