@@ -9,7 +9,7 @@ rem Office 365
 "%windir%\Setup\Scripts\Office365\setup.exe" /configure "%windir%\Setup\Scripts\Office365\O365Preview.xml"
 
 rem KMS
-call %windir%\Setup\Scripts\KMS_VL_ALL_AIO.cmd /s /a
+call %windir%\Setup\Scripts\KMS_VL_ALL_AIO.cmd /x /s /a
 
 rem register video filters
 regsvr32.exe "C:\Program Files\madVR\madVR64.ax" /s
