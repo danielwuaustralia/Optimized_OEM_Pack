@@ -1,4 +1,4 @@
-@echo off
+@echo on
 
 rem install OEM drivers
 REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1" /f /v Path /t REG_SZ /d "C:\Windows\Setup\Scripts\Drivers"
@@ -58,6 +58,7 @@ rem WindowsStoreClient                    -  Windows Store Back-end Client | Dep
 rem XboxClient                            -  Xbox Back-end Client | Depends on: XboxGameCallableUI
 rem XboxGameCallableUI                    -  Xbox Live
 rem XGpuEjectDialog                       -  Modern Dialog App for safe removal of external GPUs
+rem MicrosoftWindows.Client.CBS           -This component adds features to Start Menu and other required functions.
 set "systemappx=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications"
 for %%i in (
 AsyncTextService
