@@ -12,7 +12,7 @@ rem CleanUp Folder
 rmdir /s /q "C:\TEMP\"
 
 rem logman query -ets
-C:\Windows\System32\NSudoLG.exe -U:T -P:E cmd /c "logman stop -ets SleepStudyTraceSession"
+"C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "logman stop -ets SleepStudyTraceSession"
 
 rem Refresh DNS Cache
 ipconfig /flushdns
