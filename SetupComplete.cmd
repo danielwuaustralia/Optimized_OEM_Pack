@@ -1,7 +1,4 @@
-@cls
-@echo off
->nul chcp 437
-setlocal enabledelayedexpansion
+@echo on
 rem Setupcomplete.cmd is ran after oobe and just before the desktop appears when using windows setup.
 rem Oobe.cmd is run after the the screen about copying of files/expanding files part is shown via setup and the bit when it says it will reboot in x seconds...
 rem Specialize Phase = the reboot before OOBE
