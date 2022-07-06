@@ -4,6 +4,8 @@
 setlocal enabledelayedexpansion
 rem Setupcomplete.cmd is ran after oobe and just before the desktop appears when using windows setup.
 rem Oobe.cmd is run after the the screen about copying of files/expanding files part is shown via setup and the bit when it says it will reboot in x seconds...
+rem Specialize Phase = the reboot before OOBE
+rem i.e. WinPE - Reboot - Specialize - Reboot - OOBE
 
 rem Office 365
 "%windir%\Setup\Scripts\Office365\setup.exe" /configure "%windir%\Setup\Scripts\Office365\O365Preview.xml"
@@ -41,10 +43,6 @@ start /wait C:\PROGRA~1\UpdateTime\UpdateTime_x64.exe /SI
 
 rem remove Edge
 "C:\Program Files (x86)\Microsoft\EdgeUpdate\MicrosoftEdgeUpdate.exe" /uninstall
-
-rem install OEM drivers
-REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1" /f /v Path /t REG_SZ /d "C:\Windows\Setup\Scripts\Drivers"
-"C:\Windows\System32\pnpunattend.exe" AuditSystem /L
 
 rem autologger
 for %%G in (UBPM,9C22BEA1-7763-41D1-B8F3-62A6ECC9D7E4,AITEventLog,AppModel,AppPlat,Audio,BioEnrollment,BluetoothSession,CloudExperienceHostOobe,DataMarket,DefenderApiLogger,DefenderAuditLogger,DiagLog,FaceCredProvReFSLog,FaceTel,FaceRecoTel,FaceUnlock,HolographicDevice,IntelRST,LwtNetLog,Mellanox-Kernel,Microsoft-Windows-AssignedAccess-Trace,Microsoft-Windows-CloudFiles-Filter-Log,Microsoft-Windows-CloudFiles-Filter-Trace,Microsoft-Windows-Rdp-Graphics-RdpIdd-Trace,Microsoft-Windows-Setup,NBSMBLOGGER,NetCore,NetCfgTrace,NtfsLog,PEAuthLog,ReadyBoot,RdrLog,SCM,SetupPlatform,SetupPlatformTel,SHS-12112016-172924-3-1,SpoolerLogger,SQMLogger,TCPIPLOGGER,TileStore,Tpm,WdiContextLog,WiFiDriverIHVSession,WiFiDriverIHVSessionRepro,WiFiSession,UserNotPresentTraceSession,WindowsUpdate_trace_log,Cellcore,RadioMgr,WinPhoneCritical) do (
