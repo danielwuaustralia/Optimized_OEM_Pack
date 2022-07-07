@@ -10,6 +10,7 @@ timeout 2
 
 rem CleanUp Folder
 rmdir /s /q "C:\TEMP\"
+rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\"
 
 rem logman query -ets
 "C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "logman stop -ets SleepStudyTraceSession"
