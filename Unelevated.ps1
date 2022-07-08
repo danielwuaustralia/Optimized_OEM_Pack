@@ -17,6 +17,10 @@ Start-Transcript -Path c:\1.txt -Force
 "Dism.exe /Online /Remove-DefaultAppAssociations" | cmd
 Enable-WindowsOptionalFeature -Online -FeatureName 'LegacyComponents' -NoRestart
 Enable-WindowsOptionalFeature -Online -FeatureName 'DirectPlay' -NoRestart
+Enable-WindowsOptionalFeature -Online -FeatureName 'SMB1Protocol' -NoRestart
+Enable-WindowsOptionalFeature -Online -FeatureName 'SMB1Protocol-Client' -NoRestart
+Enable-WindowsOptionalFeature -Online -FeatureName 'SMB1Protocol-Server' -NoRestart
+Enable-WindowsOptionalFeature -Online -FeatureName 'SMB1Protocol-Deprecation' -NoRestart
 Disable-WindowsOptionalFeature -Online -FeatureName 'Windows-Defender-Default-Definitions' -NoRestart
 Disable-WindowsOptionalFeature -Online -FeatureName 'Printing-XPSServices-Features' -NoRestart
 Disable-WindowsOptionalFeature -Online -FeatureName 'SearchEngine-Client-Package' -NoRestart
@@ -2534,6 +2538,179 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Network
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkConnectivityStatusIndicator' -Name 'NoActiveProbe' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet' -Name 'EnableActiveProbing' -Value 0 -PropertyType DWord -Force
 
+# Internet Explorer
+if((Test-Path -LiteralPath "HKLM:\Software\Policies\Microsoft\Internet Explorer\Main") -ne $true) {  New-Item "HKLM:\Software\Policies\Microsoft\Internet Explorer\Main" -force };
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Internet Explorer\Main' -Name 'NotifyDisableIEOptions' -Value 1 -PropertyType DWord -Force
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Internet Explorer\UnattendBackup\ActiveSetup\Home_Page") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Internet Explorer\UnattendBackup\ActiveSetup\Home_Page" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Main") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Main" -force };
+if((Test-Path -LiteralPath "Registry::\HKEY_USERS\S-1-5-18\Software\Microsoft\Internet Explorer\Main") -ne $true) {  New-Item "Registry::\HKEY_USERS\S-1-5-18\Software\Microsoft\Internet Explorer\Main" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Feeds") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Feeds" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\FTP") -ne $true) {  New-Item "HKCU:\Software\Microsoft\FTP" -force };
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Main") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Main" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\FullScreen\AllowDomains") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\FullScreen\AllowDomains" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\MINIE") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\MINIE" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\VirtualStore\MACHINE\SOFTWARE\Microsoft\Internet Explorer\Main") -ne $true) {  New-Item "HKCU:\Software\Classes\VirtualStore\MACHINE\SOFTWARE\Microsoft\Internet Explorer\Main" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\0") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\0" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\1") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\1" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\2") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\2" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Main\WindowsSearch") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Main\WindowsSearch" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Zoom") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Zoom" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Feeds") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Feeds" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Styles") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Styles" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Privacy") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Privacy" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Toolbar\WebBrowser") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Toolbar\WebBrowser" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Download") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Download" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\LinksBar") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\LinksBar" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\MAO Settings") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\MAO Settings" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Services") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Services" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\FlipAhead") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\FlipAhead" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\IEDevTools\Options") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\IEDevTools\Options" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Geolocation") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Geolocation" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\New Windows") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\New Windows" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Recovery") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Recovery" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\AutoComplete") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\AutoComplete" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\CaretBrowsing") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\CaretBrowsing" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Control Panel") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Control Panel" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Feed Discovery") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Feed Discovery" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\PhishingFilter") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\PhishingFilter" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Suggested Sites") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Suggested Sites" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\PrefetchPrerender") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\PrefetchPrerender" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\BrowserEmulation") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\BrowserEmulation" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\ContinuousBrowsing") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\ContinuousBrowsing" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_LOCALMACHINE_LOCKDOWN") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_LOCALMACHINE_LOCKDOWN" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_LOCALMACHINE_LOCKDOWN\Settings") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_LOCALMACHINE_LOCKDOWN\Settings" -force };
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Tracing\iexplore_RASAPI32") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Tracing\iexplore_RASAPI32" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\LowRegistry\CommandBar") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\LowRegistry\CommandBar" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\View Source Editor\Editor Name") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\View Source Editor\Editor Name" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\VirtualStore\MACHINE\SOFTWARE\Microsoft\Internet Explorer\View Source Editor\Editor Name") -ne $true) {  New-Item "HKCU:\Software\Classes\VirtualStore\MACHINE\SOFTWARE\Microsoft\Internet Explorer\View Source Editor\Editor Name" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Default HTML Editor") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Default HTML Editor" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\WinTrust\Trust Providers\Software Publishing") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\WinTrust\Trust Providers\Software Publishing" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Internet Explorer\UnattendBackup\ActiveSetup\Home_Page' -Name 'Home_Page' -Value 'about:blank' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Start Page' -Value 'about:blank' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Default_Page_URL' -Value 'about:blank' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\S-1-5-18\Software\Microsoft\Internet Explorer\Main' -Name 'Start Page' -Value 'about:blank' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\S-1-5-18\Software\Microsoft\Internet Explorer\Main' -Name 'Default_Page_URL' -Value 'about:blank' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Feeds' -Name 'SyncStatus' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\FTP' -Name 'Use Web Based FTP' -Value 'no' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Internet Explorer\Main' -Name 'EnableAutoUpgrade' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\FullScreen\AllowDomains' -Name 'youtube.com' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\MINIE' -Name 'ShowStatusBar' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\MINIE' -Name 'ShowTabsBelowAddressBar' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\VirtualStore\MACHINE\SOFTWARE\Microsoft\Internet Explorer\Main' -Name 'DEPOff' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'SyncMode5' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'ProxyHttp1.1' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'ShowPunycode' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'EnableHttp1_1' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'EnableHTTP2' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'EnableSPDY3_0' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'EnableNegotiate' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'EnablePunycode' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'EnforceP3PValidity' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'SecureProtocols' -Value 2696 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'PrivacyAdvanced' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'DisableIDNPrompt' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'WarnOnPostRedirect' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'WarnonBadCertRecving' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'DisableCachingOfSSLPages' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'CertificateRevocation' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'SyncMode5' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections' -Name 'SavedLegacySettings' -Value ([byte[]](0x46,0x00,0x00,0x00,0x07,0x00,0x00,0x00,0x09,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00)) -PropertyType Binary -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones' -Name 'SecuritySafe' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\0' -Name '1609' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\1' -Name '1609' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\2' -Name '1609' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3' -Name '1609' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4' -Name '1609' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Check_Associations' -Value 'yes' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'NoProtectedModeBanner' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Isolation' -Value 'PMIL' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'UseThemes' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'DOMStorage' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'DoNotTrack' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'PlaySounds' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'UseSWRender' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'SmoothScroll' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Expand Alt Text' -Value 'no' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'NscSingleExpand' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Use FormSuggest' -Value 'no' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Move System Caret' -Value 'no' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'FormSuggest PW Ask' -Value 'yes' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Friendly http errors' -Value 'yes' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Display Inline Images' -Value 'no' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'FormSuggest Passwords' -Value 'yes' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Enable AutoImageResize' -Value 'yes' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'EnableAlternativeCodec' -Value 'yes' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'NotifyDownloadComplete' -Value 'no' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Play_Background_Sounds' -Value 'no' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'MixedContentBlockImages' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Show image placeholders' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Error Dlg Displayed On Every Error' -Value 'no' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'GotoIntranetSiteForSingleWordEntry' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main\WindowsSearch' -Name 'AutoCompleteGroups' -Value 5 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Zoom' -Name 'ResetZoomOnStartup2' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Zoom' -Name 'ResetTextSizeOnStartup' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Feeds' -Name 'TurnOnClipButton' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Feeds' -Name 'AutoMarkAsReadOPV' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Styles' -Name 'User Stylesheet' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Styles' -Name 'Use My Stylesheet' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Privacy' -Name 'ClearBrowsingHistoryOnExit' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Toolbar\WebBrowser' -Name 'ITBar7Height' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Download' -Name 'CheckExeSignatures' -Value 'no' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Download' -Name 'RunInvalidSignatures' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\LinksBar' -Name 'UpdatedSound' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\MAO Settings' -Name 'SuppressPerfBarUntil' -Value ([byte[]](0xFC,0x23,0x53,0xD6,0x2D,0xAC,0xD0,0x01)) -PropertyType Binary -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Services' -Name 'SelectionActivityButtonDisable' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\FlipAhead' -Name 'FPEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\IEDevTools\Options' -Name 'ConsoleBufferAlways' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Geolocation' -Name 'BlockAllWebsites' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\New Windows' -Name 'PopupMgr' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Recovery' -Name 'AutoRecover' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\AutoComplete' -Name 'Append Completion' -Value 'yes' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\AutoComplete' -Name 'AutoSuggest' -Value 'yes' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\CaretBrowsing' -Name 'EnableOnStartup' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Control Panel' -Name 'UTF8URLQuery' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Feed Discovery' -Name 'Sound' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\PhishingFilter' -Name 'EnabledV9' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing' -Name 'Groups' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing' -Name 'WarnOnClose' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing' -Name 'NewTabPageShow' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing' -Name 'UseMRUSwitching' -Value 'no' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing' -Name 'OpenAllHomePages' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing' -Name 'OpenInForeground' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing' -Name 'ShortcutBehavior' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing' -Name 'ThumbnailBehavior' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing' -Name 'PopupsUseNewWindow' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing' -Name 'NewTabNextToCurrent' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Suggested Sites' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Suggested Sites' -Name 'DataStreamEnabledState' -Value 0 -PropertyType DWord -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Suggested Sites' -Name 'SlicePath' -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\PrefetchPrerender' -Name 'Enabled' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\BrowserEmulation' -Name 'StaleCompatCache' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\ContinuousBrowsing' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_LOCALMACHINE_LOCKDOWN' -Name 'iexplore.exe' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_LOCALMACHINE_LOCKDOWN\Settings' -Name 'LOCALMACHINE_CD_UNLOCK' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Recovery' -Name 'AutoRecover' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'CertificateRevocation' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'SecureProtocols' -Value 2728 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Tracing\iexplore_RASAPI32' -Name 'EnableFileTracing' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Tracing\iexplore_RASAPI32' -Name 'EnableConsoleTracing' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Tracing\iexplore_RASAPI32' -Name 'EnableAutoFileTracing' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\LowRegistry\CommandBar' -Name 'CommandBandLayout' -Value ([byte[]](0x07,0x00,0x00,0x00,0x05,0x01,0x00,0x00,0x43,0x01,0x00,0x00,0x06,0x01,0x00,0x00)) -PropertyType Binary -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\View Source Editor\Editor Name' -Name '(default)' -Value 'C:\Windows\system32\NOTEPAD.EXE' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\VirtualStore\MACHINE\SOFTWARE\Microsoft\Internet Explorer\View Source Editor\Editor Name' -Name '(default)' -Value 'C:\Windows\system32\NOTEPAD.EXE' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Default HTML Editor' -Name 'Description' -Value 'Notepad' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command' -Name '(default)' -Value '%SystemRoot%\system32\NOTEPAD.EXE %1' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command' -Name '(default)' -Value '%SystemRoot%\system32\NOTEPAD.EXE %1' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\WinTrust\Trust Providers\Software Publishing' -Name 'State' -Value 146944 -PropertyType DWord -Force
+
 #Wifi
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\HotspotAuthentication') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\HotspotAuthentication' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\HotspotAuthentication' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
@@ -2563,8 +2740,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS' -N
 # SMB
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'LocalAccountTokenFilterPolicy' -Value 1 -PropertyType DWord -Force
-
-# TLS 1.2
 if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client' -Name 'DisabledByDefault' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client' -Name 'Enabled' -Value 1 -PropertyType DWord -Force
@@ -3029,6 +3204,11 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\E
 # 无Adobe Type Manager
 New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows' -Name 'DisableATMFD' -Value 1 -PropertyType DWord -Force
 Remove-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Font Drivers' -Name 'Adobe Type Manager' -Force
+
+# use UTF-8 for worldwide language support
+New-ItemProperty -LiteralPath 'HKLM:\System\ControlSet001\Control\Nls\CodePage' -Name 'OEMCP' -Value '65001' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\System\ControlSet001\Control\Nls\CodePage' -Name 'MACCP' -Value '65001' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\System\ControlSet001\Control\Nls\CodePage' -Name 'ACP' -Value '65001' -PropertyType String -Force
 
 # Telemetry (Security) / Opt-in Notification
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection' -Force };
@@ -3882,6 +4062,11 @@ New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows\CurrentVersion\R
 New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows\CurrentVersion\RegEdit' -Name 'FontWeight' -Value 400 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows\CurrentVersion\RegEdit' -Name 'FontItalic' -Value 0 -PropertyType DWord -Force
 
+# https://docs.microsoft.com/en-us/dotnet/desktop/wpf/graphics-multimedia/graphics-rendering-registry-settings?view=netframeworkdesktop-4.8
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Avalon.Graphics") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Avalon.Graphics" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics' -Name 'DisableHWAcceleration' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics' -Name 'MaxMultisampleType' -Value 16 -PropertyType DWord -Force
+
 # 无桌面右下角不支持提示
 if ((Test-Path -LiteralPath 'HKCU:\Control Panel\UnsupportedHardwareNotificationCache') -ne $true) { New-Item 'HKCU:\Control Panel\UnsupportedHardwareNotificationCache' -Force };
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\UnsupportedHardwareNotificationCache' -Name 'SV1' -Value 0 -PropertyType DWord -Force
@@ -4074,38 +4259,38 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Par
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'Hostname' -Value 'Alienware' -PropertyType String -Force
 
 # Nvidia显卡设置
-Set-ItemProperty -Path "HKLM:\Software\NVIDIA Corporation\Global\FTS" -Name EnableRID44231 -Type "DWORD" -Value 0 -Force
-Set-ItemProperty -Path "HKLM:\Software\NVIDIA Corporation\Global\FTS" -Name EnableRID64640 -Type "DWORD" -Value 0 -Force
-Set-ItemProperty -Path "HKLM:\Software\NVIDIA Corporation\Global\FTS" -Name EnableRID66610 -Type "DWORD" -Value 0 -Force
+Set-ItemProperty -Path "HKLM:\Software\NVIDIA Corporation\Global\FTS" -Name EnableRID44231 -Type "DWORD" -Value '0' -Force
+Set-ItemProperty -Path "HKLM:\Software\NVIDIA Corporation\Global\FTS" -Name EnableRID64640 -Type "DWORD" -Value '0' -Force
+Set-ItemProperty -Path "HKLM:\Software\NVIDIA Corporation\Global\FTS" -Name EnableRID66610 -Type "DWORD" -Value '0' -Force
 New-Item -Path "HKLM:\Software\NVIDIA Corporation\NvControlPanel2\Client" -Force
-Set-ItemProperty -Path "HKLM:\Software\NVIDIA Corporation\NvControlPanel2\Client" -Name OptInOrOutPreference -Type "DWORD" -Value 0 -Force
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\services\NvTelemetryContainer" -Name Start -Type "DWORD" -Value 4 -Force
-Set-ItemProperty -Path "HKLM:\Software\NVIDIA Corporation\Global\Startup\SendTelemetryData" -Name 0 -Type "DWORD" -Value 0 -Force
+Set-ItemProperty -Path "HKLM:\Software\NVIDIA Corporation\NvControlPanel2\Client" -Name OptInOrOutPreference -Type "DWORD" -Value '0' -Force
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\services\NvTelemetryContainer" -Name Start -Type "DWORD" -Value '4' -Force
+Set-ItemProperty -Path "HKLM:\Software\NVIDIA Corporation\Global\Startup\SendTelemetryData" -Name '0' -Type "DWORD" -Value '0' -Force
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\Dwm') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows\Dwm' -Force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\Dwm' -Name 'OverlayTestMode' -Value 5 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\Dwm' -Name 'OverlayTestMode' -Value '5' -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Ansel') -ne $true) { New-Item 'HKCU:\Software\NVIDIA Corporation\Ansel' -Force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Ansel' -Name 'FreestyleEnabled' -Value 'False' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Ansel' -Name 'IPCenabled' -Value '0' -PropertyType String -Force
 if((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\NVAPI") -ne $true) {  New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\NVAPI" -force };
 if((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\Global\NVTweak") -ne $true) {  New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\Global\NVTweak" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm' -Name 'RmGpsPsEnablePerCpuCoreDpc' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\services\nvlddmkm' -Name 'DisableWriteCombining' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\services\nvlddmkm' -Name 'DisablePreemption' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\services\nvlddmkm' -Name 'DisableCudaContextPreemption' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\NVAPI' -Name 'RmGpsPsEnablePerCpuCoreDpc' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\Global\NVTweak' -Name 'RmGpsPsEnablePerCpuCoreDpc' -Value 1 -PropertyType DWord -Force
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\Global\Startup" -Name "SendTelemetryData" -Type "DWORD" -Value 0 -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm' -Name 'RmGpsPsEnablePerCpuCoreDpc' -Value '1' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\services\nvlddmkm' -Name 'DisableWriteCombining' -Value '1' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\services\nvlddmkm' -Name 'DisablePreemption' -Value '1' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\services\nvlddmkm' -Name 'DisableCudaContextPreemption' -Value '1' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\NVAPI' -Name 'RmGpsPsEnablePerCpuCoreDpc' -Value '1' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\Global\NVTweak' -Name 'RmGpsPsEnablePerCpuCoreDpc' -Value '1' -PropertyType DWord -Force
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\Global\Startup" -Name "SendTelemetryData" -Type "DWORD" -Value '0' -Force
 if((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}") -ne $true) {  New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}' -Name 'PerfLevelSrc' -Value 8738 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}' -Name 'powermizerenable' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}' -Name 'powermizerlevel' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}' -Name 'powermizerlevelac' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}' -Name 'PreferSystemMemoryContiguous' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}' -Name 'PerfLevelSrc' -Value '8738' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}' -Name 'powermizerenable' -Value '1' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}' -Name 'powermizerlevel' -Value '1' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}' -Name 'powermizerlevelac' -Value '1' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}' -Name 'PreferSystemMemoryContiguous' -Value '1' -PropertyType DWord -Force
 
 # 显卡驱动
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'HwSchMode' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'PlatformSupportMiracast' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'DpiMapIommuContiguous' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'HwSchMode' -Value '2' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'PlatformSupportMiracast' -Value '0' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'DpiMapIommuContiguous' -Value '1' -PropertyType DWord -Force
 Remove-Item -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\BlockList\Kernel' -Recurse -Force -Verbose
 
 # 关闭硬盘预先存取
@@ -4279,9 +4464,9 @@ New-ItemProperty -LiteralPath 'HKLM:\Software\Wow6432Node\Microsoft\Cryptography
 # 0 - Disable configuring the machine at boot-up
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'DSCAutomationHostEnabled' -Value 0 -PropertyType DWord -Force
 
-# 0 - Variable refresh rate / O[timizations for windowed games
+# Optimizations for windowed games
 if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\DirectX\UserGpuPreferences") -ne $true) {  New-Item "HKCU:\Software\Microsoft\DirectX\UserGpuPreferences" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\DirectX\UserGpuPreferences' -Name 'DirectXUserGlobalSettings' -Value 'VRROptimizeEnable=0;SwapEffectUpgradeEnable=0;' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\DirectX\UserGpuPreferences' -Name 'DirectXUserGlobalSettings' -Value 'SwapEffectUpgradeEnable=1;VRROptimizeEnable=0;' -PropertyType String -Force
 
 # https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.EdgeUI::AllowEdgeSwipe
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\EdgeUI") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\EdgeUI" -force };
@@ -4302,179 +4487,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\E
 
 # ActiveSetup
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer' -Name 'ActiveSetupDisabled' -Value 1 -PropertyType DWord -Force
-
-# Internet Explorer
-if((Test-Path -LiteralPath "HKLM:\Software\Policies\Microsoft\Internet Explorer\Main") -ne $true) {  New-Item "HKLM:\Software\Policies\Microsoft\Internet Explorer\Main" -force };
-New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Internet Explorer\Main' -Name 'NotifyDisableIEOptions' -Value 1 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Internet Explorer\UnattendBackup\ActiveSetup\Home_Page") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Internet Explorer\UnattendBackup\ActiveSetup\Home_Page" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Main") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Main" -force };
-if((Test-Path -LiteralPath "Registry::\HKEY_USERS\S-1-5-18\Software\Microsoft\Internet Explorer\Main") -ne $true) {  New-Item "Registry::\HKEY_USERS\S-1-5-18\Software\Microsoft\Internet Explorer\Main" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Feeds") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Feeds" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\FTP") -ne $true) {  New-Item "HKCU:\Software\Microsoft\FTP" -force };
-if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Main") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Main" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\FullScreen\AllowDomains") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\FullScreen\AllowDomains" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\MINIE") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\MINIE" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Classes\VirtualStore\MACHINE\SOFTWARE\Microsoft\Internet Explorer\Main") -ne $true) {  New-Item "HKCU:\Software\Classes\VirtualStore\MACHINE\SOFTWARE\Microsoft\Internet Explorer\Main" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\0") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\0" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\1") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\1" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\2") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\2" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Main\WindowsSearch") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Main\WindowsSearch" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Zoom") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Zoom" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Feeds") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Feeds" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Styles") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Styles" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Privacy") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Privacy" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Toolbar\WebBrowser") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Toolbar\WebBrowser" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Download") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Download" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\LinksBar") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\LinksBar" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\MAO Settings") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\MAO Settings" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Services") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Services" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\FlipAhead") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\FlipAhead" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\IEDevTools\Options") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\IEDevTools\Options" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Geolocation") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Geolocation" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\New Windows") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\New Windows" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Recovery") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Recovery" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\AutoComplete") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\AutoComplete" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\CaretBrowsing") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\CaretBrowsing" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Control Panel") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Control Panel" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Feed Discovery") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Feed Discovery" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\PhishingFilter") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\PhishingFilter" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Suggested Sites") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Suggested Sites" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\PrefetchPrerender") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\PrefetchPrerender" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\BrowserEmulation") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\BrowserEmulation" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\ContinuousBrowsing") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\ContinuousBrowsing" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_LOCALMACHINE_LOCKDOWN") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_LOCALMACHINE_LOCKDOWN" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_LOCALMACHINE_LOCKDOWN\Settings") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_LOCALMACHINE_LOCKDOWN\Settings" -force };
-if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Tracing\iexplore_RASAPI32") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Tracing\iexplore_RASAPI32" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\LowRegistry\CommandBar") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\LowRegistry\CommandBar" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\View Source Editor\Editor Name") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\View Source Editor\Editor Name" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Classes\VirtualStore\MACHINE\SOFTWARE\Microsoft\Internet Explorer\View Source Editor\Editor Name") -ne $true) {  New-Item "HKCU:\Software\Classes\VirtualStore\MACHINE\SOFTWARE\Microsoft\Internet Explorer\View Source Editor\Editor Name" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Default HTML Editor") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Default HTML Editor" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" -force };
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\WinTrust\Trust Providers\Software Publishing") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\WinTrust\Trust Providers\Software Publishing" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Internet Explorer\UnattendBackup\ActiveSetup\Home_Page' -Name 'Home_Page' -Value 'about:blank' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Start Page' -Value 'about:blank' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Default_Page_URL' -Value 'about:blank' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\S-1-5-18\Software\Microsoft\Internet Explorer\Main' -Name 'Start Page' -Value 'about:blank' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'Registry::\HKEY_USERS\S-1-5-18\Software\Microsoft\Internet Explorer\Main' -Name 'Default_Page_URL' -Value 'about:blank' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Feeds' -Name 'SyncStatus' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\FTP' -Name 'Use Web Based FTP' -Value 'no' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Internet Explorer\Main' -Name 'EnableAutoUpgrade' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\FullScreen\AllowDomains' -Name 'youtube.com' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\MINIE' -Name 'ShowStatusBar' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\MINIE' -Name 'ShowTabsBelowAddressBar' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\VirtualStore\MACHINE\SOFTWARE\Microsoft\Internet Explorer\Main' -Name 'DEPOff' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'SyncMode5' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'ProxyHttp1.1' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'ShowPunycode' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'EnableHttp1_1' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'EnableHTTP2' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'EnableSPDY3_0' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'EnableNegotiate' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'EnablePunycode' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'EnforceP3PValidity' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'SecureProtocols' -Value 2696 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'PrivacyAdvanced' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'DisableIDNPrompt' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'WarnOnPostRedirect' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'WarnonBadCertRecving' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'DisableCachingOfSSLPages' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'CertificateRevocation' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'SyncMode5' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections' -Name 'SavedLegacySettings' -Value ([byte[]](0x46,0x00,0x00,0x00,0x07,0x00,0x00,0x00,0x09,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00)) -PropertyType Binary -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones' -Name 'SecuritySafe' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\0' -Name '1609' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\1' -Name '1609' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\2' -Name '1609' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3' -Name '1609' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4' -Name '1609' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Check_Associations' -Value 'yes' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'NoProtectedModeBanner' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Isolation' -Value 'PMIL' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'UseThemes' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'DOMStorage' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'DoNotTrack' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'PlaySounds' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'UseSWRender' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'SmoothScroll' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Expand Alt Text' -Value 'no' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'NscSingleExpand' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Use FormSuggest' -Value 'no' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Move System Caret' -Value 'no' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'FormSuggest PW Ask' -Value 'yes' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Friendly http errors' -Value 'yes' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Display Inline Images' -Value 'no' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'FormSuggest Passwords' -Value 'yes' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Enable AutoImageResize' -Value 'yes' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'EnableAlternativeCodec' -Value 'yes' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'NotifyDownloadComplete' -Value 'no' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Play_Background_Sounds' -Value 'no' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'MixedContentBlockImages' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Show image placeholders' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'Error Dlg Displayed On Every Error' -Value 'no' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main' -Name 'GotoIntranetSiteForSingleWordEntry' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main\WindowsSearch' -Name 'AutoCompleteGroups' -Value 5 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Zoom' -Name 'ResetZoomOnStartup2' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Zoom' -Name 'ResetTextSizeOnStartup' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Feeds' -Name 'TurnOnClipButton' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Feeds' -Name 'AutoMarkAsReadOPV' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Styles' -Name 'User Stylesheet' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Styles' -Name 'Use My Stylesheet' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Privacy' -Name 'ClearBrowsingHistoryOnExit' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Toolbar\WebBrowser' -Name 'ITBar7Height' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Download' -Name 'CheckExeSignatures' -Value 'no' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Download' -Name 'RunInvalidSignatures' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\LinksBar' -Name 'UpdatedSound' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\MAO Settings' -Name 'SuppressPerfBarUntil' -Value ([byte[]](0xFC,0x23,0x53,0xD6,0x2D,0xAC,0xD0,0x01)) -PropertyType Binary -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Services' -Name 'SelectionActivityButtonDisable' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\FlipAhead' -Name 'FPEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\IEDevTools\Options' -Name 'ConsoleBufferAlways' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Geolocation' -Name 'BlockAllWebsites' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\New Windows' -Name 'PopupMgr' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Recovery' -Name 'AutoRecover' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\AutoComplete' -Name 'Append Completion' -Value 'yes' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\AutoComplete' -Name 'AutoSuggest' -Value 'yes' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\CaretBrowsing' -Name 'EnableOnStartup' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Control Panel' -Name 'UTF8URLQuery' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Feed Discovery' -Name 'Sound' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\PhishingFilter' -Name 'EnabledV9' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing' -Name 'Groups' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing' -Name 'WarnOnClose' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing' -Name 'NewTabPageShow' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing' -Name 'UseMRUSwitching' -Value 'no' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing' -Name 'OpenAllHomePages' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing' -Name 'OpenInForeground' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing' -Name 'ShortcutBehavior' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing' -Name 'ThumbnailBehavior' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing' -Name 'PopupsUseNewWindow' -Value 2 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\TabbedBrowsing' -Name 'NewTabNextToCurrent' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Suggested Sites' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Suggested Sites' -Name 'DataStreamEnabledState' -Value 0 -PropertyType DWord -Force
-Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Suggested Sites' -Name 'SlicePath' -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\PrefetchPrerender' -Name 'Enabled' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\BrowserEmulation' -Name 'StaleCompatCache' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\ContinuousBrowsing' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_LOCALMACHINE_LOCKDOWN' -Name 'iexplore.exe' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_LOCALMACHINE_LOCKDOWN\Settings' -Name 'LOCALMACHINE_CD_UNLOCK' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Recovery' -Name 'AutoRecover' -Value 2 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'CertificateRevocation' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'SecureProtocols' -Value 2728 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Tracing\iexplore_RASAPI32' -Name 'EnableFileTracing' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Tracing\iexplore_RASAPI32' -Name 'EnableConsoleTracing' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Tracing\iexplore_RASAPI32' -Name 'EnableAutoFileTracing' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\LowRegistry\CommandBar' -Name 'CommandBandLayout' -Value ([byte[]](0x07,0x00,0x00,0x00,0x05,0x01,0x00,0x00,0x43,0x01,0x00,0x00,0x06,0x01,0x00,0x00)) -PropertyType Binary -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\View Source Editor\Editor Name' -Name '(default)' -Value 'C:\Windows\system32\NOTEPAD.EXE' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\VirtualStore\MACHINE\SOFTWARE\Microsoft\Internet Explorer\View Source Editor\Editor Name' -Name '(default)' -Value 'C:\Windows\system32\NOTEPAD.EXE' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Default HTML Editor' -Name 'Description' -Value 'Notepad' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command' -Name '(default)' -Value '%SystemRoot%\system32\NOTEPAD.EXE %1' -PropertyType ExpandString -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command' -Name '(default)' -Value '%SystemRoot%\system32\NOTEPAD.EXE %1' -PropertyType ExpandString -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\WinTrust\Trust Providers\Software Publishing' -Name 'State' -Value 146944 -PropertyType DWord -Force
 
 # disable usb message This device can perform faster
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Usb") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Usb" -force };
