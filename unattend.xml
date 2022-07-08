@@ -5,7 +5,7 @@
         <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <UserData>
                 <ProductKey>
-                    <Key>NW6C2-QMPVW-D7KKK-3GKT6-VCFB2</Key>
+                    <Key>NPPR9-FWDCX-D2C8J-H872K-2YT43</Key>
                     <WillShowUI>Never</WillShowUI>
                 </ProductKey>
                 <AcceptEula>true</AcceptEula>
@@ -84,7 +84,7 @@
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
                     <Order>10</Order>
-                    <Path>C:\Windows\Setup\Scripts\RemoveAppx.cmd</Path>
+                    <Path>C:\Windows\Setup\Scripts\Additional.cmd</Path>
                 </RunSynchronousCommand>
             </RunSynchronous>
         </component>
@@ -100,7 +100,7 @@
             <RegisteredOwner>Bill Gates</RegisteredOwner>
             <RegisteredOrganization>Microsoft</RegisteredOrganization>
             <TimeZone>AUS Eastern Standard Time</TimeZone>
-            <ProductKey>NW6C2-QMPVW-D7KKK-3GKT6-VCFB2</ProductKey>
+            <ProductKey>NPPR9-FWDCX-D2C8J-H872K-2YT43</ProductKey>
         </component>
         <component name="Microsoft-Windows-SQMApi" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <CEIPEnabled>0</CEIPEnabled>
@@ -150,7 +150,7 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>1</Order>
                     <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>C:\Windows\Setup\Scripts\Acrobat\autoplay.exe</CommandLine>
+                    <CommandLine>C:\Windows\Setup\Scripts\SOFTWARE\Acrobat\autoplay.exe</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>2</Order>
