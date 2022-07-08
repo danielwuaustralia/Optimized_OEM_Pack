@@ -25,6 +25,9 @@ rem Powershell 7
 rem lav
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.76.1-3.exe /VERYSILENT
 
+rem DirectX
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\DirectX\DXSETUP.exe /silent
+
 rem vulkan runtime
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.3.216.0-Installer.exe /S
 
