@@ -4,11 +4,6 @@ rem Oobe.cmd is run after the the screen about copying of files/expanding files 
 rem Specialize Phase = the reboot before OOBE
 rem i.e. WinPE - Reboot - Specialize - Reboot - OOBE
 
-rem runonce
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "!1" /t REG_SZ /d "C:\Windows\Setup\Scripts\SOFTWARE\AAFOptimusDCHAudioPack.exe" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "!2" /t REG_SZ /d "'C:\Program Files\PowerShell\7-preview\pwsh.exe' -ExecutionPolicy Bypass -File 'C:\Windows\Setup\Scripts\Unelevated.ps1'" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "!3" /t REG_SZ /d "'C:\Windows\SysWOW64\PowerRun_x64.exe' 'C:\Program Files\PowerShell\7-preview\pwsh.exe' -ExecutionPolicy Bypass -File 'C:\Windows\Setup\Scripts\Elevated.ps1'" /f
-
 rem Office 365
 "%windir%\Setup\Scripts\Office365\setup.exe" /configure "%windir%\Setup\Scripts\Office365\O365Preview.xml"
 
@@ -270,6 +265,8 @@ echo %_schtasks% "%_schedule%\UpdateOrchestrator\StartOobeAppsScanAfterUpdate"
 echo %_schtasks% "%_schedule%\UpdateOrchestrator\Universal Orchestrator Idle Start"
 echo %_schtasks% "%_schedule%\UpdateOrchestrator\Universal Orchestrator Start"
 echo %_schtasks% "%_schedule%\UpdateOrchestrator\UUS Failover Task"
+echo %_schtasks% "%_schedule%\SMB\UninstallSMB1ClientTask"
+echo %_schtasks% "%_schedule%\SMB\UninstallSMB1ServerTask"
 echo %_schtasks% "%_schedule%\WaaSMedic\PerformRemediation"
 echo %_schtasks% "%_schedule%\WindowsUpdate\sihpostreboot"
 echo %_schtasks% "%_schedule%\SettingSync\BackgroundUploadTask"
