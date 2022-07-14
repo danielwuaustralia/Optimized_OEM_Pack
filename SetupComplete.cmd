@@ -4,6 +4,11 @@ rem Oobe.cmd is run after the the screen about copying of files/expanding files 
 rem Specialize Phase = the reboot before OOBE
 rem i.e. WinPE - Reboot - Specialize - Reboot - OOBE
 
+rem runonce
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "!1" /t REG_SZ /d "C:\Windows\Setup\Scripts\SOFTWARE\AAFOptimusDCHAudioPack.exe" /f
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "!2" /t REG_SZ /d "'C:\Program Files\PowerShell\7-preview\pwsh.exe' -ExecutionPolicy Bypass -File 'C:\Windows\Setup\Scripts\Unelevated.ps1'" /f
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "!3" /t REG_SZ /d "'C:\Windows\SysWOW64\PowerRun_x64.exe' 'C:\Program Files\PowerShell\7-preview\pwsh.exe' -ExecutionPolicy Bypass -File 'C:\Windows\Setup\Scripts\Elevated.ps1'" /f
+
 rem Office 365
 "%windir%\Setup\Scripts\Office365\setup.exe" /configure "%windir%\Setup\Scripts\Office365\O365Preview.xml"
 
@@ -278,3 +283,5 @@ del /f /q C:\Windows\Panther\unattend.xml
 del /f /q /s "C:\ProgramData\Microsoft\Diagnosis\ETLLogs\*"
 del /f /q "C:\ProgramData\Microsoft\Diagnosis\*.rbs"
 %windir%\System32\UsoClient.exe RefreshSettings
+
+DISM /Online /Cleanup-Image /StartComponentCleanup
