@@ -2,6 +2,11 @@ $ErrorActionPreference = 'SilentlyContinue'
 $ProgressPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 $PSModuleAutoloadingPreference = 'All'
+
+Start-Transcript -Path c:\2.txt -Force
+
+####################################################################################################W#############################################################################################################################
+
 New-PSDrive -PSProvider Registry -Name HKCR -Root HKEY_CLASSES_ROOT
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell' -Name 'EnableScripts' -Value 1 -PropertyType DWord -Force
@@ -22,8 +27,6 @@ C:\Windows\SysWOW64\SetACL.exe -on "C:\Windows\Logs\CBS" -ot file -actn ace -ace
 C:\Windows\SysWOW64\SetACL.exe -on "C:\Windows\Logs\WaaSMedic" -ot file -actn ace -ace "n:S-1-5-32-544;p:full"
 C:\Windows\SysWOW64\SetACL.exe -on "C:\Windows\WinSxS\Backup" -ot file -actn ace -ace "n:S-1-5-32-544;p:full"
 C:\Windows\SysWOW64\SetACL.exe -on "C:\ProgramData\Microsoft\Diagnosis" -ot file -actn ace -ace "n:S-1-5-32-544;p:full;i:so,sc,io"
-
-Start-Transcript -Path c:\2.txt -Force
 
 ####################################################################################################W#############################################################################################################################
 
@@ -241,6 +244,8 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Pr
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *vmgid* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *vpci* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *1394ohci* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *cdrom* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *autotimesvc* | Set-ItemProperty -Name Start -Value 4 -Force
 
 <# 蓝牙 #>
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *BTAGService* | Set-ItemProperty -Name Start -Value 4 -Force
@@ -436,6 +441,7 @@ Get-ChildItem -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule
 Get-ChildItem -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Office' | Where-Object -Property Name -Like *Performance* | Remove-Item -Force
 Get-ChildItem -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Office' | Where-Object -Property Name -Like *OfficeTelemetryAgentFallBack2016* | Remove-Item -Force
 Get-ChildItem -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Office' | Where-Object -Property Name -Like *OfficeTelemetryAgentLogOn2016* | Remove-Item -Force
+Get-ChildItem -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator' | Where-Object -Property Name -Like *USO_UxBroker* | Remove-Item -Force
 
 <# 禁用nvidia驱动log #>
 Get-ChildItem -Path 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
@@ -460,8 +466,8 @@ Remove-Item -Path 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsof
 Remove-Item -Path 'C:\Users\Administrator\Desktop\Microsoft Edge.lnk' -Force
 
 <# 删除OneDrive #>
-'C:\Windows\System32\OneDriveSetup.exe /uninstall /allusers' | cmd
 'taskkill /f /im "OneDrive.exe"' | cmd
+'C:\Windows\System32\OneDriveSetup.exe /uninstall' | cmd
 Get-ChildItem 'C:\Users\Administrator\AppData\Local\Microsoft\OneDrive' | Remove-Item -Recurse -Force
 Remove-Item 'C:\Users\Administrator\OneDrive' -recurse -Force
 Remove-Item 'C:\ProgramData\Microsoft OneDrive' -recurse -Force
@@ -725,8 +731,11 @@ Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.heif\Shell\setdesktopwal
 Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.heifs\Shell\setdesktopwallpaper" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\PinnedFrequentPlace\shell\unpinfromhome" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\PinnedRecentDocument\shell\unpinfromhomefile" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Extensions" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Internet Explorer\Extensions" -recurse -force;
 
 #####################################################################################################################################################################################
 
 Remove-PSDrive -Name HKCR
+Get-ChildItem 'C:\Windows\Setup\Scripts' | Remove-Item -Recurse -Force
 Restart-Computer -Force
