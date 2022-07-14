@@ -146,33 +146,6 @@
                 <SkipUserOOBE>true</SkipUserOOBE>
                 <NetworkLocation>Home</NetworkLocation>
             </OOBE>
-            <FirstLogonCommands>
-                <SynchronousCommand wcm:action="add">
-                    <Order>1</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>C:\Windows\Setup\Scripts\SOFTWARE\Acrobat\autoplay.exe</CommandLine>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>2</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>C:\Windows\Setup\Scripts\SOFTWARE\Sogou.exe</CommandLine>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>3</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>C:\Windows\Setup\Scripts\SOFTWARE\AAFOptimusDCHAudioPack.exe</CommandLine>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>4</Order>
-                    <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>"C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Unelevated.ps1"</CommandLine>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>5</Order>
-                    <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>"C:\Windows\SysWOW64\PowerRun_x64.exe" "C:\Program Files\PowerShell\7-preview\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Elevated.ps1"</CommandLine>
-                </SynchronousCommand>
-            </FirstLogonCommands>
             <UserAccounts>
                 <LocalAccounts>
                     <LocalAccount wcm:action="add">
