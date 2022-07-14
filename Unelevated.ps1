@@ -2,7 +2,7 @@ $ErrorActionPreference = 'SilentlyContinue'
 $ProgressPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 $PSModuleAutoloadingPreference = 'All'
-New-PSDrive -PSProvider Registry -Name HKCR -Root HKEY_CLASSES_ROOT
+
 # Powershell Module from https://www.powershellgallery.com/packages
 # Save-Module -Name PSWindowsUpdate -Path 'D:\WindowsToolKit\$OEM$\$1\Windows\System32\WindowsPowerShell\v1.0\Modules' -Repository PSGallery
 # Save-Module -Name RobocopyPS -Path 'D:\WindowsToolKit\$OEM$\$1\Windows\System32\WindowsPowerShell\v1.0\Modules' -Repository PSGallery
@@ -13,6 +13,8 @@ New-PSDrive -PSProvider Registry -Name HKCR -Root HKEY_CLASSES_ROOT
 # Import-Module -SkipEditionCheck PowerShellGet
 
 Start-Transcript -Path c:\1.txt -Force
+
+#####################################################################################################################################################################################################################################
 
 "Dism.exe /Online /Remove-DefaultAppAssociations" | cmd
 Enable-WindowsOptionalFeature -Online -FeatureName 'LegacyComponents' -NoRestart
@@ -72,6 +74,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\DefaultUserEnvironment' -Name 'TMP
 
 #####################################################################################################################################################################################################################################
 
+New-PSDrive -PSProvider Registry -Name HKCR -Root HKEY_CLASSES_ROOT
 # Potplayer Setting
 if ((Test-Path -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0000') -ne $true) { New-Item 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0000' -Force };
 if ((Test-Path -LiteralPath 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0001') -ne $true) { New-Item 'HKCU:\Software\Daum\PotPlayerMini64\ExtCodec\0001' -Force };
@@ -2322,14 +2325,957 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\Exper
 
 # 7zip
 if ((Test-Path -LiteralPath 'HKCU:\Software\7-Zip') -ne $true) { New-Item 'HKCU:\Software\7-Zip' -Force };
-if ((Test-Path -LiteralPath 'HKCU:\Software\7-Zip\Options') -ne $true) { New-Item 'HKCU:\Software\7-Zip\Options' -Force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\7-Zip' -Name 'Path64' -Value 'C:\Program Files\7-Zip\' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\7-Zip' -Name 'Path' -Value 'C:\Program Files\7-Zip\' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\7-Zip' -Name 'LargePages' -Value 1 -PropertyType DWord -Force
+if((Test-Path -LiteralPath "HKCU:\Software\7-Zip\Options") -ne $true) {  New-Item "HKCU:\Software\7-Zip\Options" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\7-Zip\Options' -Name 'CascadedMenu' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\7-Zip\Options' -Name 'WorkDirType' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\7-Zip\Options' -Name 'WorkDirPath' -Value '' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\7-Zip\Options' -Name 'TempRemovableOnly' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\7-Zip\Options' -Name 'ContextMenu' -Value 103 -PropertyType DWord -Force
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.001") -ne $true) {  New-Item "HKCU:\Software\Classes\.001" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.7z") -ne $true) {  New-Item "HKCU:\Software\Classes\.7z" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.apfs") -ne $true) {  New-Item "HKCU:\Software\Classes\.apfs" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.arj") -ne $true) {  New-Item "HKCU:\Software\Classes\.arj" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.bz2") -ne $true) {  New-Item "HKCU:\Software\Classes\.bz2" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.bzip2") -ne $true) {  New-Item "HKCU:\Software\Classes\.bzip2" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.cab") -ne $true) {  New-Item "HKCU:\Software\Classes\.cab" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.cpio") -ne $true) {  New-Item "HKCU:\Software\Classes\.cpio" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.deb") -ne $true) {  New-Item "HKCU:\Software\Classes\.deb" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.dmg") -ne $true) {  New-Item "HKCU:\Software\Classes\.dmg" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.esd") -ne $true) {  New-Item "HKCU:\Software\Classes\.esd" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.fat") -ne $true) {  New-Item "HKCU:\Software\Classes\.fat" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.gz") -ne $true) {  New-Item "HKCU:\Software\Classes\.gz" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.gzip") -ne $true) {  New-Item "HKCU:\Software\Classes\.gzip" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.hfs") -ne $true) {  New-Item "HKCU:\Software\Classes\.hfs" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.iso") -ne $true) {  New-Item "HKCU:\Software\Classes\.iso" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.lha") -ne $true) {  New-Item "HKCU:\Software\Classes\.lha" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.lzh") -ne $true) {  New-Item "HKCU:\Software\Classes\.lzh" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.lzma") -ne $true) {  New-Item "HKCU:\Software\Classes\.lzma" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.ntfs") -ne $true) {  New-Item "HKCU:\Software\Classes\.ntfs" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.rar") -ne $true) {  New-Item "HKCU:\Software\Classes\.rar" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.rpm") -ne $true) {  New-Item "HKCU:\Software\Classes\.rpm" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.squashfs") -ne $true) {  New-Item "HKCU:\Software\Classes\.squashfs" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.swm") -ne $true) {  New-Item "HKCU:\Software\Classes\.swm" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.tar") -ne $true) {  New-Item "HKCU:\Software\Classes\.tar" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.taz") -ne $true) {  New-Item "HKCU:\Software\Classes\.taz" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.tbz") -ne $true) {  New-Item "HKCU:\Software\Classes\.tbz" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.tbz2") -ne $true) {  New-Item "HKCU:\Software\Classes\.tbz2" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.tgz") -ne $true) {  New-Item "HKCU:\Software\Classes\.tgz" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.tpz") -ne $true) {  New-Item "HKCU:\Software\Classes\.tpz" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.txz") -ne $true) {  New-Item "HKCU:\Software\Classes\.txz" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.vhd") -ne $true) {  New-Item "HKCU:\Software\Classes\.vhd" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.vhdx") -ne $true) {  New-Item "HKCU:\Software\Classes\.vhdx" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.wim") -ne $true) {  New-Item "HKCU:\Software\Classes\.wim" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.xar") -ne $true) {  New-Item "HKCU:\Software\Classes\.xar" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.xz") -ne $true) {  New-Item "HKCU:\Software\Classes\.xz" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.z") -ne $true) {  New-Item "HKCU:\Software\Classes\.z" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\.zip") -ne $true) {  New-Item "HKCU:\Software\Classes\.zip" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.001") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.001" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.001\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.001\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.001\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.001\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.001\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.001\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.001\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.001\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.7z") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.7z" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.7z\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.7z\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.7z\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.7z\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.7z\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.7z\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.7z\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.7z\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.apfs") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.apfs" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.apfs\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.apfs\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.apfs\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.apfs\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.apfs\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.apfs\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.apfs\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.apfs\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.arj") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.arj" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.arj\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.arj\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.arj\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.arj\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.arj\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.arj\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.arj\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.arj\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.bz2") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.bz2" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.bz2\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.bz2\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.bz2\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.bz2\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.bz2\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.bz2\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.bz2\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.bz2\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.bzip2") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.bzip2" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.bzip2\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.bzip2\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.bzip2\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.bzip2\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.bzip2\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.bzip2\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.bzip2\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.bzip2\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.cab") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.cab" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.cab\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.cab\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.cab\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.cab\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.cab\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.cab\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.cab\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.cab\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.cpio") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.cpio" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.cpio\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.cpio\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.cpio\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.cpio\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.cpio\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.cpio\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.cpio\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.cpio\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.deb") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.deb" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.deb\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.deb\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.deb\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.deb\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.deb\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.deb\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.deb\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.deb\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.dmg") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.dmg" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.dmg\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.dmg\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.dmg\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.dmg\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.dmg\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.dmg\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.dmg\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.dmg\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.esd") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.esd" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.esd\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.esd\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.esd\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.esd\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.esd\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.esd\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.esd\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.esd\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.fat") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.fat" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.fat\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.fat\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.fat\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.fat\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.fat\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.fat\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.fat\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.fat\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.gz") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.gz" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.gz\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.gz\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.gz\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.gz\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.gz\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.gz\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.gz\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.gz\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.gzip") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.gzip" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.gzip\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.gzip\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.gzip\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.gzip\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.gzip\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.gzip\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.gzip\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.gzip\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.hfs") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.hfs" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.hfs\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.hfs\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.hfs\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.hfs\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.hfs\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.hfs\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.hfs\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.hfs\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.iso") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.iso" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.iso\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.iso\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.iso\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.iso\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.iso\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.iso\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.iso\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.iso\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.lha") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.lha" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.lha\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.lha\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.lha\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.lha\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.lha\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.lha\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.lha\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.lha\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.lzh") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.lzh" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.lzh\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.lzh\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.lzh\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.lzh\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.lzh\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.lzh\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.lzh\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.lzh\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.lzma") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.lzma" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.lzma\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.lzma\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.lzma\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.lzma\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.lzma\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.lzma\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.lzma\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.lzma\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.ntfs") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.ntfs" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.ntfs\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.ntfs\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.ntfs\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.ntfs\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.ntfs\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.ntfs\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.ntfs\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.ntfs\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.rar") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.rar" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.rar\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.rar\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.rar\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.rar\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.rar\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.rar\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.rar\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.rar\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.rpm") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.rpm" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.rpm\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.rpm\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.rpm\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.rpm\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.rpm\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.rpm\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.rpm\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.rpm\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.squashfs") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.squashfs" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.squashfs\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.squashfs\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.squashfs\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.squashfs\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.squashfs\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.squashfs\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.squashfs\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.squashfs\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.swm") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.swm" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.swm\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.swm\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.swm\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.swm\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.swm\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.swm\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.swm\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.swm\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tar") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tar" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tar\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tar\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tar\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tar\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tar\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tar\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tar\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tar\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.taz") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.taz" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.taz\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.taz\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.taz\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.taz\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.taz\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.taz\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.taz\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.taz\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tbz") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tbz" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tbz2") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tbz2" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tbz2\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tbz2\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tbz2\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tbz2\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tbz2\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tbz2\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tbz2\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tbz2\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tbz\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tbz\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tbz\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tbz\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tbz\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tbz\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tbz\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tbz\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tgz") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tgz" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tgz\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tgz\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tgz\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tgz\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tgz\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tgz\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tgz\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tgz\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tpz") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tpz" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tpz\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tpz\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tpz\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tpz\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tpz\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tpz\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.tpz\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.tpz\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.txz") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.txz" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.txz\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.txz\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.txz\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.txz\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.txz\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.txz\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.txz\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.txz\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.vhd") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.vhd" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.vhd\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.vhd\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.vhd\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.vhd\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.vhd\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.vhd\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.vhd\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.vhd\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.vhdx") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.vhdx" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.vhdx\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.vhdx\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.vhdx\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.vhdx\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.vhdx\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.vhdx\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.vhdx\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.vhdx\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.wim") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.wim" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.wim\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.wim\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.wim\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.wim\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.wim\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.wim\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.wim\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.wim\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.xar") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.xar" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.xar\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.xar\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.xar\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.xar\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.xar\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.xar\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.xar\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.xar\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.xz") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.xz" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.xz\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.xz\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.xz\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.xz\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.xz\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.xz\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.xz\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.xz\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.z") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.z" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.z\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.z\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.z\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.z\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.z\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.z\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.z\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.z\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.zip") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.zip" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.zip\DefaultIcon") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.zip\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.zip\shell") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.zip\shell" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.zip\shell\open") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.zip\shell\open" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Classes\7-Zip.zip\shell\open\command") -ne $true) {  New-Item "HKCU:\Software\Classes\7-Zip.zip\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\AppSwitched") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\AppSwitched" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.001") -ne $true) {  New-Item "HKLM:\Software\Classes\.001" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.7z") -ne $true) {  New-Item "HKLM:\Software\Classes\.7z" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.apfs") -ne $true) {  New-Item "HKLM:\Software\Classes\.apfs" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.arj") -ne $true) {  New-Item "HKLM:\Software\Classes\.arj" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.bz2") -ne $true) {  New-Item "HKLM:\Software\Classes\.bz2" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.bzip2") -ne $true) {  New-Item "HKLM:\Software\Classes\.bzip2" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.cab") -ne $true) {  New-Item "HKLM:\Software\Classes\.cab" -force };
+Remove-Item -LiteralPath "HKLM:\Software\Classes\.cab\OpenWithProgids" -force;
+Remove-Item -LiteralPath "HKLM:\Software\Classes\.cab\PersistentHandler" -force;
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.cpio") -ne $true) {  New-Item "HKLM:\Software\Classes\.cpio" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.deb") -ne $true) {  New-Item "HKLM:\Software\Classes\.deb" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.dmg") -ne $true) {  New-Item "HKLM:\Software\Classes\.dmg" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.esd") -ne $true) {  New-Item "HKLM:\Software\Classes\.esd" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.fat") -ne $true) {  New-Item "HKLM:\Software\Classes\.fat" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.gz") -ne $true) {  New-Item "HKLM:\Software\Classes\.gz" -force };
+Remove-Item -LiteralPath "HKLM:\Software\Classes\.gz\PersistentHandler" -force;
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.gzip") -ne $true) {  New-Item "HKLM:\Software\Classes\.gzip" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.hfs") -ne $true) {  New-Item "HKLM:\Software\Classes\.hfs" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.iso") -ne $true) {  New-Item "HKLM:\Software\Classes\.iso" -force };
+Remove-Item -LiteralPath "HKLM:\Software\Classes\.iso\OpenWithProgids" -force;
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.lha") -ne $true) {  New-Item "HKLM:\Software\Classes\.lha" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.lzh") -ne $true) {  New-Item "HKLM:\Software\Classes\.lzh" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.lzma") -ne $true) {  New-Item "HKLM:\Software\Classes\.lzma" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.ntfs") -ne $true) {  New-Item "HKLM:\Software\Classes\.ntfs" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.rar") -ne $true) {  New-Item "HKLM:\Software\Classes\.rar" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.rpm") -ne $true) {  New-Item "HKLM:\Software\Classes\.rpm" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.squashfs") -ne $true) {  New-Item "HKLM:\Software\Classes\.squashfs" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.swm") -ne $true) {  New-Item "HKLM:\Software\Classes\.swm" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.tar") -ne $true) {  New-Item "HKLM:\Software\Classes\.tar" -force };
+Remove-Item -LiteralPath "HKLM:\Software\Classes\.tar\PersistentHandler" -force;
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.taz") -ne $true) {  New-Item "HKLM:\Software\Classes\.taz" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.tbz") -ne $true) {  New-Item "HKLM:\Software\Classes\.tbz" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.tbz2") -ne $true) {  New-Item "HKLM:\Software\Classes\.tbz2" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.tgz") -ne $true) {  New-Item "HKLM:\Software\Classes\.tgz" -force };
+Remove-Item -LiteralPath "HKLM:\Software\Classes\.tgz\PersistentHandler" -force;
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.tpz") -ne $true) {  New-Item "HKLM:\Software\Classes\.tpz" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.txz") -ne $true) {  New-Item "HKLM:\Software\Classes\.txz" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.vhd") -ne $true) {  New-Item "HKLM:\Software\Classes\.vhd" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.vhdx") -ne $true) {  New-Item "HKLM:\Software\Classes\.vhdx" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.wim") -ne $true) {  New-Item "HKLM:\Software\Classes\.wim" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.xar") -ne $true) {  New-Item "HKLM:\Software\Classes\.xar" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.xz") -ne $true) {  New-Item "HKLM:\Software\Classes\.xz" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.z") -ne $true) {  New-Item "HKLM:\Software\Classes\.z" -force };
+Remove-Item -LiteralPath "HKLM:\Software\Classes\.z\PersistentHandler" -force;
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\.zip") -ne $true) {  New-Item "HKLM:\Software\Classes\.zip" -force };
+Remove-Item -LiteralPath "HKLM:\Software\Classes\.zip\CompressedFolder" -force;
+Remove-Item -LiteralPath "HKLM:\Software\Classes\.zip\OpenWithProgids" -force;
+Remove-Item -LiteralPath "HKLM:\Software\Classes\.zip\PersistentHandler" -force;
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.001") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.001" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.001\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.001\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.001\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.001\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.001\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.001\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.001\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.001\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.7z") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.7z" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.7z\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.7z\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.7z\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.7z\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.7z\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.7z\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.7z\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.7z\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.apfs") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.apfs" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.apfs\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.apfs\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.apfs\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.apfs\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.apfs\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.apfs\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.apfs\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.apfs\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.arj") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.arj" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.arj\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.arj\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.arj\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.arj\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.arj\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.arj\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.arj\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.arj\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.bz2") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.bz2" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.bz2\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.bz2\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.bz2\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.bz2\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.bz2\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.bz2\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.bz2\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.bz2\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.bzip2") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.bzip2" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.bzip2\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.bzip2\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.bzip2\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.bzip2\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.bzip2\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.bzip2\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.bzip2\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.bzip2\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.cab") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.cab" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.cab\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.cab\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.cab\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.cab\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.cab\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.cab\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.cab\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.cab\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.cpio") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.cpio" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.cpio\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.cpio\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.cpio\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.cpio\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.cpio\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.cpio\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.cpio\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.cpio\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.deb") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.deb" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.deb\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.deb\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.deb\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.deb\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.deb\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.deb\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.deb\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.deb\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.dmg") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.dmg" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.dmg\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.dmg\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.dmg\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.dmg\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.dmg\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.dmg\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.dmg\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.dmg\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.esd") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.esd" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.esd\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.esd\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.esd\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.esd\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.esd\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.esd\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.esd\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.esd\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.fat") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.fat" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.fat\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.fat\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.fat\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.fat\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.fat\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.fat\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.fat\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.fat\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.gz") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.gz" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.gz\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.gz\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.gz\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.gz\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.gz\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.gz\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.gz\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.gz\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.gzip") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.gzip" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.gzip\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.gzip\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.gzip\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.gzip\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.gzip\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.gzip\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.gzip\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.gzip\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.hfs") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.hfs" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.hfs\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.hfs\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.hfs\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.hfs\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.hfs\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.hfs\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.hfs\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.hfs\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.iso") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.iso" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.iso\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.iso\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.iso\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.iso\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.iso\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.iso\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.iso\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.iso\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.lha") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.lha" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.lha\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.lha\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.lha\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.lha\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.lha\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.lha\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.lha\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.lha\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.lzh") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.lzh" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.lzh\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.lzh\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.lzh\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.lzh\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.lzh\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.lzh\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.lzh\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.lzh\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.lzma") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.lzma" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.lzma\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.lzma\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.lzma\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.lzma\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.lzma\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.lzma\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.lzma\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.lzma\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.ntfs") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.ntfs" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.ntfs\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.ntfs\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.ntfs\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.ntfs\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.ntfs\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.ntfs\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.ntfs\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.ntfs\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.rar") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.rar" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.rar\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.rar\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.rar\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.rar\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.rar\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.rar\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.rar\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.rar\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.rpm") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.rpm" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.rpm\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.rpm\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.rpm\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.rpm\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.rpm\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.rpm\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.rpm\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.rpm\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.squashfs") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.squashfs" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.squashfs\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.squashfs\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.squashfs\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.squashfs\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.squashfs\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.squashfs\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.squashfs\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.squashfs\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.swm") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.swm" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.swm\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.swm\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.swm\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.swm\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.swm\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.swm\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.swm\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.swm\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tar") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tar" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tar\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tar\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tar\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tar\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tar\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tar\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tar\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tar\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.taz") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.taz" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.taz\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.taz\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.taz\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.taz\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.taz\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.taz\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.taz\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.taz\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tbz") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tbz" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tbz2") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tbz2" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tbz2\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tbz2\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tbz2\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tbz2\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tbz2\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tbz2\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tbz2\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tbz2\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tbz\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tbz\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tbz\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tbz\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tbz\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tbz\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tbz\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tbz\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tgz") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tgz" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tgz\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tgz\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tgz\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tgz\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tgz\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tgz\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tgz\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tgz\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tpz") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tpz" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tpz\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tpz\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tpz\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tpz\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tpz\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tpz\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.tpz\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.tpz\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.txz") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.txz" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.txz\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.txz\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.txz\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.txz\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.txz\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.txz\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.txz\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.txz\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.vhd") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.vhd" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.vhd\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.vhd\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.vhd\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.vhd\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.vhd\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.vhd\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.vhd\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.vhd\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.vhdx") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.vhdx" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.vhdx\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.vhdx\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.vhdx\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.vhdx\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.vhdx\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.vhdx\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.vhdx\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.vhdx\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.wim") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.wim" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.wim\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.wim\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.wim\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.wim\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.wim\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.wim\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.wim\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.wim\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.xar") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.xar" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.xar\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.xar\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.xar\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.xar\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.xar\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.xar\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.xar\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.xar\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.xz") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.xz" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.xz\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.xz\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.xz\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.xz\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.xz\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.xz\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.xz\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.xz\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.z") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.z" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.z\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.z\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.z\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.z\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.z\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.z\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.z\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.z\shell\open\command" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.zip") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.zip" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.zip\DefaultIcon") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.zip\DefaultIcon" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.zip\shell") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.zip\shell" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.zip\shell\open") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.zip\shell\open" -force };
+if((Test-Path -LiteralPath "HKLM:\Software\Classes\7-Zip.zip\shell\open\command") -ne $true) {  New-Item "HKLM:\Software\Classes\7-Zip.zip\shell\open\command" -force };
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.001' -Name '(default)' -Value '7-Zip.001' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.7z' -Name '(default)' -Value '7-Zip.7z' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.apfs' -Name '(default)' -Value '7-Zip.apfs' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.arj' -Name '(default)' -Value '7-Zip.arj' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.bz2' -Name '(default)' -Value '7-Zip.bz2' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.bzip2' -Name '(default)' -Value '7-Zip.bzip2' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.cab' -Name '(default)' -Value '7-Zip.cab' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.cpio' -Name '(default)' -Value '7-Zip.cpio' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.deb' -Name '(default)' -Value '7-Zip.deb' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.dmg' -Name '(default)' -Value '7-Zip.dmg' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.esd' -Name '(default)' -Value '7-Zip.esd' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.fat' -Name '(default)' -Value '7-Zip.fat' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.gz' -Name '(default)' -Value '7-Zip.gz' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.gzip' -Name '(default)' -Value '7-Zip.gzip' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.hfs' -Name '(default)' -Value '7-Zip.hfs' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.iso' -Name '(default)' -Value '7-Zip.iso' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.lha' -Name '(default)' -Value '7-Zip.lha' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.lzh' -Name '(default)' -Value '7-Zip.lzh' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.lzma' -Name '(default)' -Value '7-Zip.lzma' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.ntfs' -Name '(default)' -Value '7-Zip.ntfs' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.rar' -Name '(default)' -Value '7-Zip.rar' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.rpm' -Name '(default)' -Value '7-Zip.rpm' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.squashfs' -Name '(default)' -Value '7-Zip.squashfs' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.swm' -Name '(default)' -Value '7-Zip.swm' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.tar' -Name '(default)' -Value '7-Zip.tar' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.taz' -Name '(default)' -Value '7-Zip.taz' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.tbz' -Name '(default)' -Value '7-Zip.tbz' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.tbz2' -Name '(default)' -Value '7-Zip.tbz2' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.tgz' -Name '(default)' -Value '7-Zip.tgz' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.tpz' -Name '(default)' -Value '7-Zip.tpz' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.txz' -Name '(default)' -Value '7-Zip.txz' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.vhd' -Name '(default)' -Value '7-Zip.vhd' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.vhdx' -Name '(default)' -Value '7-Zip.vhdx' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.wim' -Name '(default)' -Value '7-Zip.wim' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.xar' -Name '(default)' -Value '7-Zip.xar' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.xz' -Name '(default)' -Value '7-Zip.xz' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.z' -Name '(default)' -Value '7-Zip.z' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\.zip' -Name '(default)' -Value '7-Zip.zip' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.001' -Name '(default)' -Value '001 Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.001\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,9' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.001\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.001\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.001\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.7z' -Name '(default)' -Value '7z Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.7z\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.7z\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.7z\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.7z\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.apfs' -Name '(default)' -Value 'apfs Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.apfs\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,25' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.apfs\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.apfs\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.apfs\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.arj' -Name '(default)' -Value 'arj Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.arj\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,4' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.arj\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.arj\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.arj\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.bz2' -Name '(default)' -Value 'bz2 Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.bz2\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,2' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.bz2\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.bz2\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.bz2\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.bzip2' -Name '(default)' -Value 'bzip2 Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.bzip2\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,2' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.bzip2\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.bzip2\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.bzip2\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.cab' -Name '(default)' -Value 'cab Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.cab\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,7' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.cab\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.cab\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.cab\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.cpio' -Name '(default)' -Value 'cpio Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.cpio\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,12' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.cpio\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.cpio\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.cpio\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.deb' -Name '(default)' -Value 'deb Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.deb\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,11' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.deb\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.deb\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.deb\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.dmg' -Name '(default)' -Value 'dmg Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.dmg\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,17' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.dmg\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.dmg\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.dmg\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.esd' -Name '(default)' -Value 'esd Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.esd\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,15' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.esd\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.esd\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.esd\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.fat' -Name '(default)' -Value 'fat Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.fat\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,21' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.fat\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.fat\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.fat\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.gz' -Name '(default)' -Value 'gz Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.gz\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,14' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.gz\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.gz\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.gz\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.gzip' -Name '(default)' -Value 'gzip Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.gzip\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,14' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.gzip\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.gzip\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.gzip\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.hfs' -Name '(default)' -Value 'hfs Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.hfs\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,18' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.hfs\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.hfs\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.hfs\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.iso' -Name '(default)' -Value 'iso Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.iso\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,8' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.iso\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.iso\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.iso\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.lha' -Name '(default)' -Value 'lha Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.lha\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,6' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.lha\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.lha\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.lha\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.lzh' -Name '(default)' -Value 'lzh Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.lzh\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,6' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.lzh\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.lzh\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.lzh\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.lzma' -Name '(default)' -Value 'lzma Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.lzma\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,16' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.lzma\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.lzma\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.lzma\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.ntfs' -Name '(default)' -Value 'ntfs Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.ntfs\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,22' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.ntfs\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.ntfs\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.ntfs\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.rar' -Name '(default)' -Value 'rar Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.rar\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,3' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.rar\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.rar\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.rar\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.rpm' -Name '(default)' -Value 'rpm Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.rpm\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,10' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.rpm\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.rpm\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.rpm\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.squashfs' -Name '(default)' -Value 'squashfs Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.squashfs\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,24' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.squashfs\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.squashfs\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.squashfs\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.swm' -Name '(default)' -Value 'swm Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.swm\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,15' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.swm\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.swm\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.swm\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tar' -Name '(default)' -Value 'tar Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tar\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,13' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tar\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tar\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tar\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.taz' -Name '(default)' -Value 'taz Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.taz\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,5' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.taz\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.taz\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.taz\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tbz' -Name '(default)' -Value 'tbz Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tbz2' -Name '(default)' -Value 'tbz2 Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tbz2\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,2' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tbz2\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tbz2\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tbz2\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tbz\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,2' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tbz\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tbz\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tbz\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tgz' -Name '(default)' -Value 'tgz Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tgz\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,14' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tgz\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tgz\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tgz\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tpz' -Name '(default)' -Value 'tpz Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tpz\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,14' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tpz\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tpz\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.tpz\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.txz' -Name '(default)' -Value 'txz Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.txz\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,23' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.txz\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.txz\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.txz\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.vhd' -Name '(default)' -Value 'vhd Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.vhd\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,20' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.vhd\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.vhd\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.vhd\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.vhdx' -Name '(default)' -Value 'vhdx Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.vhdx\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,20' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.vhdx\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.vhdx\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.vhdx\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.wim' -Name '(default)' -Value 'wim Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.wim\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,15' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.wim\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.wim\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.wim\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.xar' -Name '(default)' -Value 'xar Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.xar\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,19' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.xar\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.xar\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.xar\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.xz' -Name '(default)' -Value 'xz Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.xz\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,23' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.xz\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.xz\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.xz\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.z' -Name '(default)' -Value 'z Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.z\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,5' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.z\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.z\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.z\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.zip' -Name '(default)' -Value 'zip Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.zip\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,1' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.zip\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.zip\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\7-Zip.zip\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\AppSwitched' -Name '{6D809377-6AF0-444B-8957-A3773F02200E}\\nirsoft\\NirLauncher.exe' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\AppSwitched' -Name '{6D809377-6AF0-444B-8957-A3773F02200E}\\7-Zip\\7zFM.exe' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\AppSwitched' -Name '{6D809377-6AF0-444B-8957-A3773F02200E}\\nirsoft\\NirSoft\\x64\\registrychangesview.exe' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\AppSwitched' -Name 'ChromeDev' -Value 90 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.001' -Name '(default)' -Value '7-Zip.001' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.7z' -Name '(default)' -Value '7-Zip.7z' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.apfs' -Name '(default)' -Value '7-Zip.apfs' -PropertyType String -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.arj' -Name 'DontCompressInPackage' -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.arj' -Name '(default)' -Value '7-Zip.arj' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.bz2' -Name '(default)' -Value '7-Zip.bz2' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.bzip2' -Name '(default)' -Value '7-Zip.bzip2' -PropertyType String -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.cab' -Name 'PerceivedType' -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.cab' -Name '(default)' -Value '7-Zip.cab' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.cpio' -Name '(default)' -Value '7-Zip.cpio' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.deb' -Name '(default)' -Value '7-Zip.deb' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.dmg' -Name '(default)' -Value '7-Zip.dmg' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.esd' -Name '(default)' -Value '7-Zip.esd' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.fat' -Name '(default)' -Value '7-Zip.fat' -PropertyType String -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.gz' -Name 'Content Type' -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.gz' -Name '(default)' -Value '7-Zip.gz' -PropertyType String -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.gz' -Name 'PerceivedType' -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.gzip' -Name '(default)' -Value '7-Zip.gzip' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.hfs' -Name '(default)' -Value '7-Zip.hfs' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.iso' -Name '(default)' -Value '7-Zip.iso' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.lha' -Name '(default)' -Value '7-Zip.lha' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.lzh' -Name '(default)' -Value '7-Zip.lzh' -PropertyType String -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.lzh' -Name 'DontCompressInPackage' -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.lzma' -Name '(default)' -Value '7-Zip.lzma' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.ntfs' -Name '(default)' -Value '7-Zip.ntfs' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.rar' -Name '(default)' -Value '7-Zip.rar' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.rpm' -Name '(default)' -Value '7-Zip.rpm' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.squashfs' -Name '(default)' -Value '7-Zip.squashfs' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.swm' -Name '(default)' -Value '7-Zip.swm' -PropertyType String -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.tar' -Name 'Content Type' -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.tar' -Name 'PerceivedType' -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.tar' -Name '(default)' -Value '7-Zip.tar' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.taz' -Name '(default)' -Value '7-Zip.taz' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.tbz' -Name '(default)' -Value '7-Zip.tbz' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.tbz2' -Name '(default)' -Value '7-Zip.tbz2' -PropertyType String -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.tgz' -Name 'PerceivedType' -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.tgz' -Name 'Content Type' -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.tgz' -Name '(default)' -Value '7-Zip.tgz' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.tpz' -Name '(default)' -Value '7-Zip.tpz' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.txz' -Name '(default)' -Value '7-Zip.txz' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.vhd' -Name '(default)' -Value '7-Zip.vhd' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.vhdx' -Name '(default)' -Value '7-Zip.vhdx' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.wim' -Name '(default)' -Value '7-Zip.wim' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.xar' -Name '(default)' -Value '7-Zip.xar' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.xz' -Name '(default)' -Value '7-Zip.xz' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.z' -Name '(default)' -Value '7-Zip.z' -PropertyType String -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.z' -Name 'Content Type' -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.z' -Name 'PerceivedType' -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.z' -Name 'DontCompressInPackage' -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.zip' -Name 'PerceivedType' -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.zip' -Name 'Content Type' -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.zip' -Name 'DontCompressInPackage' -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\.zip' -Name '(default)' -Value '7-Zip.zip' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.001' -Name '(default)' -Value '001 Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.001\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,9' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.001\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.001\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.001\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.7z' -Name '(default)' -Value '7z Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.7z\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.7z\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.7z\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.7z\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.apfs' -Name '(default)' -Value 'apfs Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.apfs\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,25' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.apfs\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.apfs\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.apfs\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.arj' -Name '(default)' -Value 'arj Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.arj\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,4' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.arj\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.arj\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.arj\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.bz2' -Name '(default)' -Value 'bz2 Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.bz2\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,2' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.bz2\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.bz2\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.bz2\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.bzip2' -Name '(default)' -Value 'bzip2 Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.bzip2\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,2' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.bzip2\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.bzip2\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.bzip2\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.cab' -Name '(default)' -Value 'cab Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.cab\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,7' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.cab\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.cab\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.cab\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.cpio' -Name '(default)' -Value 'cpio Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.cpio\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,12' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.cpio\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.cpio\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.cpio\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.deb' -Name '(default)' -Value 'deb Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.deb\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,11' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.deb\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.deb\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.deb\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.dmg' -Name '(default)' -Value 'dmg Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.dmg\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,17' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.dmg\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.dmg\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.dmg\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.esd' -Name '(default)' -Value 'esd Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.esd\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,15' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.esd\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.esd\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.esd\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.fat' -Name '(default)' -Value 'fat Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.fat\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,21' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.fat\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.fat\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.fat\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.gz' -Name '(default)' -Value 'gz Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.gz\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,14' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.gz\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.gz\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.gz\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.gzip' -Name '(default)' -Value 'gzip Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.gzip\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,14' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.gzip\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.gzip\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.gzip\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.hfs' -Name '(default)' -Value 'hfs Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.hfs\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,18' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.hfs\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.hfs\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.hfs\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.iso' -Name '(default)' -Value 'iso Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.iso\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,8' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.iso\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.iso\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.iso\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.lha' -Name '(default)' -Value 'lha Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.lha\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,6' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.lha\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.lha\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.lha\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.lzh' -Name '(default)' -Value 'lzh Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.lzh\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,6' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.lzh\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.lzh\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.lzh\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.lzma' -Name '(default)' -Value 'lzma Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.lzma\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,16' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.lzma\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.lzma\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.lzma\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.ntfs' -Name '(default)' -Value 'ntfs Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.ntfs\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,22' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.ntfs\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.ntfs\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.ntfs\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.rar' -Name '(default)' -Value 'rar Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.rar\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,3' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.rar\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.rar\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.rar\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.rpm' -Name '(default)' -Value 'rpm Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.rpm\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,10' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.rpm\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.rpm\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.rpm\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.squashfs' -Name '(default)' -Value 'squashfs Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.squashfs\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,24' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.squashfs\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.squashfs\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.squashfs\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.swm' -Name '(default)' -Value 'swm Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.swm\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,15' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.swm\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.swm\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.swm\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tar' -Name '(default)' -Value 'tar Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tar\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,13' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tar\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tar\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tar\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.taz' -Name '(default)' -Value 'taz Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.taz\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,5' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.taz\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.taz\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.taz\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tbz' -Name '(default)' -Value 'tbz Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tbz2' -Name '(default)' -Value 'tbz2 Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tbz2\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,2' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tbz2\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tbz2\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tbz2\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tbz\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,2' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tbz\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tbz\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tbz\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tgz' -Name '(default)' -Value 'tgz Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tgz\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,14' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tgz\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tgz\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tgz\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tpz' -Name '(default)' -Value 'tpz Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tpz\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,14' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tpz\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tpz\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.tpz\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.txz' -Name '(default)' -Value 'txz Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.txz\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,23' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.txz\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.txz\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.txz\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.vhd' -Name '(default)' -Value 'vhd Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.vhd\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,20' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.vhd\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.vhd\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.vhd\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.vhdx' -Name '(default)' -Value 'vhdx Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.vhdx\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,20' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.vhdx\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.vhdx\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.vhdx\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.wim' -Name '(default)' -Value 'wim Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.wim\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,15' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.wim\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.wim\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.wim\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.xar' -Name '(default)' -Value 'xar Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.xar\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,19' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.xar\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.xar\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.xar\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.xz' -Name '(default)' -Value 'xz Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.xz\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,23' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.xz\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.xz\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.xz\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.z' -Name '(default)' -Value 'z Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.z\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,5' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.z\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.z\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.z\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.zip' -Name '(default)' -Value 'zip Archive' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.zip\DefaultIcon' -Name '(default)' -Value 'C:\Program Files\7-Zip\7z.dll,1' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.zip\shell' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.zip\shell\open' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Classes\7-Zip.zip\shell\open\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
 
 # Adobe Acrobat
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Adobe\Adobe Acrobat\DC\FeatureLockdown") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Adobe\Adobe Acrobat\DC\FeatureLockdown" -force };
@@ -4476,4 +5422,4 @@ Get-ChildItem $i | ForEach-Object {
 Remove-PSDrive -Name HKCR
 Copy-Item 'C:\Windows\Setup\Scripts\Runstartuptask.lnk' -Destination 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup' -Force
 Start-Sleep -Seconds '1'
-Get-ChildItem 'C:\Windows\Setup\Scripts' | Remove-Item -Recurse -Force
+'"C:\Windows\SysWOW64\PowerRun_x64.exe" "C:\Program Files\PowerShell\7-preview\pwsh.exe" -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Elevated.ps1"' | cmd
