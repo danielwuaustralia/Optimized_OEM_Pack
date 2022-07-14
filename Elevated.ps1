@@ -6,12 +6,29 @@ New-PSDrive -PSProvider Registry -Name HKCR -Root HKEY_CLASSES_ROOT
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell' -Name 'EnableScripts' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell' -Name 'ExecutionPolicy' -Value 'Unrestricted' -PropertyType String -Force
+C:\Windows\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\Drive\shell\PowerShell7-previewx64' -ot reg -actn setowner -ownr 'n:Administrators'
+C:\Windows\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\Drive\shell\PowerShell7-previewx64' -ot reg -actn ace -ace 'n:Administrators;p:full'
+C:\Windows\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\Directory\background\shell\PowerShell7-previewx64' -ot reg -actn setowner -ownr 'n:Administrators'
+C:\Windows\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\Directory\background\shell\PowerShell7-previewx64' -ot reg -actn ace -ace 'n:Administrators;p:full'
+C:\Windows\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}' -ot reg -actn setowner -ownr 'n:Administrators'
+C:\Windows\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}' -ot reg -actn ace -ace 'n:Administrators;p:full'
+C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:np"
+C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:sc,io;m:grant"
+C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Update" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:np"
+C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Update" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:sc,io;m:grant"
+C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Classes\xmlfile\CLSID" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:np"
+C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Classes\xmlfile\CLSID" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:sc,io;m:grant"
+C:\Windows\SysWOW64\SetACL.exe -on "C:\Windows\Logs\CBS" -ot file -actn ace -ace "n:S-1-5-32-544;p:full"
+C:\Windows\SysWOW64\SetACL.exe -on "C:\Windows\Logs\WaaSMedic" -ot file -actn ace -ace "n:S-1-5-32-544;p:full"
+C:\Windows\SysWOW64\SetACL.exe -on "C:\Windows\WinSxS\Backup" -ot file -actn ace -ace "n:S-1-5-32-544;p:full"
+C:\Windows\SysWOW64\SetACL.exe -on "C:\ProgramData\Microsoft\Diagnosis" -ot file -actn ace -ace "n:S-1-5-32-544;p:full;i:so,sc,io"
 
 Start-Transcript -Path c:\2.txt -Force
 
 ####################################################################################################W#############################################################################################################################
 
 <# 第三方厂商驱动 #>
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\3ware' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\ADP80XX' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AppleSSD' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\arcsas' -Name 'Start' -Value 4 -PropertyType DWord -Force
@@ -154,10 +171,8 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Pr
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *UmRdpService* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *TermService* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *SessionEnv* | Set-ItemProperty -Name Start -Value 4 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *BTAGService* | Set-ItemProperty -Name Start -Value 4 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *bthserv* | Set-ItemProperty -Name Start -Value 4 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *BthAvctpSvc* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *NaturalAuthentication* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *WinHttpAutoProxySvc* | Set-ItemProperty -Name Start -Value 3 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *tdx* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *Beep* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *tcpipreg* | Set-ItemProperty -Name Start -Value 4 -Force
@@ -205,6 +220,43 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Pr
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *UnistoreSvc* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *UserDataSvc* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *UdkUserSvc* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *AppvStrm* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *AppvVemgr* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *AppvVfs* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *bttflt* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *gencounter* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *hvservice* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *i8042prt* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *Modem* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *mpsdrv* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *MRxDAV* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *rdpbus* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *RDPDR* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *scfilter* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *SgrmAgent* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *SpatialGraphFilter* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *storflt* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *usbprint* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *vmbus* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *vmgid* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *vpci* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *1394ohci* | Set-ItemProperty -Name Start -Value 4 -Force
+
+<# 蓝牙 #>
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *BTAGService* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *bthserv* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *BthAvctpSvc* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *BthA2dp* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *BthEnum* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *BthHFEnum* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *BthLEEnum* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *BthMini* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *BTHMODEM* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *BTHPORT* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *BTHUSB* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *HidBth* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *Microsoft_Bluetooth_AvrcpTransport* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *RFCOMM* | Set-ItemProperty -Name Start -Value 4 -Force
 
 <# Intel驱动 #>
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\iagpio' -Name 'Start' -Value 4 -PropertyType DWord -Force
@@ -415,10 +467,23 @@ Remove-Item 'C:\Users\Administrator\OneDrive' -recurse -Force
 Remove-Item 'C:\ProgramData\Microsoft OneDrive' -recurse -Force
 Remove-Item -Path 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\OneDrive.lnk' -Force
 Get-ChildItem 'C:\Program Files\Microsoft OneDrive' | Remove-Item -Recurse -Force
-New-ItemProperty -LiteralPath 'HKCR:\.fluid\shell\open\command' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCR:\.loop\shell\open\command' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCR:\.note\shell\open\command' -Name '(default)' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCR:\.whiteboard\shell\open\command' -Name '(default)' -Value '' -PropertyType String -Force
+Remove-Item -LiteralPath "HKCR:\.fluid\shell\open\command" -force;
+Remove-Item -LiteralPath "HKCR:\.loop\shell\open\command" -force;
+Remove-Item -LiteralPath "HKCR:\.note\shell\open\command" -force;
+Remove-Item -LiteralPath "HKCR:\.whiteboard\shell\open\command" -force;
+Remove-Item -LiteralPath "HKCR:\AppID\OneDrive.EXE" -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{021E4F06-9DCC-49AD-88CF-ECC2DA314C8A}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{0827D883-485C-4D62-BA2C-A332DBF3D4B0}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{1BF42E4C-4AF4-4CFD-A1A0-CF2960B8F63E}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{20894375-46AE-46E2-BAFD-CB38975CDCE6}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{2e7c0a19-0438-41e9-81e3-3ad3d64f55ba}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{389510b7-9e58-40d7-98bf-60b911cb0ea9}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{4410DC33-BC7C-496B-AA84-4AEA3EEE75F7}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{47E6DCAF-41F8-441C-BD0E-A50D5FE6C4D1}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{5999E1EE-711E-48D2-9884-851A709F543D}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{5AB7172C-9C11-405C-8DD5-AF20F3606282}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{6bb93b4e-44d8-40e2-bd97-42dbcf18a40f}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{71DCE5D6-4B57-496B-AC21-CD5B54EB93FD}" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers\ OneDrive1" -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers\ OneDrive2" -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers\ OneDrive3" -force;
