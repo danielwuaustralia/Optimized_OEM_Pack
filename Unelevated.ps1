@@ -5421,5 +5421,8 @@ Get-ChildItem $i | ForEach-Object {
 ##############################################################################################################################################################################################################
 Remove-PSDrive -Name HKCR
 Copy-Item 'C:\Windows\Setup\Scripts\Runstartuptask.lnk' -Destination 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup' -Force
-Start-Sleep -Seconds '1'
-'"C:\Windows\SysWOW64\PowerRun_x64.exe" "C:\Program Files\PowerShell\7-preview\pwsh.exe" -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Elevated.ps1"' | cmd
+Start-Sleep -Seconds '1' 
+
+Start-Process -Wait -FilePath "C:\Windows\SysWOW64\PowerRun_x64.exe" -ArgumentList '"C:\Program Files\PowerShell\7-preview\pwsh.exe" -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Elevated.ps1"'
+
+Restart-Computer -Force
