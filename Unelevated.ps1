@@ -16,7 +16,7 @@ Start-Transcript -Path c:\1.txt -Force
 
 #####################################################################################################################################################################################################################################
 
-"Dism.exe /Online /Remove-DefaultAppAssociations" | cmd
+cmd.exe /c "Dism.exe /Online /Remove-DefaultAppAssociations"
 Enable-WindowsOptionalFeature -Online -FeatureName 'LegacyComponents' -NoRestart
 Enable-WindowsOptionalFeature -Online -FeatureName 'DirectPlay' -NoRestart
 Enable-WindowsOptionalFeature -Online -FeatureName 'SMB1Protocol' -NoRestart
@@ -3302,36 +3302,36 @@ if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Wow6432Node\Javasoft\Java Update\Poli
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Javasoft\Java Update\Policy' -Name 'EnableJavaUpdate' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Javasoft\Java Update\Policy' -Name 'NotifyDownload' -Value 0 -PropertyType DWord -Force
 
-'netsh int tcp set global rss=enable' | cmd
-'netsh int tcp set global autotuninglevel=disabled' | cmd
-'netsh int tcp set heuristics disabled' | cmd
-'netsh int tcp set global ecncapability=disabled' | cmd
-'netsh int tcp set global timestamps=disabled' | cmd
-'netsh int tcp set global initialrto=2000' | cmd
-'netsh int tcp set global rsc=disable' | cmd
-'netsh int tcp set global fastopen=enable' | cmd
-'netsh int tcp set global hystart=disable' | cmd
-'netsh int tcp set global pacingprofile=off' | cmd
-'netsh int ip set global minmtu=576' | cmd
-'netsh int ip set global flowlabel=disable' | cmd
-'netsh int tcp set supplemental internet congestionprovider=CTCP' | cmd
-'netsh int tcp set supplemental internet enablecwndrestart=disable' | cmd
-'netsh int ip set global icmpredirects=disabled' | cmd
-'netsh int ip set global multicastforwarding=disabled' | cmd
-'netsh int ip set global groupforwardedfragments=disable' | cmd
-'netsh int tcp set security mpp=disabled profiles=disabled' | cmd
-'netsh int tcp set heur forcews=disable' | cmd
-'netsh int 6to4 set state state=enabled undoonstop=disabled' | cmd
-'netsh int 6to4 set routing routing=enabled sitelocals=enabled' | cmd
-'netsh int tcp set global nonsackrttresiliency=disabled' | cmd
-'netsh wlan stop hostednetwork' | cmd
-'netsh wlan set hostednetwork mode=disallow' | cmd
-'netsh int tcp set security mpp=disabled' | cmd
-'netsh int tcp set security profiles=disabled' | cmd
-'netsh int ip set global neighborcachelimit=4096' | cmd
-'netsh int tcp set global maxsynretransmissions=2' | cmd
-'netsh int tcp set global netdma=enabled' | cmd
-'netsh int tcp set global dca=enabled' | cmd
+cmd.exe /c "netsh int tcp set global rss=enable"
+cmd.exe /c "netsh int tcp set global autotuninglevel=disabled"
+cmd.exe /c "netsh int tcp set heuristics disabled"
+cmd.exe /c "netsh int tcp set global ecncapability=disabled"
+cmd.exe /c "netsh int tcp set global timestamps=disabled"
+cmd.exe /c "netsh int tcp set global initialrto=2000"
+cmd.exe /c "netsh int tcp set global rsc=disable"
+cmd.exe /c "netsh int tcp set global fastopen=enable"
+cmd.exe /c "netsh int tcp set global hystart=disable"
+cmd.exe /c "netsh int tcp set global pacingprofile=off"
+cmd.exe /c "netsh int ip set global minmtu=576"
+cmd.exe /c "netsh int ip set global flowlabel=disable"
+cmd.exe /c "netsh int tcp set supplemental internet congestionprovider=CTCP"
+cmd.exe /c "netsh int tcp set supplemental internet enablecwndrestart=disable"
+cmd.exe /c "netsh int ip set global icmpredirects=disabled"
+cmd.exe /c "netsh int ip set global multicastforwarding=disabled"
+cmd.exe /c "netsh int ip set global groupforwardedfragments=disable"
+cmd.exe /c "netsh int tcp set security mpp=disabled profiles=disabled"
+cmd.exe /c "netsh int tcp set heur forcews=disable"
+cmd.exe /c "netsh int 6to4 set state state=enabled undoonstop=disabled"
+cmd.exe /c "netsh int 6to4 set routing routing=enabled sitelocals=enabled"
+cmd.exe /c "netsh int tcp set global nonsackrttresiliency=disabled"
+cmd.exe /c "netsh wlan stop hostednetwork"
+cmd.exe /c "netsh wlan set hostednetwork mode=disallow"
+cmd.exe /c "netsh int tcp set security mpp=disabled"
+cmd.exe /c "netsh int tcp set security profiles=disabled"
+cmd.exe /c "netsh int ip set global neighborcachelimit=4096"
+cmd.exe /c "netsh int tcp set global maxsynretransmissions=2"
+cmd.exe /c "netsh int tcp set global netdma=enabled"
+cmd.exe /c "netsh int tcp set global dca=enabled"
 Set-NetTCPSetting -SettingName InternetCustom -MinRto 300
 Set-NetTCPSetting -SettingName InternetCustom -InitialCongestionWindow 10
 Set-NetOffloadGlobalSetting -Chimney Disabled
@@ -3685,68 +3685,68 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD' -
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD' -Name 'EnableLLTDIO' -Value 0 -PropertyType DWord -Force
 
 # Dynamic Ticks are a feature that lets windows stop the system timer when nothing is happening in order to conserve power.
-'bcdedit /set disabledynamictick yes' | cmd
-'bcdedit /deletevalue useplatformclock' | cmd
-'bcdedit /set useplatformtick Yes' | cmd
+cmd.exe /c "bcdedit /set disabledynamictick yes"
+cmd.exe /c "bcdedit /deletevalue useplatformclock"
+cmd.exe /c "bcdedit /set useplatformtick Yes"
 Get-PnpDevice -InstanceId 'ACPI\PNP0103\2&DABA3FF&0' | Disable-PnpDevice -Confirm:$false -Verbose
 # 关闭核心内存保护
-'bcdedit /set isolatedcontext No' | cmd
-'bcdedit /set allowedinmemorysettings 0x0' | cmd
+cmd.exe /c "bcdedit /set isolatedcontext No"
+cmd.exe /c "bcdedit /set allowedinmemorysettings 0x0"
 # 关闭虚拟机支持
-'bcdedit /set loadoptions DISABLE-LSA-ISO,DISABLE-VBS' | cmd
-'bcdedit /set vsmlaunchtype Off' | cmd
-'bcdedit /set vm No' | cmd
-'bcdedit /set hypervisorlaunchtype off' | cmd
+cmd.exe /c "bcdedit /set loadoptions DISABLE-LSA-ISO,DISABLE-VBS"
+cmd.exe /c "bcdedit /set vsmlaunchtype Off"
+cmd.exe /c "bcdedit /set vm No"
+cmd.exe /c "bcdedit /set hypervisorlaunchtype off"
 # 启动选项
-'bcdedit /timeout 0' | cmd
-'bcdedit /set debug No' | cmd
-'bcdedit /set bootlog yes' | cmd
-'bcdedit /set displaybootmenu no' | cmd
-'bcdedit /set advancedoptions false' | cmd
-'bcdedit /set bootems no' | cmd
-'bcdedit /set disableelamdrivers Yes' | cmd
-'bcdedit /set recoveryenabled no' | cmd
-'bcdedit /set nx OptIn' | cmd
-'bcdedit /set bootmenupolicy legacy' | cmd
-'bcdedit /set bootstatuspolicy ignoreallfailures' | cmd
+cmd.exe /c "bcdedit /timeout 0"
+cmd.exe /c "bcdedit /set debug No"
+cmd.exe /c "bcdedit /set bootlog yes"
+cmd.exe /c "bcdedit /set displaybootmenu no"
+cmd.exe /c "bcdedit /set advancedoptions false"
+cmd.exe /c "bcdedit /set bootems no"
+cmd.exe /c "bcdedit /set disableelamdrivers Yes"
+cmd.exe /c "bcdedit /set recoveryenabled no"
+cmd.exe /c "bcdedit /set nx OptIn"
+cmd.exe /c "bcdedit /set bootmenupolicy legacy"
+cmd.exe /c "bcdedit /set bootstatuspolicy ignoreallfailures"
 # 开机界面
-'bcdedit /set quietboot On' | cmd
-'bcdedit /set bootuxdisabled On' | cmd
-'bcdedit /set {globalsettings} custom:16000067 true' | cmd
-'bcdedit /set {globalsettings} custom:16000068 true' | cmd
-'bcdedit /set {globalsettings} custom:16000069 true' | cmd
+cmd.exe /c "bcdedit /set quietboot On"
+cmd.exe /c "bcdedit /set bootuxdisabled On"
+cmd.exe /c "bcdedit /set {globalsettings} custom:16000067 true"
+cmd.exe /c "bcdedit /set {globalsettings} custom:16000068 true"
+cmd.exe /c "bcdedit /set {globalsettings} custom:16000069 true"
 # fsutil behavior
-'fsutil behavior set disable8dot3 1' | cmd
-'fsutil behavior set disableencryption 1' | cmd
-'fsutil behavior set disablelastaccess 1' | cmd
-'fsutil behavior set EncryptPagingFile 0' | cmd
-'fsutil behavior set symlinkEvaluation L2R:0 R2R:0 R2L:0' | cmd
-'fsutil behavior set allowextchar 1' | cmd
-'fsutil behavior set Bugcheckoncorrupt 0' | cmd
-'fsutil behavior set disablecompression 1' | cmd
-'fsutil behavior set encryptpagingfile 0' | cmd
-'fsutil behavior set memoryusage 2' | cmd
-'fsutil behavior set mftzone 2' | cmd
-'fsutil behavior set disabledeletenotify 0' | cmd
-'cipher /d /s:C:\' | cmd
-'compact /CompactOs:never' | cmd
-'fsutil resource setavailable c:' | cmd
-'fsutil resource setavailable d:' | cmd
-'fsutil resource setlog shrink 10 C:\' | cmd
-'fsutil resource setlog shrink 10 D:\' | cmd
-'fsutil resource setautoreset true c:\' | cmd
-'fsutil resource setautoreset true d:\' | cmd
-'fsutil usn deletejournal /d /n c:' | cmd
-'fsutil usn deletejournal /d /n d:' | cmd
-'fsutil bypassIo state C:\' | cmd
+cmd.exe /c "fsutil behavior set disable8dot3 1"
+cmd.exe /c "fsutil behavior set disableencryption 1"
+cmd.exe /c "fsutil behavior set disablelastaccess 1"
+cmd.exe /c "fsutil behavior set EncryptPagingFile 0"
+cmd.exe /c "fsutil behavior set symlinkEvaluation L2R:0 R2R:0 R2L:0"
+cmd.exe /c "fsutil behavior set allowextchar 1"
+cmd.exe /c "fsutil behavior set Bugcheckoncorrupt 0"
+cmd.exe /c "fsutil behavior set disablecompression 1"
+cmd.exe /c "fsutil behavior set encryptpagingfile 0"
+cmd.exe /c "fsutil behavior set memoryusage 2"
+cmd.exe /c "fsutil behavior set mftzone 2"
+cmd.exe /c "fsutil behavior set disabledeletenotify 0"
+cmd.exe /c "cipher /d /s:C:\"
+cmd.exe /c "compact /CompactOs:never"
+cmd.exe /c "fsutil resource setavailable c:"
+cmd.exe /c "fsutil resource setavailable d:"
+cmd.exe /c "fsutil resource setlog shrink 10 C:\"
+cmd.exe /c "fsutil resource setlog shrink 10 D:\"
+cmd.exe /c "fsutil resource setautoreset true c:\"
+cmd.exe /c "fsutil resource setautoreset true d:\"
+cmd.exe /c "fsutil usn deletejournal /d /n c:"
+cmd.exe /c "fsutil usn deletejournal /d /n d:"
+cmd.exe /c "fsutil bypassIo state C:\"
 #
-'netsh wfp set options netevents = off' | cmd
+cmd.exe /c "netsh wfp set options netevents = off"
 # DisableRecoveryAndReset
-'reagentc /disable' | cmd
+cmd.exe /c "reagentc /disable"
 # audit policy
-'auditpol /set /subcategory:"Special Logon" /success:disable' | cmd
-'auditpol /set /subcategory:"Audit Policy Change" /success:disable' | cmd
-'auditpol /set /subcategory:"User Account Management" /success:disable' | cmd
+cmd.exe /c "auditpol /set /subcategory:"Special Logon" /success:disable"
+cmd.exe /c "auditpol /set /subcategory:"Audit Policy Change" /success:disable"
+cmd.exe /c "auditpol /set /subcategory:"User Account Management" /success:disable"
 
 # 根目录证书
 # http://woshub.com/updating-trusted-root-certificates-in-windows-10/
@@ -4362,8 +4362,8 @@ New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows\CurrentVersion\P
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WaaSAssessment' -Name 'DisableAssessment' -Value 1 -PropertyType DWord -Force
 
 # Windows升级
-'sc triggerinfo wuauserv delete' | cmd
-'sc triggerinfo WaaSMedicSvc delete' | cmd
+cmd.exe /c "sc triggerinfo wuauserv delete"
+cmd.exe /c "sc triggerinfo WaaSMedicSvc delete"
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate' -Name 'AutoDownload' -Value 5 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer' -Name 'NoWindowsUpdate' -Value 1 -PropertyType DWord -Force
@@ -4381,7 +4381,7 @@ if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeliveryOp
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization' -Name 'DODownloadMode' -Value 99 -PropertyType DWord -Force
 
 # 防火墙
-'Netsh advfirewall set allprofile state off' | cmd
+cmd.exe /c "Netsh advfirewall set allprofile state off"
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\IPSec\ICFv4') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\IPSec\ICFv4' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\IPSec\ICFv4' -Name 'BypassFirewall' -Value 1 -PropertyType DWord -Force
 if((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Defaults\FirewallPolicy\DomainProfile") -ne $true) {  New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Defaults\FirewallPolicy\DomainProfile" -force };
@@ -4428,27 +4428,27 @@ if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore') -n
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore' -Name 'AutoDownload' -Value 2 -PropertyType DWord -Force
 
 # 电源设置
-'powercfg -h off' | cmd
-'powercfg -Change -monitor-timeout-ac 0' | cmd
-'powercfg -Change -monitor-timeout-dc 0' | cmd
-'powercfg -Change -standby-timeout-ac 0' | cmd
-'powercfg -Change -standby-timeout-dc 0' | cmd
-'powercfg /attributes sub_processor 0cc5b647-c1df-4637-891a-dec35c318583 -ATTRIB_HIDE' | cmd
-'powercfg /attributes sub_processor ea062031-0e34-4ff1-9b6d-eb1059334028 -ATTRIB_HIDE' | cmd
-'powercfg /setacvalueindex scheme_current sub_disk diskidle 0' | cmd
-'powercfg /setdcvalueindex scheme_current sub_disk diskidle 0' | cmd
-'powercfg /setacvalueindex scheme_current sub_none consolelock 0' | cmd
-'powercfg /setdcvalueindex scheme_current sub_none consolelock 0' | cmd
-'powercfg /setacvalueindex scheme_current sub_sleep hybridsleep 0' | cmd
-'powercfg /setdcvalueindex scheme_current sub_sleep hybridsleep 0' | cmd
-'powercfg /setacvalueindex scheme_current sub_sleep hibernateidle 0' | cmd
-'powercfg /setdcvalueindex scheme_current sub_sleep hibernateidle 0' | cmd
-'powercfg /setacvalueindex scheme_current sub_sleep standbyidle 0' | cmd
-'powercfg /setdcvalueindex scheme_current sub_sleep standbyidle 0' | cmd
-'powercfg /setacvalueindex scheme_current sub_buttons pbuttonaction 3' | cmd
-'powercfg /setdcvalueindex scheme_current sub_buttons pbuttonaction 3' | cmd
-'powercfg /setactive scheme_current' | cmd
-'powercfg /SETACVALUEINDEX SCHEME_CURRENT 238c9fa8-0aad-41ed-83f4-97be242c8f20 bd3b718a-0680-4d9d-8ab2-e1d2b4ac806d 1' | cmd
+cmd.exe /c "powercfg -h off"
+cmd.exe /c "powercfg -Change -monitor-timeout-ac 0"
+cmd.exe /c "powercfg -Change -monitor-timeout-dc 0"
+cmd.exe /c "powercfg -Change -standby-timeout-ac 0"
+cmd.exe /c "powercfg -Change -standby-timeout-dc 0"
+cmd.exe /c "powercfg /attributes sub_processor 0cc5b647-c1df-4637-891a-dec35c318583 -ATTRIB_HIDE"
+cmd.exe /c "powercfg /attributes sub_processor ea062031-0e34-4ff1-9b6d-eb1059334028 -ATTRIB_HIDE"
+cmd.exe /c "powercfg /setacvalueindex scheme_current sub_disk diskidle 0"
+cmd.exe /c "powercfg /setdcvalueindex scheme_current sub_disk diskidle 0"
+cmd.exe /c "powercfg /setacvalueindex scheme_current sub_none consolelock 0"
+cmd.exe /c "powercfg /setdcvalueindex scheme_current sub_none consolelock 0"
+cmd.exe /c "powercfg /setacvalueindex scheme_current sub_sleep hybridsleep 0"
+cmd.exe /c "powercfg /setdcvalueindex scheme_current sub_sleep hybridsleep 0"
+cmd.exe /c "powercfg /setacvalueindex scheme_current sub_sleep hibernateidle 0"
+cmd.exe /c "powercfg /setdcvalueindex scheme_current sub_sleep hibernateidle 0"
+cmd.exe /c "powercfg /setacvalueindex scheme_current sub_sleep standbyidle 0"
+cmd.exe /c "powercfg /setdcvalueindex scheme_current sub_sleep standbyidle 0"
+cmd.exe /c "powercfg /setacvalueindex scheme_current sub_buttons pbuttonaction 3"
+cmd.exe /c "powercfg /setdcvalueindex scheme_current sub_buttons pbuttonaction 3"
+cmd.exe /c "powercfg /setactive scheme_current"
+cmd.exe /c "powercfg /SETACVALUEINDEX SCHEME_CURRENT 238c9fa8-0aad-41ed-83f4-97be242c8f20 bd3b718a-0680-4d9d-8ab2-e1d2b4ac806d 1"
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -Name 'PowerdownAfterShutdown' -Value '1' -PropertyType String -Force
 if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power' -Force };
@@ -4485,7 +4485,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPriv
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'EnableUwpStartupTasks' -Value 0 -PropertyType DWord -Force
 
 # Disabling memory compression and page combining
-'sc stop "SysMain" & sc config "SysMain" start=disabled' | cmd
+cmd.exe /c "sc stop 'SysMain' & sc config 'SysMain' start=disabled"
 
 # No suggestions for using my Android phone with Windows
 if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Mobility") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Mobility" -force };
@@ -4881,14 +4881,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersio
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts' -Name '苹方-简 中黑体 (TrueType)' -Value 'PingFangSC-17.d1e2-Medium.otf' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes' -Name 'MS Shell Dlg 2' -Value 'Microsoft YaHei UI' -PropertyType String -Force
 #New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'MenuFont' -Value 'hex(3):F4,FF,FF,FF,00,00,00,00,00,00,00,00,00,00,00,00,90,01,00,00,00,00,00,86,03,02,01,22,AE,5F,6F,8F,C5,96,D1,9E,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00' -PropertyType String -Force
-#New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'MessageFont' -Value 'hex(3):F4,FF,FF,FF,00,00,00,00,00,00,00,00,00,00,00,00,90,01,00,00,00,00,00,86,03,02,01,22,AE,5F,6F,8F,C5,96,D1,9E,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00' -PropertyType String -Force
-#New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'PaddedBorderWidth' -Value '-45' -PropertyType String -Force
-#New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'StatusFont' -Value 'hex(3):F4,FF,FF,FF,00,00,00,00,00,00,00,00,00,00,00,00,90,01,00,00,00,00,00,86,03,02,01,22,AE,5F,6F,8F,C5,96,D1,9E,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00' -PropertyType String -Force
-#New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'BorderWidth' -Value '-15' -PropertyType String -Force
-#New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'CaptionFont' -Value 'hex(3):F1,FF,FF,FF,00,00,00,00,00,00,00,00,00,00,00,00,90,01,00,00,00,00,00,86,03,02,01,22,AE,5F,6F,8F,C5,96,D1,9E,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00' -PropertyType String -Force
-#New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'CaptionWidth' -Value '-540' -PropertyType String -Force
-#New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'IconFont' -Value 'hex(3):F4,FF,FF,FF,00,00,00,00,00,00,00,00,00,00,00,00,90,01,00,00,00,00,00,86,03,02,01,22,AE,5F,6F,8F,C5,96,D1,9E,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00' -PropertyType String -Force
-#New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'SmCaptionFont' -Value 'hex(3):F4,FF,FF,FF,00,00,00,00,00,00,00,00,00,00,00,00,90,01,00,00,00,00,00,86,03,02,01,22,AE,5F,6F,8F,C5,96,D1,9E,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00' -PropertyType String -Force
 
 # 显示所有字体
 if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Font Management") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Font Management" -force };
@@ -4955,6 +4947,7 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY1
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY10' -Name 'TextContrastLevel' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY10' -Name 'PixelStructure' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Avalon.Graphics\DISPLAY10' -Name 'GammaLevel' -Value 1800 -PropertyType DWord -Force
+
 # 注册表字体
 if((Test-Path -LiteralPath "HKLM:\Software\Microsoft\Windows\CurrentVersion\RegEdit") -ne $true) {  New-Item "HKLM:\Software\Microsoft\Windows\CurrentVersion\RegEdit" -force };
 New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows\CurrentVersion\RegEdit' -Name 'FontFace' -Value '微软雅黑' -PropertyType String -Force
@@ -5194,7 +5187,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d3
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}' -Name 'PreferSystemMemoryContiguous' -Value '1' -PropertyType DWord -Force
 
 # 显卡驱动
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'HwSchMode' -Value '2' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'HwSchMode' -Value '1' -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'PlatformSupportMiracast' -Value '0' -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'DpiMapIommuContiguous' -Value '1' -PropertyType DWord -Force
 Remove-Item -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\BlockList\Kernel' -Recurse -Force -Verbose
