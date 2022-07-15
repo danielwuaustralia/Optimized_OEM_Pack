@@ -342,8 +342,8 @@ ForEach ($item in $WDF) { $path = $item -replace "HKEY_LOCAL_MACHINE","HKLM:"; S
 # Set-ItemProperty -Path 'REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Name Visibility -Value '1' -Force
 # Remove-Item -Path 'REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Include *Owner* -Recurse -Force
 # Get-ChildItem -Path 'REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Name | ForEach-Object { dism /online /remove-package /PackageName:$_ /NoRestart }
-"regsvr32 /u /s 'C:\Program Files\Windows Defender\shellext.dll'" | cmd
-"'C:\Program Files\Windows Defender\MpCmdRun.exe' -DisableService" | cmd
+cmd.exe /c "regsvr32 /u /s 'C:\Program Files\Windows Defender\shellext.dll'"
+cmd.exe /c "'C:\Program Files\Windows Defender\MpCmdRun.exe' -DisableService"
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *WdFilter* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *WdNisSvc* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *WdNisDrv* | Set-ItemProperty -Name Start -Value 4 -Force
@@ -453,7 +453,7 @@ Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppMod
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel\StateRepository\Cache\Protocol\Index\Name\microsoft-edge-holographic" -recurse -force;
 Remove-ItemProperty -LiteralPath 'HKCR:\AppUserModelId\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge' -Name 'ExcludeFromTabbedSetsSettings' -Force
 Remove-Item -LiteralPath "HKCR:\AppUserModelId\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge" -recurse -force;
-'taskkill /f /im "MicrosoftEdgeUpdate.exe"' | cmd
+cmd.exe /c "taskkill /f /im 'MicrosoftEdgeUpdate.exe'"
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdate' -recurse -Force;
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdatem' -recurse -Force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Edge" -recurse -force;
@@ -466,8 +466,8 @@ Remove-Item -Path 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsof
 Remove-Item -Path 'C:\Users\Administrator\Desktop\Microsoft Edge.lnk' -Force
 
 <# 删除OneDrive #>
-'taskkill /f /im "OneDrive.exe"' | cmd
-'C:\Windows\System32\OneDriveSetup.exe /uninstall' | cmd
+cmd.exe /c "taskkill /f /im 'OneDrive.exe'"
+cmd.exe /c "C:\Windows\System32\OneDriveSetup.exe /uninstall"
 Get-ChildItem 'C:\Users\Administrator\AppData\Local\Microsoft\OneDrive' | Remove-Item -Recurse -Force
 Remove-Item 'C:\Users\Administrator\OneDrive' -recurse -Force
 Remove-Item 'C:\ProgramData\Microsoft OneDrive' -recurse -Force
