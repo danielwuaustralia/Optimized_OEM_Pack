@@ -738,4 +738,3 @@ Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Internet Explorer
 
 Remove-PSDrive -Name HKCR
 Get-ChildItem 'C:\Windows\Setup\Scripts' | Remove-Item -Recurse -Force
-Restart-Computer -Force
