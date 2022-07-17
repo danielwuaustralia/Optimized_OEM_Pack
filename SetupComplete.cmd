@@ -14,7 +14,7 @@ rem register video filters
 regsvr32.exe "C:\Program Files\madVR\madVR64.ax" /s
 
 rem 7zip
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\7z2200-x64.exe /S /D="C:\Program Files\7-Zip"
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\7z2201-x64.exe /S /D="C:\Program Files\7-Zip"
 
 rem https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VisualCppRedist_AIO_x86_x64.exe /ai /gm2
@@ -51,13 +51,6 @@ reg delete "HKLM\SYSTEM\ControlSet001\Control\WMI\AutoLogger\%%G" /f
 for %%G in ("AutoLogger-Diagtrack-Listener","Diagtrack-Listener","Circular Kernel Context Logger","WFP-IPsec Trace","WPR_initiated_DiagTrackMiniLogger_WPR System Collector") do (
 reg delete "HKLM\SYSTEM\ControlSet001\Control\WMI\AutoLogger\%%~G" /f
 )
-
-rem windows update
-set "key=HKLM\SYSTEM\ControlSet001\Control\Ubpm"
-for /f "tokens=1" %%a in ('reg query "%key%" 2^>nul ^| find /i "REG_SZ"') do reg delete %key% /v "%%a" /f 2
-
-set "key=HKLM\Software\Microsoft\WindowsUpdate\Orchestrator\UScheduler_Oobe"
-for /f %%a in ('reg query "%key%" /f * /k 2^>nul ^| find /i "Orchestrator"') do reg delete %%a /f 2
 
 rem scheduled task
 set "_schtasks=SCHTASKS /Change /DISABLE /TN"
