@@ -81,7 +81,6 @@ ParentalControls
 PeopleExperienceHost
 PPIProjection
 PrintDialog
-SecHealthUI
 SecureAssessmentBrowser
 XboxGameCallableUI
 ) do (
