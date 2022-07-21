@@ -28,46 +28,24 @@ Microsoft.MicrosoftEdge.Stable
 	for /f %%a in ('reg query "%windowsappx%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
 )
 
-rem AADBrokerPlugin                       -  Credential Handler for Microsoft Azure Logon | Needed for: WindowsStoreApp
-rem AccountsControl                       -  App to add Microsft Account for Microsoft Apps | Needed for: WindowsStoreApp
-rem AddSuggestedFoldersToLibraryDialog    -  Add Suggested Folders to Library Dialog
-rem AppResolverUX                         -  Modern Open With Dialog
-rem AsyncTextService                      -  Messaging extensions for People and Maps Apps
-rem BioEnrollment                         -  Windows Hello Setup
-rem CapturePicker                         -  A system picker UI control to select an item on the screen to capture | Needed for: Screen snip
-rem CBSPreview                            -  App for Camera Barcode Scanner
-rem ContentDeliveryManager                -  Automatic installation of sponsored or promoted apps, suggesstions and Ads | Needed for: OOBE and Microsoft Account
-rem CredDialogHost                        -  Authentication (Sign-in) shell support for Windows Hello
-rem ECApp                                 -  Modern UI Dialog App for Eye Movement Control | Depends on: WindowsMixedReality
-rem EdgeDevToolsClient                    -  An extension to edge containing tools for web developers | Depends on: Edge
-rem FileExplorer                          -  Modern File Explorer App
-rem FilePicker                            -  Modern File Picker Dialog
-rem LockApp                               -  Container App for Apps and Messages on the Lockscreen
-rem MapControl                            -  Map Control
-rem NarratorQuickStart                    -  QuickStart Guide for Narrator
-rem NcsiUwpApp                            -  Network Connectivity Status Indicator (NCSI)
-rem OOBENetworkCaptivePortal              -  Captive Network Portals support during OOBE-Phase of Windows
-rem OOBENetworkConnectionFlow             -  Connection Flow Network Portals support during OOBE-Phase of Windows
-rem ParentalControls                      -  App for Parental Controls
-rem PeopleExperienceHost                  -  People Bar (People Hub)
-rem PinningConfirmationDialog             -  Pinning Confirmation Dialog
-rem PrintDialog                           -  Modern Print Dialog | Needed for: Printing
-rem RetailDemoContent                     -  Retail Demo Content
-rem SettingSync                           -  Setting Sync
-rem SkypeORTC                             -  Skype ORTC
-rem SmartScreen                           -  Windows Defender SmartScreen Functionality for Modern Apps
-rem WebcamExperience                      -  Webcam Experience
-rem Win32WebViewHost                      -  Desktop App Web Viewer
-rem WindowsDefender                       -  Windows Defender
-rem WindowsMixedReality                   -  Windows Mixed Reality
-rem WindowsReaderPDF                      -  Windows Reader (PDF) | Depends on: Edge
-rem WindowsStoreClient                    -  Windows Store Back-end Client | Depends on: SmartScreen
-rem XboxClient                            -  Xbox Back-end Client | Depends on: XboxGameCallableUI
-rem XboxGameCallableUI                    -  Xbox Live
-rem XGpuEjectDialog                       -  Modern Dialog App for safe removal of external GPUs
-rem MicrosoftWindows.Client.CBS           -This component adds features to Start Menu and other required functions.
+rem The following System Applications are safe to remove:
+rem BioEnrollment (provided no biometrics will be used)
+rem CallingShellApp (provided no mobile phone will be linked to the device)
+rem MicrosoftEdge (has been replaced by Microsoft Edge Chromium, which is detailed more below)
+rem MicrosoftEdgeDevToolsClient
+rem SecHealthUI
+rem ContentDeliveryManager
+rem FileExplorer
+rem NarratorQuickStart
+rem ParentalControls
+rem SecureAssessmentBrowser
+rem XGpuEjectDialog
+rem XboxGameCallableUI (provided no integrated Xbox gaming features will be used)
+rem UndockedDevKit
+rem NcsiUwpApp
 set "systemappx=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications"
 for %%i in (
+c5e2524a-ea46-4f67-841f-6a9465d9d515
 MicrosoftEdge
 MicrosoftEdgeDevToolsClient
 AppRep.ChxApp
@@ -79,11 +57,13 @@ OOBENetworkCaptivePortal
 OOBENetworkConnectionFlow
 ParentalControls
 PeopleExperienceHost
-PPIProjection
 PrintDialog
 SecureAssessmentBrowser
 XboxGameCallableUI
+Microsoft.Windows.XGpuEjectDialog
 Microsoft.Win32WebViewHost
+MicrosoftWindows.UndockedDevKit
+NcsiUwpApp
 ) do (
 	for /f %%a in ('reg query "%systemappx%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
 )
