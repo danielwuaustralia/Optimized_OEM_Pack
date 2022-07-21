@@ -58,12 +58,20 @@ Get-WindowsCapability -Online | Where-Object { $_.Name -like 'OneCoreUAP.OneSync
 Get-WindowsCapability -Online | Where-Object { $_.Name -like 'OpenSSH.Client*' } | Remove-WindowsCapability -Online
 Get-WindowsCapability -Online | Where-Object { $_.Name -like 'Microsoft.Windows.WordPad*' } | Remove-WindowsCapability -Online
 Get-WindowsCapability -Online | Where-Object { $_.Name -like 'Microsoft.Wallpapers.Extended*' } | Remove-WindowsCapability -Online
+
+# 账户策略
+cmd.exe /c "net accounts /lockoutthreshold:0"
+cmd.exe /c "net accounts /MINPWAGE:0"
+cmd.exe /c "net accounts /MAXPWAGE:UNLIMITED"
+
 # 增加环境变量
 [Environment]::SetEnvironmentVariable('PATH', $Env:PATH + '; C:\Windows\SysWOW64', [EnvironmentVariableTarget]::Machine)
+
 # Powershell
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell' -Name 'EnableScripts' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell' -Name 'ExecutionPolicy' -Value 'Unrestricted' -PropertyType String -Force
+
 # 更改TEMP文件夹位置
 New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TEMP' -Value 'C:\TEMP' -PropertyType ExpandString -Force
 New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TMP' -Value 'C:\TEMP' -PropertyType ExpandString -Force
@@ -1934,8 +1942,8 @@ Get-PnpDevice -InstanceId 'ROOT\KDNIC\0000' | Disable-PnpDevice -Confirm:$false 
 Get-PnpDevice -InstanceId 'ROOT\SPACEPORT\0000' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -InstanceId 'ROOT\VID\0000' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -InstanceId 'ROOT\RDPBUS\0000' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'ACPI\PNP0501\0' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -FriendlyName 'AMD PSP 11.0 Device' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -FriendlyName 'Realtek Gaming GbE Family Controller' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -FriendlyName 'NVIDIA High Definition Audio' | Disable-PnpDevice -Confirm:$false -Verbose
 
 # 微软拼音输入法
