@@ -150,7 +150,7 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>1</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>REG add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /t REG_SZ /d "C:\Windows\System32\OneDriveSetup.exe /uninstall" /f</CommandLine>
+                    <CommandLine>REG ADD "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /f /v OneDriveSetup /d 0 /t REG_DWORD</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>2</Order>
