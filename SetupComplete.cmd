@@ -19,8 +19,14 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\7z2201-x64.exe /S /D="C:\Program Fil
 rem https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VisualCppRedist_AIO_x86_x64.exe /ai /gm2
 
+rem Net 3.1 Core
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-3.1.27-win-x64.exe /install /quiet /norestart
+
+rem https://dotnet.microsoft.com/en-us/download/dotnet/6.0
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-6.0.7-win-x64.exe /install /quiet /norestart
+
 rem Powershell 7
-%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.3.0-preview.5-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
+%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.3.0-preview.6-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
 rem lav
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.76.1-3.exe /VERYSILENT
@@ -273,5 +279,3 @@ del /f /q C:\Windows\Panther\unattend.xml
 del /f /q /s "C:\ProgramData\Microsoft\Diagnosis\ETLLogs\*"
 del /f /q "C:\ProgramData\Microsoft\Diagnosis\*.rbs"
 %windir%\System32\UsoClient.exe RefreshSettings
-
-DISM /Online /Cleanup-Image /StartComponentCleanup
