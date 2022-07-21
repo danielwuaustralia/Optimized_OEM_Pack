@@ -149,16 +149,21 @@
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
                     <Order>1</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>C:\Windows\Setup\Scripts\SOFTWARE\StartAllBack.exe</CommandLine>
+                    <RequiresUserInput>false</RequiresUserInput>
+                    <CommandLine>REG add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /t REG_SZ /d "C:\Windows\System32\OneDriveSetup.exe /uninstall" /f</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>2</Order>
                     <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>C:\Windows\Setup\Scripts\SOFTWARE\AAFOptimusDCHAudioPack.exe</CommandLine>
+                    <CommandLine>C:\Windows\Setup\Scripts\SOFTWARE\StartAllBack.exe</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>3</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                    <CommandLine>C:\Windows\Setup\Scripts\SOFTWARE\AAFOptimusDCHAudioPack.exe</CommandLine>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>4</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>"C:\Program Files\PowerShell\7-preview\pwsh.exe" -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Unelevated.ps1"</CommandLine>
                 </SynchronousCommand>
