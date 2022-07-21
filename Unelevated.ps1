@@ -1919,6 +1919,7 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\DownloadManager\Scheduler' -Name '
 Remove-Item -LiteralPath "HKCU:\Software\Microsoft\EdgeUpdate" -recurse -force;
 Remove-Item -LiteralPath "HKCU:\Software\Microsoft\EdgeWebView" -recurse -force;
 Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' -Name 'OneDrive' -Force
+Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' -Name 'OneDriveSetup' -Force
 Remove-Item -LiteralPath "HKCU:\Software\Classes\*\shellex\ContextMenuHandlers\ FileSyncEx" -force;
 Remove-Item -LiteralPath "HKCU:\Software\Classes\Directory\shellex\ContextMenuHandlers\ FileSyncEx" -force;
 Remove-Item -LiteralPath "HKCU:\Software\Classes\Directory\Background\shellex\ContextMenuHandlers\ FileSyncEx" -force;
