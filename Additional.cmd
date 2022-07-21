@@ -83,6 +83,7 @@ PPIProjection
 PrintDialog
 SecureAssessmentBrowser
 XboxGameCallableUI
+Microsoft.Win32WebViewHost
 ) do (
 	for /f %%a in ('reg query "%systemappx%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
 )
