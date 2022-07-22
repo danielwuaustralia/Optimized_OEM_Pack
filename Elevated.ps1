@@ -30,7 +30,7 @@ C:\Windows\SysWOW64\SetACL.exe -on "C:\ProgramData\Microsoft\Diagnosis" -ot file
 
 ####################################################################################################W#############################################################################################################################
 
-<# 第三方厂商驱动 #>
+<# 无用驱动 #>
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\3ware' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\ADP80XX' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\AppleSSD' -Name 'Start' -Value 4 -PropertyType DWord -Force
@@ -73,6 +73,9 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\nvstor' -Name
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\Acx01000' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\atapi' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\NVHDA' -Name 'Start' -Value 4 -PropertyType DWord -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *Serenum* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *Serial* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *i8042prt* | Set-ItemProperty -Name Start -Value 4 -Force
 
 <# 蓝牙 #>
 Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *BTAGService* | Set-ItemProperty -Name Start -Value 4 -Force
@@ -119,8 +122,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\IntelPMT' -Na
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\intelppm' -Name 'Start' -Value 4 -PropertyType DWord -Force
 
 <# 标准服务 #>
-Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *Serenum* | Set-ItemProperty -Name Start -Value 4 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *Serial* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *AarSvc* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *Acx01000* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *AJRouter* | Set-ItemProperty -Name Start -Value 4 -Force
@@ -271,20 +272,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Curr
 # https://forums.guru3d.com/threads/windows-line-based-vs-message-signaled-based-interrupts-msi-tool.378044/
 $MSIMode = Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum\PCI' -Recurse -Depth 5 | Where-Object { $_.PSChildName -Like 'MessageSignaledInterruptProperties' }
 ForEach ($item in $MSIMode) { $path = $item -replace "HKEY_LOCAL_MACHINE","HKLM:"; Set-ItemProperty -Path $path -Name 'MSISupported' -Value 1 -Force }
-
-<# 关闭省电 #>
-$StorPort = Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum\PCI' -Recurse -Depth 9 | Where-Object { $_.PSChildName -Like 'StorPort' }
-ForEach ($item in $StorPort) { $path = $item -replace "HKEY_LOCAL_MACHINE","HKLM:"; Set-ItemProperty -Path $path -Name 'EnableIdlePowerManagement' -Value 0 -Force }
-$DeviceParameters = Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum\PCI' -Recurse -Depth 9 | Where-Object { $_.PSChildName -Like 'Device Parameters' }
-ForEach ($item in $DeviceParameters) { $path = $item -replace "HKEY_LOCAL_MACHINE","HKLM:"; Set-ItemProperty -Path $path -Name 'AllowIdleIrpInD3' -Value 0 -Force }
-ForEach ($item in $DeviceParameters) { $path = $item -replace "HKEY_LOCAL_MACHINE","HKLM:"; Set-ItemProperty -Path $path -Name 'EnhancedPowerManagementEnabled' -Value 0 -Force }
-ForEach ($item in $DeviceParameters) { $path = $item -replace "HKEY_LOCAL_MACHINE","HKLM:"; Set-ItemProperty -Path $path -Name 'DeviceSelectiveSuspended' -Value 0 -Force }
-ForEach ($item in $DeviceParameters) { $path = $item -replace "HKEY_LOCAL_MACHINE","HKLM:"; Set-ItemProperty -Path $path -Name 'SelectiveSuspendEnabled' -Value 0 -Force }
-ForEach ($item in $DeviceParameters) { $path = $item -replace "HKEY_LOCAL_MACHINE","HKLM:"; Set-ItemProperty -Path $path -Name 'EnumerationRetryCount' -Value 0 -Force }
-ForEach ($item in $DeviceParameters) { $path = $item -replace "HKEY_LOCAL_MACHINE","HKLM:"; Set-ItemProperty -Path $path -Name 'ExtPropDescSemaphore' -Value 0 -Force }
-$WDF = Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum\PCI' -Recurse -Depth 9 | Where-Object { $_.PSChildName -Like 'WDF' }
-ForEach ($item in $WDF) { $path = $item -replace "HKEY_LOCAL_MACHINE","HKLM:"; Set-ItemProperty -Path $path -Name 'WdfDirectedPowerTransitionEnable' -Value 0 -Force }
-ForEach ($item in $WDF) { $path = $item -replace "HKEY_LOCAL_MACHINE","HKLM:"; Set-ItemProperty -Path $path -Name 'IdleInWorkingState' -Value 0 -Force }
 
 <# 禁用Defender #>
 # Set-ItemProperty -Path 'REGISTRY::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*' -Name Visibility -Value '1' -Force
@@ -506,7 +493,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\USBXHCI\Param
 $DmaRemapping = Get-ChildItem -Path 'HKLM:\SYSTEM\DriverDatabase\DriverPackages' -Recurse -Depth 9 | Where-Object { $_.PSChildName -Like 'Parameters' }
 ForEach ($item in $DmaRemapping) { $path = $item -replace "HKEY_LOCAL_MACHINE","HKLM:"; Set-ItemProperty -Path $path -Name 'DmaRemappingCompatible' -Value 0 -Force }
 
-<# 关闭USB省电 #>
+<# 关闭省电 #>
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\DriverDatabase\DriverPackages\input.inf_amd64_b4103166993e29f6\Configurations\HID_SelSus_Inst.NT\Device' -Name 'SelectiveSuspendEnabled' -Value ([byte[]](0x00)) -PropertyType Binary -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0002' -Name 'PnPCapabilities' -Value 24 -PropertyType DWord -Force
 $SelectiveSuspend = Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Enum\USB' -Recurse -Depth 9 | Where-Object { $_.PSChildName -Like 'Device Parameters' }
