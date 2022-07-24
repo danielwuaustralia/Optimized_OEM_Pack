@@ -25,7 +25,6 @@ C:\Windows\SysWOW64\SetACL.exe -on "C:\Windows\Logs\WaaSMedic" -ot file -actn ac
 C:\Windows\SysWOW64\SetACL.exe -on "C:\Windows\WinSxS\Backup" -ot file -actn ace -ace "n:S-1-5-32-544;p:full"
 C:\Windows\SysWOW64\SetACL.exe -on "C:\ProgramData\Microsoft\Diagnosis" -ot file -actn ace -ace "n:S-1-5-32-544;p:full;i:so,sc,io"
 
-####################################################################################################W#############################################################################################################################
 
 <# 无用驱动 #>
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\3ware' -Name 'Start' -Value 4 -PropertyType DWord -Force
