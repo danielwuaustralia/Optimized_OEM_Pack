@@ -5,9 +5,8 @@ $PSModuleAutoloadingPreference = 'All'
 
 Start-Transcript -Path c:\2.txt -Force
 
-####################################################################################################W#############################################################################################################################
-
 New-PSDrive -PSProvider Registry -Name HKCR -Root HKEY_CLASSES_ROOT
+
 C:\Windows\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\Drive\shell\PowerShell7-previewx64' -ot reg -actn setowner -ownr 'n:Administrators'
 C:\Windows\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\Drive\shell\PowerShell7-previewx64' -ot reg -actn ace -ace 'n:Administrators;p:full'
 C:\Windows\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\Directory\background\shell\PowerShell7-previewx64' -ot reg -actn setowner -ownr 'n:Administrators'
@@ -24,7 +23,6 @@ C:\Windows\SysWOW64\SetACL.exe -on "C:\Windows\Logs\CBS" -ot file -actn ace -ace
 C:\Windows\SysWOW64\SetACL.exe -on "C:\Windows\Logs\WaaSMedic" -ot file -actn ace -ace "n:S-1-5-32-544;p:full"
 C:\Windows\SysWOW64\SetACL.exe -on "C:\Windows\WinSxS\Backup" -ot file -actn ace -ace "n:S-1-5-32-544;p:full"
 C:\Windows\SysWOW64\SetACL.exe -on "C:\ProgramData\Microsoft\Diagnosis" -ot file -actn ace -ace "n:S-1-5-32-544;p:full;i:so,sc,io"
-
 
 <# 无用驱动 #>
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\3ware' -Name 'Start' -Value 4 -PropertyType DWord -Force
@@ -386,6 +384,22 @@ Get-ChildItem -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule
 Get-ChildItem -Path 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
 
 <# 删除Edge浏览器 #>
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'InstallDefault' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'CreateDesktopShortcut' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'Install{56EB18F8-B008-4CBD-B6D2-8C97FE7E9062}' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'Install{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'DoNotUpdateToEdgeWithChromium' -Value 1 -PropertyType DWord -Force
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\EdgeUpdate") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\EdgeUpdate" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\EdgeUpdate' -Name 'InstallDefault' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\EdgeUpdate' -Name 'CreateDesktopShortcut' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\EdgeUpdate' -Name 'Install{56EB18F8-B008-4CBD-B6D2-8C97FE7E9062}' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\EdgeUpdate' -Name 'Install{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\EdgeUpdate' -Name 'DoNotUpdateToEdgeWithChromium' -Value 1 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge' -Force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge' -Name 'NoRemove' -Value 0 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge') -ne $true) { New-Item 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge' -Force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge' -Name 'NoRemove' -Value 0 -PropertyType DWord -Force
 cmd.exe /c "taskkill /f /im 'MicrosoftEdgeUpdate.exe'"
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\MicrosoftEdgeElevationService' -recurse -Force;
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\edgeupdate' -recurse -Force;
@@ -798,7 +812,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{f874310
 Remove-Item -LiteralPath "HKCR:\CLSID\{397a2e5f-348c-482d-b9a3-57d383b483cd}" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Classes\HyperV.AppHealthMonitor" -recurse -force;
 
-#####################################################################################################################################################################################
-
 Remove-PSDrive -Name HKCR
+
+Get-ChildItem 'C:\Windows\Prefetch' | Remove-Item -Recurse -Force
 Get-ChildItem 'C:\Windows\Setup\Scripts' | Remove-Item -Recurse -Force
