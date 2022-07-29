@@ -47,16 +47,8 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Software.exe /S
 rem time sync
 start /wait C:\PROGRA~1\UpdateTime\UpdateTime_x64.exe /SI
 
-rem remove Edge
-"C:\Program Files (x86)\Microsoft\EdgeUpdate\MicrosoftEdgeUpdate.exe" /uninstall
-
-rem autologger
-for %%G in (UBPM,9C22BEA1-7763-41D1-B8F3-62A6ECC9D7E4,AITEventLog,AppModel,AppPlat,Audio,BioEnrollment,BluetoothSession,CloudExperienceHostOobe,DataMarket,DefenderApiLogger,DefenderAuditLogger,DiagLog,FaceCredProvReFSLog,FaceTel,FaceRecoTel,FaceUnlock,HolographicDevice,IntelRST,LwtNetLog,Mellanox-Kernel,Microsoft-Windows-AssignedAccess-Trace,Microsoft-Windows-CloudFiles-Filter-Log,Microsoft-Windows-CloudFiles-Filter-Trace,Microsoft-Windows-Rdp-Graphics-RdpIdd-Trace,Microsoft-Windows-Setup,NBSMBLOGGER,NetCore,NetCfgTrace,NtfsLog,PEAuthLog,ReadyBoot,RdrLog,SCM,SetupPlatform,SetupPlatformTel,SHS-12112016-172924-3-1,SpoolerLogger,SQMLogger,TCPIPLOGGER,TileStore,Tpm,WdiContextLog,WiFiDriverIHVSession,WiFiDriverIHVSessionRepro,WiFiSession,UserNotPresentTraceSession,WindowsUpdate_trace_log,Cellcore,RadioMgr,WinPhoneCritical) do (
-reg delete "HKLM\SYSTEM\ControlSet001\Control\WMI\AutoLogger\%%G" /f
-)
-for %%G in ("AutoLogger-Diagtrack-Listener","Diagtrack-Listener","Circular Kernel Context Logger","WFP-IPsec Trace","WPR_initiated_DiagTrackMiniLogger_WPR System Collector") do (
-reg delete "HKLM\SYSTEM\ControlSet001\Control\WMI\AutoLogger\%%~G" /f
-)
+rem DISM
+DISM.exe /Online /Remove-DefaultAppAssociations
 
 rem scheduled task
 set "_schtasks=SCHTASKS /Change /DISABLE /TN"
@@ -264,8 +256,6 @@ echo %_schtasks% "%_schedule%\UpdateOrchestrator\StartOobeAppsScanAfterUpdate"
 echo %_schtasks% "%_schedule%\UpdateOrchestrator\Universal Orchestrator Idle Start"
 echo %_schtasks% "%_schedule%\UpdateOrchestrator\Universal Orchestrator Start"
 echo %_schtasks% "%_schedule%\UpdateOrchestrator\UUS Failover Task"
-echo %_schtasks% "%_schedule%\SMB\UninstallSMB1ClientTask"
-echo %_schtasks% "%_schedule%\SMB\UninstallSMB1ServerTask"
 echo %_schtasks% "%_schedule%\WaaSMedic\PerformRemediation"
 echo %_schtasks% "%_schedule%\WindowsUpdate\sihpostreboot"
 echo %_schtasks% "%_schedule%\SettingSync\BackgroundUploadTask"
@@ -276,6 +266,4 @@ TIMEOUT /T 2
 SCHTASKS /Delete /F /TN SystemTasks
 del /f /q %windir%\SystemTasks.cmd
 del /f /q C:\Windows\Panther\unattend.xml
-del /f /q /s "C:\ProgramData\Microsoft\Diagnosis\ETLLogs\*"
-del /f /q "C:\ProgramData\Microsoft\Diagnosis\*.rbs"
 %windir%\System32\UsoClient.exe RefreshSettings
