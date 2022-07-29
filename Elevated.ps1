@@ -44,7 +44,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WinMad' -Name
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WacomPen' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\WinVerbs' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\UnionFS' -Name 'Start' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\rt640x64' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\nvraid' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\nvstor' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\Acx01000' -Name 'Start' -Value 4 -PropertyType DWord -Force
@@ -632,8 +631,6 @@ Remove-Item -LiteralPath "HKCR:\AllSyncRootObjects" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\CABFolder\Shell\find" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\CompressedFolder\Shell\find\command" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\Directory\shell\find\command" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Windows.IsoFile\shell\mount" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Windows.VhdFile\shell\mount\command" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\Unknown\shell\openas" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\AllProtocols\shell\openas" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\Folder\shell\opennewprocess" -recurse -force;
