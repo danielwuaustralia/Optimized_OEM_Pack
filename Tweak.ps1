@@ -2037,34 +2037,6 @@ if((Test-Path -LiteralPath "HKCU:\Software\7-Zip\Options") -ne $true) {  New-Ite
 New-ItemProperty -LiteralPath 'HKCU:\Software\7-Zip\Options' -Name 'CascadedMenu' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\7-Zip\Options' -Name 'TempRemovableOnly' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\7-Zip\Options' -Name 'ContextMenu' -Value 103 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKCU:\SOFTWARE\Classes\*\shell\connectNetworkDrive") -ne $true) {  New-Item "HKCU:\SOFTWARE\Classes\*\shell\connectNetworkDrive" -force };
-if((Test-Path -LiteralPath "HKCU:\SOFTWARE\Classes\*\shell\connectNetworkDrive\command") -ne $true) {  New-Item "HKCU:\SOFTWARE\Classes\*\shell\connectNetworkDrive\command" -force };
-if((Test-Path -LiteralPath "HKCU:\SOFTWARE\Classes\Directory\shell\connectNetworkDrive") -ne $true) {  New-Item "HKCU:\SOFTWARE\Classes\Directory\shell\connectNetworkDrive" -force };
-if((Test-Path -LiteralPath "HKCU:\SOFTWARE\Classes\Directory\shell\connectNetworkDrive\command") -ne $true) {  New-Item "HKCU:\SOFTWARE\Classes\Directory\shell\connectNetworkDrive\command" -force };
-if((Test-Path -LiteralPath "HKCU:\SOFTWARE\Classes\*\shell\disconnectNetworkDrive") -ne $true) {  New-Item "HKCU:\SOFTWARE\Classes\*\shell\disconnectNetworkDrive" -force };
-if((Test-Path -LiteralPath "HKCU:\SOFTWARE\Classes\*\shell\disconnectNetworkDrive\command") -ne $true) {  New-Item "HKCU:\SOFTWARE\Classes\*\shell\disconnectNetworkDrive\command" -force };
-if((Test-Path -LiteralPath "HKCU:\SOFTWARE\Classes\*\shell\Windows.CompressTo") -ne $true) {  New-Item "HKCU:\SOFTWARE\Classes\*\shell\Windows.CompressTo" -force };
-if((Test-Path -LiteralPath "HKCU:\SOFTWARE\Classes\*\shell\Windows.CompressTo\command") -ne $true) {  New-Item "HKCU:\SOFTWARE\Classes\*\shell\Windows.CompressTo\command" -force };
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Classes\*\shell\connectNetworkDrive' -Name 'MuiVerb' -Value '@C:\Program Files\7-Zip\7-zip.dll,-2324' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Classes\*\shell\connectNetworkDrive' -Name 'Position' -Value 'Middle' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Classes\*\shell\connectNetworkDrive' -Name 'Icon' -Value 'C:\Program Files\7-Zip\7-zip.dll,0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Classes\*\shell\connectNetworkDrive' -Name 'MultiSelectModel' -Value 'Single' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Classes\*\shell\connectNetworkDrive\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zG.exe\" u -t7z -ad \"%1\" \"%1\' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Classes\Directory\shell\connectNetworkDrive' -Name 'MuiVerb' -Value '@C:\Program Files\7-Zip\7-zip.dll,-2324' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Classes\Directory\shell\connectNetworkDrive' -Name 'Position' -Value 'Middle' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Classes\Directory\shell\connectNetworkDrive' -Name 'Icon' -Value 'C:\Program Files\7-Zip\7-zip.dll,0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Classes\Directory\shell\connectNetworkDrive' -Name 'MultiSelectModel' -Value 'Single' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Classes\Directory\shell\connectNetworkDrive\command' -Name '(default)' -Value 'C:\Program Files\7-Zip\7zFM.exe \"%V\' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Classes\*\shell\disconnectNetworkDrive' -Name 'MuiVerb' -Value '@C:\Program Files\7-Zip\7-zip.dll,-2327' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Classes\*\shell\disconnectNetworkDrive' -Name 'Position' -Value 'Middle' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Classes\*\shell\disconnectNetworkDrive' -Name 'Icon' -Value 'C:\Program Files\7-Zip\7-zip.dll,0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Classes\*\shell\disconnectNetworkDrive' -Name 'MultiSelectModel' -Value 'Player' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Classes\*\shell\disconnectNetworkDrive\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zG.exe\" x \"%1\" -r -o*' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Classes\*\shell\Windows.CompressTo' -Name 'MuiVerb' -Value '@C:\Program Files\7-Zip\7-zip.dll,-2322' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Classes\*\shell\Windows.CompressTo' -Name 'Position' -Value 'Middle' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Classes\*\shell\Windows.CompressTo' -Name 'Icon' -Value 'C:\Program Files\7-Zip\7-zip.dll,0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Classes\*\shell\Windows.CompressTo' -Name 'MultiSelectModel' -Value 'Single' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Classes\*\shell\Windows.CompressTo\command' -Name '(default)' -Value '\"C:\Program Files\7-Zip\7zFM.exe\" \"%1\' -PropertyType String -Force
 
 # Adobe Acrobat
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Adobe\Adobe Acrobat\DC\FeatureLockdown") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Adobe\Adobe Acrobat\DC\FeatureLockdown" -force };
@@ -4130,10 +4102,6 @@ if((Test-Path -LiteralPath "HKLM:\Software\Policies\Microsoft\Windows NT\Current
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows NT\CurrentVersion\MYS' -Name 'DisableShowAtLogon' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}' -Name 'IsInstalled' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap' -Name 'IEHarden' -Value 0 -PropertyType DWord -Force
-
-# 桌面右键菜单
-Remove-Item -LiteralPath "HKCR:\DesktopBackground\Shell\PowerShell7-previewx64" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\DesktopBackground\shellex\ContextMenuHandlers\DesktopSlideshow" -recurse -force;
 
 # Disable Nagle's Algorithm
 $i = 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces'  
