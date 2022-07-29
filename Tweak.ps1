@@ -2079,39 +2079,37 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Ma
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\DefaultUserEnvironment' -Name 'TEMP' -Value 'C:\TEMP' -PropertyType ExpandString -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\DefaultUserEnvironment' -Name 'TMP' -Value 'C:\TEMP' -PropertyType ExpandString -Force
 
+# 网络优化
+Set-NetTCPSetting -AutomaticUseCustom Enabled
+Set-NetTCPSetting -SettingName "InternetCustom" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CongestionProvider CTCP -CwndRestart False -DelayedAckTimeoutMs 10 -DelayedAckFrequency 10 -MemoryPressureProtection Disabled -AutoTuningLevelLocal Disabled -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
+Set-NetTCPSetting -SettingName "DatacenterCustom" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CongestionProvider CTCP -CwndRestart False -DelayedAckTimeoutMs 10 -DelayedAckFrequency 10 -MemoryPressureProtection Disabled -AutoTuningLevelLocal Disabled -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
+Set-NetTCPSetting -SettingName "Compat" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CongestionProvider CTCP -CwndRestart False -DelayedAckTimeoutMs 10 -DelayedAckFrequency 10 -MemoryPressureProtection Disabled -AutoTuningLevelLocal Disabled -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
+Set-NetTCPSetting -SettingName "Datacenter" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CongestionProvider CTCP -CwndRestart False -DelayedAckTimeoutMs 10 -DelayedAckFrequency 10 -MemoryPressureProtection Disabled -AutoTuningLevelLocal Disabled -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
+Set-NetTCPSetting -SettingName "Internet" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CongestionProvider CTCP -CwndRestart False -DelayedAckTimeoutMs 10 -DelayedAckFrequency 10 -MemoryPressureProtection Disabled -AutoTuningLevelLocal Disabled -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
+Enable-NetAdapterChecksumOffload -Name *
+Set-NetOffloadGlobalSetting -Chimney Disabled
+Enable-NetAdapterRss -Name *
+Set-NetOffloadGlobalSetting -ReceiveSegmentCoalescing disabled
+Set-NetOffloadGlobalSetting -PacketCoalescingFilter disabled
+Disable-NetAdapterLso -Name *
 cmd.exe /c "netsh int tcp set global rss=enable"
-cmd.exe /c "netsh int tcp set global autotuninglevel=disabled"
-cmd.exe /c "netsh int tcp set heuristics disabled"
-cmd.exe /c "netsh int tcp set global ecncapability=disabled"
-cmd.exe /c "netsh int tcp set global timestamps=disabled"
-cmd.exe /c "netsh int tcp set global initialrto=2000"
 cmd.exe /c "netsh int tcp set global rsc=disable"
 cmd.exe /c "netsh int tcp set global fastopen=enable"
 cmd.exe /c "netsh int tcp set global hystart=disable"
 cmd.exe /c "netsh int tcp set global pacingprofile=off"
 cmd.exe /c "netsh int ip set global minmtu=576"
 cmd.exe /c "netsh int ip set global flowlabel=disable"
-cmd.exe /c "netsh int tcp set supplemental internet congestionprovider=CTCP"
-cmd.exe /c "netsh int tcp set supplemental internet enablecwndrestart=disable"
 cmd.exe /c "netsh int ip set global icmpredirects=disabled"
 cmd.exe /c "netsh int ip set global multicastforwarding=disabled"
 cmd.exe /c "netsh int ip set global groupforwardedfragments=disable"
 cmd.exe /c "netsh int tcp set security mpp=disabled profiles=disabled"
-cmd.exe /c "netsh int tcp set heur forcews=disable"
 cmd.exe /c "netsh int 6to4 set state state=enabled undoonstop=disabled"
 cmd.exe /c "netsh int 6to4 set routing routing=enabled sitelocals=enabled"
-cmd.exe /c "netsh int tcp set global nonsackrttresiliency=disabled"
 cmd.exe /c "netsh wlan stop hostednetwork"
 cmd.exe /c "netsh wlan set hostednetwork mode=disallow"
 cmd.exe /c "netsh int tcp set security mpp=disabled"
 cmd.exe /c "netsh int tcp set security profiles=disabled"
 cmd.exe /c "netsh int ip set global neighborcachelimit=4096"
-cmd.exe /c "netsh int tcp set global maxsynretransmissions=2"
-cmd.exe /c "netsh int tcp set global netdma=enabled"
-cmd.exe /c "netsh int tcp set global dca=enabled"
-Set-NetTCPSetting -SettingName InternetCustom -MinRto 300
-Set-NetTCPSetting -SettingName InternetCustom -InitialCongestionWindow 10
-Set-NetOffloadGlobalSetting -Chimney Disabled
 if((Test-Path -LiteralPath "HKLM:\Software\Microsoft\Windows\CurrentVersion\Internet Settings") -ne $true) {  New-Item "HKLM:\Software\Microsoft\Windows\CurrentVersion\Internet Settings" -force };
 New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'TcpAutotuning' -Value 0 -PropertyType DWord -Force
 if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings" -force };
@@ -2124,7 +2122,6 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\I
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'ServerInfoTimeOut' -Value 300000 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'SocketSendBufferLength' -Value 65536 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'ProxyEnable' -Value 0 -PropertyType DWord -Force
-
 # Get-NetAdapterBinding -IncludeHidden -AllBindings | Format-Table -AutoSize
 # Get-NetAdapterBinding | Where-Object { $_.Enabled -eq 'True' } | Set-NetAdapterBinding -Enabled 0 -IncludeHidden -AllBindings -Verbose
 Set-NetIPInterface -InterfaceAlias '*' -NlMtuBytes 1440
@@ -2137,8 +2134,6 @@ Set-NetAdapterBinding -Name '*' -ComponentID ms_rspndr -Enabled 0
 Set-NetAdapterBinding -Name '*' -ComponentID ms_implat -Enabled 0
 Set-NetAdapterBinding -Name '*' -ComponentID ms_server -Enabled 1
 Set-NetAdapterBinding -Name '*' -ComponentID ms_tcpip6 -Enabled 1
-
-#
 if((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\services\Tcpip\Parameters") -ne $true) {  New-Item "HKLM:\SYSTEM\CurrentControlSet\services\Tcpip\Parameters" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\services\Tcpip\Parameters' -Name 'ArpCacheLife' -Value 1800 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\services\Tcpip\Parameters' -Name 'ArpCacheSize' -Value 200 -PropertyType DWord -Force
@@ -2170,8 +2165,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Ser
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider' -Name 'HostsPriority' -Value 5 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider' -Name 'LocalPriority' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider' -Name 'NetbtPriority' -Value 7 -PropertyType DWord -Force
-
-# DNS
 if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Name 'EnableNetbios' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Name 'EnableMDNS' -Value 0 -PropertyType DWord -Force
@@ -2193,23 +2186,7 @@ New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows NT\DNSC
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows NT\DNSClient' -Name 'QueryNetBTFQDN' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows NT\DNSClient' -Name 'DisableIdnEncoding' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows NT\DNSClient' -Name 'DisableSmartProtocolReordering' -Value 1 -PropertyType DWord -Force
-
-# remove Microsoft Wi-Fi Direct Virtual Adapter
 Remove-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\WlanSvc\Parameters\HostedNetworkSettings' -Name 'HostedNetworkSettings' -Force
-
-# Get-NetAdapterAdvancedProperty -Name "以太网" -AllProperties
-# Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName '流控制' -DisplayValue '关闭'
-# Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName 'Power Saving Mode' -DisplayValue '关闭'
-# Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName '网络唤醒和关机连接速度' -DisplayValue '不降速'
-# Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName '中断调整' -DisplayValue 'Disabled'
-# Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName '环保节能' -DisplayValue '关闭'
-# Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName '节能乙太网路' -DisplayValue '关闭'
-# Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName 'Advanced EEE' -DisplayValue '关闭'
-# Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName 'ARP 减负' -DisplayValue '关闭'
-# Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName 'NS 减负' -DisplayValue '关闭'
-# Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName 'Gigabit Lite' -DisplayValue '关闭'
-
-# Max UDP packet size for sending through io fast path (Shouldn't matter as most game packets dont even exceed the standard value)
 if((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\AFD\Parameters") -ne $true) {  New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\AFD\Parameters" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AFD\Parameters' -Name 'BufferMultiplier' -Value 1024 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AFD\Parameters' -Name 'MediumBufferSize' -Value 12032 -PropertyType DWord -Force
@@ -2218,15 +2195,11 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AFD\Param
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AFD\Parameters' -Name 'NonBlockingSendSpecialBuffering' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AFD\Parameters' -Name 'SmallBufferSize' -Value 1024 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AFD\Parameters' -Name 'DefaultSendWindow' -Value 172032 -PropertyType DWord -Force
-
-# ipv6
 if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters' -Name 'DisabledComponents' -Value 0 -PropertyType DWord -Force
 Set-NetTeredoConfiguration -Type Enterpriseclient
 Set-NetTeredoConfiguration -ServerName 'teredo.remlab.net'
 Set-Net6to4Configuration -State Enabled -AutoSharing Enabled -RelayState Enabled -RelayName '6to4.ipv6.microsoft.com'
-
-#NCSI
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet' -Name 'ActiveDnsProbeContent' -Value '131.107.255.255' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet' -Name 'ActiveDnsProbeContentV6' -Value 'fd3e:4f5a:5b81::1' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet' -Name 'ActiveDnsProbeHost' -Value 'dns.msftncsi.com' -PropertyType String -Force
@@ -2243,8 +2216,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Network
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkConnectivityStatusIndicator' -Name 'UseGlobalDNS' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkConnectivityStatusIndicator' -Name 'NoActiveProbe' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet' -Name 'EnableActiveProbing' -Value 0 -PropertyType DWord -Force
-
-#Wifi
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\HotspotAuthentication') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\HotspotAuthentication' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\HotspotAuthentication' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WcmSvc\wifinetworkmanager\config') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\WcmSvc\wifinetworkmanager\config' -Force };
@@ -2261,33 +2232,33 @@ if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WlanSvc\AnqpCache') -ne $t
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WlanSvc\AnqpCache' -Name 'OsuRegistrationStatus' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy' -Name 'fMinimizeConnections' -Value 1 -PropertyType DWord -Force
-
-# Allow DSCP tagging on non-domain
 if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\QoS') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\QoS' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\QoS' -Name 'Do not use NLA' -Value '1' -PropertyType String -Force
-
-#Disallow applications to wildly tag packets with DSCP unless specified, only QoS policies can enforce it.
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS' -Name 'Application DSCP Marking Request' -Value 'Ignored' -PropertyType String -Force
-
-# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.QualityofService::QosTimerResolution
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched' -Force }
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched' -Name 'TimerResolution' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched' -Name 'NonBestEffortLimit' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched' -Name 'NonBestEfforLimit' -Value 0 -PropertyType DWord -Force
-
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD' -Name 'EnableRspndr' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD' -Name 'EnableLLTDIO' -Value 0 -PropertyType DWord -Force
+# Get-NetAdapterAdvancedProperty -Name "以太网" -AllProperties
+# Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName '流控制' -DisplayValue '关闭'
+# Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName 'Power Saving Mode' -DisplayValue '关闭'
+# Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName '网络唤醒和关机连接速度' -DisplayValue '不降速'
+# Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName '中断调整' -DisplayValue 'Disabled'
+# Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName '环保节能' -DisplayValue '关闭'
+# Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName '节能乙太网路' -DisplayValue '关闭'
+# Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName 'Advanced EEE' -DisplayValue '关闭'
+# Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName 'ARP 减负' -DisplayValue '关闭'
+# Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName 'NS 减负' -DisplayValue '关闭'
+# Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName 'Gigabit Lite' -DisplayValue '关闭'
 
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections' -Name 'SavedLegacySettings' -Value 'hex(3):46,00,00,00,03,00,00,00,01,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections' -Name 'DefaultConnectionSettings' -Value 'hex(3):46,00,00,00,03,00,00,00,01,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00' -PropertyType String -Force
-
-# Dynamic Ticks are a feature that lets windows stop the system timer when nothing is happening in order to conserve power.
+# 性能优化
 cmd.exe /c "bcdedit /set disabledynamictick yes"
 cmd.exe /c "bcdedit /deletevalue useplatformclock"
 cmd.exe /c "bcdedit /set useplatformtick Yes"
-# 启动选项
 cmd.exe /c "bcdedit /timeout 0"
 cmd.exe /c "bcdedit /set debug No"
 cmd.exe /c "bcdedit /set bootlog yes"
@@ -2298,13 +2269,11 @@ cmd.exe /c "bcdedit /set recoveryenabled no"
 cmd.exe /c "bcdedit /set nx OptIn"
 cmd.exe /c "bcdedit /set bootmenupolicy legacy"
 cmd.exe /c "bcdedit /set bootstatuspolicy ignoreallfailures"
-# 开机界面
 cmd.exe /c "bcdedit /set quietboot On"
 cmd.exe /c "bcdedit /set bootuxdisabled On"
 cmd.exe /c "bcdedit /set {globalsettings} custom:16000067 true"
 cmd.exe /c "bcdedit /set {globalsettings} custom:16000068 true"
 cmd.exe /c "bcdedit /set {globalsettings} custom:16000069 true"
-# fsutil behavior
 cmd.exe /c "fsutil behavior set disable8dot3 1"
 cmd.exe /c "fsutil behavior set disableencryption 1"
 cmd.exe /c "fsutil behavior set disablelastaccess 1"
@@ -2329,13 +2298,10 @@ cmd.exe /c "fsutil usn deletejournal /d /n c:"
 cmd.exe /c "fsutil usn deletejournal /d /n d:"
 cmd.exe /c "fsutil bypassIo state C:\"
 cmd.exe /c "netsh wfp set options netevents = off"
-# DisableRecoveryAndReset
 cmd.exe /c "reagentc /disable"
-# audit policy
 cmd.exe /c "auditpol /set /subcategory:'Special Logon' /success:disable"
 cmd.exe /c "auditpol /set /subcategory:'Audit Policy Change' /success:disable"
 cmd.exe /c "auditpol /set /subcategory:'User Account Management' /success:disable"
-
 # 根目录证书
 # http://woshub.com/updating-trusted-root-certificates-in-windows-10/
 # "certutil.exe -f -generateSSTFromWU C:\TEMP\trustedcerts.sst" | cmd
