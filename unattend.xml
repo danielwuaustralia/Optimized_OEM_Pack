@@ -157,7 +157,7 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>3</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>"C:\Program Files\PowerShell\7-preview\pwsh.exe" -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Unelevated.ps1"</CommandLine>
+                    <CommandLine>"C:\Program Files\PowerShell\7-preview\pwsh.exe" -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Tweak.ps1"</CommandLine>
                 </SynchronousCommand>
             </FirstLogonCommands>
             <UserAccounts>
@@ -180,5 +180,5 @@
             <DisableAntiSpyware>true</DisableAntiSpyware>
         </component>
     </settings>
-    <cpi:offlineImage cpi:source="wim:d:/downloads/install.wim#Windows Server 2022 SERVERDATACENTER" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+    <cpi:offlineImage cpi:source="wim:d:/WindowsToolKit/install.wim#Windows Server 2022 SERVERDATACENTER" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
 </unattend>
