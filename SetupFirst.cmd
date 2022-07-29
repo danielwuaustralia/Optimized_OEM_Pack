@@ -1,91 +1,47 @@
 @echo on
-
-DISM /Online /Enable-Feature /FeatureName:NetFx3 /All /LimitAccess /Source:C:\Windows\Setup\Scripts\SOFTWARE
-
+DISM /Online /Enable-Feature /FeatureName:NetFx3 /All /LimitAccess /Source:C:\Windows\Setup\Scripts\SOFTWARE /NoRestart
 Dism /online /Enable-Feature /FeatureName:WirelessNetworking /NoRestart
-
 Dism /online /Enable-Feature /FeatureName:SMB1Protocol /NoRestart
-
 Dism /online /Enable-Feature /FeatureName:SMB1Protocol-Client /NoRestart
-
 Dism /online /Enable-Feature /FeatureName:ServerMediaFoundation /NoRestart
-
 Dism /online /Enable-Feature /FeatureName:LegacyComponents /NoRestart
-
 Dism /online /Enable-Feature /FeatureName:DirectPlay /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:WCF-TCP-PortSharing45 /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:MicrosoftWindowsPowerShellV2 /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:MicrosoftWindowsPowerShellRoot /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:Printing-Client /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:Printing-Client-Gui /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:Windows-Defender /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:Printing-PrintToPDFServices-Features /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:Printing-XPSServices-Features /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:Xps-Foundation-Xps-Viewer /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:Server-Drivers-General /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:Server-Drivers-Printers /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:WindowsServerBackupSnapin /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:Printing-LPRPortMonitor /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:Printing-InternetPrinting-Client /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:Printing-AdminTools-Collection /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:SystemDataArchiver /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:ServerCoreFonts-NonCritical-Fonts-MinConsoleFonts /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:ServerCoreFonts-NonCritical-Fonts-BitmapFonts /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:ServerCoreFonts-NonCritical-Fonts-TrueType /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:ServerCoreFonts-NonCritical-Fonts-UAPFonts /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:ServerCoreFonts-NonCritical-Fonts-Support /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:FileAndStorage-Services /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:Storage-Services /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:ServerCore-Drivers-General /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:ServerCore-Drivers-General-WOW64 /NoRestart
-
 Dism /online /Disable-Feature /FeatureName:SearchEngine-Client-Package /NoRestart
-
 Dism /Online /Remove-Capability /CapabilityName:App.StepsRecorder~~~~0.0.1.0 /NoRestart
-
 Dism /Online /Remove-Capability /CapabilityName:DirectX.Configuration.Database~~~~0.0.1.0 /NoRestart
-
 Dism /Online /Remove-Capability /CapabilityName:Downlevel.NLS.Sorting.Versions.Server~~~~0.0.1.0 /NoRestart
-
 Dism /Online /Remove-Capability /CapabilityName:Language.Fonts.Hans~~~und-HANS~0.0.1.0 /NoRestart
-
 Dism /Online /Remove-Capability /CapabilityName:Language.Handwriting~~~zh-CN~0.0.1.0 /NoRestart
-
 Dism /Online /Remove-Capability /CapabilityName:Language.OCR~~~zh-CN~0.0.1.0 /NoRestart
-
 Dism /Online /Remove-Capability /CapabilityName:Language.Speech~~~zh-CN~0.0.1.0 /NoRestart
-
 Dism /Online /Remove-Capability /CapabilityName:Language.TextToSpeech~~~zh-CN~0.0.1.0 /NoRestart
-
 Dism /Online /Remove-Capability /CapabilityName:MathRecognizer~~~~0.0.1.0 /NoRestart
-
 Dism /Online /Remove-Capability /CapabilityName:Microsoft.Windows.WordPad~~~~0.0.1.0 /NoRestart
-
 Dism /Online /Remove-Capability /CapabilityName:OpenSSH.Client~~~~0.0.1.0 /NoRestart
 
 rem install OEM drivers
