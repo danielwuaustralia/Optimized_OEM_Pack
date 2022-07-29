@@ -805,6 +805,4 @@ Remove-PSDrive -Name HKCR
 
 Get-ChildItem 'C:\Windows\Prefetch' | Remove-Item -Recurse -Force
 Get-ChildItem 'C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\ProgramData\Microsoft\Diagnosis\ETLLogs' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\ProgramData\Microsoft\Diagnosis' | Remove-Item -Recurse -Force
 Get-ChildItem 'C:\Windows\Setup\Scripts' | Remove-Item -Recurse -Force
