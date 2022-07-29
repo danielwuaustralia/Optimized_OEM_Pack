@@ -7,23 +7,6 @@ Start-Transcript -Path c:\2.txt -Force
 
 New-PSDrive -PSProvider Registry -Name HKCR -Root HKEY_CLASSES_ROOT
 
-C:\Windows\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\Drive\shell\PowerShell7-previewx64' -ot reg -actn setowner -ownr 'n:Administrators'
-C:\Windows\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\Drive\shell\PowerShell7-previewx64' -ot reg -actn ace -ace 'n:Administrators;p:full'
-C:\Windows\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\Directory\background\shell\PowerShell7-previewx64' -ot reg -actn setowner -ownr 'n:Administrators'
-C:\Windows\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\Directory\background\shell\PowerShell7-previewx64' -ot reg -actn ace -ace 'n:Administrators;p:full'
-C:\Windows\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}' -ot reg -actn setowner -ownr 'n:Administrators'
-C:\Windows\SysWOW64\SetACL.exe -on 'HKEY_CLASSES_ROOT\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}' -ot reg -actn ace -ace 'n:Administrators;p:full'
-C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:np"
-C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:sc,io;m:grant"
-C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Update" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:np"
-C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Update" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:sc,io;m:grant"
-C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Classes\xmlfile\CLSID" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:np"
-C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Classes\xmlfile\CLSID" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:sc,io;m:grant"
-C:\Windows\SysWOW64\SetACL.exe -on "C:\Windows\Logs\CBS" -ot file -actn ace -ace "n:S-1-5-32-544;p:full"
-C:\Windows\SysWOW64\SetACL.exe -on "C:\Windows\Logs\WaaSMedic" -ot file -actn ace -ace "n:S-1-5-32-544;p:full"
-C:\Windows\SysWOW64\SetACL.exe -on "C:\Windows\WinSxS\Backup" -ot file -actn ace -ace "n:S-1-5-32-544;p:full"
-C:\Windows\SysWOW64\SetACL.exe -on "C:\ProgramData\Microsoft\Diagnosis" -ot file -actn ace -ace "n:S-1-5-32-544;p:full;i:so,sc,io"
-
 <# 无用驱动 #>
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\3ware' -Name 'Start' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\ADP80XX' -Name 'Start' -Value 4 -PropertyType DWord -Force
