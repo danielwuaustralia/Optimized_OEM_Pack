@@ -29,7 +29,7 @@ rem Powershell 7
 %windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.3.0-preview.6-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
 rem lav
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.76.1-3.exe /VERYSILENT
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.76.1-5.exe /VERYSILENT
 
 rem DirectX
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\DirectX\DXSETUP.exe /silent
@@ -47,10 +47,13 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Software.exe /S
 rem time sync
 start /wait C:\PROGRA~1\UpdateTime\UpdateTime_x64.exe /SI
 
-rem DISM
+rem DISM operation
 DISM.exe /Online /Remove-DefaultAppAssociations
+sc triggerinfo wuauserv delete
+DISM.exe /Online /Set-ReservedStorageState /State:Disabled
+reg delete HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v OneDriveSetup /f
 
-rem scheduled task
+rem taskscheduler
 set "_schtasks=SCHTASKS /Change /DISABLE /TN"
 set "_schedule=Microsoft\Windows"
 %_schtasks% "MicrosoftEdgeUpdateTaskMachineCore"
@@ -262,8 +265,10 @@ echo %_schtasks% "%_schedule%\SettingSync\BackgroundUploadTask"
 )>%windir%\SystemTasks.cmd
 SCHTASKS /Create /F /RU "SYSTEM" /RL HIGHEST /SC HOURLY /TN SystemTasks /TR "cmd /c %windir%\SystemTasks.cmd"
 SCHTASKS /Run /I /TN SystemTasks
-TIMEOUT /T 2
+TIMEOUT /T 5
 SCHTASKS /Delete /F /TN SystemTasks
 del /f /q %windir%\SystemTasks.cmd
-del /f /q C:\Windows\Panther\unattend.xml
+del /f /q %SystemDrive%\unattend.xml
+del /f /q %ProgramData%\Microsoft\Diagnosis\*.rbs
+del /f /q /s %ProgramData%\Microsoft\Diagnosis\ETLLogs\*
 %windir%\System32\UsoClient.exe RefreshSettings
