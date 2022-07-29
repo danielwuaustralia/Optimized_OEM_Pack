@@ -3064,6 +3064,11 @@ New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\Windows
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'ScheduledInstallDay' -Value 3 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'ScheduledInstallSecondWeek' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'ScheduledInstallTime' -Value 0 -PropertyType DWord -Force
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Servicing") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Servicing" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Servicing' -Name 'RepairContentServerSource' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Servicing' -Name 'LocalSourcePath' -Value '' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Servicing' -Name 'TransientManifestCache' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Servicing' -Name 'UseWindowsUpdate' -Value 2 -PropertyType DWord -Force
 
 # 防火墙
 cmd.exe /c "netsh advfirewall firewall set rule group='Network Discovery' new enable=Yes"
@@ -3469,6 +3474,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\P
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'NoInternetOpenWith' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'SynchronousMachineGroupPolicy' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'SynchronousUserGroupPolicy' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'DisableStatusMessages' -Value 1 -PropertyType DWord -Force
 
 # Disable Share Across devices
 if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\CDP') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Windows\CurrentVersion\CDP' -Force };
@@ -4138,6 +4144,13 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Wbem\PROVIDERS\WmiPerf' 
 # no WinPE
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRE") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRE" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRE' -Name 'DisableSetup' -Value 1 -PropertyType DWord -Force
+
+# 服务器版本特别设置
+if((Test-Path -LiteralPath "HKLM:\Software\Policies\Microsoft\Windows NT\Reliability") -ne $true) {  New-Item "HKLM:\Software\Policies\Microsoft\Windows NT\Reliability" -force};
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows NT\Reliability' -Name 'ShutdownReasonOn' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows NT\Reliability' -Name 'SnapShot' -Value 0 -PropertyType DWord -Force
+if((Test-Path -LiteralPath "HKLM:\Software\Policies\Microsoft\Windows NT\CurrentVersion\MYS") -ne $true) {  New-Item "HKLM:\Software\Policies\Microsoft\Windows NT\CurrentVersion\MYS" -force };
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows NT\CurrentVersion\MYS' -Name 'DisableShowAtLogon' -Value 1 -PropertyType DWord -Force
 
 # Disable Nagle's Algorithm
 $i = 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces'  
