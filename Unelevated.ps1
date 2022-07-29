@@ -1852,8 +1852,6 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\DownloadManager\Scheduler' -Name '
 # 无用注册表项目
 Remove-Item -LiteralPath "HKCU:\Software\Microsoft\EdgeUpdate" -recurse -force;
 Remove-Item -LiteralPath "HKCU:\Software\Microsoft\EdgeWebView" -recurse -force;
-Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' -Name 'OneDrive' -Force
-Remove-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' -Name 'OneDriveSetup' -Force
 Remove-Item -LiteralPath "HKCU:\Software\Classes\*\shellex\ContextMenuHandlers\ FileSyncEx" -force;
 Remove-Item -LiteralPath "HKCU:\Software\Classes\Directory\shellex\ContextMenuHandlers\ FileSyncEx" -force;
 Remove-Item -LiteralPath "HKCU:\Software\Classes\Directory\Background\shellex\ContextMenuHandlers\ FileSyncEx" -force;
@@ -2383,7 +2381,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthR
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\Certificates' -Recurse -Force;
 Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\AutoUpdate' -Name 'EncodedCtl' -Force
 Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\SystemCertificates\AuthRoot\AutoUpdate' -Name 'LastSyncTime' -Force
-
 
 # 关闭所有安全守护功能
 cmd.exe /c "bcdedit /set isolatedcontext No"
@@ -3892,7 +3889,7 @@ if ((Test-Path -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\CurrentVe
 New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\CurrentVersion\PushNotifications' -Name 'NoToastApplicationNotification' -Value 1 -PropertyType DWord -Force
 
 # 任务栏无多余图标
-Remove-Item -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -force;
+Remove-Item -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -recurse -force;
 New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband\AuxilliaryPins" -force;
 
 # 更改PC名称
@@ -3951,7 +3948,6 @@ New-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\M
 New-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters' -Name 'SfTracingState' -Value '0' -PropertyType DWord -Force
 
 # 关闭Reserved Storage
-Set-WindowsReservedStorageState -State Disabled
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager' -Name 'MiscPolicyInfo' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager' -Name 'ShippedWithReserves' -Value 0 -PropertyType DWord -Force
