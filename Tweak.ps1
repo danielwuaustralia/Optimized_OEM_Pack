@@ -3,15 +3,6 @@ $ProgressPreference = 'SilentlyContinue'
 $ConfirmPreference = 'None'
 $PSModuleAutoloadingPreference = 'All'
 
-# Powershell Module from https://www.powershellgallery.com/packages
-# Save-Module -Name PSWindowsUpdate -Path 'D:\WindowsToolKit\$OEM$\$1\Windows\System32\WindowsPowerShell\v1.0\Modules' -Repository PSGallery
-# Save-Module -Name RobocopyPS -Path 'D:\WindowsToolKit\$OEM$\$1\Windows\System32\WindowsPowerShell\v1.0\Modules' -Repository PSGallery
-# Save-Module -Name PowerShellGet -AllowPrerelease -Path 'D:\WindowsToolKit\$OEM$\$1\Windows\System32\WindowsPowerShell\v1.0\Modules' -Repository PSGallery
-# Save-Module -Name PSNotes -AllowPrerelease -Path 'D:\WindowsToolKit\$OEM$\$1\Windows\System32\WindowsPowerShell\v1.0\Modules' -Repository PSGallery
-# Import-Module -SkipEditionCheck PSWindowsUpdate
-# Import-Module -SkipEditionCheck RobocopyPS
-# Import-Module -SkipEditionCheck PowerShellGet
-
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" -force };
@@ -2081,17 +2072,22 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\DefaultUserEnvironment' -Name 'TMP
 
 # 网络优化
 Set-NetTCPSetting -AutomaticUseCustom Enabled
-Set-NetTCPSetting -SettingName "InternetCustom" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CongestionProvider CTCP -CwndRestart False -DelayedAckTimeoutMs 10 -DelayedAckFrequency 10 -MemoryPressureProtection Disabled -AutoTuningLevelLocal Disabled -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
-Set-NetTCPSetting -SettingName "DatacenterCustom" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CongestionProvider CTCP -CwndRestart False -DelayedAckTimeoutMs 10 -DelayedAckFrequency 10 -MemoryPressureProtection Disabled -AutoTuningLevelLocal Disabled -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
-Set-NetTCPSetting -SettingName "Compat" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CongestionProvider CTCP -CwndRestart False -DelayedAckTimeoutMs 10 -DelayedAckFrequency 10 -MemoryPressureProtection Disabled -AutoTuningLevelLocal Disabled -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
-Set-NetTCPSetting -SettingName "Datacenter" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CongestionProvider CTCP -CwndRestart False -DelayedAckTimeoutMs 10 -DelayedAckFrequency 10 -MemoryPressureProtection Disabled -AutoTuningLevelLocal Disabled -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
-Set-NetTCPSetting -SettingName "Internet" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CongestionProvider CTCP -CwndRestart False -DelayedAckTimeoutMs 10 -DelayedAckFrequency 10 -MemoryPressureProtection Disabled -AutoTuningLevelLocal Disabled -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
+Set-NetTCPSetting -SettingName "InternetCustom" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CongestionProvider bbr2 -CwndRestart False -DelayedAckTimeoutMs 10 -DelayedAckFrequency 10 -MemoryPressureProtection Disabled -AutoTuningLevelLocal Experimental -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
+Set-NetTCPSetting -SettingName "DatacenterCustom" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CongestionProvider bbr2 -CwndRestart False -DelayedAckTimeoutMs 10 -DelayedAckFrequency 10 -MemoryPressureProtection Disabled -AutoTuningLevelLocal Experimental -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
+Set-NetTCPSetting -SettingName "Compat" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CongestionProvider bbr2 -CwndRestart False -DelayedAckTimeoutMs 10 -DelayedAckFrequency 10 -MemoryPressureProtection Disabled -AutoTuningLevelLocal Experimental -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
+Set-NetTCPSetting -SettingName "Datacenter" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CongestionProvider bbr2 -CwndRestart False -DelayedAckTimeoutMs 10 -DelayedAckFrequency 10 -MemoryPressureProtection Disabled -AutoTuningLevelLocal Experimental -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
+Set-NetTCPSetting -SettingName "Internet" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CongestionProvider bbr2 -CwndRestart False -DelayedAckTimeoutMs 10 -DelayedAckFrequency 10 -MemoryPressureProtection Disabled -AutoTuningLevelLocal Experimental -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
 Enable-NetAdapterChecksumOffload -Name *
 Set-NetOffloadGlobalSetting -Chimney Disabled
 Enable-NetAdapterRss -Name *
 Set-NetOffloadGlobalSetting -ReceiveSegmentCoalescing disabled
 Set-NetOffloadGlobalSetting -PacketCoalescingFilter disabled
 Disable-NetAdapterLso -Name *
+Get-NetAdapter -IncludeHidden | Set-NetIPInterface -WeakHostSend Enabled -WeakHostReceive Enabled
+Set-NetTeredoConfiguration -Type natawareclient
+Set-NetTeredoConfiguration -ServerName 'teredo.remlab.net'
+Set-Net6to4Configuration -State Enabled -AutoSharing Enabled -RelayState Enabled -RelayName '6to4.ipv6.microsoft.com'
+cmd.exe /c "netsh int udp set global uro=enabled"
 cmd.exe /c "netsh int tcp set global rss=enable"
 cmd.exe /c "netsh int tcp set global rsc=disable"
 cmd.exe /c "netsh int tcp set global fastopen=enable"
@@ -2110,8 +2106,6 @@ cmd.exe /c "netsh wlan set hostednetwork mode=disallow"
 cmd.exe /c "netsh int tcp set security mpp=disabled"
 cmd.exe /c "netsh int tcp set security profiles=disabled"
 cmd.exe /c "netsh int ip set global neighborcachelimit=4096"
-if((Test-Path -LiteralPath "HKLM:\Software\Microsoft\Windows\CurrentVersion\Internet Settings") -ne $true) {  New-Item "HKLM:\Software\Microsoft\Windows\CurrentVersion\Internet Settings" -force };
-New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'TcpAutotuning' -Value 0 -PropertyType DWord -Force
 if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'MaxConnectionsPer1_0Server' -Value 8 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'MaxConnectionsPerServer' -Value 8 -PropertyType DWord -Force
@@ -2197,9 +2191,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AFD\Param
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AFD\Parameters' -Name 'DefaultSendWindow' -Value 172032 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters' -Name 'DisabledComponents' -Value 0 -PropertyType DWord -Force
-Set-NetTeredoConfiguration -Type Enterpriseclient
-Set-NetTeredoConfiguration -ServerName 'teredo.remlab.net'
-Set-Net6to4Configuration -State Enabled -AutoSharing Enabled -RelayState Enabled -RelayName '6to4.ipv6.microsoft.com'
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet' -Name 'ActiveDnsProbeContent' -Value '131.107.255.255' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet' -Name 'ActiveDnsProbeContentV6' -Value 'fd3e:4f5a:5b81::1' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet' -Name 'ActiveDnsProbeHost' -Value 'dns.msftncsi.com' -PropertyType String -Force
@@ -2234,8 +2225,9 @@ if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\Gr
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy' -Name 'fMinimizeConnections' -Value 1 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\QoS') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\QoS' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\QoS' -Name 'Do not use NLA' -Value '1' -PropertyType String -Force
-if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS' -Force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS' -Name 'Application DSCP Marking Request' -Value 'Ignored' -PropertyType String -Force
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS' -Name 'Application DSCP Marking Request' -Value 'Allowed' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\QoS' -Name 'Tcp Autotuning Level' -Value 'Experimental' -PropertyType String -Force
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched' -Force }
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched' -Name 'TimerResolution' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched' -Name 'NonBestEffortLimit' -Value 0 -PropertyType DWord -Force
@@ -2255,13 +2247,23 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD' -
 # Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName 'NS 减负' -DisplayValue '关闭'
 # Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName 'Gigabit Lite' -DisplayValue '关闭'
 
-# 性能优化
+# Avoid the use of uncontiguous portions of low-memory from the OS. Boosts memory performance and improves microstuttering at least 80% of the cases. Also fixes the command buffer stutter after disabling 5-level paging on 10th gen Intel.
+cmd.exe /c "bcdedit /set firstmegabytepolicy UseAll"
+cmd.exe /c "bcdedit /set avoidlowmemory 0x8000000"
+cmd.exe /c "bcdedit /set nolowmem Yes"
+# Enable X2Apic and enable Memory Mapping for PCI-E devices.
+cmd.exe /c "bcdedit /set x2apicpolicy Enable"
+cmd.exe /c "bcdedit /set configaccesspolicy Default"
+cmd.exe /c "bcdedit /set MSI Default"
+cmd.exe /c "bcdedit /set usephysicaldestination No"
+cmd.exe /c "bcdedit /set usefirmwarepcisettings No"
+# use synthetic TSC tick
 cmd.exe /c "bcdedit /set disabledynamictick yes"
-cmd.exe /c "bcdedit /deletevalue useplatformclock"
-cmd.exe /c "bcdedit /set useplatformtick Yes"
+cmd.exe /c "bcdedit /set useplatformtick No"
+cmd.exe /c "bcdedit /set tscsyncpolicy Legacy"
+cmd.exe /c "bcdedit /set useplatformclock Yes"
 cmd.exe /c "bcdedit /timeout 0"
 cmd.exe /c "bcdedit /set debug No"
-cmd.exe /c "bcdedit /set bootlog yes"
 cmd.exe /c "bcdedit /set displaybootmenu no"
 cmd.exe /c "bcdedit /set advancedoptions false"
 cmd.exe /c "bcdedit /set bootems no"
@@ -3061,7 +3063,6 @@ cmd.exe /c "powercfg /setacvalueindex scheme_current sub_sleep standbyidle 0"
 cmd.exe /c "powercfg /setdcvalueindex scheme_current sub_sleep standbyidle 0"
 cmd.exe /c "powercfg /setacvalueindex scheme_current sub_buttons pbuttonaction 3"
 cmd.exe /c "powercfg /setdcvalueindex scheme_current sub_buttons pbuttonaction 3"
-cmd.exe /c "powercfg /setactive scheme_current"
 cmd.exe /c "powercfg /SETACVALUEINDEX SCHEME_CURRENT 238c9fa8-0aad-41ed-83f4-97be242c8f20 bd3b718a-0680-4d9d-8ab2-e1d2b4ac806d 1"
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -Name 'PowerdownAfterShutdown' -Value '1' -PropertyType String -Force
@@ -3069,13 +3070,22 @@ if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Mana
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power' -Name 'HiberbootEnabled' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling' -Name 'PowerThrottlingOff' -Value 1 -PropertyType DWord -Force
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings' -Name 'ShowSleepOption' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings' -Name 'ShowHibernateOption' -Value 0 -PropertyType DWord -Force
 if((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\Power") -ne $true) {  New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\Power" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'HibernateEnabled' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'PlatformAoAcOverride' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'CsEnabled' -Value 0 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings' -Name 'ShowSleepOption' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings' -Name 'ShowHibernateOption' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'ExitLatency' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'ExitLatencyCheckEnabled' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'Latency' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'LatencyToleranceDefault' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'LatencyToleranceFSVP' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'LatencyTolerancePerfOverride' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'LatencyToleranceScreenOffIR' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'LatencyToleranceVSyncEnabled' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'RtlCapabilityCheckLatency' -Value 1 -PropertyType DWord -Force
 
 # 关闭磁盘省电
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Storage' -Name 'StorageD3InModernStandby' -Value 0 -PropertyType DWord -Force
@@ -3093,11 +3103,10 @@ if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\S
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance' -Name 'MaintenanceDisabled' -Value 1 -PropertyType DWord -Force
 
 # 禁止后台UWP
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications ") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications " -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications' -Name 'GlobalUserDisabled' -Value 1 -PropertyType DWord -Force
 
-# Disabling memory compression and page combining
-Disable-MMAgent -ApplicationLaunchPrefetching -ApplicationPreLaunch -MemoryCompression -OperationAPI -PageCombining
+# 关闭内存压缩
+# Disable-MMAgent -ApplicationLaunchPrefetching -ApplicationPreLaunch -MemoryCompression -OperationAPI -PageCombining
 
 # No suggestions for using my Android phone with Windows
 if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Mobility") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Mobility" -force };
@@ -3134,20 +3143,20 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\E
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\{cca4ea49-44e6-43ef-a623-ebc88725c706}' -Name 'NukeOnDelete' -Value 1 -PropertyType DWord -Force
 
 # 内存设置优化
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'ClearPageFileAtShutdown' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'DisablePagingExecutive' -Value 1 -PropertyType DWord 
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'DisablePagingCombining' -Value 1 -PropertyType DWord 
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'LargeSystemCache' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'SystemPages' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'FeatureSettings' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'ClearPageFileAtShutdown' -Value '0' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'DisablePagingExecutive' -Value '1' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'DisablePagingCombining' -Value '1' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'LargeSystemCache' -Value '1' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'SystemPages' -Value '0' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'FeatureSettings' -Value '1' -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'SwapfileControl' -Value '0' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'NonPagedPoolSize' -Value 192 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'PagedPoolSize' -Value 192 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'PoolUsageMaximum' -Value 192 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'PagingFiles' -Value @('c:\pagefile.sys 20480 20480') -PropertyType MultiString -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'NtfsEncryptPagingFile' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'DontVerifyRandomDrivers' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'IoPageLockLimit' -Value 128 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'NonPagedPoolSize' -Value '192' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'PagedPoolSize' -Value '192' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'PoolUsageMaximum' -Value '192' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'PagingFiles' -Value @('c:\pagefile.sys 32768 32768') -PropertyType MultiString -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'NtfsEncryptPagingFile' -Value '0' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'DontVerifyRandomDrivers' -Value '1' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'IoPageLockLimit' -Value '128' -PropertyType DWord -Force
 
 # if you don’t care to increase the quantum on the foreground window but, instead, just want short, fixed quanta (effectively around 60ms) for all processes to improve response time on a system with a lot of processes? Setting Win32PrioritySeparation to 0x28 will take care of that.
 if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl' -Force };
@@ -3846,18 +3855,61 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d3
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}' -Name 'PreferSystemMemoryContiguous' -Value '1' -PropertyType DWord -Force
 if((Test-Path -LiteralPath "HKCU:\Software\NVIDIA Corporation\NvTray") -ne $true) {  New-Item "HKCU:\Software\NVIDIA Corporation\NvTray" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\NvTray' -Name 'StartOnLogin' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'HwSchMode' -Value '2' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'PlatformSupportMiracast' -Value '0' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'DpiMapIommuContiguous' -Value '1' -PropertyType DWord -Force
+Remove-Item -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\BlockList\Kernel' -Recurse -Force -Verbose
 if((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Scheduler") -ne $true) {  New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Scheduler" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Scheduler' -Name 'EnablePreemption' -Value 0 -PropertyType DWord -Force
 if((Test-Path -LiteralPath "HKCU:\Software\NVIDIA Corporation\Global\CoProcManager") -ne $true) {  New-Item "HKCU:\Software\NVIDIA Corporation\Global\CoProcManager" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Global\CoProcManager' -Name 'ShowContextMenu' -Value 0 -PropertyType DWord -Force
 if((Test-Path -LiteralPath "HKCU:\Software\NVIDIA Corporation\Global\NvCplApi\Policies") -ne $true) {  New-Item "HKCU:\Software\NVIDIA Corporation\Global\NvCplApi\Policies" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Global\NvCplApi\Policies' -Name 'ContextUIPolicy' -Value 0 -PropertyType DWord -Force
-
-# 显卡驱动
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'HwSchMode' -Value '2' -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'PlatformSupportMiracast' -Value '0' -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'DpiMapIommuContiguous' -Value '1' -PropertyType DWord -Force
-Remove-Item -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\BlockList\Kernel' -Recurse -Force -Verbose
+if((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power") -ne $true) {  New-Item "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'DefaultD3TransitionLatencyActivelyUsed' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'DefaultD3TransitionLatencyIdleLongTime' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'DefaultD3TransitionLatencyIdleMonitorOff' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'DefaultD3TransitionLatencyIdleNoContext' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'DefaultD3TransitionLatencyIdleShortTime' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'DefaultD3TransitionLatencyIdleVeryLongTime' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'DefaultLatencyToleranceIdle0' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'DefaultLatencyToleranceIdle0MonitorOff' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'DefaultLatencyToleranceIdle1' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'DefaultLatencyToleranceIdle1MonitorOff' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'DefaultLatencyToleranceMemory' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'DefaultLatencyToleranceNoContext' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'DefaultLatencyToleranceNoContextMonitorOff' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'DefaultLatencyToleranceOther' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'DefaultLatencyToleranceTimerPeriod' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'DefaultMemoryRefreshLatencyToleranceActivelyUsed' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'DefaultMemoryRefreshLatencyToleranceMonitorOff' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'DefaultMemoryRefreshLatencyToleranceNoContext' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'Latency' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'MaxIAverageGraphicsLatencyInOneBucket' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'MiracastPerfTrackGraphicsLatency' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'MonitorLatencyTolerance' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'MonitorRefreshLatencyTolerance' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power' -Name 'TransitionLatency' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000' -Name 'PreferSystemMemoryContiguous' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000' -Name 'D3PCLatency' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000' -Name 'F1TransitionLatency' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000' -Name 'LOWLATENCY' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000' -Name 'Node3DLowLatency' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000' -Name 'PciLatencyTimerControl' -Value 32 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000' -Name 'RMDeepL1EntryLatencyUsec' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000' -Name 'RmGspcMaxFtuS' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000' -Name 'RmGspcMinFtuS' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000' -Name 'RmGspcPerioduS' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000' -Name 'RMLpwrEiIdleThresholdUs' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000' -Name 'RMLpwrGrIdleThresholdUs' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000' -Name 'RMLpwrGrRgIdleThresholdUs' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000' -Name 'RMLpwrMsIdleThresholdUs' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000' -Name 'VRDirectFlipDPCDelayUs' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000' -Name 'VRDirectFlipTimingMarginUs' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000' -Name 'VRDirectJITFlipMsHybridFlipDelayUs' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000' -Name 'vrrCursorMarginUs' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000' -Name 'vrrDeflickerMarginUs' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000' -Name 'vrrDeflickerMaxUs' -Value 1 -PropertyType DWord -Force
 
 # 关闭硬盘预先存取
 If (!(Test-Path -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters')) { New-Item -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters' -ItemType Directory -Force }
