@@ -36,7 +36,10 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Proper
 Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *Netman* | Set-ItemProperty -Name Start -Value 2 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *Audiosrv* | Set-ItemProperty -Name Start -Value 2 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *AudioEndpointBuilder* | Set-ItemProperty -Name Start -Value 2 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *LanmanWorkstation* | Set-ItemProperty -Name Start -Value 3 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *SSDPSRV* | Set-ItemProperty -Name Start -Value 2 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *upnphost* | Set-ItemProperty -Name Start -Value 2 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *fdPHost* | Set-ItemProperty -Name Start -Value 2 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *FDResPub* | Set-ItemProperty -Name Start -Value 2 -Force
 
 <# 禁用服务 #>
 Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *3ware* | Set-ItemProperty -Name Start -Value 4 -Force
