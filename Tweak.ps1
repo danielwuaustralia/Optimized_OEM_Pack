@@ -2971,8 +2971,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU' -Name 'ScheduledInstallTime' -Value 3 -PropertyType DWord -Force
 
 # 防火墙
-cmd.exe /c "netsh advfirewall firewall set rule group='Network Discovery' new enable=Yes"
-cmd.exe /c "netsh advfirewall firewall set rule group='File and Printer Sharing' new enable=Yes"
 cmd.exe /c "Netsh advfirewall set allprofile state off"
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\IPSec\ICFv4') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\IPSec\ICFv4' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\IPSec\ICFv4' -Name 'BypassFirewall' -Value 1 -PropertyType DWord -Force
@@ -2990,9 +2988,7 @@ if((Test-Path -LiteralPath "HKLM:\Software\Policies\Microsoft\WindowsFirewall\Pu
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\WindowsFirewall\PublicProfile' -Name 'EnableFirewall' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\WindowsFirewall\PublicProfile' -Name 'DisableNotifications' -Value 1 -PropertyType DWord -Force
 if((Test-Path -LiteralPath "HKLM:\Software\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging") -ne $true) {  New-Item "HKLM:\Software\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging" -force };
-New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging' -Name 'LogDroppedPackets' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging' -Name 'LogFileSize' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging' -Name 'LogSuccessfulConnections' -Value 0 -PropertyType DWord -Force
 
 # 驱动更新
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name 'ExcludeWUDriversInQualityUpdate' -Value 1 -PropertyType DWord -Force
