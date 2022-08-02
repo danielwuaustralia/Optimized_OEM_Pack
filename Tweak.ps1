@@ -2374,6 +2374,7 @@ Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Devi
 Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard' -Name 'HypervisorEnforcedCodeIntegrity' -Force
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Main") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Main" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Main' -Name 'DEPOff' -Value 1 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' -Name 'NoDataExecutionPrevention' -Value 1 -PropertyType DWord -Force
 
 # XP样式鼠标
@@ -2975,25 +2976,23 @@ cmd.exe /c "netsh advfirewall firewall set rule group='File and Printer Sharing'
 cmd.exe /c "Netsh advfirewall set allprofile state off"
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\IPSec\ICFv4') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\IPSec\ICFv4' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\IPSec\ICFv4' -Name 'BypassFirewall' -Value 1 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Defaults\FirewallPolicy\DomainProfile") -ne $true) {  New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Defaults\FirewallPolicy\DomainProfile" -force };
-Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Defaults\FirewallPolicy\FirewallRules" -recurse -force;
-if((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Defaults\FirewallPolicy\PublicProfile") -ne $true) {  New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Defaults\FirewallPolicy\PublicProfile" -force };
-if((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Defaults\FirewallPolicy\StandardProfile") -ne $true) {  New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Defaults\FirewallPolicy\StandardProfile" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Defaults\FirewallPolicy\DomainProfile' -Name 'DisableNotifications' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Defaults\FirewallPolicy\DomainProfile' -Name 'EnableFirewall' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Defaults\FirewallPolicy\PublicProfile' -Name 'DisableNotifications' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Defaults\FirewallPolicy\PublicProfile' -Name 'EnableFirewall' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Defaults\FirewallPolicy\StandardProfile' -Name 'DisableNotifications' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Defaults\FirewallPolicy\StandardProfile' -Name 'EnableFirewall' -Value 0 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile") -ne $true) {  New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile" -force };
 Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules" -recurse -force;
-if((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile") -ne $true) {  New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile" -force };
 Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedInterfaces" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices" -recurse -force;
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile' -Name 'DisableNotifications' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile' -Name 'EnableFirewall' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile' -Name 'DisableNotifications' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile' -Name 'EnableFirewall' -Value 1 -PropertyType DWord -Force
+if((Test-Path -LiteralPath "HKLM:\Software\Policies\Microsoft\WindowsFirewall\DomainProfile") -ne $true) {  New-Item "HKLM:\Software\Policies\Microsoft\WindowsFirewall\DomainProfile" -force };
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\WindowsFirewall\DomainProfile' -Name 'DefaultOutboundAction' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\WindowsFirewall\DomainProfile' -Name 'EnableFirewall' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\WindowsFirewall\DomainProfile' -Name 'DefaultInboundAction' -Value 0 -PropertyType DWord -Force
+if((Test-Path -LiteralPath "HKLM:\Software\Policies\Microsoft\WindowsFirewall\PrivateProfile") -ne $true) {  New-Item "HKLM:\Software\Policies\Microsoft\WindowsFirewall\PrivateProfile" -force };
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\WindowsFirewall\PrivateProfile' -Name 'EnableFirewall' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\WindowsFirewall\PrivateProfile' -Name 'DisableNotifications' -Value 1 -PropertyType DWord -Force
+if((Test-Path -LiteralPath "HKLM:\Software\Policies\Microsoft\WindowsFirewall\PublicProfile") -ne $true) {  New-Item "HKLM:\Software\Policies\Microsoft\WindowsFirewall\PublicProfile" -force };
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\WindowsFirewall\PublicProfile' -Name 'EnableFirewall' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\WindowsFirewall\PublicProfile' -Name 'DisableNotifications' -Value 1 -PropertyType DWord -Force
+if((Test-Path -LiteralPath "HKLM:\Software\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging") -ne $true) {  New-Item "HKLM:\Software\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging" -force };
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging' -Name 'LogDroppedPackets' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging' -Name 'LogFileSize' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging' -Name 'LogSuccessfulConnections' -Value 0 -PropertyType DWord -Force
 
 # 驱动更新
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name 'ExcludeWUDriversInQualityUpdate' -Value 1 -PropertyType DWord -Force
@@ -3143,7 +3142,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Control\CrashControl' 
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer' -Name 'NoLowDiskSpaceChecks' -Value 1 -PropertyType DWord -Force
 
 # Recently Added Apps in Start Menu
-if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' -Name 'HideRecentlyAddedApps' -Value 1 -PropertyType DWord -Force
 
 # Chkdsk
@@ -3619,7 +3617,6 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\E
 
 # Disable Search the Microsoft Store
 if((Test-Path -LiteralPath "HKCU:\Software\Policies\Microsoft\Windows\Explorer") -ne $true) {  New-Item "HKCU:\Software\Policies\Microsoft\Windows\Explorer" -force };
-if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" -force };
 Remove-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows\Explorer' -Name 'NoUseStoreOpenWith' -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' -Name 'NoUseStoreOpenWith' -Value 1 -PropertyType DWord -Force
 
@@ -3628,7 +3625,6 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\P
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'DisableThumbnailCache' -Value 1 -PropertyType DWord -Force
 
 # Disable Open with when New App Installed
-if ((Test-Path -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\Explorer') -ne $true) { New-Item 'HKLM:\Software\Policies\Microsoft\Windows\Explorer' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows\Explorer' -Name 'NoNewAppAlert' -Value 1 -PropertyType DWord -Force
 
 # Disable Touch Screen Gestures
