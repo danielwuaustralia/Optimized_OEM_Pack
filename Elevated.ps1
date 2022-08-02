@@ -146,8 +146,6 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Proper
 Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *lmhosts* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *MapsBroker* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *McpManagementService* | Set-ItemProperty -Name Start -Value 4 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *mpsdrv* | Set-ItemProperty -Name Start -Value 4 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *mpssvc* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *MSiSCSI* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *NcbService* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\ControlSet001\Services' | Where-Object -Property Name -Like *NetTcpPortSharing* | Set-ItemProperty -Name Start -Value 4 -Force
