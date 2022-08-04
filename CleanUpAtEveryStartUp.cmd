@@ -12,11 +12,30 @@ rem CleanUp Folder
 rmdir /s /q "C:\TEMP\"
 rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\"
 
+rem Time Sync
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers" /ve /t REG_SZ /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers" /v "1" /t REG_SZ /d "time.asia.apple.com" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers" /v "1" /t REG_SZ /d "ntp.aliyun.com" /f
+reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\DateTime\Servers" /ve /t REG_SZ /d "1" /f
+reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\DateTime\Servers" /v "1" /t REG_SZ /d "time.asia.apple.com" /f
+reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\DateTime\Servers" /v "1" /t REG_SZ /d "ntp.aliyun.com" /f
+reg add "HKLM\SYSTEM\ControlSet001\Services\W32Time\Parameters" /v "NtpServer" /t REG_SZ /d "time.asia.apple.com,0x8" /f
+reg add "HKLM\SYSTEM\ControlSet002\Services\W32Time\Parameters" /v "NtpServer" /t REG_SZ /d "time.asia.apple.com,0x8" /f
+w32tm /unregister
+w32tm /register
+net start w32time
+w32tm /config /manualpeerlist:time.asia.apple.com,0x1 /syncfromflags:manual /reliable:yes /update
+w32tm /resync
+net stop w32time
+
 rem logman query -ets
 "C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "logman stop -ets SleepStudyTraceSession"
 
 rem Refresh DNS Cache
 ipconfig /flushdns
+
+rem MUI Cache
+reg delete "HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\MuiCache" /f
 
 rem CleanMgr.exe
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /f
