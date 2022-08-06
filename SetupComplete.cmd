@@ -19,9 +19,6 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\7z2201-x64.exe /S /D="C:\Program Fil
 rem https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VisualCppRedist_AIO_x86_x64.exe /ai /gm2
 
-rem Net 3.1 Core
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-3.1.27-win-x64.exe /install /quiet /norestart
-
 rem https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-6.0.7-win-x64.exe /install /quiet /norestart
 
@@ -43,9 +40,6 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassosetup64.exe /S /keyfile=
 
 rem chipset driver
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Software.exe /S
-
-rem time sync
-start /wait C:\PROGRA~1\UpdateTime\UpdateTime_x64.exe /SI
 
 rem DISM operation
 DISM.exe /Online /Remove-DefaultAppAssociations
