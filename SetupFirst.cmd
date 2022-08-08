@@ -96,9 +96,9 @@ sc triggerinfo wuauserv delete
 sc triggerinfo WaaSMedicSvc delete
 
 rem Disable OneDrive
-reg load HKU\ntuser.dat c:\users\default\ntuser.dat
-reg add "HKU\ntuser.dat\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /t REG_DWORD /d "0" /f
-reg unload HKU\ntuser.dat
+reg load HKLM\NTUSER C:\Users\Default\NTUSER.DAT
+reg delete "HKLM\NTUSER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
+reg unload HKLM\NTUSER
 
 rem APPX
 set "Applications=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Applications"
@@ -114,6 +114,8 @@ for %%i in (
 MicrosoftEdge
 MicrosoftEdgeDevToolsClient
 Microsoft.Win32WebViewHost
+AppRep.ChxApp
+CloudExperienceHost
 F46D4000-FD22-4DB4-AC8E-4E1DDDE828FE
 c5e2524a-ea46-4f67-841f-6a9465d9d515
 1527c705-839a-4832-9118-54d4Bd6a0c89
