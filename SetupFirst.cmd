@@ -1,4 +1,6 @@
 @echo on
+
+rem System Compoments Update
 Dism /online /Enable-Feature /FeatureName:SMB1Protocol /NoRestart
 Dism /online /Enable-Feature /FeatureName:SMB1Protocol-Client /NoRestart
 Dism /online /Enable-Feature /FeatureName:ServerMediaFoundation /NoRestart
@@ -14,6 +16,7 @@ Dism /online /Disable-Feature /FeatureName:MSRDC-Infrastructure /NoRestart
 Dism /online /Disable-Feature /FeatureName:WorkFolders-Client /NoRestart
 Dism /online /Disable-Feature /FeatureName:SearchEngine-Client-Package /NoRestart
 Dism /online /Disable-Feature /FeatureName:Windows-Defender-ApplicationGuard /NoRestart
+Dism /online /Disable-Feature /FeatureName:Windows-Defender-Default-Definitions /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:App.StepsRecorder~~~~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:DirectX.Configuration.Database~~~~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:Hello.Face.20134~~~~0.0.1.0 /NoRestart
@@ -61,7 +64,7 @@ Dism /Online /Remove-Capability /CapabilityName:Microsoft.Windows.Wifi.Client.Re
 Dism /Online /Remove-Capability /CapabilityName:OneCoreUAP.OneSync~~~~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:Print.Management.Console~~~~0.0.1.0 /NoRestart
 
-rem install OEM drivers
+rem install drivers
 REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1" /f /v Path /t REG_SZ /d "C:\Windows\Setup\Scripts\Drivers"
 "C:\Windows\System32\pnpunattend.exe" AuditSystem /L
 
@@ -92,20 +95,12 @@ del /f /q "%ProgramData%\Microsoft\Diagnosis\*.rbs"
 sc triggerinfo wuauserv delete
 sc triggerinfo WaaSMedicSvc delete
 
-rem Needed for: Windows Store
-rem DesktopAppInstaller - is interesting to keep for working winget commands.
-rem WindowsStoreClient - Microsoft Store Client, required to Microsoft Store work
-rem WindowsStoreApp - Microsoft Store App
-rem StorePurchaseApp - Microsoft Store Purchase App, not sure if removed you're able to buy games, apps in the Microsoft Store without issues.
-rem ServicesStoreEngagement
-rem AdvertisingXaml
-rem AccountsControl - Required to sign in to apps.
-rem AADBrokerPlugin
-rem XboxIdentityProvider Xbox Identity Provider - Require for sign in to Xbox Console Companion
-rem XboxClient - required to xbox app work
-rem XboxApp "w10" equal GamingApp "w11" - Xbox Console Companion
-rem XboxSpeechToTextOverlay
+rem Disable OneDrive
+reg load HKU\ntuser.dat c:\users\default\ntuser.dat
+reg add "HKU\ntuser.dat\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /t REG_DWORD /d "0" /f
+reg unload HKU\ntuser.dat
 
+rem APPX
 set "Applications=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Applications"
 for %%i in (
 Microsoft.SecHealthUI
@@ -118,20 +113,25 @@ set "InboxApplications=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxA
 for %%i in (
 MicrosoftEdge
 MicrosoftEdgeDevToolsClient
-AppRep.ChxApp
-BioEnrollment
-ContentDeliveryManager
-Microsoft.ECApp
-narratorquickstart
-OOBENetworkCaptivePortal
-OOBENetworkConnectionFlow
-ParentalControls
-PeopleExperienceHost
-PrintDialog
-SecondaryTileExperience
-SecureAssessmentBrowser
-XboxGameCallableUI
 Microsoft.Win32WebViewHost
+F46D4000-FD22-4DB4-AC8E-4E1DDDE828FE
+c5e2524a-ea46-4f67-841f-6a9465d9d515
+1527c705-839a-4832-9118-54d4Bd6a0c89
+E2A4F912-2574-4A75-9BB0-0D023378592B
+Microsoft.AsyncTextService
+Microsoft.BioEnrollment
+Microsoft.ECApp
+Microsoft.LockApp
+Microsoft.Windows.CapturePicker
+Microsoft.Windows.NarratorQuickStart
+Microsoft.Windows.ParentalControls
+Microsoft.Windows.PeopleExperienceHost
+Microsoft.Windows.PinningConfirmationDialog
+Microsoft.Windows.PrintQueueActionCenter
+Microsoft.Windows.XGpuEjectDialog
+MicrosoftWindows.UndockedDevKit
+NcsiUwpApp
+Windows.CBSPreview
 ) do (
 for /f %%a in ('reg query "%InboxApplications%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
 )
