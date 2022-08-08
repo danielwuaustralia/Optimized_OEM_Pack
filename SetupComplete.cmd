@@ -45,7 +45,6 @@ rem DISM operation
 DISM.exe /Online /Remove-DefaultAppAssociations
 sc triggerinfo wuauserv delete
 DISM.exe /Online /Set-ReservedStorageState /State:Disabled
-reg delete HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v OneDriveSetup /f
 
 rem taskscheduler
 set "_schtasks=SCHTASKS /Change /DISABLE /TN"
