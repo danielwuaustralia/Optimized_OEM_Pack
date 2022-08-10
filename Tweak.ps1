@@ -2138,11 +2138,11 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\DefaultUserEnvironment' -Name 'TMP
 
 # 网络优化
 Set-NetTCPSetting -AutomaticUseCustom Enabled
-Set-NetTCPSetting -SettingName "InternetCustom" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CongestionProvider bbr2 -CwndRestart False -DelayedAckTimeoutMs 10 -DelayedAckFrequency 10 -MemoryPressureProtection Disabled -AutoTuningLevelLocal Experimental -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
-Set-NetTCPSetting -SettingName "DatacenterCustom" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CongestionProvider bbr2 -CwndRestart False -DelayedAckTimeoutMs 10 -DelayedAckFrequency 10 -MemoryPressureProtection Disabled -AutoTuningLevelLocal Experimental -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
-Set-NetTCPSetting -SettingName "Compat" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CongestionProvider bbr2 -CwndRestart False -DelayedAckTimeoutMs 10 -DelayedAckFrequency 10 -MemoryPressureProtection Disabled -AutoTuningLevelLocal Experimental -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
-Set-NetTCPSetting -SettingName "Datacenter" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CongestionProvider bbr2 -CwndRestart False -DelayedAckTimeoutMs 10 -DelayedAckFrequency 10 -MemoryPressureProtection Disabled -AutoTuningLevelLocal Experimental -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
-Set-NetTCPSetting -SettingName "Internet" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CongestionProvider bbr2 -CwndRestart False -DelayedAckTimeoutMs 10 -DelayedAckFrequency 10 -MemoryPressureProtection Disabled -AutoTuningLevelLocal Experimental -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
+Set-NetTCPSetting -SettingName "InternetCustom" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CwndRestart False -MemoryPressureProtection Disabled -AutoTuningLevelLocal Experimental -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
+Set-NetTCPSetting -SettingName "DatacenterCustom" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CwndRestart False -MemoryPressureProtection Disabled -AutoTuningLevelLocal Experimental -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
+Set-NetTCPSetting -SettingName "Compat" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CwndRestart False -MemoryPressureProtection Disabled -AutoTuningLevelLocal Experimental -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
+Set-NetTCPSetting -SettingName "Datacenter" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CwndRestart False -MemoryPressureProtection Disabled -AutoTuningLevelLocal Experimental -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
+Set-NetTCPSetting -SettingName "Internet" -MinRtoMs 300 -InitialCongestionWindowMss 10 -CwndRestart False -MemoryPressureProtection Disabled -AutoTuningLevelLocal Experimental -ScalingHeuristics Disabled -EcnCapability Enabled -Timestamps Disabled -InitialRtoMs 2000 -NonSackRttResiliency Disabled -MaxSynRetransmissions 2
 Enable-NetAdapterChecksumOffload -Name *
 Set-NetOffloadGlobalSetting -Chimney Disabled
 Enable-NetAdapterRss -Name *
@@ -2153,6 +2153,7 @@ Get-NetAdapter -IncludeHidden | Set-NetIPInterface -WeakHostSend Enabled -WeakHo
 Set-NetTeredoConfiguration -Type natawareclient
 Set-NetTeredoConfiguration -ServerName 'teredo.remlab.net'
 Set-Net6to4Configuration -State Enabled -AutoSharing Enabled -RelayState Enabled -RelayName '6to4.ipv6.microsoft.com'
+cmd.exe /c "netsh int tcp set supplemental Internet congestionprovider=bbr2"
 cmd.exe /c "netsh int udp set global uro=enabled"
 cmd.exe /c "netsh int tcp set global rss=enable"
 cmd.exe /c "netsh int tcp set global rsc=disable"
@@ -2296,6 +2297,12 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD' -
 # Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName 'ARP 减负' -DisplayValue '关闭'
 # Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName 'NS 减负' -DisplayValue '关闭'
 # Set-NetAdapterAdvancedProperty -Name '以太网' -DisplayName 'Gigabit Lite' -DisplayValue '关闭'
+$i = 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces'
+Get-ChildItem $i | ForEach-Object {
+  Set-ItemProperty -Path "$i\$($_.pschildname)" -Name TcpAckFrequency -Value 1
+  Set-ItemProperty -Path "$i\$($_.pschildname)" -Name TCPNoDelay -Value 1
+  Set-ItemProperty -Path "$i\$($_.pschildname)" -Name TcpDelAckTicks 0
+}
 
 # 根目录证书
 # http://woshub.com/updating-trusted-root-certificates-in-windows-10/
@@ -2445,19 +2452,16 @@ New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'SizeNESW' -Va
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'SizeNS' -Value '' -PropertyType ExpandString -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'Wait' -Value '' -PropertyType ExpandString -Force
 
-# 无用右键菜单
-Remove-Item -Path 'C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\Compressed (zipped) Folder.ZFSendToTarget' -Force
-Remove-Item -Path 'C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\Mail Recipient.MAPIMail' -Force
-Remove-Item -Path 'C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\蓝牙设备.LNK' -Force
-Remove-Item -Path 'C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\文档.mydocs' -Force
-
-# 桌面显示我的电脑和控制面板
+# 我的电脑文件夹
 if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel' -Force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel' -Name '{20D04FE0-3AEA-1069-A2D8-08002B30309D}' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel' -Name '{5399E694-6CE5-4D6C-8FCE-1D8870FDCBA0}' -Value 0 -PropertyType DWord -Force
-
-# 我的电脑左侧树状菜单
-New-ItemProperty -LiteralPath 'HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}' -Name 'System.IsPinnedToNameSpaceTree' -Value 0 -PropertyType DWord -Force
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{031E4825-7B94-4dc3-B131-E946B44C8DD5}" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{2112AB0A-C86A-4ffe-A368-0DE96E47012E}" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{491E922F-5643-4af4-A7EB-4E7A138D8174}" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{7b0db17d-9cd2-4a93-9733-46cc89022e7c}" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{A302545D-DEFF-464b-ABE8-61C8648D939B}" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{A990AE9F-A03B-4e80-94BC-9912D7504104}" -recurse -force;
 
 # hosts
 # Potplayer
@@ -4212,12 +4216,11 @@ New-ItemProperty -LiteralPath 'HKLM:\Software\Policies\Microsoft\Windows NT\Curr
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}' -Name 'IsInstalled' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap' -Name 'IEHarden' -Value 0 -PropertyType DWord -Force
 
-$i = 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces'
-Get-ChildItem $i | ForEach-Object {
-  Set-ItemProperty -Path "$i\$($_.pschildname)" -Name TcpAckFrequency -Value 1
-  Set-ItemProperty -Path "$i\$($_.pschildname)" -Name TCPNoDelay -Value 1
-  Set-ItemProperty -Path "$i\$($_.pschildname)" -Name TcpDelAckTicks 0
-}
+# 无用项目
+Remove-Item -Path 'C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\Compressed (zipped) Folder.ZFSendToTarget' -Force
+Remove-Item -Path 'C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\Mail Recipient.MAPIMail' -Force
+Remove-Item -Path 'C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\蓝牙设备.LNK' -Force
+Remove-Item -Path 'C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\文档.mydocs' -Force
 
 # nvidia显卡特别设置
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000' -Name 'PreferSystemMemoryContiguous' -Value 1 -PropertyType DWord -Force
