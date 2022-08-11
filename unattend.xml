@@ -5,7 +5,7 @@
         <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <UserData>
                 <ProductKey>
-                    <Key>2KNJJ-33Y9H-2GXGX-KMQWH-G6H67</Key>
+                    <Key>NW6C2-QMPVW-D7KKK-3GKT6-VCFB2</Key>
                     <WillShowUI>Never</WillShowUI>
                 </ProductKey>
                 <AcceptEula>true</AcceptEula>
@@ -100,7 +100,7 @@
             <RegisteredOwner>Bill Gates</RegisteredOwner>
             <RegisteredOrganization>Microsoft</RegisteredOrganization>
             <TimeZone>AUS Eastern Standard Time</TimeZone>
-            <ProductKey>2KNJJ-33Y9H-2GXGX-KMQWH-G6H67</ProductKey>
+            <ProductKey>NW6C2-QMPVW-D7KKK-3GKT6-VCFB2</ProductKey>
         </component>
         <component name="Microsoft-Windows-SQMApi" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <CEIPEnabled>0</CEIPEnabled>
@@ -128,7 +128,7 @@
                 <Username>Administrator</Username>
                 <LogonCount>999999</LogonCount>
                 <Password>
-                    <Value>WDCxini0410@</Value>
+                    <Value></Value>
                     <PlainText>true</PlainText>
                 </Password>
             </AutoLogon>
@@ -166,7 +166,7 @@
                         <Name>Administrator</Name>
                         <Group>Administrators</Group>
                         <Password>
-                            <Value>WDCxini0410@</Value>
+                            <Value></Value>
                             <PlainText>true</PlainText>
                         </Password>
                     </LocalAccount>
@@ -180,5 +180,5 @@
             <DisableAntiSpyware>true</DisableAntiSpyware>
         </component>
     </settings>
-    <cpi:offlineImage cpi:source="wim:d:/WindowsToolKit/install.wim#Windows Server 2022 SERVERDATACENTER" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+    <cpi:offlineImage cpi:source="wim:d:/WindowsToolKit/install.wim#Windows 11" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
 </unattend>
