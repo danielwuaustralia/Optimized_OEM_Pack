@@ -3,9 +3,10 @@
 rem System Compoments Update
 Dism /online /Enable-Feature /FeatureName:SMB1Protocol /NoRestart
 Dism /online /Enable-Feature /FeatureName:SMB1Protocol-Client /NoRestart
-Dism /online /Enable-Feature /FeatureName:ServerMediaFoundation /NoRestart
 Dism /online /Enable-Feature /FeatureName:LegacyComponents /NoRestart
 Dism /online /Enable-Feature /FeatureName:DirectPlay /NoRestart
+Dism /online /Disable-Feature /FeatureName:SMB1Protocol-Deprecation /NoRestart
+Dism /online /Disable-Feature /FeatureName:Printing-PrintToPDFServices-Features /NoRestart
 Dism /online /Disable-Feature /FeatureName:WCF-TCP-PortSharing45 /NoRestart
 Dism /online /Disable-Feature /FeatureName:MicrosoftWindowsPowerShellV2Root /NoRestart
 Dism /online /Disable-Feature /FeatureName:MicrosoftWindowsPowerShellV2 /NoRestart
@@ -99,6 +100,30 @@ rem Disable OneDrive
 reg load HKLM\NTUSER C:\Users\Default\NTUSER.DAT
 reg delete "HKLM\NTUSER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
 reg unload HKLM\NTUSER
+reg delete "HKU\S-1-5-19\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
+reg delete "HKU\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
+
+rem remove MS Edge
+reg add "HKLM\SOFTWARE\Microsoft\EdgeUpdate" /v "InstallDefault" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\EdgeUpdate" /v "Install{56EB18F8-B008-4CBD-B6D2-8C97FE7E9062}" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\EdgeUpdate" /v "Install{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\EdgeUpdate" /v "DoNotUpdateToEdgeWithChromium" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\EdgeUpdate" /v "InstallDefault" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\EdgeUpdate" /v "Install{56EB18F8-B008-4CBD-B6D2-8C97FE7E9062}" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\EdgeUpdate" /v "Install{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\EdgeUpdate" /v "DoNotUpdateToEdgeWithChromium" /t REG_DWORD /d "1" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge" /v "NoRemove" /f
+reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge" /v "NoRemove" /f
+reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge Update" /v "NoRemove" /f
+reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft EdgeWebView" /v "NoRemove" /f
+sc stop MicrosoftEdgeElevationService
+sc stop edgeupdate
+sc stop edgeupdatem
+taskkill /F /IM msedge.exe
+taskkill /F /IM elevation_service.exe
+taskkill /F /IM msedgewebview2.exe
+taskkill /F /IM MicrosoftEdgeUpdate.exe
+"C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "del /f /q /s 'C:\Program Files (x86)\Microsoft\*'"
 
 rem APPX
 set "Applications=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Applications"
