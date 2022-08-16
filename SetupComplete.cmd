@@ -1,8 +1,7 @@
-@echo on
-rem Setupcomplete.cmd is ran after oobe and just before the desktop appears when using windows setup.
-rem Oobe.cmd is run after the the screen about copying of files/expanding files part is shown via setup and the bit when it says it will reboot in x seconds...
-rem Specialize Phase = the reboot before OOBE
-rem i.e. WinPE - Reboot - Specialize - Reboot - OOBE
+@cls
+@echo off
+>nul chcp 437
+setlocal enabledelayedexpansion
 
 rem Office 365
 "%windir%\Setup\Scripts\Office365\setup.exe" /configure "%windir%\Setup\Scripts\Office365\O365Preview.xml"
@@ -23,10 +22,13 @@ rem https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-6.0.8-win-x64.exe /install /quiet /norestart
 
 rem Powershell 7
-%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.3.0-preview.6-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
+%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.3.0-preview.7-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
 rem lav
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.76.1-6.exe /VERYSILENT
+
+rem net framework
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\ndp481-x86-x64-allos-enu.exe /q /norestart
 
 rem DirectX
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\DirectX\DXSETUP.exe /silent
@@ -40,11 +42,6 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassosetup64.exe /S /keyfile=
 
 rem chipset driver
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Software.exe /S
-
-rem DISM operation
-DISM.exe /Online /Remove-DefaultAppAssociations
-sc triggerinfo wuauserv delete
-DISM.exe /Online /Set-ReservedStorageState /State:Disabled
 
 rem taskscheduler
 set "_schtasks=SCHTASKS /Change /DISABLE /TN"
