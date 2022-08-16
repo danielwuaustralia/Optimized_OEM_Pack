@@ -1,4 +1,8 @@
+@cls
 @echo on
+>nul chcp 437
+setlocal enabledelayedexpansion
+title 1st Boot Setup
 
 rem System Compoments Update
 Dism /online /Enable-Feature /FeatureName:SMB1Protocol /NoRestart
@@ -95,6 +99,8 @@ del /f /q /s "%ProgramData%\Microsoft\Diagnosis\ETLLogs\*"
 del /f /q "%ProgramData%\Microsoft\Diagnosis\*.rbs"
 sc triggerinfo wuauserv delete
 sc triggerinfo WaaSMedicSvc delete
+DISM.exe /Online /Remove-DefaultAppAssociations
+DISM.exe /Online /Set-ReservedStorageState /State:Disabled
 
 rem Disable OneDrive
 reg load HKLM\NTUSER C:\Users\Default\NTUSER.DAT
@@ -119,6 +125,9 @@ reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall
 sc stop MicrosoftEdgeElevationService
 sc stop edgeupdate
 sc stop edgeupdatem
+sc delete MicrosoftEdgeElevationService
+sc delete edgeupdate
+sc delete edgeupdatem
 taskkill /F /IM msedge.exe
 taskkill /F /IM elevation_service.exe
 taskkill /F /IM msedgewebview2.exe
