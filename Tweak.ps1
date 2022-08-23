@@ -2100,6 +2100,25 @@ if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Wow6432Node\Javasoft\Java Update\Poli
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Javasoft\Java Update\Policy' -Name 'EnableJavaUpdate' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Javasoft\Java Update\Policy' -Name 'NotifyDownload' -Value 0 -PropertyType DWord -Force
 
+# 账户策略
+cmd.exe /c "net accounts /lockoutthreshold:0"
+cmd.exe /c "net accounts /MINPWAGE:0"
+cmd.exe /c "net accounts /MAXPWAGE:UNLIMITED"
+if((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters") -ne $true) {  New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters' -Name 'MaximumPasswordAge' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters' -Name 'RequireStrongKey' -Value 0 -PropertyType DWord -Force
+
+# 增加环境变量
+[Environment]::SetEnvironmentVariable('PATH', $Env:PATH + '; C:\Windows\SysWOW64', [EnvironmentVariableTarget]::Machine)
+
+# 更改TEMP文件夹位置
+New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TEMP' -Value 'C:\TEMP' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TMP' -Value 'C:\TEMP' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment' -Name 'TEMP' -Value 'C:\TEMP' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment' -Name 'TMP' -Value 'C:\TEMP' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\DefaultUserEnvironment' -Name 'TEMP' -Value 'C:\TEMP' -PropertyType ExpandString -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\DefaultUserEnvironment' -Name 'TMP' -Value 'C:\TEMP' -PropertyType ExpandString -Force
+
 # 无用注册表项目
 Remove-Item -LiteralPath "HKCU:\Software\Microsoft\EdgeUpdate" -recurse -force;
 Remove-Item -LiteralPath "HKCU:\Software\Microsoft\EdgeWebView" -recurse -force;
@@ -2120,25 +2139,6 @@ Get-PnpDevice -InstanceId 'ROOT\RDPBUS\0000' | Disable-PnpDevice -Confirm:$false
 Get-PnpDevice -InstanceId 'ACPI\PNP0501\0' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -FriendlyName 'AMD PSP 11.0 Device' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -FriendlyName 'NVIDIA High Definition Audio' | Disable-PnpDevice -Confirm:$false -Verbose
-
-# 账户策略
-cmd.exe /c "net accounts /lockoutthreshold:0"
-cmd.exe /c "net accounts /MINPWAGE:0"
-cmd.exe /c "net accounts /MAXPWAGE:UNLIMITED"
-if((Test-Path -LiteralPath "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters") -ne $true) {  New-Item "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters' -Name 'MaximumPasswordAge' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters' -Name 'RequireStrongKey' -Value 0 -PropertyType DWord -Force
-
-# 增加环境变量
-[Environment]::SetEnvironmentVariable('PATH', $Env:PATH + '; C:\Windows\SysWOW64', [EnvironmentVariableTarget]::Machine)
-
-# 更改TEMP文件夹位置
-New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TEMP' -Value 'C:\TEMP' -PropertyType ExpandString -Force
-New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TMP' -Value 'C:\TEMP' -PropertyType ExpandString -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment' -Name 'TEMP' -Value 'C:\TEMP' -PropertyType ExpandString -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment' -Name 'TMP' -Value 'C:\TEMP' -PropertyType ExpandString -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\DefaultUserEnvironment' -Name 'TEMP' -Value 'C:\TEMP' -PropertyType ExpandString -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\DefaultUserEnvironment' -Name 'TMP' -Value 'C:\TEMP' -PropertyType ExpandString -Force
 
 # 网络优化
 Enable-NetAdapterChecksumOffload -Name *
@@ -2290,14 +2290,12 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD' -
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD' -Name 'EnableLLTDIO' -Value 0 -PropertyType DWord -Force
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'CallLegacyWCMPolicies' -Value 0 -PropertyType DWord -Force
-#
 $i = 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces'
 Get-ChildItem $i | ForEach-Object {
   Set-ItemProperty -Path "$i\$($_.pschildname)" -Name TcpAckFrequency -Value 1
   Set-ItemProperty -Path "$i\$($_.pschildname)" -Name TCPNoDelay -Value 1
   Set-ItemProperty -Path "$i\$($_.pschildname)" -Name TcpDelAckTicks 0
 }
-#
 
 # 根目录证书
 # http://woshub.com/updating-trusted-root-certificates-in-windows-10/
@@ -2892,6 +2890,8 @@ if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\safer\code
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\safer\codeidentifiers' -Name 'authenticodeenabled' -Value 0 -PropertyType DWord -Force
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\Local") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\Local" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\Local' -Name 'WCMPresent' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Wbem\CIMOM' -Name 'EnableEvents' -Value '0' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Wbem\CIMOM' -Name 'Logging' -Value '0' -PropertyType String -Force
 
 # 禁用smartscreen
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppHost") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppHost" -force };
@@ -3794,6 +3794,10 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Par
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'Hostname' -Value 'Alienware' -PropertyType String -Force
 
 # 显卡优化
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'HwSchMode' -Value '0' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'PlatformSupportMiracast' -Value '0' -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'DpiMapIommuContiguous' -Value '1' -PropertyType DWord -Force
+# nvidia
 Set-ItemProperty -Path "HKLM:\Software\NVIDIA Corporation\Global\FTS" -Name EnableRID44231 -Type "DWORD" -Value '0' -Force
 Set-ItemProperty -Path "HKLM:\Software\NVIDIA Corporation\Global\FTS" -Name EnableRID64640 -Type "DWORD" -Value '0' -Force
 Set-ItemProperty -Path "HKLM:\Software\NVIDIA Corporation\Global\FTS" -Name EnableRID66610 -Type "DWORD" -Value '0' -Force
@@ -3824,9 +3828,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d3
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}' -Name 'PreferSystemMemoryContiguous' -Value '1' -PropertyType DWord -Force
 if((Test-Path -LiteralPath "HKCU:\Software\NVIDIA Corporation\NvTray") -ne $true) {  New-Item "HKCU:\Software\NVIDIA Corporation\NvTray" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\NvTray' -Name 'StartOnLogin' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'HwSchMode' -Value '2' -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'PlatformSupportMiracast' -Value '0' -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'DpiMapIommuContiguous' -Value '1' -PropertyType DWord -Force
 Remove-Item -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\BlockList\Kernel' -Recurse -Force -Verbose
 if((Test-Path -LiteralPath "HKCU:\Software\NVIDIA Corporation\Global\CoProcManager") -ne $true) {  New-Item "HKCU:\Software\NVIDIA Corporation\Global\CoProcManager" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\NVIDIA Corporation\Global\CoProcManager' -Name 'ShowContextMenu' -Value 0 -PropertyType DWord -Force
