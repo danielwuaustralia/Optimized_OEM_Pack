@@ -25,7 +25,7 @@ rem Powershell 7
 %windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.3.0-preview.7-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
 rem lav
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.76.1-6.exe /VERYSILENT
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.76.1-11.exe /VERYSILENT
 
 rem net framework
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\ndp481-x86-x64-allos-enu.exe /q /norestart
@@ -34,7 +34,7 @@ rem DirectX
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\DirectX\DXSETUP.exe /silent
 
 rem vulkan runtime
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.3.216.0-Installer.exe /S
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.3.224.0-Installer.exe /S
 
 rem process lasso
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassoActivator.exe -makekeyfile -product:2 -output:"%WINDIR%\Setup\Scripts\SOFTWARE"
