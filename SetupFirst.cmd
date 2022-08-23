@@ -132,7 +132,7 @@ taskkill /F /IM msedge.exe
 taskkill /F /IM elevation_service.exe
 taskkill /F /IM msedgewebview2.exe
 taskkill /F /IM MicrosoftEdgeUpdate.exe
-"C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "del /f /q /s 'C:\Program Files (x86)\Microsoft\*'"
+del /q /s %programfiles(x86)%\Microsoft\*
 
 rem APPX
 set "Applications=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Applications"
