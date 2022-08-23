@@ -146,16 +146,6 @@
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
                     <Order>1</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>C:\Windows\Setup\Scripts\SOFTWARE\StartAllBack.exe</CommandLine>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>2</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                    <CommandLine>C:\Windows\Setup\Scripts\SOFTWARE\AAFOptimusDCHAudioPack.exe</CommandLine>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>3</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>"C:\Program Files\PowerShell\7-preview\pwsh.exe" -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Tweak.ps1"</CommandLine>
                 </SynchronousCommand>
