@@ -69,7 +69,7 @@ Dism /Online /Remove-Capability /CapabilityName:OneCoreUAP.OneSync~~~~0.0.1.0 /N
 Dism /Online /Remove-Capability /CapabilityName:Print.Management.Console~~~~0.0.1.0 /NoRestart
 
 rem install drivers
-REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1" /f /v Path /t REG_SZ /d "C:\Windows\Setup\Scripts\Drivers"
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1" /f /v Path /t REG_SZ /d "C:\Windows\Setup\Scripts\Drivers"
 "C:\Windows\System32\pnpunattend.exe" AuditSystem /L
 
 rem Disable OneDrive
@@ -80,10 +80,16 @@ reg delete "HKU\S-1-5-19\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneD
 reg delete "HKU\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
 
 rem APPX
+rem Microsoft.Windows.CloudExperienceHost
+rem Microsoft.Windows.ShellExperienceHost
+rem Microsoft.Windows.StartMenuExperienceHost
+rem UndockedDevKit
+rem windows.immersivecontrolpanel
 set "Applications=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Applications"
 for %%i in (
 Microsoft.SecHealthUI
 Microsoft.MicrosoftEdge.Stable
+NVIDIACorp.NVIDIAControlPanel
 ) do (
 	for /f %%a in ('reg query "%Applications%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
 )
@@ -113,6 +119,16 @@ Microsoft.Windows.XGpuEjectDialog
 MicrosoftWindows.UndockedDevKit
 NcsiUwpApp
 Windows.CBSPreview
+Microsoft.AAD.BrokerPlugin
+Microsoft.AccountsControl
+Microsoft.CredDialogHost
+Microsoft.Windows.AssignedAccessLockApp
+Microsoft.Windows.ContentDeliveryManager
+Microsoft.Windows.OOBENetworkCaptivePortal
+Microsoft.Windows.OOBENetworkConnectionFlow
+Microsoft.Windows.SecureAssessmentBrowser
+Microsoft.XboxGameCallableUI
+Windows.PrintDialog
 ) do (
 for /f %%a in ('reg query "%InboxApplications%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
 )
