@@ -33,6 +33,7 @@ rem logman query -ets
 "C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "Reg.exe delete HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT /f"
 "C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "logman stop -ets Diagtrack-Listener"
 "C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "logman stop -ets SleepStudyTraceSession"
+"C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "logman stop -ets CldFltLog"
 
 rem Refresh DNS Cache
 ipconfig /flushdns
