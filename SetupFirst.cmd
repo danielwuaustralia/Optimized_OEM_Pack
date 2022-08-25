@@ -2,7 +2,6 @@
 @echo on
 >nul chcp 437
 setlocal enabledelayedexpansion
-title 1st Boot Setup
 
 rem System Compoments Update
 Dism /online /Enable-Feature /FeatureName:SMB1Protocol /NoRestart
@@ -72,35 +71,6 @@ Dism /Online /Remove-Capability /CapabilityName:Print.Management.Console~~~~0.0.
 rem install drivers
 REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1" /f /v Path /t REG_SZ /d "C:\Windows\Setup\Scripts\Drivers"
 "C:\Windows\System32\pnpunattend.exe" AuditSystem /L
-
-rem windows update
-set "key=HKLM\SYSTEM\ControlSet001\Control\Ubpm"
-for /f "tokens=1" %%a in ('reg query "%key%" 2^>nul ^| find /i "REG_SZ"') do reg delete %key% /v "%%a" /f 2>nul
-
-set "key=HKLM\Software\Microsoft\WindowsUpdate\Orchestrator\UScheduler_Oobe"
-for /f %%a in ('reg query "%key%" /f * /k 2^>nul ^| find /i "Orchestrator"') do reg delete %%a /f 2>nul
-
-C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:np"
-C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:sc,io;m:grant"
-C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Update" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:np"
-C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Update" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:sc,io;m:grant"
-reg query "HKLM\SOFTWARE\Microsoft\Windows\Windows NT\CurrentVersion\EditionVersion" && (
-C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows\Windows NT\CurrentVersion\EditionVersion" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:np"
-C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows\Windows NT\CurrentVersion\EditionVersion" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:sc,io;m:grant"
-)
-C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Classes\xmlfile\CLSID" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:np"
-C:\Windows\SysWOW64\SetACL.exe -on "HKLM\SOFTWARE\Classes\xmlfile\CLSID" -ot reg -actn ace -ace "n:S-1-5-32-544;p:full;i:sc,io;m:grant"
-C:\Windows\SysWOW64\SetACL.exe -on "%windir%\Logs\CBS" -ot file -actn ace -ace "n:S-1-5-32-544;p:full"
-md "%windir%\Logs\WaaSMedic"
-C:\Windows\SysWOW64\SetACL.exe -on "%windir%\Logs\WaaSMedic" -ot file -actn ace -ace "n:S-1-5-32-544;p:full"
-C:\Windows\SysWOW64\SetACL.exe -on "%windir%\WinSxS\Backup" -ot file -actn ace -ace "n:S-1-5-32-544;p:full"
-C:\Windows\SysWOW64\SetACL.exe -on "%ProgramData%\Microsoft\Diagnosis" -ot file -actn ace -ace "n:S-1-5-32-544;p:full;i:so,sc,io"
-del /f /q /s "%ProgramData%\Microsoft\Diagnosis\ETLLogs\*"
-del /f /q "%ProgramData%\Microsoft\Diagnosis\*.rbs"
-sc triggerinfo wuauserv delete
-sc triggerinfo WaaSMedicSvc delete
-DISM.exe /Online /Remove-DefaultAppAssociations
-DISM.exe /Online /Set-ReservedStorageState /State:Disabled
 
 rem Disable OneDrive
 reg load HKLM\NTUSER C:\Users\Default\NTUSER.DAT
