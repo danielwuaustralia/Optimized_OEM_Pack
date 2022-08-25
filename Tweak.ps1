@@ -2197,17 +2197,17 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\I
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'ServerInfoTimeOut' -Value 300000 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'SocketSendBufferLength' -Value 65536 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name 'ProxyEnable' -Value 0 -PropertyType DWord -Force
-# Get-NetAdapterBinding -IncludeHidden -AllBindings | Format-Table -AutoSize
-# Get-NetAdapterBinding | Where-Object { $_.Enabled -eq 'True' } | Set-NetAdapterBinding -Enabled 0 -IncludeHidden -AllBindings -Verbose
+# Get-NetAdapterBinding -AllBindings | Format-Table -AutoSize
+# Get-NetAdapterBinding | Where-Object { $_.Enabled -eq 'True' } | Set-NetAdapterBinding -Enabled 1 -IncludeHidden -AllBindings -Verbose
 Set-NetIPInterface -InterfaceAlias '*' -NlMtuBytes 1440
-Set-NetAdapterBinding -Name '*' -ComponentID ms_pacer -Enabled 0
-Set-NetAdapterBinding -Name '*' -ComponentID ms_ndiscap -Enabled 0
+Set-NetAdapterBinding -Name '*' -ComponentID ms_implat -Enabled 0
 Set-NetAdapterBinding -Name '*' -ComponentID ms_lldp -Enabled 0
-Set-NetAdapterBinding -Name '*' -ComponentID ms_msclient -Enabled 1
 Set-NetAdapterBinding -Name '*' -ComponentID ms_lltdio -Enabled 0
 Set-NetAdapterBinding -Name '*' -ComponentID ms_rspndr -Enabled 0
-Set-NetAdapterBinding -Name '*' -ComponentID ms_implat -Enabled 0
-Set-NetAdapterBinding -Name '*' -ComponentID ms_server -Enabled 1
+Set-NetAdapterBinding -Name '*' -ComponentID ms_msclient -Enabled 0
+Set-NetAdapterBinding -Name '*' -ComponentID ms_server -Enabled 0
+Set-NetAdapterBinding -Name '*' -ComponentID ms_pacer -Enabled 0
+Set-NetAdapterBinding -Name '*' -ComponentID ms_tcpip -Enabled 1
 Set-NetAdapterBinding -Name '*' -ComponentID ms_tcpip6 -Enabled 1
 # Get-NetAdapterAdvancedProperty -Name "以太网" -AllProperties
 Set-NetAdapterAdvancedProperty -Name '以太网' -RegistryKeyword 'PnPCapabilities' -RegistryValue '24'
