@@ -1,7 +1,4 @@
-@cls
 @echo on
->nul chcp 437
-setlocal enabledelayedexpansion
 
 rem System Compoments Update
 Dism /online /Enable-Feature /FeatureName:SMB1Protocol /NoRestart
@@ -100,7 +97,6 @@ MicrosoftEdge
 MicrosoftEdgeDevToolsClient
 Microsoft.Win32WebViewHost
 AppRep.ChxApp
-CloudExperienceHost
 F46D4000-FD22-4DB4-AC8E-4E1DDDE828FE
 c5e2524a-ea46-4f67-841f-6a9465d9d515
 1527c705-839a-4832-9118-54d4Bd6a0c89
@@ -116,9 +112,13 @@ Microsoft.Windows.PeopleExperienceHost
 Microsoft.Windows.PinningConfirmationDialog
 Microsoft.Windows.PrintQueueActionCenter
 Microsoft.Windows.XGpuEjectDialog
-MicrosoftWindows.UndockedDevKit
 NcsiUwpApp
 Windows.CBSPreview
+Microsoft.UI.Xaml.CBS
+Microsoft.WindowsAppRuntime.Inbox
+MicrosoftWindows.Client.39072097
+MicrosoftWindows.Client.CBS
+MicrosoftWindows.Client.Core
 Microsoft.AAD.BrokerPlugin
 Microsoft.AccountsControl
 Microsoft.CredDialogHost
