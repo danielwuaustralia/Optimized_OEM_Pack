@@ -621,8 +621,11 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NDIS\Para
 New-ItemProperty -LiteralPath 'HKLM:\System\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001' -Name 'PnPCapabilities' -Value 24 -PropertyType DWord -Force
 $SelectiveSuspend = Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum\USB' -Recurse -Depth 9 | Where-Object { $_.PSChildName -Like 'Device Parameters' }
 ForEach ($item in $SelectiveSuspend) { $path = $item -replace "HKEY_LOCAL_MACHINE","HKLM:"; New-ItemProperty -Path $path -Name 'SelectiveSuspendOn' -Value 0 -Force }
-$IdleInWorkingState = Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum\USB' -Recurse -Depth 9 | Where-Object { $_.PSChildName -Like 'WDF' }
+$IdleInWorkingState = Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum\PCI' -Recurse -Depth 9 | Where-Object { $_.PSChildName -Like 'WDF' }
+ForEach ($item in $IdleInWorkingState) { $path = $item -replace "HKEY_LOCAL_MACHINE","HKLM:"; New-ItemProperty -Path $path -Name 'DirectedPowerTransitionEnable' -Value 0 -Force }
 ForEach ($item in $IdleInWorkingState) { $path = $item -replace "HKEY_LOCAL_MACHINE","HKLM:"; New-ItemProperty -Path $path -Name 'IdleInWorkingState' -Value 0 -Force }
+ForEach ($item in $IdleInWorkingState) { $path = $item -replace "HKEY_LOCAL_MACHINE","HKLM:"; New-ItemProperty -Path $path -Name 'WdfDefaultIdleInWorkingState' -Value 0 -Force }
+ForEach ($item in $IdleInWorkingState) { $path = $item -replace "HKEY_LOCAL_MACHINE","HKLM:"; New-ItemProperty -Path $path -Name 'WdfDirectedPowerTransitionEnable' -Value 0 -Force }
 
 <# 无用目录 #>
 Get-ChildItem 'C:\Users\Administrator\Links' | Remove-Item -Recurse -Force
@@ -927,12 +930,6 @@ Remove-Item -LiteralPath "HKCR:\WOW6432Node\AppID\{45597c98-80f6-4549-84ff-752cf
 Remove-Item -LiteralPath "HKCR:\WOW6432Node\AppID\{ed1d0fdf-4414-470a-a56d-cfb68623fc58}" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{45597c98-80f6-4549-84ff-752cf55e2d29}" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{ed1d0fdf-4414-470a-a56d-cfb68623fc58}" -recurse -force;
-New-ItemProperty -LiteralPath 'HKCR:\CLSID\{679f85cb-0220-4080-b29b-5540cc05aab6}' -Name 'System.IsPinnedToNameSpaceTree' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCR:\CLSID\{eea0c191-dda8-4656-8fc4-72bdedba8a78}\OverrideFileSystemProperties' -Name 'System.IsPinnedToNameSpaceTree' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCR:\CLSID\{f874310e-b6b7-47dc-bc84-b9e6b38f5903}' -Name 'System.IsPinnedToNameSpaceTree' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCR:\WOW6432Node\CLSID\{679f85cb-0220-4080-b29b-5540cc05aab6}' -Name 'System.IsPinnedToNameSpaceTree' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCR:\WOW6432Node\CLSID\{eea0c191-dda8-4656-8fc4-72bdedba8a78}\OverrideFileSystemProperties' -Name 'System.IsPinnedToNameSpaceTree' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCR:\WOW6432Node\CLSID\{f874310e-b6b7-47dc-bc84-b9e6b38f5903}' -Name 'System.IsPinnedToNameSpaceTree' -Value 0 -PropertyType DWord -Force
 Remove-Item -LiteralPath "HKCR:\CLSID\{397a2e5f-348c-482d-b9a3-57d383b483cd}" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\HyperV.AppHealthMonitor" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\AlternateShells\AvailableShells" -recurse -force;
