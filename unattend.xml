@@ -68,11 +68,11 @@
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
                     <Order>6</Order>
-                    <Path>REG ADD "HKLM\SOFTWARE\Microsoft\Windows Defender" /f /v DisableAntiSpyware /d 1 /t REG_DWORD</Path>
+                    <Path>REG ADD "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" /f /v TamperProtection /d 4 /t REG_DWORD</Path>
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
                     <Order>7</Order>
-                    <Path>REG ADD "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" /f /v TamperProtection /d 0 /t REG_DWORD</Path>
+                    <Path>REG ADD "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" /f /v TamperProtectionSource /d 2 /t REG_DWORD</Path>
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
                     <Order>8</Order>
