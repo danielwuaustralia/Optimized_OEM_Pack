@@ -1,10 +1,13 @@
+@cls
 @echo on
+>nul chcp 437
+setlocal enabledelayedexpansion
 
 rem System Compoments Update
-Dism /online /Enable-Feature /FeatureName:SMB1Protocol /NoRestart
-Dism /online /Enable-Feature /FeatureName:SMB1Protocol-Client /NoRestart
 Dism /online /Enable-Feature /FeatureName:LegacyComponents /NoRestart
 Dism /online /Enable-Feature /FeatureName:DirectPlay /NoRestart
+Dism /online /Disable-Feature /FeatureName:SMB1Protocol /NoRestart
+Dism /online /Disable-Feature /FeatureName:SMB1Protocol-Client /NoRestart
 Dism /online /Disable-Feature /FeatureName:SMB1Protocol-Deprecation /NoRestart
 Dism /online /Disable-Feature /FeatureName:Printing-PrintToPDFServices-Features /NoRestart
 Dism /online /Disable-Feature /FeatureName:WCF-TCP-PortSharing45 /NoRestart
@@ -77,11 +80,6 @@ reg delete "HKU\S-1-5-19\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneD
 reg delete "HKU\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
 
 rem APPX
-rem Microsoft.Windows.CloudExperienceHost
-rem Microsoft.Windows.ShellExperienceHost
-rem Microsoft.Windows.StartMenuExperienceHost
-rem UndockedDevKit
-rem windows.immersivecontrolpanel
 set "Applications=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Applications"
 for %%i in (
 Microsoft.SecHealthUI
@@ -90,6 +88,12 @@ NVIDIACorp.NVIDIAControlPanel
 ) do (
 	for /f %%a in ('reg query "%Applications%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
 )
+
+rem Microsoft.Windows.CloudExperienceHost
+rem Microsoft.Windows.ShellExperienceHost
+rem Microsoft.Windows.StartMenuExperienceHost
+rem UndockedDevKit
+rem windows.immersivecontrolpanel
 
 set "InboxApplications=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications"
 for %%i in (
