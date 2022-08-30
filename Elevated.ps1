@@ -564,37 +564,6 @@ Get-ChildItem 'C:\Users\Administrator\AppData\Local\Microsoft\Edge' | Remove-Ite
 Get-ChildItem 'C:\ProgramData\Microsoft\EdgeUpdate' | Remove-Item -Recurse -Force
 Remove-Item -Path 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk' -Force
 Remove-Item -Path 'C:\Users\Administrator\Desktop\Microsoft Edge.lnk' -Force
-Remove-Item -LiteralPath "HKCR:\.pdf\OpenWithProgids" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\CLSID\{A2F5CB38-265F-4A02-9D1E-F25B664968AB}" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Extensions\windows.fileTypeAssociation\.pdf\AppXd4nrz8ff68srnhf9t5a8sbjyar1cr723" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Extensions\windows.fileTypeAssociation\.svg\AppXde74bfzw9j31bzhcvsrxsyjnhhbq66cs" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Extensions\windows.protocol\https\AppX90nv6nhay5n6a98fnetv7tpk64pp35es" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel\StateRepository\Cache\Protocol\Data\6" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel\StateRepository\Cache\Protocol\Data\7" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel\StateRepository\Cache\Protocol\Index\Name\microsoft-edge" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel\StateRepository\Cache\Protocol\Index\Name\microsoft-edge-holographic" -recurse -force;
-Remove-ItemProperty -LiteralPath 'HKCR:\AppUserModelId\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge' -Name 'ExcludeFromTabbedSetsSettings' -Force
-Remove-Item -LiteralPath "HKCR:\AppUserModelId\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge" -recurse -force;
-New-ItemProperty -LiteralPath 'HKCR:\.htm\OpenWithProgIds' -Name 'ChromeDHTML' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCR:\.html\OpenWithProgIds' -Name 'ChromeDHTML' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCR:\.pdf\OpenWithProgIds' -Name 'ChromeDHTML' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCR:\.svg\OpenWithProgIds' -Name 'ChromeDHTML' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCR:\.xht\OpenWithProgIds' -Name 'ChromeDHTML' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCR:\.xhtml\OpenWithProgIds' -Name 'ChromeDHTML' -Value '' -PropertyType String -Force
-Remove-ItemProperty -LiteralPath 'HKCR:\.shtml\OpenWithProgids' -Name 'MSEdgeHTM' -Force
-Remove-ItemProperty -LiteralPath 'HKCR:\.webp\OpenWithProgids' -Name 'MSEdgeHTM' -Force
-Remove-ItemProperty -LiteralPath 'HKCR:\.xml\OpenWithProgids' -Name 'MSEdgeHTM' -Force
-Remove-ItemProperty -LiteralPath 'HKCR:\.mht\OpenWithProgids' -Name 'MSEdgeMHT' -Force
-Remove-ItemProperty -LiteralPath 'HKCR:\.mhtml\OpenWithProgids' -Name 'MSEdgeMHT' -Force
-Remove-Item -LiteralPath "HKCR:\MSEdgeHTM" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\MSEdgeMHT" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\MSEdgePDF" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Clients\StartMenuInternet\Microsoft Edge" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{2E1DD7EF-C12D-4F8E-8AD8-CF8CC265BAD0}" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{492E1C30-A1A2-4695-87C8-7A8CAD6F936F}" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{77857D02-7A25-4B67-9266-3E122A8F39E4}" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{B5977F34-9264-4AC3-9B31-1224827FF6E8}" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{D1E8B1A6-32CE-443C-8E2E-EBA90C481353}" -recurse -force;
 
 <# 禁用nvidia驱动log #>
 Get-ChildItem -Path 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
@@ -799,29 +768,31 @@ Remove-Item -LiteralPath "HKCR:\mscfile\shell\runasuser" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\Msi.Package\shell\runasuser" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\.library-ms\ShellNew" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\.zip\CompressedFolder\ShellNew" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Classes\SystemFileAssociations\.avci\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Classes\SystemFileAssociations\.avcs\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Classes\SystemFileAssociations\.avif\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Classes\SystemFileAssociations\.avifs\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Classes\SystemFileAssociations\.bmp\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Classes\SystemFileAssociations\.dib\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Classes\SystemFileAssociations\.gif\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Classes\SystemFileAssociations\.heic\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Classes\SystemFileAssociations\.heics\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Classes\SystemFileAssociations\.heif\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Classes\SystemFileAssociations\.heifs\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Classes\SystemFileAssociations\.hif\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Classes\SystemFileAssociations\.jfif\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Classes\SystemFileAssociations\.jpe\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Classes\SystemFileAssociations\.jpeg\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Classes\SystemFileAssociations\.jpg\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Classes\SystemFileAssociations\.png\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Classes\SystemFileAssociations\.tif\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Classes\SystemFileAssociations\.tiff\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Classes\SystemFileAssociations\.wdp\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Classes\*\shellex\ContextMenuHandlers\EPP" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Classes\Drive\shellex\ContextMenuHandlers\EPP" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\Classes\Directory\shellex\ContextMenuHandlers\EPP" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.avci\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.avcs\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.avif\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.avifs\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.bmp\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.dib\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.gif\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.heic\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.heics\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.heif\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.heifs\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.hif\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.jfif\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.jpe\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.jpeg\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.jpg\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.png\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.tif\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.tiff\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.wdp\Shell\setdesktopwallpaper" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\*\shellex\ContextMenuHandlers\EPP" -force;
+Remove-Item -LiteralPath "HKCR:\Directory\shellex\ContextMenuHandlers\EPP" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\*\shellex\ContextMenuHandlers\Open With EncryptionMenu" -force;
+Remove-Item -LiteralPath "HKCR:\*\shellex\ContextMenuHandlers\{90AA3A4E-1CBA-4233-B8BB-535773D48449}" -force;
+Remove-Item -LiteralPath "HKCR:\*\shellex\ContextMenuHandlers\{a2a9545d-a0c2-42b4-9708-a0b2badd77c8}" -force;
 Remove-Item -LiteralPath "HKCR:\*\shellex\ContextMenuHandlers\Sharing" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\Directory\Background\shellex\ContextMenuHandlers\Sharing" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\Directory\shellex\ContextMenuHandlers\Sharing" -recurse -force;
@@ -832,6 +803,88 @@ Remove-Item -LiteralPath "HKCR:\LibraryFolder\background\shellex\ContextMenuHand
 Remove-Item -LiteralPath "HKCR:\UserLibraryFolder\shellex\ContextMenuHandlers\Sharing" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\Folder\ShellEx\ContextMenuHandlers\Library Location" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\*\shellex\ContextMenuHandlers\ModernSharing" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\AllFilesystemObjects\shellex\ContextMenuHandlers\ModernSharing" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\AllFilesystemObjects\shellex\ContextMenuHandlers\CopyAsPathMenu" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\AVIFile\shellex\ContextMenuHandlers\NvPlayOnMyTV" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\batfile\shellex\ContextMenuHandlers\OpenGLShExt" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{450D8FBA-AD25-11D0-98A8-0800361B1103}\shellex\ContextMenuHandlers\Offline Files" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\cmdfile\shellex\ContextMenuHandlers\OpenGLShExt" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\comfile\shellex\ContextMenuHandlers\OpenGLShExt" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CompressedFolder\ShellEx\ContextMenuHandlers\{b8cdcb65-b1bf-4b42-9428-1dfdb7ee92af}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\DesktopBackground\shellex\ContextMenuHandlers\DesktopSlideshow" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Directory\shellex\ContextMenuHandlers\EncryptionMenu" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Directory\shellex\ContextMenuHandlers\Offline Files" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\exefile\shellex\ContextMenuHandlers\NvAppShExt" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\exefile\shellex\ContextMenuHandlers\OpenGLShExt" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Folder\ShellEx\ContextMenuHandlers\Offline Files" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\JSEFile\ShellEx\ContextMenuHandlers\OpenGLShExt" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\JSFile\ShellEx\ContextMenuHandlers\OpenGLShExt" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Launcher.AllAppsDesktopApplication\shellex\ContextMenuHandlers\{90AA3A4E-1CBA-4233-B8BB-535773D48449}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Launcher.AllAppsDesktopApplication\shellex\ContextMenuHandlers\{a2a9545d-a0c2-42b4-9708-a0b2badd77c8}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Launcher.AllAppsDesktopApplication\shellex\ContextMenuHandlers\PintoStartScreen" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Launcher.Computer\shellex\ContextMenuHandlers\{a2a9545d-a0c2-42b4-9708-a0b2badd77c8}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Launcher.Computer\shellex\ContextMenuHandlers\PintoStartScreen" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Launcher.DesktopPackagedApplication\shellex\ContextMenuHandlers\{90AA3A4E-1CBA-4233-B8BB-535773D48449}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Launcher.DesktopPackagedApplication\shellex\ContextMenuHandlers\{a2a9545d-a0c2-42b4-9708-a0b2badd77c8}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Launcher.DesktopPackagedApplication\shellex\ContextMenuHandlers\PintoStartScreen" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Launcher.DualModeApplication\shellex\ContextMenuHandlers\PintoStartScreen" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Launcher.DualModeApplication\shellex\ContextMenuHandlers\{a2a9545d-a0c2-42b4-9708-a0b2badd77c8}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Launcher.ImmersiveApplication\shellex\ContextMenuHandlers\{90AA3A4E-1CBA-4233-B8BB-535773D48449}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Launcher.ImmersiveApplication\shellex\ContextMenuHandlers\{a2a9545d-a0c2-42b4-9708-a0b2badd77c8}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Launcher.ImmersiveApplication\shellex\ContextMenuHandlers\PintoStartScreen" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Launcher.SystemSettings\shellex\ContextMenuHandlers\PintoStartScreen" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Launcher.SystemSettings\shellex\ContextMenuHandlers\{90AA3A4E-1CBA-4233-B8BB-535773D48449}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Launcher.SystemSettings\shellex\ContextMenuHandlers\{a2a9545d-a0c2-42b4-9708-a0b2badd77c8}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\LibraryFolder\ShellEx\ContextMenuHandlers\LibraryFolder" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\LibraryLocation\ShellEx\ContextMenuHandlers\OpenContainingFolderMenu" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\lnkfile\shellex\ContextMenuHandlers\NvAppShExt" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\lnkfile\shellex\ContextMenuHandlers\OpenContainingFolderMenu" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\lnkfile\shellex\ContextMenuHandlers\OpenGLShExt" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\mpegfile\shellex\ContextMenuHandlers\NvPlayOnMyTV" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\mscfile\shellex\ContextMenuHandlers\OpenGLShExt" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\MSGraphDocument\shellex\ContextMenuHandlers\ModernSharing" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\MSILink\shellex\ContextMenuHandlers\{90AA3A4E-1CBA-4233-B8BB-535773D48449}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\MSILink\shellex\ContextMenuHandlers\{a2a9545d-a0c2-42b4-9708-a0b2badd77c8}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\MSILink\shellex\ContextMenuHandlers\{a2a9545d-a0c2-42b4-9708-a0b2badd77c9}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\OpenSearchProvider\ShellEx\ContextMenuHandlers\OpenSearchContextMenu" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Stack.Video\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.3g2\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.3gp\shellex\ContextMenuHandlers" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.3gp2\shellex\ContextMenuHandlers" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.3gpp\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.aac\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.adt\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.adts\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.dtcp-ip\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.flac\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.lpcm\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.m2t\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.m2ts\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.m4a\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.m4v\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.mk3d\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.mka\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.mkv\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.mov\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.mp4\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.mp4v\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.mts\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.ts\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.tts\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.wtv\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.zip\shellex\ContextMenuHandlers\{b8cdcb65-b1bf-4b42-9428-1dfdb7ee92af}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\Directory.Video\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\image\ShellEx\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\video\shellex\ContextMenuHandlers\PlayTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\UserLibraryFolder\shellex\ContextMenuHandlers\SendTo" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\VBEFile\ShellEx\ContextMenuHandlers\OpenGLShExt" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\VBSFile\ShellEx\ContextMenuHandlers\OpenGLShExt" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WMVFile\shellex\ContextMenuHandlers" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WSFFile\ShellEx\ContextMenuHandlers\OpenGLShExt" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WSHFile\ShellEx\ContextMenuHandlers\OpenGLShExt" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\PnpResources\Registry\HKCR\AVIFile\shellex\ContextMenuHandlers\NvPlayOnMyTV" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\PnpResources\Registry\HKCR\mpegfile\shellex\ContextMenuHandlers\NvPlayOnMyTV" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\PnpResources\Registry\HKCR\WMVFile\shellex\ContextMenuHandlers\NvPlayOnMyTV" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\.contact\ShellNew" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\Folder\shellex\ContextMenuHandlers\PintoStartScreen" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\exefile\shellex\ContextMenuHandlers\PintoStartScreen" -recurse -force;
@@ -845,26 +898,6 @@ Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVe
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects\{F4971EE7-DAA0-4053-9964-665D8EE6A077}" -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects\{31D09BA0-12F5-4CCE-BE8A-2923E76605DA}" -force;
 Remove-Item -LiteralPath "HKCR:\AllFilesystemObjects\shell\OfflineFilesLaunchSyncCenter" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.avci\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.avcs\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.avif\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.avifs\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.bmp\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.dib\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.gif\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.heic\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.heics\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.hif\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.jfif\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.jpe\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.jpeg\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.jpg\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.png\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.tif\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.tiff\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.wdp\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.heif\Shell\setdesktopwallpaper" -recurse -force;
-Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.heifs\Shell\setdesktopwallpaper" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Extensions" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Internet Explorer\Extensions" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\CLSID\{45597c98-80f6-4549-84ff-752cf55e2d29}\SupportedProtocols" -recurse -force;
@@ -938,6 +971,50 @@ Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Win
 Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\SafeBoot' -Name 'AlternateShell' -Force
 Remove-Item -LiteralPath "HKCR:\.pdf\ShellEx\{8895b1c6-b41f-4c1c-a562-0d564250836f}" -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\ApplicationAssociationToasts" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\.pdf\OpenWithProgids" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{A2F5CB38-265F-4A02-9D1E-F25B664968AB}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Extensions\windows.fileTypeAssociation\.pdf\AppXd4nrz8ff68srnhf9t5a8sbjyar1cr723" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Extensions\windows.fileTypeAssociation\.svg\AppXde74bfzw9j31bzhcvsrxsyjnhhbq66cs" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Extensions\windows.protocol\https\AppX90nv6nhay5n6a98fnetv7tpk64pp35es" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel\StateRepository\Cache\Protocol\Data\6" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel\StateRepository\Cache\Protocol\Data\7" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel\StateRepository\Cache\Protocol\Index\Name\microsoft-edge" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel\StateRepository\Cache\Protocol\Index\Name\microsoft-edge-holographic" -recurse -force;
+Remove-ItemProperty -LiteralPath 'HKCR:\AppUserModelId\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge' -Name 'ExcludeFromTabbedSetsSettings' -Force
+Remove-Item -LiteralPath "HKCR:\AppUserModelId\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge" -recurse -force;
+New-ItemProperty -LiteralPath 'HKCR:\.htm\OpenWithProgIds' -Name 'ChromeDHTML' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCR:\.html\OpenWithProgIds' -Name 'ChromeDHTML' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCR:\.pdf\OpenWithProgIds' -Name 'ChromeDHTML' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCR:\.svg\OpenWithProgIds' -Name 'ChromeDHTML' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCR:\.xht\OpenWithProgIds' -Name 'ChromeDHTML' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCR:\.xhtml\OpenWithProgIds' -Name 'ChromeDHTML' -Value '' -PropertyType String -Force
+Remove-ItemProperty -LiteralPath 'HKCR:\.shtml\OpenWithProgids' -Name 'MSEdgeHTM' -Force
+Remove-ItemProperty -LiteralPath 'HKCR:\.webp\OpenWithProgids' -Name 'MSEdgeHTM' -Force
+Remove-ItemProperty -LiteralPath 'HKCR:\.xml\OpenWithProgids' -Name 'MSEdgeHTM' -Force
+Remove-ItemProperty -LiteralPath 'HKCR:\.mht\OpenWithProgids' -Name 'MSEdgeMHT' -Force
+Remove-ItemProperty -LiteralPath 'HKCR:\.mhtml\OpenWithProgids' -Name 'MSEdgeMHT' -Force
+Remove-Item -LiteralPath "HKCR:\MSEdgeHTM" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\MSEdgeMHT" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\MSEdgePDF" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Clients\StartMenuInternet\Microsoft Edge" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{2E1DD7EF-C12D-4F8E-8AD8-CF8CC265BAD0}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{492E1C30-A1A2-4695-87C8-7A8CAD6F936F}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{77857D02-7A25-4B67-9266-3E122A8F39E4}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{B5977F34-9264-4AC3-9B31-1224827FF6E8}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{D1E8B1A6-32CE-443C-8E2E-EBA90C481353}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{E421557C-0628-43FB-BF2B-7C9F8A4D067C}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{FF419FF9-90BE-4D9F-B410-A789F90E5A7C}" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{9459C573-B17A-45AE-9F64-1857B5D58CEE}" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Internet Explorer\Main\EnterpriseMode" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\MediaPlayer\ShimInclusionList\msedge.exe" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\msedge.exe" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel\StateRepository\Cache\Activation\Data\2" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel\StateRepository\Cache\Application\Data\1" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\Clients\{56EB18F8-B008-4CBD-B6D2-8C97FE7E9062}\Commands\on-logon-autolaunch" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\Clients\{56EB18F8-B008-4CBD-B6D2-8C97FE7E9062}\Commands\on-logon-startup-boost" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\Clients\{56EB18F8-B008-4CBD-B6D2-8C97FE7E9062}\Commands\on-os-upgrade" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\ClientState\{56EB18F8-B008-4CBD-B6D2-8C97FE7E9062}" -recurse -force;
+Remove-Item -LiteralPath "HKLM:\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\ClientState\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}" -recurse -force;
 
 Remove-PSDrive -Name HKCR
 Get-ChildItem 'C:\Windows\Setup\Scripts' | Remove-Item -Recurse -Force
