@@ -89,50 +89,14 @@ NVIDIACorp.NVIDIAControlPanel
 	for /f %%a in ('reg query "%Applications%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
 )
 
-rem Microsoft.Windows.CloudExperienceHost
-rem Microsoft.Windows.ShellExperienceHost
-rem Microsoft.Windows.StartMenuExperienceHost
-rem UndockedDevKit
-rem windows.immersivecontrolpanel
-
 set "InboxApplications=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications"
 for %%i in (
 MicrosoftEdge
 MicrosoftEdgeDevToolsClient
 Microsoft.Win32WebViewHost
 AppRep.ChxApp
-F46D4000-FD22-4DB4-AC8E-4E1DDDE828FE
-c5e2524a-ea46-4f67-841f-6a9465d9d515
-1527c705-839a-4832-9118-54d4Bd6a0c89
-E2A4F912-2574-4A75-9BB0-0D023378592B
-Microsoft.AsyncTextService
 Microsoft.BioEnrollment
-Microsoft.ECApp
-Microsoft.LockApp
-Microsoft.Windows.CapturePicker
-Microsoft.Windows.NarratorQuickStart
-Microsoft.Windows.ParentalControls
 Microsoft.Windows.PeopleExperienceHost
-Microsoft.Windows.PinningConfirmationDialog
-Microsoft.Windows.PrintQueueActionCenter
-Microsoft.Windows.XGpuEjectDialog
-NcsiUwpApp
-Windows.CBSPreview
-Microsoft.UI.Xaml.CBS
-Microsoft.WindowsAppRuntime.Inbox
-MicrosoftWindows.Client.39072097
-MicrosoftWindows.Client.CBS
-MicrosoftWindows.Client.Core
-Microsoft.AAD.BrokerPlugin
-Microsoft.AccountsControl
-Microsoft.CredDialogHost
-Microsoft.Windows.AssignedAccessLockApp
-Microsoft.Windows.ContentDeliveryManager
-Microsoft.Windows.OOBENetworkCaptivePortal
-Microsoft.Windows.OOBENetworkConnectionFlow
-Microsoft.Windows.SecureAssessmentBrowser
-Microsoft.XboxGameCallableUI
-Windows.PrintDialog
 ) do (
 for /f %%a in ('reg query "%InboxApplications%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
 )
