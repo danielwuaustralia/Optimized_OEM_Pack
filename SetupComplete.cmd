@@ -34,7 +34,7 @@ rem DirectX
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\DirectX\DXSETUP.exe /silent
 
 rem vulkan runtime
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.3.224.0-Installer.exe /S
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.3.224.1-Installer /S
 
 rem process lasso
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassoActivator.exe -makekeyfile -product:2 -output:"%WINDIR%\Setup\Scripts\SOFTWARE"
@@ -42,6 +42,9 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassosetup64.exe /S /keyfile=
 
 rem chipset driver
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Software.exe /S
+
+rem no MS Edge
+"C:\Program Files (x86)\Microsoft\Edge\Application\100.0.1185.36\Installer\setup.exe" --uninstall --msedge --system-level
 
 rem taskscheduler
 set "_schtasks=SCHTASKS /Change /DISABLE /TN"
@@ -261,4 +264,9 @@ del /f /q %windir%\SystemTasks.cmd
 del /f /q %SystemDrive%\unattend.xml
 del /f /q %ProgramData%\Microsoft\Diagnosis\*.rbs
 del /f /q /s %ProgramData%\Microsoft\Diagnosis\ETLLogs\*
+sc triggerinfo wuauserv delete
+sc triggerinfo WaaSMedicSvc delete
+DISM.exe /Online /Remove-DefaultAppAssociations
+DISM.exe /Online /Set-ReservedStorageState /State:Disabled
+
 %windir%\System32\UsoClient.exe RefreshSettings
