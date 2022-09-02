@@ -14,17 +14,8 @@ rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\"
 
 rem Time Sync
 sc config w32time start=demand
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers" /ve /t REG_SZ /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers" /v "1" /t REG_SZ /d "time.asia.apple.com" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers" /v "2" /t REG_SZ /d "ntp.aliyun.com" /f
-reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\DateTime\Servers" /ve /t REG_SZ /d "1" /f
-reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\DateTime\Servers" /v "1" /t REG_SZ /d "time.asia.apple.com" /f
-reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\DateTime\Servers" /v "2" /t REG_SZ /d "ntp.aliyun.com" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Parameters" /v "NtpServer" /t REG_SZ /d "time.asia.apple.com,0x8" /f
-w32tm /unregister
-w32tm /register
 net start w32time
-w32tm /config /manualpeerlist:time.asia.apple.com,0x1 /syncfromflags:manual /reliable:yes /update
+w32tm /config /manualpeerlist:time.google.com,0x1 /syncfromflags:manual /reliable:yes /update
 w32tm /resync
 net stop w32time
 
