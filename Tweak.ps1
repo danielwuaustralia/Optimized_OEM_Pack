@@ -2138,7 +2138,8 @@ Get-PnpDevice -InstanceId 'ROOT\VID\0000' | Disable-PnpDevice -Confirm:$false -V
 Get-PnpDevice -InstanceId 'ROOT\RDPBUS\0000' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -InstanceId 'ACPI\PNP0501\0' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -FriendlyName 'AMD PSP 11.0 Device' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -FriendlyName 'NVIDIA High Definition Audio' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'PCI\VEN_10EC&DEV_8168&SUBSYS_E0001458&REV_16\AEEEED4DC018000000' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'HDAUDIO\FUNC_01&VEN_10DE&DEV_009E&SUBSYS_10B02482&REV_1001\5&27112D9C&0&0001' | Disable-PnpDevice -Confirm:$false -Verbose
 
 # 网络优化
 Enable-NetAdapterChecksumOffload -Name *
