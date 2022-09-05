@@ -43,9 +43,6 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassosetup64.exe /S /keyfile=
 rem chipset driver
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Software.exe /S
 
-rem no MS Edge
-"C:\Program Files (x86)\Microsoft\Edge\Application\100.0.1185.36\Installer\setup.exe" --uninstall --msedge --system-level
-
 rem taskscheduler
 set "_schtasks=SCHTASKS /Change /DISABLE /TN"
 set "_schedule=Microsoft\Windows"
