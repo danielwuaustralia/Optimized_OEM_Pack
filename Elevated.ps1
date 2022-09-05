@@ -631,6 +631,8 @@ ForEach ($item in $IdleInWorkingState) { $path = $item -replace "HKEY_LOCAL_MACH
 Get-ChildItem 'C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations' | Remove-Item -Recurse -Force
 #
 Remove-Item -LiteralPath "HKCR:\*\shellex\ContextMenuHandlers\ModernSharing" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\AllFilesystemObjects\shellex\ContextMenuHandlers\ModernSharing" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\MSGraphDocument\shellex\ContextMenuHandlers\ModernSharing" -recurse -force;
 #
 Remove-Item -LiteralPath "HKCR:\.contact\ShellNew" -recurse -force;
 #
@@ -667,6 +669,11 @@ Remove-Item -LiteralPath "HKCR:\cmdfile\shell\runasuser" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\exefile\shell\runasuser" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\mscfile\shell\runasuser" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\Msi.Package\shell\runasuser" -recurse -force;
+#
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" -force };
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{7AD84985-87B4-4a16-BE58-8B72A5B390F7}' -Value 'Play to Menu' -PropertyType String -Force
+# Completely Remove Home in Navigation Pane of File Explorer
+New-ItemProperty -LiteralPath 'HKCR:\CLSID\{679f85cb-0220-4080-b29b-5540cc05aab6}\ShellFolder' -Name 'Attributes' -Value -1604321280 -PropertyType DWord -Force
 
 Remove-PSDrive -Name HKCR
 Get-ChildItem 'C:\Windows\Setup\Scripts' | Remove-Item -Recurse -Force
