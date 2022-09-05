@@ -3806,9 +3806,10 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Par
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'Hostname' -Value 'Alienware' -PropertyType String -Force
 
 # 显卡优化
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'HwSchMode' -Value '0' -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'PlatformSupportMiracast' -Value '0' -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers' -Name 'DpiMapIommuContiguous' -Value '1' -PropertyType DWord -Force
+if((Test-Path -LiteralPath "HKLM:\System\ControlSet001\Control\GraphicsDrivers") -ne $true) {  New-Item "HKLM:\System\ControlSet001\Control\GraphicsDrivers" -force };
+New-ItemProperty -LiteralPath 'HKLM:\System\ControlSet001\Control\GraphicsDrivers' -Name 'HwSchMode' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\System\ControlSet001\Control\GraphicsDrivers' -Name 'PlatformSupportMiracast' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\System\ControlSet001\Control\GraphicsDrivers' -Name 'DpiMapIommuContiguous' -Value 1 -PropertyType DWord -Force
 if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\DirectX\GraphicsSettings") -ne $true) {  New-Item "HKCU:\Software\Microsoft\DirectX\GraphicsSettings" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\DirectX\GraphicsSettings' -Name 'SwapEffectUpgradeCache' -Value 1 -PropertyType DWord -Force
 if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\DirectX\UserGpuPreferences") -ne $true) {  New-Item "HKCU:\Software\Microsoft\DirectX\UserGpuPreferences" -force };
@@ -4132,7 +4133,7 @@ Remove-PSDrive -Name HKCR
 ###############################################
 Copy-Item 'C:\Windows\Setup\Scripts\Runstartuptask.lnk' -Destination 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup' -Force
 ######################################################
-Start-Process -Wait -FilePath "C:\Windows\SysWOW64\PowerRun_x64.exe" -ArgumentList '"C:\Program Files\PowerShell\7-preview\pwsh.exe" -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Elevated.ps1"'\
+Start-Process -Wait -FilePath "C:\Windows\SysWOW64\PowerRun_x64.exe" -ArgumentList '"C:\Program Files\PowerShell\7-preview\pwsh.exe" -ExecutionPolicy Bypass -File "C:\Windows\Setup\Scripts\Elevated.ps1"'
 #############################################################
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce' -Name '1' -Value 'C:\Windows\Startallback.exe' -PropertyType String -Force
