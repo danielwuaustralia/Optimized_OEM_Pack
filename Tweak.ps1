@@ -1509,6 +1509,37 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Video\Output' -Name 'yv16' -Va
 New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Video\Output' -Name 'yv24' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\LAV\Video\Output' -Name 'rgb48' -Value 1 -PropertyType DWord -Force
 # Chrome 策略
+if((Test-Path -LiteralPath "HKCR:\ChromeDHTML\Application") -ne $true) {  New-Item "HKCR:\ChromeDHTML\Application" -force };
+New-ItemProperty -LiteralPath 'HKCR:\ChromeDHTML\Application' -Name 'ApplicationName' -Value 'Google Chrome Dev' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.htm\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.htm\UserChoice' -Name 'Hash' -Value 'ifFQ7TOc+z8=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.html\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.html\UserChoice' -Name 'Hash' -Value 'MC7HfuXt69A=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.pdf\UserChoice' -Name 'Hash' -Value 'TmAqUutMDV4=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.pdf\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.shtml\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.shtml\UserChoice' -Name 'Hash' -Value 'AheO9RpU2dI=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.svg\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.svg\UserChoice' -Name 'Hash' -Value 'DGx82zA3gdc=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.webp\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.webp\UserChoice' -Name 'Hash' -Value 'FODvy2WLOUs=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.xht\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.xht\UserChoice' -Name 'Hash' -Value 'xeo4IifMuzA=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.xhtml\UserChoice' -Name 'Hash' -Value 'yoT4uPz2sZM=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.xhtml\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\FileAssociations\MicrosoftExperiences' -Name 'MSEdge' -Value 'aezwQtIrQeg=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\ftp\UserChoice' -Name 'Hash' -Value 'dPzLNtFiJHQ=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\ftp\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice' -Name 'Hash' -Value 'c+05U/IzWZU=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https\UserChoice' -Name 'Hash' -Value 'AxRqn0dHTus=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\mailto\UserChoice' -Name 'Hash' -Value 'neRsCpJ56fQ=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\mailto\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\mms\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\mms\UserChoice' -Name 'Hash' -Value 'q6Ajt/rhQ1E=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\webcal\UserChoice' -Name 'Hash' -Value '5AjyKyOm7Wo=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\webcal\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Google\Chrome\SpellcheckLanguage') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Google\Chrome\SpellcheckLanguage' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Google\Chrome\SpellcheckLanguage' -Name '1' -Value 'en-US' -PropertyType String -Force
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Google\Chrome') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Google\Chrome' -Force };
@@ -4038,9 +4069,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Ma
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WDI\Config' -Name 'SEMEnabled' -Value 0 -PropertyType DWord -Force
 Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WDI\Config' -Name 'ServerName' -Force
 
-# https://www.elevenforum.com/t/turn-on-or-off-usb-battery-saver-in-windows-11.7745/
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\USB\AutomaticSurpriseRemoval' -Name 'AttemptRecoveryFromUsbPowerDrain' -Value 0 -PropertyType DWord -Force
-
 # To Disable Snap Layouts on Top of Screen
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'EnableSnapBar' -Value 0 -PropertyType DWord -Force
 
@@ -4066,10 +4094,6 @@ New-ItemProperty -LiteralPath 'HKLM:\Software\Wow6432Node\Microsoft\Cryptography
 
 # 0 - Disable configuring the machine at boot-up
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'DSCAutomationHostEnabled' -Value 0 -PropertyType DWord -Force
-
-# Optimizations for windowed games
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\DirectX\UserGpuPreferences") -ne $true) {  New-Item "HKCU:\Software\Microsoft\DirectX\UserGpuPreferences" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\DirectX\UserGpuPreferences' -Name 'DirectXUserGlobalSettings' -Value 'SwapEffectUpgradeEnable=1;VRROptimizeEnable=0;' -PropertyType String -Force
 
 # https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.EdgeUI::AllowEdgeSwipe
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\EdgeUI") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\EdgeUI" -force };
