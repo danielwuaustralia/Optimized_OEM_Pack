@@ -521,20 +521,20 @@ Remove-Item -LiteralPath "HKCR:\CLSID\{A2F5CB38-265F-4A02-9D1E-F25B664968AB}" -r
 Remove-Item -LiteralPath "HKCR:\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Extensions\windows.fileTypeAssociation\.pdf\AppXd4nrz8ff68srnhf9t5a8sbjyar1cr723" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Extensions\windows.fileTypeAssociation\.svg\AppXde74bfzw9j31bzhcvsrxsyjnhhbq66cs" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Extensions\windows.protocol\https\AppX90nv6nhay5n6a98fnetv7tpk64pp35es" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel\StateRepository\Cache\Protocol\Data\6" -recurse -force;
-Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel\StateRepository\Cache\Protocol\Data\7" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel\StateRepository\Cache\Protocol\Index\Name\microsoft-edge" -recurse -force;
 Remove-Item -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel\StateRepository\Cache\Protocol\Index\Name\microsoft-edge-holographic" -recurse -force;
-Remove-ItemProperty -LiteralPath 'HKCR:\AppUserModelId\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge' -Name 'ExcludeFromTabbedSetsSettings' -Force
 Remove-Item -LiteralPath "HKCR:\AppUserModelId\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge" -recurse -force;
 Remove-ItemProperty -LiteralPath 'HKCR:\.htm\OpenWithProgIds' -Name 'MSEdgeHTM' -Force
 Remove-ItemProperty -LiteralPath 'HKCR:\.htm\OpenWithProgIds' -Name 'IE.AssocFile.HTM' -Force
 Remove-ItemProperty -LiteralPath 'HKCR:\.html\OpenWithProgIds' -Name 'MSEdgeHTM' -Force
 Remove-ItemProperty -LiteralPath 'HKCR:\.html\OpenWithProgIds' -Name 'IE.AssocFile.HTM' -Force
+Remove-ItemProperty -LiteralPath 'HKCR:\.shtml\OpenWithProgIds' -Name 'MSEdgeHTM' -Force
+Remove-ItemProperty -LiteralPath 'HKCR:\.webp\OpenWithProgids' -Name 'MSEdgeHTM' -Force
 Remove-ItemProperty -LiteralPath 'HKCR:\.pdf\OpenWithProgids' -Name 'MSEdgePDF' -Force
-Remove-Item -LiteralPath "HKCR:\.pdf\ShellEx\{8895b1c6-b41f-4c1c-a562-0d564250836f}" -force;
+Remove-Item -LiteralPath "HKCR:\.pdf\ShellEx\{8895b1c6-b41f-4c1c-a562-0d564250836f}" -force
 Remove-ItemProperty -LiteralPath 'HKCR:\.svg\OpenWithProgIds' -Name 'MSEdgeHTM' -Force
 Remove-ItemProperty -LiteralPath 'HKCR:\.xht\OpenWithProgIds' -Name 'MSEdgeHTM' -Force
+Remove-ItemProperty -LiteralPath 'HKCR:\.xml\OpenWithProgids' -Name 'MSEdgeHTM' -Force
 Remove-ItemProperty -LiteralPath 'HKCR:\.xhtml\OpenWithProgIds' -Name 'MSEdgeHTM' -Force
 Remove-ItemProperty -LiteralPath 'HKCR:\.mht\OpenWithProgIds' -Name 'MSEdgeMHT' -Force
 Remove-ItemProperty -LiteralPath 'HKCR:\.mhtml\OpenWithProgIds' -Name 'MSEdgeMHT' -Force
@@ -546,7 +546,84 @@ Remove-Item -LiteralPath "HKCR:\AppID\MicrosoftEdgeUpdate.exe" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\CLSID\{3AF1251F-9B5A-4F53-9B6D-B0B71E02006E}" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\CLSID\{9BD1F370-1212-4794-AA9B-9EBD575091D5}" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\CLSID\{9E8F1B36-249F-4FC3-9994-974AFAA07B26}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\AppID\{1FCBE96C-1697-43AF-9140-2897C7C69767}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\AppID\{31575964-95F7-414B-85E4-0E9A93699E13}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\AppID\ie_to_edge_bho.dll" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\CLSID\{1FD49718-1D00-4B19-AF5F-070AF6D5D54C}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\ie_to_edge_bho.IEToEdgeBHO" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\ie_to_edge_bho.IEToEdgeBHO.1" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\microsoft-edge" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\microsoft-edge-holographic" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\MSEdgeHTM" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\MSEdgeMHT" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\MSEdgePDF" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{08D832B9-D2FD-481F-98CF-904D00DF63CC}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{1FD49718-1D00-4B19-AF5F-070AF6D5D54C}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{2E1DD7EF-C12D-4F8E-8AD8-CF8CC265BAD0}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{492E1C30-A1A2-4695-87C8-7A8CAD6F936F}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{5F6A18BB-6231-424B-8242-19E5BB94F8ED}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{77857D02-7A25-4B67-9266-3E122A8F39E4}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{8F09CD6C-5964-4573-82E3-EBFF7702865B}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{9F3F5F5D-721A-4B19-9B5D-69F664C1A591}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{A6B716CB-028B-404D-B72C-50E153DD68DA}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{B5977F34-9264-4AC3-9B31-1224827FF6E8}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{D1E8B1A6-32CE-443C-8E2E-EBA90C481353}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{E421557C-0628-43FB-BF2B-7C9F8A4D067C}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{EA92A799-267E-4DF5-A6ED-6A7E0684BB8A}" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\WOW6432Node\CLSID\{FF419FF9-90BE-4D9F-B410-A789F90E5A7C}" -recurse -force;
+New-ItemProperty -LiteralPath 'HKCR:\CLSID\{3A84F9C2-6164-485C-A7D9-4B27F8AC009E}\InProcServer32' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCR:\CLSID\{628ACE20-B77A-456F-A88D-547DB6CEEDD5}\LocalServer32' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCR:\CLSID\{628ACE20-B77A-456F-A88D-547DB6CEEDD5}\LocalServer32' -Name 'ServerExecutable' -Value '' -PropertyType String -Force
+Remove-Item -LiteralPath "HKCR:\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Extensions\windows.fileTypeAssociation\.htm\AppX4hxtad77fbk3jkkeerkrm0ze94wjf3s9" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Extensions\windows.fileTypeAssociation\.html\AppX4hxtad77fbk3jkkeerkrm0ze94wjf3s9" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Extensions\windows.protocol\http\AppXq0fevzme2pys62n3e0fbqa7peapykr8v" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Extensions\windows.protocol\ms-xbl-3d8b930f\AppXdn5b0j699ka5fqvrr3pgjad0evqarm6d" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Extensions\windows.protocol\read\AppXe862j7twqs4aww05211jaakwxyfjx4da" -recurse -force;
+New-ItemProperty -LiteralPath 'HKCR:\TypeLib\{C9C2B807-7731-4F34-81B7-44FF7779522B}\1.0\0\win32' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCR:\TypeLib\{C9C2B807-7731-4F34-81B7-44FF7779522B}\1.0\0\win64' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCR:\WOW6432Node\CLSID\{3A84F9C2-6164-485C-A7D9-4B27F8AC009E}\InProcServer32' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCR:\WOW6432Node\CLSID\{3AF1251F-9B5A-4F53-9B6D-B0B71E02006E}\InprocHandler32' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCR:\WOW6432Node\CLSID\{9BD1F370-1212-4794-AA9B-9EBD575091D5}\InProcServer32' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCR:\WOW6432Node\CLSID\{9BD1F370-1212-4794-AA9B-9EBD575091D5}\InProcServer32' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCR:\WOW6432Node\CLSID\{9E8F1B36-249F-4FC3-9994-974AFAA07B26}\InprocServer32' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCR:\WOW6432Node\CLSID\{A2F5CB38-265F-4A02-9D1E-F25B664968AB}\InprocServer32' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCR:\WOW6432Node\CLSID\{CECDDD22-2E72-4832-9606-A9B0E5E344B2}\ProgID' -Name '(default)' -Value '' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCR:\WOW6432Node\CLSID\{CECDDD22-2E72-4832-9606-A9B0E5E344B2}\VersionIndependentProgID' -Name '(default)' -Value '' -PropertyType String -Force
 Get-ChildItem -Path 'HKCR:\' | Where-Object -Property Name -Like *MicrosoftEdgeUpdate* | Remove-Item -recurse -force;
+Get-ChildItem -Path 'HKCR:\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Packages\' | Where-Object -Property Name -Like *MicrosoftEdge* | Remove-Item -recurse -force;
+#
+if((Test-Path -LiteralPath "HKCR:\ChromeDHTML\Application") -ne $true) {  New-Item "HKCR:\ChromeDHTML\Application" -force };
+New-ItemProperty -LiteralPath 'HKCR:\ChromeDHTML\Application' -Name 'ApplicationDescription' -Value 'Access the Internet' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCR:\ChromeDHTML\Application' -Name 'ApplicationName' -Value 'Google Chrome Dev' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.htm\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.htm\UserChoice' -Name 'Hash' -Value 'ifFQ7TOc+z8=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.html\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.html\UserChoice' -Name 'Hash' -Value 'MC7HfuXt69A=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.pdf\UserChoice' -Name 'Hash' -Value 'TmAqUutMDV4=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.pdf\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.shtml\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.shtml\UserChoice' -Name 'Hash' -Value 'AheO9RpU2dI=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.svg\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.svg\UserChoice' -Name 'Hash' -Value 'DGx82zA3gdc=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.webp\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.webp\UserChoice' -Name 'Hash' -Value 'FODvy2WLOUs=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.xht\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.xht\UserChoice' -Name 'Hash' -Value 'xeo4IifMuzA=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.xhtml\UserChoice' -Name 'Hash' -Value 'yoT4uPz2sZM=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.xhtml\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\FileAssociations\MicrosoftExperiences' -Name 'MSEdge' -Value 'aezwQtIrQeg=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\ftp\UserChoice' -Name 'Hash' -Value 'dPzLNtFiJHQ=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\ftp\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice' -Name 'Hash' -Value 'c+05U/IzWZU=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https\UserChoice' -Name 'Hash' -Value 'AxRqn0dHTus=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\mailto\UserChoice' -Name 'Hash' -Value 'neRsCpJ56fQ=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\mailto\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\mms\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\mms\UserChoice' -Name 'Hash' -Value 'q6Ajt/rhQ1E=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\webcal\UserChoice' -Name 'Hash' -Value '5AjyKyOm7Wo=' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\webcal\UserChoice' -Name 'ProgId' -Value 'ChromeDHTML' -PropertyType String -Force
 
 <# 禁用nvidia驱动log #>
 Get-ChildItem -Path 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
