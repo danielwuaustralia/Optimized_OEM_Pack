@@ -4,7 +4,7 @@
 setlocal enabledelayedexpansion
 
 rem SpeedyFox
-"C:\Program Files\speedyfox.exe" "/Firefox:all" "/Chrome:all"
+"C:\Program Files\speedyfox.exe" "/Firefox:default" "/Chrome:C:\Users\Administrator\AppData\Local\Google\Chrome Dev\User Data"
 
 timeout 2
 
@@ -28,9 +28,6 @@ rem logman query -ets
 
 rem Refresh DNS Cache
 ipconfig /flushdns
-
-rem MUI Cache
-reg delete "HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\MuiCache" /f
 
 rem CleanMgr.exe
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /f
