@@ -94,13 +94,14 @@ for %%i in (
 MicrosoftEdge
 MicrosoftEdgeDevToolsClient
 Microsoft.Win32WebViewHost
-AppRep.ChxApp
-Microsoft.BioEnrollment
-Microsoft.Windows.PeopleExperienceHost
 Microsoft.AAD.BrokerPlugin
 Microsoft.AsyncTextService
+Microsoft.BioEnrollment
 Microsoft.ECApp
 Microsoft.LockApp
+AppRep.ChxApp
+NcsiUwpApp
+Microsoft.Windows.PeopleExperienceHost
 Microsoft.Windows.AssignedAccessLockApp
 Microsoft.Windows.CapturePicker
 Microsoft.Windows.ContentDeliveryManager
