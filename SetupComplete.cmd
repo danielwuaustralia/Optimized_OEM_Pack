@@ -9,6 +9,9 @@ rem Office 365
 rem KMS
 call %windir%\Setup\Scripts\KMS_VL_ALL_AIO.cmd /x /s /a
 
+rem chipset driver
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Software.exe /S
+
 rem register video filters
 regsvr32.exe "C:\Program Files\madVR\madVR64.ax" /s
 
@@ -19,10 +22,10 @@ rem https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VisualCppRedist_AIO_x86_x64.exe /ai /gm2
 
 rem https://dotnet.microsoft.com/en-us/download/dotnet/6.0
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-6.0.9-win-x64.exe /install /quiet /norestart
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-7.0.0-rc.1.22427.1-win-x64.exe /install /quiet /norestart
 
 rem Powershell 7
-%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.3.0-preview.7-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
+%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.3.0-preview.8-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
 rem lav
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.76.1-25.exe /VERYSILENT
@@ -34,14 +37,15 @@ rem DirectX
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\DirectX\DXSETUP.exe /silent
 
 rem vulkan runtime
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.3.224.1-Installer /S
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.3.224.1-Installer.exe /S
 
 rem process lasso
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassoActivator.exe -makekeyfile -product:2 -output:"%WINDIR%\Setup\Scripts\SOFTWARE"
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassosetup64.exe /S /keyfile=%WINDIR%\Setup\Scripts\SOFTWARE\prolasso.key /launch_gui=false /gui_start_type=all /governor_start_type=all /language=SimpChinese
 
-rem chipset driver
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\AMD_Chipset_Software.exe /S
+rem DefaultAppAssociations
+DISM.exe /Online /Remove-DefaultAppAssociations
+DISM.exe /online /Import-DefaultAppAssociations:"%WINDIR%\Setup\Scripts\MyDefaultAppAssociations.xml"
 
 rem taskscheduler
 set "_schtasks=SCHTASKS /Change /DISABLE /TN"
@@ -259,11 +263,21 @@ TIMEOUT /T 5
 SCHTASKS /Delete /F /TN SystemTasks
 del /f /q %windir%\SystemTasks.cmd
 del /f /q %SystemDrive%\unattend.xml
-del /f /q %ProgramData%\Microsoft\Diagnosis\*.rbs
-del /f /q /s %ProgramData%\Microsoft\Diagnosis\ETLLogs\*
 sc triggerinfo wuauserv delete
 sc triggerinfo WaaSMedicSvc delete
-DISM.exe /Online /Remove-DefaultAppAssociations
 DISM.exe /Online /Set-ReservedStorageState /State:Disabled
+del /f /q %ProgramData%\Microsoft\Diagnosis\*.rbs
+del /f /q /s %ProgramData%\Microsoft\Diagnosis\ETLLogs\*
+del /f /s /q %SystemDrive%\*.tmp
+del /f /s /q %SystemDrive%\*._mp
+del /f /s /q %SystemDrive%\*.log
+del /f /s /q %SystemDrive%\*.gid
+del /f /s /q %SystemDrive%\*.chk
+del /f /s /q %SystemDrive%\*.old
+del /f /s /q %windir%\*.bak
+del /f /s /q %windir%\prefetch\*.*
+del /f /q %userprofile%\cookies\*.*
+del /f /q %userprofile%\recent\*.*
+del /f /s /q %userprofile%\Local Settings\Temporary Internet Files\*.*
 
 %windir%\System32\UsoClient.exe RefreshSettings
