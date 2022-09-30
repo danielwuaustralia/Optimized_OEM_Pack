@@ -1,6 +1,6 @@
 ########################################################快捷方式后缀########################################################
 
---no-proxy-server --disable-notifications --no-report-upload --disable-breakpad --disable-crash-reporter --enable-features=PlatformHEVCDecoderSupport
+--no-proxy-server --no-report-upload --disable-breakpad --disable-crash-reporter --enable-features=PlatformHEVCDecoderSupport
 
 #######################################################禁用以下flags########################################################
 
@@ -16,23 +16,19 @@ tab-groups
 
 #download-bubble
 
-##################################################开启以下flags########################################################
+#high-efficiency-mode-available
 
-#enable-async-dns
+#battery-saver-mode-available
+
+##################################################开启以下flags########################################################
 
 #enable-webrtc-hide-local-ips-with-mdns
 
-webassembly
+#enable-hardware-secure-decryption-experiment
 
-#enable-future-v8-vm-features
-
-#enable-experimental-web-platform-features
-
-Prerender2
+WebGPU
 
 #canvas-oop-rasterization
-
-#enable-javascript-harmony
 
 #password-import
 
@@ -46,4 +42,4 @@ Prerender2
 
 #ignore-gpu-blocklist
 
-#enable-drdc
+DrDc
