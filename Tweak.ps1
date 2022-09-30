@@ -2893,6 +2893,8 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Wbem\CIMOM' -Name 'Enabl
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Wbem\CIMOM' -Name 'Logging' -Value '0' -PropertyType String -Force
 
 # 禁用smartscreen
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Edge\SmartScreenEnabled' -Name '(default)' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Edge\SmartScreenPuaEnabled' -Name '(default)' -Value 0 -PropertyType DWord -Force
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppHost") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppHost" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppHost' -Name 'EnableWebContentEvaluation' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppHost' -Name 'SmartScreenEnabled' -Value 'Off' -PropertyType String -Force
