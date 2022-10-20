@@ -79,6 +79,10 @@ reg unload HKLM\NTUSER
 reg delete "HKU\S-1-5-19\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
 reg delete "HKU\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
 
+rem Disable UBPM BOOT logging
+set "ubpm=HKLM\SYSTEM\ControlSet001\Control\Ubpm"
+for /f "tokens=1" %%a in ('reg query "%ubpm%" 2^>nul ^| find /i "REG_SZ"') do if not errorlevel 1 (%nsd1% reg delete "%ubpm%\%%a" /f 2>nul)
+
 rem APPX
 set "Applications=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Applications"
 for %%i in (
@@ -94,7 +98,6 @@ for %%i in (
 MicrosoftEdge
 MicrosoftEdgeDevToolsClient
 Microsoft.Win32WebViewHost
-Microsoft.AAD.BrokerPlugin
 Microsoft.AsyncTextService
 Microsoft.BioEnrollment
 Microsoft.ECApp
