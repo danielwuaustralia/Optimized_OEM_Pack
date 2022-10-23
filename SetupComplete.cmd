@@ -18,8 +18,9 @@ regsvr32.exe "C:\Program Files\madVR\madVR64.ax" /s
 rem 7zip
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\7z2201-x64.exe /S /D="C:\Program Files\7-Zip"
 
-rem https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VisualCppRedist_AIO_x86_x64.exe /ai /gm2
+rem https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VC_redist.x86.exe /install /quiet /norestart
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VC_redist.x64.exe /install /quiet /norestart
 
 rem https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-6.0.10-win-x64.exe /install /quiet /norestart
