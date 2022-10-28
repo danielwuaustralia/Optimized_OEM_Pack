@@ -26,7 +26,7 @@ rem https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-6.0.10-win-x64.exe /install /quiet /norestart
 
 rem Powershell 7
-%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.3.0-preview.8-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
+%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.3.0-rc.1-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
 rem lav
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.76.1-29.exe /VERYSILENT
@@ -35,7 +35,7 @@ rem DirectX
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\DirectX\DXSETUP.exe /silent
 
 rem vulkan runtime
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.3.224.1-Installer.exe /S
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.3.231.1-Installer.exe /S
 
 rem process lasso
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassoActivator.exe -makekeyfile -product:2 -output:"%WINDIR%\Setup\Scripts\SOFTWARE"
