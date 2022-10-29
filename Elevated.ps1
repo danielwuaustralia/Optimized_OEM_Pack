@@ -321,6 +321,7 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Pr
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *SecurityHealthService* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *Sense* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *webthreatdefsvc* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *webthreatdefusersvc* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *MsSecFlt* | Set-ItemProperty -Name Start -Value 4 -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdNisSvc' -Name 'LaunchProtected' -Value 4 -PropertyType DWord -Force
 if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance" -force };
@@ -331,84 +332,41 @@ if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Noti
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.CapabilityAccess' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
 if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.StartupApp") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.StartupApp" -force };
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.StartupApp' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Systray") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Systray" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Systray' -Name 'HideSystray' -Value 1 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Security Center') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Security Center' -Force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Security Center' -Name 'cval' -Value 0 -PropertyType DWord -Force
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Attachments") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Attachments" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Attachments' -Name 'ScanWithAntiVirus' -Value 1 -PropertyType DWord -Force
 Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run' -Name 'SecurityHealth' -Force
-if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows Defender\Features") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows Defender\Features" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows Defender\Features' -Name 'TamperProtection' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows Defender\Features' -Name 'TamperProtectionSource' -Value 2 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows Security Health\State") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows Security Health\State" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows Security Health\State' -Name 'AccountProtection_MicrosoftAccount_Disconnected' -Value 0 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKCU:\Software\Microsoft\Windows Defender Security Center\Notifications") -ne $true) {  New-Item "HKCU:\Software\Microsoft\Windows Defender Security Center\Notifications" -force };
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows Defender Security Center\Notifications' -Name 'DisableNotifications' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows Defender Security Center\Notifications' -Name 'DisableEnhancedNotifications' -Value 1 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows Defender") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows Defender" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows Defender' -Name 'DisableAntiSpyware' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows Defender' -Name 'DisableRoutinelyTakingAction' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows Defender' -Name 'DisableAntiVirus' -Value 1 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows Defender\Signature Updates") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows Defender\Signature Updates" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows Defender\Signature Updates' -Name 'FirstAuGracePeriod' -Value 0 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows Defender\UX Configuration") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows Defender\UX Configuration" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows Defender\UX Configuration' -Name 'DisablePrivacyMode' -Value 1 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run" -force };
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run' -Name 'SecurityHealth' -Value ([byte[]](0x03,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00)) -PropertyType Binary -Force
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -force };
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Features") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Features" -force };
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine" -force };
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Policy Manager") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Policy Manager" -force };
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" -force };
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting" -force };
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\SmartScreen") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\SmartScreen" -force };
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\SpyNet") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\SpyNet" -force };
+if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\UX Configuration") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\UX Configuration" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender' -Name 'DisableAntiSpyware' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender' -Name 'PUAProtection' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender' -Name 'RandomizeScheduleTaskTimes' -Value 0 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKLM:\Policies\Microsoft\Windows Defender\Exclusions") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Exclusions" -force };
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Exclusions' -Name 'DisableAutoExclusions' -Value 1 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKLM:\Policies\Microsoft\Windows Defender\MpEngine") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine" -force };
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\MpEngine' -Name 'MpEnablePus' -Value 0 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKLM:\Policies\Microsoft\Windows Defender\Quarantine") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Quarantine" -force };
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Quarantine' -Name 'LocalSettingOverridePurgeItemsAfterDelay' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Quarantine' -Name 'PurgeItemsAfterDelay' -Value 0 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKLM:\Policies\Microsoft\Windows Defender\Real-Time Protection") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" -force };
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Real-Time Protection' -Name 'DisableBehaviorMonitoring' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Real-Time Protection' -Name 'DisableIOAVProtection' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Real-Time Protection' -Name 'DisableOnAccessProtection' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Real-Time Protection' -Name 'DisableRealtimeMonitoring' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Real-Time Protection' -Name 'DisableRoutinelyTakingAction' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Real-Time Protection' -Name 'DisableScanOnRealtimeEnable' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Real-Time Protection' -Name 'DisableScriptScanning' -Value 1 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKLM:\Policies\Microsoft\Windows Defender\Remediation") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Remediation" -force };
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Remediation' -Name 'Scan_ScheduleDay' -Value 8 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Remediation' -Name 'Scan_ScheduleTime' -Value 0 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKLM:\Policies\Microsoft\Windows Defender\Reporting") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting" -force };
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Reporting' -Name 'AdditionalActionTimeOut' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Reporting' -Name 'CriticalFailureTimeOut' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Reporting' -Name 'DisableEnhancedNotifications' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Reporting' -Name 'DisableGenericRePorts' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Reporting' -Name 'NonCriticalTimeOut' -Value 0 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKLM:\Policies\Microsoft\Windows Defender\Scan") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Scan" -force };
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Scan' -Name 'AvgCPULoadFactor' -Value 10 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Scan' -Name 'DisableArchiveScanning' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Scan' -Name 'DisableCatchupFullScan' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Scan' -Name 'DisableCatchupQuickScan' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Scan' -Name 'DisableRemovableDriveScanning' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Scan' -Name 'DisableRestorePoint' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Scan' -Name 'DisableScanningMappedNetworkDrivesForFullScan' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Scan' -Name 'DisableScanningNetworkFiles' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Scan' -Name 'PurgeItemsAfterDelay' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Scan' -Name 'ScanOnlyIfIdle' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Scan' -Name 'ScanParameters' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Scan' -Name 'ScheduleDay' -Value 8 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Scan' -Name 'ScheduleTime' -Value 0 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKLM:\Policies\Microsoft\Windows Defender\Signature Updates") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Signature Updates" -force };
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Signature Updates' -Name 'DisableUpdateOnStartupWithoutEngine' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Signature Updates' -Name 'ScheduleDay' -Value 8 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Signature Updates' -Name 'ScheduleTime' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\Signature Updates' -Name 'SignatureUpdateCatchupInterval' -Value 0 -PropertyType DWord -Force
-if((Test-Path -LiteralPath "HKLM:\Policies\Microsoft\Windows Defender\SpyNet") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\SpyNet" -force };
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\SpyNet' -Name 'DisableBlockAtFirstSeen' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\SpyNet' -Name 'LocalSettingOverrideSpynetReporting' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\SpyNet' -Name 'SpyNetReporting' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\SpyNet' -Name 'SpyNetReportingLocation' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Policies\Microsoft\Windows Defender\SpyNet' -Name 'SubmitSamplesConsent' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Features' -Name 'TamperProtection' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Features' -Name 'TamperProtectionSource' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine' -Name 'MpEnablePus' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Policy Manager' -Name 'AllowBehaviorMonitoring' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Policy Manager' -Name 'AllowCloudProtection' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Policy Manager' -Name 'AllowRealtimeMonitoring' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Policy Manager' -Name 'SubmitSamplesConsent' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection' -Name 'DisableBehaviorMonitoring' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection' -Name 'DisableRealtimeMonitoring' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection' -Name 'DisableOnAccessProtection' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection' -Name 'DisableScanOnRealtimeEnable' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection' -Name 'DisableIOAVProtection' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting' -Name 'DisableEnhancedNotifications' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\SmartScreen' -Name 'ConfigureAppInstallControlEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\SmartScreen' -Name 'ConfigureAppInstallControl' -Value 'Anywhere' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\SpyNet' -Name 'SpyNetReporting' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\SpyNet' -Name 'SubmitSamplesConsent' -Value 2 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\UX Configuration' -Name 'Notification_Suppress' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\UX Configuration' -Name 'UILockdown' -Value 0 -PropertyType DWord -Force
 
 <# 禁用防火墙 #>
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall" -force };
@@ -645,8 +603,6 @@ Remove-Item -LiteralPath "HKCR:\*\shellex\ContextMenuHandlers\ModernSharing" -re
 Remove-Item -LiteralPath "HKCR:\AllFilesystemObjects\shellex\ContextMenuHandlers\ModernSharing" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\MSGraphDocument\shellex\ContextMenuHandlers\ModernSharing" -recurse -force;
 #
-Remove-Item -LiteralPath "HKCR:\.contact\ShellNew" -recurse -force;
-#
 Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.avci\Shell\setdesktopwallpaper" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.avcs\Shell\setdesktopwallpaper" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\SystemFileAssociations\.avif\Shell\setdesktopwallpaper" -recurse -force;
@@ -681,12 +637,40 @@ Remove-Item -LiteralPath "HKCR:\exefile\shell\runasuser" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\mscfile\shell\runasuser" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\Msi.Package\shell\runasuser" -recurse -force;
 #
+Remove-Item -LiteralPath "HKCR:\.contact\ShellNew" -recurse -force;
 Remove-Item -LiteralPath "HKCR:\Folder\ShellEx\ContextMenuHandlers\Library Location" -force;
+Remove-Item -LiteralPath "HKCR:\.library-ms\ShellNew" -recurse -force;
+Remove-Item -LiteralPath "HKCR:\.zip\CompressedFolder\ShellNew" -recurse -force;
+#
+Remove-Item -LiteralPath "HKCR:\Directory\shellex\ContextMenuHandlers\EPP" -force;
+Remove-Item -LiteralPath "HKCR:\Drive\shellex\ContextMenuHandlers\EPP" -force;
+Remove-Item -LiteralPath "HKCR:\*\shellex\ContextMenuHandlers\EPP" -force;
 #
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked") -ne $true) {  New-Item "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{7AD84985-87B4-4a16-BE58-8B72A5B390F7}' -Value 'Play to Menu' -PropertyType String -Force
 # Completely Remove Home in Navigation Pane of File Explorer
 New-ItemProperty -LiteralPath 'HKCR:\CLSID\{679f85cb-0220-4080-b29b-5540cc05aab6}\ShellFolder' -Name 'Attributes' -Value -1604321280 -PropertyType DWord -Force
+# 移除系统Appx目录
+Get-ChildItem 'C:\Program Files\WindowsApps\*Microsoft.MicrosoftEdge.Stable*' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Program Files\WindowsApps\*Microsoft.SecHealthUI*' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\SystemApps\Microsoft.AAD.BrokerPlugin_cw5n1h2txyewy' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\SystemApps\Microsoft.AsyncTextService_8wekyb3d8bbwe' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\SystemApps\Microsoft.BioEnrollment_cw5n1h2txyewy' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\SystemApps\Microsoft.ECApp_8wekyb3d8bbwe' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\SystemApps\Microsoft.LockApp_cw5n1h2txyewy' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\SystemApps\Microsoft.MicrosoftEdgeDevToolsClient_8wekyb3d8bbwe' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\SystemApps\Microsoft.Win32WebViewHost_cw5n1h2txyewy' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\SystemApps\Microsoft.Windows.AddSuggestedFoldersToLibraryDialog_cw5n1h2txyewy' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\SystemApps\Microsoft.Windows.FileExplorer_cw5n1h2txyewy' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\SystemApps\Microsoft.Windows.FilePicker_cw5n1h2txyewy' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\SystemApps\microsoft.windows.narratorquickstart_8wekyb3d8bbwe' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\SystemApps\ParentalControls_cw5n1h2txyewy' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\SystemApps\Microsoft.Windows.PeopleExperienceHost_cw5n1h2txyewy' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\SystemApps\Microsoft.Windows.PinningConfirmationDialog_cw5n1h2txyewy' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\SystemApps\NcsiUwpApp_8wekyb3d8bbwe' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\SystemApps\Windows.CBSPreview_cw5n1h2txyewy' | Remove-Item -Recurse -Force
 
+#####
 Remove-PSDrive -Name HKCR
 Get-ChildItem 'C:\Windows\Setup\Scripts' | Remove-Item -Recurse -Force
