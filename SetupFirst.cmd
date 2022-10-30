@@ -83,6 +83,14 @@ rem Disable UBPM BOOT logging
 set "ubpm=HKLM\SYSTEM\ControlSet001\Control\Ubpm"
 for /f "tokens=1" %%a in ('reg query "%ubpm%" 2^>nul ^| find /i "REG_SZ"') do if not errorlevel 1 (%nsd1% reg delete "%ubpm%\%%a" /f 2>nul)
 
+rem allow Edge to be uninstalled
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge" /f
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge Update" /f
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft EdgeWebView" /f
+
+rem delete edge browser
+for /f %%x in ('dir /b "C:\Program Files (x86)\Microsoft\Edge*"') do (rmdir /q /s "C:\Program Files (x86)\Microsoft\%%x")
+
 rem APPX
 set "Applications=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Applications"
 for %%i in (
@@ -98,29 +106,20 @@ for %%i in (
 MicrosoftEdge
 MicrosoftEdgeDevToolsClient
 Microsoft.Win32WebViewHost
+Microsoft.AAD.BrokerPlugin
 Microsoft.AsyncTextService
 Microsoft.BioEnrollment
 Microsoft.ECApp
 Microsoft.LockApp
-AppRep.ChxApp
-NcsiUwpApp
-Microsoft.Windows.PeopleExperienceHost
-Microsoft.Windows.AssignedAccessLockApp
-Microsoft.Windows.CapturePicker
-Microsoft.Windows.ContentDeliveryManager
+Microsoft.Windows.AddSuggestedFoldersToLibarayDialog
+Microsoft.Windows.FileExplorer
+Microsoft.Windows.FilePicker
 Microsoft.Windows.NarratorQuickStart
-Microsoft.Windows.OOBENetworkCaptivePortal
-Microsoft.Windows.OOBENetworkConnectionFlow
 Microsoft.Windows.ParentalControls
+Microsoft.Windows.PeopleExperienceHost
 Microsoft.Windows.PinningConfirmationDialog
-Microsoft.Windows.PrintQueueActionCenter
-Microsoft.Windows.XGpuEjectDialog
-Microsoft.XboxGameCallableUI
+NcsiUwpApp
 Windows.CBSPreview
-1527c705-839a-4832-9118-54d4Bd6a0c89
-c5e2524a-ea46-4f67-841f-6a9465d9d515
-E2A4F912-2574-4A75-9BB0-0D023378592B
-F46D4000-FD22-4DB4-AC8E-4E1DDDE828FE
 ) do (
 for /f %%a in ('reg query "%InboxApplications%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
 )
