@@ -374,7 +374,6 @@ if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\M
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Policy Manager") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Policy Manager" -force };
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" -force };
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting" -force };
-if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\SmartScreen") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\SmartScreen" -force };
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\SpyNet") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\SpyNet" -force };
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\UX Configuration") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\UX Configuration" -force };
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender' -Name 'DisableAntiSpyware' -Value 1 -PropertyType DWord -Force
@@ -393,8 +392,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defende
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection' -Name 'DisableScanOnRealtimeEnable' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection' -Name 'DisableIOAVProtection' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting' -Name 'DisableEnhancedNotifications' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\SmartScreen' -Name 'ConfigureAppInstallControlEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\SmartScreen' -Name 'ConfigureAppInstallControl' -Value 'Anywhere' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\SpyNet' -Name 'SpyNetReporting' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\SpyNet' -Name 'SubmitSamplesConsent' -Value 2 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\UX Configuration' -Name 'Notification_Suppress' -Value 1 -PropertyType DWord -Force
@@ -419,7 +416,7 @@ if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Expl
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer' -Name 'AicEnabled' -Value 'Anywhere' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer' -Name 'SmartScreenEnabled' -Value 'Off' -PropertyType String -Force
 cmd.exe /c "taskkill /f /im 'smartscreen.exe'"
-Remove-Item -Path 'C:\Windows\System32\smartscreen.exe' -Force
+Rename-Item -Path "C:\Windows\System32\smartscreen.exe" -NewName "smartscreen_old.exe" -Force
 
 <# 禁用防火墙 #>
 if((Test-Path -LiteralPath "HKLM:\SOFTWARE\Policies\Microsoft\Windows\IPSec\ICFv4") -ne $true) {  New-Item "HKLM:\SOFTWARE\Policies\Microsoft\Windows\IPSec\ICFv4" -force };
@@ -676,23 +673,6 @@ New-ItemProperty -LiteralPath 'HKCR:\CLSID\{679f85cb-0220-4080-b29b-5540cc05aab6
 # 移除系统Appx目录
 Get-ChildItem 'C:\Program Files\WindowsApps\*Microsoft.MicrosoftEdge.Stable*' | Remove-Item -Recurse -Force
 Get-ChildItem 'C:\Program Files\WindowsApps\*Microsoft.SecHealthUI*' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\SystemApps\Microsoft.AAD.BrokerPlugin_cw5n1h2txyewy' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\SystemApps\Microsoft.AsyncTextService_8wekyb3d8bbwe' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\SystemApps\Microsoft.BioEnrollment_cw5n1h2txyewy' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\SystemApps\Microsoft.ECApp_8wekyb3d8bbwe' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\SystemApps\Microsoft.LockApp_cw5n1h2txyewy' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\SystemApps\Microsoft.MicrosoftEdgeDevToolsClient_8wekyb3d8bbwe' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\SystemApps\Microsoft.Win32WebViewHost_cw5n1h2txyewy' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\SystemApps\Microsoft.Windows.AddSuggestedFoldersToLibraryDialog_cw5n1h2txyewy' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\SystemApps\Microsoft.Windows.FileExplorer_cw5n1h2txyewy' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\SystemApps\Microsoft.Windows.FilePicker_cw5n1h2txyewy' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\SystemApps\microsoft.windows.narratorquickstart_8wekyb3d8bbwe' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\SystemApps\ParentalControls_cw5n1h2txyewy' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\SystemApps\Microsoft.Windows.PeopleExperienceHost_cw5n1h2txyewy' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\SystemApps\Microsoft.Windows.PinningConfirmationDialog_cw5n1h2txyewy' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\SystemApps\NcsiUwpApp_8wekyb3d8bbwe' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Windows\SystemApps\Windows.CBSPreview_cw5n1h2txyewy' | Remove-Item -Recurse -Force
 
 #####
 Remove-PSDrive -Name HKCR
