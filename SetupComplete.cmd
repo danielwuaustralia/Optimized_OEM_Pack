@@ -19,8 +19,18 @@ rem 7zip
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\7z2201-x64.exe /S /D="C:\Program Files\7-Zip"
 
 rem https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VC_redist.x86.exe /install /quiet /norestart
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VC_redist.x64.exe /install /quiet /norestart
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2005\vcredist_x86.exe /Q
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2005\vcredist_x64.exe /Q
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2008\vcredist_x86.exe /q
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2008\vcredist_x64.exe /q
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2010\vcredist_x86.exe /q /norestart
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2010\vcredist_x64.exe /q /norestart
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2012\vcredist_x86.exe /install /quiet /norestart
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2012\vcredist_x64.exe /install /quiet /norestart
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2013\vcredist_x86.exe /install /quiet /norestart
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2013\vcredist_x64.exe /install /quiet /norestart
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2022\VC_redist.x86.exe /install /quiet /norestart
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2022\VC_redist.x64.exe /install /quiet /norestart
 
 rem https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-6.0.10-win-x64.exe /install /quiet /norestart
