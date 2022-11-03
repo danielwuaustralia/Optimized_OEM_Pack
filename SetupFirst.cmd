@@ -88,9 +88,6 @@ reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
 reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge Update" /f
 reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft EdgeWebView" /f
 
-rem delete edge browser
-for /f %%x in ('dir /b "C:\Program Files (x86)\Microsoft\Edge*"') do (rmdir /q /s "C:\Program Files (x86)\Microsoft\%%x")
-
 rem APPX
 set "Applications=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Applications"
 for %%i in (
