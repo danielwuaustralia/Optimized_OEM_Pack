@@ -6,21 +6,22 @@ setlocal enabledelayedexpansion
 rem SpeedyFox
 "C:\Program Files\speedyfox.exe" "/Firefox:default" "/Chrome:C:\Users\Administrator\AppData\Local\Google\Chrome Dev\User Data"
 
-timeout 2
-
 rem CleanUp Folder
 rmdir /s /q "C:\TEMP\"
 rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\"
 rmdir /s /q "C:\Windows\SoftwareDistribution\"
 
 rem Time Sync
-sc config w32time start=demand
 net start w32time
-w32tm /config /manualpeerlist:time.google.com,0x1 /syncfromflags:manual /reliable:yes /update
+w32tm /config /manualpeerlist:0.au.pool.ntp.org,0x1 /syncfromflags:manual /reliable:yes /update
+w32tm /resync
+timeout /t 3
 w32tm /resync
 net stop w32time
 
 rem logman query -ets
+"C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "Reg.exe delete HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger /f"
+"C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "Reg.exe delete HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT /f"
 "C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "logman stop -ets Diagtrack-Listener"
 "C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "logman stop -ets SleepStudyTraceSession"
 "C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "logman stop -ets CldFltLog"
