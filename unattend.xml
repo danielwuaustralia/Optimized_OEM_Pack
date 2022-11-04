@@ -5,7 +5,7 @@
         <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <UserData>
                 <ProductKey>
-                    <Key>NW6C2-QMPVW-D7KKK-3GKT6-VCFB2</Key>
+                    <Key>NPPR9-FWDCX-D2C8J-H872K-2YT43</Key>
                     <WillShowUI>Never</WillShowUI>
                 </ProductKey>
                 <AcceptEula>true</AcceptEula>
@@ -100,7 +100,7 @@
             <RegisteredOwner>Bill Gates</RegisteredOwner>
             <RegisteredOrganization>Microsoft</RegisteredOrganization>
             <TimeZone>AUS Eastern Standard Time</TimeZone>
-            <ProductKey>NW6C2-QMPVW-D7KKK-3GKT6-VCFB2</ProductKey>
+            <ProductKey>NPPR9-FWDCX-D2C8J-H872K-2YT43</ProductKey>
         </component>
         <component name="Microsoft-Windows-SQMApi" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <CEIPEnabled>0</CEIPEnabled>
@@ -128,8 +128,8 @@
                 <Username>Administrator</Username>
                 <LogonCount>999999</LogonCount>
                 <Password>
-                    <Value></Value>
-                    <PlainText>true</PlainText>
+                    <Value>UABhAHMAcwB3AG8AcgBkAA==</Value>
+                    <PlainText>false</PlainText>
                 </Password>
             </AutoLogon>
             <OOBE>
@@ -156,12 +156,17 @@
                         <Name>Administrator</Name>
                         <Group>Administrators</Group>
                         <Password>
-                            <Value></Value>
-                            <PlainText>true</PlainText>
+                            <Value>UABhAHMAcwB3AG8AcgBkAA==</Value>
+                            <PlainText>false</PlainText>
                         </Password>
                     </LocalAccount>
                 </LocalAccounts>
             </UserAccounts>
+            <Display>
+                <ColorDepth>144</ColorDepth>
+                <HorizontalResolution>3440</HorizontalResolution>
+                <VerticalResolution>1440</VerticalResolution>
+            </Display>
         </component>
         <component name="Microsoft-Windows-WinRE-RecoveryAgent" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <UninstallWindowsRE>true</UninstallWindowsRE>
@@ -170,5 +175,5 @@
             <DisableAntiSpyware>true</DisableAntiSpyware>
         </component>
     </settings>
-    <cpi:offlineImage cpi:source="wim:d:/WindowsToolKit/install.wim#Windows 11" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+    <cpi:offlineImage cpi:source="wim:d:/windowstoolkit/install.wim#Windows 11 专业版" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
 </unattend>
