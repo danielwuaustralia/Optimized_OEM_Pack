@@ -673,6 +673,8 @@ New-ItemProperty -LiteralPath 'HKCR:\CLSID\{679f85cb-0220-4080-b29b-5540cc05aab6
 # 移除系统Appx目录
 Get-ChildItem 'C:\Program Files\WindowsApps\*Microsoft.MicrosoftEdge.Stable*' | Remove-Item -Recurse -Force
 Get-ChildItem 'C:\Program Files\WindowsApps\*Microsoft.SecHealthUI*' | Remove-Item -Recurse -Force
+# 移除defender目录
+Get-ChildItem 'C:\Program Files\Windows Defender' | Remove-Item -Recurse -Force
 
 #####
 Remove-PSDrive -Name HKCR
