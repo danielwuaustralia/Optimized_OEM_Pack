@@ -128,7 +128,7 @@
                 <Username>Administrator</Username>
                 <LogonCount>999999</LogonCount>
                 <Password>
-                    <Value>UABhAHMAcwB3AG8AcgBkAA==</Value>
+                    <Value></Value>
                     <PlainText>false</PlainText>
                 </Password>
             </AutoLogon>
@@ -156,7 +156,7 @@
                         <Name>Administrator</Name>
                         <Group>Administrators</Group>
                         <Password>
-                            <Value>UABhAHMAcwB3AG8AcgBkAA==</Value>
+                            <Value></Value>
                             <PlainText>false</PlainText>
                         </Password>
                     </LocalAccount>
