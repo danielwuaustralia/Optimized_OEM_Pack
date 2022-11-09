@@ -32,11 +32,11 @@ start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2013\vcredist_x64.exe /inst
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2022\VC_redist.x86.exe /install /quiet /norestart
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2022\VC_redist.x64.exe /install /quiet /norestart
 
-rem https://dotnet.microsoft.com/en-us/download/dotnet/6.0
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-6.0.10-win-x64.exe /install /quiet /norestart
+rem https://dotnet.microsoft.com/en-us/download/dotnet/7.0
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-7.0.0-win-x64.exe /install /quiet /norestart
 
 rem Powershell 7
-%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.3.0-rc.1-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
+%windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.3.0-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
 rem lav
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.76.1-31.exe /VERYSILENT
