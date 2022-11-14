@@ -311,6 +311,7 @@ Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sch
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Feedback' -Recurse -Force;
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Flighting' -Recurse -Force;
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Location' -Recurse -Force;
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\MemoryDiagnostic' -Recurse -Force;
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Maintenance' -Recurse -Force;
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Maps' -Recurse -Force;
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\NetTrace' -Recurse -Force;
@@ -489,7 +490,6 @@ Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Edge' -Recurse -Force;
 Get-ChildItem 'C:\Program Files (x86)\Microsoft' | Remove-Item -Recurse -Force
 Get-ChildItem 'C:\Users\Administrator\AppData\Local\Microsoft\Edge' | Remove-Item -Recurse -Force
 Get-ChildItem 'C:\ProgramData\Microsoft\EdgeUpdate' | Remove-Item -Recurse -Force
-Remove-Item -LiteralPath 'HKLM:\SYSTEM\ControlSet001\Services\MicrosoftEdgeElevationService' -Recurse -Force;
 Remove-Item -Path 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk' -Force
 Remove-Item -Path 'C:\Users\Administrator\Desktop\Microsoft Edge.lnk' -Force
 Remove-Item -LiteralPath 'HKCR:\CLSID\{A2F5CB38-265F-4A02-9D1E-F25B664968AB}' -Recurse -Force;
