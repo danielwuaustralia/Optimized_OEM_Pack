@@ -39,7 +39,7 @@ rem Powershell 7
 %windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.3.0-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
 rem lav
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.76.1-31.exe /VERYSILENT
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.77.exe /VERYSILENT
 
 rem DirectX
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\DirectX\DXSETUP.exe /silent
@@ -51,9 +51,8 @@ rem process lasso
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassoActivator.exe -makekeyfile -product:2 -output:"%WINDIR%\Setup\Scripts\SOFTWARE"
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\processlassosetup64.exe /S /keyfile=%WINDIR%\Setup\Scripts\SOFTWARE\prolasso.key /launch_gui=false /gui_start_type=all /governor_start_type=all /language=SimpChinese
 
-rem DefaultAppAssociations
+rem https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/export-or-import-default-application-associations?view=windows-11
 DISM.exe /Online /Remove-DefaultAppAssociations
-DISM.exe /online /Import-DefaultAppAssociations:"%WINDIR%\Setup\Scripts\MyDefaultAppAssociations.xml"
 
 rem taskscheduler
 set "_schtasks=SCHTASKS /Change /DISABLE /TN"
