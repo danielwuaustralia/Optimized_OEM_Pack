@@ -42,7 +42,7 @@ rem lav
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.77.0-1.exe /VERYSILENT
 
 rem DirectX
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\DirectX\DXSETUP.exe /silent
+start /wait %WINDIR%\Setup\Scripts\DirectX\DXSETUP.exe /silent
 
 rem vulkan runtime
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\VulkanRT-1.3.231.1-Installer.exe /S
