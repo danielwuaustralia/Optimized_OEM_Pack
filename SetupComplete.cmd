@@ -19,18 +19,18 @@ rem 7zip
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\7z2201-x64.exe /S /D="C:\Program Files\7-Zip"
 
 rem https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2005\vcredist_x86.exe /Q
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2005\vcredist_x64.exe /Q
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2008\vcredist_x86.exe /q
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2008\vcredist_x64.exe /q
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2010\vcredist_x86.exe /q /norestart
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2010\vcredist_x64.exe /q /norestart
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2012\vcredist_x86.exe /install /quiet /norestart
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2012\vcredist_x64.exe /install /quiet /norestart
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2013\vcredist_x86.exe /install /quiet /norestart
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2013\vcredist_x64.exe /install /quiet /norestart
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2022\VC_redist.x86.exe /install /quiet /norestart
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\vcredist\2022\VC_redist.x64.exe /install /quiet /norestart
+start /wait %WINDIR%\Setup\Scripts\vcredist\2005\vcredist_x86.exe /Q
+start /wait %WINDIR%\Setup\Scripts\vcredist\2005\vcredist_x64.exe /Q
+start /wait %WINDIR%\Setup\Scripts\vcredist\2008\vcredist_x86.exe /q
+start /wait %WINDIR%\Setup\Scripts\vcredist\2008\vcredist_x64.exe /q
+start /wait %WINDIR%\Setup\Scripts\vcredist\2010\vcredist_x86.exe /q /norestart
+start /wait %WINDIR%\Setup\Scripts\vcredist\2010\vcredist_x64.exe /q /norestart
+start /wait %WINDIR%\Setup\Scripts\vcredist\2012\vcredist_x86.exe /install /quiet /norestart
+start /wait %WINDIR%\Setup\Scripts\vcredist\2012\vcredist_x64.exe /install /quiet /norestart
+start /wait %WINDIR%\Setup\Scripts\vcredist\2013\vcredist_x86.exe /install /quiet /norestart
+start /wait %WINDIR%\Setup\Scripts\vcredist\2013\vcredist_x64.exe /install /quiet /norestart
+start /wait %WINDIR%\Setup\Scripts\vcredist\2022\VC_redist.x86.exe /install /quiet /norestart
+start /wait %WINDIR%\Setup\Scripts\vcredist\2022\VC_redist.x64.exe /install /quiet /norestart
 
 rem https://dotnet.microsoft.com/en-us/download/dotnet/7.0
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\windowsdesktop-runtime-7.0.0-win-x64.exe /install /quiet /norestart
@@ -39,7 +39,7 @@ rem Powershell 7
 %windir%\System32\msiexec.exe /package "%windir%\Setup\Scripts\SOFTWARE\PowerShell-7.3.0-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
 rem lav
-start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.77.exe /VERYSILENT
+start /wait %WINDIR%\Setup\Scripts\SOFTWARE\LAVFilters-0.77.0-1.exe /VERYSILENT
 
 rem DirectX
 start /wait %WINDIR%\Setup\Scripts\SOFTWARE\DirectX\DXSETUP.exe /silent
