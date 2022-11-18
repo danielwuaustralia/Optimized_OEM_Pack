@@ -14,6 +14,7 @@ rmdir /s /q "C:\Windows\SoftwareDistribution\"
 rem Time Sync
 net start w32time
 w32tm /config /manualpeerlist:0.au.pool.ntp.org,0x1 /syncfromflags:manual /reliable:yes /update
+rem w32tm /config /manualpeerlist:ntp6.aliyun.com,0x1 /syncfromflags:manual /reliable:yes /update
 w32tm /resync
 timeout /t 3
 w32tm /resync
