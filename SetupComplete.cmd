@@ -4,52 +4,52 @@
 setlocal enabledelayedexpansion
 
 rem Office 365
-"%WINDIR%\TEMP\Office365\setup.exe" /configure "%WINDIR%\TEMP\Office365\O365Preview.xml"
+"C:\TEMP\Office365\setup.exe" /configure "C:\TEMP\Office365\O365Preview.xml"
 
 rem KMS
-call %WINDIR%\TEMP\KMS_VL_ALL_AIO.cmd /x /s /a
+call C:\TEMP\KMS_VL_ALL_AIO.cmd /x /s /a
 
 rem chipset driver
-start /wait %WINDIR%\TEMP\AMD_Chipset_Software.exe /S
+start /wait C:\TEMP\AMD_Chipset_Software.exe /S
 
 rem register video filters
 regsvr32.exe "C:\Program Files\madVR\madVR64.ax" /s
 
 rem 7zip
-start /wait %WINDIR%\TEMP\7z2201-x64.exe /S /D="C:\Program Files\7-Zip"
+start /wait C:\TEMP\7z2201-x64.exe /S /D="C:\Program Files\7-Zip"
 
 rem https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170
-start /wait %WINDIR%\TEMP\vcredist\2005\vcredist_x86.exe /Q
-start /wait %WINDIR%\TEMP\vcredist\2005\vcredist_x64.exe /Q
-start /wait %WINDIR%\TEMP\vcredist\2008\vcredist_x86.exe /q
-start /wait %WINDIR%\TEMP\vcredist\2008\vcredist_x64.exe /q
-start /wait %WINDIR%\TEMP\vcredist\2010\vcredist_x86.exe /q /norestart
-start /wait %WINDIR%\TEMP\vcredist\2010\vcredist_x64.exe /q /norestart
-start /wait %WINDIR%\TEMP\vcredist\2012\vcredist_x86.exe /install /quiet /norestart
-start /wait %WINDIR%\TEMP\vcredist\2012\vcredist_x64.exe /install /quiet /norestart
-start /wait %WINDIR%\TEMP\vcredist\2013\vcredist_x86.exe /install /quiet /norestart
-start /wait %WINDIR%\TEMP\vcredist\2013\vcredist_x64.exe /install /quiet /norestart
-start /wait %WINDIR%\TEMP\vcredist\2022\VC_redist.x86.exe /install /quiet /norestart
-start /wait %WINDIR%\TEMP\vcredist\2022\VC_redist.x64.exe /install /quiet /norestart
+start /wait C:\TEMP\vcredist\2005\vcredist_x86.exe /Q
+start /wait C:\TEMP\vcredist\2005\vcredist_x64.exe /Q
+start /wait C:\TEMP\vcredist\2008\vcredist_x86.exe /q
+start /wait C:\TEMP\vcredist\2008\vcredist_x64.exe /q
+start /wait C:\TEMP\vcredist\2010\vcredist_x86.exe /q /norestart
+start /wait C:\TEMP\vcredist\2010\vcredist_x64.exe /q /norestart
+start /wait C:\TEMP\vcredist\2012\vcredist_x86.exe /install /quiet /norestart
+start /wait C:\TEMP\vcredist\2012\vcredist_x64.exe /install /quiet /norestart
+start /wait C:\TEMP\vcredist\2013\vcredist_x86.exe /install /quiet /norestart
+start /wait C:\TEMP\vcredist\2013\vcredist_x64.exe /install /quiet /norestart
+start /wait C:\TEMP\vcredist\2022\VC_redist.x86.exe /install /quiet /norestart
+start /wait C:\TEMP\vcredist\2022\VC_redist.x64.exe /install /quiet /norestart
 
 rem https://dotnet.microsoft.com/en-us/download/dotnet/7.0
-start /wait %WINDIR%\TEMP\windowsdesktop-runtime-7.0.0-win-x64.exe /install /quiet /norestart
+start /wait C:\TEMP\windowsdesktop-runtime-7.0.0-win-x64.exe /install /quiet /norestart
 
 rem Powershell 7
-%windir%\System32\msiexec.exe /package "%WINDIR%\TEMP\PowerShell-7.3.0-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
+%windir%\System32\msiexec.exe /package "C:\TEMP\PowerShell-7.3.0-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
 rem lav
-start /wait %WINDIR%\TEMP\LAVFilters-0.77.1-1.exe /VERYSILENT
+start /wait C:\TEMP\LAVFilters-0.77.1-1.exe /VERYSILENT
 
 rem DirectX
-start /wait %WINDIR%\TEMP\DirectX\DXSETUP.exe /silent
+start /wait C:\TEMP\DirectX\DXSETUP.exe /silent
 
 rem vulkan runtime
-start /wait %WINDIR%\TEMP\VulkanRT-1.3.231.1-Installer.exe /S
+start /wait C:\TEMP\VulkanRT-1.3.231.1-Installer.exe /S
 
 rem process lasso
-start /wait %WINDIR%\TEMP\processlassoActivator.exe -makekeyfile -product:2 -output:"%WINDIR%\TEMP\SOFTWARE"
-start /wait %WINDIR%\TEMP\processlassosetup64.exe /S /keyfile=%WINDIR%\TEMP\prolasso.key /launch_gui=false /gui_start_type=all /governor_start_type=all /language=SimpChinese
+start /wait C:\TEMP\processlassoActivator.exe -makekeyfile -product:2 -output:"C:\TEMP"
+start /wait C:\TEMP\processlassosetup64.exe /S /keyfile=C:\TEMP\prolasso.key /launch_gui=false /gui_start_type=all /governor_start_type=all /language=SimpChinese
 
 rem https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/export-or-import-default-application-associations?view=windows-11
 DISM.exe /Online /Remove-DefaultAppAssociations
