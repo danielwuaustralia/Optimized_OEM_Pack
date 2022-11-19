@@ -124,7 +124,7 @@
                 <LogonCount>999999</LogonCount>
                 <Password>
                     <Value></Value>
-                    <PlainText>false</PlainText>
+                    <PlainText>true</PlainText>
                 </Password>
             </AutoLogon>
             <OOBE>
@@ -152,14 +152,15 @@
                         <Group>Administrators</Group>
                         <Password>
                             <Value></Value>
-                            <PlainText>false</PlainText>
+                            <PlainText>true</PlainText>
                         </Password>
                     </LocalAccount>
                 </LocalAccounts>
             </UserAccounts>
             <Display>
-                <ColorDepth>144</ColorDepth>
+                <ColorDepth>10</ColorDepth>
                 <HorizontalResolution>3440</HorizontalResolution>
+                <RefreshRate>144</RefreshRate>
                 <VerticalResolution>1440</VerticalResolution>
             </Display>
         </component>
