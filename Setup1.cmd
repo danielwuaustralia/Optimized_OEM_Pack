@@ -6,9 +6,9 @@ setlocal enabledelayedexpansion
 rem System Compoments Update
 Dism /online /Enable-Feature /FeatureName:LegacyComponents /NoRestart
 Dism /online /Enable-Feature /FeatureName:DirectPlay /NoRestart
-Dism /online /Disable-Feature /FeatureName:SMB1Protocol /NoRestart
-Dism /online /Disable-Feature /FeatureName:SMB1Protocol-Client /NoRestart
-Dism /online /Disable-Feature /FeatureName:SMB1Protocol-Deprecation /NoRestart
+Dism /online /Enable-Feature /FeatureName:SMB1Protocol /NoRestart
+Dism /online /Enable-Feature /FeatureName:SMB1Protocol-Client /NoRestart
+Dism /online /Enable-Feature /FeatureName:SMB1Protocol-Deprecation /NoRestart
 Dism /online /Disable-Feature /FeatureName:Printing-PrintToPDFServices-Features /NoRestart
 Dism /online /Disable-Feature /FeatureName:WCF-TCP-PortSharing45 /NoRestart
 Dism /online /Disable-Feature /FeatureName:MicrosoftWindowsPowerShellV2Root /NoRestart
@@ -105,7 +105,7 @@ Microsoft.LockApp
 F46D4000-FD22-4DB4-AC8E-4E1DDDE828FE
 c5e2524a-ea46-4f67-841f-6a9465d9d515
 1527c705-839a-4832-9118-54d4Bd6a0c89
-Microsoft.Windows.NarratorQuickStart
+microsoft.windows.narratorquickstart
 Microsoft.Windows.ParentalControls
 Microsoft.Windows.PeopleExperienceHost
 Microsoft.Windows.PinningConfirmationDialog
