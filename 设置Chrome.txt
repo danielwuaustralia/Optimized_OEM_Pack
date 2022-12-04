@@ -14,21 +14,19 @@ tabstrip
 
 tab-groups
 
-#download-bubble
-
 #high-efficiency-mode-available
 
 #battery-saver-mode-available
 
+download-bubble
+
 ##################################################开启以下flags########################################################
 
-dns
+#use-angle
 
 #enable-webrtc-hide-local-ips-with-mdns
 
 #enable-hardware-secure-decryption-experiment
-
-WebGPU
 
 #canvas-oop-rasterization
 
@@ -49,5 +47,3 @@ DrDc
 #chrome-root-store-enabled
 
 #use-dmsaa-for-tiles
-
-#password-manager-redesign
