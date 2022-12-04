@@ -273,18 +273,7 @@ del /f /q %SystemDrive%\unattend.xml
 sc triggerinfo wuauserv delete
 sc triggerinfo WaaSMedicSvc delete
 DISM.exe /Online /Set-ReservedStorageState /State:Disabled
-del /f /q %ProgramData%\Microsoft\Diagnosis\*.rbs
-del /f /q /s %ProgramData%\Microsoft\Diagnosis\ETLLogs\*
-del /f /s /q %SystemDrive%\*.tmp
-del /f /s /q %SystemDrive%\*._mp
-del /f /s /q %SystemDrive%\*.log
-del /f /s /q %SystemDrive%\*.gid
-del /f /s /q %SystemDrive%\*.chk
-del /f /s /q %SystemDrive%\*.old
-del /f /s /q %windir%\*.bak
-del /f /s /q %windir%\prefetch\*.*
-del /f /q %userprofile%\cookies\*.*
-del /f /q %userprofile%\recent\*.*
-del /f /s /q %userprofile%\Local Settings\Temporary Internet Files\*.*
+del /f /s /q C:\Windows\CbsTemp\*.*
+del /f /s /q C:\Windows\Logs\*.*
 
 %windir%\System32\UsoClient.exe RefreshSettings
