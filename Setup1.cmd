@@ -79,6 +79,12 @@ reg unload HKLM\NTUSER
 reg delete "HKU\S-1-5-19\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
 reg delete "HKU\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
 
+rem https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/export-or-import-default-application-associations?view=windows-11
+DISM.exe /Online /Remove-DefaultAppAssociations
+
+rem https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism-storage-reserve?view=windows-11
+DISM.exe /Online /Set-ReservedStorageState /State:Disabled
+
 rem Disable UBPM BOOT logging
 set "ubpm=HKLM\SYSTEM\ControlSet001\Control\Ubpm"
 for /f "tokens=1" %%a in ('reg query "%ubpm%" 2^>nul ^| find /i "REG_SZ"') do if not errorlevel 1 (%nsd1% reg delete "%ubpm%\%%a" /f 2>nul)
@@ -109,8 +115,7 @@ microsoft.windows.narratorquickstart
 Microsoft.Windows.ParentalControls
 Microsoft.Windows.PeopleExperienceHost
 Microsoft.Windows.PinningConfirmationDialog
-NcsiUwpApp
-Windows.CBSPreview
+Microsoft.Windows.PrintQueueActionCenter
 ) do (
 for /f %%a in ('reg query "%InboxApplications%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
 )
