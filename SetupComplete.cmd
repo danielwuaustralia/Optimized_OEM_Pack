@@ -6,13 +6,16 @@ setlocal enabledelayedexpansion
 rem Office 365
 "C:\TEMP\Office365\setup.exe" /configure "C:\TEMP\Office365\O365Preview.xml"
 
-rem KMS
+rem https://forums.mydigitallife.net/threads/kms_vl_all-smart-activation-script.79535/
 call C:\TEMP\KMS_VL_ALL_AIO.cmd /x /s /a
 
-rem chipset driver
+rem https://github.com/PowerShell/PowerShell/releases
+%windir%\System32\msiexec.exe /package "C:\TEMP\PowerShell-7.3.0-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
+
+rem https://www.amd.com/en/support/chipsets/amd-socket-am4/b550
 start /wait C:\TEMP\AMD_Chipset_Software.exe /S
 
-rem register video filters
+rem https://www.videohelp.com/software/madVR
 regsvr32.exe "C:\Program Files\madVR\madVR64.ax" /s
 
 rem 7zip
@@ -35,24 +38,18 @@ start /wait C:\TEMP\vcredist\2022\VC_redist.x64.exe /install /quiet /norestart
 rem https://dotnet.microsoft.com/en-us/download/dotnet/7.0
 start /wait C:\TEMP\windowsdesktop-runtime-7.0.0-win-x64.exe /install /quiet /norestart
 
-rem Powershell 7
-%windir%\System32\msiexec.exe /package "C:\TEMP\PowerShell-7.3.0-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
-
-rem lav
+rem https://files.1f0.de/lavf/nightly/
 start /wait C:\TEMP\LAVFilters-0.77.1-1.exe /VERYSILENT
 
 rem DirectX
 start /wait C:\TEMP\DirectX\DXSETUP.exe /silent
 
-rem vulkan runtime
+rem https://vulkan.lunarg.com/sdk/home
 start /wait C:\TEMP\VulkanRT-1.3.231.1-Installer.exe /S
 
 rem process lasso
 start /wait C:\TEMP\processlassoActivator.exe -makekeyfile -product:2 -output:"C:\TEMP"
 start /wait C:\TEMP\processlassosetup64.exe /S /keyfile=C:\TEMP\prolasso.key /launch_gui=false /gui_start_type=all /governor_start_type=all /language=SimpChinese
-
-rem https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/export-or-import-default-application-associations?view=windows-11
-DISM.exe /Online /Remove-DefaultAppAssociations
 
 rem taskscheduler
 set "_schtasks=SCHTASKS /Change /DISABLE /TN"
