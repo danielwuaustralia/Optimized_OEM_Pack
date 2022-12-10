@@ -8,27 +8,23 @@ rem SpeedyFox
 
 rem CleanUp Folder
 rmdir /s /q "C:\TEMP\"
-rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\"
-rmdir /s /q "C:\Windows\SoftwareDistribution\"
+rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\NV_Cache\"
 
 rem Time Sync
 net start w32time
-w32tm /config /manualpeerlist:0.au.pool.ntp.org,0x1 /syncfromflags:manual /reliable:yes /update
+w32tm /config /manualpeerlist:time.cloudflare.com,0x1 /syncfromflags:manual /reliable:yes /update
 rem w32tm /config /manualpeerlist:ntp6.aliyun.com,0x1 /syncfromflags:manual /reliable:yes /update
 w32tm /resync
-timeout /t 3
+timeout /t 5
 w32tm /resync
 net stop w32time
 
 rem logman query -ets
-"C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "Reg.exe delete HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger /f"
-"C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "Reg.exe delete HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT /f"
+rem "C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "Reg.exe delete HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger /f"
+rem "C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "Reg.exe delete HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT /f"
 "C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "logman stop -ets Diagtrack-Listener"
 "C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "logman stop -ets SleepStudyTraceSession"
 "C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "logman stop -ets CldFltLog"
-
-rem Refresh DNS Cache
-ipconfig /flushdns
 
 rem CleanMgr.exe
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /f
