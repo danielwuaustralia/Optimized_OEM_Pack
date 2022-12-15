@@ -10,7 +10,7 @@ rem https://forums.mydigitallife.net/threads/kms_vl_all-smart-activation-script.
 call C:\TEMP\KMS_VL_ALL_AIO.cmd /x /s /a
 
 rem https://github.com/PowerShell/PowerShell/releases
-%windir%\System32\msiexec.exe /package "C:\TEMP\PowerShell-7.3.0-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
+%windir%\System32\msiexec.exe /package "C:\TEMP\PowerShell-7.3.1-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
 rem https://www.amd.com/en/support/chipsets/amd-socket-am4/b550
 start /wait C:\TEMP\AMD_Chipset_Software.exe /S
@@ -36,7 +36,7 @@ start /wait C:\TEMP\vcredist\2022\VC_redist.x86.exe /install /quiet /norestart
 start /wait C:\TEMP\vcredist\2022\VC_redist.x64.exe /install /quiet /norestart
 
 rem https://dotnet.microsoft.com/en-us/download/dotnet/7.0
-start /wait C:\TEMP\windowsdesktop-runtime-7.0.0-win-x64.exe /install /quiet /norestart
+start /wait C:\TEMP\windowsdesktop-runtime-7.0.1-win-x64.exe /install /quiet /norestart
 
 rem https://files.1f0.de/lavf/nightly/
 start /wait C:\TEMP\LAVFilters-0.77.1-1.exe /VERYSILENT
@@ -45,7 +45,7 @@ rem DirectX
 start /wait C:\TEMP\DirectX\DXSETUP.exe /silent
 
 rem https://vulkan.lunarg.com/sdk/home
-start /wait C:\TEMP\VulkanRT-1.3.231.1-Installer.exe /S
+start /wait C:\TEMP\VulkanRT-1.3.236.0-Installer.exe /S
 
 rem process lasso
 start /wait C:\TEMP\processlassoActivator.exe -makekeyfile -product:2 -output:"C:\TEMP"
