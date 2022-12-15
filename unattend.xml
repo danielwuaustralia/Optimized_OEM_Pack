@@ -63,22 +63,18 @@
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
                     <Order>6</Order>
-                    <Path>REG ADD "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" /f /v TamperProtection /d 4 /t REG_DWORD</Path>
+                    <Path>REG ADD "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" /f /v TamperProtection /d 0 /t REG_DWORD</Path>
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
                     <Order>7</Order>
-                    <Path>REG ADD "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" /f /v TamperProtectionSource /d 2 /t REG_DWORD</Path>
-                </RunSynchronousCommand>
-                <RunSynchronousCommand wcm:action="add">
-                    <Order>8</Order>
                     <Path>cmd /c for %$ IN (WinDefend, WdBoot, WdFilter, Sense, WdNisDrv, WdNisSvc) do sc config %$ start=disabled</Path>
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
-                    <Order>9</Order>
+                    <Order>8</Order>
                     <Path>REG DELETE "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SecurityHealth" /f</Path>
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
-                    <Order>10</Order>
+                    <Order>9</Order>
                     <Path>C:\TEMP\Setup1.cmd</Path>
                 </RunSynchronousCommand>
             </RunSynchronous>
