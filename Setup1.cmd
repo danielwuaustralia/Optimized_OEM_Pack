@@ -104,19 +104,7 @@ for %%i in (
 MicrosoftEdge
 MicrosoftEdgeDevToolsClient
 Microsoft.Win32WebViewHost
-Microsoft.AsyncTextService
-Microsoft.BioEnrollment
-Microsoft.ECApp
-Microsoft.LockApp
-F46D4000-FD22-4DB4-AC8E-4E1DDDE828FE
-c5e2524a-ea46-4f67-841f-6a9465d9d515
-1527c705-839a-4832-9118-54d4Bd6a0c89
-Microsoft.Windows.NarratorQuickStart
-Microsoft.Windows.ParentalControls
-Microsoft.Windows.PeopleExperienceHost
-Microsoft.Windows.PinningConfirmationDialog
-NcsiUwpApp
-Windows.CBSPreview
+Microsoft.XboxGameCallableUI
 ) do (
 for /f %%a in ('reg query "%InboxApplications%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
 )
