@@ -13,7 +13,7 @@ rem https://github.com/PowerShell/PowerShell/releases
 %windir%\System32\msiexec.exe /package "C:\TEMP\PowerShell-7.3.1-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
 rem https://www.amd.com/en/support/chipsets/amd-socket-am4/b550
-start /wait C:\TEMP\AMD_Chipset_Software.exe /S
+start /wait C:\TEMP\AMD_Chipset_Drivers.exe /S
 
 rem https://www.videohelp.com/software/madVR
 regsvr32.exe "C:\Program Files\madVR\madVR64.ax" /s
@@ -34,12 +34,15 @@ start /wait C:\TEMP\vcredist\2013\vcredist_x86.exe /install /quiet /norestart
 start /wait C:\TEMP\vcredist\2013\vcredist_x64.exe /install /quiet /norestart
 start /wait C:\TEMP\vcredist\2022\VC_redist.x86.exe /install /quiet /norestart
 start /wait C:\TEMP\vcredist\2022\VC_redist.x64.exe /install /quiet /norestart
+rem https://forums.mydigitallife.net/threads/abbodi1406s-batch-scripts-repo.74197/page-113#post-1768876
+CertUtil -addstore -f Root "C:\TEMP\vcredist\MicAssDesRoo_2011_03_23.crt"
+CertUtil -addstore -f CA "C:\TEMP\vcredist\MicAssDesPCA2011_2011-06-28.crt"
 
 rem https://dotnet.microsoft.com/en-us/download/dotnet/7.0
-start /wait C:\TEMP\windowsdesktop-runtime-7.0.1-win-x64.exe /install /quiet /norestart
+start /wait C:\TEMP\windowsdesktop-runtime-7.0.2-win-x64.exe /install /quiet /norestart
 
 rem https://files.1f0.de/lavf/nightly/
-start /wait C:\TEMP\LAVFilters-0.77.1-1.exe /VERYSILENT
+start /wait C:\TEMP\LAVFilters-0.77.1-2.exe /VERYSILENT
 
 rem DirectX
 start /wait C:\TEMP\DirectX\DXSETUP.exe /silent
