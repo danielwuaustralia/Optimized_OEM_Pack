@@ -221,6 +221,19 @@ ForEach ($v in (Get-Command -Name 'Set-ProcessMitigation').Parameters['Disable']
 
 <# 映像劫持 #>
 Remove-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\*' -Recurse -Force
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions' -Force }
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions' -Name 'CpuPriorityClass' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions' -Name 'IoPriority' -Value 3 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\svchost.exe') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\svchost.exe' -Force }
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\svchost.exe' -Name 'MaxLoaderThreads' -Value 1 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WmiPrvSE.exe') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WmiPrvSE.exe' -Force }
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WmiPrvSE.exe' -Name 'MaxLoaderThreads' -Value 1 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\RuntimeBroker.exe') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\RuntimeBroker.exe' -Force }
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\RuntimeBroker.exe' -Name 'MaxLoaderThreads' -Value 1 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe' -Force }
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe' -Name 'MaxLoaderThreads' -Value 1 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\fontdrvhost.exe') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\fontdrvhost.exe' -Force }
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\fontdrvhost.exe' -Name 'MaxLoaderThreads' -Value 1 -PropertyType DWord -Force
 
 <# 系统激活 #>
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform' -Force }
@@ -437,11 +450,13 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WTDS\Co
 <# 防火墙 #>
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules' -Force
 New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules' -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules' -Name '{97F2B768-6339-4DC4-B827-A07DE6E48B47}' -Value 'v2.32|Action=Block|Active=TRUE|Dir=Out|Profile=Domain|Profile=Private|Profile=Public|Name=@{Microsoft.Windows.SecureAssessmentBrowser_10.0.25267.1000_neutral_neutral_cw5n1h2txyewy?ms-resource://Microsoft.Windows.SecureAssessmentBrowser/Resources/PackageDisplayName}|Desc=@{Microsoft.Windows.SecureAssessmentBrowser_10.0.25267.1000_neutral_neutral_cw5n1h2txyewy?ms-resource://Microsoft.Windows.SecureAssessmentBrowser/Resources/PackageDescription}|LUOwn=S-1-5-21-1133727650-1968006474-802591909-500|AppPkgId=S-1-15-2-3733603082-4179795269-1217541644-381468798-1681740699-3059609168-2054985149|EmbedCtxt=@{Microsoft.Windows.SecureAssessmentBrowser_10.0.25267.1000_neutral_neutral_cw5n1h2txyewy?ms-resource://Microsoft.Windows.SecureAssessmentBrowser/Resources/PackageDisplayName}|' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules' -Name '{1B7D5B78-E5C9-4795-9F09-55631A3CE2A6}' -Value 'v2.32|Action=Block|Active=TRUE|Dir=Out|Profile=Domain|Profile=Private|Profile=Public|Name=@{Microsoft.Windows.Apprep.ChxApp_1000.25128.1000.0_neutral_neutral_cw5n1h2txyewy?ms-resource://Microsoft.Windows.Apprep.ChxApp/resources/DisplayName}|Desc=@{Microsoft.Windows.Apprep.ChxApp_1000.25128.1000.0_neutral_neutral_cw5n1h2txyewy?ms-resource://Microsoft.Windows.Apprep.ChxApp/resources/DisplayName}|LUOwn=S-1-5-21-1133727650-1968006474-802591909-500|AppPkgId=S-1-15-2-1255970798-2717750985-493741290-1721212560-3530798636-1829112236-3118580706|EmbedCtxt=@{Microsoft.Windows.Apprep.ChxApp_1000.25128.1000.0_neutral_neutral_cw5n1h2txyewy?ms-resource://Microsoft.Windows.Apprep.ChxApp/resources/DisplayName}|' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules' -Name '{D4F01764-8EC6-486F-A985-DE054016DDA2}' -Value 'v2.32|Action=Block|Active=TRUE|Dir=Out|Profile=Domain|Profile=Private|Profile=Public|Name=NVIDIA Control Panel|Desc=NVIDIA Control Panel|LUOwn=S-1-5-21-1133727650-1968006474-802591909-500|AppPkgId=S-1-15-2-1384115615-419768356-1133385129-1655597721-2160802968-1691372265-1224232564|EmbedCtxt=NVIDIA Control Panel|' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules' -Name '{17C9E917-EAD6-4A6E-B6E5-C2F33C9AE36D}' -Value 'v2.31|Action=Block|Active=TRUE|Dir=Out|App=C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64_f52c4b8723f8dd33\Display.NvContainer\NVDisplay.Container.exe|Name=NVIDIA Container|Desc=NVIDIA Container|' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules' -Name '{03A7EAA9-ECE6-4A73-8C25-D09F3AABC564}' -Value 'v2.31|Action=Block|Active=TRUE|Dir=Out|App=C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64_f52c4b8723f8dd33\Display.NvContainer\nvgwls.exe|Name=nvgwls|Desc=nvgwls|' -PropertyType String -Force
+Set-NetFirewallRule -DisplayName 'Microsoft 家庭安全' -Action 'Block'
+Set-NetFirewallRule -DisplayName 'NVIDIA Control Panel' -Action 'Block'
+Set-NetFirewallRule -DisplayName 'Windows Defender SmartScreen' -Action 'Block'
+Set-NetFirewallRule -DisplayName 'Windows Shell Experience' -Action 'Block'
+Set-NetFirewallRule -DisplayName 'Windows 默认锁屏界面' -Action 'Block'
+Set-NetFirewallRule -DisplayName '参加测验' -Action 'Block'
+Set-NetFirewallRule -DisplayName '讲述人' -Action 'Block'
 
 <# Windows Update #>
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *DoSvc* | Set-ItemProperty -Name Start -Value 3 -Force
@@ -678,6 +693,8 @@ if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\She
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{7AD84985-87B4-4a16-BE58-8B72A5B390F7}' -Value 'Play to Menu' -PropertyType String -Force
 #
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Google\Chrome\NativeMessagingHosts\com.microsoft.defender.browser_extension.native_message_host' -Force
+#
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\HomeFolderMSGraph\NameSpace_38664959\DelegateFolders\{AD182E17-4754-4742-8529-C11EEEF0C299}' -Force
 #
 Get-ChildItem 'C:\AMD\Chipset_Software\Logs' | Remove-Item -Recurse -Force
 
