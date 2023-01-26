@@ -2315,8 +2315,8 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\DefaultUserEnvironment' -Name 'TMP
 
 # 禁用无用设备
 Get-PnpDevice -FriendlyName 'Microsoft Kernel Debug Network Adapter' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -FriendlyName 'Realtek Gaming GbE Family Controller' | Disable-PnpDevice -Confirm:$false -Verbose
 Remove-Printer -Name 'OneNote (Desktop)'
-# Get-PnpDevice -InstanceId 'HDAUDIO\FUNC_01&VEN_10DE&DEV_009E&SUBSYS_10B02482&REV_1001\5&27112D9C&0&0001' | Disable-PnpDevice -Confirm:$false -Verbose
 
 # 无UWP提示
 if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Microsoft.WindowsStore_8wekyb3d8bbwe!App') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Microsoft.WindowsStore_8wekyb3d8bbwe!App' -Force }
@@ -2696,6 +2696,15 @@ Enable-NetAdapterPacketDirect -Name *
 Disable-NetAdapterRsc -Name *
 Set-NetOffloadGlobalSetting -PacketCoalescingFilter disabled
 #
+Set-NetAdapterBinding -Name '*' -ComponentID ms_lldp -Enabled 0
+Set-NetAdapterBinding -Name '*' -ComponentID ms_msclient -Enabled 0
+Set-NetAdapterBinding -Name '*' -ComponentID ms_lltdio -Enabled 0
+Set-NetAdapterBinding -Name '*' -ComponentID ms_rspndr -Enabled 0
+Set-NetAdapterBinding -Name '*' -ComponentID ms_implat -Enabled 0
+Set-NetAdapterBinding -Name '*' -ComponentID ms_server -Enabled 0
+Set-NetAdapterBinding -Name '*' -ComponentID ms_tcpip6 -Enabled 1
+Set-NetAdapterBinding -Name '*' -ComponentID ms_pacer -Enabled 0
+#
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched' -Force }
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched' -Name 'TimerResolution' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Psched' -Name 'NonBestEffortLimit' -Value 0 -PropertyType DWord -Force
@@ -2754,12 +2763,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\LanmanSer
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters' -Name 'AutoShareWks' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters' -Name 'DisableCompression' -Value 1 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Force }
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'DeadGWDetectDefault' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'DisableReverseAddressRegistrations' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'DisableDynamicUpdate' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'EnableICMPRedirect' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'IGMPLevel' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'PerformRouterDiscovery' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'DefaultTTL' -Value 64 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'MaxUserPort' -Value 65534 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -Name 'TcpTimedWaitDelay' -Value 30 -PropertyType DWord -Force
@@ -2804,34 +2807,10 @@ cmd.exe /c 'powercfg -Change monitor-timeout-ac 30'
 cmd.exe /c 'powercfg -Change disk-timeout-ac 0'
 cmd.exe /c 'powercfg /SETACVALUEINDEX SCHEME_CURRENT 19cbb8fa-5279-450e-9fac-8a3d5fedd0c1 12bbebe6-58d6-4636-95bb-3217ef867c1a 0'
 #
-cmd.exe /c 'bcdedit /set avoidlowmemory 0x8000000'
-cmd.exe /c 'bcdedit /set nolowmem Yes'
-cmd.exe /c 'bcdedit /set debug No'
-cmd.exe /c 'bcdedit /set pae ForceEnable'
 cmd.exe /c 'bcdedit /set bootmenupolicy Legacy'
-cmd.exe /c 'bcdedit /set usefirmwarepcisettings No'
 cmd.exe /c 'bcdedit /set quietboot Yes'
 cmd.exe /c 'bcdedit /set bootuxdisabled On'
-cmd.exe /c 'bcdedit /set x2apicpolicy Enable'
-cmd.exe /c 'bcdedit /set usephysicaldestination No'
-cmd.exe /c 'bcdedit /set ems No'
-cmd.exe /c 'bcdedit /set firstmegabytepolicy UseAll'
-cmd.exe /c 'bcdedit /set configaccesspolicy Default'
-cmd.exe /c 'bcdedit /set linearaddress57 OptOut'
-cmd.exe /c 'bcdedit /set increaseuserva 268435328'
-cmd.exe /c 'bcdedit /set noumex Yes'
-cmd.exe /c 'bcdedit /set bootems No'
-cmd.exe /c 'bcdedit /set graphicsmodedisabled No'
-cmd.exe /c 'bcdedit /set extendedinput Yes'
 cmd.exe /c 'bcdedit /set highestmode Yes'
-cmd.exe /c 'bcdedit /set forcefipscrypto No'
-cmd.exe /c 'bcdedit /set perfmem 0'
-cmd.exe /c 'bcdedit /set clustermodeaddressing 1'
-cmd.exe /c 'bcdedit /set configflags 0'
-cmd.exe /c 'bcdedit /set uselegacyapicmode No'
-cmd.exe /c 'bcdedit /set onecpu No'
-cmd.exe /c 'bcdedit /set halbreakpoint No'
-cmd.exe /c 'bcdedit /set forcelegacyplatform No'
 cmd.exe /c 'bcdedit /set hypervisorlaunchtype Off'
 cmd.exe /c 'bcdedit /timeout 0'
 cmd.exe /c 'bcdedit /set bootlog Yes'
