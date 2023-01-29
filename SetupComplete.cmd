@@ -10,7 +10,7 @@ rem https://forums.mydigitallife.net/threads/kms_vl_all-smart-activation-script.
 call C:\TEMP\KMS_VL_ALL_AIO.cmd /x /s /a
 
 rem https://github.com/PowerShell/PowerShell/releases
-%windir%\System32\msiexec.exe /package "C:\TEMP\PowerShell-7.3.1-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
+%windir%\System32\msiexec.exe /package "C:\TEMP\PowerShell-7.3.2-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
 rem https://www.amd.com/en/support/chipsets/amd-socket-am4/b550
 start /wait C:\TEMP\AMD_Chipset_Drivers.exe /S
