@@ -2809,9 +2809,7 @@ cmd.exe /c 'powercfg /SETACVALUEINDEX SCHEME_CURRENT 19cbb8fa-5279-450e-9fac-8a3
 #
 cmd.exe /c 'bcdedit /set bootmenupolicy Legacy'
 cmd.exe /c 'bcdedit /set quietboot Yes'
-cmd.exe /c 'bcdedit /set bootuxdisabled On'
 cmd.exe /c 'bcdedit /set highestmode Yes'
-cmd.exe /c 'bcdedit /set hypervisorlaunchtype Off'
 cmd.exe /c 'bcdedit /timeout 0'
 cmd.exe /c 'bcdedit /set bootlog Yes'
 cmd.exe /c 'fsutil behavior set disable8dot3 1'
@@ -2852,7 +2850,7 @@ if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsMitigation') -ne $t
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsMitigation' -Name 'UserPreference' -Value 1 -PropertyType DWord -Force
 #
 if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Force }
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'PagingFiles' -Value @('c:\pagefile.sys 32768 32768') -PropertyType MultiString -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'PagingFiles' -Value @('c:\pagefile.sys 0 0') -PropertyType MultiString -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'DisablePagingExecutive' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'LargeSystemCache' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'FeatureSettings' -Value 1 -PropertyType DWord -Force
@@ -2969,10 +2967,8 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\CrashContr
 
 # https://docs.microsoft.com/en-us/windows/security/identity-protection/credential-guard/credential-guard-manage
 # https://learn.microsoft.com/en-us/windows-hardware/design/device-experiences/oem-hvci-enablement
-cmd.exe /c 'bcdedit /set {0cb3b571-2f2e-4343-a879-d86a476d7215} loadoptions DISABLE-LSA-ISO,DISABLE-VBS'
-cmd.exe /c 'bcdedit /set allowedinmemorysettings 0x0'
+cmd.exe /c 'bcdedit /set hypervisorlaunchtype Off'
 cmd.exe /c 'bcdedit /set vsmlaunchtype Off'
-cmd.exe /c 'bcdedit /set isolatedcontext No'
 cmd.exe /c 'bcdedit /set disableelamdrivers Yes'
 cmd.exe /c 'bcdedit /set vm No'
 cmd.exe /c 'bcdedit /set nx OptIn'
@@ -3014,27 +3010,16 @@ if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Pol
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments' -Name 'SaveZoneInformation' -Value 1 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments') -ne $true) { New-Item 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments' -Force }
 New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments' -Name 'SaveZoneInformation' -Value 1 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Associations') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Associations' -Force }
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Associations' -Name 'LowRiskFileTypes' -Value '.avi;.bat;.cmd;.exe;.htm;.html;.lnk;.mpg;.mpeg;.mov;.mp3;.mp4;.mkv;.msi;.m3u;.rar;.reg;.txt;.vbs;.wav;.zip;.7z;.msu' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Associations' -Name 'DefaultFileTypeRisk' -Value 1808 -PropertyType DWord -Force
 #
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Settings') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Settings' -Force }
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Settings' -Name 'DisableSendGenericDriverNotFoundToWER' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Settings' -Name 'DisableSystemRestore' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Settings' -Name 'DisableSendRequestAdditionalSoftwareToWER' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Settings' -Name 'BehaviorOnFailedVerify' -Value 0 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows NT\Driver Signing') -ne $true) { New-Item 'HKCU:\Software\Policies\Microsoft\Windows NT\Driver Signing' -Force }
-New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\Windows NT\Driver Signing' -Name 'BehaviorOnFailedVerify' -Value 0 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Driver Signing') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Driver Signing' -Force }
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Driver Signing' -Name 'Policy' -Value ([byte[]](0x00)) -PropertyType Binary -Force
 
 # 无锁屏界面
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization' -Force }
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization' -Name 'NoLockScreen' -Value 1 -PropertyType DWord -Force
-
-# 缩略图保存20000上限
-if ((Test-Path -LiteralPath 'HKCU:\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell') -ne $true) { New-Item 'HKCU:\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell' -Force }
-New-ItemProperty -LiteralPath 'HKCU:\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell' -Name 'BagMRU Size' -Value 20000 -PropertyType DWord -Force
 
 #
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications' -Name 'GlobalUserDisabled' -Value 1 -PropertyType DWord -Force
@@ -3100,8 +3085,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\P
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'EnableLinkedConnections' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'NoConnectedUser' -Value 3 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'DisableAutomaticRestartSignOn' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'legalnoticecaption' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'legalnoticetext' -Value '' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'scforceoption' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'shutdownwithoutlogon' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'undockwithoutlogon' -Value 1 -PropertyType DWord -Force
@@ -3320,20 +3303,12 @@ Remove-Item -LiteralPath 'HKCU:\Software\Microsoft\EdgeWebView' -Recurse -Force
 Remove-Item -LiteralPath 'HKCR:\*\shellex\ContextMenuHandlers\ FileSyncEx' -Force
 Remove-Item -LiteralPath 'HKCR:\Directory\shellex\ContextMenuHandlers\ FileSyncEx' -Force
 Remove-Item -LiteralPath 'HKCR:\Directory\Background\shellex\ContextMenuHandlers\ FileSyncEx' -Force
-Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run' -Name 'Acrobat Assistant 8.0' -Force
 Remove-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'OneDrive' -Force
 Remove-Item -LiteralPath 'HKCR:\grvopen' -Recurse -Force
 Remove-Item -LiteralPath 'HKCU:\Software\Microsoft\OneDrive' -Recurse -Force
 Remove-Item -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\IrisService' -Recurse -Force
-Remove-Item -Path 'C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\Compressed (zipped) Folder.ZFSendToTarget' -Force
-Remove-Item -Path 'C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\蓝牙设备.LNK' -Force
-Remove-Item -Path 'C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\Mail Recipient.MAPIMail' -Force
-Remove-Item -Path 'C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\文档.mydocs' -Force
-Get-ChildItem 'C:\Users\Administrator\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar' | Remove-Item -Recurse -Force
-Get-ChildItem 'C:\Users\Administrator\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\ImplicitAppShortcuts' | Remove-Item -Recurse -Force
 Remove-Item -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband\AuxilliaryPins' -Recurse -Force
 Remove-Item -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband' -Recurse -Force
-
 #
 Remove-PSDrive -Name HKCR
 #
