@@ -364,6 +364,27 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Pr
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsUpdate\ExpressionEvaluators\Driver' -Name 'Prefixes' -Value @('') -PropertyType MultiString -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsUpdate\ExpressionEvaluators\MSI' -Name 'Prefixes' -Value @('') -PropertyType MultiString -Force
 
+<# DISM #>
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing' -Name 'DisableWerReporting' -Value 1 -PropertyType DWord -Force
+
+<# https://www.ntlite.com/community/index.php?threads/closed-disable-wininet-task-and-webcache-folder.846/ #>
+Remove-Item -LiteralPath 'HKCR:\CLSID\{0358b920-0ac7-461f-98f4-58e32cd89148}' -Recurse -Force
+Remove-Item -LiteralPath 'HKCR:\AppID\{3eb3c877-1f16-487c-9050-104dbcd66683}' -Force
+Remove-Item -LiteralPath 'HKCR:\Wow6432Node\AppID\{3eb3c877-1f16-487c-9050-104dbcd66683}' -Force
+Remove-Item -LiteralPath 'HKCR:\Wow6432Node\AppID\{0358b920-0ac7-461f-98f4-58e32cd89148}' -Recurse -Force
+Remove-Item -LiteralPath 'HKLM:\Software\Wow6432Node\Classes\AppID\{3eb3c877-1f16-487c-9050-104dbcd66683}' -Force
+Remove-Item -LiteralPath 'HKLM:\Software\Wow6432Node\Classes\CLSID\{0358b920-0ac7-461f-98f4-58e32cd89148}' -Recurse -Force
+
+<# 关闭省电 #>
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NDIS\Parameters' -Name 'DefaultPnPCapabilities' -Value 24 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\System\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0000' -Name 'PnPCapabilities' -Value 24 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Enum\ACPI\AMDI0030\0\Device Parameters\WDF' -Name 'IdleInWorkingState' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\System\CurrentControlSet\Enum\PCI\VEN_1022&DEV_149C&SUBSYS_50071458&REV_00\4&1fde7688&0&0341\Device Parameters\WDF' -Name 'IdleInWorkingState' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\System\CurrentControlSet\Enum\PCI\VEN_1022&DEV_43EE&SUBSYS_11421B21&REV_00\4&5f22ecf&0&000A\Device Parameters\WDF' -Name 'IdleInWorkingState' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\System\CurrentControlSet\Enum\USB\ROOT_HUB30\5&201a262c&0&0\Device Parameters\WDF' -Name 'IdleInWorkingState' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\System\CurrentControlSet\Enum\USB\ROOT_HUB30\5&23f8e3f5&0&0\Device Parameters\WDF' -Name 'IdleInWorkingState' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Enum\USB\VID_045E&PID_02D1\7EED85D65D32\Device Parameters\WDF' -Name 'IdleInWorkingState' -Value 0 -PropertyType DWord -Force
+
 <# 删除Edge浏览器 #>
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Force }
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate' -Name 'InstallDefault' -Value 0 -PropertyType DWord -Force
@@ -468,34 +489,24 @@ Remove-Item -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVe
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{9459C573-B17A-45AE-9F64-1857B5D58CEE}' -Force
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Config\Microsoft.MicrosoftEdge_8wekyb3d8bbwe' -Force
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Config\Microsoft.MicrosoftEdgeDevToolsClient_8wekyb3d8bbwe' -Force
-
-<# DISM #>
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing' -Name 'DisableWerReporting' -Value 1 -PropertyType DWord -Force
-
-<# https://www.ntlite.com/community/index.php?threads/closed-disable-wininet-task-and-webcache-folder.846/ #>
-Remove-Item -LiteralPath 'HKCR:\CLSID\{0358b920-0ac7-461f-98f4-58e32cd89148}' -Recurse -Force
-Remove-Item -LiteralPath 'HKCR:\AppID\{3eb3c877-1f16-487c-9050-104dbcd66683}' -Force
-Remove-Item -LiteralPath 'HKCR:\Wow6432Node\AppID\{3eb3c877-1f16-487c-9050-104dbcd66683}' -Force
-Remove-Item -LiteralPath 'HKCR:\Wow6432Node\AppID\{0358b920-0ac7-461f-98f4-58e32cd89148}' -Recurse -Force
-Remove-Item -LiteralPath 'HKLM:\Software\Wow6432Node\Classes\AppID\{3eb3c877-1f16-487c-9050-104dbcd66683}' -Force
-Remove-Item -LiteralPath 'HKLM:\Software\Wow6432Node\Classes\CLSID\{0358b920-0ac7-461f-98f4-58e32cd89148}' -Recurse -Force
-
-<# 关闭省电 #>
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NDIS\Parameters' -Name 'DefaultPnPCapabilities' -Value 24 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\System\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0000' -Name 'PnPCapabilities' -Value 24 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Enum\ACPI\AMDI0030\0\Device Parameters\WDF' -Name 'IdleInWorkingState' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\System\CurrentControlSet\Enum\PCI\VEN_1022&DEV_149C&SUBSYS_50071458&REV_00\4&1fde7688&0&0341\Device Parameters\WDF' -Name 'IdleInWorkingState' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\System\CurrentControlSet\Enum\PCI\VEN_1022&DEV_43EE&SUBSYS_11421B21&REV_00\4&5f22ecf&0&000A\Device Parameters\WDF' -Name 'IdleInWorkingState' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\System\CurrentControlSet\Enum\USB\ROOT_HUB30\5&201a262c&0&0\Device Parameters\WDF' -Name 'IdleInWorkingState' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\System\CurrentControlSet\Enum\USB\ROOT_HUB30\5&23f8e3f5&0&0\Device Parameters\WDF' -Name 'IdleInWorkingState' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Enum\USB\VID_045E&PID_02D1\7EED85D65D32\Device Parameters\WDF' -Name 'IdleInWorkingState' -Value 0 -PropertyType DWord -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate' -Recurse -Force
 
 <# 其他 #>
+Remove-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run' -Name 'Acrobat Assistant 8.0' -Force
+Remove-Item -Path 'C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\Compressed (zipped) Folder.ZFSendToTarget' -Force
+Remove-Item -Path 'C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\蓝牙设备.LNK' -Force
+Remove-Item -Path 'C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\Mail Recipient.MAPIMail' -Force
+Remove-Item -Path 'C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\文档.mydocs' -Force
+Get-ChildItem 'C:\Users\Administrator\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Users\Administrator\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\ImplicitAppShortcuts' | Remove-Item -Recurse -Force
+Get-ChildItem 'C:\Windows\System32\config\systemprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch' | Remove-Item -Recurse -Force
+Remove-Item -LiteralPath 'HKCR:\CLSID\{78DE489B-7931-4f14-83B4-C56D38AC9FFA}' -Recurse -Force
+Remove-Item -LiteralPath 'HKCR:\CLSID\{86c815aa-4888-4063-b0ab-03c49f788be4}' -Recurse -Force
+Remove-Item -LiteralPath 'HKCR:\WOW6432Node\CLSID\{78DE489B-7931-4f14-83B4-C56D38AC9FFA}' -Recurse -Force
+Remove-Item -LiteralPath 'HKCR:\WOW6432Node\CLSID\{86c815aa-4888-4063-b0ab-03c49f788be4}' -Recurse -Force
 Get-ChildItem -Path 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
-#
 cmd.exe /c "taskkill /f /im 'mobsync.exe.exe'"
 Rename-Item -Path 'C:\Windows\System32\mobsync.exe.exe' -NewName 'mobsync.exe_old.exe' -Force
-#
 Get-ChildItem 'C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations' | Remove-Item -Recurse -Force
 Remove-Item -LiteralPath 'HKCR:\Directory\shellex\PropertySheetHandlers\Sharing' -Force
 Remove-Item -LiteralPath 'HKCR:\Drive\shellex\PropertySheetHandlers\Sharing' -Force
@@ -548,7 +559,6 @@ Remove-Item -LiteralPath 'HKCR:\Folder\shell\opennewprocess' -Recurse -Force
 Remove-Item -LiteralPath 'HKCR:\DesktopBackground\Shell\EditStickers' -Force
 New-ItemProperty -LiteralPath 'HKCR:\Drive\shell\encrypt-bde' -Name 'LegacyDisable' -Value '' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCR:\Drive\shell\encrypt-bde-elev' -Name 'LegacyDisable' -Value '' -PropertyType String -Force
-# Previous_Versions
 Remove-Item -LiteralPath 'HKCR:\AllFilesystemObjects\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}' -Force
 Remove-Item -LiteralPath 'HKCR:\CLSID\{450D8FBA-AD25-11D0-98A8-0800361B1103}\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}' -Force
 Remove-Item -LiteralPath 'HKCR:\Directory\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}' -Force
@@ -557,15 +567,11 @@ Remove-Item -LiteralPath 'HKCR:\AllFilesystemObjects\shellex\PropertySheetHandle
 Remove-Item -LiteralPath 'HKCR:\CLSID\{450D8FBA-AD25-11D0-98A8-0800361B1103}\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}' -Force
 Remove-Item -LiteralPath 'HKCR:\Directory\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}' -Force
 Remove-Item -LiteralPath 'HKCR:\Drive\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}' -Force
-#
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Force }
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{7AD84985-87B4-4a16-BE58-8B72A5B390F7}' -Value 'Play to Menu' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked' -Name '{e2bf9676-5f8f-435c-97eb-11607a5bedf7}' -Value '' -PropertyType String -Force
-#
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Google\Chrome\NativeMessagingHosts\com.microsoft.defender.browser_extension.native_message_host' -Force
-#
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\HomeFolderMSGraph\NameSpace_38664959\DelegateFolders\{AD182E17-4754-4742-8529-C11EEEF0C299}' -Force
-#
 Get-ChildItem 'C:\AMD\Chipset_Software\Logs' | Remove-Item -Recurse -Force
 
 #####
