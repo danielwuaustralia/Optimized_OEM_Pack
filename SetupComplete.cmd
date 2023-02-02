@@ -48,7 +48,7 @@ rem DirectX
 start /wait C:\TEMP\DirectX\DXSETUP.exe /silent
 
 rem https://vulkan.lunarg.com/sdk/home
-start /wait C:\TEMP\VulkanRT-1.3.236.0-Installer.exe /S
+start /wait C:\TEMP\VulkanRT-1.3.239.0-Installer.exe /S
 
 rem process lasso
 start /wait C:\TEMP\processlassoActivator.exe -makekeyfile -product:2 -output:"C:\TEMP"
