@@ -1580,7 +1580,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Google\Chrome' -Name 'Url
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Google\Chrome' -Name 'DefaultClipboardSetting' -Value 2 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Google\Chrome' -Name 'NetworkServiceSandboxEnabled' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Google\Chrome' -Name 'WPADQuickCheckEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Google\Chrome' -Name 'ChromeRootStoreEnabled' -Value 1 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Google\Chrome\SpellcheckLanguage') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Google\Chrome\SpellcheckLanguage' -Force }
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Google\Chrome\SpellcheckLanguage' -Name '1' -Value 'en-US' -PropertyType String -Force
 # Firefox策略
@@ -1824,141 +1823,6 @@ if ((Test-Path -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\Proces
 if ((Test-Path -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumns') -ne $true) { New-Item 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumns' -Force }
 if ((Test-Path -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\VirusTotal') -ne $true) { New-Item 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\VirusTotal' -Force }
 New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'EulaAccepted' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'Windowplacement' -Value ([byte[]](0x2c, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x75, 0x03, 0x00, 0x00, 0x11, 0x00, 0x00, 0x00, 0x95, 0x06, 0x00, 0x00, 0x69, 0x02, 0x00, 0x00)) -PropertyType Binary -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'FindWindowplacement' -Value ([byte[]](0x2c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x96, 0x00, 0x00, 0x00, 0x96, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'SysinfoWindowplacement' -Value ([byte[]](0x2c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x28, 0x00, 0x00, 0x00, 0x28, 0x00, 0x00, 0x00, 0x2b, 0x03, 0x00, 0x00, 0x2b, 0x02, 0x00, 0x00)) -PropertyType Binary -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'PropWindowplacement' -Value ([byte[]](0x2c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x28, 0x00, 0x00, 0x00, 0x28, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'DllPropWindowplacement' -Value ([byte[]](0x2c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x28, 0x00, 0x00, 0x00, 0x28, 0x00, 0x00, 0x00, 0xe7, 0x01, 0x00, 0x00, 0x9f, 0x02, 0x00, 0x00)) -PropertyType Binary -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'UnicodeFont' -Value ([byte[]](0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x90, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x4d, 0x00, 0x53, 0x00, 0x20, 0x00, 0x53, 0x00, 0x68, 0x00, 0x65, 0x00, 0x6c, 0x00, 0x6c, 0x00, 0x20, 0x00, 0x44, 0x00, 0x6c, 0x00, 0x67, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'Divider' -Value ([byte[]](0x53, 0x1f, 0x0e, 0x15, 0x16, 0x62, 0xea, 0x3f)) -PropertyType Binary -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'SavedDivider' -Value ([byte[]](0x53, 0x1f, 0x0e, 0x15, 0x16, 0x62, 0xea, 0x3f)) -PropertyType Binary -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ProcessImageColumnWidth' -Value 261 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ShowUnnamedHandles' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ShowDllView' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'HandleSortColumn' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'HandleSortDirection' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'DllSortColumn' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'DllSortDirection' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ProcessSortColumn' -Value -1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ProcessSortDirection' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'HighlightServices' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'HighlightOwnProcesses' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'HighlightRelocatedDlls' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'HighlightJobs' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'HighlightNewProc' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'HighlightDelProc' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'HighlightImmersive' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'HighlightProtected' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'HighlightPacked' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'HighlightNetProcess' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'HighlightSuspend' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'HighlightDuration' -Value 1000 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ShowCpuFractions' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ShowLowerpane' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ShowAllUsers' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ShowProcessTree' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'SymbolWarningShown' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'HideWhenMinimized' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'AlwaysOntop' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'OneInstance' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'NumColumnSets' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ConfirmKill' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'RefreshRate' -Value 5000 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'PrcessColumnCount' -Value 18 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'DllColumnCount' -Value 5 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'HandleColumnCount' -Value 2 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'DefaultProcPropPage' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'DefaultSysInfoPage' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'DefaultDllPropPage' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'DbgHelpPath' -Value 'C:\Windows\SYSTEM32\dbghelp.dll' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'SymbolPath' -Value '' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ColorPacked' -Value 16711808 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ColorImmersive' -Value 15395328 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ColorOwn' -Value 16765136 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ColorServices' -Value 13684991 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ColorRelocatedDlls' -Value 10551295 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ColorGraphBk' -Value 15790320 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ColorJobs' -Value 27856 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ColorDelProc' -Value 4605695 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ColorNewProc' -Value 4652870 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ColorNet' -Value 10551295 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ColorProtected' -Value 8388863 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ShowHeatmaps' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ColorSuspend' -Value 8421504 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'StatusBarColumns' -Value 13589 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ShowAllCpus' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ShowAllGpus' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'Opacity' -Value 100 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'GpuNodeUsageMask' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'GpuNodeUsageMask1' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'VerifySignatures' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'VirusTotalCheck' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'VirusTotalSubmitUnknown' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ToolbarBands' -Value ([byte[]](0x06, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x4b, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x4b, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x4b, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x4b, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x50, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x93, 0x04, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'UseGoogle' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ShowNewProcesses' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'TrayCPUHistory' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ShowIoTray' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ShowNetTray' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ShowDiskTray' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ShowPhysTray' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ShowCommitTray' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ShowGpuTray' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'FormatIoBytes' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'StackWindowPlacement' -Value ([byte[]](0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer' -Name 'ETWstandardUserWarning' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\DllColumnMap' -Name '0' -Value 26 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\DllColumnMap' -Name '1' -Value 42 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\DllColumnMap' -Name '2' -Value 1033 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\DllColumnMap' -Name '3' -Value 1111 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\DllColumnMap' -Name '4' -Value 1670 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\DllColumns' -Name '0' -Value 110 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\DllColumns' -Name '1' -Value 180 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\DllColumns' -Name '2' -Value 140 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\DllColumns' -Name '3' -Value 300 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\DllColumns' -Name '4' -Value 100 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\HandleColumnMap' -Name '0' -Value 21 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\HandleColumnMap' -Name '1' -Value 22 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\HandleColumns' -Name '0' -Value 100 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\HandleColumns' -Name '1' -Value 450 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumnMap' -Name '0' -Value 3 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumnMap' -Name '1' -Value 1055 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumnMap' -Name '2' -Value 1650 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumnMap' -Name '3' -Value 1200 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumnMap' -Name '4' -Value 1092 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumnMap' -Name '5' -Value 1333 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumnMap' -Name '6' -Value 1622 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumnMap' -Name '7' -Value 1636 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumnMap' -Name '8' -Value 1179 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumnMap' -Name '9' -Value 1340 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumnMap' -Name '10' -Value 5 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumnMap' -Name '11' -Value 1339 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumnMap' -Name '12' -Value 1060 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumnMap' -Name '13' -Value 1063 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumnMap' -Name '14' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumnMap' -Name '15' -Value 1065 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumnMap' -Name '16' -Value 18 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumnMap' -Name '17' -Value 1670 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumnMap' -Name '18' -Value 1653 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumnMap' -Name '19' -Value 1653 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumns' -Name '0' -Value 261 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumns' -Name '1' -Value 35 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumns' -Name '2' -Value 37 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumns' -Name '3' -Value 82 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumns' -Name '4' -Value 81 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumns' -Name '5' -Value 65 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumns' -Name '6' -Value 93 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumns' -Name '7' -Value 76 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumns' -Name '8' -Value 55 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumns' -Name '9' -Value 60 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumns' -Name '10' -Value 39 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumns' -Name '11' -Value 80 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumns' -Name '12' -Value 70 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumns' -Name '13' -Value 70 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumns' -Name '14' -Value 31 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumns' -Name '15' -Value 52 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumns' -Name '16' -Value 52 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\ProcessColumns' -Name '17' -Value 44 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\SOFTWARE\Sysinternals\Process Explorer\VirusTotal' -Name 'VirusTotalTermsAccepted' -Value 1 -PropertyType DWord -Force
 # startisback
 if ((Test-Path -LiteralPath 'HKCU:\Software\StartIsBack') -ne $true) { New-Item 'HKCU:\Software\StartIsBack' -Force }
@@ -2146,8 +2010,6 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\Exper
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\visio' -Name 'Microsoft.Office.UXPlatform.FluentSVRibbonOptionsMenu' -Value 'true' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\visio' -Name 'Microsoft.Office.UXPlatform.SmartQAT' -Value 'true' -PropertyType String -Force
 # 7zip
-Remove-Item -LiteralPath 'HKCU:\SOFTWARE\Classes\*\shell\Windows.CompressTo' -Recurse -Force
-New-Item 'HKCU:\SOFTWARE\Classes\*\shell\Windows.CompressTo' -Force
 if ((Test-Path -LiteralPath 'HKCU:\Software\7-Zip') -ne $true) { New-Item 'HKCU:\Software\7-Zip' -Force }
 New-ItemProperty -LiteralPath 'HKCU:\Software\7-Zip' -Name 'LargePages' -Value 1 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKCU:\Software\7-Zip\Options') -ne $true) { New-Item 'HKCU:\Software\7-Zip\Options' -Force }
@@ -2807,11 +2669,11 @@ cmd.exe /c 'powercfg -Change monitor-timeout-ac 30'
 cmd.exe /c 'powercfg -Change disk-timeout-ac 0'
 cmd.exe /c 'powercfg /SETACVALUEINDEX SCHEME_CURRENT 19cbb8fa-5279-450e-9fac-8a3d5fedd0c1 12bbebe6-58d6-4636-95bb-3217ef867c1a 0'
 #
-cmd.exe /c 'bcdedit /set bootmenupolicy Legacy'
 cmd.exe /c 'bcdedit /set quietboot Yes'
-cmd.exe /c 'bcdedit /set highestmode Yes'
+cmd.exe /c 'bcdedit /set bootuxdisabled on'
 cmd.exe /c 'bcdedit /timeout 0'
 cmd.exe /c 'bcdedit /set bootlog Yes'
+cmd.exe /c 'bcdedit /set bootstatuspolicy IgnoreAllFailures'
 cmd.exe /c 'fsutil behavior set disable8dot3 1'
 cmd.exe /c 'fsutil behavior set disableencryption 1'
 cmd.exe /c 'fsutil behavior set disablelastaccess 1'
