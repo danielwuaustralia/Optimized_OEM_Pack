@@ -11,17 +11,23 @@ rmdir /s /q "C:\TEMP\"
 rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\NV_Cache\"
 
 rem Time Sync
+rem cn.pool.ntp.org
 net start w32time
-w32tm /config /manualpeerlist:time.cloudflare.com,0x1 /syncfromflags:manual /reliable:yes /update
-rem w32tm /config /manualpeerlist:ntp6.aliyun.com,0x1 /syncfromflags:manual /reliable:yes /update
+w32tm /config /syncfromflags:manual /manualpeerlist:"time.cloudflare.com"
+w32tm /config /update
 w32tm /resync
-timeout /t 5
+timeout /t 2 /nobreak
 w32tm /resync
 net stop w32time
 
+rem process priority
+wmic process where name="csrss.exe" CALL setpriority 128
+wmic process where name="dwm.exe" CALL setpriority 64
+wmic process where name="TextInputHost.exe" CALL setpriority 32
+wmic process where name="ctfmon.exe" CALL setpriority 32
+wmic process where name="winlogon.exe" CALL setpriority 32
+
 rem logman query -ets
-rem "C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "Reg.exe delete HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger /f"
-rem "C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "Reg.exe delete HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT /f"
 "C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "logman stop -ets Diagtrack-Listener"
 "C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "logman stop -ets SleepStudyTraceSession"
 "C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "logman stop -ets CldFltLog"
@@ -59,7 +65,7 @@ reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Reset Log Files" /v "StateFlags0001" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Upgrade Log Files" /v "StateFlags0001" /f
 
-timeout 5
+timeout /t 2 /nobreak
 
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /t REG_DWORD /d "2" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\BranchCache" /v "StateFlags0001" /t REG_DWORD /d "2" /f
