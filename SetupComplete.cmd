@@ -10,13 +10,10 @@ rem https://forums.mydigitallife.net/threads/kms_vl_all-smart-activation-script.
 call C:\TEMP\KMS_VL_ALL_AIO.cmd /x /s /a
 
 rem https://github.com/PowerShell/PowerShell/releases
-%windir%\System32\msiexec.exe /package "C:\TEMP\PowerShell-7.3.2-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
+%windir%\System32\msiexec.exe /package "C:\TEMP\PowerShell-7.3.3-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
 
 rem https://www.amd.com/en/support/chipsets/amd-socket-am4/b550
-start /wait C:\TEMP\AMD_Chipset_Drivers.exe /S
-
-rem https://www.videohelp.com/software/madVR
-regsvr32.exe "C:\Program Files\madVR\madVR64.ax" /s
+start /wait C:\TEMP\AMD.exe /S
 
 rem 7zip
 start /wait C:\TEMP\7z2201-x64.exe /S /D="C:\Program Files\7-Zip"
@@ -39,10 +36,7 @@ CertUtil -addstore -f Root "C:\TEMP\vcredist\MicAssDesRoo_2011_03_23.crt"
 CertUtil -addstore -f CA "C:\TEMP\vcredist\MicAssDesPCA2011_2011-06-28.crt"
 
 rem https://dotnet.microsoft.com/en-us/download/dotnet/7.0
-start /wait C:\TEMP\windowsdesktop-runtime-7.0.2-win-x64.exe /install /quiet /norestart
-
-rem https://files.1f0.de/lavf/nightly/
-start /wait C:\TEMP\LAVFilters-0.77.1-2.exe /VERYSILENT
+start /wait C:\TEMP\windowsdesktop-runtime-7.0.3-win-x64.exe /install /quiet /norestart
 
 rem DirectX
 start /wait C:\TEMP\DirectX\DXSETUP.exe /silent
@@ -51,229 +45,84 @@ rem https://vulkan.lunarg.com/sdk/home
 start /wait C:\TEMP\VulkanRT-1.3.239.0-Installer.exe /S
 
 rem process lasso
-start /wait C:\TEMP\processlassoActivator.exe -makekeyfile -product:2 -output:"C:\TEMP"
-start /wait C:\TEMP\processlassosetup64.exe /S /keyfile=C:\TEMP\prolasso.key /launch_gui=false /gui_start_type=all /governor_start_type=all /language=SimpChinese
+rem start /wait C:\TEMP\processlassoActivator.exe -makekeyfile -product:2 -output:"C:\TEMP"
+rem start /wait C:\TEMP\processlassosetup64.exe /S /keyfile=C:\TEMP\prolasso.key /launch_gui=false /gui_start_type=all /governor_start_type=all /language=SimpChinese
+
+rem https://learn.microsoft.com/en-us/troubleshoot/windows-server/performance/manually-rebuild-performance-counters
+lodctr /r
+lodctr /r
+winmgmt /resyncperf
+
+rem Power scheme optimized for optimal latency and performance
+powercfg -duplicatescheme 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c 11111111-1111-1111-1111-111111111111
+powercfg -changename 11111111-1111-1111-1111-111111111111 "PRO GAMER" "Power scheme optimized for optimal latency and performance"
+powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 0012ee47-9041-4b5d-9b77-535fba8b1442 6738e2c4-e8a5-4a42-b16a-e040e769756e 0
+powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 0012ee47-9041-4b5d-9b77-535fba8b1442 d3d55efd-c1ff-424e-9dc3-441be7833010 0
+powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 0012ee47-9041-4b5d-9b77-535fba8b1442 d639518a-e56d-4345-8af2-b9f32fb26109 0
+powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 0012ee47-9041-4b5d-9b77-535fba8b1442 fc7372b6-ab2d-43ee-8797-15e9841f2cca 0
+powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 0d7dbae2-4294-402a-ba8e-26777e8488cd 309dce9b-bef4-4119-9921-a851fb12f0f4 1
+powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 238c9fa8-0aad-41ed-83f4-97be242c8f20 7bc4a2f9-d8fc-4469-b07b-33eb785aaca0 0
+powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 238c9fa8-0aad-41ed-83f4-97be242c8f20 bd3b718a-0680-4d9d-8ab2-e1d2b4ac806d 0
+powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 2a737441-1930-4402-8d77-b2bebba308a3 0853a681-27c8-4100-a2fd-82013e970683 0
+powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 0
+powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 2a737441-1930-4402-8d77-b2bebba308a3 d4e98f31-5ffe-4ce1-be31-1b38b384c009 0
+powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 2e601130-5351-4d9d-8e04-252966bad054 d502f7ee-1dc7-4efd-a55d-f04b6f5c0545 0
+powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 7516b95f-f776-4464-8c53-06167f40cc99 3c0bc021-c8a8-4e07-a973-6b14cbcb2b7e 0
+powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 e73a048d-bf27-4f12-9731-8b2076e8891f 5dbb7c9f-38e9-40d2-9749-4f8a0e9f640f 0
+powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 e73a048d-bf27-4f12-9731-8b2076e8891f 637ea02f-bbcb-4015-8e2c-a1c7b9c0b546 0
+powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 e73a048d-bf27-4f12-9731-8b2076e8891f 8183ba9a-e910-48da-8769-14ae6dc1170a 0
+powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 e73a048d-bf27-4f12-9731-8b2076e8891f 9a66d8d7-4ff7-4ef9-b5a2-5a326ca2a469 0
+powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 e73a048d-bf27-4f12-9731-8b2076e8891f bcded951-187b-4d05-bccc-f7e51960c258 0
+powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 e73a048d-bf27-4f12-9731-8b2076e8891f f3c5027d-cd16-4930-aa6b-90db844a8f00 0
 
 rem taskscheduler
-set "_schtasks=SCHTASKS /Change /DISABLE /TN"
-set "_schedule=Microsoft\Windows"
-%_schtasks% "MicrosoftEdgeUpdateTaskMachineCore"
-%_schtasks% "MicrosoftEdgeUpdateTaskMachineUA"
-%_schtasks% "%_schedule%\.NET Framework\.NET Framework NGEN v4.0.30319 64 Critical"
-%_schtasks% "%_schedule%\.NET Framework\.NET Framework NGEN v4.0.30319 64"
-%_schtasks% "%_schedule%\.NET Framework\.NET Framework NGEN v4.0.30319 Critical"
-%_schtasks% "%_schedule%\.NET Framework\.NET Framework NGEN v4.0.30319"
-%_schtasks% "%_schedule%\SetupSQMTask"
-%_schtasks% "%_schedule%\AppID\EDP Policy Manager"
-%_schtasks% "%_schedule%\AppID\SmartScreenSpecific"
-%_schtasks% "%_schedule%\Application Experience\Microsoft Compatibility Appraiser"
-%_schtasks% "%_schedule%\Application Experience\ProgramDataUpdater"
-%_schtasks% "%_schedule%\Application Experience\StartupAppTask"
-%_schtasks% "%_schedule%\Application Experience\PcaPatchDbTask"
-%_schtasks% "%_schedule%\ApplicationData\appuriverifierdaily"
-%_schtasks% "%_schedule%\ApplicationData\appuriverifierinstall"
-%_schtasks% "%_schedule%\ApplicationData\DsSvcCleanup"
-%_schtasks% "%_schedule%\AppListBackup\Backup"
-%_schtasks% "%_schedule%\AppxDeploymentClient\Pre-staged app cleanup"
-%_schtasks% "%_schedule%\Autochk\Proxy"
-%_schtasks% "%_schedule%\Bluetooth\UninstallDeviceTask"
-%_schtasks% "%_schedule%\BrokerInfrastructure\BgTaskRegistrationMaintenanceTask"
-%_schtasks% "%_schedule%\Chkdsk\ProactiveScan"
-%_schtasks% "%_schedule%\Chkdsk\SyspartRepair"
-%_schtasks% "%_schedule%\Clip\License Validation"
-%_schtasks% "%_schedule%\CloudExperienceHost\CreateObjectTask"
-%_schtasks% "%_schedule%\Customer Experience Improvement Program\BthSQM"
-%_schtasks% "%_schedule%\Customer Experience Improvement Program\Consolidator"
-%_schtasks% "%_schedule%\Customer Experience Improvement Program\KernelCeipTask"
-%_schtasks% "%_schedule%\Customer Experience Improvement Program\TelTask"
-%_schtasks% "%_schedule%\Customer Experience Improvement Program\UsbCeip"
-%_schtasks% "%_schedule%\Data Integrity Scan\Data Integrity Check And Scan"
-%_schtasks% "%_schedule%\Data Integrity Scan\Data Integrity Scan"
-%_schtasks% "%_schedule%\Data Integrity Scan\Data Integrity Scan for Crash Recovery"
-%_schtasks% "%_schedule%\Deduplication\BackgroundOptimization"
-%_schtasks% "%_schedule%\Deduplication\WeeklyGarbageCollection"
-%_schtasks% "%_schedule%\Deduplication\WeeklyScrubbing"
-%_schtasks% "%_schedule%\Defrag\ScheduledDefrag"
-%_schtasks% "%_schedule%\Device Information\Device"
-%_schtasks% "%_schedule%\Device Information\Device User"
-%_schtasks% "%_schedule%\Diagnosis\RecommendedTroubleshootingScanner"
-%_schtasks% "%_schedule%\Diagnosis\Scheduled"
-%_schtasks% "%_schedule%\DirectX\DirectXDatabaseUpdater"
-%_schtasks% "%_schedule%\DirectX\DXGIAdapterCache"
-%_schtasks% "%_schedule%\DiskCleanup\SilentCleanup"
-%_schtasks% "%_schedule%\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector"
-%_schtasks% "%_schedule%\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticResolver"
-%_schtasks% "%_schedule%\DiskFootprint\Diagnostics"
-%_schtasks% "%_schedule%\DiskFootprint\StorageSense"
-%_schtasks% "%_schedule%\DUSM\dusmtask"
-%_schtasks% "%_schedule%\ErrorDetails\EnableErrorDetailsUpdate"
-%_schtasks% "%_schedule%\ErrorDetails\ErrorDetailsUpdate"
-%_schtasks% "%_schedule%\ExploitGuard\ExploitGuard MDM policy Refresh"
-%_schtasks% "%_schedule%\Feedback\Siuf\DmClient"
-%_schtasks% "%_schedule%\Feedback\Siuf\DmClientOnScenarioDownload"
-%_schtasks% "%_schedule%\FileHistory\File History (maintenance mode)"
-%_schtasks% "%_schedule%\Flighting\FeatureConfig\ReconcileFeatures"
-%_schtasks% "%_schedule%\Flighting\FeatureConfig\UsageDataFlushing"
-%_schtasks% "%_schedule%\Flighting\FeatureConfig\UsageDataReporting"
-%_schtasks% "%_schedule%\Flighting\OneSettings\RefreshCache"
-%_schtasks% "%_schedule%\HelloFace\FODCleanupTask"
-%_schtasks% "%_schedule%\Input\LocalUserSyncDataAvailable"
-%_schtasks% "%_schedule%\Input\MouseSyncDataAvailable"
-%_schtasks% "%_schedule%\Input\PenSyncDataAvailable"
-%_schtasks% "%_schedule%\Input\TouchpadSyncDataAvailable"
-%_schtasks% "%_schedule%\International\Synchronize Language Settings"
-%_schtasks% "%_schedule%\InstallService\ScanForUpdates"
-%_schtasks% "%_schedule%\InstallService\ScanForUpdatesAsUser"
-%_schtasks% "%_schedule%\InstallService\SmartRetry"
-%_schtasks% "%_schedule%\Kernel\La57Cleanup"
-%_schtasks% "%_schedule%\LanguageComponentsInstaller\Installation"
-%_schtasks% "%_schedule%\LanguageComponentsInstaller\Uninstallation"
-%_schtasks% "%_schedule%\LanguageComponentsInstaller\ReconcileLanguageResources"
-%_schtasks% "%_schedule%\Location\Notifications"
-%_schtasks% "%_schedule%\Location\WindowsActionDialog"
-%_schtasks% "%_schedule%\Maintenance\WinSAT"
-%_schtasks% "%_schedule%\Management\Provisioning\Cellular"
-%_schtasks% "%_schedule%\Management\Provisioning\Logon"
-%_schtasks% "%_schedule%\Maps\MapsToastTask"
-%_schtasks% "%_schedule%\Maps\MapsUpdateTask"
-%_schtasks% "%_schedule%\MemoryDiagnostic\ProcessMemoryDiagnosticEvents"
-%_schtasks% "%_schedule%\MemoryDiagnostic\RunFullMemoryDiagnostic"
-%_schtasks% "%_schedule%\Mobile Broadband Accounts\MNO Metadata Parser"
-%_schtasks% "%_schedule%\MUI\LPRemove"
-%_schtasks% "%_schedule%\NetTrace\GatherNetworkInfo"
-%_schtasks% "%_schedule%\NlaSvc\WiFiTask"
-%_schtasks% "%_schedule%\Offline Files\Synchronization"
-%_schtasks% "%_schedule%\PI\Secure-Boot-Update"
-%_schtasks% "%_schedule%\PI\Sqm-Tasks"
-%_schtasks% "%_schedule%\Power Efficiency Diagnostics\AnalyzeSystem"
-%_schtasks% "%_schedule%\Printing\EduPrintProv"
-%_schtasks% "%_schedule%\Printing\PrinterCleanupTask"
-%_schtasks% "%_schedule%\PushToInstall\Registration"
-%_schtasks% "%_schedule%\Ras\MobilityManager"
-%_schtasks% "%_schedule%\RecoveryEnvironment\VerifyWinRE"
-%_schtasks% "%_schedule%\RemoteAssistance\RemoteAssistanceTask"
-%_schtasks% "%_schedule%\RetailDemo\CleanupOfflineContent"
-%_schtasks% "%_schedule%\Servicing\StartComponentCleanup"
-%_schtasks% "%_schedule%\SettingSync\BackupTask"
-%_schtasks% "%_schedule%\SettingSync\NetworkStateChangeTask"
-%_schtasks% "%_schedule%\Setup\SetupCleanupTask"
-%_schtasks% "%_schedule%\Shell\FamilySafetyMonitor"
-%_schtasks% "%_schedule%\Shell\FamilySafetyRefresh"
-%_schtasks% "%_schedule%\Shell\FamilySafetyRefreshTask"
-%_schtasks% "%_schedule%\Shell\IndexerAutomaticMaintenance"
-%_schtasks% "%_schedule%\Shell\UpdateUserPictureTask"
-%_schtasks% "%_schedule%\Shell\ThemesSyncedImageDownload"
-%_schtasks% "%_schedule%\SMB\UninstallSMB1ClientTask"
-%_schtasks% "%_schedule%\SMB\UninstallSMB1ServerTask"
-%_schtasks% "%_schedule%\SpacePort\SpaceAgentTask"
-%_schtasks% "%_schedule%\SpacePort\SpaceManagerTask"
-%_schtasks% "%_schedule%\Speech\HeadsetButtonPress"
-%_schtasks% "%_schedule%\Speech\SpeechModelDownloadTask"
-%_schtasks% "%_schedule%\Storage Tiers Management\Storage Tiers Management Initialization"
-%_schtasks% "%_schedule%\Storage Tiers Management\Storage Tiers Optimization"
-%_schtasks% "%_schedule%\Subscription\EnableLicenseAcquisition"
-%_schtasks% "%_schedule%\Subscription\LicenseAcquisition"
-%_schtasks% "%_schedule%\Sysmain\ResPriStaticDbSync"
-%_schtasks% "%_schedule%\Sysmain\WsSwapAssessmentTask"
-%_schtasks% "%_schedule%\SystemRestore\SR"
-%_schtasks% "%_schedule%\UNP\RunUpdateNotificationMgr"
-%_schtasks% "%_schedule%\USB\Usb-Notifications"
-%_schtasks% "%_schedule%\WCM\WiFiTask"
-%_schtasks% "%_schedule%\WDI\ResolutionHost"
-%_schtasks% "%_schedule%\Windows Defender\Windows Defender Cache Maintenance"
-%_schtasks% "%_schedule%\Windows Defender\Windows Defender Cleanup"
-%_schtasks% "%_schedule%\Windows Defender\Windows Defender Scheduled Scan"
-%_schtasks% "%_schedule%\Windows Defender\Windows Defender Verification"
-%_schtasks% "%_schedule%\Windows Error Reporting\QueueReporting"
-%_schtasks% "%_schedule%\Windows Filtering Platform\BfeOnServiceStartTypeChange"
-%_schtasks% "%_schedule%\Windows Media Sharing\UpdateLibrary"
-%_schtasks% "%_schedule%\WindowsColorSystem\Calibration Loader"
-%_schtasks% "%_schedule%\WindowsUpdate\Automatic App Update"
-%_schtasks% "%_schedule%\WindowsUpdate\Scheduled Start"
-%_schtasks% "%_schedule%\WindowsUpdate\sih"
-%_schtasks% "%_schedule%\WindowsUpdate\sihboot"
-%_schtasks% "%_schedule%\WlanSvc\CDSSync"
-%_schtasks% "%_schedule%\WOF\WIM-Hash-Management"
-%_schtasks% "%_schedule%\WOF\WIM-Hash-Validation"
-%_schtasks% "%_schedule%\Work Folders\Work Folders Logon Synchronization"
-%_schtasks% "%_schedule%\Work Folders\Work Folders Maintenance Work"
-%_schtasks% "%_schedule%\WS\WSTask"
-%_schtasks% "%_schedule%\WwanSvc\NotificationTask"
-%_schtasks% "%_schedule%\WwanSvc\OobeDiscovery"
-%_schtasks% "%_schedule%\WwanSvc\WiFiTask"
-%_schtasks% "Microsoft\XblGameSave\XblGameSaveTask"
-%_schtasks% "Microsoft\XblGameSave\XblGameSaveTaskLogon"
-%_schtasks% "Microsoft\OneCore\DirectX\DirectXDatabaseUpdater"
-(
-echo %_schtasks% "%_schedule%\BitLocker\BitLocker Encrypt All Drives"
-echo %_schtasks% "%_schedule%\BitLocker\BitLocker MDM policy Refresh"
-echo %_schtasks% "%_schedule%\Chkdsk\SyspartRepair"
-echo %_schtasks% "%_schedule%\Device Setup\Metadata Refresh"
-echo %_schtasks% "%_schedule%\DeviceDirectoryClient\HandleCommand"
-echo %_schtasks% "%_schedule%\DeviceDirectoryClient\HandleWnsCommand"
-echo %_schtasks% "%_schedule%\DeviceDirectoryClient\IntegrityCheck"
-echo %_schtasks% "%_schedule%\DeviceDirectoryClient\LocateCommandUserSession"
-echo %_schtasks% "%_schedule%\DeviceDirectoryClient\RegisterDeviceAccountChange"
-echo %_schtasks% "%_schedule%\DeviceDirectoryClient\RegisterDeviceConnectedToNetwork"
-echo %_schtasks% "%_schedule%\DeviceDirectoryClient\RegisterDeviceLocationRightsChange"
-echo %_schtasks% "%_schedule%\DeviceDirectoryClient\RegisterDevicePeriodic1"
-echo %_schtasks% "%_schedule%\DeviceDirectoryClient\RegisterDevicePeriodic24"
-echo %_schtasks% "%_schedule%\DeviceDirectoryClient\RegisterDevicePeriodic6"
-echo %_schtasks% "%_schedule%\DeviceDirectoryClient\RegisterDevicePolicyChange"
-echo %_schtasks% "%_schedule%\DeviceDirectoryClient\RegisterDeviceProtectionStateChanged"
-echo %_schtasks% "%_schedule%\DeviceDirectoryClient\RegisterDeviceScreenOnOff"
-echo %_schtasks% "%_schedule%\DeviceDirectoryClient\RegisterDeviceSettingChange"
-echo %_schtasks% "%_schedule%\DeviceDirectoryClient\RegisterUserDevice"
-echo %_schtasks% "%_schedule%\EDP\EDP App Launch Task"
-echo %_schtasks% "%_schedule%\EDP\EDP Auth Task"
-echo %_schtasks% "%_schedule%\EDP\EDP Inaccessible Credentials Task"
-echo %_schtasks% "%_schedule%\EDP\StorageCardEncryption Task"
-echo %_schtasks% "%_schedule%\termsrv\RemoteFX\RemoteFXvGPUDisableTask"
-echo %_schtasks% "%_schedule%\termsrv\RemoteFX\RemoteFXWarningTask"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\AC Power Download"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\AC Power Install"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\Backup Scan"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\Battery Saver Deferred Install"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\Maintenance Install"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\MusUx_UpdateInterval"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\Policy Install"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\Reboot"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\Reboot_AC"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\Reboot_Battery"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\Report policies"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\Refresh Settings"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\Resume On Boot"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\Schedule Retry Scan"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\Schedule Scan Static Task"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\Schedule Scan"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\Schedule Work"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\UpdateModelTask"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\USO_Broker_Display"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\USO_UxBroker_Display"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\USO_UxBroker_ReadyToReboot"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\USO_UxBroker"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\Schedule Wake To Work"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\Schedule Maintenance Work"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\Start Oobe Expedite Work"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\StartOobeAppsScan"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\StartOobeAppsScanAfterUpdate"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\Universal Orchestrator Idle Start"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\Universal Orchestrator Start"
-echo %_schtasks% "%_schedule%\UpdateOrchestrator\UUS Failover Task"
-echo %_schtasks% "%_schedule%\WaaSMedic\PerformRemediation"
-echo %_schtasks% "%_schedule%\WindowsUpdate\sihpostreboot"
-echo %_schtasks% "%_schedule%\SettingSync\BackgroundUploadTask"
-)>%windir%\SystemTasks.cmd
-SCHTASKS /Create /F /RU "SYSTEM" /RL HIGHEST /SC HOURLY /TN SystemTasks /TR "cmd /c %windir%\SystemTasks.cmd"
-SCHTASKS /Run /I /TN SystemTasks
-TIMEOUT /T 5
-SCHTASKS /Delete /F /TN SystemTasks
-del /f /q %windir%\SystemTasks.cmd
-del /f /q %SystemDrive%\unattend.xml
-sc triggerinfo wuauserv delete
-sc triggerinfo WaaSMedicSvc delete
-DISM.exe /Online /Set-ReservedStorageState /State:Disabled
-del /f /s /q C:\Windows\CbsTemp\*.*
-del /f /s /q C:\Windows\Logs\*.*
+for %%a in (
+    "\Microsoft\Windows\ApplicationData\appuriverifierdaily"
+    "\Microsoft\Windows\ApplicationData\appuriverifierinstall"
+    "\Microsoft\Windows\ApplicationData\DsSvcCleanup"
+    "\Microsoft\Windows\Application Experience\PcaPatchDbTask"
+    "\Microsoft\Windows\Application Experience\StartupAppTask"
+    "\Microsoft\Windows\BrokerInfrastructure\BgTaskRegistrationMaintenanceTask"
+    "\Microsoft\Windows\CloudExperienceHost\CreateObjectTask"
+    "\Microsoft\Windows\Defrag\ScheduledDefrag"
+    "\Microsoft\Windows\Device Information\Device"
+    "\Microsoft\Windows\Device Setup\Metadata Refresh"
+    "\Microsoft\Windows\Diagnosis\Scheduled"
+    "\Microsoft\Windows\DiskCleanup\SilentCleanup"
+    "\Microsoft\Windows\DiskFootprint\Diagnostics"
+    "\Microsoft\Windows\InstallService\ScanForUpdates"
+    "\Microsoft\Windows\InstallService\ScanForUpdatesAsUser"
+    "\Microsoft\Windows\InstallService\SmartRetry"
+    "\Microsoft\Windows\Management\Provisioning\Cellular"
+    "\Microsoft\Windows\MemoryDiagnostic\ProcessMemoryDiagnosticEvents"
+    "\Microsoft\Windows\MemoryDiagnostic\RunFullMemoryDiagnostic"
+    "\Microsoft\Windows\MUI\LPRemove"
+    "\Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem"
+    "\Microsoft\Windows\Printing\EduPrintProv"
+    "\Microsoft\Windows\PushToInstall\LoginCheck"
+    "\Microsoft\Windows\Ras\MobilityManager"
+    "\Microsoft\Windows\Registry\RegIdleBackup"
+    "\Microsoft\Windows\RetailDemo\CleanupOfflineContent"
+    "\Microsoft\Windows\Shell\IndexerAutomaticMaintenance"
+    "\Microsoft\Windows\SoftwareProtectionPlatform\SvcRestartTaskNetwork"
+    "\Microsoft\Windows\StateRepository\MaintenanceTasks"
+    "\Microsoft\Windows\Time Synchronization\ForceSynchronizeTime"
+    "\Microsoft\Windows\Time Synchronization\SynchronizeTime"
+    "\Microsoft\Windows\Time Zone\SynchronizeTimeZone"
+    "\Microsoft\Windows\UpdateOrchestrator\Report policies"
+    "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan Static Task"
+    "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan"
+    "\Microsoft\Windows\UpdateOrchestrator\UpdateModelTask"
+    "\Microsoft\Windows\UpdateOrchestrator\USO_UxBroker"
+    "\Microsoft\Windows\UPnP\UPnPHostConfig"
+    "\Microsoft\Windows\WaaSMedic\PerformRemediation"
+    "\Microsoft\Windows\Windows Error Reporting\QueueReporting"
+    "\Microsoft\Windows\Windows Filtering Platform\BfeOnServiceStartTypeChange"
+    "\Microsoft\Windows\WindowsUpdate\Scheduled Start"
+    "\Microsoft\Windows\Wininet\CacheTask"
+    "\Microsoft\XblGameSave\XblGameSaveTask"
+) do (
+	schtasks /change /disable /TN %%a > nul 2>nul
+)
 
 %windir%\System32\UsoClient.exe RefreshSettings
