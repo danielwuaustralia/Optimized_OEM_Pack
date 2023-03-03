@@ -72,12 +72,15 @@ rem install drivers
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1" /f /v Path /t REG_SZ /d "C:\TEMP\Drivers"
 "C:\Windows\System32\pnpunattend.exe" AuditSystem /L
 
-rem Disable OneDrive
+rem Remove Onedrive
+takeown /f "C:\Windows\System32\OneDriveSetup.exe"
+icacls "C:\Windows\System32\OneDriveSetup.exe" /grant Administrators:F /T /C
+del /f /q /s "C:\Windows\System32\OneDriveSetup.exe"
 reg load HKLM\NTUSER C:\Users\Default\NTUSER.DAT
 reg delete "HKLM\NTUSER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
-reg unload HKLM\NTUSER
 reg delete "HKU\S-1-5-19\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
 reg delete "HKU\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
+reg unload HKLM\NTUSER
 
 rem https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/export-or-import-default-application-associations?view=windows-11
 DISM.exe /Online /Remove-DefaultAppAssociations
@@ -85,11 +88,15 @@ DISM.exe /Online /Remove-DefaultAppAssociations
 rem https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism-storage-reserve?view=windows-11
 DISM.exe /Online /Set-ReservedStorageState /State:Disabled
 
+rem remove Edge
+powershell "RD 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk','C:\Users\*\Desktop\Microsoft Edge.lnk',HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications\*Edge*,HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Config\*Edge*,'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Update\TargetingInfo\Installed\*Edge*','HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\*Edge*',HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Config\*Edge*,HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*Edge*,HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\*Edge*,HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Browser\*Edge*,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\*Edge*,HKLM:\SYSTEM\CurrentControlSet\Services\edge*,HKLM:\SOFTWARE\Classes\AppUserModelId\*Edge*,HKLM:\SOFTWARE\WOW6432Node\Microsoft\*Edge*,HKLM:\SOFTWARE\Policies\Microsoft\*Edge* -recurse"
+RD /S /Q "C:\Program Files (x86)\Microsoft"
+
 rem Disable UBPM BOOT logging
 set "ubpm=HKLM\SYSTEM\ControlSet001\Control\Ubpm"
 for /f "tokens=1" %%a in ('reg query "%ubpm%" 2^>nul ^| find /i "REG_SZ"') do if not errorlevel 1 (%nsd1% reg delete "%ubpm%\%%a" /f 2>nul)
 
-rem APPX
+rem Remove APPX
 set "UWPs=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Applications"
 for %%i in (
 Microsoft.SecHealthUI
