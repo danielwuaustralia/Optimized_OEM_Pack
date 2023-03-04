@@ -142,6 +142,7 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Pr
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *lfsvc* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *MapsBroker* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *MessagingService* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *Ndu* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *PenService* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *MixedRealityOpenXRSvc* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *PcaSvc* | Set-ItemProperty -Name Start -Value 4 -Force
@@ -226,6 +227,7 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Pr
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *MsSecFlt* | Set-ItemProperty -Name Start -Value 4 -Force
 
 <# 性能 #>
+Remove-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\*' -Recurse -Force
 # https://forums.guru3d.com/threads/windows-line-based-vs-message-signaled-based-interrupts-msi-tool.378044/
 $MSIMode = Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum\PCI' -Recurse -Depth 5 | Where-Object { $_.PSChildName -Like 'MessageSignaledInterruptProperties' }
 ForEach ($item in $MSIMode) { $path = $item -replace 'HKEY_LOCAL_MACHINE', 'HKLM:'; Set-ItemProperty -Path $path -Name 'MSISupported' -Value 1 -Force }
@@ -270,7 +272,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\C
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules' -Force
 New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules' -Force
 ForEach ($v in (Get-Command -Name 'Set-ProcessMitigation').Parameters['Disable'].Attributes.ValidValues) { Set-ProcessMitigation -System -Disable $v.ToString().Replace(' ', '').Replace("`n", '') }
-Remove-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\*' -Recurse -Force
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Systray') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Systray' -Force }
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Systray' -Name 'HideSystray' -Value 1 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows Defender\Features') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows Defender\Features' -Force }
@@ -304,14 +305,207 @@ Get-ChildItem -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule
 Get-ChildItem -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Software Inventory Logging' | Where-Object -Property Name -Like *Configuration* | Remove-Item -Force
 
 <# 其他 #>
-Invoke-Expression -Command ('taskkill /f /im "MicrosoftEdgeUpdate.exe"')
-Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\MicrosoftEdgeElevationService' -Recurse -Force
-Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdate' -Recurse -Force
-Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\edgeupdatem' -Recurse -Force
+Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64_abf7e4e84f20581c\Display.NvContainer\plugins\Session\_NvGSTPlugin.dll' -NewName '_NvGSTPlugin_old.dll' -Force
+Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64_abf7e4e84f20581c\Display.NvContainer\plugins\Session\_nvtopps.dll' -NewName '_nvtopps_old.dll' -Force
 Invoke-Expression -Command ('taskkill /f /im "smartscreen.exe"')
 Rename-Item -Path 'C:\Windows\System32\smartscreen.exe' -NewName 'smartscreen_old.exe' -Force
 Invoke-Expression -Command ('taskkill /f /im "mobsync.exe"')
 Rename-Item -Path 'C:\Windows\System32\mobsync.exe' -NewName 'mobsync_old.exe' -Force
+Rename-Item -Path 'C:\Windows\bcastdvr\KnownGameList.bin' -NewName 'KnownGameList_old.bin' -Force
+Invoke-Expression -Command ('taskkill /f /im "explorer.exe"')
+Rename-Item -Path 'C:\Users\Administrator\AppData\Local\Microsoft\GameDVR\KnownGameList.bin' -NewName 'KnownGameList_old.bin' -Force
+Remove-Item -Path 'C:\Windows\Fonts\AGENCYB.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\AGENCYR.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ALGER.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ANTQUAB.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ANTQUABI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ANTQUAI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ARLRDBD.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BASKVILL.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BAUHS93.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BELL.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BELLB.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BELLI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BERNHC.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BKANT.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BOD_B.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BOD_BI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BOD_BLAI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BOD_BLAR.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BOD_CB.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BOD_CBI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BOD_CI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BOD_CR.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BOD_I.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BOD_PSTC.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BOD_R.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BOOKOS.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BOOKOSB.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BOOKOSBI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BOOKOSI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BRADHITC.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BRITANIC.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BRLNSB.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BRLNSDB.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BRLNSR.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BROADW.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BRUSHSCI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\BSSYM7.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\CALIFB.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\CALIFI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\CALIFR.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\CALIST.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\CALISTB.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\CALISTBI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\CALISTI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\CASTELAR.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\CENSCBK.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\CENTAUR.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\CENTURY.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\CHILLER.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\COLONNA.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\COOPBL.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\COPRGTB.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\COPRGTL.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\CURLZ___.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\DUBAI-BOLD.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\DUBAI-LIGHT.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\DUBAI-MEDIUM.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\DUBAI-REGULAR.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ELEPHNT.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ELEPHNTI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ENGR.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ERASBD.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ERASDEMI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ERASLGHT.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ERASMD.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\FELIXTI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\FORTE.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\FRABK.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\FRABKIT.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\FRADM.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\FRADMCN.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\FRADMIT.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\FRAHV.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\FRAHVIT.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\FRAMDCN.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\FREESCPT.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\FRSCRIPT.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\FTLTLT.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\GARA.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\GARABD.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\GARAIT.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\GIGI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\GIL_____.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\GILB____.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\GILBI___.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\GILC____.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\GILI____.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\GILLUBCD.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\GILSANUB.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\GLECB.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\GLSNECB.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\GOTHIC.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\GOTHICB.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\GOTHICBI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\GOTHICI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\GOUDOS.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\GOUDOSB.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\GOUDOSI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\GOUDYSTO.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\HARLOWSI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\HARNGTON.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\HATTEN.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\HTOWERT.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\HTOWERTI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\IMPRISHA.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\INFROMAN.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ITCBLKAD.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ITCEDSCR.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ITCKRIST.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\JOKERMAN.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\JUICE___.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\KUNSTLER.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\LATINWD.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\LBRITE.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\LBRITED.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\LBRITEDI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\LBRITEI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\LCALLIG.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\LEELAWAD.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\LEELAWDB.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\LFAX.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\LFAXD.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\LFAXDI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\LFAXI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\LHANDW.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\LSANS.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\LSANSD.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\LSANSDI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\LSANSI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\LTYPE.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\LTYPEB.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\LTYPEBO.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\LTYPEO.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\MAGNETOB.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\MAIAN.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\MATURASC.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\MISTRAL.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\MOD20.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\MSUIGHUB.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\MSUIGHUR.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\MTCORSVA.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\MTEXTRA.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\NIAGENG.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\NIAGSOL.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\OCRAEXT.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\OLDENGL.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ONYX.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\OUTLOOK.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\PALSCRI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\PAPYRUS.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\PARCHM.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\PER_____.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\PERB____.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\PERBI___.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\PERI____.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\PERTIBD.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\PERTILI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\PLAYBILL.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\POORICH.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\PRISTINA.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\RAGE.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\RAVIE.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\REFSAN.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\REFSPCL.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ROCC____.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ROCCB___.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ROCK.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ROCKB.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ROCKBI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ROCKEB.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ROCKI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\SCHLBKB.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\SCHLBKBI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\SCHLBKI.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\SCRIPTBL.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\SHOWG.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\SNAP____.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\STENCIL.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\TCB_____.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\TCBI____.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\TCCB____.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\TCCEB.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\TCCM____.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\TCM_____.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\TCMI____.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\TEMPSITC.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\VINERITC.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\VIVALDII.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\VLADIMIR.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\WINGDNG2.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\WINGDNG3.TTF' -Force
+Remove-Item -Path 'C:\Windows\Fonts\ZWAdobeF.TTF' -Force
 
 #####
 Remove-PSDrive -Name HKCR
