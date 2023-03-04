@@ -112,6 +112,7 @@ MicrosoftEdge
 MicrosoftEdgeDevToolsClient
 Microsoft.Win32WebViewHost
 Microsoft.XboxGameCallableUI
+Microsoft.Windows.ContentDeliveryManager
 ) do (
 for /f %%a in ('reg query "%InboxApplications%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
 )
