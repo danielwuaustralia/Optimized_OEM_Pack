@@ -1,10 +1,8 @@
 ########################################################快捷方式后缀########################################################
 
---no-proxy-server --no-report-upload --disable-breakpad --disable-crash-reporter --enable-features=PlatformHEVCDecoderSupport
+--no-proxy-server --no-report-upload --disable-breakpad --disable-crash-reporter --disable-reading-from-canvas
 
 #######################################################禁用以下flags########################################################
-
-#tab-hover-card-images
 
 Throttling
 
@@ -21,8 +19,6 @@ tab-groups
 download-bubble
 
 ##################################################开启以下flags########################################################
-
-#use-angle
 
 #enable-webrtc-hide-local-ips-with-mdns
 
@@ -44,6 +40,8 @@ download-bubble
 
 DrDc
 
-#chrome-root-store-enabled
-
 #use-dmsaa-for-tiles
+
+#ui-enable-shared-image-cache-for-gpu
+
+media-foundation
