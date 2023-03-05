@@ -46,8 +46,8 @@ start /wait C:\TEMP\DirectX\DXSETUP.exe /silent
 rem https://vulkan.lunarg.com/sdk/home
 start /wait C:\TEMP\VulkanRT-1.3.239.0-Installer.exe /S
 
-rem https://github.com/justclueless/chromium-win64/releases
-start /wait C:\TEMP\mini_installer.exe --install --silent --system-level
+rem https://github.com/Alex313031/Thorium-AVX2
+start /wait C:\TEMP\thorium_AVX2_mini_installer.exe --install --silent --system-level
 
 rem process lasso
 rem start /wait C:\TEMP\processlassoActivator.exe -makekeyfile -product:2 -output:"C:\TEMP"
