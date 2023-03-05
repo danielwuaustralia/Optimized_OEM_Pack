@@ -8,7 +8,8 @@ rem SpeedyFox
 
 rem CleanUp Folder
 rmdir /s /q "C:\TEMP\"
-rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\NV_Cache\"
+rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\"
+rmdir /s /q "C:\Users\Administrator\AppData\Local\Chromium\User Data\Default\Cache\"
 
 rem Time Sync
 rem cn.pool.ntp.org
@@ -26,11 +27,6 @@ wmic process where name="dwm.exe" CALL setpriority 64
 wmic process where name="TextInputHost.exe" CALL setpriority 32
 wmic process where name="ctfmon.exe" CALL setpriority 32
 wmic process where name="winlogon.exe" CALL setpriority 32
-
-rem logman query -ets
-"C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "logman stop -ets Diagtrack-Listener"
-"C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "logman stop -ets SleepStudyTraceSession"
-"C:\Windows\SysWOW64\PowerRun_x64.exe" cmd /c "logman stop -ets CldFltLog"
 
 rem CleanMgr.exe
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /f
