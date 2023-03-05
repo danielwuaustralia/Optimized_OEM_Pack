@@ -11,6 +11,8 @@ call C:\TEMP\KMS_VL_ALL_AIO.cmd /x /s /a
 
 rem https://github.com/PowerShell/PowerShell/releases
 %windir%\System32\msiexec.exe /package "C:\TEMP\PowerShell-7.3.3-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
+setx POWERSHELL_TELEMETRY_OPTOUT 1
+ftype Microsoft.PowerShellScript.1="C:\Program Files\PowerShell\7\pwsh.exe" -NoLogo -ExecutionPolicy Bypass -File "%1" %*
 
 rem https://www.amd.com/en/support/chipsets/amd-socket-am4/b550
 start /wait C:\TEMP\AMD.exe /S
@@ -44,6 +46,9 @@ start /wait C:\TEMP\DirectX\DXSETUP.exe /silent
 rem https://vulkan.lunarg.com/sdk/home
 start /wait C:\TEMP\VulkanRT-1.3.239.0-Installer.exe /S
 
+rem https://github.com/justclueless/chromium-win64/releases
+start /wait C:\TEMP\mini_installer.exe --install --silent --system-level
+
 rem process lasso
 rem start /wait C:\TEMP\processlassoActivator.exe -makekeyfile -product:2 -output:"C:\TEMP"
 rem start /wait C:\TEMP\processlassosetup64.exe /S /keyfile=C:\TEMP\prolasso.key /launch_gui=false /gui_start_type=all /governor_start_type=all /language=SimpChinese
@@ -74,6 +79,7 @@ powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 e73a048d-bf27-4f1
 powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 e73a048d-bf27-4f12-9731-8b2076e8891f 9a66d8d7-4ff7-4ef9-b5a2-5a326ca2a469 0
 powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 e73a048d-bf27-4f12-9731-8b2076e8891f bcded951-187b-4d05-bccc-f7e51960c258 0
 powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 e73a048d-bf27-4f12-9731-8b2076e8891f f3c5027d-cd16-4930-aa6b-90db844a8f00 0
+powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 238c9fa8-0aad-41ed-83f4-97be242c8f20 94ac6d29-73ce-41a6-809f-6363ba21b47e 0
 
 rem taskscheduler
 for %%a in (
@@ -104,6 +110,8 @@ for %%a in (
     "\Microsoft\Windows\Registry\RegIdleBackup"
     "\Microsoft\Windows\RetailDemo\CleanupOfflineContent"
     "\Microsoft\Windows\Shell\IndexerAutomaticMaintenance"
+    "\Microsoft\Windows\SoftwareProtectionPlatform\SvcRestartTaskNetwork"
+    "\Microsoft\Windows\SoftwareProtectionPlatform\SvcRestartTaskLogon"
     "\Microsoft\Windows\SoftwareProtectionPlatform\SvcRestartTaskNetwork"
     "\Microsoft\Windows\StateRepository\MaintenanceTasks"
     "\Microsoft\Windows\Time Synchronization\ForceSynchronizeTime"
