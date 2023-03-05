@@ -6,9 +6,6 @@ setlocal enabledelayedexpansion
 rem System Compoments Update
 Dism /online /Enable-Feature /FeatureName:LegacyComponents /NoRestart
 Dism /online /Enable-Feature /FeatureName:DirectPlay /NoRestart
-Dism /online /Enable-Feature /FeatureName:SMB1Protocol /NoRestart
-Dism /online /Enable-Feature /FeatureName:SMB1Protocol-Client /NoRestart
-Dism /online /Enable-Feature /FeatureName:SMB1Protocol-Deprecation /NoRestart
 Dism /online /Disable-Feature /FeatureName:Printing-PrintToPDFServices-Features /NoRestart
 Dism /online /Disable-Feature /FeatureName:WCF-TCP-PortSharing45 /NoRestart
 Dism /online /Disable-Feature /FeatureName:MicrosoftWindowsPowerShellV2Root /NoRestart
@@ -88,7 +85,7 @@ DISM.exe /Online /Remove-DefaultAppAssociations
 rem https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism-storage-reserve?view=windows-11
 DISM.exe /Online /Set-ReservedStorageState /State:Disabled
 
-rem remove Edge
+rem remove Edge and WebView2
 powershell "RD 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk','C:\Users\*\Desktop\Microsoft Edge.lnk',HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications\*Edge*,HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Config\*Edge*,'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Update\TargetingInfo\Installed\*Edge*','HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\*Edge*',HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Config\*Edge*,HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*Edge*,HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\*Edge*,HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Browser\*Edge*,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\*Edge*,HKLM:\SYSTEM\CurrentControlSet\Services\edge*,HKLM:\SOFTWARE\Classes\AppUserModelId\*Edge*,HKLM:\SOFTWARE\WOW6432Node\Microsoft\*Edge*,HKLM:\SOFTWARE\Policies\Microsoft\*Edge* -recurse"
 RD /S /Q "C:\Program Files (x86)\Microsoft"
 
@@ -113,6 +110,7 @@ MicrosoftEdgeDevToolsClient
 Microsoft.Win32WebViewHost
 Microsoft.XboxGameCallableUI
 Microsoft.Windows.ContentDeliveryManager
+Microsoft.Windows.SecureAssessmentBrowser
 ) do (
 for /f %%a in ('reg query "%InboxApplications%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
 )
