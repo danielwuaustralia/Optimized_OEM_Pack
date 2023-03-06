@@ -3,18 +3,16 @@
 >nul chcp 437
 setlocal enabledelayedexpansion
 
-rem SpeedyFox
-"C:\Program Files\speedyfox.exe" "/Firefox:default" "/Chrome:C:\Users\Administrator\AppData\Local\Google\Chrome Dev\User Data"
-
 rem CleanUp Folder
 rmdir /s /q "C:\TEMP\"
 rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\"
-rmdir /s /q "C:\Users\Administrator\AppData\Local\Chromium\User Data\Default\Cache\"
+rmdir /s /q "C:\Steam\appcache\"
+rmdir /s /q "C:\Users\Administrator\AppData\Local\Steam\htmlcache\"
 
 rem Time Sync
-rem cn.pool.ntp.org
 net start w32time
-w32tm /config /syncfromflags:manual /manualpeerlist:"time.cloudflare.com"
+w32tm /config /syncfromflags:manual /manualpeerlist:"server 0.au.pool.ntp.org server 1.au.pool.ntp.org server 2.au.pool.ntp.org server 3.au.pool.ntp.org"
+rem w32tm /config /syncfromflags:manual /manualpeerlist:"server 0.cn.pool.ntp.org server 1.cn.pool.ntp.org server 2.cn.pool.ntp.org server 3.cn.pool.ntp.org"
 w32tm /config /update
 w32tm /resync
 timeout /t 2 /nobreak
