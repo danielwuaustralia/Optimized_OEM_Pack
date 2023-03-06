@@ -93,7 +93,9 @@ rem Disable UBPM BOOT logging
 set "ubpm=HKLM\SYSTEM\ControlSet001\Control\Ubpm"
 for /f "tokens=1" %%a in ('reg query "%ubpm%" 2^>nul ^| find /i "REG_SZ"') do if not errorlevel 1 (%nsd1% reg delete "%ubpm%\%%a" /f 2>nul)
 
-rem Remove APPX
+rem Removing CloudExperienceHost breaks the OOBE last stage, and it is required for Windows Store.
+rem Removing UndocDevKit breaks the About page in Settings System section.
+rem Removing Client.CBS also removes Input App, Screen Clipping and can cause issues with Windows 11 Start Menu.
 set "UWPs=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Applications"
 for %%i in (
 Microsoft.SecHealthUI
