@@ -10,21 +10,12 @@ rmdir /s /q "C:\Steam\appcache\"
 rmdir /s /q "C:\Users\Administrator\AppData\Local\Steam\htmlcache\"
 
 rem Time Sync
+w32tm /config /syncfromflags:manual /manualpeerlist:"time.cloudflare.com time.apple.com"
+rem w32tm /config /syncfromflags:manual /manualpeerlist:"ntp.aliyun.com ntp.tencent.com"
 net start w32time
-w32tm /config /syncfromflags:manual /manualpeerlist:"server 0.au.pool.ntp.org server 1.au.pool.ntp.org server 2.au.pool.ntp.org server 3.au.pool.ntp.org"
-rem w32tm /config /syncfromflags:manual /manualpeerlist:"server 0.cn.pool.ntp.org server 1.cn.pool.ntp.org server 2.cn.pool.ntp.org server 3.cn.pool.ntp.org"
 w32tm /config /update
 w32tm /resync
-timeout /t 2 /nobreak
-w32tm /resync
 net stop w32time
-
-rem process priority
-wmic process where name="csrss.exe" CALL setpriority 128
-wmic process where name="dwm.exe" CALL setpriority 64
-wmic process where name="TextInputHost.exe" CALL setpriority 32
-wmic process where name="ctfmon.exe" CALL setpriority 32
-wmic process where name="winlogon.exe" CALL setpriority 32
 
 rem CleanMgr.exe
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /f
