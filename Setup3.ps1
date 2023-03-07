@@ -356,8 +356,7 @@ Remove-Item -LiteralPath 'HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}' -F
 Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}' -Force
 Stop-Service -Name 'NVDisplay.ContainerLocalSystem' -Force
 Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\*nv_dispig.inf_amd64*\Display.NvContainer\plugins\Session\_NvGSTPlugin.dll' -NewName '_NvGSTPlugin_old.dll' -Force
-Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64_abf7e4e84f20581c\Display.NvContainer\plugins\Session\_NvGSTPlugin.dll' -NewName '_NvGSTPlugin_old.dll' -Force
-Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64_abf7e4e84f20581c\Display.NvContainer\plugins\Session\_nvtopps.dll' -NewName '_nvtopps_old.dll' -Force
+Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\*nv_dispig.inf_amd64*\Display.NvContainer\plugins\Session\_nvtopps.dll' -NewName '_nvtopps_old.dll' -Force
 Invoke-Expression -Command ('taskkill /f /im "smartscreen.exe"')
 Rename-Item -Path 'C:\Windows\System32\smartscreen.exe' -NewName 'smartscreen_old.exe' -Force
 Invoke-Expression -Command ('taskkill /f /im "mobsync.exe"')
