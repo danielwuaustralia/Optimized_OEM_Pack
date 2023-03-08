@@ -9,9 +9,25 @@ rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\"
 rmdir /s /q "C:\Steam\appcache\"
 rmdir /s /q "C:\Users\Administrator\AppData\Local\Steam\htmlcache\"
 
+rem process priority
+wmic process where name="csrss.exe" CALL setpriority 128
+wmic process where name="dwm.exe" CALL setpriority 64
+wmic process where name="ctfmon.exe" CALL setpriority 64
+wmic process where name="winlogon.exe" CALL setpriority 64
+wmic process where name="ChsIME.exe" CALL setpriority 64
+wmic process where name="spoolsv.exe" CALL setpriority 64
+wmic process where name="ShellExperienceHost.exe" CALL setpriority 64
+wmic process where name="NVDisplay.Container.exe" CALL setpriority 64
+wmic process where name="OfficeClickToRun.exe" CALL setpriority 64
+wmic process where name="lsass.exe" CALL setpriority 64
+wmic process where name="fontdrvhost.exe" CALL setpriority 64
+wmic process where name="TextInputHost.exe" CALL setpriority 64
+timeout /t 2 /nobreak
+wmic process where name="TextInputHost.exe" CALL setpriority 64
+
 rem Time Sync
-w32tm /config /syncfromflags:manual /manualpeerlist:"time.cloudflare.com time.apple.com"
-rem w32tm /config /syncfromflags:manual /manualpeerlist:"ntp.aliyun.com ntp.tencent.com"
+w32tm /config /syncfromflags:manual /manualpeerlist:"time.cloudflare.com"
+rem w32tm /config /syncfromflags:manual /manualpeerlist:"ntp.ntsc.ac.cn ntp.aliyun.com"
 net start w32time
 w32tm /config /update
 w32tm /resync
