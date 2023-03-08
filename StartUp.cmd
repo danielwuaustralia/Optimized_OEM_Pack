@@ -16,13 +16,17 @@ wmic process where name="ctfmon.exe" CALL setpriority 64
 wmic process where name="winlogon.exe" CALL setpriority 64
 wmic process where name="ChsIME.exe" CALL setpriority 64
 wmic process where name="spoolsv.exe" CALL setpriority 64
+wmic process where name="dllhost.exe" CALL setpriority 64
+wmic process where name="RuntimeBroker.exe" CALL setpriority 64
 wmic process where name="ShellExperienceHost.exe" CALL setpriority 64
 wmic process where name="NVDisplay.Container.exe" CALL setpriority 64
 wmic process where name="OfficeClickToRun.exe" CALL setpriority 64
+wmic process where name="WmiPrvSE.exe" CALL setpriority 64
 wmic process where name="lsass.exe" CALL setpriority 64
+wmic process where name="ApplicationFrameHost.exe" CALL setpriority 64
+wmic process where name="audiodg.exe" CALL setpriority 64
 wmic process where name="fontdrvhost.exe" CALL setpriority 64
 wmic process where name="TextInputHost.exe" CALL setpriority 64
-timeout /t 2 /nobreak
 wmic process where name="TextInputHost.exe" CALL setpriority 64
 
 rem Time Sync
