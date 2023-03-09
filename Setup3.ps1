@@ -335,6 +335,45 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defende
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection' -Name 'DisableRealtimeMonitoring' -Value 1 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting' -Force }
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting' -Name 'DisableEnhancedNotifications' -Value 1 -PropertyType DWord -Force
+#
+Disable-ScheduledTask -TaskName '\Microsoft\Office\Office Automatic Updates 2.0'
+Disable-ScheduledTask -TaskName '\Microsoft\Office\Office Feature Updates'
+Disable-ScheduledTask -TaskName '\Microsoft\Office\Office Feature Updates Logon'
+Disable-ScheduledTask -TaskName '\Microsoft\Windows\Application Experience\StartupAppTask'
+Disable-ScheduledTask -TaskName '\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser'
+Disable-ScheduledTask -TaskName '\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser Exp'
+Disable-ScheduledTask -TaskName '\Microsoft\Windows\ApplicationData\appuriverifierdaily'
+Disable-ScheduledTask -TaskName '\Microsoft\Windows\ApplicationData\appuriverifierinstall'
+Disable-ScheduledTask -TaskName '\Microsoft\Windows\ApplicationData\DsSvcCleanup'
+Disable-ScheduledTask -TaskName '\Microsoft\Windows\AppID\EDP Policy Manager'
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\UpdateOrchestrator\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\Maps\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\Customer Experience Improvement Program\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\BitLocker\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\Chkdsk\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\Data Integrity Scan\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\Defrag\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\DiskCleanup\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\DiskFootprint\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\LanguageComponentsInstaller\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\MemoryDiagnostic\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\Registry\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\Time Synchronization\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\Time Zone\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\UPnP\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\Windows Filtering Platform\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\TPM\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\SystemRestore\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\Speech\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\SpacePort\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\Power Efficiency Diagnostics\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\CloudExperienceHost\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\Diagnosis\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\FileHistory\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\BrokerInfrastructure\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\Autochk\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\Feedback\Siuf\' | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath '\Microsoft\Windows\Device Information\' | Disable-ScheduledTask
 
 <# 其他 #>
 Remove-Item -LiteralPath 'HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}' -Force
