@@ -20,9 +20,6 @@ start /wait C:\TEMP\DirectX\DXSETUP.exe /silent
 rem https://www.amd.com/en/support/chipsets/amd-socket-am4/b550
 start /wait C:\TEMP\AMD.exe /S
 
-rem 7zip
-start /wait C:\TEMP\7z2201-x64.exe /S /D="C:\Program Files\7-Zip"
-
 rem https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170
 start /wait C:\TEMP\vcredist\2005\vcredist_x86.exe /Q
 start /wait C:\TEMP\vcredist\2005\vcredist_x64.exe /Q
@@ -39,9 +36,6 @@ start /wait C:\TEMP\vcredist\2022\VC_redist.x64.exe /install /quiet /norestart
 rem https://forums.mydigitallife.net/threads/abbodi1406s-batch-scripts-repo.74197/page-113#post-1768876
 CertUtil -addstore -f Root "C:\TEMP\vcredist\MicAssDesRoo_2011_03_23.crt"
 CertUtil -addstore -f CA "C:\TEMP\vcredist\MicAssDesPCA2011_2011-06-28.crt"
-
-rem https://www.python.org/downloads/windows/
-start /wait C:\TEMP\python-3.11.2-amd64.exe /quiet InstallAllUsers=1 AssociateFiles=1 Shortcuts=0 PrependPath=1 Include_test=0
 
 rem https://vulkan.lunarg.com/sdk/home
 start /wait C:\TEMP\VulkanRT-1.3.239.0-Installer.exe /S
@@ -88,8 +82,6 @@ for %%a in (
     "\Microsoft\Windows\RetailDemo\CleanupOfflineContent"
     "\Microsoft\Windows\Shell\IndexerAutomaticMaintenance"
     "\Microsoft\Windows\SoftwareProtectionPlatform\SvcRestartTaskNetwork"
-    "\Microsoft\Windows\SoftwareProtectionPlatform\SvcRestartTaskLogon"
-    "\Microsoft\Windows\SoftwareProtectionPlatform\SvcRestartTaskNetwork"
     "\Microsoft\Windows\StateRepository\MaintenanceTasks"
     "\Microsoft\Windows\Time Synchronization\ForceSynchronizeTime"
     "\Microsoft\Windows\Time Synchronization\SynchronizeTime"
@@ -110,4 +102,5 @@ for %%a in (
 	schtasks /change /disable /TN %%a > nul 2>nul
 )
 
+del /f /q %SystemDrive%\unattend.xml
 %windir%\System32\UsoClient.exe RefreshSettings
