@@ -316,6 +316,40 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\StartIsBack' -Name 'WinLangID' -Va
 New-ItemProperty -LiteralPath 'HKCU:\Software\StartIsBack' -Name 'TaskbarJumpList' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\StartIsBack' -Name 'NavBarGlass' -Value 0 -PropertyType DWord -Force
 # WinRAR
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\WinRAR') -ne $true) { New-Item 'HKLM:\SOFTWARE\WinRAR' -Force }
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities') -ne $true) { New-Item 'HKLM:\SOFTWARE\WinRAR\Capabilities' -Force }
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations') -ne $true) { New-Item 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Force }
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR' -Name 'exe64' -Value 'C:\Tools\WinRAR\WinRAR.exe' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities' -Name 'ApplicationDescription' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.rar' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.zip' -Value 'WinRAR.ZIP' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.cab' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.arj' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.lz' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.tlz' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.lzh' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.lha' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.7z' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.tar' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.gz' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.tgz' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.uue' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.xxe' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.uu' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.bz2' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.tbz2' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.bz' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.tbz' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.jar' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.iso' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.z' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.taz' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.xz' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.txz' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.zipx' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.zst' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.tzst' -Value 'WinRAR' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\WinRAR\Capabilities\FileAssociations' -Name '.001' -Value 'WinRAR' -PropertyType String -Force
 if ((Test-Path -LiteralPath 'HKCU:\Software\WinRAR\Setup') -ne $true) { New-Item 'HKCU:\Software\WinRAR\Setup' -Force }
 if ((Test-Path -LiteralPath 'HKCU:\Software\WinRAR\Setup\.001') -ne $true) { New-Item 'HKCU:\Software\WinRAR\Setup\.001' -Force }
 if ((Test-Path -LiteralPath 'HKCU:\Software\WinRAR\Setup\.7z') -ne $true) { New-Item 'HKCU:\Software\WinRAR\Setup\.7z' -Force }
@@ -529,57 +563,6 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\office\16.0\osm
 New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\office\16.0\osm' -Name 'enableupload' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\options') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Office\16.0\Word\options' -Force }
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\options' -Name 'IMEControlActive' -Value 0 -PropertyType DWord -Force
-Remove-Item -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides' -Recurse -Force
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides' -Force }
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Word') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Word' -Force }
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Excel') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Excel' -Force }
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Powerpoint') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Powerpoint' -Force }
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Outlook') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Outlook' -Force }
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\access') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\access' -Force }
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\onenote') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\onenote' -Force }
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\project') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\project' -Force }
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\publisher') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\publisher' -Force }
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\visio') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\visio' -Force }
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides' -Name 'Microsoft.Office.UXPlatform.FluentSVRefresh' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides' -Name 'Microsoft.Office.UXPlatform.RibbonTouchOptimization' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides' -Name 'Microsoft.Office.UXPlatform.FluentSVRibbonOptionsMenu' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides' -Name 'Microsoft.Office.UXPlatform.SmartQAT' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Word' -Name 'Microsoft.Office.UXPlatform.FluentSVRefresh' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Word' -Name 'Microsoft.Office.UXPlatform.RibbonTouchOptimization' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Word' -Name 'Microsoft.Office.UXPlatform.FluentSVRibbonOptionsMenu' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Word' -Name 'Microsoft.Office.UXPlatform.SmartQAT' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Excel' -Name 'Microsoft.Office.UXPlatform.FluentSVRefresh' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Excel' -Name 'Microsoft.Office.UXPlatform.RibbonTouchOptimization' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Excel' -Name 'Microsoft.Office.UXPlatform.FluentSVRibbonOptionsMenu' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Excel' -Name 'Microsoft.Office.UXPlatform.SmartQAT' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Powerpoint' -Name 'Microsoft.Office.UXPlatform.FluentSVRefresh' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Powerpoint' -Name 'Microsoft.Office.UXPlatform.RibbonTouchOptimization' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Powerpoint' -Name 'Microsoft.Office.UXPlatform.FluentSVRibbonOptionsMenu' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Powerpoint' -Name 'Microsoft.Office.UXPlatform.SmartQAT' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Outlook' -Name 'Microsoft.Office.UXPlatform.FluentSVRefresh' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Outlook' -Name 'Microsoft.Office.UXPlatform.RibbonTouchOptimization' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Outlook' -Name 'Microsoft.Office.UXPlatform.FluentSVRibbonOptionsMenu' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\Outlook' -Name 'Microsoft.Office.UXPlatform.SmartQAT' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\access' -Name 'Microsoft.Office.UXPlatform.FluentSVRefresh' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\access' -Name 'Microsoft.Office.UXPlatform.RibbonTouchOptimization' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\access' -Name 'Microsoft.Office.UXPlatform.FluentSVRibbonOptionsMenu' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\access' -Name 'Microsoft.Office.UXPlatform.SmartQAT' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\onenote' -Name 'Microsoft.Office.UXPlatform.FluentSVRefresh' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\onenote' -Name 'Microsoft.Office.UXPlatform.RibbonTouchOptimization' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\onenote' -Name 'Microsoft.Office.UXPlatform.FluentSVRibbonOptionsMenu' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\onenote' -Name 'Microsoft.Office.UXPlatform.SmartQAT' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\project' -Name 'Microsoft.Office.UXPlatform.FluentSVRefresh' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\project' -Name 'Microsoft.Office.UXPlatform.RibbonTouchOptimization' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\project' -Name 'Microsoft.Office.UXPlatform.FluentSVRibbonOptionsMenu' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\project' -Name 'Microsoft.Office.UXPlatform.SmartQAT' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\publisher' -Name 'Microsoft.Office.UXPlatform.FluentSVRefresh' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\publisher' -Name 'Microsoft.Office.UXPlatform.RibbonTouchOptimization' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\publisher' -Name 'Microsoft.Office.UXPlatform.FluentSVRibbonOptionsMenu' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\publisher' -Name 'Microsoft.Office.UXPlatform.SmartQAT' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\visio' -Name 'Microsoft.Office.UXPlatform.FluentSVRefresh' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\visio' -Name 'Microsoft.Office.UXPlatform.RibbonTouchOptimization' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\visio' -Name 'Microsoft.Office.UXPlatform.FluentSVRibbonOptionsMenu' -Value 'true' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\visio' -Name 'Microsoft.Office.UXPlatform.SmartQAT' -Value 'true' -PropertyType String -Force
 # Adobe Acrobat
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Adobe\Adobe Acrobat\DC\FeatureLockdown') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Adobe\Adobe Acrobat\DC\FeatureLockdown' -Force }
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Adobe\Adobe Acrobat\DC\FeatureLockdown\cIPM') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Adobe\Adobe Acrobat\DC\FeatureLockdown\cIPM' -Force }
@@ -592,17 +575,6 @@ if ((Test-Path -LiteralPath 'HKCU:\Software\Adobe\Adobe Acrobat\DC\TrustManager'
 New-ItemProperty -LiteralPath 'HKCU:\Software\Adobe\Adobe Acrobat\DC\Originals' -Name 'bDisplayAboutDialog' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Adobe\Adobe Acrobat\DC\TrustManager' -Name 'bTrustOSTrustedSites' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Adobe\Adobe Acrobat\DC\Originals' -Name 'bDisplayedSplash' -Value 1 -PropertyType DWord -Force
-# Java Runtime
-if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\JreMetrics') -ne $true) { New-Item 'HKLM:\SOFTWARE\JreMetrics' -Force }
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\JreMetrics' -Name 'DisableSponsors' -Value 1 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\JreMetrics') -ne $true) { New-Item 'HKLM:\SOFTWARE\Wow6432Node\JreMetrics' -Force }
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\JreMetrics' -Name 'DisableSponsors' -Value 1 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Javasoft\Java Update\Policy') -ne $true) { New-Item 'HKLM:\SOFTWARE\Javasoft\Java Update\Policy' -Force }
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Javasoft\Java Update\Policy' -Name 'EnableJavaUpdate' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Javasoft\Java Update\Policy' -Name 'NotifyDownload' -Value 0 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Javasoft\Java Update\Policy') -ne $true) { New-Item 'HKLM:\SOFTWARE\Wow6432Node\Javasoft\Java Update\Policy' -Force }
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Javasoft\Java Update\Policy' -Name 'EnableJavaUpdate' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Wow6432Node\Javasoft\Java Update\Policy' -Name 'NotifyDownload' -Value 0 -PropertyType DWord -Force
 # 输入法
 if ((Test-Path -LiteralPath 'HKCU:\Keyboard Layout\Toggle') -ne $true) { New-Item 'HKCU:\Keyboard Layout\Toggle' -Force }
 New-ItemProperty -LiteralPath 'HKCU:\Keyboard Layout\Toggle' -Name 'Language Hotkey' -Value '3' -PropertyType String -Force
@@ -839,24 +811,15 @@ New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Cursors' -Name 'GestureVisual
 
 # 性能
 Invoke-Expression -Command ('bcdedit /timeout 0')
-Invoke-Expression -Command ('bcdedit /set linearaddress57 OptOut')
-Invoke-Expression -Command ('bcdedit /set increaseuserva 268435328')
-Invoke-Expression -Command ('bcdedit /set firstmegabytepolicy UseAll')
-Invoke-Expression -Command ('bcdedit /set avoidlowmemory 0x8000000')
-Invoke-Expression -Command ('bcdedit /set nolowmem Yes')
-Invoke-Expression -Command ('bcdedit /set allowedinmemorysettings 0x0')
-Invoke-Expression -Command ('bcdedit /set isolatedcontext No')
+Invoke-Expression -Command ('bcdedit /set bootmenupolicy Legacy')
+Invoke-Expression -Command ('bcdedit /set recoveryenabled no')
+Invoke-Expression -Command ('bcdedit /set loadoptions DISABLE-LSA-ISO,DISABLE-VBS')
 Invoke-Expression -Command ('bcdedit /set vsmlaunchtype Off')
 Invoke-Expression -Command ('bcdedit /set vm No')
-Invoke-Expression -Command ('bcdedit /set x2apicpolicy Enable')
-Invoke-Expression -Command ('bcdedit /set configaccesspolicy Default')
-Invoke-Expression -Command ('bcdedit /set MSI Default')
-Invoke-Expression -Command ('bcdedit /set usephysicaldestination No')
-Invoke-Expression -Command ('bcdedit /set usefirmwarepcisettings No')
+Invoke-Expression -Command ('bcdedit /set useplatformtick yes')
+Invoke-Expression -Command ('bcdedit /set disabledynamictick yes')
+Invoke-Expression -Command ('bcdedit /set tscsyncpolicy enhanced')
 Invoke-Expression -Command ('bcdedit /deletevalue useplatformclock')
-Invoke-Expression -Command ('bcdedit /set disabledynamictick Yes')
-Invoke-Expression -Command ('bcdedit /set useplatformtick Yes')
-Invoke-Expression -Command ('bcdedit /set tscsyncpolicy Enhanced')
 Invoke-Expression -Command ('fsutil behavior set disablelastaccess 1')
 Invoke-Expression -Command ('fsutil behavior set disable8dot3 1')
 Invoke-Expression -Command ('fsutil behavior set disablecompression 1')
@@ -1243,6 +1206,19 @@ if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows F
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Feeds' -Name 'EnableFeeds' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Feeds') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Feeds' -Force }
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Feeds' -Name 'ShellFeedsTaskbarViewMode' -Value 2 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath 'HKCU:\Control Panel\UnsupportedHardwareNotificationCache') -ne $true) { New-Item 'HKCU:\Control Panel\UnsupportedHardwareNotificationCache' -Force }
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\UnsupportedHardwareNotificationCache' -Name 'SV1' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKCU:\Control Panel\UnsupportedHardwareNotificationCache' -Name 'SV2' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance' -Name 'fAllowFullControl' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance' -Name 'fAllowToGetHelp' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance' -Name 'fEnableChatControl' -Value 0 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl' -Force }
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl' -Name 'AutoReboot' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl' -Name 'CrashDumpEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl' -Name 'LogEvent' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl' -Name 'DisplayParameters' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl\StorageTelemetry' -Name 'DeviceDumpEnabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore' -Name 'AutoDownload' -Value 2 -PropertyType DWord -Force
 
 # 根目录证书
 # http://woshub.com/updating-trusted-root-certificates-in-windows-10/
@@ -1271,27 +1247,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\DesktopBackground\Shell\Sw
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\DesktopBackground\Shell\Switch Power Plan\Shell\Game' -Name 'MUIVerb' -Value '游戏模式' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\DesktopBackground\Shell\Switch Power Plan\Shell\Game' -Name 'Icon' -Value 'powercpl.dll' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\DesktopBackground\Shell\Switch Power Plan\Shell\Game\Command' -Name '(default)' -Value 'powercfg.exe /S a01b3551-0337-4755-8f11-3cc94a1ad0f8' -PropertyType String -Force
-
-#
-if ((Test-Path -LiteralPath 'HKCU:\Control Panel\UnsupportedHardwareNotificationCache') -ne $true) { New-Item 'HKCU:\Control Panel\UnsupportedHardwareNotificationCache' -Force }
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\UnsupportedHardwareNotificationCache' -Name 'SV1' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\UnsupportedHardwareNotificationCache' -Name 'SV2' -Value 0 -PropertyType DWord -Force
-
-# Remote Assistance
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance' -Name 'fAllowFullControl' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance' -Name 'fAllowToGetHelp' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance' -Name 'fEnableChatControl' -Value 0 -PropertyType DWord -Force
-
-#
-if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl' -Force }
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl' -Name 'AutoReboot' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl' -Name 'CrashDumpEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl' -Name 'LogEvent' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl' -Name 'DisplayParameters' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl\StorageTelemetry' -Name 'DeviceDumpEnabled' -Value 0 -PropertyType DWord -Force
-
-#
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore' -Name 'AutoDownload' -Value 2 -PropertyType DWord -Force
 
 #
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Force }
@@ -1459,10 +1414,6 @@ Remove-Item -LiteralPath 'HKLM:\WOW6432Node\SOFTWARE\Microsoft\Windows\CurrentVe
 
 # 回收站
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer' -Name 'ShellState' -Value 'hex(3):24,00,00,00,33,21,00,00,00,00,00,00,00,00,00,00,00,00,00,00,01,00,00,00,13,00,00,00,00,00,00,00,72,00,00,00' -PropertyType String -Force
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\{6b755b3f-b7c5-4866-8662-e3a2a6f9374b}') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\{6b755b3f-b7c5-4866-8662-e3a2a6f9374b}' -Force }
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\{6b755b3f-b7c5-4866-8662-e3a2a6f9374b}' -Name 'NukeOnDelete' -Value 1 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\{d589d033-2dd5-4d8d-a9cf-b6537ea7218b}') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\{d589d033-2dd5-4d8d-a9cf-b6537ea7218b}' -Force }
-New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\{d589d033-2dd5-4d8d-a9cf-b6537ea7218b}' -Name 'NukeOnDelete' -Value 1 -PropertyType DWord -Force
 
 # 无UWP提示
 if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Microsoft.WindowsStore_8wekyb3d8bbwe!App') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Microsoft.WindowsStore_8wekyb3d8bbwe!App' -Force }
@@ -1478,9 +1429,6 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\N
 
 # 声音
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\EditionOverrides' -Name 'UserSetting_DisableStartupSound' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render\{bbb2a6c0-d893-4199-a5f3-78f82e5d0081}\FxProperties' -Name '{1da5d803-d492-4edd-8c23-e0c0ffee7f0e},5' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render\{bbb2a6c0-d893-4199-a5f3-78f82e5d0081}\Properties' -Name '{b3f8fa53-0004-438e-9003-51a46e139bfc},4' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render\{bbb2a6c0-d893-4199-a5f3-78f82e5d0081}\Properties' -Name '{b3f8fa53-0004-438e-9003-51a46e139bfc},3' -Value 0 -PropertyType DWord -Force
 
 # 内置硬盘不显示为移动设备
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\storahci\Parameters\Device' -Name 'TreatAsInternalPort' -Value @('0') -PropertyType MultiString -Force
