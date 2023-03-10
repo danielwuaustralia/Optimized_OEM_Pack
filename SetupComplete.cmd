@@ -38,12 +38,16 @@ CertUtil -addstore -f CA "C:\TEMP\vcredist\MicAssDesPCA2011_2011-06-28.crt"
 rem https://vulkan.lunarg.com/sdk/home
 start /wait C:\TEMP\VulkanRT-1.3.239.0-Installer.exe /S
 
+rem https://github.com/M2Team/NanaZip/releases
+Dism /Online /Add-ProvisionedAppxPackage /PackagePath:"C:\TEMP\40174MouriNaruto.NanaZip_2.0.450.0_gnj4mf6z9tkrc.msixbundle" /SkipLicense
+
 rem Power Plan
 powercfg -import "C:\TEMP\PowerPlan.pow"
 
 rem process lasso
-rem start /wait C:\TEMP\processlassoActivator.exe -makekeyfile -product:2 -output:"C:\TEMP"
-rem start /wait C:\TEMP\processlassosetup64.exe /S /keyfile=C:\TEMP\prolasso.key /launch_gui=false /gui_start_type=all /governor_start_type=all /language=SimpChinese
+start /wait C:\TEMP\processlassoActivator.exe -makekeyfile -product:2 -output:"C:\TEMP"
+start /wait C:\TEMP\processlassosetup64.exe /S /keyfile=C:\TEMP\prolasso.key /launch_gui=false /gui_start_type=all /governor_start_type=service /language=SimpChinese
+rem start /wait C:\TEMP\processlassosetup64.exe /S /keyfile=C:\TEMP\prolasso.key /launch_gui=false /gui_start_type=all /governor_start_type=service /language=SimpChinese /importconfigfrom=C:\TEMP\prolasso.ini
 
 rem https://learn.microsoft.com/en-us/troubleshoot/windows-server/performance/manually-rebuild-performance-counters
 lodctr /r
