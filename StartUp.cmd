@@ -6,8 +6,6 @@ setlocal enabledelayedexpansion
 rem CleanUp Folder
 rmdir /s /q "C:\TEMP\"
 rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\"
-rmdir /s /q "C:\Steam\appcache\"
-rmdir /s /q "C:\Users\Administrator\AppData\Local\Steam\htmlcache\"
 
 rem process priority
 wmic process where name="csrss.exe" CALL setpriority 128
@@ -29,9 +27,12 @@ wmic process where name="fontdrvhost.exe" CALL setpriority 64
 wmic process where name="TextInputHost.exe" CALL setpriority 64
 wmic process where name="TextInputHost.exe" CALL setpriority 64
 
+rem logman -ets
+"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets SleepStudyTraceSession
+"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets CldFltLog
+
 rem Time Sync
-w32tm /config /syncfromflags:manual /manualpeerlist:"time.cloudflare.com"
-rem w32tm /config /syncfromflags:manual /manualpeerlist:"ntp.ntsc.ac.cn ntp.aliyun.com"
+w32tm /config /syncfromflags:manual /manualpeerlist:"pool.ntp.org"
 net start w32time
 w32tm /config /update
 w32tm /resync
