@@ -370,11 +370,12 @@ Get-ScheduledTask -TaskPath '\Microsoft\Windows\Autochk\' | Disable-ScheduledTas
 Get-ScheduledTask -TaskPath '\Microsoft\Windows\Feedback\Siuf\' | Disable-ScheduledTask
 Get-ScheduledTask -TaskPath '\Microsoft\Windows\Device Information\' | Disable-ScheduledTask
 Get-ScheduledTask -TaskPath '\Microsoft\XblGameSave\' | Disable-ScheduledTask
+Get-ChildItem -Path 'C:\Windows\Panther' -Recurse | Remove-Item -Recurse
 Stop-Service -Name "NVIDIA Display Container LS" -Force
 Get-ChildItem -Path 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Recurse | Remove-Item -Recurse
 New-Item -ItemType SymbolicLink -Path 'C:\TEMP\nvtopps' -Target 'C:\ProgramData\NVIDIA Corporation\nvtopps'
-Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\*nv_dispig.inf_amd64*\Display.NvContainer\plugins\Session\_NvGSTPlugin.dll' -NewName '_NvGSTPlugin_old.dll' -Force
-Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\*nv_dispig.inf_amd64*\Display.NvContainer\plugins\Session\_nvtopps.dll' -NewName '_nvtopps_old.dll' -Force
+Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64\Display.NvContainer\plugins\Session\_NvGSTPlugin.dll' -NewName '_NvGSTPlugin_old.dll' -Force
+Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64\Display.NvContainer\plugins\Session\_nvtopps.dll' -NewName '_nvtopps_old.dll' -Force
 Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64_08a077b2e836a7c4\Display.NvContainer\nvtopps.db3' -NewName 'nvtopps_old.db3' -Force
 Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64_08a077b2e836a7c4\NvTelemetry64.dll' -NewName 'NvTelemetry64_old.dll' -Force
 Get-ChildItem -Path 'C:\ProgramData\NVIDIA Corporation\GameSessionTelemetry' -Recurse | Remove-Item -Recurse
@@ -398,6 +399,14 @@ Get-ChildItem -Path 'C:\Windows\Logs\NetSetup' -Recurse | Remove-Item -Recurse
 New-Item -ItemType SymbolicLink -Path 'C:\TEMP\NetSetup' -Target 'C:\Windows\Logs\NetSetup'
 Get-ChildItem -Path 'C:\Windows\System32\LogFiles\CloudFiles' -Recurse | Remove-Item -Recurse
 New-Item -ItemType SymbolicLink -Path 'C:\TEMP\CloudFiles' -Target 'C:\Windows\System32\LogFiles\CloudFiles'
+Get-ChildItem -Path 'C:\Windows\System32\WDI\LogFiles' -Recurse | Remove-Item -Recurse
+New-Item -ItemType SymbolicLink -Path 'C:\TEMP\WDILog' -Target 'C:\Windows\System32\WDI\LogFiles'
+Get-ChildItem -Path 'C:\Windows\System32\LogFiles\WMI' -Recurse | Remove-Item -Recurse
+New-Item -ItemType SymbolicLink -Path 'C:\TEMP\WMILog' -Target 'C:\Windows\System32\LogFiles\WMI'
+Get-ChildItem -Path 'C:\ProgramData\Microsoft\Diagnosis\ETLLogs\ShutdownLogger' -Recurse | Remove-Item -Recurse
+New-Item -ItemType SymbolicLink -Path 'C:\TEMP\ShutdownLogger' -Target 'C:\ProgramData\Microsoft\Diagnosis\ETLLogs\ShutdownLogger'
+New-Item -ItemType HardLink -Path "C:\TEMP\ExplorerStartupLog.etl" -Target "C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog.etl"
+New-Item -ItemType HardLink -Path "C:\TEMP\ExplorerStartupLog_RunOnce.etl" -Target "C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog_RunOnce.etl"
 
 #####
 Remove-PSDrive -Name HKCR
