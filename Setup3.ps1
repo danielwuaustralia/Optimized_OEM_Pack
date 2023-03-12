@@ -219,7 +219,6 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Pr
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *webthreatdefsvc* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *webthreatdefusersvc* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *MsSecFlt* | Set-ItemProperty -Name Start -Value 4 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *luafv* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *CryptSvc* | Set-ItemProperty -Name Start -Value 3 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *MicrosoftEdgeElevationService* | Remove-Item
 # Intel驱动
@@ -243,15 +242,6 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Pr
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *intelppm* | Set-ItemProperty -Name Start -Value 4 -Force
 
 <# 性能 #>
-# https://forums.guru3d.com/threads/windows-line-based-vs-message-signaled-based-interrupts-msi-tool.378044/
-# $MSIMode = Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum\PCI' -Recurse -Depth 5 | Where-Object { $_.PSChildName -Like 'MessageSignaledInterruptProperties' }
-# ForEach ($item in $MSIMode) { $path = $item -replace 'HKEY_LOCAL_MACHINE', 'HKLM:'; Set-ItemProperty -Path $path -Name 'MSISupported' -Value 1 -Force }
-# Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum\PCI' -Recurse -Depth 5 | Where-Object { $_.PSChildName -Like 'Affinity Policy' } | Remove-ItemProperty -Name 'DevicePriority' -Force
-#
-Remove-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\*' -Recurse -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy' -Name 'AllowHeadlessExecution' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy' -Name 'AllowMultipleBackgroundTasks' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy' -Name 'InactivityTimeoutMs' -Value -1 -PropertyType DWord -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum' -Recurse -Depth 5 | Where-Object { $_.PSChildName -Like 'Device Parameters' } | Set-ItemProperty -Name 'AllowIdleIrpInD3' -Value 0 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum' -Recurse -Depth 5 | Where-Object { $_.PSChildName -Like 'Device Parameters' } | Set-ItemProperty -Name 'D3ColdSupported' -Value 0 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum' -Recurse -Depth 5 | Where-Object { $_.PSChildName -Like 'Device Parameters' } | Set-ItemProperty -Name 'DeviceSelectiveSuspended' -Value 0 -Force
@@ -266,42 +256,30 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum' -Recurse -Depth 5 | Wh
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum' -Recurse -Depth 5 | Where-Object { $_.PSChildName -Like 'Device Parameters' } | Set-ItemProperty -Name 'DisableIdlePowerManagement' -Value 1 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum' -Recurse -Depth 5 | Where-Object { $_.PSChildName -Like 'Device Parameters' } | Set-ItemProperty -Name 'WakeEnabled' -Value 0 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum' -Recurse -Depth 5 | Where-Object { $_.PSChildName -Like 'Device Parameters' } | Set-ItemProperty -Name 'WdkSelectiveSuspendEnable' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum' -Recurse -Depth 5 | Where-Object { $_.PSChildName -Like 'Device Parameters' } | Set-ItemProperty -Name 'PnPCapabilities' -Value 24 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name '*EEE' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name '*FlowControl' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name '*LsoV2IPv4' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name '*LsoV2IPv6' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name '*SelectiveSuspend' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name '*WakeOnMagicPacket' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name '*WakeOnPattern' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name 'PnPCapabilities' -Value 24 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name 'AdvancedEEE' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name 'AutoDisableGigabit' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name 'AutoPowerSaveModeEnabled' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name 'EnableConnectedPowerGating' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name 'EnableDynamicPowerGating' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name 'EnableGreenEthernet' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name 'EnableModernStandby' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name 'EnablePME' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name 'EnablePowerManagement' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name 'EnableSavePowerNow' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name 'GigaLite' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name 'PowerSavingMode' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name 'ReduceSpeedOnPowerDown' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name 'ULPMode' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name 'WakeOnLink' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name 'WakeOnSlot' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0000' } | Set-ItemProperty -Name 'WakeUpModeCap' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0002' } | Set-ItemProperty -Name 'EnableAdaptivity' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0002' } | Set-ItemProperty -Name 'PnPCapabilities' -Value 24 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0002' } | Set-ItemProperty -Name 'LdpcCap' -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like '0002' } | Set-ItemProperty -Name 'WirelessMode' -Value 256 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like 'Parameters' } | Set-ItemProperty -Name 'DmaRemappingCompatible' -Value 0 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum' -Recurse -Depth 5 | Where-Object { $_.PSChildName -Like 'Device Parameters' } | Set-ItemProperty -Name 'DisableIdlePowerManagement' -Value 1 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 5 | Where-Object { $_.PSChildName -Like 'Device Parameters' } | Set-ItemProperty -Name 'WakeEnabled' -Value 0 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Class' -Recurse -Depth 5 | Where-Object { $_.PSChildName -Like 'Device Parameters' } | Set-ItemProperty -Name 'WdkSelectiveSuspendEnable' -Value 0 -Force
+#
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Diagnostics\Performance' -Name 'DisableDiagnosticTracing' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter' -Name 'ActivationType' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing' -Name 'DisableWerReporting' -Value 1 -PropertyType DWord -Force
+$MSIMode = Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum\PCI' -Recurse -Depth 5 | Where-Object { $_.PSChildName -Like 'MessageSignaledInterruptProperties' }
+ForEach ($item in $MSIMode) { $path = $item -replace 'HKEY_LOCAL_MACHINE', 'HKLM:'; Set-ItemProperty -Path $path -Name 'MSISupported' -Value 1 -Force }
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum\PCI' -Recurse -Depth 5 | Where-Object { $_.PSChildName -Like 'Affinity Policy' } | Remove-ItemProperty -Name 'DevicePriority' -Force
+#
+Remove-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\*' -Recurse -Force
+New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options' -Force
+#
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules' -Force
 New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules' -Force
+#
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like 'Parameters' } | Set-ItemProperty -Name 'DmaRemappingCompatible' -Value 0 -Force
+#
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy' -Name 'AllowHeadlessExecution' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy' -Name 'AllowMultipleBackgroundTasks' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy' -Name 'InactivityTimeoutMs' -Value -1 -PropertyType DWord -Force
+#
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing' -Name 'DisableWerReporting' -Value 1 -PropertyType DWord -Force
+#
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Systray') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Systray' -Force }
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Systray' -Name 'HideSystray' -Value 1 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows Defender\Features') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows Defender\Features' -Force }
@@ -320,66 +298,55 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defende
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection' -Name 'DisableIOAVProtection' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection' -Name 'DisableOnAccessProtection' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection' -Name 'DisableRealtimeMonitoring' -Value 1 -PropertyType DWord -Force
-if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting' -Force }
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting' -Name 'DisableEnhancedNotifications' -Value 1 -PropertyType DWord -Force
 #
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger' -Recurse -Depth 2 | Set-ItemProperty -Name Enabled -Value 0 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger' -Recurse -Depth 2 | Set-ItemProperty -Name Start -Value 0 -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-System' -Name 'Start' -Value 1 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-System' -Name 'Enabled' -Value 1 -PropertyType DWord -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-System' -Recurse -Depth 1 | Set-ItemProperty -Name Enabled -Value 1 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-System' -Recurse -Depth 1 | Set-ItemProperty -Name Start -Value 1 -Force
-Get-ChildItem -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels' -Recurse -Depth 1 | Set-ItemProperty -Name Enabled -Value 0 -Force
+$EventLog = Get-WinEvent -ListLog "Microsoft-Windows-LiveId/Operational"; $EventLog.IsEnabled = $false; $EventLog.SaveChanges()
+$EventLog = Get-WinEvent -ListLog "Microsoft-Windows-CloudStore/Operational"; $EventLog.IsEnabled = $false; $EventLog.SaveChanges()
+$EventLog = Get-WinEvent -ListLog "Microsoft-Windows-UniversalTelemetryClient/Operational"; $EventLog.IsEnabled = $false; $EventLog.SaveChanges()
+$EventLog = Get-WinEvent -ListLog "Microsoft-Windows-WindowsSystemAssessmentTool/Operational"; $EventLog.IsEnabled = $false; $EventLog.SaveChanges()
+$EventLog = Get-WinEvent -ListLog "Microsoft-Windows-ReadyBoost/Operational"; $EventLog.IsEnabled = $false; $EventLog.SaveChanges()
+$EventLog = Get-WinEvent -ListLog "Microsoft-Windows-HelloForBusiness/Operational"; $EventLog.IsEnabled = $false; $EventLog.SaveChanges()
+$EventLog = Get-WinEvent -ListLog "Microsoft-Windows-SettingSync/Debug"; $EventLog.IsEnabled = $false; $EventLog.SaveChanges()
+$EventLog = Get-WinEvent -ListLog "Microsoft-Windows-Known Folders API Service"; $EventLog.IsEnabled = $false; $EventLog.SaveChanges()
+$EventLog = Get-WinEvent -ListLog "Microsoft-Windows-SettingSync/Operational"; $EventLog.IsEnabled = $false; $EventLog.SaveChanges()
+$EventLog = Get-WinEvent -ListLog "Microsoft-Windows-Store/Operational"; $EventLog.IsEnabled = $false; $EventLog.SaveChanges()
+$EventLog = Get-WinEvent -ListLog "Microsoft-Windows-Application-Experience/Program-Telemetry"; $EventLog.IsEnabled = $false; $EventLog.SaveChanges()
+$Path = "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-System\{1b562e86-b7aa-4131-badc-b6f3a001407e}"; if (-not (Test-Path -Path $Path)) { New-Item -ItemType String -Path $Path }
+New-ItemProperty -Path $Path -Name "Enabled" -PropertyType Dword -Value 0 -Force
 #
-Disable-ScheduledTask -TaskName '\Microsoft\Office\Office Automatic Updates 2.0'
-Disable-ScheduledTask -TaskName '\Microsoft\Office\Office Feature Updates'
-Disable-ScheduledTask -TaskName '\Microsoft\Office\Office Feature Updates Logon'
-Disable-ScheduledTask -TaskName '\Microsoft\Windows\Application Experience\StartupAppTask'
-Disable-ScheduledTask -TaskName '\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser'
-Disable-ScheduledTask -TaskName '\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser Exp'
-Disable-ScheduledTask -TaskName '\Microsoft\Windows\ApplicationData\appuriverifierdaily'
-Disable-ScheduledTask -TaskName '\Microsoft\Windows\ApplicationData\appuriverifierinstall'
-Disable-ScheduledTask -TaskName '\Microsoft\Windows\ApplicationData\DsSvcCleanup'
-Disable-ScheduledTask -TaskName '\Microsoft\Windows\AppID\EDP Policy Manager'
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\UpdateOrchestrator\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\Maps\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\Customer Experience Improvement Program\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\BitLocker\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\Chkdsk\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\Data Integrity Scan\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\Defrag\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\DiskCleanup\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\DiskFootprint\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\LanguageComponentsInstaller\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\MemoryDiagnostic\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\Registry\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\Time Synchronization\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\Time Zone\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\UPnP\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\Windows Filtering Platform\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\TPM\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\SystemRestore\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\Speech\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\SpacePort\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\Power Efficiency Diagnostics\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\CloudExperienceHost\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\Diagnosis\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\FileHistory\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\BrokerInfrastructure\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\Autochk\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\Feedback\Siuf\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\Windows\Device Information\' | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath '\Microsoft\XblGameSave\' | Disable-ScheduledTask
+$Logger = Get-ChildItem -Path 'HKLM:\System\CurrentControlSet\Control\WMI\Autologger' -Recurse -Depth 1 | Where-Object { $_.PSChildName -NotLike 'Circular Kernel Context Logger' -and $_.PSChildName -NotLike 'EventLog-Application' `
+        -and $_.PSChildName -NotLike 'EventLog-Security' -and $_.PSChildName -NotLike 'EventLog-System' -and $_.PSChildName -NotLike 'DiagLog' -and $_.PSChildName -NotLike 'NtfsLog' -and $_.PSChildName -NotLike 'WdiContextLog' `
+        -and $_.PSChildName -NotLike 'UBPM' -and $_.PSChildName -NotLike 'NetCore' -and $_.PSChildName -NotLike 'LwtNetLog' -and $_.PSChildName -NotLike 'AppModel' -and $_.PSChildName -NotLike 'IntelRST' -and $_.PSChildName -NotLike 'TileStore' `
+        -and $_.PSChildName -NotLike 'WifiSession' }
+ForEach ($item in $Logger) { $path = $item -replace "HKEY_LOCAL_MACHINE", "HKLM:"; Set-ItemProperty -Path $path -Name 'Start' -Value 0 -Force }
+#
+# Get-ScheduledTask -TaskPath "\*" | Where-Object { $_.Taskname -match 'MicrosoftEdge*' } | Disable-ScheduledTask
+Get-ScheduledTask -TaskPath "\Microsoft\*" | Where-Object { $_.Taskname -notmatch 'SynchronizeTime' -and $_.Taskname -notmatch 'MsCtfMonitor' -and $_.Taskname -notmatch 'RemoteFXvGPUDisableTask' `
+        -and $_.Taskname -notmatch 'Sysprep Generalize Drivers' -and $_.Taskname -notmatch 'Device Install Group Policy' -and $_.Taskname -notmatch 'ResPriStaticDbSync' -and $_.Taskname -notmatch 'WsSwapAssessmentTask' `
+        -and $_.Taskname -notmatch 'DXGIAdapterCache' -and $_.Taskname -notmatch 'UninstallDeviceTask' -and $_.Taskname -notmatch 'ExploitGuard MDM policy Refresh' -and $_.Taskname -notmatch 'GatherNetworkInfo' `
+        -and $_.Taskname -notmatch ' *NGEN* ' } | Disable-ScheduledTask
+Invoke-Expression -Command ('schtasks /Delete /F /TN "\Microsoft\Windows\WaaSMedic\PerformRemediation"')
+Invoke-Expression -Command ('schtasks /Delete /F /TN "\Microsoft\Windows\WaaSMedic"')
+Invoke-Expression -Command ('schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan"')
+Invoke-Expression -Command ('schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan Static Task"')
+Invoke-Expression -Command ('schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator\UpdateModelTask"')
+Invoke-Expression -Command ('schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator\USO_UxBroker"')
+Invoke-Expression -Command ('schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator"')
+Invoke-Expression -Command ('schtasks /Delete /F /TN "\Microsoft\Windows\WindowsUpdate"')
+Invoke-Expression -Command ('schtasks /Delete /F /TN "\Microsoft\Windows\WindowsUpdate\Scheduled Start"')
+#
+Invoke-Expression -Command ('wevtutil set-log "Microsoft-Windows-SleepStudy/Diagnostic" /e:false')
+Invoke-Expression -Command ('wevtutil set-log "Microsoft-Windows-Kernel-Processor-Power/Diagnostic" /e:false')
+Invoke-Expression -Command ('wevtutil set-log "Microsoft-Windows-UserModePowerService/Diagnostic" /e:false')
+Get-ChildItem -Path 'C:\Windows\System32\SleepStudy' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
+#
 Get-ChildItem -Path 'C:\Windows\Panther' -Recurse | Remove-Item -Recurse
 Stop-Service -Name "NVIDIA Display Container LS" -Force
-Get-ChildItem -Path 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Recurse | Remove-Item -Recurse
-New-Item -ItemType SymbolicLink -Path 'C:\TEMP\nvtopps' -Target 'C:\ProgramData\NVIDIA Corporation\nvtopps'
+Get-ChildItem -Path 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
+Get-ChildItem -Path 'C:\ProgramData\NVIDIA Corporation\GameSessionTelemetry' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
 Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64\Display.NvContainer\plugins\Session\_NvGSTPlugin.dll' -NewName '_NvGSTPlugin_old.dll' -Force
 Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64\Display.NvContainer\plugins\Session\_nvtopps.dll' -NewName '_nvtopps_old.dll' -Force
 Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64_08a077b2e836a7c4\Display.NvContainer\nvtopps.db3' -NewName 'nvtopps_old.db3' -Force
 Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64_08a077b2e836a7c4\NvTelemetry64.dll' -NewName 'NvTelemetry64_old.dll' -Force
-Get-ChildItem -Path 'C:\ProgramData\NVIDIA Corporation\GameSessionTelemetry' -Recurse | Remove-Item -Recurse
-New-Item -ItemType SymbolicLink -Path 'C:\TEMP\GameSessionTelemetry' -Target 'C:\ProgramData\NVIDIA Corporation\GameSessionTelemetry'
 Remove-Item -LiteralPath 'HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}' -Force
 Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}' -Force
 Invoke-Expression -Command ('taskkill /f /im "smartscreen.exe"')
@@ -389,24 +356,6 @@ Rename-Item -Path 'C:\Windows\System32\mobsync.exe' -NewName 'mobsync_old.exe' -
 Rename-Item -Path 'C:\Windows\bcastdvr\KnownGameList.bin' -NewName 'KnownGameList_old.bin' -Force
 Invoke-Expression -Command ('taskkill /f /im "explorer.exe"')
 Rename-Item -Path 'C:\Users\Administrator\AppData\Local\Microsoft\GameDVR\KnownGameList.bin' -NewName 'KnownGameList_old.bin' -Force
-# Get-ChildItem -Path 'C:\Windows\System32\SleepStudy' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
-# Get-ChildItem -Path 'C:\ProgramData\NVIDIA Corporation\GameSessionTelemetry' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
-Get-ChildItem -Path 'C:\Windows\System32\SleepStudy' -Recurse | Remove-Item -Recurse
-New-Item -ItemType SymbolicLink -Path 'C:\TEMP\SleepStudy' -Target 'C:\Windows\System32\SleepStudy'
-Get-ChildItem -Path 'C:\Windows\Logs\WindowsUpdate' -Recurse | Remove-Item -Recurse
-New-Item -ItemType SymbolicLink -Path 'C:\TEMP\WindowsUpdateLog' -Target 'C:\Windows\Logs\WindowsUpdate'
-Get-ChildItem -Path 'C:\Windows\Logs\NetSetup' -Recurse | Remove-Item -Recurse
-New-Item -ItemType SymbolicLink -Path 'C:\TEMP\NetSetup' -Target 'C:\Windows\Logs\NetSetup'
-Get-ChildItem -Path 'C:\Windows\System32\LogFiles\CloudFiles' -Recurse | Remove-Item -Recurse
-New-Item -ItemType SymbolicLink -Path 'C:\TEMP\CloudFiles' -Target 'C:\Windows\System32\LogFiles\CloudFiles'
-Get-ChildItem -Path 'C:\Windows\System32\WDI\LogFiles' -Recurse | Remove-Item -Recurse
-New-Item -ItemType SymbolicLink -Path 'C:\TEMP\WDILog' -Target 'C:\Windows\System32\WDI\LogFiles'
-Get-ChildItem -Path 'C:\Windows\System32\LogFiles\WMI' -Recurse | Remove-Item -Recurse
-New-Item -ItemType SymbolicLink -Path 'C:\TEMP\WMILog' -Target 'C:\Windows\System32\LogFiles\WMI'
-Get-ChildItem -Path 'C:\ProgramData\Microsoft\Diagnosis\ETLLogs\ShutdownLogger' -Recurse | Remove-Item -Recurse
-New-Item -ItemType SymbolicLink -Path 'C:\TEMP\ShutdownLogger' -Target 'C:\ProgramData\Microsoft\Diagnosis\ETLLogs\ShutdownLogger'
-New-Item -ItemType HardLink -Path "C:\TEMP\ExplorerStartupLog.etl" -Target "C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog.etl"
-New-Item -ItemType HardLink -Path "C:\TEMP\ExplorerStartupLog_RunOnce.etl" -Target "C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog_RunOnce.etl"
 
 #####
 Remove-PSDrive -Name HKCR
