@@ -1,6 +1,6 @@
 ########################################################快捷方式后缀########################################################
 
---no-proxy-server --no-report-upload --disable-breakpad --disable-crash-reporter --disable-direct-composition-video-overlays
+--no-report-upload --no-crash-upload --disable-breakpad --disable-crash-reporter --disable-gpu-vsync --disable-logging
 
 #######################################################禁用以下flags########################################################
 
