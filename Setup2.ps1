@@ -517,10 +517,7 @@ New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'DockMoving' -
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'WindowArrangementActive' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'DragFullWindows' -Value '0' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'UserPreferencesMask' -Value ([byte[]](0x90, 0x12, 0x03, 0x80, 0x10, 0x00, 0x00, 0x00)) -PropertyType Binary -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'Win8DpiScaling' -Value '0' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'JPEGImportQuality' -Value 100 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'ScrollHeight' -Value '-355' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'ScrollWidth' -Value '-355' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'BorderWidth' -Value '0' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'MinAnimate' -Value '0' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop\WindowMetrics' -Name 'MaxAnimate' -Value '0' -PropertyType String -Force
@@ -655,9 +652,6 @@ Invoke-Expression -Command ('fsutil usn deletejournal /d /n d:')
 Invoke-Expression -Command ('compact /CompactOs:never')
 Invoke-Expression -Command ('netsh wfp set options netevents=off')
 Invoke-Expression -Command ('cipher /d /s:C:\')
-Invoke-Expression -Command ('wevtutil set-log "Microsoft-Windows-SleepStudy/Diagnostic" /e:false')
-Invoke-Expression -Command ('wevtutil set-log "Microsoft-Windows-Kernel-Processor-Power/Diagnostic" /e:false')
-Invoke-Expression -Command ('wevtutil set-log "Microsoft-Windows-UserModePowerService/Diagnostic" /e:false')
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl' -Name 'Win32PrioritySeparation' -Value 36 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power\Profile\Events\{54533251-82be-4824-96c1-47b60b740d00}\{0DA965DC-8FCF-4c0b-8EFE-8DD5E7BC959A}\{7E01ADEF-81E6-4e1b-8075-56F373584694}' -Name 'TimeLimitInSeconds' -Value 18 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'PagingFiles' -Value @('c:\pagefile.sys 24576 24576') -PropertyType MultiString -Force
@@ -700,13 +694,15 @@ Disable-MMAgent -MemoryCompression
 Disable-MMAgent -PageCombining
 Get-PnpDevice -FriendlyName 'Microsoft Kernel Debug Network Adapter' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -FriendlyName '高精度事件计时器' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -FriendlyName 'Microsoft System Management BIOS Driver' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -FriendlyName 'Microsoft 虚拟驱动器枚举器' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -FriendlyName 'NDIS 虚拟网络适配器枚举器' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -FriendlyName '系统计时器' | Disable-PnpDevice -Confirm:$false -Verbose
-Get-PnpDevice -FriendlyName '可编程中断控制器' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -FriendlyName '系统扬声器' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -FriendlyName 'UMBus Root Bus Enumerator' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -FriendlyName 'Microsoft Hyper-V 虚拟化基础结构驱动程序' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -FriendlyName 'Microsoft RRAS Root Enumerator' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -FriendlyName '母板资源' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -FriendlyName 'SM 总线控制器' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -FriendlyName 'Microsoft Windows Management Interface for ACPI' | Disable-PnpDevice -Confirm:$false -Verbose
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control' -Name 'SvcHostSplitThresholdInKB' -Value 16777216 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\NDIS\Parameters' -Name 'DefaultPnPCapabilities' -Value 24 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Serialize') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Serialize' -Force }
@@ -821,9 +817,9 @@ Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\FTH\State' -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\FTH' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\FVE') -ne $true) { New-Item 'HKLM:\SOFTWARE\Policies\Microsoft\FVE' -Force }
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\FVE' -Name 'DisableExternalDMAUnderLock' -Value 0 -PropertyType DWord -Force
-cmd.exe /c 'net accounts /lockoutthreshold:0'
-cmd.exe /c 'net accounts /MINPWAGE:0'
-cmd.exe /c 'net accounts /MAXPWAGE:UNLIMITED'
+Invoke-Expression -Command ('net accounts /lockoutthreshold:0')
+Invoke-Expression -Command ('net accounts /MINPWAGE:0')
+Invoke-Expression -Command ('net accounts /MAXPWAGE:UNLIMITED')
 if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters') -ne $true) { New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters' -Force }
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters' -Name 'MaximumPasswordAge' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters' -Name 'RequireStrongKey' -Value 0 -PropertyType DWord -Force
