@@ -6,6 +6,7 @@ setlocal enabledelayedexpansion
 rem CleanUp Folder
 rmdir /s /q "C:\TEMP\"
 rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\"
+rmdir /s /q "C:\Users\Administrator\AppData\Local\Google\Chrome Dev\User Data\Default\Service Worker\CacheStorage\"
 
 rem process priority
 "C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="csrss.exe" CALL setpriority 128
