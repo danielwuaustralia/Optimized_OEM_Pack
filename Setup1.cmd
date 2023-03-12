@@ -69,11 +69,9 @@ rem install drivers
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1" /f /v Path /t REG_SZ /d "C:\TEMP\Drivers"
 "C:\Windows\System32\pnpunattend.exe" AuditSystem /L
 
-rem remove Edge
+rem remove Edge and onedrive
 powershell "RD 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk','C:\Users\*\Desktop\Microsoft Edge.lnk',HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications\*Edge*,HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Config\*Edge*,'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Update\TargetingInfo\Installed\*Edge*','HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\*Edge*',HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Config\*Edge*,HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*Edge*,HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\*Edge*,HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Browser\*Edge*,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\*Edge*,HKLM:\SYSTEM\CurrentControlSet\Services\edge*,HKLM:\SOFTWARE\Classes\AppUserModelId\*Edge*,HKLM:\SOFTWARE\WOW6432Node\Microsoft\*Edge*,HKLM:\SOFTWARE\Policies\Microsoft\*Edge* -recurse"
 RD /S /Q "C:\Program Files (x86)\Microsoft"
-
-rem Remove Onedrive
 takeown /f "C:\Windows\System32\OneDriveSetup.exe"
 icacls "C:\Windows\System32\OneDriveSetup.exe" /grant Administrators:F /T /C
 del /f /q /s "C:\Windows\System32\OneDriveSetup.exe"
@@ -88,10 +86,6 @@ DISM.exe /Online /Remove-DefaultAppAssociations
 
 rem https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism-storage-reserve?view=windows-11
 DISM.exe /Online /Set-ReservedStorageState /State:Disabled
-
-rem Disable UBPM BOOT logging
-set "ubpm=HKLM\SYSTEM\ControlSet001\Control\Ubpm"
-for /f "tokens=1" %%a in ('reg query "%ubpm%" 2^>nul ^| find /i "REG_SZ"') do if not errorlevel 1 (%nsd1% reg delete "%ubpm%\%%a" /f 2>nul)
 
 rem Removing CloudExperienceHost breaks the OOBE last stage, and it is required for Windows Store.
 rem Removing UndocDevKit breaks the About page in Settings System section.
@@ -111,6 +105,7 @@ MicrosoftEdge
 MicrosoftEdgeDevToolsClient
 Microsoft.Win32WebViewHost
 Microsoft.XboxGameCallableUI
+Microsoft.Windows.ContentDeliveryManager
 ) do (
 for /f %%a in ('reg query "%InboxApplications%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
 )
