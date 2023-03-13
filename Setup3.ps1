@@ -391,17 +391,17 @@ Invoke-Expression -Command ('wevtutil set-log "Microsoft-Windows-UserModePowerSe
 Remove-Item -LiteralPath 'C:\Windows\System32\SleepStudy' -Force -Recurse
 New-Item -ItemType SymbolicLink -Path 'C:\Windows\System32\SleepStudy' -Target 'C:\TEMP'
 #
-Remove-Item -LiteralPath 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Force -Recurse
-New-Item -ItemType SymbolicLink -Path 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Target 'C:\TEMP'
-#
-Remove-Item -LiteralPath 'C:\ProgramData\NVIDIA Corporation\GameSessionTelemetry' -Force -Recurse
-New-Item -ItemType SymbolicLink -Path 'C:\ProgramData\NVIDIA Corporation\GameSessionTelemetry' -Target 'C:\TEMP'
-#
-Get-ChildItem -Path 'C:\Windows\Panther' -Recurse | Remove-Item -Recurse
+Stop-Service -Name "NVIDIA Display Container LS" -Force
 Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64\Display.NvContainer\plugins\Session\_NvGSTPlugin.dll' -NewName '_NvGSTPlugin_old.dll' -Force
 Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64\Display.NvContainer\plugins\Session\_nvtopps.dll' -NewName '_nvtopps_old.dll' -Force
 Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64_08a077b2e836a7c4\Display.NvContainer\nvtopps.db3' -NewName 'nvtopps_old.db3' -Force
 Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64_08a077b2e836a7c4\NvTelemetry64.dll' -NewName 'NvTelemetry64_old.dll' -Force
+Remove-Item -LiteralPath 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Force -Recurse
+New-Item -ItemType SymbolicLink -Path 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Target 'C:\TEMP'
+Remove-Item -LiteralPath 'C:\ProgramData\NVIDIA Corporation\GameSessionTelemetry' -Force -Recurse
+New-Item -ItemType SymbolicLink -Path 'C:\ProgramData\NVIDIA Corporation\GameSessionTelemetry' -Target 'C:\TEMP'
+#
+Get-ChildItem -Path 'C:\Windows\Panther' -Recurse | Remove-Item -Recurse
 Remove-Item -LiteralPath 'HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}' -Force
 Remove-Item -LiteralPath 'HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}' -Force
 Invoke-Expression -Command ('taskkill /f /im "smartscreen.exe"')
