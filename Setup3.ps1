@@ -322,50 +322,82 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defende
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection' -Name 'DisableOnAccessProtection' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection' -Name 'DisableRealtimeMonitoring' -Value 1 -PropertyType DWord -Force
 #
-$EventLog = Get-WinEvent -ListLog "Microsoft-Windows-LiveId/Operational"; $EventLog.IsEnabled = $false; $EventLog.SaveChanges()
-$EventLog = Get-WinEvent -ListLog "Microsoft-Windows-CloudStore/Operational"; $EventLog.IsEnabled = $false; $EventLog.SaveChanges()
-$EventLog = Get-WinEvent -ListLog "Microsoft-Windows-UniversalTelemetryClient/Operational"; $EventLog.IsEnabled = $false; $EventLog.SaveChanges()
-$EventLog = Get-WinEvent -ListLog "Microsoft-Windows-WindowsSystemAssessmentTool/Operational"; $EventLog.IsEnabled = $false; $EventLog.SaveChanges()
-$EventLog = Get-WinEvent -ListLog "Microsoft-Windows-ReadyBoost/Operational"; $EventLog.IsEnabled = $false; $EventLog.SaveChanges()
-$EventLog = Get-WinEvent -ListLog "Microsoft-Windows-HelloForBusiness/Operational"; $EventLog.IsEnabled = $false; $EventLog.SaveChanges()
-$EventLog = Get-WinEvent -ListLog "Microsoft-Windows-SettingSync/Debug"; $EventLog.IsEnabled = $false; $EventLog.SaveChanges()
-$EventLog = Get-WinEvent -ListLog "Microsoft-Windows-Known Folders API Service"; $EventLog.IsEnabled = $false; $EventLog.SaveChanges()
-$EventLog = Get-WinEvent -ListLog "Microsoft-Windows-SettingSync/Operational"; $EventLog.IsEnabled = $false; $EventLog.SaveChanges()
-$EventLog = Get-WinEvent -ListLog "Microsoft-Windows-Store/Operational"; $EventLog.IsEnabled = $false; $EventLog.SaveChanges()
-$EventLog = Get-WinEvent -ListLog "Microsoft-Windows-Application-Experience/Program-Telemetry"; $EventLog.IsEnabled = $false; $EventLog.SaveChanges()
-$Path = "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-System\{1b562e86-b7aa-4131-badc-b6f3a001407e}"; if (-not (Test-Path -Path $Path)) { New-Item -ItemType String -Path $Path }
-New-ItemProperty -Path $Path -Name "Enabled" -PropertyType Dword -Value 0 -Force
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\ApplicationData\appuriverifierdaily"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\ApplicationData\appuriverifierinstall"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\ApplicationData\DsSvcCleanup"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Application Experience\PcaPatchDbTask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Application Experience\StartupAppTask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\BrokerInfrastructure\BgTaskRegistrationMaintenanceTask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\CloudExperienceHost\CreateObjectTask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Defrag\ScheduledDefrag"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Device Information\Device"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Device Setup\Metadata Refresh"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Diagnosis\Scheduled"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\DiskCleanup\SilentCleanup"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\DiskFootprint\Diagnostics"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\InstallService\ScanForUpdates"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\InstallService\ScanForUpdatesAsUser"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\InstallService\SmartRetry"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Management\Provisioning\Cellular"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\MemoryDiagnostic\ProcessMemoryDiagnosticEvents"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\MemoryDiagnostic\RunFullMemoryDiagnostic"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\MUI\LPRemove"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Printing\EduPrintProv"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\PushToInstall\LoginCheck"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Ras\MobilityManager"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Registry\RegIdleBackup"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\RetailDemo\CleanupOfflineContent"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Shell\IndexerAutomaticMaintenance"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\SoftwareProtectionPlatform\SvcRestartTaskNetwork"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\StateRepository\MaintenanceTasks"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Time Synchronization\ForceSynchronizeTime"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Time Synchronization\SynchronizeTime"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Time Zone\SynchronizeTimeZone"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\UpdateOrchestrator\Report policies"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan Static Task"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\UpdateOrchestrator\UpdateModelTask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\UpdateOrchestrator\USO_UxBroker"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\UPnP\UPnPHostConfig"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\WaaSMedic\PerformRemediation"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Windows Error Reporting\QueueReporting"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Windows Filtering Platform\BfeOnServiceStartTypeChange"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\WindowsUpdate\Scheduled Start"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Wininet\CacheTask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\XblGameSave\XblGameSaveTask"')
 #
-$Logger = Get-ChildItem -Path 'HKLM:\System\CurrentControlSet\Control\WMI\Autologger' -Recurse -Depth 1 | Where-Object { $_.PSChildName -NotLike 'Circular Kernel Context Logger' -and $_.PSChildName -NotLike 'EventLog-Application' `
-        -and $_.PSChildName -NotLike 'EventLog-Security' -and $_.PSChildName -NotLike 'EventLog-System' -and $_.PSChildName -NotLike 'NtfsLog' -and $_.PSChildName -NotLike 'WdiContextLog' `
-        -and $_.PSChildName -NotLike 'UBPM' -and $_.PSChildName -NotLike 'NetCore' -and $_.PSChildName -NotLike 'LwtNetLog' -and $_.PSChildName -NotLike 'AppModel' -and $_.PSChildName -NotLike 'IntelRST' -and $_.PSChildName -NotLike 'TileStore' `
-        -and $_.PSChildName -NotLike 'WifiSession' }
-ForEach ($item in $Logger) { $path = $item -replace "HKEY_LOCAL_MACHINE", "HKLM:"; Set-ItemProperty -Path $path -Name 'Start' -Value 0 -Force }
-#
-# Get-ScheduledTask -TaskPath "\*" | Where-Object { $_.Taskname -match 'MicrosoftEdge*' } | Disable-ScheduledTask
-Get-ScheduledTask -TaskPath "\Microsoft\*" | Where-Object { $_.Taskname -notmatch 'MsCtfMonitor' -and $_.Taskname -notmatch 'RemoteFXvGPUDisableTask' `
-        -and $_.Taskname -notmatch 'Sysprep Generalize Drivers' -and $_.Taskname -notmatch 'Device Install Group Policy' -and $_.Taskname -notmatch 'ResPriStaticDbSync' -and $_.Taskname -notmatch 'WsSwapAssessmentTask' `
-        -and $_.Taskname -notmatch 'DXGIAdapterCache' -and $_.Taskname -notmatch 'UninstallDeviceTask' -and $_.Taskname -notmatch 'GatherNetworkInfo' `
-        -and $_.Taskname -notmatch ' *NGEN* ' } | Disable-ScheduledTask
-Invoke-Expression -Command ('schtasks /Delete /F /TN "\Microsoft\Windows\WaaSMedic\PerformRemediation"')
-Invoke-Expression -Command ('schtasks /Delete /F /TN "\Microsoft\Windows\WaaSMedic"')
-Invoke-Expression -Command ('schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan"')
-Invoke-Expression -Command ('schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan Static Task"')
-Invoke-Expression -Command ('schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator\UpdateModelTask"')
-Invoke-Expression -Command ('schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator\USO_UxBroker"')
-Invoke-Expression -Command ('schtasks /Delete /F /TN "\Microsoft\Windows\UpdateOrchestrator"')
-Invoke-Expression -Command ('schtasks /Delete /F /TN "\Microsoft\Windows\WindowsUpdate"')
-Invoke-Expression -Command ('schtasks /Delete /F /TN "\Microsoft\Windows\WindowsUpdate\Scheduled Start"')
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Circular Kernel Context Logger' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\CloudExperienceHostOobe' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderAuditLogger' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diaglog' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\LwtNetLog' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Microsoft-Windows-Rdp-Graphics-RdpIdd-Trace' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\NetCore' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\NtfsLog' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\RadioMgr' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\RdrLog' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\ReadyBoot' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SpoolerLogger' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\UBPM' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WdiContextLog' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiSession' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
 #
 Invoke-Expression -Command ('wevtutil set-log "Microsoft-Windows-SleepStudy/Diagnostic" /e:false')
 Invoke-Expression -Command ('wevtutil set-log "Microsoft-Windows-Kernel-Processor-Power/Diagnostic" /e:false')
 Invoke-Expression -Command ('wevtutil set-log "Microsoft-Windows-UserModePowerService/Diagnostic" /e:false')
-Get-ChildItem -Path 'C:\Windows\System32\SleepStudy' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
+Remove-Item -LiteralPath 'C:\Windows\System32\SleepStudy' -Force -Recurse
+New-Item -ItemType SymbolicLink -Path 'C:\Windows\System32\SleepStudy' -Target 'C:\TEMP'
+#
+Remove-Item -LiteralPath 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Force -Recurse
+New-Item -ItemType SymbolicLink -Path 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Target 'C:\TEMP'
+#
+Remove-Item -LiteralPath 'C:\ProgramData\NVIDIA Corporation\GameSessionTelemetry' -Force -Recurse
+New-Item -ItemType SymbolicLink -Path 'C:\ProgramData\NVIDIA Corporation\GameSessionTelemetry' -Target 'C:\TEMP'
 #
 Get-ChildItem -Path 'C:\Windows\Panther' -Recurse | Remove-Item -Recurse
-Stop-Service -Name "NVIDIA Display Container LS" -Force
-Get-ChildItem -Path 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
-Get-ChildItem -Path 'C:\ProgramData\NVIDIA Corporation\GameSessionTelemetry' -Recurse -File | ForEach-Object { $_.IsReadOnly = $True }
 Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64\Display.NvContainer\plugins\Session\_NvGSTPlugin.dll' -NewName '_NvGSTPlugin_old.dll' -Force
 Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64\Display.NvContainer\plugins\Session\_nvtopps.dll' -NewName '_nvtopps_old.dll' -Force
 Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64_08a077b2e836a7c4\Display.NvContainer\nvtopps.db3' -NewName 'nvtopps_old.db3' -Force
