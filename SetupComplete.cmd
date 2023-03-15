@@ -16,8 +16,8 @@ rem DirectX
 start /wait "C:\TEMP\DirectX\DXSETUP.exe" /silent
 
 rem https://forums.mydigitallife.net/threads/abbodi1406s-batch-scripts-repo.74197/page-113#post-1768876
-CertUtil -addstore -f Root "C:\TEMP\vcredist\MicAssDesRoo_2011_03_23.crt
-CertUtil -addstore -f CA "C:\TEMP\vcredist\MicAssDesPCA2011_2011-06-28.crt
+CertUtil -addstore -f Root "C:\TEMP\vcredist\MicAssDesRoo_2011_03_23.crt"
+CertUtil -addstore -f CA "C:\TEMP\vcredist\MicAssDesPCA2011_2011-06-28.crt"
 start /wait "C:\TEMP\vcredist\2005\vcredist_x86.exe" /Q
 start /wait "C:\TEMP\vcredist\2005\vcredist_x64.exe" /Q
 start /wait "C:\TEMP\vcredist\2008\vcredist_x86.exe" /q
