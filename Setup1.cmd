@@ -10,6 +10,7 @@ Dism /online /Disable-Feature /FeatureName:Printing-PrintToPDFServices-Features 
 Dism /online /Disable-Feature /FeatureName:WCF-TCP-PortSharing45 /NoRestart
 Dism /online /Disable-Feature /FeatureName:MicrosoftWindowsPowerShellV2Root /NoRestart
 Dism /online /Disable-Feature /FeatureName:MicrosoftWindowsPowerShellV2 /NoRestart
+Dism /online /Disable-Feature /FeatureName:Printing-Foundation-Features /NoRestart
 Dism /online /Disable-Feature /FeatureName:Printing-Foundation-InternetPrinting-Client /NoRestart
 Dism /online /Disable-Feature /FeatureName:Printing-Foundation-LPDPrintService /NoRestart
 Dism /online /Disable-Feature /FeatureName:Printing-Foundation-LPRPortMonitor /NoRestart
