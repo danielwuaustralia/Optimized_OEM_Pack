@@ -7,14 +7,6 @@ rem Office 365
 rem https://forums.mydigitallife.net/threads/kms_vl_all-smart-activation-script.79535/
 call C:\TEMP\KMS_VL_ALL_AIO.cmd /x /s /a
 
-rem https://github.com/PowerShell/PowerShell/releases
-%windir%\System32\msiexec.exe /package "C:\TEMP\PowerShell-7.3.3-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
-setx POWERSHELL_TELEMETRY_OPTOUT 1
-ftype Microsoft.PowerShellScript.1="C:\Program Files\PowerShell\7\pwsh.exe" -NoLogo -ExecutionPolicy Bypass -File "%1" %*
-
-rem DirectX
-start /wait "C:\TEMP\DirectX\DXSETUP.exe" /silent
-
 rem https://forums.mydigitallife.net/threads/abbodi1406s-batch-scripts-repo.74197/page-113#post-1768876
 CertUtil -addstore -f Root "C:\TEMP\vcredist\MicAssDesRoo_2011_03_23.crt"
 CertUtil -addstore -f CA "C:\TEMP\vcredist\MicAssDesPCA2011_2011-06-28.crt"
@@ -32,11 +24,18 @@ rem https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?vie
 start /wait "C:\TEMP\vcredist\VC_redist.x86.exe" /install /quiet /norestart
 start /wait "C:\TEMP\vcredist\VC_redist.x64.exe" /install /quiet /norestart
 
-rem https://vulkan.lunarg.com/sdk/home
-start /wait "C:\TEMP\VulkanRT-1.3.239.0-Installer.exe" /S
+rem https://github.com/PowerShell/PowerShell/releases
+%windir%\System32\msiexec.exe /package "C:\TEMP\PowerShell-7.3.3-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
+setx POWERSHELL_TELEMETRY_OPTOUT 1
+
+rem DirectX
+start /wait "C:\TEMP\DirectX\DXSETUP.exe" /silent
 
 rem https://www.amd.com/en/support/chipsets/amd-socket-am4/b550
 start /wait "C:\TEMP\AMD.exe" /S
+
+rem https://vulkan.lunarg.com/sdk/home
+start /wait "C:\TEMP\VulkanRT-1.3.239.0-Installer.exe" /S
 
 rem nvidia driver
 start /wait "C:\TEMP\nVidia\setup.exe" -s -noreboot -clean
