@@ -8,26 +8,22 @@ rmdir /s /q "C:\TEMP\"
 rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\"
 rmdir /s /q "C:\Users\Administrator\AppData\Local\Google\Chrome Dev\User Data\Default\Service Worker\CacheStorage\"
 
-rem process priority
+rem https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/setpriority-method-in-class-win32-process
 "C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="csrss.exe" CALL setpriority 128
 "C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="dwm.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="ctfmon.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="winlogon.exe" CALL setpriority 64
 "C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="ChsIME.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="spoolsv.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="dllhost.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="RuntimeBroker.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="ShellExperienceHost.exe" CALL setpriority 64
+"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="ctfmon.exe" CALL setpriority 64
+"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="fontdrvhost.exe" CALL setpriority 64
+"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="lsass.exe" CALL setpriority 64
+"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="NVDisplay.Container.exe" CALL setpriority 64
 "C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="NVDisplay.Container.exe" CALL setpriority 64
 "C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="OfficeClickToRun.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="WmiPrvSE.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="ApplicationFrameHost.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="audiodg.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="fontdrvhost.exe" CALL setpriority 64
+"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="RuntimeBroker.exe" CALL setpriority 64
+"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="ShellExperienceHost.exe" CALL setpriority 64
+"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="spoolsv.exe" CALL setpriority 64
 "C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="TextInputHost.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="smss.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="SystemSettingsBroker.exe" CALL setpriority 64
 "C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="TrustedInstaller.exe" CALL setpriority 64
+"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="WmiPrvSE.exe" CALL setpriority 64
 
 rem logman -ets
 "C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets SleepStudyTraceSession
