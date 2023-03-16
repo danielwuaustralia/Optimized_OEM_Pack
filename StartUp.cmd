@@ -3,7 +3,8 @@
 >nul chcp 437
 setlocal enabledelayedexpansion
 
-rem CleanUp Folder
+rem CleanUp
+ipconfig /flushdns
 rmdir /s /q "C:\TEMP\"
 rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\"
 rmdir /s /q "C:\Users\Administrator\AppData\Local\Google\Chrome Dev\User Data\Default\Service Worker\CacheStorage\"
