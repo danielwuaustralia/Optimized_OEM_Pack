@@ -25,8 +25,7 @@ start /wait "C:\TEMP\vcredist\VC_redist.x86.exe" /install /quiet /norestart
 start /wait "C:\TEMP\vcredist\VC_redist.x64.exe" /install /quiet /norestart
 
 rem https://github.com/PowerShell/PowerShell/releases
-%windir%\System32\msiexec.exe /package "C:\TEMP\PowerShell-7.3.3-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
-setx POWERSHELL_TELEMETRY_OPTOUT 1
+%windir%\System32\msiexec.exe /package "C:\TEMP\PowerShell-7.3.3-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=0 ENABLE_PSREMOTING=0 REGISTER_MANIFEST=1
 
 rem DirectX
 start /wait "C:\TEMP\DirectX\DXSETUP.exe" /silent
