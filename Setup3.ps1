@@ -307,6 +307,10 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defende
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection' -Name 'DisableOnAccessProtection' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection' -Name 'DisableRealtimeMonitoring' -Value 1 -PropertyType DWord -Force
 #
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Office\Office Automatic Updates 2.0"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Office\Office Feature Updates"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Office\Office Feature Updates Logon"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Office\Office Performance Monitor"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\ApplicationData\appuriverifierdaily"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\ApplicationData\appuriverifierinstall"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\ApplicationData\DsSvcCleanup"')
@@ -391,8 +395,6 @@ New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Executio
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sihost.exe\PerfOptions' -Name 'CpuPriorityClass' -Value 1 -PropertyType DWord -Force
 New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\audiodg.exe\PerfOptions' -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\audiodg.exe\PerfOptions' -Name 'CpuPriorityClass' -Value 1 -PropertyType DWord -Force
-New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csgo.exe\PerfOptions' -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csgo.exe\PerfOptions' -Name 'CpuPriorityClass' -Value 3 -PropertyType DWord -Force
 #
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Circular Kernel Context Logger' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\CloudExperienceHostOobe' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
