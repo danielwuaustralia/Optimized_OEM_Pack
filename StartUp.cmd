@@ -10,41 +10,45 @@ rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\"
 rmdir /s /q "C:\Users\Administrator\AppData\Local\Google\Chrome Dev\User Data\Default\Service Worker\CacheStorage\"
 
 rem https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/setpriority-method-in-class-win32-process
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="csrss.exe" CALL setpriority 128
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="dwm.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="ChsIME.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="ctfmon.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="fontdrvhost.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="lsass.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="NVDisplay.Container.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="NVDisplay.Container.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="OfficeClickToRun.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="RuntimeBroker.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="ShellExperienceHost.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="spoolsv.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="TextInputHost.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="TrustedInstaller.exe" CALL setpriority 64
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="WmiPrvSE.exe" CALL setpriority 64
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="csrss.exe" CALL setpriority 128
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="dwm.exe" CALL setpriority 64
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="ChsIME.exe" CALL setpriority 64
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="fontdrvhost.exe" CALL setpriority 64
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="lsass.exe" CALL setpriority 64
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="NVDisplay.Container.exe" CALL setpriority 64
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="NVDisplay.Container.exe" CALL setpriority 64
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="OfficeClickToRun.exe" CALL setpriority 64
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="RuntimeBroker.exe" CALL setpriority 64
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="ShellExperienceHost.exe" CALL setpriority 64
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="spoolsv.exe" CALL setpriority 64
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="TrustedInstaller.exe" CALL setpriority 64
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="WmiPrvSE.exe" CALL setpriority 64
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="TextInputHost.exe" CALL setpriority 64
+timeout /t 2 /nobreak
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="TextInputHost.exe" CALL setpriority 64
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="ctfmon.exe" CALL setpriority 64
+timeout /t 2 /nobreak
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="ctfmon.exe" CALL setpriority 64
 
 rem logman -ets
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets SleepStudyTraceSession
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets Circular Kernel Context Logger
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets CloudExperienceHostOobe
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets DefenderApiLogger
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets DefenderAuditLogger
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets Diagtrack-Listener
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets Diaglog
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets LwtNetLog
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets Microsoft-Windows-Rdp-Graphics-RdpIdd-Trace
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets NetCore
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets NtfsLog
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets RadioMgr
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets RdrLog
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets ReadyBoot
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets SpoolerLogger
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets UBPM
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets WdiContextLog
-"C:\Windows\System32\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets WiFiSession
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets SleepStudyTraceSession
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets Circular Kernel Context Logger
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets CloudExperienceHostOobe
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets DefenderApiLogger
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets DefenderAuditLogger
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets Diagtrack-Listener
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets Diaglog
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets LwtNetLog
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets Microsoft-Windows-Rdp-Graphics-RdpIdd-Trace
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets NetCore
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets NtfsLog
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets RadioMgr
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets RdrLog
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets ReadyBoot
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets SpoolerLogger
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets UBPM
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets WdiContextLog
+"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets WiFiSession
 
 rem Time Sync
 w32tm /config /syncfromflags:manual /manualpeerlist:"pool.ntp.org"
