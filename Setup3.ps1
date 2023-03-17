@@ -440,6 +440,11 @@ Rename-Item -Path 'C:\Users\Administrator\AppData\Local\Microsoft\GameDVR\KnownG
 Stop-Service -Name 'Windows Search' -Force
 Remove-Item -Path 'C:\ProgramData\Microsoft\Search\Data\Applications\Windows\Windows.db' -Force
 #
+Invoke-Expression -Command ('takeown /a /r /d Y /f "C:\Windows\System32\LogFiles\WMI"')
+Get-ChildItem -Path 'C:\Windows\System32\LogFiles\WMI' -Recurse | Remove-Item -Recurse
+#
+Get-ChildItem -Path 'C:\Windows\System32\WDI\LogFiles' -Recurse | Remove-Item -Recurse
+#
 Remove-Item -Path 'C:\Windows\Fonts\AGENCYB.TTF' -Force
 Remove-Item -Path 'C:\Windows\Fonts\AGENCYR.TTF' -Force
 Remove-Item -Path 'C:\Windows\Fonts\ALGER.TTF' -Force
