@@ -69,7 +69,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Chromium' -Name 'SideSear
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Chromium' -Name 'AbusiveExperienceInterventionEnforce' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Chromium' -Name 'AlwaysOpenPdfExternally' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Chromium' -Name 'AutofillAddressEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Chromium' -Name 'DefaultDownloadDirectory' -Value 'D:\Downloads' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Chromium' -Name 'DownloadDirectory' -Value 'C:\TEMP' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Chromium' -Name 'PaymentMethodQueryEnabled' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Chromium' -Name 'ShowAppsShortcutInBookmarkBar' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Chromium' -Name 'UrlKeyedAnonymizedDataCollectionEnabled' -Value 0 -PropertyType DWord -Force
@@ -135,7 +135,7 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Google\Chrome' -Name 'Sid
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Google\Chrome' -Name 'AbusiveExperienceInterventionEnforce' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Google\Chrome' -Name 'AlwaysOpenPdfExternally' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Google\Chrome' -Name 'AutofillAddressEnabled' -Value 0 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Google\Chrome' -Name 'DefaultDownloadDirectory' -Value 'D:\Downloads' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Google\Chrome' -Name 'DownloadDirectory' -Value 'C:\TEMP' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Google\Chrome' -Name 'PaymentMethodQueryEnabled' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Google\Chrome' -Name 'ShowAppsShortcutInBookmarkBar' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Google\Chrome' -Name 'UrlKeyedAnonymizedDataCollectionEnabled' -Value 0 -PropertyType DWord -Force
@@ -526,6 +526,16 @@ Get-PnpDevice -FriendlyName 'Microsoft RRAS Root Enumerator' | Disable-PnpDevice
 Get-PnpDevice -FriendlyName '母板资源' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -FriendlyName 'SM 总线控制器' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -FriendlyName 'Microsoft Windows Management Interface for ACPI' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'HDAUDIO\FUNC_01&VEN_10DE&DEV_009E&SUBSYS_10B02482&REV_1001\5&27112D9C&0&0001' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'HID\VID_258A&PID_002A&MI_01&Col02\8&3b8a1bbf&0&0001' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'HID\VID_258A&PID_002A&MI_01&Col01\8&3b8a1bbf&0&0000' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'HID\VID_048D&PID_5702&Col01\7&34d2615b&0&0000' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'HID\VID_048D&PID_5702&Col02\7&34d2615b&0&0001' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'HID\VID_258A&PID_002A&MI_01&Col03\8&3b8a1bbf&0&0002' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'HID\VID_258A&PID_002A&MI_01&Col05\8&3b8a1bbf&0&0004' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'HID\VID_258A&PID_002A&MI_01&Col06\8&3b8a1bbf&0&0005' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'HID\VID_258A&PID_002A&MI_01&Col07\8&3b8a1bbf&0&0006' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'HID\VID_258A&PID_002A&MI_01&Col09\8&3b8a1bbf&0&0008' | Disable-PnpDevice -Confirm:$false -Verbose
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl' -Name 'Win32PrioritySeparation' -Value 36 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power\Profile\Events\{ 54533251 - 82be-4824-96c1-47b60b740d00 }\ { 0DA965DC-8FCF-4c0b-8EFE-8DD5E7BC959A }\ { 7E01ADEF-81E6-4e1b-8075-56F373584694 }' -Name 'TimeLimitInSeconds' -Value 18 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'PagingFiles' -Value @('c:\pagefile.sys 24576 24576') -PropertyType MultiString -Force
