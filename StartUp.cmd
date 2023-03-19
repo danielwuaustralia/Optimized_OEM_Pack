@@ -10,45 +10,45 @@ rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\"
 rmdir /s /q "C:\Users\Administrator\AppData\Local\Google\Chrome Dev\User Data\Default\Service Worker\CacheStorage\"
 
 rem https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/setpriority-method-in-class-win32-process
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="csrss.exe" CALL setpriority 128
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="dwm.exe" CALL setpriority 64
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="ChsIME.exe" CALL setpriority 64
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="fontdrvhost.exe" CALL setpriority 64
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="lsass.exe" CALL setpriority 64
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="NVDisplay.Container.exe" CALL setpriority 64
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="NVDisplay.Container.exe" CALL setpriority 64
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="OfficeClickToRun.exe" CALL setpriority 64
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="RuntimeBroker.exe" CALL setpriority 64
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="ShellExperienceHost.exe" CALL setpriority 64
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="spoolsv.exe" CALL setpriority 64
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="TrustedInstaller.exe" CALL setpriority 64
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="WmiPrvSE.exe" CALL setpriority 64
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="TextInputHost.exe" CALL setpriority 64
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="csrss.exe" CALL setpriority 128
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="dwm.exe" CALL setpriority 64
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="ChsIME.exe" CALL setpriority 64
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="fontdrvhost.exe" CALL setpriority 64
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="lsass.exe" CALL setpriority 64
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="NVDisplay.Container.exe" CALL setpriority 64
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="NVDisplay.Container.exe" CALL setpriority 64
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="OfficeClickToRun.exe" CALL setpriority 64
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="RuntimeBroker.exe" CALL setpriority 64
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="ShellExperienceHost.exe" CALL setpriority 64
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="spoolsv.exe" CALL setpriority 64
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="TrustedInstaller.exe" CALL setpriority 64
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="WmiPrvSE.exe" CALL setpriority 64
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="TextInputHost.exe" CALL setpriority 64
 timeout /t 2 /nobreak
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="TextInputHost.exe" CALL setpriority 64
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="ctfmon.exe" CALL setpriority 64
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="TextInputHost.exe" CALL setpriority 64
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="ctfmon.exe" CALL setpriority 64
 timeout /t 2 /nobreak
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged wmic process where name="ctfmon.exe" CALL setpriority 64
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="ctfmon.exe" CALL setpriority 64
 
 rem logman -ets
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets SleepStudyTraceSession
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets Circular Kernel Context Logger
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets CloudExperienceHostOobe
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets DefenderApiLogger
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets DefenderAuditLogger
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets Diagtrack-Listener
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets Diaglog
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets LwtNetLog
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets Microsoft-Windows-Rdp-Graphics-RdpIdd-Trace
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets NetCore
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets NtfsLog
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets RadioMgr
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets RdrLog
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets ReadyBoot
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets SpoolerLogger
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets UBPM
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets WdiContextLog
-"C:\Tools\NanaRun\MinSudo.exe" --NoLogo --TrustedInstaller --Privileged logman stop -ets WiFiSession
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets SleepStudyTraceSession
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets Circular Kernel Context Logger
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets CloudExperienceHostOobe
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets DefenderApiLogger
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets DefenderAuditLogger
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets Diagtrack-Listener
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets Diaglog
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets LwtNetLog
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets Microsoft-Windows-Rdp-Graphics-RdpIdd-Trace
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets NetCore
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets NtfsLog
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets RadioMgr
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets RdrLog
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets ReadyBoot
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets SpoolerLogger
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets UBPM
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets WdiContextLog
+"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets WiFiSession
 
 rem Time Sync
 w32tm /config /syncfromflags:manual /manualpeerlist:"pool.ntp.org"
