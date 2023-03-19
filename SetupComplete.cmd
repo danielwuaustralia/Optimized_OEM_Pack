@@ -1,128 +1,58 @@
-@cls
 @echo off
->nul chcp 437
-setlocal enabledelayedexpansion
+setlocal EnableDelayedExpansion
 
-rem CleanUp
-ipconfig /flushdns
-rmdir /s /q "C:\TEMP\"
-rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\"
-rmdir /s /q "C:\Users\Administrator\AppData\Local\Google\Chrome Dev\User Data\Default\Service Worker\CacheStorage\"
+rem Office 365
+"C:\TEMP\Office365\setup.exe" /configure "C:\TEMP\Office365\O365Preview.xml"
 
-rem https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/setpriority-method-in-class-win32-process
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="csrss.exe" CALL setpriority 128
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="dwm.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="ChsIME.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="fontdrvhost.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="lsass.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="NVDisplay.Container.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="NVDisplay.Container.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="OfficeClickToRun.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="RuntimeBroker.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="ShellExperienceHost.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="spoolsv.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="TrustedInstaller.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="WmiPrvSE.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="TextInputHost.exe" CALL setpriority 64
-timeout /t 2 /nobreak
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="TextInputHost.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="ctfmon.exe" CALL setpriority 64
-timeout /t 2 /nobreak
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k wmic process where name="ctfmon.exe" CALL setpriority 64
+rem https://forums.mydigitallife.net/threads/kms_vl_all-smart-activation-script.79535/
+call C:\TEMP\KMS_VL_ALL_AIO.cmd /x /s /a
 
-rem logman -ets
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets SleepStudyTraceSession
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets Circular Kernel Context Logger
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets CloudExperienceHostOobe
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets DefenderApiLogger
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets DefenderAuditLogger
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets Diagtrack-Listener
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets Diaglog
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets LwtNetLog
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets Microsoft-Windows-Rdp-Graphics-RdpIdd-Trace
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets NetCore
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets NtfsLog
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets RadioMgr
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets RdrLog
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets ReadyBoot
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets SpoolerLogger
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets UBPM
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets WdiContextLog
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets WiFiSession
+rem https://forums.mydigitallife.net/threads/abbodi1406s-batch-scripts-repo.74197/page-113#post-1768876
+CertUtil -addstore -f Root "C:\TEMP\vcredist\MicAssDesRoo_2011_03_23.crt"
+CertUtil -addstore -f CA "C:\TEMP\vcredist\MicAssDesPCA2011_2011-06-28.crt"
+start /wait "C:\TEMP\vcredist\2005\vcredist_x86.exe" /Q
+start /wait "C:\TEMP\vcredist\2005\vcredist_x64.exe" /Q
+start /wait "C:\TEMP\vcredist\2008\vcredist_x86.exe" /q
+start /wait "C:\TEMP\vcredist\2008\vcredist_x64.exe" /q
+start /wait "C:\TEMP\vcredist\2010\vcredist_x86.exe" /q /norestart
+start /wait "C:\TEMP\vcredist\2010\vcredist_x64.exe" /q /norestart
+start /wait "C:\TEMP\vcredist\2012\vcredist_x86.exe" /install /quiet /norestart
+start /wait "C:\TEMP\vcredist\2012\vcredist_x64.exe" /install /quiet /norestart
+start /wait "C:\TEMP\vcredist\2013\vcredist_x86.exe" /install /quiet /norestart
+start /wait "C:\TEMP\vcredist\2013\vcredist_x64.exe" /install /quiet /norestart
+rem https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170
+start /wait "C:\TEMP\vcredist\VC_redist.x86.exe" /install /quiet /norestart
+start /wait "C:\TEMP\vcredist\VC_redist.x64.exe" /install /quiet /norestart
 
-rem Time Sync
-w32tm /config /syncfromflags:manual /manualpeerlist:"pool.ntp.org"
-net start w32time
-w32tm /config /update
-w32tm /resync
-net stop w32time
+rem https://github.com/PowerShell/PowerShell/releases
+%windir%\System32\msiexec.exe /package "C:\TEMP\PowerShell-7.3.3-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=0 ENABLE_PSREMOTING=0 REGISTER_MANIFEST=1
 
-rem CleanMgr.exe
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\BranchCache" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Content Indexer Cleaner" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\D3D Shader Cache" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Delivery Optimization Files" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Device Driver Packages" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Diagnostic Data Viewer database files" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Downloaded Program Files" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Feedback Hub Archive log files" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Internet Cache Files" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Language Pack" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Offline Pages Files" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Old ChkDsk Files" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Previous Installations" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Recycle Bin" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\RetailDemo Offline Content" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\System error memory dump files" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Setup Log Files" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\System error minidump files" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Temporary Files" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Temporary Setup Files" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Temporary Sync Files" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Thumbnail Cache" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Update Cleanup" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Upgrade Discarded Files" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\User file versions" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Defender" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Error Reporting Files" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows ESD installation files" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Reset Log Files" /v "StateFlags0001" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Upgrade Log Files" /v "StateFlags0001" /f
+rem https://forums.mydigitallife.net/threads/repack-directx-end-user-runtime-june-2010.84785/
+start /wait "C:\TEMP\DirectX.exe" /ai
 
-timeout /t 2 /nobreak
+rem https://www.amd.com/en/support/chipsets/amd-socket-am4/b550
+start /wait "C:\TEMP\AMD.exe" /S
 
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\BranchCache" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Content Indexer Cleaner" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\D3D Shader Cache" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Delivery Optimization Files" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Device Driver Packages" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Diagnostic Data Viewer database files" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Downloaded Program Files" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Feedback Hub Archive log files" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Internet Cache Files" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Language Pack" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Offline Pages Files" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Old ChkDsk Files" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Previous Installations" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Recycle Bin" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\RetailDemo Offline Content" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Setup Log Files" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\System error memory dump files" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\System error minidump files" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Temporary Files" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Temporary Setup Files" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Temporary Sync Files" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Thumbnail Cache" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Update Cleanup" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Upgrade Discarded Files" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\User file versions" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Defender" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Error Reporting Files" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows ESD installation files" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Reset Log Files" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Upgrade Log Files" /v "StateFlags0001" /t REG_DWORD /d "2" /f
-start /high CLEANMGR /sagerun:1
+rem https://vulkan.lunarg.com/sdk/home
+start /wait "C:\TEMP\VulkanRT-1.3.239.0-Installer.exe" /S
 
-exit
+rem https://www.7-zip.org/
+"C:\TEMP\7z2201-x64.exe" /S /D="C:\Program Files\7-Zip"
+
+rem https://www.chiark.greenend.org.uk/~sgtatham/putty/snapshot.html
+%windir%\System32\msiexec.exe /package "C:\TEMP\putty-64bit-2023-03-08-installer.msi" /quiet /qn /norestart
+
+rem Power Plan
+powercfg -import "C:\TEMP\PowerPlan.pow"
+
+rem process lasso
+rem start /wait C:\TEMP\processlassoActivator.exe -makekeyfile -product:2 -output:"C:\TEMP"
+rem start /wait C:\TEMP\processlassosetup64.exe /S /keyfile=C:\TEMP\prolasso.key /launch_gui=false /gui_start_type=all /governor_start_type=service /language=SimpChinese
+rem start /wait C:\TEMP\processlassosetup64.exe /S /keyfile=C:\TEMP\prolasso.key /launch_gui=false /gui_start_type=all /governor_start_type=service /language=SimpChinese /importconfigfrom=C:\TEMP\prolasso.ini
+
+rem https://learn.microsoft.com/en-us/troubleshoot/windows-server/performance/manually-rebuild-performance-counters
+lodctr /r
+lodctr /r
+winmgmt /resyncperf
+
+%windir%\System32\UsoClient.exe RefreshSettings
