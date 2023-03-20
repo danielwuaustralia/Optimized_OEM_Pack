@@ -8,6 +8,8 @@ ipconfig /flushdns
 rmdir /s /q "C:\TEMP\"
 rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\"
 rmdir /s /q "C:\Users\Administrator\AppData\Local\Google\Chrome Dev\User Data\Default\Service Worker\CacheStorage\"
+rmdir /s /q "C:\Windows\System32\LogFiles\WMI"
+rmdir /s /q "C:\Windows\System32\WDI\LogFiles"
 
 rem logman -ets
 "C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /k logman stop -ets SleepStudyTraceSession
