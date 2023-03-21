@@ -40,7 +40,7 @@ rem https://www.7-zip.org/
 "C:\TEMP\7z2201-x64.exe" /S /D="C:\Program Files\7-Zip"
 
 rem https://www.chiark.greenend.org.uk/~sgtatham/putty/snapshot.html
-%windir%\System32\msiexec.exe /package "C:\TEMP\putty-64bit-2023-03-08-installer.msi" /quiet /qn /norestart
+%windir%\System32\msiexec.exe /package "C:\TEMP\putty-64bit-2023-03-17-installer.msi" /quiet /qn /norestart
 
 rem Power Plan
 powercfg -import "C:\TEMP\PowerPlan.pow"
