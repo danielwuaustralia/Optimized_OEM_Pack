@@ -10,6 +10,9 @@ rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\"
 rmdir /s /q "C:\Users\Administrator\AppData\Local\Google\Chrome Dev\User Data\Default\Service Worker\CacheStorage\"
 rmdir /s /q "C:\Windows\System32\LogFiles\WMI"
 rmdir /s /q "C:\Windows\System32\WDI\LogFiles"
+rmdir /s /q "C:\Windows\Prefetch"
+rmdir /s /q "C:\Windows\SoftwareDistribution\download"
+rmdir /s /q "C:\Users\Administrator\AppData\Local\Temp"
 
 rem https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/setpriority-method-in-class-win32-process
 "C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="csrss.exe" CALL setpriority 128
