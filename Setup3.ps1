@@ -427,6 +427,8 @@ Rename-Item -Path 'C:\Windows\bcastdvr\KnownGameList.bin' -NewName 'KnownGameLis
 Invoke-Expression -Command ('taskkill /f /im "explorer.exe"')
 Rename-Item -Path 'C:\Users\Administrator\AppData\Local\Microsoft\GameDVR\KnownGameList.bin' -NewName 'KnownGameList_old.bin' -Force
 #
+Rename-Item -Path 'C:\Windows\System32\mcupdate_GenuineIntel.dll' -NewName 'mcupdate_GenuineIntel_old.dll' -Force
+#
 Stop-Service -Name 'Windows Search' -Force
 Remove-Item -Path 'C:\ProgramData\Microsoft\Search\Data\Applications\Windows\Windows.db' -Force
 #
