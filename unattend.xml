@@ -33,6 +33,13 @@
                 <SkipMachineOOBE>true</SkipMachineOOBE>
                 <SkipUserOOBE>true</SkipUserOOBE>
             </OOBE>
+            <FirstLogonCommands>
+                <SynchronousCommand wcm:action="add">
+                    <Order>1</Order>
+                    <RequiresUserInput>false</RequiresUserInput>
+                    <CommandLine>"C:\Program Files\PowerShell\7\pwsh.exe" -ExecutionPolicy Bypass -File "C:\TEMP\Setup2.ps1"</CommandLine>
+                </SynchronousCommand>
+            </FirstLogonCommands>
             <UserAccounts>
                 <AdministratorPassword>
                     <Value></Value>
