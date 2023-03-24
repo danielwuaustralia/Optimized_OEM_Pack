@@ -27,8 +27,8 @@ start /wait "C:\TEMP\vcredist\VC_redist.x64.exe" /install /quiet /norestart
 rem https://github.com/PowerShell/PowerShell/releases
 %windir%\System32\msiexec.exe /package "C:\TEMP\PowerShell-7.3.3-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=0 ENABLE_PSREMOTING=0 REGISTER_MANIFEST=1
 
-rem https://forums.mydigitallife.net/threads/repack-directx-end-user-runtime-june-2010.84785/
-start /wait "C:\TEMP\DirectX.exe" /ai
+rem DirectX
+start /wait "C:\TEMP\DirectX\DXSETUP.exe" /silent
 
 rem https://www.amd.com/en/support/chipsets/amd-socket-am4/b550
 start /wait "C:\TEMP\AMD.exe" /S
@@ -38,9 +38,6 @@ start /wait "C:\TEMP\VulkanRT-1.3.239.0-Installer.exe" /S
 
 rem https://www.7-zip.org/
 "C:\TEMP\7z2201-x64.exe" /S /D="C:\Program Files\7-Zip"
-
-rem https://www.chiark.greenend.org.uk/~sgtatham/putty/snapshot.html
-%windir%\System32\msiexec.exe /package "C:\TEMP\putty-64bit-2023-03-17-installer.msi" /quiet /qn /norestart
 
 rem Power Plan
 powercfg -import "C:\TEMP\PowerPlan.pow"
@@ -54,5 +51,3 @@ rem https://learn.microsoft.com/en-us/troubleshoot/windows-server/performance/ma
 lodctr /r
 lodctr /r
 winmgmt /resyncperf
-
-%windir%\System32\UsoClient.exe RefreshSettings
