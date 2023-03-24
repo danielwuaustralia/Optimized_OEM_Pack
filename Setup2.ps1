@@ -513,6 +513,13 @@ Disable-MMAgent -MemoryCompression
 Disable-MMAgent -PageCombining
 Get-PnpDevice -FriendlyName 'Microsoft Kernel Debug Network Adapter' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -FriendlyName '高精度事件计时器' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -FriendlyName 'AMD SMBus' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -FriendlyName 'Microsoft Hyper-V 虚拟化基础结构驱动程序' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -FriendlyName 'Microsoft 虚拟驱动器枚举器' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -FriendlyName 'NDIS 虚拟网络适配器枚举器' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -FriendlyName '可编程中断控制器' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -FriendlyName '系统计时器' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -FriendlyName '远程桌面设备重定向程序总线' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -InstanceId 'PCI\VEN_10DE&DEV_228B&SUBSYS_248210B0&REV_A1\4&2283F625&0&0119' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -InstanceId 'HID\VID_258A&PID_002A&MI_01&COL03\8&3B8A1BBF&0&0002' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -InstanceId 'HID\VID_258A&PID_002A&MI_01&COL05\8&3B8A1BBF&0&0004' | Disable-PnpDevice -Confirm:$false -Verbose
@@ -521,7 +528,8 @@ Get-PnpDevice -InstanceId 'HID\VID_258A&PID_002A&MI_01&COL07\8&3B8A1BBF&0&0006' 
 Get-PnpDevice -InstanceId 'HID\VID_258A&PID_002A&MI_01&COL09\8&3B8A1BBF&0&0008' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -InstanceId 'HID\VID_258A&PID_002A&MI_01&COL01\8&3B8A1BBF&0&0000' | Disable-PnpDevice -Confirm:$false -Verbose
 Get-PnpDevice -InstanceId 'HID\VID_258A&PID_002A&MI_01&COL02\8&3B8A1BBF&0&0001' | Disable-PnpDevice -Confirm:$false -Verbose
-
+Get-PnpDevice -InstanceId 'HID\VID_048D&PID_5702&COL02\7&34D2615B&0&0001' | Disable-PnpDevice -Confirm:$false -Verbose
+Get-PnpDevice -InstanceId 'HID\VID_048D&PID_5702&COL01\7&34D2615B&0&0000' | Disable-PnpDevice -Confirm:$false -Verbose
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl' -Name 'Win32PrioritySeparation' -Value 36 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Power\Profile\Events\{54533251-82be-4824-96c1-47b60b740d00}\{0DA965DC-8FCF-4c0b-8EFE-8DD5E7BC959A}\{7E01ADEF-81E6-4e1b-8075-56F373584694}' -Name 'TimeLimitInSeconds' -Value 18 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'PagingFiles' -Value @('c:\pagefile.sys 24576 24576') -PropertyType MultiString -Force
