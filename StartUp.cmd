@@ -12,42 +12,42 @@ rmdir /s /q "C:\Windows\System32\LogFiles\WMI"
 rmdir /s /q "C:\Windows\System32\WDI\LogFiles"
 
 rem https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/setpriority-method-in-class-win32-process
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="csrss.exe" CALL setpriority 128
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="dwm.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="ChsIME.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="fontdrvhost.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="lsass.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="NVDisplay.Container.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="NVDisplay.Container.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="OfficeClickToRun.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="RuntimeBroker.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="ShellExperienceHost.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="spoolsv.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="TrustedInstaller.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="WmiPrvSE.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="TextInputHost.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="TextInputHost.exe" CALL setpriority 64
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="ctfmon.exe" CALL setpriority 64
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="csrss.exe" CALL setpriority 128
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="dwm.exe" CALL setpriority 64
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="ChsIME.exe" CALL setpriority 64
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="fontdrvhost.exe" CALL setpriority 64
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="lsass.exe" CALL setpriority 64
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="NVDisplay.Container.exe" CALL setpriority 64
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="NVDisplay.Container.exe" CALL setpriority 64
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="OfficeClickToRun.exe" CALL setpriority 64
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="RuntimeBroker.exe" CALL setpriority 64
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="ShellExperienceHost.exe" CALL setpriority 64
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="spoolsv.exe" CALL setpriority 64
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="TrustedInstaller.exe" CALL setpriority 64
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="WmiPrvSE.exe" CALL setpriority 64
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="TextInputHost.exe" CALL setpriority 64
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="TextInputHost.exe" CALL setpriority 64
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="ctfmon.exe" CALL setpriority 64
 
 rem logman -ets
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets SleepStudyTraceSession
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets Circular Kernel Context Logger
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets CloudExperienceHostOobe
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets DefenderApiLogger
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets DefenderAuditLogger
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets Diagtrack-Listener
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets Diaglog
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets LwtNetLog
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets Microsoft-Windows-Rdp-Graphics-RdpIdd-Trace
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets NetCore
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets NtfsLog
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets RadioMgr
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets RdrLog
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets ReadyBoot
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets SpoolerLogger
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets UBPM
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets WdiContextLog
-"C:\Tools\PowerRun\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets WiFiSession
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets SleepStudyTraceSession
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets Circular Kernel Context Logger
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets CloudExperienceHostOobe
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets DefenderApiLogger
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets DefenderAuditLogger
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets Diagtrack-Listener
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets Diaglog
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets LwtNetLog
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets Microsoft-Windows-Rdp-Graphics-RdpIdd-Trace
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets NetCore
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets NtfsLog
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets RadioMgr
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets RdrLog
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets ReadyBoot
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets SpoolerLogger
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets UBPM
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets WdiContextLog
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets WiFiSession
 
 rem Time Sync
 w32tm /config /syncfromflags:manual /manualpeerlist:"pool.ntp.org"
