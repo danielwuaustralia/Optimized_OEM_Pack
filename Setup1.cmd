@@ -86,6 +86,9 @@ DISM.exe /Online /Remove-DefaultAppAssociations
 rem https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism-storage-reserve?view=windows-11
 DISM.exe /Online /Set-ReservedStorageState /State:Disabled
 
+rem First Login Animation
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableFirstLogonAnimation" /t REG_DWORD /d "0" /f
+
 rem Removing CloudExperienceHost breaks the OOBE last stage, and it is required for Windows Store.
 rem Removing UndocDevKit breaks the About page in Settings System section.
 rem Removing Client.CBS also removes Input App, Screen Clipping and can cause issues with Windows 11 Start Menu.
