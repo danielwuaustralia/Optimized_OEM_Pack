@@ -6,7 +6,6 @@ setlocal enabledelayedexpansion
 rem System Compoments Update
 Dism /online /Enable-Feature /FeatureName:LegacyComponents /NoRestart
 Dism /online /Enable-Feature /FeatureName:DirectPlay /NoRestart
-Dism /online /Disable-Feature /FeatureName:SmbDirect /NoRestart
 Dism /online /Disable-Feature /FeatureName:WCF-Services45 /NoRestart
 Dism /online /Disable-Feature /FeatureName:Printing-PrintToPDFServices-Features /NoRestart
 Dism /online /Disable-Feature /FeatureName:WCF-TCP-PortSharing45 /NoRestart
@@ -64,8 +63,6 @@ Dism /Online /Remove-Capability /CapabilityName:Microsoft.Windows.Wifi.Client.Re
 Dism /Online /Remove-Capability /CapabilityName:Microsoft.Windows.Wifi.Client.Realtek.Rtwlane~~~~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:OneCoreUAP.OneSync~~~~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:Print.Management.Console~~~~0.0.1.0 /NoRestart
-Dism /Online /Remove-Capability /CapabilityName:Windows.Kernel.LA57~~~~0.0.1.0 /NoRestart
-Dism /Online /Remove-Capability /CapabilityName:Browser.InternetExplorer~~~~0.0.11.0 /NoRestart
 
 rem install drivers
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1" /f /v Path /t REG_SZ /d "C:\TEMP\Drivers"
