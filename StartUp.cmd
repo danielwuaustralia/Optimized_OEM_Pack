@@ -1,6 +1,3 @@
-@cls
-@echo off
->nul chcp 437
 setlocal enabledelayedexpansion
 
 rem CleanUp
@@ -8,13 +5,19 @@ ipconfig /flushdns
 rmdir /s /q "C:\TEMP\"
 rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\"
 rmdir /s /q "C:\Users\Administrator\AppData\Local\Google\Chrome Dev\User Data\Default\Service Worker\CacheStorage\"
+rmdir /s /q "C:\Windows\System32\LogFiles\WMI\RtBackup"
 rmdir /s /q "C:\Windows\System32\LogFiles\WMI"
-rmdir /s /q "C:\Windows\System32\WDI\LogFiles"
-rmdir /s /q "C:\Windows\Prefetch"
+rmdir /s /q "C:\Windows\Logs\NetSetup"
+rmdir /s /q "C:\Windows\System32\WDI"
+rmdir /s /q "C:\ProgramData\Microsoft\Diagnosis\ETLLogs"
+rmdir /s /q "C:\Windows\Logs\WindowsUpdate"
 rmdir /s /q "C:\Windows\SoftwareDistribution\download"
 rmdir /s /q "C:\Users\Administrator\AppData\Local\Temp"
+del /q "C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog_RunOnce.etl"
+del /q "C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog.etl"
 
 rem https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/setpriority-method-in-class-win32-process
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="TextInputHost.exe" CALL setpriority 64
 "C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="csrss.exe" CALL setpriority 128
 "C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="dwm.exe" CALL setpriority 64
 "C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="ChsIME.exe" CALL setpriority 64
@@ -28,9 +31,10 @@ rem https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/setpriority-met
 "C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="spoolsv.exe" CALL setpriority 64
 "C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="TrustedInstaller.exe" CALL setpriority 64
 "C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="WmiPrvSE.exe" CALL setpriority 64
-"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="TextInputHost.exe" CALL setpriority 64
-"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="TextInputHost.exe" CALL setpriority 64
 "C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="ctfmon.exe" CALL setpriority 64
+"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c wmic process where name="TextInputHost.exe" CALL setpriority 64
+
+taskkill /IM "dasHost.exe" /F
 
 rem logman -ets
 "C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets SleepStudyTraceSession
