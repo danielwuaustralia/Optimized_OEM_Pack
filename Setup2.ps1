@@ -339,8 +339,12 @@ if ((Test-Path -LiteralPath 'HKCU:\Software\Adobe\Adobe Acrobat\DC\TrustManager'
 New-ItemProperty -LiteralPath 'HKCU:\Software\Adobe\Adobe Acrobat\DC\Originals' -Name 'bDisplayAboutDialog' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Adobe\Adobe Acrobat\DC\TrustManager' -Name 'bTrustOSTrustedSites' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKCU:\Software\Adobe\Adobe Acrobat\DC\Originals' -Name 'bDisplayedSplash' -Value 1 -PropertyType DWord -Force
+if ((Test-Path -LiteralPath 'HKCU:\Software\Policies\Microsoft\office\16.0\common') -ne $true) { New-Item 'HKCU:\Software\Policies\Microsoft\office\16.0\common' -Force }
+New-ItemProperty -LiteralPath 'HKCU:\Software\Policies\Microsoft\office\16.0\common' -Name 'insiderslabbehavior' -Value 1 -PropertyType String -Force
 if ((Test-Path -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\word') -ne $true) { New-Item 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\word' -Force }
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Common\ExperimentConfigs\ExternalFeatureOverrides\word' -Name 'Microsoft.Office.Word.CoPilotExperiment' -Value 1 -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Office\16.0\Word\Options' -Name 'IMEControlActive' -Value 0 -PropertyType String -Force
+
 <# 语言和区域 #>
 New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TEMP' -Value 'C:\TEMP' -PropertyType ExpandString -Force
 New-ItemProperty -LiteralPath 'HKCU:\Environment' -Name 'TMP' -Value 'C:\TEMP' -PropertyType ExpandString -Force
@@ -1136,10 +1140,10 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\DesktopBackground\Shell\Sw
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\DesktopBackground\Shell\Switch Power Plan' -Name 'SubCommands' -Value '' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\DesktopBackground\Shell\Switch Power Plan\Shell\Normal' -Name 'MUIVerb' -Value '正常' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\DesktopBackground\Shell\Switch Power Plan\Shell\Normal' -Name 'Icon' -Value 'powercpl.dll' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\DesktopBackground\Shell\Switch Power Plan\Shell\Normal\Command' -Name '(default)' -Value 'powercfg.exe /S 9897998c-92de-4669-853f-b7cd3ecb2790' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\DesktopBackground\Shell\Switch Power Plan\Shell\Normal\Command' -Name '(default)' -Value 'powercfg.exe /S 381b4222-f694-41f0-9685-ff5bb260df2e' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\DesktopBackground\Shell\Switch Power Plan\Shell\Game' -Name 'MUIVerb' -Value '游戏模式' -PropertyType String -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\DesktopBackground\Shell\Switch Power Plan\Shell\Game' -Name 'Icon' -Value 'powercpl.dll' -PropertyType String -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\DesktopBackground\Shell\Switch Power Plan\Shell\Game\Command' -Name '(default)' -Value 'powercfg.exe /S a01b3551-0337-4755-8f11-3cc94a1ad0f8' -PropertyType String -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Classes\DesktopBackground\Shell\Switch Power Plan\Shell\Game\Command' -Name '(default)' -Value 'powercfg.exe /S 4370edfd-426d-4b06-8b34-772dea18e14a' -PropertyType String -Force
 #
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System') -ne $true) { New-Item 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Force }
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'EnableCursorSuppression' -Value 0 -PropertyType DWord -Force
@@ -1312,6 +1316,9 @@ New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\ServerManager' -Name 'Do
 New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\ServerManager' -Name 'RefreshInterval' -Value -1 -PropertyType DWord -Force
 if ((Test-Path -LiteralPath 'HKLM:\Software\Microsoft\ServerManager') -ne $true) {  New-Item 'HKLM:\Software\Microsoft\ServerManager' -Force }
 New-ItemProperty -LiteralPath 'HKLM:\Software\Microsoft\ServerManager' -Name 'DoNotPopWACConsoleAtSMLaunch' -Value 1 -PropertyType DWord -Force
+# 移除PC不满足要求
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsSelfHost\Cache') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\WindowsSelfHost\Cache' -Force }
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsSelfHost\Cache' -Name 'isVMCached' -Value 1 -PropertyType DWord -Force
 # USB移动设备策略
 # New-ItemProperty -LiteralPath 'HKLM:\System\ControlSet001\Enum\USBSTOR\Disk&Ven_SRT&Prod_USB&Rev_1100\AAIZ9D883N8EFI2T&0\Device Parameters\Classpnp' -Name 'UserRemovalPolicy' -Value 2 -PropertyType DWord -Force;
 
