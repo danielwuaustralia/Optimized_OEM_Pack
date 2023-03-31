@@ -179,7 +179,6 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Pr
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *SNMPTRAP* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *SpatialGraphFilter* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *spectrum* | Set-ItemProperty -Name Start -Value 4 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *sppsvc* | Set-ItemProperty -Name Start -Value 3 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *SSDPSRV* | Set-ItemProperty -Name Start -Value 2 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *SysMain* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *ShellHWDetection* | Set-ItemProperty -Name Start -Value 4 -Force
@@ -246,6 +245,9 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Pr
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *umbus_A1A252CD67D6A19D* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *VerifierExt* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *WindowsTrustedRTProxy* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *iphlpsvc* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *QWAVEdrv* | Set-ItemProperty -Name Start -Value 4 -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *QWAVE* | Set-ItemProperty -Name Start -Value 4 -Force
 #
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *iagpio* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *iai2c* | Set-ItemProperty -Name Start -Value 4 -Force
@@ -287,8 +289,6 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Enum\PCI' -Recurse -Depth 5 
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules' -Force
 New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules' -Force
 #
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' -Recurse -Depth 3 | Where-Object { $_.PSChildName -Like 'Parameters' } | Set-ItemProperty -Name 'DmaRemappingCompatible' -Value 0 -Force
-#
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy' -Name 'AllowHeadlessExecution' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy' -Name 'AllowMultipleBackgroundTasks' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy' -Name 'InactivityTimeoutMs' -Value -1 -PropertyType DWord -Force
@@ -321,56 +321,142 @@ Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Office\Of
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\ApplicationData\appuriverifierdaily"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\ApplicationData\appuriverifierinstall"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\ApplicationData\DsSvcCleanup"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\AppListBackup\Backup"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Autochk\Proxy"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Application Experience\PcaPatchDbTask"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Application Experience\StartupAppTask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Application Experience\AitAgent"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Application Experience\ProgramDataUpdater"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\BrokerInfrastructure\BgTaskRegistrationMaintenanceTask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\BitLocker\BitLocker MDM policy Refresh"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\EnterpriseMgmt\MDMMaintenenceTask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\ExploitGuard\ExploitGuard MDM policy Refresh"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\CloudExperienceHost\CreateObjectTask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Customer Experience Improvement Program\Consolidator"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Customer Experience Improvement Program\UsbCeip"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Chkdsk\ProactiveScan"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Chkdsk\SyspartRepair"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Defrag\ScheduledDefrag"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Device Information\Device"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Device Information\Device User"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Device Setup\Metadata Refresh"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\DeviceDirectoryClient\HandleCommand"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\DeviceDirectoryClient\HandleWnsCommand"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\DeviceDirectoryClient\IntegrityCheck"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\DeviceDirectoryClient\LocateCommandUserSession"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceAccountChange"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceLocationRightsChange"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\DeviceDirectoryClient\RegisterDevicePeriodic24"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\DeviceDirectoryClient\RegisterDevicePolicyChange"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceProtectionStateChanged"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceSettingChange"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\DeviceDirectoryClient\RegisterUserDevice"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Diagnosis\Scheduled"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\DiskCleanup\SilentCleanup"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\DiskFootprint\Diagnostics"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\DiskFootprint\StorageSense"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\DUSM\dusmtask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Feedback\Siuf\DmClient"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Flighting\FeatureConfig\ReconcileFeatures"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Flighting\FeatureConfig\UsageDataFlushing"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Flighting\FeatureConfig\UsageDataReporting"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Flighting\OneSettings\RefreshCache"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\FileHistory\File History (maintenance mode)"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\HelloFace\FODCleanupTask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Input\LocalUserSyncDataAvailable"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Input\MouseSyncDataAvailable"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Input\PenSyncDataAvailable"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Input\TouchpadSyncDataAvailable"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\InstallService\ScanForUpdates"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\InstallService\ScanForUpdatesAsUser"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\InstallService\SmartRetry"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\InstallService\WakeUpAndContinueUpdates"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\InstallService\WakeUpAndScanForUpdates"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\International\Synchronize Language Settings"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Location\Notifications"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Location\WindowsActionDialog"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Maintenance\WinSAT"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Management\Provisioning\Cellular"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Management\Provisioning\Logon"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Management\Provisioning\PostResetBoot"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Management\Provisioning\Retry"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Management\Provisioning\RunOnReboot"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Management\Autopilot\DetectHardwareChange"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Management\Autopilot\RemediateHardwareChange"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Maps\MapsToastTask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Maps\MapsUpdateTask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Mobile Broadband Accounts\MNO Metadata Parser"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\MemoryDiagnostic\ProcessMemoryDiagnosticEvents"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\MemoryDiagnostic\RunFullMemoryDiagnostic"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\NetTrace\GatherNetworkInf"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\NlaSvc\WiFiTask"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\MUI\LPRemove"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Offline Files\Background Synchronization"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Offline Files\Logon Synchronization"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Printing\EduPrintProv"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\PushToInstall\LoginCheck"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\PushToInstall\Registration"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\PI\Sqm-Tasks"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Ras\MobilityManager"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Registry\RegIdleBackup"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\RetailDemo\CleanupOfflineContent"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\RecoveryEnvironment\VerifyWinRE"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Shell\IndexerAutomaticMaintenance"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\SettingSync\BackgroundUploadTask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\SettingSync\BackupTask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\SettingSync\NetworkStateChangeTask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Shell\FamilySafetyMonitor"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Shell\FamilySafetyRefresh"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Shell\FamilySafetyRefreshTask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Shell\ThemesSyncedImageDownload"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Shell\UpdateUserPictureTask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\SystemRestore\SR"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\SoftwareProtectionPlatform\SvcRestartTaskNetwork"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\SoftwareProtectionPlatform\SvcRestartTaskLogon"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\SoftwareProtectionPlatform\SvcRestartTask"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\StateRepository\MaintenanceTasks"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Sysmain\HybridDriveCachePrepopulate"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Sysmain\HybridDriveCacheRebalance"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Sysmain\ResPriStaticDbSync"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Sysmain\WsSwapAssessmentTask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Speech\SpeechModelDownloadTask"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Time Synchronization\ForceSynchronizeTime"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Time Synchronization\SynchronizeTime"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Time Zone\SynchronizeTimeZone"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\UNP\RunUpdateNotificationMgr"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\UpdateOrchestrator\Report policies"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan Static Task"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\UpdateOrchestrator\UpdateModelTask"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\UpdateOrchestrator\USO_UxBroker"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\UPnP\UPnPHostConfig"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\WCM\WiFiTask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\WDI\ResolutionHost"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\WaaSMedic\PerformRemediation"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Windows Error Reporting\QueueReporting"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Windows Media Sharing\UpdateLibrary"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Windows Filtering Platform\BfeOnServiceStartTypeChange"')
-Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\WindowsUpdate\Scheduled Start"')
+Invoke-Expression -Command ('schtasks /Delete /TN "Microsoft\Windows\WindowsUpdate\Scheduled Start" /F')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Windows Defender\Windows Defender Cache Maintenance"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Windows Defender\Windows Defender Cleanup"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Windows Defender\Windows Defender Scheduled Scan"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Windows Defender\Windows Defender Verification"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\WindowsUpdate\Automatic App Update"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\WindowsUpdate\sihboot"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\Wininet\CacheTask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\WlanSvc\CDSSync"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\WwanSvc\NotificationTask"')
+Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Windows\WwanSvc\OobeDiscovery"')
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\XblGameSave\XblGameSaveTask"')
 #
 Remove-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\*' -Recurse -Force
-New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions' -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions' -Name 'CpuPriorityClass' -Value 3 -PropertyType DWord -Force
-New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\dwm.exe\PerfOptions' -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\dwm.exe\PerfOptions' -Name 'CpuPriorityClass' -Value 1 -PropertyType DWord -Force
 #
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger' -Recurse -Depth 1 | Set-ItemProperty -Name 'LogFileMode' -Value 1 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger' -Recurse -Depth 1 | Set-ItemProperty -Name 'MaxFileSize' -Value 1 -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Circular Kernel Context Logger' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Circular Kernel Context Logger' -Name 'Start' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\CloudExperienceHostOobe' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
@@ -406,226 +492,10 @@ New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autolo
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiSession' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiSession' -Name 'Start' -Value 0 -PropertyType DWord -Force
 #
-Remove-Item -LiteralPath 'C:\Windows\System32\SleepStudy' -Force -Recurse
-New-Item -ItemType SymbolicLink -Path 'C:\Windows\System32\SleepStudy' -Target 'C:\TEMP'
-#
-Stop-Service -Name 'NVIDIA Display Container LS' -Force
-Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64\Display.NvContainer\plugins\Session\_NvGSTPlugin.dll' -NewName '_NvGSTPlugin_old.dll' -Force
-Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64\Display.NvContainer\plugins\Session\_nvtopps.dll' -NewName '_nvtopps_old.dll' -Force
-Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64_08a077b2e836a7c4\Display.NvContainer\nvtopps.db3' -NewName 'nvtopps_old.db3' -Force
-Rename-Item -Path 'C:\Windows\System32\DriverStore\FileRepository\nv_dispig.inf_amd64_08a077b2e836a7c4\NvTelemetry64.dll' -NewName 'NvTelemetry64_old.dll' -Force
-Remove-Item -LiteralPath 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Force -Recurse
-New-Item -ItemType SymbolicLink -Path 'C:\ProgramData\NVIDIA Corporation\nvtopps' -Target 'C:\TEMP'
-Remove-Item -LiteralPath 'C:\ProgramData\NVIDIA Corporation\GameSessionTelemetry' -Force -Recurse
-New-Item -ItemType SymbolicLink -Path 'C:\ProgramData\NVIDIA Corporation\GameSessionTelemetry' -Target 'C:\TEMP'
-#
 Invoke-Expression -Command ('taskkill /f /im "smartscreen.exe"')
 Rename-Item -Path 'C:\Windows\System32\smartscreen.exe' -NewName 'smartscreen_old.exe' -Force
 Invoke-Expression -Command ('taskkill /f /im "mobsync.exe"')
 Rename-Item -Path 'C:\Windows\System32\mobsync.exe' -NewName 'mobsync_old.exe' -Force
-Rename-Item -Path 'C:\Windows\bcastdvr\KnownGameList.bin' -NewName 'KnownGameList_old.bin' -Force
-Invoke-Expression -Command ('taskkill /f /im "explorer.exe"')
-Rename-Item -Path 'C:\Users\Administrator\AppData\Local\Microsoft\GameDVR\KnownGameList.bin' -NewName 'KnownGameList_old.bin' -Force
-#
-Rename-Item -Path 'C:\Windows\System32\mcupdate_GenuineIntel.dll' -NewName 'mcupdate_GenuineIntel_old.dll' -Force
-#
-Stop-Service -Name 'Windows Search' -Force
-Remove-Item -Path 'C:\ProgramData\Microsoft\Search\Data\Applications\Windows\Windows.db' -Force
-#
-Invoke-Expression -Command ('takeown /a /r /d Y /f "C:\Windows\System32\LogFiles\WMI"')
-#
-Remove-Item -Path 'C:\Windows\Fonts\AGENCYB.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\AGENCYR.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ALGER.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ANTQUAB.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ANTQUABI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ANTQUAI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ARLRDBD.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BASKVILL.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BAUHS93.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BELL.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BELLB.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BELLI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BERNHC.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BKANT.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BOD_B.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BOD_BI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BOD_BLAI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BOD_BLAR.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BOD_CB.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BOD_CBI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BOD_CI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BOD_CR.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BOD_I.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BOD_PSTC.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BOD_R.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BOOKOS.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BOOKOSB.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BOOKOSBI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BOOKOSI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BRADHITC.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BRITANIC.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BRLNSB.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BRLNSDB.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BRLNSR.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BROADW.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BRUSHSCI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\BSSYM7.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\CALIFB.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\CALIFI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\CALIFR.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\CALIST.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\CALISTB.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\CALISTBI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\CALISTI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\CASTELAR.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\CENSCBK.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\CENTAUR.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\CENTURY.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\CHILLER.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\COLONNA.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\COOPBL.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\COPRGTB.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\COPRGTL.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\CURLZ___.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\DUBAI-BOLD.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\DUBAI-LIGHT.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\DUBAI-MEDIUM.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\DUBAI-REGULAR.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ELEPHNT.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ELEPHNTI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ENGR.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ERASBD.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ERASDEMI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ERASLGHT.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ERASMD.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\FELIXTI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\FORTE.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\FRABK.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\FRABKIT.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\FRADM.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\FRADMCN.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\FRADMIT.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\FRAHV.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\FRAHVIT.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\FRAMDCN.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\FREESCPT.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\FRSCRIPT.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\FTLTLT.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\GARA.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\GARABD.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\GARAIT.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\GIGI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\GIL_____.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\GILB____.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\GILBI___.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\GILC____.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\GILI____.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\GILLUBCD.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\GILSANUB.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\GLECB.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\GLSNECB.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\GOTHIC.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\GOTHICB.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\GOTHICBI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\GOTHICI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\GOUDOS.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\GOUDOSB.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\GOUDOSI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\GOUDYSTO.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\HARLOWSI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\HARNGTON.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\HATTEN.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\HTOWERT.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\HTOWERTI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\IMPRISHA.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\INFROMAN.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ITCBLKAD.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ITCEDSCR.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ITCKRIST.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\JOKERMAN.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\JUICE___.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\KUNSTLER.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\LATINWD.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\LBRITE.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\LBRITED.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\LBRITEDI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\LBRITEI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\LCALLIG.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\LEELAWAD.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\LEELAWDB.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\LFAX.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\LFAXD.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\LFAXDI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\LFAXI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\LHANDW.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\LSANS.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\LSANSD.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\LSANSDI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\LSANSI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\LTYPE.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\LTYPEB.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\LTYPEBO.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\LTYPEO.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\MAGNETOB.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\MAIAN.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\MATURASC.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\MISTRAL.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\MOD20.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\MSUIGHUB.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\MSUIGHUR.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\MTCORSVA.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\MTEXTRA.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\NIAGENG.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\NIAGSOL.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\OCRAEXT.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\OLDENGL.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ONYX.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\OUTLOOK.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\PALSCRI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\PAPYRUS.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\PARCHM.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\PER_____.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\PERB____.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\PERBI___.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\PERI____.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\PERTIBD.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\PERTILI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\PLAYBILL.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\POORICH.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\PRISTINA.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\RAGE.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\RAVIE.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\REFSAN.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\REFSPCL.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ROCC____.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ROCCB___.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ROCK.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ROCKB.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ROCKBI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ROCKEB.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ROCKI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\SCHLBKB.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\SCHLBKBI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\SCHLBKI.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\SCRIPTBL.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\SHOWG.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\SNAP____.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\STENCIL.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\TCB_____.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\TCBI____.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\TCCB____.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\TCCEB.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\TCCM____.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\TCM_____.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\TCMI____.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\TEMPSITC.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\VINERITC.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\VIVALDII.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\VLADIMIR.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\WINGDNG2.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\WINGDNG3.TTF' -Force
-Remove-Item -Path 'C:\Windows\Fonts\ZWAdobeF.TTF' -Force
 
 #####
 Remove-PSDrive -Name HKCR
