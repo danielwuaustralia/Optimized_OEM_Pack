@@ -1,10 +1,16 @@
 ########################################################快捷方式后缀########################################################
 
---no-report-upload --no-crash-upload --disable-breakpad --disable-crash-reporter --disable-gpu-vsync --disable-logging
+--disable-gpu-vsync --disable-crash-reporter --disable-breakpad --disable-logging --no-report-upload --disable-background-networking
 
 #######################################################禁用以下flags########################################################
 
 Throttling
+
+#top-chrome-touch-ui
+
+#enable-system-notifications
+
+#enable-async-dns
 
 tab-strip
 
@@ -22,24 +28,12 @@ download-bubble
 
 #enable-webrtc-hide-local-ips-with-mdns
 
-#enable-hardware-secure-decryption-experiment
-
-#canvas-oop-rasterization
-
 #password-import
 
 #enable-parallel-downloading
 
-#enable-gpu-rasterization
-
-#enable-zero-copy
-
 #enable-quic
 
-#ignore-gpu-blocklist
+#chrome-refresh-2023
 
-DrDc
-
-#use-dmsaa-for-tiles
-
-#ui-enable-shared-image-cache-for-gpu
+#enable-tab-audio-muting
