@@ -5,14 +5,39 @@ color 6
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1" /f /v Path /t REG_SZ /d "C:\TEMP\Drivers"
 "C:\Windows\System32\pnpunattend.exe" AuditSystem /L
 
-:: remove Edge and onedrive
+:: remove Edge & onedrive & Defender
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SecurityHealth" /f
+del /f /q /s "C:\Windows\System32\smartscreen.exe"
+del /f /q /s "C:\Windows\System32\SecurityHealthSystray.exe"
+del /f /q /s "C:\Windows\System32\SecurityHealthService.exe"
+del /f /q /s "C:\Windows\System32\SecurityHealthAgent.dll"
+del /f /q /s "C:\Windows\System32\SecurityHealthHost.exe"
+del /f /q /s "C:\Windows\System32\SecurityHealthSSO.dll"
+del /f /q /s "C:\Windows\System32\SecurityHealthCore.dll"
+del /f /q /s "C:\Windows\System32\SecurityHealthProxyStub.dll"
+del /f /q /s "C:\Windows\System32\SecurityHealthUdk.dll"
+del /f /q /s "C:\Windows\System32\drivers\WdNisDrv.sys"
+rmdir /s /q "C:\Program Files\Windows Defender"
+rmdir /s /q "C:\ProgramData\Microsoft\Windows Defender"
+rmdir /s /q "C:\Program Files (x86)\Windows Defender"
+rmdir /s /q "C:\Program Files\Windows Defender Advanced Threat Protection"
+rmdir /s /q "C:\ProgramData\Microsoft\Windows Defender Advanced Threat Protection"
+sc stop edgeupdate
+sc delete edgeupdate
+sc stop edgeupdatem
+sc delete edgeupdatem
+sc stop MicrosoftEdgeElevationService
+sc delete MicrosoftEdgeElevationService
 rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeUpdate"
 rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeCore"
 rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeWebview"
 rmdir /s /q "C:\Program Files (x86)\Microsoft\Edge"
-takeown /f "C:\Windows\System32\OneDriveSetup.exe"
-icacls "C:\Windows\System32\OneDriveSetup.exe" /grant Administrators:F /T /C
+del /f /q /s "C:\Users\Public\Desktop\Microsoft Edge.lnk"
+del /f /q /s "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
+:: takeown /f "C:\Windows\System32\OneDriveSetup.exe"
+:: icacls "C:\Windows\System32\OneDriveSetup.exe" /grant Administrators:F /T /C
 del /f /q /s "C:\Windows\System32\OneDriveSetup.exe"
+del /f /q /s "C:\Windows\SysWOW64\OneDriveSettingSyncProvider.dll"
 reg load HKLM\NTUSER C:\Users\Default\NTUSER.DAT
 reg delete "HKLM\NTUSER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
 reg delete "HKU\S-1-5-19\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
@@ -86,11 +111,6 @@ Dism /Online /Remove-Capability /CapabilityName:Microsoft.Windows.Wifi.Client.Re
 Dism /Online /Remove-Capability /CapabilityName:Microsoft.Windows.Wifi.Client.Realtek.Rtwlane~~~~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:OneCoreUAP.OneSync~~~~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:Print.Management.Console~~~~0.0.1.0 /NoRestart
-
-:: Defender
-taskkill /f /im smartscreen.exe & ren "C:\Windows\System32\smartscreen.exe" "C:\Windows\System32\smartscreen.plm"
-for /R "C:\TEMP\DefenderRemover" %%i in (*.reg) do (PowerRun.exe regedit.exe /s "%%i")
-for /R "C:\TEMP\DefenderRemover" %%i in (*.reg) do (regedit.exe /s "%%i")
 
 rem Removing CloudExperienceHost breaks the OOBE last stage, and it is required for Windows Store.
 rem Removing UndocDevKit breaks the About page in Settings System section.
