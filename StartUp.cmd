@@ -3,38 +3,42 @@ setlocal enabledelayedexpansion
 rem CleanUp
 ipconfig /flushdns
 rmdir /s /q "C:\TEMP\"
-rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\"
-rmdir /s /q "C:\Users\Administrator\AppData\Local\Google\Chrome Dev\User Data\Default\Service Worker\CacheStorage\"
-rmdir /s /q "C:\Windows\System32\LogFiles\WMI\RtBackup"
-rmdir /s /q "C:\Windows\System32\LogFiles\WMI"
-rmdir /s /q "C:\Windows\Logs\NetSetup"
-rmdir /s /q "C:\Windows\System32\WDI"
-rmdir /s /q "C:\ProgramData\Microsoft\Diagnosis\ETLLogs"
-rmdir /s /q "C:\Windows\Logs\WindowsUpdate"
-rmdir /s /q "C:\Windows\SoftwareDistribution\download"
-rmdir /s /q "C:\Users\Administrator\AppData\Local\Temp"
-del /q "C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog_RunOnce.etl"
-del /q "C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog.etl"
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\"
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Users\Administrator\AppData\Local\Google\Chrome Dev\User Data\Default\Service Worker\CacheStorage\"
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\System32\LogFiles\WMI"
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\Logs\NetSetup"
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\System32\WDI"
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\ProgramData\Microsoft\Diagnosis\ETLLogs"
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\Logs\WindowsUpdate"
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\SoftwareDistribution\download"
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Users\Administrator\AppData\Local\Temp"
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\System32\SleepStudy"
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\ProgramData\USOShared\Logs\System"
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\Logs\waasmedic"
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\ServiceProfiles\NetworkService\AppData\Local\Microsoft\Windows\DeliveryOptimization\Logs"
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c del /q "C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog_RunOnce.etl"
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c del /q "C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog_RunOnce.etl"
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c del /q "C:\Windows\System32\SleepStudy\SleepStudyControlTraceSession.etl"
 
 rem logman -ets
-"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets SleepStudyTraceSession
-"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets Circular Kernel Context Logger
-"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets CloudExperienceHostOobe
-"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets DefenderApiLogger
-"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets DefenderAuditLogger
-"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets Diagtrack-Listener
-"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets Diaglog
-"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets LwtNetLog
-"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets Microsoft-Windows-Rdp-Graphics-RdpIdd-Trace
-"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets NetCore
-"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets NtfsLog
-"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets RadioMgr
-"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets RdrLog
-"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets ReadyBoot
-"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets SpoolerLogger
-"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets UBPM
-"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets WdiContextLog
-"C:\Windows\System32\PowerRun_x64.exe" /SW:0 cmd.exe /c logman stop -ets WiFiSession
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets SleepStudyTraceSession
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets Circular Kernel Context Logger
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets CloudExperienceHostOobe
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets DefenderApiLogger
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets DefenderAuditLogger
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets Diagtrack-Listener
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets Diaglog
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets LwtNetLog
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets Microsoft-Windows-Rdp-Graphics-RdpIdd-Trace
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets NetCore
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets NtfsLog
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets RadioMgr
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets RdrLog
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets ReadyBoot
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets SpoolerLogger
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets UBPM
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets WdiContextLog
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets WiFiSession
 
 rem Time Sync
 w32tm /config /syncfromflags:manual /manualpeerlist:"pool.ntp.org"
