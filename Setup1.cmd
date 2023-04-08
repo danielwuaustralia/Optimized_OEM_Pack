@@ -1,25 +1,48 @@
-@cls
 @echo on
->nul chcp 437
-setlocal enabledelayedexpansion
+color 6
 
-rem System Compoments Update
+:: install drivers
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1" /f /v Path /t REG_SZ /d "C:\TEMP\Drivers"
+"C:\Windows\System32\pnpunattend.exe" AuditSystem /L
+
+:: remove Edge and onedrive
+rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeUpdate"
+rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeCore"
+rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeWebview"
+rmdir /s /q "C:\Program Files (x86)\Microsoft\Edge"
+takeown /f "C:\Windows\System32\OneDriveSetup.exe"
+icacls "C:\Windows\System32\OneDriveSetup.exe" /grant Administrators:F /T /C
+del /f /q /s "C:\Windows\System32\OneDriveSetup.exe"
+reg load HKLM\NTUSER C:\Users\Default\NTUSER.DAT
+reg delete "HKLM\NTUSER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
+reg delete "HKU\S-1-5-19\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
+reg delete "HKU\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
+reg unload HKLM\NTUSER
+
+:: https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/export-or-import-default-application-associations?view=windows-11
+DISM.exe /Online /Remove-DefaultAppAssociations
+
+:: https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism-storage-reserve?view=windows-11
+DISM.exe /Online /Set-ReservedStorageState /State:Disabled
+
+:: First Login Animation
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableFirstLogonAnimation" /t REG_DWORD /d "0" /f
+
+:: System Compoments Update
 Dism /online /Enable-Feature /FeatureName:LegacyComponents /NoRestart
 Dism /online /Enable-Feature /FeatureName:DirectPlay /NoRestart
-Dism /online /Disable-Feature /FeatureName:WCF-Services45 /NoRestart
 Dism /online /Disable-Feature /FeatureName:Printing-PrintToPDFServices-Features /NoRestart
-Dism /online /Disable-Feature /FeatureName:WCF-TCP-PortSharing45 /NoRestart
 Dism /online /Disable-Feature /FeatureName:MicrosoftWindowsPowerShellV2Root /NoRestart
 Dism /online /Disable-Feature /FeatureName:MicrosoftWindowsPowerShellV2 /NoRestart
 Dism /online /Disable-Feature /FeatureName:Printing-Foundation-Features /NoRestart
 Dism /online /Disable-Feature /FeatureName:Printing-Foundation-InternetPrinting-Client /NoRestart
 Dism /online /Disable-Feature /FeatureName:Printing-Foundation-LPDPrintService /NoRestart
 Dism /online /Disable-Feature /FeatureName:Printing-Foundation-LPRPortMonitor /NoRestart
-Dism /online /Disable-Feature /FeatureName:MSRDC-Infrastructure /NoRestart
 Dism /online /Disable-Feature /FeatureName:WorkFolders-Client /NoRestart
 Dism /online /Disable-Feature /FeatureName:SearchEngine-Client-Package /NoRestart
 Dism /online /Disable-Feature /FeatureName:Windows-Defender-ApplicationGuard /NoRestart
 Dism /online /Disable-Feature /FeatureName:Windows-Defender-Default-Definitions /NoRestart
+Dism /online /Disable-Feature /FeatureName:SmbDirect /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:App.StepsRecorder~~~~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:DirectX.Configuration.Database~~~~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:Hello.Face.20134~~~~0.0.1.0 /NoRestart
@@ -64,30 +87,10 @@ Dism /Online /Remove-Capability /CapabilityName:Microsoft.Windows.Wifi.Client.Re
 Dism /Online /Remove-Capability /CapabilityName:OneCoreUAP.OneSync~~~~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:Print.Management.Console~~~~0.0.1.0 /NoRestart
 
-rem install drivers
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1" /f /v Path /t REG_SZ /d "C:\TEMP\Drivers"
-"C:\Windows\System32\pnpunattend.exe" AuditSystem /L
-
-rem remove Edge and onedrive
-powershell "RD 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk','C:\Users\*\Desktop\Microsoft Edge.lnk',HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications\*Edge*,HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Config\*Edge*,'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Update\TargetingInfo\Installed\*Edge*','HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\*Edge*',HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Config\*Edge*,HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*Edge*,HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\*Edge*,HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Browser\*Edge*,HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\*Edge*,HKLM:\SYSTEM\CurrentControlSet\Services\edge*,HKLM:\SOFTWARE\Classes\AppUserModelId\*Edge*,HKLM:\SOFTWARE\WOW6432Node\Microsoft\*Edge*,HKLM:\SOFTWARE\Policies\Microsoft\*Edge* -recurse"
-RD /S /Q "C:\Program Files (x86)\Microsoft"
-takeown /f "C:\Windows\System32\OneDriveSetup.exe"
-icacls "C:\Windows\System32\OneDriveSetup.exe" /grant Administrators:F /T /C
-del /f /q /s "C:\Windows\System32\OneDriveSetup.exe"
-reg load HKLM\NTUSER C:\Users\Default\NTUSER.DAT
-reg delete "HKLM\NTUSER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
-reg delete "HKU\S-1-5-19\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
-reg delete "HKU\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
-reg unload HKLM\NTUSER
-
-rem https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/export-or-import-default-application-associations?view=windows-11
-DISM.exe /Online /Remove-DefaultAppAssociations
-
-rem https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism-storage-reserve?view=windows-11
-DISM.exe /Online /Set-ReservedStorageState /State:Disabled
-
-rem First Login Animation
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableFirstLogonAnimation" /t REG_DWORD /d "0" /f
+:: Defender
+taskkill /f /im smartscreen.exe & ren "C:\Windows\System32\smartscreen.exe" "C:\Windows\System32\smartscreen.plm"
+for /R "C:\TEMP\DefenderRemover" %%i in (*.reg) do (PowerRun.exe regedit.exe /s "%%i")
+for /R "C:\TEMP\DefenderRemover" %%i in (*.reg) do (regedit.exe /s "%%i")
 
 rem Removing CloudExperienceHost breaks the OOBE last stage, and it is required for Windows Store.
 rem Removing UndocDevKit breaks the About page in Settings System section.
@@ -108,6 +111,18 @@ MicrosoftEdgeDevToolsClient
 Microsoft.Win32WebViewHost
 Microsoft.XboxGameCallableUI
 Microsoft.Windows.ContentDeliveryManager
+Microsoft.BioEnrollment
+Microsoft.ECApp
+Microsoft.LockApp
+F46D4000-FD22-4DB4-AC8E-4E1DDDE828FE
+Microsoft.Windows.AppRep.ChxApp
+E2A4F912-2574-4A75-9BB0-0D023378592B
+c5e2524a-ea46-4f67-841f-6a9465d9d515
+1527c705-839a-4832-9118-54d4Bd6a0c89
+Microsoft.Windows.ParentalControls
+Microsoft.Windows.PeopleExperienceHost
+Microsoft.Windows.PinningConfirmationDialog
+Microsoft.Windows.PrintQueueActionCenter
 ) do (
 for /f %%a in ('reg query "%InboxApplications%" /f %%i /k 2^>nul ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f 2>nul)
 )
