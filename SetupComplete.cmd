@@ -29,7 +29,7 @@ powercfg -import "C:\TEMP\PowerPlan.pow"
 
 rem root certificate
 rem CertUtil -generateSSTFromWU "D:\自定义安装\$OEM$\$1\TEMP\roots.sst"
-rem CertUtil -addstore -f root "C:\TEMP\roots.sst"
+CertUtil -addstore -f root "C:\TEMP\roots.sst"
 
 rem process lasso
 rem start /wait C:\TEMP\processlassoActivator.exe -makekeyfile -product:2 -output:"C:\TEMP"
