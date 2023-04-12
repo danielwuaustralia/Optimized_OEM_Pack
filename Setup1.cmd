@@ -139,19 +139,6 @@ reg delete "HKU\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\Run" /v "Secu
 reg unload HKLM\NTUSER
 del /f /q /s C:\Windows\System32\mcupdate_GenuineIntel.dll
 
-:: MSI Mode
-	for %%a in (
-    Win32_USBController,
-    Win32_VideoController,
-    Win32_NetworkAdapter,
-    Win32_IDEController
-) do (
-    for /f %%i in ('wmic path %%a get PNPDeviceID ^| findstr /l "PCI\VEN_"') do (
-        reg add "HKLM\SYSTEM\CurrentControlSet\Enum\%%i\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
-        reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\%%i\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /f
-    )
-)
-
 :: Disable DMA remapping
 for /f %%a in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /s /f "DmaRemappingCompatible" ^| find /i "Services\" ') do (
     reg add "%%a" /v "DmaRemappingCompatible" /t REG_DWORD /d "0" /f
