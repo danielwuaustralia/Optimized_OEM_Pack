@@ -5,54 +5,6 @@ color 6
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1" /f /v Path /t REG_SZ /d "C:\TEMP\Drivers"
 "C:\Windows\System32\pnpunattend.exe" AuditSystem /L
 
-:: remove Edge & onedrive & Defender
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SecurityHealth" /f
-del /f /q /s "C:\Windows\System32\smartscreen.exe"
-del /f /q /s "C:\Windows\System32\SecurityHealthSystray.exe"
-del /f /q /s "C:\Windows\System32\SecurityHealthService.exe"
-del /f /q /s "C:\Windows\System32\SecurityHealthAgent.dll"
-del /f /q /s "C:\Windows\System32\SecurityHealthHost.exe"
-del /f /q /s "C:\Windows\System32\SecurityHealthSSO.dll"
-del /f /q /s "C:\Windows\System32\SecurityHealthCore.dll"
-del /f /q /s "C:\Windows\System32\SecurityHealthProxyStub.dll"
-del /f /q /s "C:\Windows\System32\SecurityHealthUdk.dll"
-del /f /q /s "C:\Windows\System32\drivers\WdNisDrv.sys"
-rmdir /s /q "C:\Program Files\Windows Defender"
-rmdir /s /q "C:\ProgramData\Microsoft\Windows Defender"
-rmdir /s /q "C:\Program Files (x86)\Windows Defender"
-rmdir /s /q "C:\Program Files\Windows Defender Advanced Threat Protection"
-rmdir /s /q "C:\ProgramData\Microsoft\Windows Defender Advanced Threat Protection"
-sc stop edgeupdate
-sc delete edgeupdate
-sc stop edgeupdatem
-sc delete edgeupdatem
-sc stop MicrosoftEdgeElevationService
-sc delete MicrosoftEdgeElevationService
-rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeUpdate"
-rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeCore"
-rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeWebview"
-rmdir /s /q "C:\Program Files (x86)\Microsoft\Edge"
-del /f /q /s "C:\Users\Public\Desktop\Microsoft Edge.lnk"
-del /f /q /s "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
-:: takeown /f "C:\Windows\System32\OneDriveSetup.exe"
-:: icacls "C:\Windows\System32\OneDriveSetup.exe" /grant Administrators:F /T /C
-del /f /q /s "C:\Windows\System32\OneDriveSetup.exe"
-del /f /q /s "C:\Windows\SysWOW64\OneDriveSettingSyncProvider.dll"
-reg load HKLM\NTUSER C:\Users\Default\NTUSER.DAT
-reg delete "HKLM\NTUSER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
-reg delete "HKU\S-1-5-19\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
-reg delete "HKU\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
-reg unload HKLM\NTUSER
-
-:: https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/export-or-import-default-application-associations?view=windows-11
-DISM.exe /Online /Remove-DefaultAppAssociations
-
-:: https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism-storage-reserve?view=windows-11
-DISM.exe /Online /Set-ReservedStorageState /State:Disabled
-
-:: First Login Animation
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableFirstLogonAnimation" /t REG_DWORD /d "0" /f
-
 :: System Compoments Update
 Dism /online /Enable-Feature /FeatureName:LegacyComponents /NoRestart
 Dism /online /Enable-Feature /FeatureName:DirectPlay /NoRestart
@@ -108,13 +60,106 @@ Dism /Online /Remove-Capability /CapabilityName:Microsoft.Windows.Wifi.Client.Ra
 Dism /Online /Remove-Capability /CapabilityName:Microsoft.Windows.Wifi.Client.Realtek.Rtl8192se~~~~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:Microsoft.Windows.Wifi.Client.Realtek.Rtwlane01~~~~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:Microsoft.Windows.Wifi.Client.Realtek.Rtwlane13~~~~0.0.1.0 /NoRestart
+Dism /Online /Remove-Capability /CapabilityName:Microsoft.Windows.Wifi.Client.Realtek.Rtl85n64~~~~0.0.1.0 /NoRestart
+Dism /Online /Remove-Capability /CapabilityName:Microsoft.Windows.Wifi.Client.Realtek.Rtl819xp~~~~0.0.1.0 /NoRestart
+Dism /Online /Remove-Capability /CapabilityName:Microsoft.Windows.Wifi.Client.Realtek.Rtl8187se~~~~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:Microsoft.Windows.Wifi.Client.Realtek.Rtwlane~~~~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:OneCoreUAP.OneSync~~~~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:Print.Management.Console~~~~0.0.1.0 /NoRestart
 
-rem Removing CloudExperienceHost breaks the OOBE last stage, and it is required for Windows Store.
-rem Removing UndocDevKit breaks the About page in Settings System section.
-rem Removing Client.CBS also removes Input App, Screen Clipping and can cause issues with Windows 11 Start Menu.
+:: https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/export-or-import-default-application-associations?view=windows-11
+DISM.exe /Online /Remove-DefaultAppAssociations
+
+:: https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism-storage-reserve?view=windows-11
+DISM.exe /Online /Set-ReservedStorageState /State:Disabled
+
+:: First Login Animation
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableFirstLogonAnimation" /t REG_DWORD /d "0" /f
+
+:: remove Uncessary Files
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run" /v "Windows Defender" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run" /v "SecurityHealth" /
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "WindowsDefender" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SecurityHealth" /f
+del /f /q /s "C:\Windows\System32\smartscreen.exe"
+del /f /q /s "C:\Windows\System32\smartscreen.dll"
+del /f /q /s "C:\Windows\System32\smartscreenps.dll"
+del /f /q /s "C:\Windows\SysWOW64\smartscreen.dll"
+del /f /q /s "C:\Windows\SysWOW64\smartscreenps.dll"
+del /f /q /s "C:\Windows\System32\SecurityHealthSystray.exe"
+del /f /q /s "C:\Windows\System32\SecurityHealthService.exe"
+del /f /q /s "C:\Windows\System32\SecurityHealthAgent.dll"
+del /f /q /s "C:\Windows\System32\SecurityHealthHost.exe"
+del /f /q /s "C:\Windows\System32\SecurityHealthSSO.dll"
+del /f /q /s "C:\Windows\System32\SecurityHealthCore.dll"
+del /f /q /s "C:\Windows\System32\SecurityHealthProxyStub.dll"
+del /f /q /s "C:\Windows\System32\SecurityHealthUdk.dll"
+del /f /q /s "C:\Windows\System32\drivers\WdNisDrv.sys"
+del /f /q /s "C:\Windows\System32\webthreatdefusersvc.dll"
+del /f /q /s "C:\Windows\System32\webthreatdefsvc.dll"
+rmdir /s /q "C:\Program Files\Windows Defender"
+rmdir /s /q "C:\Program Files (x86)\Windows Defender"
+rmdir /s /q "C:\Program Files\Windows Defender Advanced Threat Protection"
+rmdir /s /q "C:\ProgramData\Microsoft\Windows Defender Advanced Threat Protection"
+rmdir /s /q "C:\Windows\System32\DWWIN.EXE"
+rmdir /s /q "C:\Windows\SysWOW64\DWWIN.EXE"
+rmdir /s /q "C:\Windows\System32\CompatTelRunner.exe"
+rmdir /s /q "C:\Windows\System32\GameBarPresenceWriter.exe"
+rmdir /s /q "C:\Windows\SysWOW64\GameBarPresenceWriter.exe"
+rmdir /s /q "C:\Windows\System32\DeviceCensus.exe"
+rmdir /s /q "C:\ProgramData\Microsoft\Windows Defender"
+sc stop edgeupdate
+sc delete edgeupdate
+sc stop edgeupdatem
+sc delete edgeupdatem
+sc stop MicrosoftEdgeElevationService
+sc delete MicrosoftEdgeElevationService
+rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeUpdate"
+rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeCore"
+rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeWebview"
+rmdir /s /q "C:\Program Files (x86)\Microsoft\Edge"
+icacls "C:\Program Files (x86)\Microsoft\EdgeUpdate" /inheritance:r
+icacls "C:\Program Files (x86)\Microsoft\EdgeCore" /inheritance:r
+icacls "C:\Program Files (x86)\Microsoft\EdgeWebview" /inheritance:r
+icacls "C:\Program Files (x86)\Microsoft\Edge" /inheritance:r
+reg add "HKLM\SOFTWARE\Microsoft\EdgeUpdate" /f /v DoNotUpdateToEdgeWithChromium /t REG_DWORD /d 1
+del /f /q /s "C:\Users\Public\Desktop\Microsoft Edge.lnk"
+del /f /q /s "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
+:: takeown /f "C:\Windows\System32\OneDriveSetup.exe"
+:: icacls "C:\Windows\System32\OneDriveSetup.exe" /grant Administrators:F /T /C
+del /f /q /s "C:\Windows\System32\OneDriveSetup.exe"
+del /f /q /s "C:\Windows\SysWOW64\OneDriveSettingSyncProvider.dll"
+reg load HKLM\NTUSER C:\Users\Default\NTUSER.DAT
+reg delete "HKLM\NTUSER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
+reg delete "HKU\S-1-5-19\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
+reg delete "HKU\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
+reg delete "HKLM\NTUSER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SecurityHealth" /f
+reg delete "HKU\S-1-5-19\Software\Microsoft\Windows\CurrentVersion\Run" /v "SecurityHealth" /f
+reg delete "HKU\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\Run" /v "SecurityHealth" /f
+reg unload HKLM\NTUSER
+del /f /q /s C:\Windows\System32\mcupdate_GenuineIntel.dll
+
+:: MSI Mode
+	for %%a in (
+    Win32_USBController,
+    Win32_VideoController,
+    Win32_NetworkAdapter,
+    Win32_IDEController
+) do (
+    for /f %%i in ('wmic path %%a get PNPDeviceID ^| findstr /l "PCI\VEN_"') do (
+        reg add "HKLM\SYSTEM\CurrentControlSet\Enum\%%i\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
+        reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\%%i\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /f
+    )
+)
+
+:: Disable DMA remapping
+for /f %%a in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /s /f "DmaRemappingCompatible" ^| find /i "Services\" ') do (
+    reg add "%%a" /v "DmaRemappingCompatible" /t REG_DWORD /d "0" /f
+)
+
+:: Removing CloudExperienceHost breaks the OOBE last stage, and it is required for Windows Store.
+:: Removing UndocDevKit breaks the About page in Settings System section.
+:: Removing Client.CBS also removes Input App, Screen Clipping and can cause issues with Windows 11 Start Menu.
 set "UWPs=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Applications"
 for %%i in (
 Microsoft.SecHealthUI
