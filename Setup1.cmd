@@ -138,6 +138,19 @@ reg delete "HKU\S-1-5-19\Software\Microsoft\Windows\CurrentVersion\Run" /v "Secu
 reg delete "HKU\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\Run" /v "SecurityHealth" /f
 reg unload HKLM\NTUSER
 del /f /q /s C:\Windows\System32\mcupdate_GenuineIntel.dll
+del /f /q /s C:\Windows\System32\mobsync.exe
+
+:: Event Log
+sc stop EventLog
+sc config EventLog start= disabled
+rmdir /s /q "C:\Windows\System32\winevt\Logs"
+rmdir /s /q "C:\Windows\System32\LogFiles\WMI"
+
+:: Autologger
+for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger" /s /f "Enabled"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Enabled" /t REG_DWORD /d 0 /f
+for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger" /s /f "Start"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Start" /t REG_DWORD /d 0 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-System" /v "Start" /t REG_DWORD /d "1" /f
+for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT" /s /f "Enabled"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Enabled" /t REG_DWORD /d 0 /f
 
 :: Disable DMA remapping
 for /f %%a in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /s /f "DmaRemappingCompatible" ^| find /i "Services\" ') do (
