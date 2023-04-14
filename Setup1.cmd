@@ -73,6 +73,9 @@ DISM.exe /Online /Remove-DefaultAppAssociations
 :: https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism-storage-reserve?view=windows-11
 DISM.exe /Online /Set-ReservedStorageState /State:Disabled
 
+:: https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/compact-os?view=windows-11
+COMPACT.EXE /CompactOS:Never
+
 :: First Login Animation
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableFirstLogonAnimation" /t REG_DWORD /d "0" /f
 
