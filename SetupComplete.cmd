@@ -1,7 +1,7 @@
 @echo off
 
 rem "C:\TEMP\setup.exe" /configure "C:\TEMP\O365Preview.xml"
-call "C:\TEMP\YAOCTRI_Installer.cmd" /s
+"C:\TEMP\YAOCTRI_Installer.cmd" /s
 
 rem https://forums.mydigitallife.net/threads/kms_vl_all-smart-activation-script.79535/
 call "C:\TEMP\KMS_VL_ALL_AIO.cmd" /s /a
@@ -10,7 +10,7 @@ rem https://forums.mydigitallife.net/threads/repack-visual-c-redistributable-run
 "C:\TEMP\VisualCppRedist_AIO_x86_x64.exe" /ai
 
 rem https://github.com/PowerShell/PowerShell/releases
-%windir%\System32\msiexec.exe /package "C:\TEMP\PowerShell-7.3.3-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=0 ENABLE_PSREMOTING=0 REGISTER_MANIFEST=1
+%windir%\System32\msiexec.exe /package "C:\TEMP\PowerShell-7.3.4-win-x64.msi" /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=0 ENABLE_PSREMOTING=0 REGISTER_MANIFEST=1
 
 rem DirectX
 "C:\TEMP\DirectX\DXSETUP.exe" /silent
@@ -29,6 +29,9 @@ powercfg -import "C:\TEMP\PowerPlan.pow"
 
 rem root certificate
 rem CertUtil -generateSSTFromWU "D:\自定义安装\$OEM$\$1\TEMP\roots.sst"
+for /f "tokens=3 delims= " %%a in ('certutil -store authroot 2^>nul ^| findstr /l /c:"============"') do (
+ CertUtil -delstore authroot 0
+)
 CertUtil -addstore -f root "C:\TEMP\roots.sst"
 
 rem process lasso
