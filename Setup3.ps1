@@ -26,6 +26,10 @@ Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component
 Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*OneDrive*' -Include *Owner* -Recurse -Force -Verbose
 Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'OneDrive' } | Remove-WindowsPackage -Online -NoRestart
 
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\Containers*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\Containers*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'Containers' } | Remove-WindowsPackage -Online -NoRestart
+
 Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*LanguageFeatures-WordBreaking*' -Name Visibility -Value 1 -Force -Verbose
 Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*LanguageFeatures-WordBreaking*' -Include *Owner* -Recurse -Force -Verbose
 Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'LanguageFeatures-WordBreaking' } | Remove-WindowsPackage -Online -NoRestart
@@ -33,6 +37,46 @@ Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'LanguageFeatur
 Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*CEIPEnable*' -Name Visibility -Value 1 -Force -Verbose
 Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*CEIPEnable*' -Include *Owner* -Recurse -Force -Verbose
 Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'CEIPEnable' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\HyperV*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\HyperV*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'HyperV' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-HyperV*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-HyperV*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'Windows-HyperV' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Help*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Help*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'Windows-Help' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-IIS*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-IIS*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'Windows-IIS' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Fonts-DesktopFonts*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Fonts-DesktopFonts*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'Fonts-DesktopFonts' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*ErrorReporting*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*ErrorReporting*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'ErrorReporting' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Holographic*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Holographic*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'Holographic' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*OfflineFiles*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*OfflineFiles*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'OfflineFiles' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*OutlookPWA*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*OutlookPWA*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'OutlookPWA' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Printer-Drivers*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Printer-Drivers*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'Printer-Drivers' } | Remove-WindowsPackage -Online -NoRestart
 
 <# 第三方驱动 #>
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *3ware* | Set-ItemProperty -Name Start -Value 4 -Force
@@ -410,7 +454,8 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersio
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WmiPrvSE.exe\PerfOptions' -Name 'CpuPriorityClass' -Value 5 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WmiPrvSE.exe\PerfOptions' -Name 'IoPriority' -Value 1 -PropertyType DWord -Force
 
-<# 追踪线程 #>
+<# 事件追踪 #>
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *EventLog* | Set-ItemProperty -Name Start -Value 4 -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Circular Kernel Context Logger' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Circular Kernel Context Logger' -Name 'Start' -Value 0 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\CloudExperienceHostOobe' -Name 'Enabled' -Value 0 -PropertyType DWord -Force
