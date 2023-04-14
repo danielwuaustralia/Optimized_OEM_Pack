@@ -79,7 +79,8 @@ COMPACT.EXE /CompactOS:Never
 :: First Login Animation
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableFirstLogonAnimation" /t REG_DWORD /d "0" /f
 
-:: remove Uncessary Files
+:: remove Defender & Security Centre
+reg load HKLM\NTUSER C:\Users\Default\NTUSER.DAT
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run" /v "Windows Defender" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run" /v "SecurityHealth" /
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "WindowsDefender" /f
@@ -104,13 +105,13 @@ rmdir /s /q "C:\Program Files\Windows Defender"
 rmdir /s /q "C:\Program Files (x86)\Windows Defender"
 rmdir /s /q "C:\Program Files\Windows Defender Advanced Threat Protection"
 rmdir /s /q "C:\ProgramData\Microsoft\Windows Defender Advanced Threat Protection"
-rmdir /s /q "C:\Windows\System32\DWWIN.EXE"
-rmdir /s /q "C:\Windows\SysWOW64\DWWIN.EXE"
-rmdir /s /q "C:\Windows\System32\CompatTelRunner.exe"
-rmdir /s /q "C:\Windows\System32\GameBarPresenceWriter.exe"
-rmdir /s /q "C:\Windows\SysWOW64\GameBarPresenceWriter.exe"
-rmdir /s /q "C:\Windows\System32\DeviceCensus.exe"
 rmdir /s /q "C:\ProgramData\Microsoft\Windows Defender"
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\App and Browser protection" /v "DisallowExploitProtectionOverride" /t REG_DWORD /d "1" /f
+reg delete "HKLM\NTUSER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SecurityHealth" /f
+reg delete "HKU\S-1-5-19\Software\Microsoft\Windows\CurrentVersion\Run" /v "SecurityHealth" /f
+reg delete "HKU\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\Run" /v "SecurityHealth" /f
+
+:: Remove Edge
 sc stop edgeupdate
 sc delete edgeupdate
 sc stop edgeupdatem
@@ -128,20 +129,30 @@ icacls "C:\Program Files (x86)\Microsoft\Edge" /inheritance:r
 reg add "HKLM\SOFTWARE\Microsoft\EdgeUpdate" /f /v DoNotUpdateToEdgeWithChromium /t REG_DWORD /d 1
 del /f /q /s "C:\Users\Public\Desktop\Microsoft Edge.lnk"
 del /f /q /s "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
-:: takeown /f "C:\Windows\System32\OneDriveSetup.exe"
-:: icacls "C:\Windows\System32\OneDriveSetup.exe" /grant Administrators:F /T /C
+
+:: Remove Onedrive
 del /f /q /s "C:\Windows\System32\OneDriveSetup.exe"
 del /f /q /s "C:\Windows\SysWOW64\OneDriveSettingSyncProvider.dll"
-reg load HKLM\NTUSER C:\Users\Default\NTUSER.DAT
 reg delete "HKLM\NTUSER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
 reg delete "HKU\S-1-5-19\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
 reg delete "HKU\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
-reg delete "HKLM\NTUSER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SecurityHealth" /f
-reg delete "HKU\S-1-5-19\Software\Microsoft\Windows\CurrentVersion\Run" /v "SecurityHealth" /f
-reg delete "HKU\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\Run" /v "SecurityHealth" /f
+
+:: remove other stuff
+del /f /q /s "C:\Windows\System32\mcupdate_GenuineIntel.dll"
+del /f /q /s "C:\Windows\System32\mobsync.exe"
+rmdir /s /q "C:\Windows\System32\DWWIN.EXE"
+rmdir /s /q "C:\Windows\SysWOW64\DWWIN.EXE"
+rmdir /s /q "C:\Windows\System32\CompatTelRunner.exe"
+rmdir /s /q "C:\Windows\System32\GameBarPresenceWriter.exe"
+rmdir /s /q "C:\Windows\SysWOW64\GameBarPresenceWriter.exe"
+rmdir /s /q "C:\Windows\System32\DeviceCensus.exe"
+reg delete "HKLM\NTUSER\System\GameConfigStore\Children" /f
+reg delete "HKLM\NTUSER\System\GameConfigStore\Parents" /f
+reg delete "HKLM\S-1-5-19\System\GameConfigStore\Children" /f
+reg delete "HKLM\S-1-5-19\System\GameConfigStore\Parents" /f
+reg delete "HKLM\S-1-5-20\System\GameConfigStore\Children" /f
+reg delete "HKLM\S-1-5-20\System\GameConfigStore\Parents" /f
 reg unload HKLM\NTUSER
-del /f /q /s C:\Windows\System32\mcupdate_GenuineIntel.dll
-del /f /q /s C:\Windows\System32\mobsync.exe
 
 :: Disable DMA remapping
 for /f %%a in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /s /f "DmaRemappingCompatible" ^| find /i "Services\" ') do (
