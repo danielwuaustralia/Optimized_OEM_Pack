@@ -4,7 +4,7 @@ rem "C:\TEMP\setup.exe" /configure "C:\TEMP\O365Preview.xml"
 "C:\TEMP\YAOCTRI_Installer.cmd" /s
 
 rem https://forums.mydigitallife.net/threads/kms_vl_all-smart-activation-script.79535/
-call "C:\TEMP\KMS_VL_ALL_AIO.cmd" /s /a
+"C:\TEMP\KMS_VL_ALL_AIO.cmd" /s /a
 
 rem https://forums.mydigitallife.net/threads/repack-visual-c-redistributable-runtimes-2023-03-16.76588/
 "C:\TEMP\VisualCppRedist_AIO_x86_x64.exe" /ai
