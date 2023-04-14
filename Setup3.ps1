@@ -280,27 +280,19 @@ Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Pr
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *SCardSvr* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *ScDeviceEnum* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *SCPolicySvc* | Set-ItemProperty -Name Start -Value 4 -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *MMCSS* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *StorSvc* | Set-ItemProperty -Name Start -Value 3 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *cbdhsvc* | Set-ItemProperty -Name Start -Value 3 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *TextInputManagementService* | Set-ItemProperty -Name Start -Value 2 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *msisadrv* | Set-ItemProperty -Name Start -Value 4 -Force
-Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\MsSecCore' -Recurse -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{71a27cdd-812a-11d0-bec7-08002be2092f}' -Name 'LowerFilters' -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{71a27cdd-812a-11d0-bec7-08002be2092f}' -Name 'LowerFilters' -Value @('fvevol', 'iorate') -PropertyType MultiString -Force
+Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *rdyboost* | Set-ItemProperty -Name Start -Value 4 -Force
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WpcMonSvc' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\wisvc' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\Sense' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\webthreatdefusersvc' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\webthreatdefsvc' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\UevAgentService' -Recurse -Force
-Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SecurityHealthService' -Recurse -Force
-Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SgrmAgent' -Recurse -Force
-Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SgrmBroker' -Recurse -Force
-Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdNisDrv' -Recurse -Force
-Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdNisSvc' -Recurse -Force
-Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdFiltrer' -Recurse -Force
-Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdBoot' -Recurse -Force
-Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WinDefend' -Recurse -Force
-Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\wscsvc' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\RetailDemo' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\lfsvc' -Recurse -Force
@@ -321,13 +313,70 @@ Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\GraphicsPerfSv
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\wlpasvc' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\MessagingService' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\AppVClient' -Recurse -Force
-Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{71a27cdd-812a-11d0-bec7-08002be2092f}' -Name 'LowerFilters' -Force
-New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{71a27cdd-812a-11d0-bec7-08002be2092f}' -Name 'LowerFilters' -Value @('fvevol', 'iorate') -PropertyType MultiString -Force
-Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *rdyboost* | Set-ItemProperty -Name Start -Value 4 -Force
+Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\MsSecCore' -Recurse -Force
+Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\wscsvc' -Recurse -Force
+Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdNisDrv' -Recurse -Force
+Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdNisSvc' -Recurse -Force
+Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdFiltrer' -Recurse -Force
+Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WdBoot' -Recurse -Force
+Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SecurityHealthService' -Recurse -Force
+Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SgrmAgent' -Recurse -Force
+Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SgrmBroker' -Recurse -Force
+Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\WinDefend' -Recurse -Force
 
 <# 防火墙 #>
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules' -Force
 New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules' -Force
+
+<# Smartscreen & 安全中心 #>
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Internal.Security.SmartScreen.AppReputationService' -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Internal.Security.SmartScreen.EventLogger' -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Internal.Security.SmartScreen.UriReputationService' -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Internal.Security.SmartScreen.AppReputationService' -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Internal.Security.SmartScreen.EventLogger' -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Internal.Security.SmartScreen.UriReputationService' -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Office\ClickToRun\AppVMachineRegistryStore\Integration\Ownership\Software\Classes\outlspam.SmartScreenFactoryOutlook' -Recurse -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{088E8DFB-2464-4C21-BAD2-F0AA6DB5D4BC}' -Recurse -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{088E8DFB-2464-4C21-BAD2-F0AA6DB5D4BC}' -Recurse -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{088E8DFB-2464-4C21-BAD2-F0AA6DB5D4BC}' -Recurse -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{088E8DFB-2464-4C21-BAD2-F0AA6DB5D4BC}' -Recurse -Force
+Remove-Item -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\windowsdefender' -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\AppUserModelId\Windows.Defender' -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\AppUserModelId\Microsoft.Windows.Defender' -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\AppX9kvz3rdv8t7twanaezbwfcdgrbg3bck0' -Force
+Remove-Item -LiteralPath 'HKCU:\Software\Classes\ms-cxh' -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\Local Settings\MrtCache\C:%5CWindows%5CSystemApps%5CMicrosoft.Windows.AppRep.ChxApp_cw5n1h2txyewy%5Cresources.pri' -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\WindowsDefender' -Force
+Remove-Item -LiteralPath 'HKCU:\Software\Classes\AppX9kvz3rdv8t7twanaezbwfcdgrbg3bck0' -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\WindowsDefender' -Force
+if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Ubpm') -ne $true) {  New-Item 'HKLM:\SYSTEM\CurrentControlSet\Control\Ubpm' -Force }
+if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Ubpm') -ne $true) {  New-Item 'HKLM:\SYSTEM\CurrentControlSet\Control\Ubpm' -Force }
+if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\Static\System') -ne $true) {  New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\Static\System' -Force }
+if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\Static\System') -ne $true) {  New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\Static\System' -Force }
+Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Ubpm' -Name 'CriticalMaintenance_DefenderCleanup' -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Ubpm' -Name 'CriticalMaintenance_DefenderVerification' -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Ubpm' -Name 'CriticalMaintenance_DefenderCleanup' -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Ubpm' -Name 'CriticalMaintenance_DefenderVerification' -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\Static\System' -Name 'WindowsDefender-1' -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\Static\System' -Name 'WindowsDefender-2' -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\Static\System' -Name 'WindowsDefender-3' -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\Static\System' -Name 'WindowsDefender-1' -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\Static\System' -Name 'WindowsDefender-2' -Force
+Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\Static\System' -Name 'WindowsDefender-3' -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{E48B2549-D510-4A76-8A5F-FC126A6215F0}' -Recurse -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{E48B2549-D510-4A76-8A5F-FC126A6215F0}' -Recurse -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{E48B2549-D510-4A76-8A5F-FC126A6215F0}' -Recurse -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{E48B2549-D510-4A76-8A5F-FC126A6215F0}' -Recurse -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Microsoft.OneCore.WebThreatDefense.Service.UserSessionServiceManager' -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Microsoft.OneCore.WebThreatDefense.ThreatExperienceManager.ThreatExperienceManager' -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Microsoft.OneCore.WebThreatDefense.ThreatResponseEngine.ThreatDecisionEngine' -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Microsoft.OneCore.WebThreatDefense.Configuration.WTDUserSettings' -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\ShellServiceObjects\{900c0763-5cad-4a34-bc1f-40cd513679d5}' -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ShellServiceObjects\{900c0763-5cad-4a34-bc1f-40cd513679d5}' -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows Defender' -Recurse -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\Folder\shell\WindowsDefender' -Recurse -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\DesktopBackground\Shell\WindowsSecurity' -Recurse -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\Folder\shell\WindowsDefender\Command' -Recurse -Force
 
 <# 计划服务 #>
 Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Office\Office Automatic Updates 2.0"')
@@ -393,8 +442,11 @@ if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\ctfmon.exe') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\ctfmon.exe' -Force }
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\dwm.exe') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\dwm.exe' -Force }
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\dwm.exe\PerfOptions') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\dwm.exe\PerfOptions' -Force }
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\excel.exe\PerfOptions') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\excel.exe\PerfOptions' -Force }
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\explorer.exe') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\explorer.exe' -Force }
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\explorer.exe\PerfOptions') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\explorer.exe\PerfOptions' -Force }
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\firefox.exe') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\firefox.exe' -Force }
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\firefox.exe\PerfOptions') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\firefox.exe\PerfOptions' -Force }
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\fontdrvhost.exe') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\fontdrvhost.exe' -Force }
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\IDMan.exe') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\IDMan.exe' -Force }
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\IDMan.exe\PerfOptions') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\IDMan.exe\PerfOptions' -Force }
@@ -409,6 +461,7 @@ if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\steamwebhelper.exe\PerfOptions') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\steamwebhelper.exe\PerfOptions' -Force }
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\svchost.exe') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\svchost.exe' -Force }
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\svchost.exe\PerfOptions') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\svchost.exe\PerfOptions' -Force }
+if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe\PerfOptions') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe\PerfOptions' -Force }
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WmiPrvSE.exe') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WmiPrvSE.exe' -Force }
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WmiPrvSE.exe\PerfOptions') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WmiPrvSE.exe\PerfOptions' -Force }
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\audiodg.exe' -Name 'MaxLoaderThreads' -Value 1 -PropertyType DWord -Force
@@ -424,10 +477,15 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersio
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\dwm.exe' -Name 'MaxLoaderThreads' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\dwm.exe\PerfOptions' -Name 'CpuPriorityClass' -Value 5 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\dwm.exe\PerfOptions' -Name 'IoPriority' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\excel.exe\PerfOptions' -Name 'CpuPriorityClass' -Value 6 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\excel.exe\PerfOptions' -Name 'IoPriority' -Value 3 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\explorer.exe' -Name 'MitigationAuditOptions' -Value ([byte[]](0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22)) -PropertyType Binary -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\explorer.exe' -Name 'MitigationOptions' -Value ([byte[]](0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22)) -PropertyType Binary -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\explorer.exe\PerfOptions' -Name 'CpuPriorityClass' -Value 6 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\explorer.exe\PerfOptions' -Name 'IoPriority' -Value 3 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\explorer.exe\PerfOptions' -Name 'IoPriority' -Value 4 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\firefox.exe' -Name 'MaxLoaderThreads' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\firefox.exe\PerfOptions' -Name 'CpuPriorityClass' -Value 6 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\firefox.exe\PerfOptions' -Name 'IoPriority' -Value 3 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\fontdrvhost.exe' -Name 'MaxLoaderThreads' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\IDMan.exe' -Name 'MaxLoaderThreads' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\IDMan.exe\PerfOptions' -Name 'CpuPriorityClass' -Value 5 -PropertyType DWord -Force
@@ -450,6 +508,8 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersio
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\svchost.exe' -Name 'MitigationOptions' -Value ([byte[]](0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22)) -PropertyType Binary -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\svchost.exe\PerfOptions' -Name 'CpuPriorityClass' -Value 5 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\svchost.exe\PerfOptions' -Name 'IoPriority' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe\PerfOptions' -Name 'CpuPriorityClass' -Value 6 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe\PerfOptions' -Name 'IoPriority' -Value 3 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WmiPrvSE.exe' -Name 'MaxLoaderThreads' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WmiPrvSE.exe\PerfOptions' -Name 'CpuPriorityClass' -Value 5 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WmiPrvSE.exe\PerfOptions' -Name 'IoPriority' -Value 1 -PropertyType DWord -Force
@@ -524,7 +584,12 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\C
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy' -Name 'AllowHeadlessExecution' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy' -Name 'AllowMultipleBackgroundTasks' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy' -Name 'InactivityTimeoutMs' -Value -1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Video\{DEB039CC-B704-4F53-B43E-9DD4432FA2E9}\0000' -Name 'PerfLevelSrc' -Value 13090 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Video\{DEB039CC-B704-4F53-B43E-9DD4432FA2E9}\0000' -Name 'PowerMizerEnable' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Video\{DEB039CC-B704-4F53-B43E-9DD4432FA2E9}\0000' -Name 'PowermizerLevel' -Value 1 -PropertyType DWord -Force
+New-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Video\{DEB039CC-B704-4F53-B43E-9DD4432FA2E9}\0000' -Name 'PowermizerLevelAC' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing' -Name 'DisableWerReporting' -Value 1 -PropertyType DWord -Force
+Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.ApplicationModel.Internal.DataTransfer.CloudClipboard' -Force
 
 #####
 Remove-PSDrive -Name HKCR
