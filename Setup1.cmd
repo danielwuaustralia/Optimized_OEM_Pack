@@ -148,6 +148,14 @@ for /f %%a in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /s /f "DmaRem
     reg add "%%a" /v "DmaRemappingCompatible" /t REG_DWORD /d "0" /f
 )
 
+:: Autologger
+for /f %%a in ('reg query "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger" /s /f "EnableLevel" ^| find /i "Autologger\" ') do (
+    reg add "%%a" /v "EnableLevel" /t REG_DWORD /d "3" /f
+)
+
+:: power saving
+PowerShell -NoP -C "$usb_devices = @('Win32_USBController', 'Win32_USBControllerDevice', 'Win32_USBHub'); $power_device_enable = Get-WmiObject MSPower_DeviceEnable -Namespace root\wmi; foreach ($power_device in $power_device_enable){$instance_name = $power_device.InstanceName.ToUpper(); foreach ($device in $usb_devices){foreach ($hub in Get-WmiObject $device){$pnp_id = $hub.PNPDeviceID; if ($instance_name -like \"*$pnp_id*\"){$power_device.enable = $False; $power_device.psbase.put()}}}}"
+
 :: Removing CloudExperienceHost breaks the OOBE last stage, and it is required for Windows Store.
 :: Removing UndocDevKit breaks the About page in Settings System section.
 :: Removing Client.CBS also removes Input App, Screen Clipping and can cause issues with Windows 11 Start Menu.
