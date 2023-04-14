@@ -5,7 +5,7 @@ ipconfig /flushdns
 rmdir /s /q "C:\TEMP\"
 "C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\"
 "C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Users\Administrator\AppData\Local\Google\Chrome Dev\User Data\Default\Service Worker\CacheStorage\"
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\System32\LogFiles"
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\System32\LogFiles\WMI"
 "C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\Logs\NetSetup"
 "C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\System32\WDI"
 "C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\ProgramData\Microsoft\Diagnosis\ETLLogs"
