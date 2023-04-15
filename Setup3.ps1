@@ -294,6 +294,7 @@ Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\webthreatdefus
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\webthreatdefsvc' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\UevAgentService' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack' -Recurse -Force
+Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\dmwappushservice' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\RetailDemo' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\lfsvc' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\MapsBroker' -Recurse -Force
@@ -391,6 +392,7 @@ Invoke-Expression -Command ('schtasks /Delete /TN "Microsoft\Windows\Application
 Invoke-Expression -Command ('schtasks /Delete /TN "Microsoft\Windows\ApplicationData\DsSvcCleanup" /F')
 Invoke-Expression -Command ('schtasks /Delete /TN "Microsoft\Windows\Application Experience\PcaPatchDbTask" /F')
 Invoke-Expression -Command ('schtasks /Delete /TN "Microsoft\Windows\Application Experience\StartupAppTask" /F')
+Invoke-Expression -Command ('schtasks /Delete /TN "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /F')
 Invoke-Expression -Command ('schtasks /Delete /TN "Microsoft\Windows\BrokerInfrastructure\BgTaskRegistrationMaintenanceTask" /F')
 Invoke-Expression -Command ('schtasks /Delete /TN "Microsoft\Windows\CloudExperienceHost\CreateObjectTask" /F')
 Invoke-Expression -Command ('schtasks /Delete /TN "Microsoft\Windows\Defrag\ScheduledDefrag" /F')
