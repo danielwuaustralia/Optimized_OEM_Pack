@@ -73,7 +73,8 @@ DISM.exe /Online /Remove-DefaultAppAssociations
 :: https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism-storage-reserve?view=windows-11
 DISM.exe /Online /Set-ReservedStorageState /State:Disabled
 
-:: https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/compact-os?view=windows-11
+:: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/compact
+COMPACT.EXE /u /i /f /s "C:\*.*"
 COMPACT.EXE /CompactOS:Never
 
 :: First Login Animation
@@ -122,11 +123,6 @@ rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeUpdate"
 rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeCore"
 rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeWebview"
 rmdir /s /q "C:\Program Files (x86)\Microsoft\Edge"
-icacls "C:\Program Files (x86)\Microsoft\EdgeUpdate" /inheritance:r
-icacls "C:\Program Files (x86)\Microsoft\EdgeCore" /inheritance:r
-icacls "C:\Program Files (x86)\Microsoft\EdgeWebview" /inheritance:r
-icacls "C:\Program Files (x86)\Microsoft\Edge" /inheritance:r
-reg add "HKLM\SOFTWARE\Microsoft\EdgeUpdate" /f /v DoNotUpdateToEdgeWithChromium /t REG_DWORD /d 1
 del /f /q /s "C:\Users\Public\Desktop\Microsoft Edge.lnk"
 del /f /q /s "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
 
@@ -140,18 +136,12 @@ reg delete "HKU\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneD
 :: remove other stuff
 del /f /q /s "C:\Windows\System32\mcupdate_GenuineIntel.dll"
 del /f /q /s "C:\Windows\System32\mobsync.exe"
-rmdir /s /q "C:\Windows\System32\DWWIN.EXE"
-rmdir /s /q "C:\Windows\SysWOW64\DWWIN.EXE"
-rmdir /s /q "C:\Windows\System32\CompatTelRunner.exe"
-rmdir /s /q "C:\Windows\System32\GameBarPresenceWriter.exe"
-rmdir /s /q "C:\Windows\SysWOW64\GameBarPresenceWriter.exe"
-rmdir /s /q "C:\Windows\System32\DeviceCensus.exe"
-reg delete "HKLM\NTUSER\System\GameConfigStore\Children" /f
-reg delete "HKLM\NTUSER\System\GameConfigStore\Parents" /f
-reg delete "HKLM\S-1-5-19\System\GameConfigStore\Children" /f
-reg delete "HKLM\S-1-5-19\System\GameConfigStore\Parents" /f
-reg delete "HKLM\S-1-5-20\System\GameConfigStore\Children" /f
-reg delete "HKLM\S-1-5-20\System\GameConfigStore\Parents" /f
+del /f /q /s "C:\Windows\System32\DWWIN.EXE"
+del /f /q /s "C:\Windows\SysWOW64\DWWIN.EXE"
+del /f /q /s "C:\Windows\System32\CompatTelRunner.exe"
+del /f /q /s "C:\Windows\System32\GameBarPresenceWriter.exe"
+del /f /q /s "C:\Windows\SysWOW64\GameBarPresenceWriter.exe"
+del /f /q /s "C:\Windows\System32\DeviceCensus.exe"
 reg unload HKLM\NTUSER
 
 :: Disable DMA remapping
