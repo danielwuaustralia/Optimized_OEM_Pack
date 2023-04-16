@@ -1,7 +1,7 @@
 @echo off
 
 rem "C:\TEMP\setup.exe" /configure "C:\TEMP\O365Preview.xml"
-"C:\TEMP\YAOCTRI_Installer.cmd" /s
+rem "C:\TEMP\YAOCTRI_Installer.cmd" /s
 
 rem https://forums.mydigitallife.net/threads/kms_vl_all-smart-activation-script.79535/
 "C:\TEMP\KMS_VL_ALL_AIO.cmd" /s /a
@@ -16,7 +16,7 @@ rem DirectX
 "C:\TEMP\DirectX\DXSETUP.exe" /silent
 
 rem https://www.amd.com/en/support/chipsets/amd-socket-am4/b550
-"C:\TEMP\AMD.exe" /S
+rem "C:\TEMP\AMD.exe" /S
 
 rem https://vulkan.lunarg.com/sdk/home
 "C:\TEMP\VulkanRT-1.3.243.0-Installer.exe" /S
