@@ -78,6 +78,86 @@ Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component
 Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Printer-Drivers*' -Include *Owner* -Recurse -Force -Verbose
 Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'Printer-Drivers' } | Remove-WindowsPackage -Online -NoRestart
 
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*SecureAssessment*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*SecureAssessment*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'SecureAssessment' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*RemoteAppLifetimeManager*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*RemoteAppLifetimeManager*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'RemoteAppLifetimeManager' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-HVSI*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-HVSI*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'Windows-HVSI' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*SenseClient*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*SenseClient*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'SenseClient' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Networking-MPSSVC*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Networking-MPSSVC*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'Networking-MPSSVC' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*AssignedAccess*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*AssignedAccess*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'AssignedAccess' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*AssignedAccessCsp*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*AssignedAccessCsp*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'AssignedAccessCsp' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Embedded-BootExp*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Embedded-BootExp*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'Embedded-BootExp' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Embedded-DialogBlocking*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Embedded-DialogBlocking*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'Embedded-DialogBlocking' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Embedded-EmbeddedLogon*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Embedded-EmbeddedLogon*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'Embedded-EmbeddedLogon' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Embedded-ShellLauncher*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Embedded-ShellLauncher*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'Embedded-ShellLauncher' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Embedded-UnifiedWriteFilter*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Embedded-UnifiedWriteFilter*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'Embedded-UnifiedWriteFilter' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*DeviceUpdateCenter*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*DeviceUpdateCenter*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'DeviceUpdateCenter' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*WindowsIoT*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*WindowsIoT*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'WindowsIoT' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*MobilePC*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*MobilePC*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'MobilePC' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\MultiPoint*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\MultiPoint*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'MultiPoint' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*RemoteAssistance*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*RemoteAssistance*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'RemoteAssistance' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\RemoteDesktopServices*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\RemoteDesktopServices*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'RemoteDesktopServices' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*RemoteFX*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*RemoteFX*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'RemoteFX' } | Remove-WindowsPackage -Online -NoRestart
+
+Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*OfflineFiles*' -Name Visibility -Value 1 -Force -Verbose
+Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*OfflineFiles*' -Include *Owner* -Recurse -Force -Verbose
+Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'OfflineFiles' } | Remove-WindowsPackage -Online -NoRestart
+
 <# 第三方驱动 #>
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *3ware* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *ADP80XX* | Set-ItemProperty -Name Start -Value 4 -Force
@@ -387,6 +467,7 @@ Invoke-Expression -Command ('schtasks /change /disable /TN "\Microsoft\Office\Of
 Get-ChildItem 'C:\Windows\System32\Tasks\Microsoft\Windows\Maps' -Recurse | Remove-Item -Force
 Get-ChildItem 'C:\Windows\System32\Tasks\Microsoft\Windows\Windows Defender' -Recurse | Remove-Item -Force
 Get-ChildItem 'C:\Windows\System32\Tasks\Microsoft\OneDrive' -Recurse | Remove-Item -Force
+Get-ChildItem 'C:\Windows\System32\Tasks\Microsoft\Windows\Feedback' -Recurse | Remove-Item -Force
 Invoke-Expression -Command ('schtasks /Delete /TN "Microsoft\Windows\ApplicationData\appuriverifierdaily" /F')
 Invoke-Expression -Command ('schtasks /Delete /TN "Microsoft\Windows\ApplicationData\appuriverifierinstall" /F')
 Invoke-Expression -Command ('schtasks /Delete /TN "Microsoft\Windows\ApplicationData\DsSvcCleanup" /F')
