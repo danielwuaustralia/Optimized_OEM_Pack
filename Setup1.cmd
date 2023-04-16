@@ -113,11 +113,8 @@ reg delete "HKU\S-1-5-19\Software\Microsoft\Windows\CurrentVersion\Run" /v "Secu
 reg delete "HKU\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\Run" /v "SecurityHealth" /f
 
 :: Remove Edge
-sc stop edgeupdate
 sc delete edgeupdate
-sc stop edgeupdatem
 sc delete edgeupdatem
-sc stop MicrosoftEdgeElevationService
 sc delete MicrosoftEdgeElevationService
 rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeUpdate"
 rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeCore"
@@ -132,6 +129,7 @@ del /f /q /s "C:\Windows\SysWOW64\OneDriveSettingSyncProvider.dll"
 reg delete "HKLM\NTUSER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
 reg delete "HKU\S-1-5-19\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
 reg delete "HKU\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
+reg unload HKLM\NTUSER
 
 :: remove other stuff
 del /f /q /s "C:\Windows\System32\mcupdate_GenuineIntel.dll"
@@ -142,16 +140,20 @@ del /f /q /s "C:\Windows\System32\CompatTelRunner.exe"
 del /f /q /s "C:\Windows\System32\GameBarPresenceWriter.exe"
 del /f /q /s "C:\Windows\SysWOW64\GameBarPresenceWriter.exe"
 del /f /q /s "C:\Windows\System32\DeviceCensus.exe"
-reg unload HKLM\NTUSER
+del /f /q /s "C:\Windows\System32\MRT.exe"
+del /f /q /s "C:\Windows\System32\diagtrack.dll"
 
 :: Disable DMA remapping
 for /f %%a in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /s /f "DmaRemappingCompatible" ^| find /i "Services\" ') do (
     reg add "%%a" /v "DmaRemappingCompatible" /t REG_DWORD /d "0" /f
 )
 
-:: Autologger
+:: Logger
 for /f %%a in ('reg query "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger" /s /f "EnableLevel" ^| find /i "Autologger\" ') do (
     reg add "%%a" /v "EnableLevel" /t REG_DWORD /d "3" /f
+)
+for /f %%a in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services\EventLog" /s /f "TypesSupported" ^| find /i "EventLog\" ') do (
+    reg add "%%a" /v "TypesSupported" /t REG_DWORD /d "3" /f
 )
 
 :: power saving
