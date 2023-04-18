@@ -154,10 +154,6 @@ Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component
 Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*RemoteFX*' -Include *Owner* -Recurse -Force -Verbose
 Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'RemoteFX' } | Remove-WindowsPackage -Online -NoRestart
 
-Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*OfflineFiles*' -Name Visibility -Value 1 -Force -Verbose
-Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*OfflineFiles*' -Include *Owner* -Recurse -Force -Verbose
-Get-WindowsPackage -Online | Where-Object {$_.PackageName -match 'OfflineFiles' } | Remove-WindowsPackage -Online -NoRestart
-
 <# 第三方驱动 #>
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *3ware* | Set-ItemProperty -Name Start -Value 4 -Force
 Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object -Property Name -Like *ADP80XX* | Set-ItemProperty -Name Start -Value 4 -Force
@@ -422,8 +418,6 @@ Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsRuntime\ActivatableCla
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Office\ClickToRun\AppVMachineRegistryStore\Integration\Ownership\Software\Classes\outlspam.SmartScreenFactoryOutlook' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{088E8DFB-2464-4C21-BAD2-F0AA6DB5D4BC}' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{088E8DFB-2464-4C21-BAD2-F0AA6DB5D4BC}' -Recurse -Force
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{088E8DFB-2464-4C21-BAD2-F0AA6DB5D4BC}' -Recurse -Force
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{088E8DFB-2464-4C21-BAD2-F0AA6DB5D4BC}' -Recurse -Force
 Remove-Item -LiteralPath 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\windowsdefender' -Force
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\AppUserModelId\Windows.Defender' -Force
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\AppUserModelId\Microsoft.Windows.Defender' -Force
@@ -432,23 +426,11 @@ Remove-Item -LiteralPath 'HKCU:\Software\Classes\ms-cxh' -Force
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\Local Settings\MrtCache\C:%5CWindows%5CSystemApps%5CMicrosoft.Windows.AppRep.ChxApp_cw5n1h2txyewy%5Cresources.pri' -Force
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\WindowsDefender' -Force
 Remove-Item -LiteralPath 'HKCU:\Software\Classes\AppX9kvz3rdv8t7twanaezbwfcdgrbg3bck0' -Force
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\WindowsDefender' -Force
-if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Ubpm') -ne $true) {  New-Item 'HKLM:\SYSTEM\CurrentControlSet\Control\Ubpm' -Force }
-if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Ubpm') -ne $true) {  New-Item 'HKLM:\SYSTEM\CurrentControlSet\Control\Ubpm' -Force }
-if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\Static\System') -ne $true) {  New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\Static\System' -Force }
-if ((Test-Path -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\Static\System') -ne $true) {  New-Item 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\Static\System' -Force }
-Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Ubpm' -Name 'CriticalMaintenance_DefenderCleanup' -Force
-Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Ubpm' -Name 'CriticalMaintenance_DefenderVerification' -Force
 Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Ubpm' -Name 'CriticalMaintenance_DefenderCleanup' -Force
 Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\Ubpm' -Name 'CriticalMaintenance_DefenderVerification' -Force
 Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\Static\System' -Name 'WindowsDefender-1' -Force
 Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\Static\System' -Name 'WindowsDefender-2' -Force
 Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\Static\System' -Name 'WindowsDefender-3' -Force
-Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\Static\System' -Name 'WindowsDefender-1' -Force
-Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\Static\System' -Name 'WindowsDefender-2' -Force
-Remove-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\Static\System' -Name 'WindowsDefender-3' -Force
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{E48B2549-D510-4A76-8A5F-FC126A6215F0}' -Recurse -Force
-Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{E48B2549-D510-4A76-8A5F-FC126A6215F0}' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\CLSID\{E48B2549-D510-4A76-8A5F-FC126A6215F0}' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\{E48B2549-D510-4A76-8A5F-FC126A6215F0}' -Recurse -Force
 Remove-Item -LiteralPath 'HKLM:\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Microsoft.OneCore.WebThreatDefense.Service.UserSessionServiceManager' -Force
@@ -522,7 +504,6 @@ Remove-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\audiodg.exe') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\audiodg.exe' -Force }
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\audiodg.exe\PerfOptions') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\audiodg.exe\PerfOptions' -Force }
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\chrome.exe') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\chrome.exe' -Force }
-if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\chrome.exe\PerfOptions') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\chrome.exe\PerfOptions' -Force }
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe' -Force }
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions' -Force }
 if ((Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\ctfmon.exe') -ne $true) {  New-Item 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\ctfmon.exe' -Force }
@@ -554,8 +535,6 @@ New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersio
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\audiodg.exe\PerfOptions' -Name 'CpuPriorityClass' -Value 6 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\audiodg.exe\PerfOptions' -Name 'IoPriority' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\chrome.exe' -Name 'MaxLoaderThreads' -Value 4 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\chrome.exe\PerfOptions' -Name 'CpuPriorityClass' -Value 6 -PropertyType DWord -Force
-New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\chrome.exe\PerfOptions' -Name 'IoPriority' -Value 3 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe' -Name 'MaxLoaderThreads' -Value 1 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions' -Name 'CpuPriorityClass' -Value 4 -PropertyType DWord -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions' -Name 'IoPriority' -Value 3 -PropertyType DWord -Force
