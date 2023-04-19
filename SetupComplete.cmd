@@ -1,7 +1,7 @@
 @echo off
 
 rem "C:\TEMP\setup.exe" /configure "C:\TEMP\O365Preview.xml"
-rem "C:\TEMP\YAOCTRI_Installer.cmd" /s
+"C:\TEMP\YAOCTRI_Installer.cmd" /s
 
 rem https://forums.mydigitallife.net/threads/kms_vl_all-smart-activation-script.79535/
 "C:\TEMP\KMS_VL_ALL_AIO.cmd" /s /a
@@ -16,7 +16,7 @@ rem DirectX
 "C:\TEMP\DirectX\DXSETUP.exe" /silent
 
 rem https://www.amd.com/en/support/chipsets/amd-socket-am4/b550
-rem "C:\TEMP\AMD.exe" /S
+"C:\TEMP\AMD.exe" /S
 
 rem https://vulkan.lunarg.com/sdk/home
 "C:\TEMP\VulkanRT-1.3.243.0-Installer.exe" /S
@@ -35,7 +35,7 @@ for /f "tokens=3 delims= " %%a in ('certutil -store authroot 2^>nul ^| findstr /
 CertUtil -addstore -f root "C:\TEMP\roots.sst"
 
 rem process lasso
-rem start /wait C:\TEMP\processlassoActivator.exe -makekeyfile -product:2 -output:"C:\TEMP"
+rem start /wait C:\TEMP\ProcessLassoActivator.exe -makekeyfile -product:2 -output:"C:\TEMP"
 rem start /wait C:\TEMP\processlassosetup64.exe /S /keyfile=C:\TEMP\prolasso.key /launch_gui=false /gui_start_type=all /governor_start_type=service /language=SimpChinese
 rem start /wait C:\TEMP\processlassosetup64.exe /S /keyfile=C:\TEMP\prolasso.key /launch_gui=false /gui_start_type=all /governor_start_type=service /language=SimpChinese /importconfigfrom=C:\TEMP\prolasso.ini
 
