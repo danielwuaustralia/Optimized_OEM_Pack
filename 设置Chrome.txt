@@ -6,8 +6,6 @@
 
 Throttling
 
-#top-chrome-touch-ui
-
 #enable-system-notifications
 
 #enable-async-dns
@@ -18,22 +16,14 @@ tabstrip
 
 tab-groups
 
-#high-efficiency-mode-available
-
-#battery-saver-mode-available
-
 download-bubble
+
+accelerated-video-encode
 
 ##################################################开启以下flags########################################################
 
 #enable-webrtc-hide-local-ips-with-mdns
 
-#password-import
-
 #enable-parallel-downloading
 
 #enable-quic
-
-#chrome-refresh-2023
-
-#enable-tab-audio-muting
