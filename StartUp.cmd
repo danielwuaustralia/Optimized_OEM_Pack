@@ -34,24 +34,10 @@ reg delete "HKCU\Software\Microsoft\Direct3D\MostRecentApplication" /va /f
 reg delete "HKLM\SOFTWARE\Microsoft\Direct3D\MostRecentApplication" /va /f
 
 rem logman -ets
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets SleepStudyTraceSession
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets Circular Kernel Context Logger
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets CloudExperienceHostOobe
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets DefenderApiLogger
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets DefenderAuditLogger
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets Diagtrack-Listener
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets Diaglog
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets LwtNetLog
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets Microsoft-Windows-Rdp-Graphics-RdpIdd-Trace
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets NetCore
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets NtfsLog
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets RadioMgr
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets RdrLog
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets ReadyBoot
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets SpoolerLogger
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets UBPM
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets WdiContextLog
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -ets WiFiSession
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -n -ets SleepStudyTraceSession
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -n -ets Diagtrack-Listener
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -n -ets Diaglog
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -n -ets UBPM
 
 rem Time Sync
 w32tm /config /syncfromflags:manual /manualpeerlist:"pool.ntp.org"
