@@ -83,7 +83,7 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>11</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\VCRedist\2022\vcredist_x86.exe /install /quiet /norestart</CommandLine>
+                    <CommandLine>C:\TEMP\VCRedist\2022\vcredist_x64.exe /install /quiet /norestart</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>12</Order>
