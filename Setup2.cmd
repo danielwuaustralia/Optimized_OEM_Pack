@@ -91,10 +91,12 @@ reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "PrivacySandboxAdMeasurementEn
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "PrivacySandboxAdTopicsEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "PrivacySandboxSiteEnabledAdsEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "ExtensionManifestV2Availability" /t REG_DWORD /d "2" /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "WebRtcTextLogCollectionAllowed" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "WebRtcEventLogCollectionAllowed" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome\ExtensionInstallBlocklist" /v "1" /t REG_SZ /d "ghbmnnjooekpmoecnnnilnnbdlolhkhi" /f
 reg add "HKCU\Software\StartIsBack" /v "ModernIconsColorized" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\StartIsBack" /v "WelcomeShown" /t REG_DWORD /d "3" /f
-reg add "HKCU\Software\StartIsBack" /v "FrameStyle" /t REG_DWORD /d "2" /f
+reg add "HKCU\Software\StartIsBack" /v "FrameStyle" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\StartIsBack" /v "TaskbarStyle" /t REG_SZ /d "Windows 7.msstyles" /f
 reg add "HKCU\Software\StartIsBack" /v "SysTrayStyle" /t REG_DWORD /d "2" /f
 reg add "HKCU\Software\StartIsBack" /v "TaskbarOneSegment" /t REG_DWORD /d "0" /f
@@ -110,7 +112,7 @@ reg add "HKCU\Software\StartIsBack" /v "CustomColors" /t REG_SZ /d "ColorA=FFFFF
 reg add "HKCU\Software\StartIsBack" /v "TaskbarBlur" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\StartIsBack" /v "OldSearch" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\StartIsBack" /v "TaskbarLargerIcons" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\StartIsBack" /v "TaskbarSpacierIcons" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\StartIsBack" /v "TaskbarSpacierIcons" /t REG_DWORD /d "2" /f
 reg add "HKCU\Software\StartIsBack" /v "Start_LargeAllAppsIcons" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\StartIsBack" /v "AllProgramsFlyout" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\StartIsBack" /v "StartMetroAppsFolder" /t REG_DWORD /d "2" /f
@@ -144,11 +146,9 @@ reg add "HKCU\Software\StartIsBack" /v "RestyleControls" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\StartIsBack" /v "RestyleIcons" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\StartIsBack" /v "TaskbarJumpList" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\StartIsBack" /v "NavBarGlass" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\StartIsBack" /v "SettingsVersion" /t REG_DWORD /d "5" /f
 reg add "HKCU\Software\StartIsBack" /v "AutoUpdates" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\StartIsBack" /v "OrbBitmap" /t REG_SZ /d "C:\Program Files\StartAllBack\Orbs\Windows 7.orb" /f
 reg add "HKCU\Software\StartIsBack" /v "Start_LargeMFUIcons" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\DownloadManager" /v "Extensions" /t REG_SZ /d "3GP 7Z AAC ACE AIF ARJ ASF AVI BIN BZ2 EXE GZ GZIP IMG ISO LZH M4A M4V MKV MOV MP3 MP4 MPA MPE MPEG MPG MSI MSU OGG OGV PDF PLJ PPS PPT QT R0* R1* RA RAR RM RMVB SEA SIT SITX TAR TIF TIFF WAV WMA WMV Z ZIP ESD WIM APK APKS APKM CAB MSP" /f
 reg add "HKCU\Software\DownloadManager" /v "RememberLastSave" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\DownloadManager" /v "bSetServerTimeToFile" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\DownloadManager" /v "TempPath" /t REG_SZ /d "C:\TEMP" /f
@@ -161,24 +161,22 @@ reg add "HKCU\Software\DownloadManager" /v "nHttpPrChbSt" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\DownloadManager" /v "nFtpPrChbSt" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\DownloadManager" /v "nHttpsPrChbSt" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\DownloadManager" /v "UseHttpsProxy" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\DownloadManager" /v "nProxyMode" /t REG_DWORD /d "2" /f
+reg add "HKCU\Software\DownloadManager" /v "nProxyMode" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\DownloadManager" /v "kbUPFBoErfCD" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\DownloadManager" /v "NewConnType" /t REG_DWORD /d "3" /f
 reg add "HKCU\Software\DownloadManager" /v "MaxConnectionsNumber" /t REG_DWORD /d "24" /f
-reg add "HKCU\Software\DownloadManager" /v "bQueueSelPnlOnDlLt" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\DownloadManager" /v "bQueueSelPnlOnGAL" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\DownloadManager" /v "bQueueSelPnlOnDlLt" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\DownloadManager" /v "bQueueSelPnlOnGAL" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\DownloadManager" /v "bIgnMTCh" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\DownloadManager" /v "StartDlgShowing" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\DownloadManager" /v "RememberDuplLinksA" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\DownloadManager" /v "RememberDuplLinksA" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\DownloadManager" /v "isUseWinDialUp" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\DownloadManager" /v "mAttempts" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\DownloadManager" /v "mRedialTime" /t REG_DWORD /d "30" /f
 reg add "HKCU\Software\DownloadManager" /v "bRmGUCfEx" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\DownloadManager" /v "rshext" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\DownloadManager" /v "EnableDriver" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\DownloadManager" /v "mzcc_ext_vers" /t REG_DWORD /d "73120" /f
 reg add "HKCU\Software\DownloadManager" /v "intAOFRWE" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\DownloadManager" /v "mzcc_vers" /t REG_DWORD /d "62526" /f
 reg add "HKCU\Software\DownloadManager" /v "lastintres" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\DownloadManager" /v "LocalPathW" /t REG_NONE /d "C:\TEMP\\" /f
 reg add "HKCU\Software\DownloadManager" /v "FindApps" /t REG_DWORD /d "0" /f
@@ -187,29 +185,15 @@ reg add "HKCU\Software\DownloadManager" /v "MonitorUrlClipboard" /t REG_DWORD /d
 reg add "HKCU\Software\DownloadManager" /v "UseHttpProxy" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\DownloadManager" /v "UseFtpProxy" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\DownloadManager" /v "FtpPasive" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\DownloadManager" /v "radxcnt" /t REG_DWORD /d "32" /f
 reg add "HKCU\Software\DownloadManager" /v "TrayIcon" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\DownloadManager" /v "nDESC7" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\DownloadManager" /v "nDESC8" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\DownloadManager" /v "isSSW_OK" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\DownloadManager" /v "PanelExceptionServers" /t REG_SZ /d "*.gstatic.com media.tenor.co media*.giphy.com" /f
 reg add "HKCU\Software\DownloadManager" /v "LargeButtons" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\DownloadManager" /v "windowPlacementV6" /t REG_NONE /d "," /f
 reg add "HKCU\Software\DownloadManager" /v "sortOrder" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\DownloadManager" /v "TipStartUp" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\DownloadManager" /v "LanguageID" /t REG_DWORD /d "2052" /f
 reg add "HKCU\Software\DownloadManager" /v "RunIEMonitor" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\DownloadManager" /v "ShowTipOnFirstCatch" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\DownloadManager" /v "vCOUFP" /t REG_SZ /d "641b11" /f
-reg add "HKCU\Software\DownloadManager" /v "dPrDtVis" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\DownloadManager" /v "bShTipDD" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\DownloadManager" /v "LastCheckQU" /t REG_DWORD /d "1682141599" /f
-reg add "HKCU\Software\DownloadManager" /v "tvfrdt" /t REG_DWORD /d "2003264842" /f
-reg add "HKCU\Software\DownloadManager" /v "CheckUpdtVM" /t REG_SZ /d "10" /f
-reg add "HKCU\Software\DownloadManager" /v "ptrk_scdt" /t REG_DWORD /d "1687503718" /f
-reg add "HKCU\Software\DownloadManager" /v "TipFilePos" /t REG_DWORD /d "291" /f
-reg add "HKCU\Software\DownloadManager" /v "bShBTtFQCI" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\DownloadManager" /v "bNShConfDelUncDlg" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "CaptivePortal" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "DefaultDownloadDirectory" /t REG_SZ /d "C:\TEMP" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "DisableDefaultBrowserAgent" /t REG_DWORD /d "1" /f
@@ -304,7 +288,7 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" /v "Acc
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_SearchPrograms" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowTaskViewButton" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_SearchFiles" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSmallIcons" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSmallIcons" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarGlomLevel" /t REG_DWORD /d "2" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband" /v "Favorites" /t REG_BINARY /d "FF" /f
 reg add "HKCU\Software\Microsoft\Windows\DWM" /v "EnableWindowColorization" /t REG_DWORD /d "1" /f
@@ -425,8 +409,8 @@ reg delete "HKLM\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\
 :: Optimize
 netsh interface tcp set global autotuning = experimental
 netsh interface tcp set heuristics disabled
-netsh interface tcp set supplemental Internet congestionprovider=bbr2
-netsh interface tcp set supplemental InternetCustom congestionprovider=bbr2
+netsh interface tcp set supplemental Internet congestionprovider=ctcp
+netsh interface tcp set supplemental InternetCustom congestionprovider=ctcp
 netsh int isatap set state disable
 netsh interface tcp set global dca=enabled
 netsh interface tcp set global rsc=disabled
@@ -472,6 +456,8 @@ for /f %%a in ('wmic path Win32_NetworkAdapter get GUID ^| findstr "{"') do (
 for /f "delims=" %%a in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services\NetBT\Parameters\Interfaces" /s /f "NetbiosOptions" ^| findstr "HKEY"') do (
     reg add "%%a" /v "NetbiosOptions" /t REG_DWORD /d "2" /f
 )
+reg add "HKLM\System\ControlSet001\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001" /v "EnableAdaptivity" /t REG_SZ /d "0" /f
+reg add "HKLM\System\ControlSet001\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001" /v "WirelessMode" /t REG_SZ /d "256" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "DynamicSendBufferDisable" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "FastSendDatagramThreshold" /t REG_DWORD /d "4096" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "MaxActiveTransmitFileCount" /t REG_DWORD /d "0" /f
@@ -717,8 +703,11 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Winsock" /v "Mi
 powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'Microsoft Kernel Debug Network Adapter' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
 powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'AMD SMBus' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
 powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'Microsoft System Management BIOS Driver' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
+powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'UMBus Root Bus Enumerator' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
+powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'Microsoft 虚拟驱动器枚举器' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
 powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName '高精度事件计时器' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
 powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'NDIS 虚拟网络适配器枚举器' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
+powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName '远程桌面设备重定向程序总线' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
 powercfg -import "C:\TEMP\PowerPlan.pow"
 powercfg /hibernate off
 powercfg -change -hibernate-timeout-dc 0
@@ -740,6 +729,7 @@ bcdedit /set vsmlaunchtype Off
 bcdedit /set hypervisorlaunchtype off
 bcdedit /set vm No
 bcdedit /set disableelamdrivers Yes
+Auditpol /set /category:* /Success:disable /failure:disable
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\NDIS\Parameters" /v "DefaultPnPCapabilities" /t REG_DWORD /d "24" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Storage" /v "StorageD3InModernStandby" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\stornvme\Parameters\Device" /v "IdlePowerMode" /t REG_DWORD /d "0" /f
@@ -2316,6 +2306,26 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WDI\{ecfb03d1-58ee-4cc7-a1b5-9
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WDI\{ecfb03d1-58ee-4cc7-a1b5-9bc6febcb915}" /v "EnabledScenarioExecutionLevel" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WDI\{ffc42108-4920-4acf-a4fc-8abdcc68ada4}" /v "EnabledScenarioExecutionLevel" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WDI\{ffc42108-4920-4acf-a4fc-8abdcc68ada4}" /v "ScenarioExecutionEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\Group Policy\{F9C77450-3A41-477E-9310-9ACD617BD9E3},{728EE579-943C-4519-9EF7-AB56765798ED}" /v "LogLevel" /t REG_DWORD /d "0" /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\Group Policy\{F9C77450-3A41-477E-9310-9ACD617BD9E3},{728EE579-943C-4519-9EF7-AB56765798ED}" /v "TraceLevel" /t REG_DWORD /d "0" /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\Group Policy\{1A6364EB-776B-4120-ADE1-B63A406A76B5},{5794DAFD-BE60-433f-88A2-1A31939AC01F}" /v "LogLevel" /t REG_DWORD /d "0" /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\Group Policy\{1A6364EB-776B-4120-ADE1-B63A406A76B5},{5794DAFD-BE60-433f-88A2-1A31939AC01F}" /v "TraceLevel" /t REG_DWORD /d "0" /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\Group Policy\{0E28E245-9368-4853-AD84-6DA3BA35BB75},{7150F9BF-48AD-4da4-A49C-29EF4A8369BA}" /v "LogLevel" /t REG_DWORD /d "0" /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\Group Policy\{0E28E245-9368-4853-AD84-6DA3BA35BB75},{7150F9BF-48AD-4da4-A49C-29EF4A8369BA}" /v "TraceLevel" /t REG_DWORD /d "0" /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\Group Policy\{A3F3E39B-5D83-4940-B954-28315B82F0A8},{6232C319-91AC-4931-9385-E70C2B099F0E}" /v "LogLevel" /t REG_DWORD /d "0" /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\Group Policy\{A3F3E39B-5D83-4940-B954-28315B82F0A8},{6232C319-91AC-4931-9385-E70C2B099F0E}" /v "TraceLevel" /t REG_DWORD /d "0" /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\Group Policy\{74EE6C03-5363-4554-B161-627540339CAB},{E47248BA-94CC-49c4-BBB5-9EB7F05183D0}" /v "LogLevel" /t REG_DWORD /d "0" /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\Group Policy\{74EE6C03-5363-4554-B161-627540339CAB},{E47248BA-94CC-49c4-BBB5-9EB7F05183D0}" /v "TraceLevel" /t REG_DWORD /d "0" /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\Group Policy\{17D89FEC-5C44-4972-B12D-241CAEF74509},{3A0DBA37-F8B2-4356-83DE-3E90BD5C261F}" /v "LogLevel" /t REG_DWORD /d "0" /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\Group Policy\{17D89FEC-5C44-4972-B12D-241CAEF74509},{3A0DBA37-F8B2-4356-83DE-3E90BD5C261F}" /v "TraceLevel" /t REG_DWORD /d "0" /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\Group Policy\{6A4C88C6-C502-4f74-8F60-2CB23EDC24E2},{E62688F0-25FD-4c90-BFF5-F508B9D2E31F}" /v "LogLevel" /t REG_DWORD /d "0" /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\Group Policy\{6A4C88C6-C502-4f74-8F60-2CB23EDC24E2},{E62688F0-25FD-4c90-BFF5-F508B9D2E31F}" /v "TraceLevel" /t REG_DWORD /d "0" /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\Group Policy\{BC75B1ED-5833-4858-9BB8-CBF0B166DF9D},{E5094040-C46C-4115-B030-04FB2E545B00}" /v "LogLevel" /t REG_DWORD /d "0" /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\Group Policy\{BC75B1ED-5833-4858-9BB8-CBF0B166DF9D},{E5094040-C46C-4115-B030-04FB2E545B00}" /v "TraceLevel" /t REG_DWORD /d "0" /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\Group Policy\{B087BE9D-ED37-454f-AF9C-04291E351182},{AADCED64-746C-4633-A97C-D61349046527}" /v "LogLevel" /t REG_DWORD /d "0" /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\Group Policy\{B087BE9D-ED37-454f-AF9C-04291E351182},{AADCED64-746C-4633-A97C-D61349046527}" /v "TraceLevel" /t REG_DWORD /d "0" /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\Group Policy\{91FBB303-0CD5-4055-BF42-E512A681B325},{C418DD9D-0D14-4efb-8FBF-CFE535C8FAC7}" /v "LogLevel" /t REG_DWORD /d "0" /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\Group Policy\{91FBB303-0CD5-4055-BF42-E512A681B325},{C418DD9D-0D14-4efb-8FBF-CFE535C8FAC7}" /v "TraceLevel" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\CrashControl" /v "DisplayDisabled" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\CrashControl\LiveKernelReports" /v "DeleteLiveMiniDumps" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\CrashControl" /v "AutoReboot" /t REG_DWORD /d "0" /f
@@ -2673,8 +2683,6 @@ reg add "HKLM\Software\Policies\Microsoft\Windows\Explorer" /v "CheckSameSourceA
 reg add "HKLM\Software\Policies\Microsoft\Windows\Explorer" /v "EnableShellShortcutIconRemotePath" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowTypeOverlay" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSizeMove" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarGlomLevel" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "MMTaskbarGlomLevel" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAutoHideInTabletMode" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarMn" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_SearchFiles" /t REG_DWORD /d "2" /f
@@ -2812,6 +2820,7 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Audio" /v "VolumeDownTra
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Audio" /v "VolumeRepeatWindow" /t REG_DWORD /d "300" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Audio" /v "VolumeUpTransitionTime" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Audio" /v "DisableAudioEnhancements" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Multimedia\Audio" /v "UserDuckingPreference" /t REG_DWORD /d "3" /f
 powershell -nop -ep bypass -c "New-ItemProperty -Path 'HKCU:\AppEvents\Schemes' -Name '(Default)' -Value '.None' -Force"
 powershell -nop -ep bypass -c "Get-ChildItem -Path 'HKCU:\AppEvents\Schemes\Apps' | Get-ChildItem | Get-ChildItem | Where-Object { $_.PSChildName -eq '.Current' } | Set-ItemProperty -Name '(Default)' -Value ''"
 Del /F /Q "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\*"
@@ -2828,23 +2837,22 @@ reg delete "HKCR\Folder\ShellEx\ContextMenuHandlers\Library Location" /f
 reg delete "HKLM\SOFTWARE\Classes\Folder\ShellEx\ContextMenuHandlers\Library Location" /f
 reg delete "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f
 reg delete "HKCR\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\storahci\Parameters\Device" /v "TreatAsInternalPort" /t REG_MULTI_SZ /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "C:\Steam\steamapps\common\Counter-Strike Global Offensive\csgo.exe" /t REG_SZ /d "~ DISABLEDXMAXIMIZEDWINDOWEDMODE" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "C:\Steam\steamapps\common\Path of Exile\PathOfExile_x64Steam.exe" /t REG_SZ /d "~ DISABLEDXMAXIMIZEDWINDOWEDMODE" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "C:\Steam\steamapps\common\Path of Exile\PathOfExileSteam.exe" /t REG_SZ /d "~ DISABLEDXMAXIMIZEDWINDOWEDMODE" /f
-
-:: reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "1" /t REG_SZ /d "C:\Windows\System32\cmd.exe /q /c slmgr -ato" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\storahci\Parameters\Device" /v "TreatAsInternalPort" /t REG_MULTI_SZ /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Enum\USB\VID_2357&PID_0106\123456" /v "Capabilities" /t REG_DWORD /d "128" /f
 copy "C:\Tools\SetTimerResolution.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
 copy "C:\Tools\RunRealHidden.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
 copy "C:\Tools\CleanUp.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
-start /b /wait C:\Tools\NVidiaProfileInspector\nvidiaProfileInspector.exe
-start /b /wait C:\TEMP\Exctrlst\exctrlst.exe
-start /b /wait C:\Tools\WiseCare\WiseCare.exe
-start /b /wait C:\TEMP\InternetDownloadManager.exe
-start /b /wait C:\TEMP\Startallback.exe
-
 :: "C:\TEMP\KMS_VL_ALL_AIO.cmd" /s /a
 net stop ClipSVC
 net start ClipSVC
 slmgr -ato
+start /b /wait C:\Tools\NVidiaProfileInspector\nvidiaProfileInspector.exe
+start /b /wait C:\Tools\NVIDIA_PMM\NVPMM.exe
+start /b /wait C:\TEMP\Exctrlst\exctrlst.exe
+start /b /wait C:\Tools\WiseCare\WiseCare.exe
+start /b /wait C:\TEMP\InternetDownloadManager.exe
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "1" /t REG_SZ /d "C:\Users\Default\Desktop\Startallback.exe" /f
 start /b /wait C:\Windows\System32\PowerRun.exe cmd.exe /c C:\TEMP\Setup3.cmd
