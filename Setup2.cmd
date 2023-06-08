@@ -36,10 +36,8 @@ reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "DefaultNotificationsSetting" 
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "HttpsOnlyMode" /t REG_SZ /d "disallowed" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "DefaultSensorsSetting" /t REG_DWORD /d "2" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "AccessibilityImageLabelsEnabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "AdditionalDnsQueryTypesEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "AdsSettingForIntrusiveAdsSites" /t REG_DWORD /d "2" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "AdvancedProtectionAllowed" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "AudioSandboxEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "AutofillCreditCardEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "AutoplayAllowed" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "BackgroundModeEnabled" /t REG_DWORD /d "0" /f
@@ -48,7 +46,7 @@ reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "BuiltInDnsClientEnabled" /t R
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "BookmarkBarEnabled" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "BrowserNetworkTimeQueriesEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "DNSInterceptionChecksEnabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "DiskCacheDir" /t REG_SZ /d "C:\TEMP" /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "DiskCacheDir" /t REG_SZ /d "nul" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "DnsOverHttpsMode" /t REG_SZ /d "off" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "DownloadRestrictions" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "EncryptedClientHelloEnabled" /t REG_DWORD /d "0" /f
@@ -200,23 +198,18 @@ reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "DisableDefaultBrowserAgent"
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "DisableFirefoxStudies" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "DisableForgetButton" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "DisablePocket" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "DisableProfileImport" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "DisableTelemetry" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "DontCheckDefaultBrowser" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "DisableAppUpdate" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "DisableFeedbackCommands" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "DisableFirefoxScreenshots" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "DisableMasterPasswordCreation" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "DisableProfileRefresh" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "DisableSafeMode" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "DisableSetDesktopBackground" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "DisplayBookmarksToolbar" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "ExtensionUpdate" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "HardwareAcceleration" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "LegacyProfiles" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "NetworkPrediction" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "NewTabPage" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "NoDefaultBookmarks" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "NoDefaultBookmarks" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "OverrideFirstRunPage" /t REG_SZ /d "" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "OverridePostUpdatePage" /t REG_SZ /d "" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "PromptForDownloadLocation" /t REG_DWORD /d "0" /f
@@ -224,7 +217,8 @@ reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "SearchSuggestEnabled" /t RE
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "ShowHomeButton" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "WindowsSSO" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "RequestedLocales" /t REG_SZ /d "zh-CN, en-US" /f
-reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\Certificates" /v "ImportEnterpriseRoots" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "BackgroundAppUpdate" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox" /v "HardwareAcceleration" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\Cookies" /v "AcceptThirdParty" /t REG_SZ /d "from-visited" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\Cookies" /v "RejectTracker" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\Cookies" /v "Locked" /t REG_DWORD /d "1" /f
@@ -233,6 +227,8 @@ reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\EnableTrackingProtection" /v "Va
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\EnableTrackingProtection" /v "Locked" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\EnableTrackingProtection" /v "Cryptomining" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\EnableTrackingProtection" /v "Fingerprinting" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\Extensions\Locked" /v "1" /t REG_SZ /d "firefox@tampermonkey.net" /f
+reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\Extensions\Locked" /v "2" /t REG_SZ /d "uBlock0@raymondhill.net" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\FirefoxHome" /v "Search" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\FirefoxHome" /v "TopSites" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\FirefoxHome" /v "SponsoredTopSites" /t REG_DWORD /d "0" /f
@@ -241,6 +237,8 @@ reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\FirefoxHome" /v "Pocket" /t REG_
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\FirefoxHome" /v "SponsoredPocket" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\FirefoxHome" /v "Snippets" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\FirefoxHome" /v "Locked" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\Homepage" /v "URL" /t REG_SZ /d "about:blank" /f
+reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\Homepage" /v "Locked" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\Permissions\Autoplay" /v "BlockNewRequests" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\Permissions\Autoplay" /v "Locked" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\Permissions\Camera" /v "BlockNewRequests" /t REG_DWORD /d "1" /f
@@ -255,14 +253,14 @@ reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\Permissions\VirtualReality" /v "
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\Permissions\VirtualReality" /v "Locked" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\PictureInPicture" /v "Enabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\PictureInPicture" /v "Locked" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\PopupBlocking" /v "Default" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\PopupBlocking" /v "Default" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\PopupBlocking" /v "Locked" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\Proxy" /v "Mode" /t REG_SZ /d "none" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\Proxy" /v "Locked" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\Proxy" /v "UseHTTPProxyForAllProtocols" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\Proxy" /v "UseProxyForDNS" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\SanitizeOnShutdown" /v "Cache" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\SanitizeOnShutdown" /v "Downloads" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\SanitizeOnShutdown" /v "Locked" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\UserMessaging" /v "WhatsNew" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\UserMessaging" /v "ExtensionRecommendations" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\UserMessaging" /v "FeatureRecommendations" /t REG_DWORD /d "0" /f
@@ -280,6 +278,8 @@ reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Font Drivers" /v "
 reg add "HKCU\Software\Microsoft\Windows NT\CurrentVersion\Windows" /v "DisableATMFD" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "苹方-简 中黑体 (TrueType)" /t REG_SZ /d "PingFangSC-Mod-18.d1-Medium.otf" /f
 reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts" /v "苹方-简 中黑体 (TrueType)" /t REG_SZ /d "PingFangSC-Mod-18.d1-Medium.otf" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "SF Pro Display Medium (TrueType)" /t REG_SZ /d "SF-Pro-Display-Medium.otf" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Fonts" /v "SF Pro Display Medium (TrueType)" /t REG_SZ /d "SF-Pro-Display-Medium.otf" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "MS Shell Dlg 2" /t REG_SZ /d "Microsoft YaHei UI" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontSubstitutes" /v "MS Shell Dlg" /t REG_SZ /d "Segoe UI" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" /v "AccentPalette" /t REG_BINARY /d "6b6b6bff595959ff4c4c4cff3f3f3fff333333ff262626ff141414ff88179800" /f
@@ -409,8 +409,8 @@ reg delete "HKLM\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\
 :: Optimize
 netsh interface tcp set global autotuning = experimental
 netsh interface tcp set heuristics disabled
-netsh interface tcp set supplemental Internet congestionprovider=ctcp
-netsh interface tcp set supplemental InternetCustom congestionprovider=ctcp
+netsh interface tcp set supplemental Internet congestionprovider=bbr2
+netsh interface tcp set supplemental InternetCustom congestionprovider=bbr2
 netsh int isatap set state disable
 netsh interface tcp set global dca=enabled
 netsh interface tcp set global rsc=disabled
@@ -700,14 +700,6 @@ reg add "HKLM\Software\Microsoft\wcmsvc\wifinetworkmanager\config" /v "AutoConne
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Winsock" /v "UseDelayedAcceptance" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Winsock" /v "MaxSockAddrLength" /t REG_DWORD /d "16" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Winsock" /v "MinSockAddrLength" /t REG_DWORD /d "16" /f
-powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'Microsoft Kernel Debug Network Adapter' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
-powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'AMD SMBus' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
-powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'Microsoft System Management BIOS Driver' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
-powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'UMBus Root Bus Enumerator' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
-powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'Microsoft 虚拟驱动器枚举器' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
-powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName '高精度事件计时器' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
-powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'NDIS 虚拟网络适配器枚举器' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
-powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName '远程桌面设备重定向程序总线' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
 powercfg -import "C:\TEMP\PowerPlan.pow"
 powercfg /hibernate off
 powercfg -change -hibernate-timeout-dc 0
@@ -730,6 +722,46 @@ bcdedit /set hypervisorlaunchtype off
 bcdedit /set vm No
 bcdedit /set disableelamdrivers Yes
 Auditpol /set /category:* /Success:disable /failure:disable
+powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'Microsoft Kernel Debug Network Adapter' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
+powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'AMD SMBus' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
+powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'Microsoft System Management BIOS Driver' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
+powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'UMBus Root Bus Enumerator' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
+powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'Microsoft Device Association Root Enumerator' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
+powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'Microsoft 虚拟驱动器枚举器' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
+powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName '高精度事件计时器' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
+powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'NDIS 虚拟网络适配器枚举器' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
+powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName '远程桌面设备重定向程序总线' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
+powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'SM 总线控制器' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
+powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'PCI 设备' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
+powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName '未知设备' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
+powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'AMD GPIO 控制器' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
+powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'PCI 标准 ISA 桥' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
+powershell -nop -ep bypass -c "Get-PnpDevice -InstanceId 'PCI\VEN_10DE&DEV_228B&SUBSYS_248210B0&REV_A1\4&2283F625&0&0119' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
+:: Disable audio exclusive mode on all devices
+for %%a in ("HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Capture", "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render") do (
+    for /f "delims=" %%b in ('reg query "%%a"') do (
+        reg add "%%b\Properties" /v "{b3f8fa53-0004-438e-9003-51a46e139bfc},3" /t REG_DWORD /d "0" /f
+        reg add "%%b\Properties" /v "{b3f8fa53-0004-438e-9003-51a46e139bfc},4" /t REG_DWORD /d "0" /f
+    )
+)
+:: Disable all audio enhancements in mmsys.cpl (audio settings)
+for %%a in ("HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Capture", "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render") do (
+    for /f "delims=" %%b in ('reg query "%%a"') do (
+        reg add "%%b\FxProperties" /v "{1da5d803-d492-4edd-8c23-e0c0ffee7f0e},5" /t REG_DWORD /d "1" /f
+        reg add "%%b\FxProperties" /v "{1b5c2483-0839-4523-ba87-95f89d27bd8c},3" /t REG_BINARY /d "030044CD0100000000000000" /f
+        reg add "%%b\FxProperties" /v "{73ae880e-8258-4e57-b85f-7daa6b7d5ef0},3" /t REG_BINARY /d "030044CD0100000001000000" /f
+        reg add "%%b\FxProperties" /v "{9c00eeed-edce-4cd8-ae08-cb05e8ef57a0},3" /t REG_BINARY /d "030044CD0100000004000000" /f
+        reg add "%%b\FxProperties" /v "{fc52a749-4be9-4510-896e-966ba6525980},3" /t REG_BINARY /d "0B0044CD0100000000000000" /f
+        reg add "%%b\FxProperties" /v "{ae7f0b2a-96fc-493a-9247-a019f1f701e1},3" /t REG_BINARY /d "0300BC5B0100000001000000" /f
+        reg add "%%b\FxProperties" /v "{1864a4e0-efc1-45e6-a675-5786cbf3b9f0},4" /t REG_BINARY /d "030044CD0100000000000000" /f
+        reg add "%%b\FxProperties" /v "{61e8acb9-f04f-4f40-a65f-8f49fab3ba10},4" /t REG_BINARY /d "030044CD0100000050000000" /f
+        reg add "%%b\Properties" /v "{e4870e26-3cc5-4cd2-ba46-ca0a9a70ed04},0" /t REG_BINARY /d "4100FE6901000000FEFF020080BB000000DC05000800200016002000030000000300000000001000800000AA00389B71" /f
+        reg add "%%b\Properties" /v "{e4870e26-3cc5-4cd2-ba46-ca0a9a70ed04},1" /t REG_BINARY /d "41008EC901000000A086010000000000" /f
+        reg add "%%b\Properties" /v "{3d6e1656-2e50-4c4c-8d85-d0acae3c6c68},3" /t REG_BINARY /d "4100020001000000FEFF020080BB000000DC05000800200016002000030000000300000000001000800000AA00389B71" /f
+        reg delete "%%b\Properties" /v "{624f56de-fd24-473e-814a-de40aacaed16},3" /f
+        reg delete "%%b\Properties" /v "{3d6e1656-2e50-4c4c-8d85-d0acae3c6c68},2" /f
+    )
+)
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\NDIS\Parameters" /v "DefaultPnPCapabilities" /t REG_DWORD /d "24" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Storage" /v "StorageD3InModernStandby" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\stornvme\Parameters\Device" /v "IdlePowerMode" /t REG_DWORD /d "0" /f
@@ -1278,21 +1310,25 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\NvCache" /v "OptimizeBootAndRe
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\NvCache" /v "EnablePowerModeState" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Appx" /v "AllowDevelopmentWithoutDevLicense" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Appx" /v "AllowAllTrustedApps" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings" /v "NOC_GLOBAL_SETTING_ALLOW_CRITICAL_TOASTS_ABOVE_LOCK" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings" /v "NOC_GLOBAL_SETTING_ALLOW_NOTIFICATION_SOUND" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Microsoft.WindowsStore_8wekyb3d8bbwe!App" /v "Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel" /v "Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.CapabilityAccess" /v "Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance" /v "Enabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.StartupApp" /v "Enabled" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Policies\Microsoft\Windows\CurrentVersion\PushNotifications" /v "NoToastApplicationNotification" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Policies\Microsoft\Windows\CurrentVersion\PushNotifications" /v "NoToastApplicationNotificationOnLockScreen" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\PushNotifications" /v "NoCloudApplicationNotification" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\PushNotifications" /v "NoTileApplicationNotification" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings" /v "NOC_GLOBAL_SETTING_ALLOW_CRITICAL_TOASTS_ABOVE_LOCK" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings" /v "NOC_GLOBAL_SETTING_ALLOW_NOTIFICATION_SOUND" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings" /v "NOC_GLOBAL_SETTING_ALLOW_HMD_NOTIFICATIONS" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Microsoft.Windows.InputSwitchToastHandler" /v "Enabled" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Microsoft.WindowsStore_8wekyb3d8bbweApp" /v "Enabled" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\NotifyIconGeneratedAumid_11995792071604506045" /v "Enabled" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel" /v "Enabled" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.AutoPlay" /v "Enabled" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.CapabilityAccess" /v "Enabled" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.DefaultAudioEndpoint" /v "Enabled" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance" /v "Enabled" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.StartupApp" /v "Enabled" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Shell\USB" /v "NotifyOnWeakCharger" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Shell\USB" /v "NotifyOnUsbErrors" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\WpnUserService" /v "Start" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings" /v "NOC_GLOBAL_SETTING_ALLOW_HMD_NOTIFICATIONS" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Policies\Microsoft\Windows\CurrentVersion\QuietHours" /v "Enable" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Policies\Microsoft\Windows\CurrentVersion\QuietHours" /v "AllowCalls" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Enrollments\FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF" /v "EnrollmentState" /t REG_DWORD /d "1" /f
@@ -2823,7 +2859,10 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Audio" /v "DisableAudioE
 reg add "HKCU\Software\Microsoft\Multimedia\Audio" /v "UserDuckingPreference" /t REG_DWORD /d "3" /f
 powershell -nop -ep bypass -c "New-ItemProperty -Path 'HKCU:\AppEvents\Schemes' -Name '(Default)' -Value '.None' -Force"
 powershell -nop -ep bypass -c "Get-ChildItem -Path 'HKCU:\AppEvents\Schemes\Apps' | Get-ChildItem | Get-ChildItem | Where-Object { $_.PSChildName -eq '.Current' } | Set-ItemProperty -Name '(Default)' -Value ''"
-Del /F /Q "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\*"
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "C:\Steam\steamapps\common\Counter-Strike Global Offensive\csgo.exe" /t REG_SZ /d "~ DISABLEDXMAXIMIZEDWINDOWEDMODE" /f
+del /f /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\SendTo\*"
+del /f /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\*"
+del /f /q /s "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
 reg delete "HKCR\*\shellex\ContextMenuHandlers\Sharing" /f
 reg delete "HKCR\Directory\Background\shellex\ContextMenuHandlers\Sharing" /f
 reg delete "HKCR\Directory\shellex\ContextMenuHandlers\Sharing" /f
@@ -2837,11 +2876,27 @@ reg delete "HKCR\Folder\ShellEx\ContextMenuHandlers\Library Location" /f
 reg delete "HKLM\SOFTWARE\Classes\Folder\ShellEx\ContextMenuHandlers\Library Location" /f
 reg delete "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f
 reg delete "HKCR\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "C:\Steam\steamapps\common\Counter-Strike Global Offensive\csgo.exe" /t REG_SZ /d "~ DISABLEDXMAXIMIZEDWINDOWEDMODE" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "C:\Steam\steamapps\common\Path of Exile\PathOfExile_x64Steam.exe" /t REG_SZ /d "~ DISABLEDXMAXIMIZEDWINDOWEDMODE" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "C:\Steam\steamapps\common\Path of Exile\PathOfExileSteam.exe" /t REG_SZ /d "~ DISABLEDXMAXIMIZEDWINDOWEDMODE" /f
+reg delete "HKLM\SOFTWARE\Classes\Drive\shellex\ContextMenuHandlers\EPP" /f
+reg delete "HKLM\SOFTWARE\Classes\Directory\background\shellex\ContextMenuHandlers\NvCplDesktopContext" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{2C7339CF-2B09-4501-B3F3-F3508C9228ED}" /v "StubPath" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{6BF52A52-394A-11d3-B153-00C04F79FAA6}" /v "StubPath" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{89820200-ECBD-11cf-8B85-00AA005B4340}" /v "StubPath" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{89820200-ECBD-11cf-8B85-00AA005B4383}" /v "StubPath" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\>{22d6f312-b0f6-11d0-94ab-0080c74c7e95}" /v "StubPath" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{89B4C1CD-B018-4511-B0A1-5476DBF70820}" /v "StubPath" /f
+reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Active Setup\Installed Components\{89B4C1CD-B018-4511-B0A1-5476DBF70820}" /v "StubPath" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\storahci\Parameters\Device" /v "TreatAsInternalPort" /t REG_MULTI_SZ /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Enum\USB\VID_2357&PID_0106\123456" /v "Capabilities" /t REG_DWORD /d "128" /f
+
+:: https://www.seagate.com/au/en/support/software/seachest/
+:: "C:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" --scan
+:: "C:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" -d PD0 --deviceInfo
+:: "C:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" -d PD0 --showEPCSettings
+:: "C:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" -d PD0 --checkPowerMode
+:: idle_a is dipm timer. idle_b is head parking. idle_c slows down the rpm without stopping it (this I feel is quite neat). Makes the 7200rpm drives consume similar to 5400rpm drives. standby_z is spindown.
+:: "C:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" -d PD0 --powerBalanceFeature disable
+:: "C:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" -d PD0 --EPCfeature disable
+:: "C:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" -d PD0 --idle_b disable
+
 copy "C:\Tools\SetTimerResolution.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
 copy "C:\Tools\RunRealHidden.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
 copy "C:\Tools\CleanUp.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
@@ -2853,6 +2908,7 @@ start /b /wait C:\Tools\NVidiaProfileInspector\nvidiaProfileInspector.exe
 start /b /wait C:\Tools\NVIDIA_PMM\NVPMM.exe
 start /b /wait C:\TEMP\Exctrlst\exctrlst.exe
 start /b /wait C:\Tools\WiseCare\WiseCare.exe
-start /b /wait C:\TEMP\InternetDownloadManager.exe
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "1" /t REG_SZ /d "C:\Users\Default\Desktop\Startallback.exe" /f
+start /b /wait C:\TEMP\idman641build14.exe
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "1" /t REG_SZ /d "C:\Tools\Startallback.exe" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "1" /t REG_SZ /d "C:\Tools\IDM_6.4x_Crack_v18.1.exe" /f
 start /b /wait C:\Windows\System32\PowerRun.exe cmd.exe /c C:\TEMP\Setup3.cmd
