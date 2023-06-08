@@ -2734,7 +2734,8 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "S
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShellViewReentered" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "FolderContentsInfoTip" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "LastActiveClick" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAl" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarBadges" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAl" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "NavPaneShowAllFolders" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "NoNetCrawling" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSi" /t REG_DWORD /d "1" /f
@@ -2857,6 +2858,23 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Audio" /v "VolumeRepeatW
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Audio" /v "VolumeUpTransitionTime" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Audio" /v "DisableAudioEnhancements" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Microsoft\Multimedia\Audio" /v "UserDuckingPreference" /t REG_DWORD /d "3" /f
+reg add "HKCU\Software\Microsoft\Multimedia\Audio\DeviceCpl" /v "ShowDisconnectedDevices" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Multimedia\Audio\DeviceCpl" /v "VolumeUnits" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Multimedia\Audio\DeviceCpl" /v "ShowHiddenDevices" /t REG_DWORD /d "1" /f
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render\{7efb76e1-bc99-42b7-9b20-5c7cd1eff475}\FxProperties" /v "{9c00eeed-edce-4cd8-ae08-cb05e8ef57a0},3" /t REG_BINARY /d "030000000100000004000000" /f
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render\{7efb76e1-bc99-42b7-9b20-5c7cd1eff475}\FxProperties" /v "{fc52a749-4be9-4510-896e-966ba6525980},3" /t REG_BINARY /d "0B0000000100000000000000" /f
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render\{7efb76e1-bc99-42b7-9b20-5c7cd1eff475}\FxProperties" /v "{5b64fcb1-8c32-4844-9dcb-15a45df000fc},3" /t REG_BINARY /d "0B0000000100000000000000" /f
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render\{7efb76e1-bc99-42b7-9b20-5c7cd1eff475}\FxProperties" /v "{1da5d803-d492-4edd-8c23-e0c0ffee7f0e},5" /t REG_DWORD /d "1" /f
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render\{7efb76e1-bc99-42b7-9b20-5c7cd1eff475}\FxProperties" /v "{1b5c2483-0839-4523-ba87-95f89d27bd8c},3" /t REG_BINARY /d "030000000100000000000000" /f
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render\{7efb76e1-bc99-42b7-9b20-5c7cd1eff475}\FxProperties" /v "{73ae880e-8258-4e57-b85f-7daa6b7d5ef0},3" /t REG_BINARY /d "030000000100000001000000" /f
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render\{7efb76e1-bc99-42b7-9b20-5c7cd1eff475}\FxProperties" /v "{01fb17e3-796c-4451-8163-68cdc1321a60},3" /t REG_BINARY /d "0B0000000100000000000000" /f
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render\{7efb76e1-bc99-42b7-9b20-5c7cd1eff475}\FxProperties" /v "{61e8acb9-f04f-4f40-a65f-8f49fab3ba10},4" /t REG_BINARY /d "030000000100000050000000" /f
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render\{7efb76e1-bc99-42b7-9b20-5c7cd1eff475}\FxProperties" /v "{1864a4e0-efc1-45e6-a675-5786cbf3b9f0},4" /t REG_BINARY /d "030000000100000000000000" /f
+reg delete "HKLM\Software\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render\{7efb76e1-bc99-42b7-9b20-5c7cd1eff475}\Properties" /v "{624f56de-fd24-473e-814a-de40aacaed16},3" /f
+reg delete "HKLM\Software\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render\{7efb76e1-bc99-42b7-9b20-5c7cd1eff475}\Properties" /v "{3d6e1656-2e50-4c4c-8d85-d0acae3c6c68},2" /f
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render\{7efb76e1-bc99-42b7-9b20-5c7cd1eff475}\Properties" /v "{b3f8fa53-0004-438e-9003-51a46e139bfc},4" /t REG_DWORD /d "0" /f
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render\{7efb76e1-bc99-42b7-9b20-5c7cd1eff475}\Properties" /v "{b3f8fa53-0004-438e-9003-51a46e139bfc},3" /t REG_DWORD /d "0" /f
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render\{7efb76e1-bc99-42b7-9b20-5c7cd1eff475}\Properties" /v "{908dba32-edff-4c28-8e45-c918561f6748},2" /t REG_BINARY /d "41000000010000000200005A0000000001000000000000000C943DB546B831489F76D102B9B725A00C943DB546B831489F76D102B9B725A000000000000000000000000000000000000000000000000000000000" /f
 powershell -nop -ep bypass -c "New-ItemProperty -Path 'HKCU:\AppEvents\Schemes' -Name '(Default)' -Value '.None' -Force"
 powershell -nop -ep bypass -c "Get-ChildItem -Path 'HKCU:\AppEvents\Schemes\Apps' | Get-ChildItem | Get-ChildItem | Where-Object { $_.PSChildName -eq '.Current' } | Set-ItemProperty -Name '(Default)' -Value ''"
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "C:\Steam\steamapps\common\Counter-Strike Global Offensive\csgo.exe" /t REG_SZ /d "~ DISABLEDXMAXIMIZEDWINDOWEDMODE" /f
@@ -2886,6 +2904,8 @@ reg delete "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\>{22d6f312
 reg delete "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{89B4C1CD-B018-4511-B0A1-5476DBF70820}" /v "StubPath" /f
 reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Active Setup\Installed Components\{89B4C1CD-B018-4511-B0A1-5476DBF70820}" /v "StubPath" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\storahci\Parameters\Device" /v "TreatAsInternalPort" /t REG_MULTI_SZ /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\{6b755b3f-b7c5-4866-8662-e3a2a6f9374b}" /v "NukeOnDelete" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\{d589d033-2dd5-4d8d-a9cf-b6537ea7218b}" /v "NukeOnDelete" /t REG_DWORD /d "1" /f
 
 :: https://www.seagate.com/au/en/support/software/seachest/
 :: "C:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" --scan
