@@ -5,7 +5,6 @@ chcp 65001
 title Stage 3
 
 :: Intel Drivers
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\iagpio" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\iai2c" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\iaLPSS2i_GPIO2" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\iaLPSS2i_GPIO2_BXT_P" /v "Start" /t REG_DWORD /d "4" /f
@@ -165,6 +164,8 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\AppReadiness" /v "Start" /t REG_
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AarSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\iphlpsvc" /v "Start" /t REG_DWORD /d "4" /f
 :: delete services
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\iaLPSSi_GPIO" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WdFilter" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\clr_optimization_v4.0.30319_64" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\clr_optimization_v4.0.30319_32" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\clr_optimization_v2.0.50727_64" /f
@@ -1857,8 +1858,6 @@ reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Plain\{A34F4CC3-E653-4FF0-ADA8-873940648DAB}" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Logon\{A34F4CC3-E653-4FF0-ADA8-873940648DAB}" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Plain\{5B0D81E9-2EB2-4CFF-B839-20355C7AC366}" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WindowsUpdate\RetailDemo" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\RetailDemo" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks\{880B9D61-BF97-4850-97D8-CD9EBFC4488A}" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Logon\{880B9D61-BF97-4850-97D8-CD9EBFC4488A}" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Plain\{880B9D61-BF97-4850-97D8-CD9EBFC4488A}" /f
@@ -2083,8 +2082,6 @@ reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks\{68AB1C40-FB5C-490E-9513-733CCED864C1}" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks\{FB9EE28D-D0CA-4B6E-B47A-201C830C7006}" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks\{CD3A454B-E619-4AA6-85B5-B2D98ABC43A1}" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WindowsUpdate\Automatic App Update" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WindowsUpdate\Scheduled Start" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\ASUS Update Checker 2.0" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\AsusSystemAnalysis_754F3273-0563-4F20-B12F-826510B07474" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks\{4581D3A7-E88E-4295-8698-BA17286D3D6D}" /f
@@ -2136,7 +2133,11 @@ reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Plain\{54E16AC7-CC9B-45F9-B4AA-A546557821AD}" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Logon\{AC22CD13-D602-4CD6-8437-525BFB062DEA" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Plain\{AC22CD13-D602-4CD6-8437-525BFB062DEA" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WindowsUpdate" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\RetailDemo" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\LanguageComponentsInstaller" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\SMB" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator" /f
 rmdir "C:\Program Files (x86)\Microsoft" /s /q
 del /f /q /s "C:\Windows\System32\mcupdate_GenuineIntel.dll"
 del /f /q /s "C:\Windows\System32\mcupdate_AuthenticAMD.dll"
