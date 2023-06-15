@@ -8,25 +8,21 @@ title Stage 1
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1" /f /v Path /t REG_SZ /d "C:\TEMP\Drivers"
 "C:\Windows\System32\pnpunattend.exe" AuditSystem /L
 
-:: 1st login Animation
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableFirstLogonAnimation" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "EnableFirstLogonAnimation" /t REG_DWORD /d "0" /f
-
 :: System Config
 Dism /online /Enable-Feature /FeatureName:LegacyComponents /NoRestart
 Dism /online /Enable-Feature /FeatureName:DirectPlay /NoRestart
-Dism /online /Disable-Feature /FeatureName:Printing-PrintToPDFServices-Features /NoRestart
-Dism /online /Disable-Feature /FeatureName:MicrosoftWindowsPowerShellV2Root /NoRestart
-Dism /online /Disable-Feature /FeatureName:MicrosoftWindowsPowerShellV2 /NoRestart
-Dism /online /Disable-Feature /FeatureName:Printing-Foundation-Features /NoRestart
-Dism /online /Disable-Feature /FeatureName:Printing-Foundation-InternetPrinting-Client /NoRestart
-Dism /online /Disable-Feature /FeatureName:Printing-Foundation-LPDPrintService /NoRestart
-Dism /online /Disable-Feature /FeatureName:Printing-Foundation-LPRPortMonitor /NoRestart
-Dism /online /Disable-Feature /FeatureName:WorkFolders-Client /NoRestart
-Dism /online /Disable-Feature /FeatureName:SearchEngine-Client-Package /NoRestart
-Dism /online /Disable-Feature /FeatureName:Windows-Defender-ApplicationGuard /NoRestart
-Dism /online /Disable-Feature /FeatureName:Windows-Defender-Default-Definitions /NoRestart
-Dism /online /Disable-Feature /FeatureName:MSRDC-Infrastructure /NoRestart
+Dism /online /Disable-Feature /FeatureName:Printing-PrintToPDFServices-Features /Remove /NoRestart
+Dism /online /Disable-Feature /FeatureName:MicrosoftWindowsPowerShellV2Root /Remove /NoRestart
+Dism /online /Disable-Feature /FeatureName:MicrosoftWindowsPowerShellV2 /Remove /NoRestart
+Dism /online /Disable-Feature /FeatureName:Printing-Foundation-Features /Remove /NoRestart
+Dism /online /Disable-Feature /FeatureName:Printing-Foundation-InternetPrinting-Client /Remove /NoRestart
+Dism /online /Disable-Feature /FeatureName:Printing-Foundation-LPDPrintService /Remove /NoRestart
+Dism /online /Disable-Feature /FeatureName:Printing-Foundation-LPRPortMonitor /Remove /NoRestart
+Dism /online /Disable-Feature /FeatureName:WorkFolders-Client /Remove /NoRestart
+Dism /online /Disable-Feature /FeatureName:SearchEngine-Client-Package /Remove /NoRestart
+Dism /online /Disable-Feature /FeatureName:Windows-Defender-ApplicationGuard /Remove /NoRestart
+Dism /online /Disable-Feature /FeatureName:Windows-Defender-Default-Definitions /Remove /NoRestart
+Dism /online /Disable-Feature /FeatureName:MSRDC-Infrastructure /Remove /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:App.StepsRecorder~~~~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:DirectX.Configuration.Database~~~~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:Hello.Face.20134~~~~0.0.1.0 /NoRestart
@@ -85,46 +81,11 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging"
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription" /v "EnableTranscripting" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v "ExecutionPolicy" /t REG_SZ /d "Bypass" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell" /v "ExecutionPolicy" /t REG_SZ /d "Bypass" /f
-
-:: Turnoff DMA remapping
-REG ADD "HKLM\SOFTWARE\Microsoft\PolicyManager\default\DmaGuard\DeviceEnumerationPolicy" /v value /t REG_DWORD /d 2 /f
-for /f "tokens=1" %%i in ('driverquery') do REG ADD "HKLM\SYSTEM\CurrentControlSet\Services\%%i\Parameters" /v DmaRemappingCompatible /t REG_DWORD /d 0 /f
-
-:: no power saving
-PowerShell -nop -ep bypass -c "$usb_devices = @('Win32_USBController', 'Win32_USBControllerDevice', 'Win32_USBHub'); $power_device_enable = Get-WmiObject MSPower_DeviceEnable -Namespace root\wmi; foreach ($power_device in $power_device_enable){$instance_name = $power_device.InstanceName.ToUpper(); foreach ($device in $usb_devices){foreach ($hub in Get-WmiObject $device){$pnp_id = $hub.PNPDeviceID; if ($instance_name -like \"*$pnp_id*\"){$power_device.enable = $False; $power_device.psbase.put()}}}}"
-
-for %%a in (
-    "EnhancedPowerManagementEnabled"
-    "AllowIdleIrpInD3"
-    "EnableSelectiveSuspend"
-    "DeviceSelectiveSuspended"
-    "SelectiveSuspendEnabled"
-    "SelectiveSuspendOn"
-    "WaitWakeEnabled"
-    "D3ColdSupported"
-    "WdfDirectedPowerTransitionEnable"
-    "EnableIdlePowerManagement"
-    "IdleInWorkingState"
-) do (
-    for /f "delims=" %%b in ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\Enum" /s /f "%%~a" ^| findstr "HKEY"') do (
-        REG ADD "%%b" /v "%%~a" /t REG_DWORD /d 0 /f > nul 2>&1
-    )
-)
-for %%a in (
-    "WakeEnabled"
-    "WdkSelectiveSuspendEnable"
-) do (
-    for /f "delims=" %%b in ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\Control\Class" /s /f "%%~a" ^| findstr "HKEY"') do (
-        REG ADD "%%b" /v "%%~a" /t REG_DWORD /d 0 /f > nul 2>&1
-    )
-)
-for %%a in (
-    "DisableIdlePowerManagement"
-) do (
-	for /f "delims=" %%b in ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\Enum" /s /f "%%~a" ^| findstr "HKEY"') do (
-		REG ADD "%%b" /v "%%~a" /t REG_DWORD /d 1 /f > nul
-	)
-)
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\AppModelUnlock" /v  "AllowAllTrustedApps" /t REG_DWORD /d "1" /f
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\AppModelUnlock" /v  "AllowDevelopmentWithoutDevLicense" /t REG_DWORD /d "1" /f
+reg add "HKLM\System\ControlSet001\Control\GraphicsDrivers\Configuration\XMI34440_28_07E3_95^D728F9563D766089E28024DE82EB8156\00\00" /v "VSyncFreq.Numerator" /t REG_DWORD /d "144" /f
+reg add "HKLM\System\ControlSet001\Control\GraphicsDrivers\Configuration\XMI34440_28_07E3_95^D728F9563D766089E28024DE82EB8156\00\00" /v "VirtualRefreshRate.Numerator" /t REG_DWORD /d "144" /f
+reg add "HKLM\System\ControlSet001\Control\UnitedVideo\CONTROL\VIDEO\{2C232409-0AD0-11EE-B504-806E6F6E6963}\0000" /v "DefaultSettings.VRefresh" /t REG_DWORD /d "144" /f
 
 :: remove Defender
 taskkill /f /im smartscreen.exe
@@ -514,6 +475,50 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\De
 reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Device Driver Packages" /v "Autorun" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Device Driver Packages" /v "StateFlags" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UpdatePolicy\PolicyState" /v "ExcludeWUDrivers" /t REG_DWORD /d "1" /f
+
+:: 1st login Animation
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableFirstLogonAnimation" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "EnableFirstLogonAnimation" /t REG_DWORD /d "0" /f
+
+:: Turnoff DMA remapping
+REG ADD "HKLM\SOFTWARE\Microsoft\PolicyManager\default\DmaGuard\DeviceEnumerationPolicy" /v "value" /t REG_DWORD /d "2" /f
+for /f "tokens=1" %%i in ('driverquery') do REG ADD "HKLM\SYSTEM\CurrentControlSet\Services\%%i\Parameters" /v "DmaRemappingCompatible" /t REG_DWORD /d "0" /f
+
+:: no power saving
+PowerShell -nop -ep bypass -c "$usb_devices = @('Win32_USBController', 'Win32_USBControllerDevice', 'Win32_USBHub'); $power_device_enable = Get-WmiObject MSPower_DeviceEnable -Namespace root\wmi; foreach ($power_device in $power_device_enable){$instance_name = $power_device.InstanceName.ToUpper(); foreach ($device in $usb_devices){foreach ($hub in Get-WmiObject $device){$pnp_id = $hub.PNPDeviceID; if ($instance_name -like \"*$pnp_id*\"){$power_device.enable = $False; $power_device.psbase.put()}}}}"
+
+for %%a in (
+    "EnhancedPowerManagementEnabled"
+    "AllowIdleIrpInD3"
+    "EnableSelectiveSuspend"
+    "DeviceSelectiveSuspended"
+    "SelectiveSuspendEnabled"
+    "SelectiveSuspendOn"
+    "WaitWakeEnabled"
+    "D3ColdSupported"
+    "WdfDirectedPowerTransitionEnable"
+    "EnableIdlePowerManagement"
+    "IdleInWorkingState"
+) do (
+    for /f "delims=" %%b in ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\Enum" /s /f "%%~a" ^| findstr "HKEY"') do (
+        REG ADD "%%b" /v "%%~a" /t REG_DWORD /d 0 /f
+    )
+)
+for %%a in (
+    "WakeEnabled"
+    "WdkSelectiveSuspendEnable"
+) do (
+    for /f "delims=" %%b in ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\Control\Class" /s /f "%%~a" ^| findstr "HKEY"') do (
+        REG ADD "%%b" /v "%%~a" /t REG_DWORD /d 0 /f
+    )
+)
+for %%a in (
+    "DisableIdlePowerManagement"
+) do (
+	for /f "delims=" %%b in ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\Enum" /s /f "%%~a" ^| findstr "HKEY"') do (
+		REG ADD "%%b" /v "%%~a" /t REG_DWORD /d 1 /f
+	)
+)
 
 :: remove start menu layout
 del /f /q /s "C:\Users\Default\AppData\Local\Microsoft\Windows\Shell\DefaultLayouts.xml"
