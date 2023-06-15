@@ -1,12 +1,10 @@
 ########################################################快捷方式后缀########################################################
 
---disable-gpu-vsync --disable-crash-reporter --disable-breakpad --disable-logging --no-report-upload --disable-background-networking
+--force-local-ntp --disable-crash-reporter --disable-breakpad --disable-logging --no-report-upload --enable-leak-detection
 
 #######################################################禁用以下flags########################################################
 
 Throttling
-
-#enable-system-notifications
 
 #enable-async-dns
 
@@ -20,6 +18,12 @@ download-bubble
 
 accelerated-video-encode
 
+#shopping-list
+
+#smooth-scrolling
+
+#side-search
+
 ##################################################开启以下flags########################################################
 
 #enable-webrtc-hide-local-ips-with-mdns
@@ -27,3 +31,7 @@ accelerated-video-encode
 #enable-parallel-downloading
 
 #enable-quic
+
+#use-dns-https-svcb-alpn
+
+#encrypted-client-hello
