@@ -7,8 +7,7 @@ rmdir /s /q "C:\Steam\dumps\"
 rmdir /s /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations\"
 rmdir /s /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Recent\CustomDestinations\"
 rmdir /s /q "C:\Users\Administrator\AppData\Local\Microsoft\Windows\WebCache\"
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\"
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Users\Administrator\AppData\Local\Google\Chrome Dev\User Data\Default\Service Worker\CacheStorage\"
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\DXCache\"
 "C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\System32\LogFiles\WMI\"
 "C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\Logs\NetSetup\"
 "C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\System32\WDI\"
@@ -32,19 +31,7 @@ reg delete "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs" 
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSaveMRU" /va /f
 reg delete "HKCU\Software\Microsoft\Direct3D\MostRecentApplication" /va /f
 reg delete "HKLM\SOFTWARE\Microsoft\Direct3D\MostRecentApplication" /va /f
-
-rem logman -ets
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -n -ets SleepStudyTraceSession
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -n -ets Diagtrack-Listener
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -n -ets Diaglog
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c logman stop -n -ets UBPM
-
-rem Time Sync
-w32tm /config /syncfromflags:manual /manualpeerlist:"pool.ntp.org"
-net start w32time
-w32tm /config /update
-w32tm /resync
-net stop w32time
+reg delete "HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\MuiCache" /va /f
 
 rem CleanMgr.exe
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /f
