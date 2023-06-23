@@ -490,12 +490,6 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile\Loggin
 :: customize
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001" /v "EnableAdaptivity" /t REG_SZ /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001" /v "WirelessMode" /t REG_SZ /d "256" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Configuration\XMI34440_28_07E3_95^D728F9563D766089E28024DE82EB8156\00\00" /v "Scaling" /t REG_DWORD /d "2" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Configuration\XMI34440_28_07E3_95^D728F9563D766089E28024DE82EB8156\00\00" /v "VSyncFreq.Numerator" /t REG_DWORD /d "144" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Configuration\XMI34440_28_07E3_95^D728F9563D766089E28024DE82EB8156\00\00" /v "VirtualRefreshRate.Numerator" /t REG_DWORD /d "144" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\UnitedVideo\CONTROL\VIDEO\{2C232409-0AD0-11EE-B504-806E6F6E6963}\0000" /v "DefaultSettings.VRefresh" /t REG_DWORD /d "144" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\nvlddmkm\State\DisplayDatabase\XMI34440_28_07E3_95" /v "DitherRegistryKey" /t REG_BINARY /d "DB0100001000000002010104F4000000" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\nvlddmkm\State\DisplayDatabase\XMI34440_28_07E3_95" /v "ColorformatConfig" /t REG_BINARY /d "DB02000014000000000A000A0000000005010000" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles" /v "sRGB" /t REG_SZ /d "Dell_S3422DWG.icm" /f
 
 :: Turnoff DMA remapping
@@ -584,7 +578,7 @@ Microsoft.SecHealthUI
 Microsoft.MicrosoftEdge.Stable
 NVIDIACorp.NVIDIAControlPanel
 ) do (
-  for /f %%a in ('reg query "%UWP%" /f %%i /k ^| find /i "Applications"') do if not errorlevel 1 (reg delete %%a /f)
+  for /f %%a in ('reg query "%UWP%" /f %%i /k ^| find /i "AppxAllUserStore"') do if not errorlevel 1 (reg delete %%a /f)
 )
 
 set "InboxApplications=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications"
