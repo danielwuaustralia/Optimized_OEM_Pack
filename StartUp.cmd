@@ -1,39 +1,19 @@
-setlocal enabledelayedexpansion
+@echo off
 
-rem CleanUp
+:: remove folders
 ipconfig /flushdns
-rmdir /s /q "C:\TEMP\"
-rmdir /s /q "C:\Steam\dumps\"
-rmdir /s /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations\"
-rmdir /s /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Recent\CustomDestinations\"
-rmdir /s /q "C:\Users\Administrator\AppData\Local\Microsoft\Windows\WebCache\"
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\DXCache\"
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\System32\LogFiles\WMI\"
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\Logs\NetSetup\"
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\System32\WDI\"
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\ProgramData\Microsoft\Diagnosis\ETLLogs\"
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\Logs\WindowsUpdate\"
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\SoftwareDistribution\download\"
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Users\Administrator\AppData\Local\Temp\"
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\System32\SleepStudy\"
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\ProgramData\USOShared\Logs\System\"
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\Logs\waasmedic\"
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\System32\winevt\Logs\"
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c rmdir /s /q "C:\Windows\ServiceProfiles\NetworkService\AppData\Local\Microsoft\Windows\DeliveryOptimization\Logs\"
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c del /q "C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog_RunOnce.etl"
+del /q "C:\TEMP\*"
+for /d %%x in ("C:\TEMP\*") do @rd /s /q "%%x"
+del /s /f /q C:\Users\Administrator\Recent\*.*
+del /s /f /q C:\Windows\Prefetch\*.*
+del /s /f /q C:\Windows\Temp\*.*
+del /q "C:\Steam\dumps\*"
+for /d %%x in ("C:\Steam\dumps\*") do @rd /s /q "%%x"
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c del /q "C:\Users\Administrator\AppData\Local\NVIDIA\DXCache\*"
+"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c for /d %%x in ("C:\Users\Administrator\AppData\Local\NVIDIA\DXCache\*") do @rd /s /q "%%x"
 "C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c del /q "C:\Windows\System32\SleepStudy\SleepStudyControlTraceSession.etl"
-reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Applets\Regedit" /va /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Applets\Regedit" /va /f
-reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\LastVisitedPidlMRU" /va /f
-reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\LastVisitedPidlMRULegacy" /va /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs" /va /f
-reg delete "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs" /va /f
-reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSaveMRU" /va /f
-reg delete "HKCU\Software\Microsoft\Direct3D\MostRecentApplication" /va /f
-reg delete "HKLM\SOFTWARE\Microsoft\Direct3D\MostRecentApplication" /va /f
-reg delete "HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\MuiCache" /va /f
 
-rem CleanMgr.exe
+:: CleanMgr.exe
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\BranchCache" /v "StateFlags0001" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Content Indexer Cleaner" /v "StateFlags0001" /f
