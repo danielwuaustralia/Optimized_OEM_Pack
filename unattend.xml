@@ -93,15 +93,20 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>13</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\DirectX\DXSETUP.exe /silent</CommandLine>
+                    <CommandLine>C:\TEMP\windowsdesktop-runtime-7.0.8-win-x64.exe /install /quiet /norestart</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>14</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\7z22.01-zstd-x64.exe /S /D="C:\Program Files\7-Zip"</CommandLine>
+                    <CommandLine>C:\TEMP\DirectX\DXSETUP.exe /silent</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>15</Order>
+                    <RequiresUserInput>false</RequiresUserInput>
+                    <CommandLine>C:\TEMP\7z2301-x64.exe /S /D="C:\Program Files\7-Zip"</CommandLine>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>16</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>cmd.exe /c "C:\TEMP\Setup2.cmd"</CommandLine>
                 </SynchronousCommand>
