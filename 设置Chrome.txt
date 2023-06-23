@@ -30,8 +30,11 @@ accelerated-video-encode
 
 #enable-parallel-downloading
 
-#enable-quic
-
 #use-dns-https-svcb-alpn
 
 #encrypted-client-hello
+
+##################################################广告屏蔽规则########################################################
+
+
+https://raw.githubusercontent.com/o0HalfLife0o/list/master/ad-pc.txt
