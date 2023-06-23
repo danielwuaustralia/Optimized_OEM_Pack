@@ -488,9 +488,14 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile\Loggin
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile\Logging" /v "LogSuccessfulConnections" /t REG_DWORD /d "0" /f
 
 :: customize
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "PagingFiles" /t REG_MULTI_SZ /d "c:\pagefile.sys 32768 32768" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001" /v "EnableAdaptivity" /t REG_SZ /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001" /v "WirelessMode" /t REG_SZ /d "256" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles" /v "sRGB" /t REG_SZ /d "Dell_S3422DWG.icm" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles" /v "sRGB" /t REG_SZ /d "MiMonitor.icm" /f
+reg add "HKLM\System\ControlSet001\Enum\SCSI\Disk&Ven_NVMe&Prod_CT250P2SSD8\7&293d78a7&0&000000\Device Parameters\Disk" /v "CacheIsPowerProtected" /t REG_DWORD /d "0" /f
+reg add "HKLM\System\ControlSet001\Enum\SCSI\Disk&Ven_NVMe&Prod_CT250P2SSD8\7&293d78a7&0&000000\Device Parameters\Disk" /v "UserWriteCacheSetting" /t REG_DWORD /d "0" /f
+reg add "HKLM\System\ControlSet001\Enum\SCSI\Disk&Ven_&Prod_ST18000NM000J-2T\5&2bd9b518&0&000000\Device Parameters\Disk" /v "CacheIsPowerProtected" /t REG_DWORD /d "0" /f
+reg add "HKLM\System\ControlSet001\Enum\SCSI\Disk&Ven_&Prod_ST18000NM000J-2T\5&2bd9b518&0&000000\Device Parameters\Disk" /v "UserWriteCacheSetting" /t REG_DWORD /d "0" /f
 
 :: Turnoff DMA remapping
 REG ADD "HKLM\SOFTWARE\Microsoft\PolicyManager\default\DmaGuard\DeviceEnumerationPolicy" /v "value" /t REG_DWORD /d "2" /f
