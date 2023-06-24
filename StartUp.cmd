@@ -4,14 +4,14 @@
 ipconfig /flushdns
 del /q "C:\TEMP\*"
 for /d %%x in ("C:\TEMP\*") do @rd /s /q "%%x"
-del /s /f /q C:\Users\Administrator\Recent\*.*
-del /s /f /q C:\Windows\Prefetch\*.*
-del /s /f /q C:\Windows\Temp\*.*
+"C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator" /f
+"C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WindowsUpdate" /f
 del /q "C:\Steam\dumps\*"
 for /d %%x in ("C:\Steam\dumps\*") do @rd /s /q "%%x"
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c del /q "C:\Users\Administrator\AppData\Local\NVIDIA\DXCache\*"
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c for /d %%x in ("C:\Users\Administrator\AppData\Local\NVIDIA\DXCache\*") do @rd /s /q "%%x"
-"C:\Windows\System32\PowerRun.exe" /SW:0 cmd.exe /c del /q "C:\Windows\System32\SleepStudy\SleepStudyControlTraceSession.etl"
+"C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c  del /q "C:\Users\Administrator\AppData\Local\NVIDIA\DXCache\*"
+"C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c  for /d %%x in ("C:\Users\Administrator\AppData\Local\NVIDIA\DXCache\*") do @rd /s /q "%%x"
+:: "C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c del /q "C:\Windows\System32\SleepStudy\SleepStudyControlTraceSession.etl"
+:: "C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c del /q "C:\Windows\System32\SleepStudy\SleepStudyTraceSession.etl"
 
 :: CleanMgr.exe
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /f
