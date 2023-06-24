@@ -1,5 +1,6 @@
 @echo on
 color 6
+chcp 65001
 setlocal enabledelayedexpansion
 setlocal enableextensions
 
@@ -425,6 +426,7 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows Security Health\Health Advisor\Update M
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "SettingsPageVisibility" /t REG_SZ /d "hide:windowsdefender;" /f
 
 :: Pre-Config
+del /f /q /s "C:\Users\Default\AppData\Local\Microsoft\Windows\Shell\DefaultLayouts.xml"
 COMPACT.EXE /u /i /f /s "C:\*.*"
 COMPACT.EXE /CompactOS:Never
 DISM.exe /Online /Remove-DefaultAppAssociations
@@ -476,7 +478,6 @@ reg add "HKLM\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v 
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell" /v "ExecutionPolicy" /t REG_SZ /d "Bypass" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" /v  "AllowAllTrustedApps" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" /v  "AllowDevelopmentWithoutDevLicense" /t REG_DWORD /d "1" /f
-del /f /q /s "C:\Users\Default\AppData\Local\Microsoft\Windows\Shell\DefaultLayouts.xml"
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableFirstLogonAnimation" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "EnableFirstLogonAnimation" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\IPSec\ICFv4" /v "BypassFirewall" /t REG_DWORD /d "1" /f
@@ -487,7 +488,7 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile" /v "E
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile\Logging" /v "LogDroppedPackets" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile\Logging" /v "LogSuccessfulConnections" /t REG_DWORD /d "0" /f
 
-:: customize
+:: specific machine config
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "PagingFiles" /t REG_MULTI_SZ /d "c:\pagefile.sys 32768 32768" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001" /v "EnableAdaptivity" /t REG_SZ /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001" /v "WirelessMode" /t REG_SZ /d "256" /f
@@ -599,8 +600,6 @@ Microsoft.Windows.ParentalControls
 Microsoft.Windows.NarratorQuickStart
 Microsoft.Windows.XGpuEjectDialog
 Windows.PrintDialog
-Microsoft.Windows.CloudExperienceHost
-Microsoft.Windows.AppRep.ChxApp
 ) do (
   for /f %%a in ('reg query "%InboxApplications%" /f %%i /k ^| find /i "InboxApplications"') do if not errorlevel 1 (reg delete %%a /f)
 )
