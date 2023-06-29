@@ -1,6 +1,6 @@
 @echo on
-color 6
-chcp 65001
+color 0a
+chcp 65001>nul
 setlocal enabledelayedexpansion
 setlocal enableextensions
 
@@ -450,6 +450,8 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\NetBIOS" /v "Start" /t REG_DWORD
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\ndiscap" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\NetBT" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Dnscache" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\CDPSvc" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\CDPUserSvc" /v "Start" /t REG_DWORD /d "4" /f
 
 ::Image File Execution Options
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options" /f
@@ -513,8 +515,12 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\Backg
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" /v "EnableLog" /t REG_SZ /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" /v "DisableWerReporting" /t REG_DWORD /d "1" /f
 rmdir "C:\Program Files (x86)\Microsoft" /s /q
-rmdir "C:\Windows\System32\wdi\LogFiles" /s /q
-rmdir "C:\Windows\System32\LogFiles\WMI\RtBackup" /s /q
+rmdir "C:\Windows\System32\wdi" /s /q
+rmdir "C:\Windows\System32\LogFiles" /s /q
+rmdir "C:\Windows\System32\winevt\logs" /s /q
+rmdir "C:\Windows\Logs" /s /q
+rmdir "C:\Windows\System32\sru" /s /q
+rmdir "C:\Windows\winsxs\backup" /s /q
 del /f /q /s "C:\Windows\System32\wuaueng.dll"
 del /f /q /s "C:\Windows\System32\usosvc.dll"
 del /f /q /s "C:\Windows\System32\mobsync.exe"
@@ -526,4 +532,3 @@ del /f /q /s "C:\Users\Administrator\AppData\Local\Packages\Microsoft.Windows.St
 taskkill /f /im SearchApp.exe
 taskkill /f /im SearchApp.exe
 ren C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchHost.exe SearchHost_old.exe
-rmdir /s /q "C:\Windows\System32\SleepStudy"
