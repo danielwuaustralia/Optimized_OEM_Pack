@@ -1,6 +1,6 @@
 ########################################################快捷方式后缀########################################################
 
---force-local-ntp --disable-crash-reporter --disable-breakpad --disable-logging --no-report-upload --enable-leak-detection
+--force-local-ntp --disable-crash-reporter --disable-breakpad --disable-logging --no-report-upload --trace-upload-url="0.0.0.0" --crash-server-url="0.0.0.0"
 
 #######################################################禁用以下flags########################################################
 
