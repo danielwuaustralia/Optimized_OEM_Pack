@@ -294,6 +294,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\rdyboost" /v "Start" /t REG_DWOR
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\SysMain" /v "Start" /t REG_DWORD /d "4" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\AssignedAccessManagerSvc" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\RetailDemo" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\MicrosoftEdgeElevationService" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\msisadrv" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\XblGameSave" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\WSearch" /v "Start" /t REG_DWORD /d "4" /f
@@ -503,8 +504,9 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution 
 :: event tracing session
 for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger" /s /f "Enabled"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Enabled" /t REG_DWORD /d "0" /f
 for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger" /s /f "Start"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Start" /t REG_DWORD /d "0" /f
-for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT" /s /f "Enabled"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Enabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\EventLog" /v "Start" /t REG_DWORD /d "4" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Publishers" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels" /f
 
 :: others
 reg add "HKLM\SOFTWARE\Classes\AppID\slui.exe" /v "NoGenTicket" /t REG_DWORD /d "1" /f
@@ -526,6 +528,8 @@ del /f /q /s "C:\Windows\System32\AggregatorHost.exe"
 del /f /q /s "C:\Windows\System32\DeviceCensus.exe"
 del /f /q /s "C:\Windows\System32\microsoft-windows-sleepstudy-events.dll"
 del /f /q /s "C:\Users\Administrator\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\*.*"
+del /f /q /s "C:\Windows\System32\winevt\Logs\*.*"
 taskkill /f /im SearchApp.exe
 taskkill /f /im SearchApp.exe
 ren C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchHost.exe SearchHost_old.exe
+ren C:\Windows\System32\mcupdate_GenuineIntel.dll mcupdate_GenuineIntel_old.dll
