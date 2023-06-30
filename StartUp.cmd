@@ -6,12 +6,13 @@ del /q "C:\TEMP\*"
 for /d %%x in ("C:\TEMP\*") do @rd /s /q "%%x"
 del /q "C:\Steam\dumps\*"
 for /d %%x in ("C:\Steam\dumps\*") do @rd /s /q "%%x"
-"C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c  del /q "C:\Users\Administrator\AppData\Local\NVIDIA\DXCache\*"
-"C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c  for /d %%x in ("C:\Users\Administrator\AppData\Local\NVIDIA\DXCache\*") do @rd /s /q "%%x"
+"C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c del /q "C:\Users\Administrator\AppData\Local\NVIDIA\DXCache\*"
+"C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c for /d %%x in ("C:\Users\Administrator\AppData\Local\NVIDIA\DXCache\*") do @rd /s /q "%%x"
 "C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator" /f
 "C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WindowsUpdate" /f
 "C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c del /f /q /s "C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog.etl"
 "C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c logman stop "UBPM" -ets
+:: vssadmin delete shadows /for=c: /all /quiet
 
 :: CleanMgr.exe
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /f
