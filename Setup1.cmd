@@ -432,6 +432,21 @@ COMPACT.EXE /CompactOS:Never
 DISM.exe /Online /Remove-DefaultAppAssociations
 DISM.exe /Online /Set-ReservedStorageState /State:Disabled
 reagentc /disable
+REG ADD "HKLM\SOFTWARE\Microsoft\PolicyManager\default\DmaGuard\DeviceEnumerationPolicy" /v "value" /t REG_DWORD /d "2" /f
+for /f "tokens=1" %%i in ('driverquery') do REG ADD "HKLM\SYSTEM\CurrentControlSet\Services\%%i\Parameters" /v "DmaRemappingCompatible" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\EdgeUpdate" /v "DoNotUpdateToEdgeWithChromium" /t REG_DWORD /d 1
+rmdir "C:\Program Files (x86)\Microsoft" /s /q
+sc delete edgeupdatem
+sc delete edgeupdate
+reg delete "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{9459C573-B17A-45AE-9F64-1857B5D58CEE}" /f
+reg load HKLM\NTUSER C:\Users\Default\NTUSER.DAT
+reg delete "HKLM\NTUSER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
+reg unload HKLM\NTUSER
+del /f /q /s "C:\Windows\System32\OneDriveSetup.exe"
+del /f /q /s "C:\Windows\SysWOW64\OneDriveSettingSyncProvider.dll"
+reg delete "HKCU\Environment" /v "OneDrive" /f
+powershell -nop -ep bypass -file "C:\TEMP\interrupt_affinity_auto.ps1"
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\SystemRestore" /v "DisableSR" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\Update" /v "ExcludeWUDriversInQualityUpdate" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "ExcludeWUDriversInQualityUpdate" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\Update" /v "ExcludeWUDriversInQualityUpdate" /t REG_DWORD /d "1" /f
@@ -487,22 +502,6 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging"
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile" /v "EnableFirewall" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile\Logging" /v "LogDroppedPackets" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile\Logging" /v "LogSuccessfulConnections" /t REG_DWORD /d "0" /f
-
-:: specific machine config
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "PagingFiles" /t REG_MULTI_SZ /d "c:\pagefile.sys 32768 32768" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001" /v "EnableAdaptivity" /t REG_SZ /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001" /v "WirelessMode" /t REG_SZ /d "256" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles" /v "sRGB" /t REG_SZ /d "MiMonitor.icm" /f
-reg add "HKLM\System\ControlSet001\Enum\SCSI\Disk&Ven_NVMe&Prod_CT250P2SSD8\7&293d78a7&0&000000\Device Parameters\Disk" /v "CacheIsPowerProtected" /t REG_DWORD /d "0" /f
-reg add "HKLM\System\ControlSet001\Enum\SCSI\Disk&Ven_NVMe&Prod_CT250P2SSD8\7&293d78a7&0&000000\Device Parameters\Disk" /v "UserWriteCacheSetting" /t REG_DWORD /d "0" /f
-reg add "HKLM\System\ControlSet001\Enum\SCSI\Disk&Ven_&Prod_ST18000NM000J-2T\5&2bd9b518&0&000000\Device Parameters\Disk" /v "CacheIsPowerProtected" /t REG_DWORD /d "0" /f
-reg add "HKLM\System\ControlSet001\Enum\SCSI\Disk&Ven_&Prod_ST18000NM000J-2T\5&2bd9b518&0&000000\Device Parameters\Disk" /v "UserWriteCacheSetting" /t REG_DWORD /d "0" /f
-
-:: Turnoff DMA remapping
-REG ADD "HKLM\SOFTWARE\Microsoft\PolicyManager\default\DmaGuard\DeviceEnumerationPolicy" /v "value" /t REG_DWORD /d "2" /f
-for /f "tokens=1" %%i in ('driverquery') do REG ADD "HKLM\SYSTEM\CurrentControlSet\Services\%%i\Parameters" /v "DmaRemappingCompatible" /t REG_DWORD /d "0" /f
-
-:: no power saving
 PowerShell -nop -ep bypass -c "$usb_devices = @('Win32_USBController', 'Win32_USBControllerDevice', 'Win32_USBHub'); $power_device_enable = Get-WmiObject MSPower_DeviceEnable -Namespace root\wmi; foreach ($power_device in $power_device_enable){$instance_name = $power_device.InstanceName.ToUpper(); foreach ($device in $usb_devices){foreach ($hub in Get-WmiObject $device){$pnp_id = $hub.PNPDeviceID; if ($instance_name -like \"*$pnp_id*\"){$power_device.enable = $False; $power_device.psbase.put()}}}}"
 
 for %%a in (
@@ -541,24 +540,6 @@ for /f "delims=" %%b in ('reg query "HKLM\SYSTEM\CurrentControlSet\Enum\USB" ^| 
 	reg add "%%b" /v "EnhancedPowerManagementEnabled" /t REG_DWORD /d "0" /f
 )
 
-:: remove edge
-reg add "HKLM\SOFTWARE\Microsoft\EdgeUpdate" /v "DoNotUpdateToEdgeWithChromium" /t REG_DWORD /d 1
-rmdir "C:\Program Files (x86)\Microsoft" /s /q
-sc delete edgeupdatem
-sc delete edgeupdate
-reg delete "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{9459C573-B17A-45AE-9F64-1857B5D58CEE}" /f
-
-:: remove Onedrive
-reg load HKLM\NTUSER C:\Users\Default\NTUSER.DAT
-reg delete "HKLM\NTUSER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
-reg unload HKLM\NTUSER
-del /f /q /s "C:\Windows\System32\OneDriveSetup.exe"
-del /f /q /s "C:\Windows\SysWOW64\OneDriveSettingSyncProvider.dll"
-reg delete "HKCU\Environment" /v "OneDrive" /f
-
-:: MSI Mode
-powershell -nop -ep bypass -file "C:\TEMP\interrupt_affinity_auto.ps1"
-
 :: system APP
 set "UWPs=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Applications"
 for %%i in (
@@ -585,3 +566,13 @@ Windows.PrintDialog
 ) do (
   for /f %%a in ('reg query "%InboxApplications%" /f %%i /k ^| find /i "InboxApplications"') do if not errorlevel 1 (reg delete %%a /f)
 )
+
+:: For Desktop PC in Sydney, Australia
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "PagingFiles" /t REG_MULTI_SZ /d "c:\pagefile.sys 32768 32768" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001" /v "EnableAdaptivity" /t REG_SZ /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001" /v "WirelessMode" /t REG_SZ /d "256" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles" /v "sRGB" /t REG_SZ /d "MiMonitor.icm" /f
+reg add "HKLM\System\ControlSet001\Enum\SCSI\Disk&Ven_NVMe&Prod_CT250P2SSD8\7&293d78a7&0&000000\Device Parameters\Disk" /v "CacheIsPowerProtected" /t REG_DWORD /d "0" /f
+reg add "HKLM\System\ControlSet001\Enum\SCSI\Disk&Ven_NVMe&Prod_CT250P2SSD8\7&293d78a7&0&000000\Device Parameters\Disk" /v "UserWriteCacheSetting" /t REG_DWORD /d "0" /f
+reg add "HKLM\System\ControlSet001\Enum\SCSI\Disk&Ven_&Prod_ST18000NM000J-2T\5&2bd9b518&0&000000\Device Parameters\Disk" /v "CacheIsPowerProtected" /t REG_DWORD /d "0" /f
+reg add "HKLM\System\ControlSet001\Enum\SCSI\Disk&Ven_&Prod_ST18000NM000J-2T\5&2bd9b518&0&000000\Device Parameters\Disk" /v "UserWriteCacheSetting" /t REG_DWORD /d "0" /f
