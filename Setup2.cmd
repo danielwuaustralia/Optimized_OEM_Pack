@@ -1822,6 +1822,7 @@ reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\
 reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd" /v "StartupPrograms" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "VMApplet" /f
 reg delete "HKCR\AppXkndb5xvk0v1ka1efnjajnamxcd3sfae1" /f
+reg delete "HKCR\.library-ms\ShellNew" /f
 del /f /q /s "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\DesktopSpotlight\*.*"
 del /f /q /s "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\DesktopStickerEditorWin32Exe\*.*"
 reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{7AD84985-87B4-4a16-BE58-8B72A5B390F7}" /t REG_SZ /d "" /f
@@ -1829,6 +1830,20 @@ reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked
 reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{A929C4CE-FD36-4270-B4F5-34ECAC5BD63C}" /t REG_SZ /d "" /f
 reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{A70C977A-BF00-412C-90B7-034C51DA2439}" /t REG_SZ /d "" /f
 reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{3D1975AF-48C6-4f8e-A182-BE0E08FA86A9}" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\AudioCD\shell\play" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\SystemFileAssociations\audio\shell\Enqueue" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\SystemFileAssociations\Directory.Audio\shell\Enqueue" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\SystemFileAssociations\Directory.Audio\shell\Play" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\SystemFileAssociations\Directory.Image\shell\Enqueue" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\SystemFileAssociations\Directory.Image\shell\Play" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\WMP11.AssocFile.AIFF\shell\Enqueue" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\WMP11.AssocFile.ASX\shell\Enqueue" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\WMP11.AssocFile.AU\shell\Enqueue" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\WMP11.AssocFile.MIDI\shell\Enqueue" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\WMP11.AssocFile.MK3D\shell\Enqueue" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\WMP11.AssocFile.MP3\shell\Enqueue" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\WMP11.AssocFile.WAX\shell\Enqueue" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\WMP11.AssocFile.WVX\shell\Enqueue" /v "LegacyDisable" /t REG_SZ /d "" /f
 
 :: https://www.seagate.com/au/en/support/software/seachest/
 :: "C:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" --scan
@@ -1852,7 +1867,7 @@ move "C:\TEMP\RunRealHidden.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Pr
 move "C:\TEMP\CleanUp.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
 start /b /wait C:\TEMP\IDMan.exe /s /q
 start /b /wait C:\Tools\NVidiaProfileInspector\nvidiaProfileInspector.exe
-start /b /wait C:\TEMP\NVIDIA_Power_Management_v2.6.0.79_Setup_20230609.exe
+start /b /wait C:\TEMP\NVIDIA_Power_Management_v2.6.4.90_Setup_20230701.exe
 start /b /wait C:\TEMP\ColorControl\ColorControl.exe
 :: start /b /wait C:\Windows\System32\PowerRun.exe cmd.exe /c C:\TEMP\Setup3.cmd
 "C:\Windows\System32\MinSudo.exe" --NoLogo --System --Verbose --TrustedInstaller --Privileged cmd /c C:\TEMP\Setup3.cmd
