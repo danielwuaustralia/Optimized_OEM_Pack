@@ -5,210 +5,213 @@ setlocal enabledelayedexpansion
 setlocal enableextensions
 
 :: remove most tasks
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\AppID" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Customer Experience Improvement Program\BthSQM" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Application Experience\ProgramDataUpdater" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticResolver" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Shell\FamilySafetyMonitor" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Shell\FamilySafetyUpload" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Autochk\Proxy" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Maintenance\WinSAT" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Application Experience\AitAgent" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\CloudExperienceHost\CreateObjectTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\FileHistory\File History (maintenance mode)" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\PI\Sqm-Tasks" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\AppID\SmartScreenSpecific" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\SettingSync\BackgroundUploadTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\ApplicationData\CleanupTemporaryState" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\ApplicationData\DsSvcCleanup" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\ApplicationData\appuriverifierinstall" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\ApplicationData\appuriverifierdaily" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Application Experience\StartupAppTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Application Experience\PcaPatchDbTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Customer Experience Improvement Program\Consolidator" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Customer Experience Improvement Program\HypervisorFlightingTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Customer Experience Improvement Program\Uploader" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Diagnosis\Scheduled" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DiskFootprint\Diagnostics" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DiskFootprint\StorageSense" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\ErrorDetails\EnableErrorDetailsUpdate" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Feedback\Siuf\DmClient" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\File Classification Infrastructure\Property Definition Sync" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Management\Provisioning\Logon" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Maps\MapsToastTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Maps\MapsUpdateTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Mobile Broadband Accounts\MNO Metadata Parser" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Multimedia\SystemSoundsService" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\NlaSvc\WiFiTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\NetCfg\BindingWorkItemQueueHandler" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\NetTrace\GatherNetworkInfo" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Offline Files\Background Synchronization" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Offline Files\Logon Synchronization" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Ras\MobilityManager" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\RemoteAssistance\RemoteAssistanceTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Servicing\StartComponentCleanup" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Shell\FamilySafetyRefresh" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\SpacePort\SpaceAgentTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\SpacePort\SpaceManagerTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Speech\SpeechModelDownloadTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\User Profile Service\HiveUploadTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WCM\WiFiTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Defender\Windows Defender Cache Maintenance" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Defender\Windows Defender Cleanup" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Defender\Windows Defender Scheduled Scan" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Defender\Windows Defender Verification" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Error Reporting\QueueReporting" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Filtering Platform\BfeOnServiceStartTypeChange" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Media Sharing\UpdateLibrary" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Wininet\CacheTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Work Folders\Work Folders Logon Synchronization" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Work Folders\Work Folders Maintenance Work" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Workplace Join\Automatic-Device-Join" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\XblGameSave\XblGameSaveTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\XblGameSave\XblGameSaveTaskLogon" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Office\OfficeTelemetryAgentFallBack2016" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Office\OfficeTelemetryAgentLogOn2016" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Office\Office ClickToRun Service Monitor" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Office\OfficeTelemetryAgentLogOn" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Office\OfficeTelemetryAgentFallBack" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Office\Office 15 Subscription Heartbeat" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\MemoryDiagnostic\ProcessMemoryDiagnosticEvents" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\MemoryDiagnostic\RunFullMemoryDiagnostic" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\HelloFace\FODCleanupTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Defrag\ScheduledDefrag" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Clip\License Validation" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator\Schedule Scan" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator\Schedule Scan Static Task" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator\UpdateModelTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator\USO_UxBroker" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator\Report policies" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator\UUS Failover Task" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator\Refresh Settings" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator\Schedule work" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator\Start Oobe Expedite Work" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator\StartOobeAppsScan" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator\StartOobeAppsScanAfterUpdate" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WindowsUpdate\Scheduled Start" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Device Information\Device" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Device Information\Device User" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\PerfTrack\BackgroundConfigSurveyor" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Location\Notifications" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Location\WindowsActionDialog" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Retail Demo\CleanupOfflineContent" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Shell\FamilySafetyRefreshTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UPnP\UPnPHostConfig" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WaaSMedic\PerformRemediation" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Time Zone\SynchronizeTimeZone" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Time Synchronization\SynchronizeTime" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Time Synchronization\ForceSynchronizeTime" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\StateRepository\MaintenanceTasks" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\SoftwareProtectionPlatform\SvcRestartTaskNetwork" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Shell\IndexerAutomaticMaintenance" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Registry\RegIdleBackup" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\PushToInstall\LoginCheck" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Printing\EduPrintProv" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\MUI\LPRemove" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Management\Provisioning\Cellular" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\InstallService\SmartRetry" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\InstallService\ScanForUpdatesAsUser" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\InstallService\ScanForUpdates" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DiskCleanup\SilentCleanup" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Device Setup\Metadata Refresh" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\BrokerInfrastructure\BgTaskRegistrationMaintenanceTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319 64" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319 64 Critical" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319 Critical" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DUSM\dusmtask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\EnterpriseMgmt\MDMMaintenenceTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Flighting\FeatureConfig\ReconcileFeatures" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Flighting\FeatureConfig\UsageDataFlushing" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Flighting\FeatureConfig\UsageDataReporting" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Flighting\OneSettings\RefreshCache" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Input\LocalUserSyncDataAvailable" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Input\MouseSyncDataAvailable" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Input\PenSyncDataAvailable" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Input\TouchpadSyncDataAvailable" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\International\Synchronize Language Settings" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\LanguageComponentsInstaller\Installation" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\LanguageComponentsInstaller\ReconcileLanguageResources" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\LanguageComponentsInstaller\Uninstallation" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\License Manager\TempSignedLicenseExchange" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Printing\PrinterCleanupTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\PushToInstall\Registration" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\RetailDemo\CleanupOfflineContent" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\SettingSync\NetworkStateChangeTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Setup\SetupCleanupTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Setup\SnapshotCleanupTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Storage Tiers Management\Storage Tiers Management Initialization" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Sysmain\ResPriStaticDbSync" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Sysmain\WsSwapAssessmentTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Task Manager\Interactive" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\TPM\Tpm-HASCertRetr" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\TPM\Tpm-Maintenance" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WDI\ResolutionHost" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WlanSvc\CDSSync" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WOF\WIM-Hash-Management" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WOF\WIM-Hash-Validation" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WwanSvc\NotificationTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WwanSvc\OobeDiscovery" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\MicrosoftEdgeUpdateTaskMachineUA" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\MicrosoftEdgeUpdateTaskMachineCore" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DirectX\DirectXDatabaseUpdater" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\BitLocker\BitLocker Encrypt All Drives" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\BitLocker\BitLocker MDM policy Refresh" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DirectX\DXGIAdapterCache" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\USB\Usb-Notifications" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DeviceDirectoryClient\IntegrityCheck" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\ExploitGuard\ExploitGuard MDM policy Refresh" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Chkdsk\SyspartRepair" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\AppID\EDPPolicyManager" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\AppListBackup\Backup" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Bluetooth\UninstallDeviceTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Chkdsk\ProactiveScan" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DeviceDirectoryClient\HandleCommand" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DeviceDirectoryClient\HandleWnsCommand" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DeviceDirectoryClient\LocateCommandUserSession" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceAccountChange" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DeviceDirectoryClient\RegisterDevicePolicyChange" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceProtectionStateChanged" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceSettingChange" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DeviceDirectoryClient\RegisterUserDevice" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\CertificateServicesClient\SystemTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\CertificateServicesClient\UserTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\CertificateServicesClient\UserTask-Roam" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\EDP\EDPAppLaunchTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\EDP\EDPAuthTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\EDP\EDPInaccessibleCredentialsTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\EDP\StorageCardEncryptionTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Shell\CreateObjectTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Shell\ThemesSyncedImageDownload" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Shell\UpdateUserPictureTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\TaskScheduler\Maintenance Configurator" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WindowsColorSystem\Calibration Loader" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Printing\PrintJobCleanupTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\InstallService\WakeUpAndContinueUpdates" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\InstallService\WakeUpAndScanForUpdates" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Input\InputSettingsRestoreDataAvailable" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Input\syncpensettings" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\RecoveryEnvironment\VerifyWinRE" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\CloudRestore\Backup" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\CloudRestore\Restore" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Security\Pwdless\IntelligentPwdlessTask" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Active Directory Rights Management Services Client\AD RMS Rights Policy Template Management (Manual)" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Data Integrity Scan\Data Integrity Check And Scan\Data Integrity Scan" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Data Integrity Scan\Data Integrity Check And Scan\Data Integrity Check And Scan" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Data Integrity Scan\Data Integrity Check And Scan\Data Integrity Scan for Crash Recovery" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\SystemRestore\SR" /f
-del /F /Q "C:\Windows\System32\Tasks\Microsoft\Windows\UpdateOrchestrator\*"
-del /F /Q "C:\Windows\System32\Tasks\Microsoft\Windows\WindowsUpdate\*"
+pushd "%~dp0"
+pushd ..\tools
+
+:: Disabled scheduled apps tasks
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Scan" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Scan Static Task" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\UpdateModelTask" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\USO_UxBroker" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Report policies" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\UUS Failover Task" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Refresh Settings" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule work" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Start Oobe Expedite Work" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\StartOobeAppsScan" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\StartOobeAppsScanAfterUpdate" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\StartOobeAppsScan_LicenseAccepted" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Wake To Work" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Maintenance Work" /f
+schtasks /delete /tn "Microsoft\Windows\WindowsUpdate\Scheduled Start" /f
+schtasks /delete /tn "Microsoft\Windows\Customer Experience Improvement Program\BthSQM" /f
+schtasks /delete /tn "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /f
+schtasks /delete /tn "Microsoft\Windows\Application Experience\ProgramDataUpdater" /f
+schtasks /delete /tn "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" /f
+schtasks /delete /tn "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticResolver" /f
+schtasks /delete /tn "Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem" /f
+schtasks /delete /tn "Microsoft\Windows\Shell\FamilySafetyMonitor" /f
+schtasks /delete /tn "Microsoft\Windows\Shell\FamilySafetyRefresh" /f
+schtasks /delete /tn "Microsoft\Windows\Shell\FamilySafetyUpload" /f
+schtasks /delete /tn "Microsoft\Windows\Autochk\Proxy" /f
+schtasks /delete /tn "Microsoft\Windows\Maintenance\WinSAT" /f
+schtasks /delete /tn "Microsoft\Windows\Application Experience\AitAgent" /f
+schtasks /delete /tn "Microsoft\Windows\CloudExperienceHost\CreateObjectTask" /f
+schtasks /delete /tn "Microsoft\Windows\FileHistory\File History (maintenance mode)" /f
+schtasks /delete /tn "Microsoft\Windows\PI\Sqm-Tasks" /f
+schtasks /delete /tn "Microsoft\Windows\AppID\SmartScreenSpecific" /f
+schtasks /delete /tn "Microsoft\Windows\SettingSync\BackgroundUploadTask" /f
+schtasks /delete /tn "Microsoft\Windows\ApplicationData\CleanupTemporaryState" /f
+schtasks /delete /tn "Microsoft\Windows\ApplicationData\DsSvcCleanup" /f
+schtasks /delete /tn "Microsoft\Windows\ApplicationData\appuriverifierinstall" /f
+schtasks /delete /tn "Microsoft\Windows\ApplicationData\appuriverifierdaily" /f
+schtasks /delete /tn "Microsoft\Windows\Application Experience\StartupAppTask" /f
+schtasks /delete /tn "Microsoft\Windows\Application Experience\PcaPatchDbTask" /f
+schtasks /delete /tn "Microsoft\Windows\Customer Experience Improvement Program\Consolidator" /f
+schtasks /delete /tn "Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask" /f
+schtasks /delete /tn "Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" /f
+schtasks /delete /tn "Microsoft\Windows\Customer Experience Improvement Program\HypervisorFlightingTask" /f
+schtasks /delete /tn "Microsoft\Windows\Customer Experience Improvement Program\Uploader" /f
+schtasks /delete /tn "Microsoft\Windows\Diagnosis\Scheduled" /f
+schtasks /delete /tn "Microsoft\Windows\DiskFootprint\Diagnostics" /f
+schtasks /delete /tn "Microsoft\Windows\DiskFootprint\StorageSense" /f
+schtasks /delete /tn "Microsoft\Windows\ErrorDetails\EnableErrorDetailsUpdate" /f
+schtasks /delete /tn "Microsoft\Windows\Feedback\Siuf\DmClient" /f
+schtasks /delete /tn "Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload" /f
+schtasks /delete /tn "Microsoft\Windows\File Classification Infrastructure\Property Definition Sync" /f
+schtasks /delete /tn "Microsoft\Windows\Management\Provisioning\Logon" /f
+schtasks /delete /tn "Microsoft\Windows\Maps\MapsToastTask" /f
+schtasks /delete /tn "Microsoft\Windows\Maps\MapsUpdateTask" /f
+schtasks /delete /tn "Microsoft\Windows\Mobile Broadband Accounts\MNO Metadata Parser" /f
+schtasks /delete /tn "Microsoft\Windows\Multimedia\SystemSoundsService" /f
+schtasks /delete /tn "Microsoft\Windows\NlaSvc\WiFiTask" /f
+schtasks /delete /tn "Microsoft\Windows\NetCfg\BindingWorkItemQueueHandler" /f
+schtasks /delete /tn "Microsoft\Windows\NetTrace\GatherNetworkInfo" /f
+schtasks /delete /tn "Microsoft\Windows\Offline Files\Background Synchronization" /f
+schtasks /delete /tn "Microsoft\Windows\Offline Files\Logon Synchronization" /f
+schtasks /delete /tn "Microsoft\Windows\Ras\MobilityManager" /f
+schtasks /delete /tn "Microsoft\Windows\RemoteAssistance\RemoteAssistanceTask" /f
+schtasks /delete /tn "Microsoft\Windows\Servicing\StartComponentCleanup" /f
+schtasks /delete /tn "Microsoft\Windows\SpacePort\SpaceAgentTask" /f
+schtasks /delete /tn "Microsoft\Windows\SpacePort\SpaceManagerTask" /f
+schtasks /delete /tn "Microsoft\Windows\Speech\SpeechModelDownloadTask" /f
+schtasks /delete /tn "Microsoft\Windows\User Profile Service\HiveUploadTask" /f
+schtasks /delete /tn "Microsoft\Windows\WCM\WiFiTask" /f
+schtasks /delete /tn "Microsoft\Windows\Windows Defender\Windows Defender Cache Maintenance" /f
+schtasks /delete /tn "Microsoft\Windows\Windows Defender\Windows Defender Cleanup" /f
+schtasks /delete /tn "Microsoft\Windows\Windows Defender\Windows Defender Scheduled Scan" /f
+schtasks /delete /tn "Microsoft\Windows\Windows Defender\Windows Defender Verification" /f
+schtasks /delete /tn "Microsoft\Windows\Windows Error Reporting\QueueReporting" /f
+schtasks /delete /tn "Microsoft\Windows\Windows Filtering Platform\BfeOnServiceStartTypeChange" /f
+schtasks /delete /tn "Microsoft\Windows\Windows Media Sharing\UpdateLibrary" /f
+schtasks /delete /tn "Microsoft\Windows\Wininet\CacheTask" /f
+schtasks /delete /tn "Microsoft\Windows\Work Folders\Work Folders Logon Synchronization" /f
+schtasks /delete /tn "Microsoft\Windows\Work Folders\Work Folders Maintenance Work" /f
+schtasks /delete /tn "Microsoft\Windows\Workplace Join\Automatic-Device-Join" /f
+schtasks /delete /tn "Microsoft\XblGameSave\XblGameSaveTask" /f
+schtasks /delete /tn "Microsoft\XblGameSave\XblGameSaveTaskLogon" /f
+schtasks /delete /tn "Driver Easy Scheduled Scan" /f
+schtasks /delete /tn "Microsoft\Office\OfficeTelemetryAgentFallBack2016" /f
+schtasks /delete /tn "Microsoft\Office\OfficeTelemetryAgentLogOn2016" /f
+schtasks /delete /tn "Microsoft\Office\Office ClickToRun Service Monitor" /f
+schtasks /delete /tn "Microsoft\Office\OfficeTelemetryAgentLogOn" /f
+schtasks /delete /tn "Microsoft\Office\OfficeTelemetryAgentFallBack" /f
+schtasks /delete /tn "Microsoft\Office\Office 15 Subscription Heartbeat" /f
+schtasks /delete /tn "Microsoft\Windows\MemoryDiagnostic\ProcessMemoryDiagnosticEvents" /f
+schtasks /delete /tn "Microsoft\Windows\MemoryDiagnostic\RunFullMemoryDiagnostic" /f
+schtasks /delete /tn "Microsoft\Windows\HelloFace\FODCleanupTask" /f
+schtasks /delete /tn "Microsoft\Windows\Defrag\ScheduledDefrag" /f
+schtasks /delete /tn "Microsoft\Windows\Clip\License Validation" /f
+schtasks /delete /tn "Microsoft\Windows\Device Information\Device" /f
+schtasks /delete /tn "Microsoft\Windows\Device Information\Device User" /f
+schtasks /delete /tn "Microsoft\Windows\PerfTrack\BackgroundConfigSurveyor" /f
+schtasks /delete /tn "Microsoft\Windows\Location\Notifications" /f
+schtasks /delete /tn "Microsoft\Windows\Location\WindowsActionDialog" /f
+schtasks /delete /tn "Microsoft\Windows\Retail Demo\CleanupOfflineContent" /f
+schtasks /delete /tn "Microsoft\Windows\Shell\FamilySafetyRefreshTask" /f
+schtasks /delete /tn "Microsoft\Windows\UPnP\UPnPHostConfig" /f
+schtasks /delete /tn "Microsoft\Windows\WaaSMedic\PerformRemediation" /f
+schtasks /delete /tn "Microsoft\Windows\Time Zone\SynchronizeTimeZone" /f
+schtasks /delete /tn "Microsoft\Windows\Time Synchronization\SynchronizeTime" /f
+schtasks /delete /tn "Microsoft\Windows\Time Synchronization\ForceSynchronizeTime" /f
+schtasks /delete /tn "Microsoft\Windows\StateRepository\MaintenanceTasks" /f
+schtasks /delete /tn "Microsoft\Windows\SoftwareProtectionPlatform\SvcRestartTaskNetwork" /f
+schtasks /delete /tn "Microsoft\Windows\Shell\IndexerAutomaticMaintenance" /f
+schtasks /delete /tn "Microsoft\Windows\Registry\RegIdleBackup" /f
+schtasks /delete /tn "Microsoft\Windows\PushToInstall\LoginCheck" /f
+schtasks /delete /tn "Microsoft\Windows\Printing\EduPrintProv" /f
+schtasks /delete /tn "Microsoft\Windows\MUI\LPRemove" /f
+schtasks /delete /tn "Microsoft\Windows\Management\Provisioning\Cellular" /f
+schtasks /delete /tn "Microsoft\Windows\InstallService\SmartRetry" /f
+schtasks /delete /tn "Microsoft\Windows\InstallService\ScanForUpdatesAsUser" /f
+schtasks /delete /tn "Microsoft\Windows\InstallService\ScanForUpdates" /f
+schtasks /delete /tn "Microsoft\Windows\DiskCleanup\SilentCleanup" /f
+schtasks /delete /tn "Microsoft\Windows\Device Setup\Metadata Refresh" /f
+schtasks /delete /tn "Microsoft\Windows\BrokerInfrastructure\BgTaskRegistrationMaintenanceTask" /f
+schtasks /delete /tn "AMDInstallLauncher" /f
+schtasks /delete /tn "AMDLinkUpdate" /f
+schtasks /delete /tn "AMDRyzenMasterSDKTask" /f
+schtasks /delete /tn "DUpdaterTask" /f
+schtasks /delete /tn "ModifyLinkUpdate" /f
+schtasks /delete /tn "Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319" /f
+schtasks /delete /tn "Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319 64" /f
+schtasks /delete /tn "Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319 64 Critical" /f
+schtasks /delete /tn "Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319 Critical" /f
+schtasks /delete /tn "Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner" /f
+schtasks /delete /tn "Microsoft\Windows\DUSM\dusmtask" /f
+schtasks /delete /tn "Microsoft\Windows\EnterpriseMgmt\MDMMaintenenceTask" /f
+schtasks /delete /tn "Microsoft\Windows\Flighting\FeatureConfig\ReconcileFeatures" /f
+schtasks /delete /tn "Microsoft\Windows\Flighting\FeatureConfig\UsageDataFlushing" /f
+schtasks /delete /tn "Microsoft\Windows\Flighting\FeatureConfig\UsageDataReporting" /f
+schtasks /delete /tn "Microsoft\Windows\Flighting\OneSettings\RefreshCache" /f
+schtasks /delete /tn "Microsoft\Windows\Input\LocalUserSyncDataAvailable" /f
+schtasks /delete /tn "Microsoft\Windows\Input\MouseSyncDataAvailable" /f
+schtasks /delete /tn "Microsoft\Windows\Input\PenSyncDataAvailable" /f
+schtasks /delete /tn "Microsoft\Windows\Input\TouchpadSyncDataAvailable" /f
+schtasks /delete /tn "Microsoft\Windows\International\Synchronize Language Settings" /f
+schtasks /delete /tn "Microsoft\Windows\LanguageComponentsInstaller\Installation" /f
+schtasks /delete /tn "Microsoft\Windows\LanguageComponentsInstaller\ReconcileLanguageResources" /f
+schtasks /delete /tn "Microsoft\Windows\LanguageComponentsInstaller\Uninstallation" /f
+schtasks /delete /tn "Microsoft\Windows\License Manager\TempSignedLicenseExchange" /f
+schtasks /delete /tn "Microsoft\Windows\Printing\PrinterCleanupTask" /f
+schtasks /delete /tn "Microsoft\Windows\PushToInstall\Registration" /f
+schtasks /delete /tn "Microsoft\Windows\RetailDemo\CleanupOfflineContent" /f
+schtasks /delete /tn "Microsoft\Windows\SettingSync\NetworkStateChangeTask" /f
+schtasks /delete /tn "Microsoft\Windows\Setup\SetupCleanupTask" /f
+schtasks /delete /tn "Microsoft\Windows\Setup\SnapshotCleanupTask" /f
+schtasks /delete /tn "Microsoft\Windows\Storage Tiers Management\Storage Tiers Management Initialization" /f
+schtasks /delete /tn "Microsoft\Windows\Sysmain\ResPriStaticDbSync" /f
+schtasks /delete /tn "Microsoft\Windows\Sysmain\WsSwapAssessmentTask" /f
+schtasks /delete /tn "Microsoft\Windows\Task Manager\Interactive" /f
+schtasks /delete /tn "Microsoft\Windows\TPM\Tpm-HASCertRetr" /f
+schtasks /delete /tn "Microsoft\Windows\TPM\Tpm-Maintenance" /f
+schtasks /delete /tn "Microsoft\Windows\WDI\ResolutionHost" /f
+schtasks /delete /tn "Microsoft\Windows\WlanSvc\CDSSync" /f
+schtasks /delete /tn "Microsoft\Windows\WOF\WIM-Hash-Management" /f
+schtasks /delete /tn "Microsoft\Windows\WOF\WIM-Hash-Validation" /f
+schtasks /delete /tn "Microsoft\Windows\WwanSvc\NotificationTask" /f
+schtasks /delete /tn "Microsoft\Windows\WwanSvc\OobeDiscovery" /f
+schtasks /delete /tn "MicrosoftEdgeUpdateTaskMachineUA" /f
+schtasks /delete /tn "MicrosoftEdgeUpdateTaskMachineCore" /f
+schtasks /delete /tn "Microsoft\Windows\DirectX\DirectXDatabaseUpdater" /f
+schtasks /delete /tn "Microsoft\Windows\BitLocker\BitLocker Encrypt All Drives" /f
+schtasks /delete /tn "Microsoft\Windows\BitLocker\BitLocker MDM policy Refresh" /f
+schtasks /delete /tn "Microsoft\Windows\DirectX\DXGIAdapterCache" /f
+schtasks /delete /tn "Microsoft\Windows\USB\Usb-Notifications" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\IntegrityCheck" /f
+schtasks /delete /tn "Microsoft\Windows\ExploitGuard\ExploitGuard MDM policy Refresh" /f
+schtasks /delete /tn "Microsoft\Windows\Chkdsk\SyspartRepair" /f
+schtasks /delete /tn "Microsoft\Windows\AppID\EDPPolicyManager" /f
+schtasks /delete /tn "Microsoft\Windows\AppListBackup\Backup" /f
+schtasks /delete /tn "Microsoft\Windows\Bluetooth\UninstallDeviceTask" /f
+schtasks /delete /tn "Microsoft\Windows\Chkdsk\ProactiveScan" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\HandleCommand" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\HandleWnsCommand" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\LocateCommandUserSession" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceAccountChange" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\RegisterDevicePolicyChange" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceProtectionStateChanged" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceSettingChange" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\RegisterUserDevice" /f
+schtasks /delete /tn "Microsoft\Windows\CertificateServicesClient\SystemTask" /f
+schtasks /delete /tn "Microsoft\Windows\CertificateServicesClient\UserTask" /f
+schtasks /delete /tn "Microsoft\Windows\CertificateServicesClient\UserTask-Roam" /f
+schtasks /delete /tn "Microsoft\Windows\EDP\EDPAppLaunchTask" /f
+schtasks /delete /tn "Microsoft\Windows\EDP\EDPAuthTask" /f
+schtasks /delete /tn "Microsoft\Windows\EDP\EDPInaccessibleCredentialsTask" /f
+schtasks /delete /tn "Microsoft\Windows\EDP\StorageCardEncryptionTask" /f
+schtasks /delete /tn "Microsoft\Windows\Shell\CreateObjectTask" /f
+schtasks /delete /tn "Microsoft\Windows\Shell\ThemesSyncedImageDownload" /f
+schtasks /delete /tn "Microsoft\Windows\Shell\UpdateUserPictureTask" /f
+schtasks /delete /tn "Microsoft\Windows\TaskScheduler\Maintenance Configurator" /f
+schtasks /delete /tn "Microsoft\Windows\WindowsColorSystem\Calibration Loader" /f
+schtasks /delete /tn "Microsoft\Windows\Printing\PrintJobCleanupTask" /f
+schtasks /delete /tn "Microsoft\Windows\InstallService\WakeUpAndContinueUpdates" /f
+schtasks /delete /tn "Microsoft\Windows\InstallService\WakeUpAndScanForUpdates" /f
+schtasks /delete /tn "Microsoft\Windows\Input\InputSettingsRestoreDataAvailable" /f
+schtasks /delete /tn "Microsoft\Windows\Input\syncpensettings" /f
+schtasks /change /tn "CreateExplorerShellUnelevatedTask" /enable
+schtasks /change /tn "Microsoft\Windows\TextServicsFramework\MsCtfMonitor" /enable
 del /F /Q "C:\Windows\System32\Tasks\Microsoft\Windows\SettingSync\*"
 
 :: Intel Drivers
@@ -451,9 +454,11 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\Dnscache" /v "Start" /t REG_DWOR
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CDPSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CDPUserSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\VSS" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\pcw" /v "Start" /t REG_DWORD /d "4" /f
 
 ::Image File Execution Options
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\taskmgr.exe" /v "Debugger" /t REG_SZ /d "C:\TOOLS\SYSINTERNALSSUITE\PROCEXP64.EXE" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\chrome.exe" /v "MitigationAuditOptions" /t REG_BINARY /d "222222222222222222222222222222222222222222222222" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\chrome.exe" /v "MitigationOptions" /t REG_BINARY /d "222222222222222222222222222222222222222222222222" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csgo.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "3" /f
@@ -528,7 +533,6 @@ del /f /q /s "C:\Windows\System32\AggregatorHost.exe"
 del /f /q /s "C:\Windows\System32\DeviceCensus.exe"
 del /f /q /s "C:\Windows\System32\microsoft-windows-sleepstudy-events.dll"
 del /f /q /s "C:\Users\Administrator\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\*.*"
-del /f /q /s "C:\Windows\System32\winevt\Logs\*.*"
 taskkill /f /im SearchApp.exe
 taskkill /f /im SearchApp.exe
 ren C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchHost.exe SearchHost_old.exe
