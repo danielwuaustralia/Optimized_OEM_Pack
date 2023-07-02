@@ -454,7 +454,6 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\Dnscache" /v "Start" /t REG_DWOR
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CDPSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CDPUserSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\VSS" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\pcw" /v "Start" /t REG_DWORD /d "4" /f
 
 ::Image File Execution Options
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options" /f
@@ -533,6 +532,10 @@ del /f /q /s "C:\Windows\System32\AggregatorHost.exe"
 del /f /q /s "C:\Windows\System32\DeviceCensus.exe"
 del /f /q /s "C:\Windows\System32\microsoft-windows-sleepstudy-events.dll"
 del /f /q /s "C:\Users\Administrator\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\*.*"
+del /q "C:\Windows\Containers\*"
+for /d %%x in ("C:\Windows\Containers\*") do @rd /s /q "%%x"
+del /q "C:\Windows\WinSxS\Temp\*"
+for /d %%x in ("C:\Windows\WinSxS\Temp\*") do @rd /s /q "%%x"
 taskkill /f /im SearchApp.exe
 taskkill /f /im SearchApp.exe
 ren C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchHost.exe SearchHost_old.exe
