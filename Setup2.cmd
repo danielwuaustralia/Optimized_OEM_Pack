@@ -230,6 +230,10 @@ reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\UserMessaging" /v "UrlbarInterve
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\UserMessaging" /v "SkipOnboarding" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Mozilla\Firefox\UserMessaging" /v "MoreFromMozilla" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\7-Zip\Options" /v "CascadedMenu" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Sysinternals\Process Explorer" /v "EulaAccepted" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Sysinternals\Process Explorer" /v "AlwaysOntop" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Sysinternals\Process Explorer" /v "OneInstance" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Sysinternals\Process Explorer" /v "ConfirmKill" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "C:\Steam\steamapps\common\Counter-Strike Global Offensive\csgo.exe" /t REG_SZ /d "~ DISABLEDXMAXIMIZEDWINDOWEDMODE DISABLEDWM" /f
 
 :: performance
@@ -1858,19 +1862,24 @@ reg add "HKLM\Software\Classes\WMP11.AssocFile.WVX\shell\Enqueue" /v "LegacyDisa
 net stop ClipSVC
 net start ClipSVC
 slmgr -ato
-rmdir /s /q "C:\ProgramData\Package Cache"
-rmdir /s /q "C:\Users\Administrator\Recent"
-rmdir /s /q "C:\Windows\Prefetch"
-rmdir /s /q "C:\Windows\Temp"
+del /q "C:\ProgramData\Package Cache\*"
+for /d %%x in ("C:\ProgramData\Package Cache\*") do @rd /s /q "%%x"
+del /q "C:\Users\Administrator\Recent\*"
+for /d %%x in ("C:\Users\Administrator\Recent\*") do @rd /s /q "%%x"
+del /q "C:\Windows\Prefetch\*"
+for /d %%x in ("C:\Windows\Prefetch\*") do @rd /s /q "%%x"
+del /q "C:\Windows\Temp\*"
+for /d %%x in ("C:\Windows\Temp\*") do @rd /s /q "%%x"
+del /q "C:\Windows\System32\winevt\Logs\*"
+for /d %%x in ("C:\Windows\System32\winevt\Logs\*") do @rd /s /q "%%x"
 move "C:\TEMP\SetTimerResolution.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
 move "C:\TEMP\RunRealHidden.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
 move "C:\TEMP\CleanUp.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
 start /b /wait C:\TEMP\IDMan.exe /s /q
 start /b /wait C:\Tools\NVidiaProfileInspector\nvidiaProfileInspector.exe
-start /b /wait C:\TEMP\NVIDIA_Power_Management_v2.6.4.90_Setup_20230701.exe
+start /b /wait C:\TEMP\NVIDIA_Power_Management_v2.6.8.30_Setup_20230701.exe
 start /b /wait C:\TEMP\ColorControl\ColorControl.exe
-:: start /b /wait C:\Windows\System32\PowerRun.exe cmd.exe /c C:\TEMP\Setup3.cmd
+start /b /wait C:\TEMP\Startallback.exe
 "C:\Windows\System32\MinSudo.exe" --NoLogo --System --Verbose --TrustedInstaller --Privileged cmd /c C:\TEMP\Setup3.cmd
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "1" /t REG_SZ /d "C:\Tools\Startallback.exe" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "2" /t REG_SZ /d "C:\Tools\IDM-pawel97.exe" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "3" /t REG_SZ /d "C:\Tools\WinSxSCleanup.cmd" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "1" /t REG_SZ /d "C:\Tools\IDM-pawel97.exe" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "2" /t REG_SZ /d "C:\Tools\WinSxSCleanup.cmd" /f
