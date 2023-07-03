@@ -530,6 +530,7 @@ del /f /q /s "C:\Windows\System32\mobsync.exe"
 del /f /q /s "C:\Windows\SysWOW64\mobsync.exe"
 del /f /q /s "C:\Windows\System32\AggregatorHost.exe"
 del /f /q /s "C:\Windows\System32\DeviceCensus.exe"
+del /f /q /s "C:\Windows\System32\SIHClient.exe"
 del /f /q /s "C:\Windows\System32\microsoft-windows-sleepstudy-events.dll"
 del /f /q /s "C:\Users\Administrator\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\*.*"
 del /q "C:\Windows\Containers\*"
@@ -540,3 +541,14 @@ taskkill /f /im SearchApp.exe
 taskkill /f /im SearchApp.exe
 ren C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchHost.exe SearchHost_old.exe
 ren C:\Windows\System32\mcupdate_GenuineIntel.dll mcupdate_GenuineIntel_old.dll
+del /f /q /s "C:\Windows\Boot\Fonts\cht_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\jpn_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\kor_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\malgunn_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\malgun_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\malgun_console.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\meiryon_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\meiryo_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\msjhn_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\msjh_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\msyhn_boot.ttf"
