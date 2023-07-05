@@ -1,6 +1,6 @@
 ########################################################快捷方式后缀########################################################
 
---force-local-ntp --disable-crash-reporter --disable-breakpad --disable-logging --no-report-upload --trace-upload-url="0.0.0.0" --crash-server-url="0.0.0.0"
+--force-local-ntp --disable-crash-reporter --disable-breakpad --disable-logging --no-report-upload --enable-gpu-rasterization
 
 #######################################################     禁用　########################################################
 
@@ -24,6 +24,8 @@ download-bubble
 
 ##################################################       开启       ########################################################
 
+#ignore-gpu-blocklist
+
 #enable-webrtc-hide-local-ips-with-mdns
 
 #enable-parallel-downloading
@@ -32,9 +34,7 @@ download-bubble
 
 #encrypted-client-hello
 
-#canvas-oop-rasterization
-
-#enable-gpu-rasterization
+Rasterization
 
 ##################################################       更换       ########################################################
 
