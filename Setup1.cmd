@@ -144,6 +144,7 @@ reg unload HKLM\NTUSER
 del /f /q /s "C:\Windows\System32\OneDriveSetup.exe"
 del /f /q /s "C:\Windows\SysWOW64\OneDriveSettingSyncProvider.dll"
 reg delete "HKCU\Environment" /v "OneDrive" /f
+del /f /q /s "C:\Windows\System32\Recovery\Winre.wim"
 
 :: remove Defender
 taskkill /f /im smartscreen.exe
