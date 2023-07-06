@@ -144,7 +144,25 @@ reg unload HKLM\NTUSER
 del /f /q /s "C:\Windows\System32\OneDriveSetup.exe"
 del /f /q /s "C:\Windows\SysWOW64\OneDriveSettingSyncProvider.dll"
 reg delete "HKCU\Environment" /v "OneDrive" /f
-del /f /q /s "C:\Windows\System32\Recovery\Winre.wim"
+ren C:\Windows\System32\mcupdate_GenuineIntel.dll mcupdate_GenuineIntel_old.dll
+del /f /q /s "C:\Windows\Boot\Fonts\cht_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\jpn_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\kor_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\malgunn_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\malgun_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\malgun_console.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\meiryon_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\meiryo_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\msjhn_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\msjh_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\msyhn_boot.ttf"
+del /f /q /s "C:\Windows\System32\mobsync.exe"
+del /f /q /s "C:\Windows\SysWOW64\mobsync.exe"
+del /f /q /s "C:\Windows\System32\AggregatorHost.exe"
+del /f /q /s "C:\Windows\System32\DeviceCensus.exe"
+del /f /q /s "C:\Windows\System32\microsoft-windows-sleepstudy-events.dll"
+rmdir "C:\Windows\Containers" /s /q
+rmdir "C:\Windows\WinSxS\Temp" /s /q
 
 :: remove Defender
 taskkill /f /im smartscreen.exe
@@ -504,6 +522,19 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "S
 :: Turn On MSI Mode
 powershell -nop -ep bypass -file "C:\TEMP\interrupt_affinity_auto.ps1"
 
+:: winsxs cleanup
+for %%z in (
+ar-SA,bg-BG,ca-ES,cs-CZ,da-DK,de-DE,el-GR,en-GB,es-ES,es-MX,et-EE,eu-ES,fi-FI,fr-CA,fr-FR,gl-ES,he-IL,hr-HR,hu-HU,id-ID,it-IT,ja-JP,ko-KR,lt-LT,lv-LV,nb-NO,nl-NL,pl-PL,pt-BR,pt-PT,ro-RO,ru-RU,sk-SK,sl-SI,sr-Latn-RS,sv-SE,th-TH,tr-TR,uk-UA,vi-VN,zh-TW
+) do (
+powershell -nop -ep bypass -c "Remove-Item -Path 'C:\Windows\WinSxS\*%%z*' -Recurse -Force -EA 0 -Verbose"
+powershell -nop -ep bypass -c "Remove-Item -Path 'C:\Windows\WinSxS\*\*%%z*' -Recurse -Force -EA 0 -Verbose"
+powershell -nop -ep bypass -c "Remove-Item -Path 'C:\Windows\System32\%%z' -Recurse -Force -EA 0 -Verbose"
+powershell -nop -ep bypass -c "Remove-Item -Path 'C:\Windows\SysWOW64\%%z' -Recurse -Force -EA 0 -Verbose"
+powershell -nop -ep bypass -c "Remove-Item -Path 'C:\Windows\Boot\EFI\%%z' -Recurse -Force -EA 0 -Verbose"
+powershell -nop -ep bypass -c "Remove-Item -Path 'C:\Windows\Boot\PCAT\%%z' -Recurse -Force -EA 0 -Verbose"
+powershell -nop -ep bypass -c "Remove-Item -Path 'C:\Program Files\Common Files\microsoft shared\ink\%%z' -Recurse -Force -EA 0 -Verbose"
+)
+
 :: no DMA Remaping
 for /f "tokens=1" %%i in ('driverquery') do REG ADD "HKLM\SYSTEM\CurrentControlSet\Services\%%i\Parameters" /v "DmaRemappingCompatible" /t REG_DWORD /d "0" /f
 
@@ -571,19 +602,6 @@ Microsoft.Windows.XGpuEjectDialog
 Windows.PrintDialog
 ) do (
   for /f %%a in ('reg query "%InboxApplications%" /f %%i /k ^| find /i "InboxApplications"') do if not errorlevel 1 (reg delete %%a /f)
-)
-
-:: winsxs cleanup
-for %%z in (
-ar-SA,bg-BG,ca-ES,cs-CZ,da-DK,de-DE,el-GR,en-GB,es-ES,es-MX,et-EE,eu-ES,fi-FI,fr-CA,fr-FR,gl-ES,he-IL,hr-HR,hu-HU,id-ID,it-IT,ja-JP,ko-KR,lt-LT,lv-LV,nb-NO,nl-NL,pl-PL,pt-BR,pt-PT,ro-RO,ru-RU,sk-SK,sl-SI,sr-Latn-RS,sv-SE,th-TH,tr-TR,uk-UA,vi-VN,zh-TW
-) do (
-powershell -nop -ep bypass -c "Remove-Item -Path 'C:\Windows\WinSxS\*%%z*' -Recurse -Force -EA 0 -Verbose"
-powershell -nop -ep bypass -c "Remove-Item -Path 'C:\Windows\WinSxS\*\*%%z*' -Recurse -Force -EA 0 -Verbose"
-powershell -nop -ep bypass -c "Remove-Item -Path 'C:\Windows\System32\%%z' -Recurse -Force -EA 0 -Verbose"
-powershell -nop -ep bypass -c "Remove-Item -Path 'C:\Windows\SysWOW64\%%z' -Recurse -Force -EA 0 -Verbose"
-powershell -nop -ep bypass -c "Remove-Item -Path 'C:\Windows\Boot\EFI\%%z' -Recurse -Force -EA 0 -Verbose"
-powershell -nop -ep bypass -c "Remove-Item -Path 'C:\Windows\Boot\PCAT\%%z' -Recurse -Force -EA 0 -Verbose"
-powershell -nop -ep bypass -c "Remove-Item -Path 'C:\Program Files\Common Files\microsoft shared\ink\%%z' -Recurse -Force -EA 0 -Verbose"
 )
 
 :: Special PC Config
