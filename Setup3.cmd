@@ -4,11 +4,10 @@ chcp 65001>nul
 setlocal enabledelayedexpansion
 setlocal enableextensions
 
-:: remove most tasks
-pushd "%~dp0"
-pushd ..\tools
-
 :: Disabled scheduled apps tasks
+schtasks /change /tn "CreateExplorerShellUnelevatedTask" /enable
+schtasks /change /tn "Microsoft\Windows\TextServicsFramework\MsCtfMonitor" /enable
+del /F /Q "C:\Windows\System32\Tasks\Microsoft\Windows\SettingSync\*"
 schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Scan" /f
 schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Scan Static Task" /f
 schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\UpdateModelTask" /f
@@ -210,9 +209,22 @@ schtasks /delete /tn "Microsoft\Windows\InstallService\WakeUpAndContinueUpdates"
 schtasks /delete /tn "Microsoft\Windows\InstallService\WakeUpAndScanForUpdates" /f
 schtasks /delete /tn "Microsoft\Windows\Input\InputSettingsRestoreDataAvailable" /f
 schtasks /delete /tn "Microsoft\Windows\Input\syncpensettings" /f
-schtasks /change /tn "CreateExplorerShellUnelevatedTask" /enable
-schtasks /change /tn "Microsoft\Windows\TextServicsFramework\MsCtfMonitor" /enable
-del /F /Q "C:\Windows\System32\Tasks\Microsoft\Windows\SettingSync\*"
+schtasks /delete /tn "Microsoft\Windows\Active Directory Rights Management Services Client\AD RMS Rights Policy Template Management (Automated)" /f
+schtasks /delete /tn "Microsoft\Windows\Active Directory Rights Management Services Client\AD RMS Rights Policy Template Management (Manual)" /f
+schtasks /delete /tn "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser Exp" /f
+schtasks /delete /tn "Microsoft\Windows\AppxDeploymentClient\Pre-staged app cleanup" /f
+schtasks /delete /tn "Microsoft\Windows\CloudRestore\Restore" /f
+schtasks /delete /tn "Microsoft\Windows\Data Integrity Scan\Data Integrity Check And Scan" /f
+schtasks /delete /tn "Microsoft\Windows\Data Integrity Scan\Data Integrity Scan" /f
+schtasks /delete /tn "Microsoft\Windows\Data Integrity Scan\Data Integrity Scan for Crash Recovery" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceLocationRightsChange" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\RegisterDevicePeriodic24" /f
+schtasks /delete /tn "Microsoft\Windows\EDP\EDP App Launch Task" /f
+schtasks /delete /tn "Microsoft\Windows\EDP\EDP Auth Task" /f
+schtasks /delete /tn "Microsoft\Windows\EDP\EDP Inaccessible Credentials Task" /f
+schtasks /delete /tn "Microsoft\Windows\EDP\StorageCardEncryption Task" /f
+schtasks /delete /tn "Microsoft\Windows\PI\SecureBootEncodeUEFI" /f
+schtasks /delete /tn "Microsoft\Windows\PI\Secure-Boot-Update" /f
 
 :: Intel Drivers
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\iai2c" /v "Start" /t REG_DWORD /d "4" /f
@@ -509,8 +521,16 @@ for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SYSTEM\CurrentControlSet\Co
 for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger" /s /f "Start"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Start" /t REG_DWORD /d "0" /f
 for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT" /s /f "Enabled"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Enabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\EventLog" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "BufferSize" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "FileCounter" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "FileMax" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MaxFileSize" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MinimumBuffers" /t REG_DWORD /d "1" /f
 
 :: others
+powershell -nop -ep bypass -c "Set-AutologgerConfig -Name 'Diagtrack-Listener' -Start 0"
+rmdir "C:\Windows\System32\LogFiles\WMI" /s /q
+rmdir "C:\Windows\System32\WDI\LogFiles" /s /q
 reg add "HKLM\SOFTWARE\Classes\AppID\slui.exe" /v "NoGenTicket" /t REG_DWORD /d "1" /f
 reg delete "HKCR\exefile\shell\WindowsFirewall" /f
 reg delete "HKCR\DesktopBackground\Shell\Firewall" /f
@@ -524,31 +544,9 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicin
 rmdir "C:\Program Files (x86)\Microsoft" /s /q
 del /f /q /s "C:\Windows\System32\wuaueng.dll"
 del /f /q /s "C:\Windows\System32\usosvc.dll"
-del /f /q /s "C:\Windows\System32\mobsync.exe"
-del /f /q /s "C:\Windows\SysWOW64\mobsync.exe"
-del /f /q /s "C:\Windows\System32\AggregatorHost.exe"
-del /f /q /s "C:\Windows\System32\DeviceCensus.exe"
 del /f /q /s "C:\Windows\System32\SIHClient.exe"
-del /f /q /s "C:\Windows\System32\microsoft-windows-sleepstudy-events.dll"
 del /f /q /s "C:\Users\Administrator\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\*.*"
-del /q "C:\Windows\Containers\*"
-for /d %%x in ("C:\Windows\Containers\*") do @rd /s /q "%%x"
-del /q "C:\Windows\WinSxS\Temp\*"
-for /d %%x in ("C:\Windows\WinSxS\Temp\*") do @rd /s /q "%%x"
-del /q "C:\Windows\System32\WDI\LogFiles\*"
-for /d %%x in ("C:\Windows\System32\WDI\LogFiles\*") do @rd /s /q "%%x"
 taskkill /f /im SearchApp.exe
 taskkill /f /im SearchApp.exe
 ren C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchHost.exe SearchHost_old.exe
-ren C:\Windows\System32\mcupdate_GenuineIntel.dll mcupdate_GenuineIntel_old.dll
-del /f /q /s "C:\Windows\Boot\Fonts\cht_boot.ttf"
-del /f /q /s "C:\Windows\Boot\Fonts\jpn_boot.ttf"
-del /f /q /s "C:\Windows\Boot\Fonts\kor_boot.ttf"
-del /f /q /s "C:\Windows\Boot\Fonts\malgunn_boot.ttf"
-del /f /q /s "C:\Windows\Boot\Fonts\malgun_boot.ttf"
-del /f /q /s "C:\Windows\Boot\Fonts\malgun_console.ttf"
-del /f /q /s "C:\Windows\Boot\Fonts\meiryon_boot.ttf"
-del /f /q /s "C:\Windows\Boot\Fonts\meiryo_boot.ttf"
-del /f /q /s "C:\Windows\Boot\Fonts\msjhn_boot.ttf"
-del /f /q /s "C:\Windows\Boot\Fonts\msjh_boot.ttf"
-del /f /q /s "C:\Windows\Boot\Fonts\msyhn_boot.ttf"
+attrib -a c:\*.* /s
