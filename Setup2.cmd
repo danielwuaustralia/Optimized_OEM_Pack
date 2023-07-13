@@ -1946,16 +1946,6 @@ reg delete "HKCR\Drive\shellex\PropertySheetHandlers\Sharing" /f
 :: "C:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" -d PD0 --EPCfeature disable
 :: "C:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" -d PD0 --idle_b disable
 
-del /q "C:\ProgramData\Package Cache\*"
-for /d %%x in ("C:\ProgramData\Package Cache\*") do @rd /s /q "%%x"
-del /q "C:\Users\Administrator\Recent\*"
-for /d %%x in ("C:\Users\Administrator\Recent\*") do @rd /s /q "%%x"
-del /q "C:\Windows\Prefetch\*"
-for /d %%x in ("C:\Windows\Prefetch\*") do @rd /s /q "%%x"
-del /q "C:\Windows\Temp\*"
-for /d %%x in ("C:\Windows\Temp\*") do @rd /s /q "%%x"
-del /q "C:\Windows\System32\winevt\Logs\*"
-for /d %%x in ("C:\Windows\System32\winevt\Logs\*") do @rd /s /q "%%x"
 move "C:\TEMP\SetTimerResolution.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
 move "C:\TEMP\RunRealHidden.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
 move "C:\TEMP\CleanUp.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
