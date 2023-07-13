@@ -225,6 +225,18 @@ schtasks /delete /tn "Microsoft\Windows\EDP\EDP Inaccessible Credentials Task" /
 schtasks /delete /tn "Microsoft\Windows\EDP\StorageCardEncryption Task" /f
 schtasks /delete /tn "Microsoft\Windows\PI\SecureBootEncodeUEFI" /f
 schtasks /delete /tn "Microsoft\Windows\PI\Secure-Boot-Update" /f
+schtasks /delete /tn "Microsoft\Windows\RecoveryEnvironment\VerifyWinRE" /f
+schtasks /delete /tn "Microsoft\Windows\ReFsDedupSvc\Initialization" /f
+schtasks /delete /tn "Microsoft\Windows\Security\Pwdless\IntelligentPwdlessTask" /f
+schtasks /delete /tn "Microsoft\Windows\SharedPC\Account Cleanup" /f
+schtasks /delete /tn "Microsoft\Windows\Shell\ThemeAssetTask_SyncFODState" /f
+schtasks /delete /tn "Microsoft\Windows\Storage Tiers Management\Storage Tiers Optimization" /f
+schtasks /delete /tn "Microsoft\Windows\Sysmain\HybridDriveCachePrepopulate" /f
+schtasks /delete /tn "Microsoft\Windows\Sysmain\HybridDriveCacheRebalance" /f
+schtasks /delete /tn "Microsoft\Windows\SystemRestore\SR" /f
+schtasks /delete /tn "Microsoft\Windows\UNP\RunUpdateNotificationMgr" /f
+schtasks /delete /tn "Microsoft\Windows\Workplace Join\Device-Sync" /f
+schtasks /delete /tn "Microsoft\Windows\Workplace Join\Recovery-Check" /f
 
 :: Intel Drivers
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\iai2c" /v "Start" /t REG_DWORD /d "4" /f
@@ -313,7 +325,6 @@ reg delete "HKLM\SYSTEM\CurrentControlSet\Services\MicrosoftEdgeElevationService
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\msisadrv" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\XblGameSave" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\WSearch" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\wscsvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\WpnService" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\wisvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\WerSvc" /v "Start" /t REG_DWORD /d "4" /f
@@ -517,36 +528,66 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution 
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WmiPrvSE.exe" /v "MitigationOptions" /t REG_BINARY /d "222222222222222222222222222222222222222222222222" /f
 
 :: event tracing session
+reg add "HKLM\SOFTWARE\Classes\AppID\slui.exe" /v "NoGenTicket" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" /v "EnableLog" /t REG_SZ /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" /v "DisableWerReporting" /t REG_DWORD /d "1" /f
+powershell -nop -ep bypass -c "Set-AutologgerConfig -Name 'Diagtrack-Listener' -Start 0"
 for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger" /s /f "Enabled"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Enabled" /t REG_DWORD /d "0" /f
 for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger" /s /f "Start"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Start" /t REG_DWORD /d "0" /f
 for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT" /s /f "Enabled"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Enabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\EventLog" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "Start" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "BufferSize" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "FileCounter" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "FileMax" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MaxFileSize" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MinimumBuffers" /t REG_DWORD /d "1" /f
 
-:: others
-powershell -nop -ep bypass -c "Set-AutologgerConfig -Name 'Diagtrack-Listener' -Start 0"
-rmdir "C:\Windows\System32\LogFiles\WMI" /s /q
-rmdir "C:\Windows\System32\WDI\LogFiles" /s /q
-reg add "HKLM\SOFTWARE\Classes\AppID\slui.exe" /v "NoGenTicket" /t REG_DWORD /d "1" /f
+:: performance
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "AllowHeadlessExecution" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "AllowMultipleBackgroundTasks" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "InactivityTimeoutMs" /t REG_DWORD /d "4294967295" /f
+
+:: re-clean MS Edge
+rmdir "C:\Program Files (x86)\Microsoft" /s /q
+
+:: no Firewall
 reg delete "HKCR\exefile\shell\WindowsFirewall" /f
 reg delete "HKCR\DesktopBackground\Shell\Firewall" /f
 reg delete "HKLM\System\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Defaults\FirewallPolicy\FirewallRules" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "AllowHeadlessExecution" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "AllowMultipleBackgroundTasks" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "InactivityTimeoutMs" /t REG_DWORD /d "4294967295" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" /v "EnableLog" /t REG_SZ /d "0" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" /v "DisableWerReporting" /t REG_DWORD /d "1" /f
-rmdir "C:\Program Files (x86)\Microsoft" /s /q
+
+:: disable update forever
 del /f /q /s "C:\Windows\System32\wuaueng.dll"
 del /f /q /s "C:\Windows\System32\usosvc.dll"
 del /f /q /s "C:\Windows\System32\SIHClient.exe"
+
+:: Cleanup
+rmdir /s /q "C:\ProgramData\Microsoft\Windows Defender"
+rmdir /s /q "C:\Windows\System32\LogFiles\WMI"
+rmdir /s /q "C:\Windows\System32\WDI\LogFiles"
 del /f /q /s "C:\Users\Administrator\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\*.*"
 taskkill /f /im SearchApp.exe
 taskkill /f /im SearchApp.exe
-ren C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchHost.exe SearchHost_old.exe
-attrib -a c:\*.* /s
+del /f /q /s "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchHost.exe"
+del /f /q /s "C:\Windows\System32\mcupdate_GenuineIntel.dll"
+del /f /q /s "C:\Windows\Boot\Fonts\cht_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\jpn_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\kor_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\malgunn_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\malgun_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\malgun_console.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\meiryon_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\meiryo_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\msjhn_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\msjh_boot.ttf"
+del /f /q /s "C:\Windows\Boot\Fonts\msyhn_boot.ttf"
+del /f /q /s "C:\Windows\System32\mobsync.exe"
+del /f /q /s "C:\Windows\SysWOW64\mobsync.exe"
+del /f /q /s "C:\Windows\System32\AggregatorHost.exe"
+del /f /q /s "C:\Windows\System32\DeviceCensus.exe"
+del /f /q /s "C:\Windows\System32\microsoft-windows-sleepstudy-events.dll"
+rmdir "C:\Windows\Containers" /s /q
+rmdir "C:\Windows\WinSxS\Temp" /s /q
+:: attrib -a c:\*.* /s
+:: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib\_V2Providers
