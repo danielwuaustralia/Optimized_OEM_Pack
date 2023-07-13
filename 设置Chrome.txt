@@ -1,6 +1,6 @@
 ########################################################快捷方式后缀########################################################
 
---force-local-ntp --disable-crash-reporter --disable-breakpad --disable-logging --no-report-upload --enable-gpu-rasterization
+--force-local-ntp --disable-crash-reporter --disable-breakpad --disable-logging --no-report-upload --disable-notifications
 
 #######################################################     禁用　########################################################
 
@@ -22,9 +22,13 @@ download-bubble
 
 #side-search
 
-##################################################       开启       ########################################################
+#disable-accelerated-video-decode
 
-#ignore-gpu-blocklist
+#power-bookmark-backend
+
+#search-web-in-side-panel
+
+##################################################       开启       ########################################################
 
 #enable-webrtc-hide-local-ips-with-mdns
 
@@ -33,8 +37,6 @@ download-bubble
 #use-dns-https-svcb-alpn
 
 #encrypted-client-hello
-
-Rasterization
 
 ##################################################       更换       ########################################################
 
