@@ -683,7 +683,7 @@ Windows.PrintDialog
 
 :: winsxs cleanup
 for %%z in (
-ar-SA,bg-BG,ca-ES,cs-CZ,da-DK,de-DE,el-GR,en-GB,es-ES,es-MX,et-EE,eu-ES,fi-FI,fr-CA,fr-FR,gl-ES,he-IL,hr-HR,hu-HU,id-ID,it-IT,ja-JP,ko-KR,lt-LT,lv-LV,nb-NO,nl-NL,pl-PL,pt-BR,pt-PT,ro-RO,ru-RU,sk-SK,sl-SI,sr-Latn-RS,sv-SE,th-TH,tr-TR,uk-UA,vi-VN,zh-TW
+ar-SA,af-ZA,am-ET,as-IN,az-Latn-AZ,be-BY,bn-IN,bs-Latn-BA,ca-ES-valencia,chr-CHER-US,cy-GB,fa-IR,fil-PH,ga-IE,gd-GB,gu-IN,hi-IN,hy-AM,is-IS,ka-GE,kk-KZ,km-KH,kn-IN,kok-IN,lb-LU,lo-LA,mi-NZ,mk-MK,ml-IN,mr-IN,ms-MY,mt-MT,ne-NP,nn-NO,or-IN,pa-IN,quz-PE,sq-AL,sr-Cyrl-BA,sr-Cyrl-RS,ta-IN,te-IN,tt-RU,ur-PK,ug-CN,uz-Latn-UZ,bg-BG,ca-ES,cs-CZ,da-DK,de-DE,el-GR,en-GB,es-ES,es-MX,et-EE,eu-ES,fi-FI,fr-CA,fr-FR,gl-ES,he-IL,hr-HR,hu-HU,id-ID,it-IT,ja-JP,ko-KR,lt-LT,lv-LV,nb-NO,nl-NL,pl-PL,pt-BR,pt-PT,ro-RO,ru-RU,sk-SK,sl-SI,sr-Latn-RS,sv-SE,th-TH,tr-TR,uk-UA,vi-VN,zh-TW
 ) do (
 powershell -nop -ep bypass -c "Remove-Item -Path 'C:\Windows\WinSxS\*%%z*' -Recurse -Force -EA 0 -Verbose"
 powershell -nop -ep bypass -c "Remove-Item -Path 'C:\Windows\WinSxS\*\*%%z*' -Recurse -Force -EA 0 -Verbose"
