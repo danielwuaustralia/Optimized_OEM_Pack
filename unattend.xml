@@ -33,67 +33,67 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>1</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\VCRedist\2005\vcredist_x64.exe /Q</CommandLine>
+                    <CommandLine>C:\TEMP\VCRedist\2005\vcredist_x86.exe /Q</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>2</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\VCRedist\2005\vcredist_x86.exe /Q</CommandLine>
+                    <CommandLine>C:\TEMP\VCRedist\2005\vcredist_x64.exe /Q</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>3</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\VCRedist\2008\vcredist_x64.exe /qb</CommandLine>
+                    <CommandLine>C:\TEMP\VCRedist\2008\vcredist_x86.exe /qb</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>4</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\VCRedist\2008\vcredist_x86.exe /qb</CommandLine>
+                    <CommandLine>C:\TEMP\VCRedist\2008\vcredist_x64.exe /qb</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>5</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\VCRedist\2010\vcredist_x64.exe /passive /norestart</CommandLine>
+                    <CommandLine>C:\TEMP\VCRedist\2010\vcredist_x86.exe /passive /norestart</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>6</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\VCRedist\2010\vcredist_x86.exe /passive /norestart</CommandLine>
+                    <CommandLine>C:\TEMP\VCRedist\2010\vcredist_x64.exe /passive /norestart</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>7</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\VCRedist\2012\vcredist_x64.exe /passive /norestart</CommandLine>
+                    <CommandLine>C:\TEMP\VCRedist\2012\vcredist_x86.exe /install /passive /norestart</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>8</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\VCRedist\2012\vcredist_x86.exe /passive /norestart</CommandLine>
+                    <CommandLine>C:\TEMP\VCRedist\2012\vcredist_x64.exe /install /passive /norestart</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>9</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\VCRedist\2013\vcredist_x64.exe /install /passive /norestart</CommandLine>
+                    <CommandLine>C:\TEMP\VCRedist\2013\vcredist_x86.exe /install /passive /norestart</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>10</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\VCRedist\2013\vcredist_x86.exe /install /passive /norestart</CommandLine>
+                    <CommandLine>C:\TEMP\VCRedist\2013\vcredist_x64.exe /install /passive /norestart</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>11</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\VCRedist\2022\VC_redist.x64.exe /install /quiet /norestart</CommandLine>
+                    <CommandLine>C:\TEMP\VCRedist\2022\VC_redist.x86.exe /install /passive /norestart</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>12</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\VCRedist\2022\VC_redist.x86.exe /install /quiet /norestart</CommandLine>
+                    <CommandLine>C:\TEMP\VCRedist\2022\VC_redist.x64.exe /install /passive /norestart</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>13</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\windowsdesktop-runtime-7.0.8-win-x64.exe /install /quiet /norestart</CommandLine>
+                    <CommandLine>C:\TEMP\netframework.exe /install /quiet /norestart</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>14</Order>
@@ -107,11 +107,6 @@
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>16</Order>
-                    <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>cmd.exe /c "C:\TEMP\YAOCTRI_Installer.cmd"</CommandLine>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>17</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>cmd.exe /c "C:\TEMP\Setup2.cmd"</CommandLine>
                 </SynchronousCommand>
