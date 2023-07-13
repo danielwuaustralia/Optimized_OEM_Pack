@@ -563,6 +563,8 @@ del /f /q /s "C:\Windows\System32\usosvc.dll"
 del /f /q /s "C:\Windows\System32\SIHClient.exe"
 
 :: Cleanup
+del /f /q /s "C:\Windows\System32\microsoft-windows-sleepstudy-events.dll"
+for /d %G in ("C:\Windows\WinSxS\amd64_microsoft-windows-s..dy-events-container*") do rd /s /q "%~G"
 rmdir /s /q "C:\ProgramData\Microsoft\Windows Defender"
 rmdir /s /q "C:\Windows\System32\LogFiles\WMI"
 rmdir /s /q "C:\Windows\System32\WDI\LogFiles"
@@ -585,9 +587,8 @@ del /f /q /s "C:\Windows\Boot\Fonts\msyhn_boot.ttf"
 del /f /q /s "C:\Windows\System32\mobsync.exe"
 del /f /q /s "C:\Windows\SysWOW64\mobsync.exe"
 del /f /q /s "C:\Windows\System32\AggregatorHost.exe"
-del /f /q /s "C:\Windows\System32\DeviceCensus.exe"
-del /f /q /s "C:\Windows\System32\microsoft-windows-sleepstudy-events.dll"
-rmdir "C:\Windows\Containers" /s /q
-rmdir "C:\Windows\WinSxS\Temp" /s /q
+rmdir /s /q "C:\Windows\Containers"
+rmdir /s /q "C:\Windows\WinSxS\Temp"
+rmdir /s /q "C:\Windows\WinSxS\Backup"
 :: attrib -a c:\*.* /s
 :: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib\_V2Providers
