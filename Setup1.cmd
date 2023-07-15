@@ -11,6 +11,7 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPU
 :: feature
 Dism /online /Enable-Feature /FeatureName:LegacyComponents /NoRestart
 Dism /online /Enable-Feature /FeatureName:DirectPlay /NoRestart
+Dism /online /Disable-Feature /FeatureName:SmbDirect /Remove /NoRestart
 Dism /online /Disable-Feature /FeatureName:Printing-PrintToPDFServices-Features /Remove /NoRestart
 Dism /online /Disable-Feature /FeatureName:MicrosoftWindowsPowerShellV2Root /Remove /NoRestart
 Dism /online /Disable-Feature /FeatureName:MicrosoftWindowsPowerShellV2 /Remove /NoRestart
