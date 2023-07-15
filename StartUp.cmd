@@ -1,8 +1,22 @@
 @echo off
 
-:: configure
+:: performance
 wmic process where name="dwm.exe" CALL setpriority 64
 wmic process where name="wininit.exe" CALL setpriority 256
+wmic process where name="TextInputHost.exe" CALL setpriority 64
+wmic process where name="ctfmon.exe" CALL setpriority 64
+wmic process where name="RTUWPSrvcMain.exe" CALL setpriority 64
+wmic process where name="fontdrvhost.exe" CALL setpriority 64
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "Start" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "BufferSize" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "FileCounter" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "FileMax" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MaxFileSize" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MinimumBuffers" /t REG_DWORD /d "1" /f
+"C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c logman stop EventLog-Application -ets
+"C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c logman stop EventLog-System -ets
+
+:: cleanup
 del /q "C:\TEMP\*"
 for /d %%x in ("C:\TEMP\*") do @rd /s /q "%%x"
 del /q "C:\Steam\dumps\*"
@@ -12,14 +26,6 @@ for /d %%x in ("C:\Steam\dumps\*") do @rd /s /q "%%x"
 "C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WindowsUpdate" /f
 "C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c del /f /q /s "C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog.etl"
 "C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c rmdir /s /q "C:\Windows\System32\LogFiles\WMI"
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "Start" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "BufferSize" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "FileCounter" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "FileMax" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MaxFileSize" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MinimumBuffers" /t REG_DWORD /d "1" /f
-"C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c logman stop EventLog-Application -ets
-"C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c logman stop EventLog-System -ets
 
 :: CleanMgr.exe
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /f
@@ -88,9 +94,5 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Wi
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Reset Log Files" /v "StateFlags0001" /t REG_DWORD /d "2" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Windows Upgrade Log Files" /v "StateFlags0001" /t REG_DWORD /d "2" /f
 start /high CLEANMGR /sagerun:1
-
-:: change process priority
-wmic process where name="dwm.exe" CALL setpriority 64
-wmic process where name="wininit.exe" CALL setpriority 256
 
 exit
