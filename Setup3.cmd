@@ -476,6 +476,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\NetBT" /v "Start" /t REG_DWORD /
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CDPSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CDPUserSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\VSS" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\QWAVEdrv" /v "Start" /t REG_DWORD /d "4" /f
 
 ::Image File Execution Options
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options" /f
@@ -542,6 +543,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "FileMax" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MaxFileSize" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MinimumBuffers" /t REG_DWORD /d "1" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib\V2Providers" /f
 
 :: performance
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "AllowHeadlessExecution" /t REG_DWORD /d "1" /f
@@ -564,7 +566,6 @@ del /f /q /s "C:\Windows\System32\SIHClient.exe"
 
 :: Cleanup
 del /f /q /s "C:\Windows\System32\microsoft-windows-sleepstudy-events.dll"
-for /d %G in ("C:\Windows\WinSxS\amd64_microsoft-windows-s..dy-events-container*") do rd /s /q "%~G"
 rmdir /s /q "C:\ProgramData\Microsoft\Windows Defender"
 rmdir /s /q "C:\Windows\System32\LogFiles\WMI"
 rmdir /s /q "C:\Windows\System32\WDI\LogFiles"
@@ -573,6 +574,7 @@ taskkill /f /im SearchApp.exe
 taskkill /f /im SearchApp.exe
 del /f /q /s "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchHost.exe"
 del /f /q /s "C:\Windows\System32\mcupdate_GenuineIntel.dll"
+del /f /q /s "C:\Windows\System32\mcupdate_AuthenticAMD.dll"
 del /f /q /s "C:\Windows\Boot\Fonts\cht_boot.ttf"
 del /f /q /s "C:\Windows\Boot\Fonts\jpn_boot.ttf"
 del /f /q /s "C:\Windows\Boot\Fonts\kor_boot.ttf"
@@ -590,5 +592,3 @@ del /f /q /s "C:\Windows\System32\AggregatorHost.exe"
 rmdir /s /q "C:\Windows\Containers"
 rmdir /s /q "C:\Windows\WinSxS\Temp"
 rmdir /s /q "C:\Windows\WinSxS\Backup"
-:: attrib -a c:\*.* /s
-:: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib\_V2Providers
