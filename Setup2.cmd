@@ -17,10 +17,11 @@ powershell -nop -ep bypass -c "Get-ChildItem -Path C:\TEMP\roots.sst | Import-Ce
 reg add "HKCU\Environment" /v "TEMP" /t REG_EXPAND_SZ /d "C:\TEMP" /f
 reg add "HKCU\Environment" /v "TMP" /t REG_EXPAND_SZ /d "C:\TEMP" /f
 slmgr -ato
+vivetool /enable /id:37356106
 
 :: 3rd party software
 reg add "HKCU\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "D:\Games\AliensDarkDescent\ASF\Binaries\Win64\AliensDarkDescentGameSteam-Win64-Shipping.exe" /t REG_SZ /d "~ HIGHDPIAWARE DISABLEDWM DISABLEDXMAXIMIZEDWINDOWEDMODE" /f
-reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "HardwareAccelerationModeEnabled" /t REG_DWORD /d "0" /f
+reg add "HKCU\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "D:\Games\CitiesSkylines\Cities.exe" /t REG_SZ /d "~ HIGHDPIAWARE DISABLEDWM DISABLEDXMAXIMIZEDWINDOWEDMODE" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "DownloadBubbleEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "DefaultGeolocationSetting" /t REG_DWORD /d "2" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "DefaultNotificationsSetting" /t REG_DWORD /d "2" /f
@@ -85,6 +86,74 @@ reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "GoogleSearchSidePanelEnabled"
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "PdfUseSkiaRendererEnabled" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome\TabDiscardingExceptions" /v "1" /t REG_SZ /d '*' /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome\ExtensionInstallBlocklist" /v "1" /t REG_SZ /d "ghbmnnjooekpmoecnnnilnnbdlolhkhi" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "DownloadBubbleEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "DefaultGeolocationSetting" /t REG_DWORD /d "2" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "DefaultNotificationsSetting" /t REG_DWORD /d "2" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "HttpsOnlyMode" /t REG_SZ /d "disallowed" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "DefaultSensorsSetting" /t REG_DWORD /d "2" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "AccessibilityImageLabelsEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "AdsSettingForIntrusiveAdsSites" /t REG_DWORD /d "2" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "AdvancedProtectionAllowed" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "AutofillCreditCardEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "AutoplayAllowed" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "BackgroundModeEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "BatterySaverModeAvailability" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "BuiltInDnsClientEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "BookmarkBarEnabled" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "BrowserNetworkTimeQueriesEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "DNSInterceptionChecksEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "DiskCacheSize" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "DnsOverHttpsMode" /t REG_SZ /d "off" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "DownloadRestrictions" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "EncryptedClientHelloEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "FetchKeepaliveDurationSecondsOnShutdown" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "ForceGoogleSafeSearch" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "ForceYouTubeRestrict" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "HighEfficiencyModeEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "IntensiveWakeUpThrottlingEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "IntranetRedirectBehavior" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "MediaRecommendationsEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "NTPCardsVisible" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "NTPMiddleSlotAnnouncementVisible" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "NetworkPredictionOptions" /t REG_DWORD /d "2" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "PromotionalTabsEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "PromptForDownloadLocation" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "SafeSitesFilterBehavior" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "ShoppingListEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "ShowFullUrlsInAddressBar" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "UserFeedbackAllowed" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "PasswordLeakDetectionEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "PasswordProtectionWarningTrigger" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "SafeBrowsingExtendedReportingEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "SafeBrowsingProtectionLevel" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "ShowHomeButton" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "EnableMediaRouter" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "ShowCastIconInToolbar" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "AccessCodeCastEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "SideSearchEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "AbusiveExperienceInterventionEnforce" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "AlwaysOpenPdfExternally" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "AutofillAddressEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "DownloadDirectory" /t REG_SZ /d "C:\TEMP" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "PaymentMethodQueryEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "ShowAppsShortcutInBookmarkBar" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "WPADQuickCheckEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "DomainReliabilityAllowed" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "PrivacySandboxPromptEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "PrivacySandboxAdMeasurementEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "PrivacySandboxAdTopicsEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "PrivacySandboxSiteEnabledAdsEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "ExtensionManifestV2Availability" /t REG_DWORD /d "2" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "WebRtcTextLogCollectionAllowed" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "WebRtcEventLogCollectionAllowed" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "GoogleSearchSidePanelEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "PdfUseSkiaRendererEnabled" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "IPFSEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "BraveRewardsDisabled" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave" /v "BraveWalletDisabled" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave\ExtensionInstallBlocklist" /v "1" /t REG_SZ /d "ghbmnnjooekpmoecnnnilnnbdlolhkhi" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave\ForcedLanguages" /v "1" /t REG_SZ /d "en-US" /f
+reg add "HKLM\SOFTWARE\Policies\BraveSoftware\Brave\TabDiscardingExceptions" /v "1" /t REG_SZ /d "'*'" /f
 reg add "HKCU\Software\StartIsBack" /v "ModernIconsColorized" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\StartIsBack" /v "WelcomeShown" /t REG_DWORD /d "3" /f
 reg add "HKCU\Software\StartIsBack" /v "FrameStyle" /t REG_DWORD /d "0" /f
@@ -151,7 +220,6 @@ reg add "HKCU\Software\DownloadManager" /v "TempPath" /t REG_SZ /d "C:\TEMP" /f
 reg add "HKCU\Software\DownloadManager" /v "LaunchOnStart" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\DownloadManager" /v "bSetServerTimeToFile" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\DownloadManager" /v "startImmediately" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\DownloadManager" /v "MaxConnectionsNumber" /t REG_DWORD /d "32" /f
 reg add "HKCU\Software\DownloadManager" /v "bIgnMTCh" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\DownloadManager\FoldersTree\Compressed" /v "sites" /t REG_SZ /d " /f
 reg add "HKCU\Software\DownloadManager\FoldersTree\Documents" /v "sites" /t REG_SZ /d " /f
@@ -164,10 +232,9 @@ reg add "HKCU\Software\DownloadManager\FoldersTree\Video" /v "rememberLastPath" 
 reg add "HKCU\Software\DownloadManager\FoldersTree\Video" /v "pathW" /t REG_NONE /d "C:\TEMP" /f
 reg add "HKCU\Software\7-Zip\Options" /v "CascadedMenu" /t REG_DWORD /d "0" /f
 
-:: Cutomize
+:: Optimize
 reg add "HKCU\Control Panel\International\Geo" /v "Nation" /t REG_SZ /d "244" /f
 reg add "HKCU\Control Panel\International\Geo" /v "Name" /t REG_SZ /d "US" /f
-powercfg -import "C:\TEMP\AmitDisableIdle.pow"
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001" /v "EnableAdaptivity" /t REG_SZ /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0001" /v "WirelessMode" /t REG_SZ /d "256" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\BITS\Performance" /v "Disable Performance Counters" /t REG_DWORD /d "1" /f
@@ -211,9 +278,6 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "FileMax" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MaxFileSize" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MinimumBuffers" /t REG_DWORD /d "1" /f
-powercfg -change -hibernate-timeout-dc 0
-powercfg -change -monitor-timeout-ac 30
-powercfg -change -standby-timeout-dc 0
 powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'Microsoft Wi-Fi Direct Virtual Adapter' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
 powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'Microsoft Kernel Debug Network Adapter' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
 powershell -nop -ep bypass -c "Get-PnpDevice -FriendlyName 'AMD SMBus' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore"
@@ -264,88 +328,6 @@ reg add "HKCU\Software\Microsoft\InputMethod\Settings\CHS" /v "EnableOpenEmotico
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Font Drivers" /v "Adobe Type Manager" /f
 reg add "HKCU\Software\Microsoft\Windows NT\CurrentVersion\Windows" /v "DisableATMFD" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband" /v "Favorites" /t REG_BINARY /d "FF" /f
-
-:: optimize
-set hostspath=%windir%\System32\drivers\etc\hosts
-echo 127.0.0.1 vortex.data.microsoft.com >> %hostspath%
-echo 127.0.0.1 vortex-win.data.microsoft.com >> %hostspath%
-echo 127.0.0.1 telecommand.telemetry.microsoft.com >> %hostspath%
-echo 127.0.0.1 telecommand.telemetry.microsoft.com.nsatc.net >> %hostspath%
-echo 127.0.0.1 oca.telemetry.microsoft.com >> %hostspath%
-echo 127.0.0.1 oca.telemetry.microsoft.com.nsatc.net >> %hostspath%
-echo 127.0.0.1 sqm.telemetry.microsoft.com >> %hostspath%
-echo 127.0.0.1 sqm.telemetry.microsoft.com.nsatc.net >> %hostspath%
-echo 127.0.0.1 watson.telemetry.microsoft.com >> %hostspath%
-echo 127.0.0.1 watson.telemetry.microsoft.com.nsatc.net >> %hostspath%
-echo 127.0.0.1 redir.metaservices.microsoft.com >> %hostspath%
-echo 127.0.0.1 choice.microsoft.com >> %hostspath%
-echo 127.0.0.1 choice.microsoft.com.nsatc.net >> %hostspath%
-echo 127.0.0.1 df.telemetry.microsoft.com >> %hostspath%
-echo 127.0.0.1 reports.wes.df.telemetry.microsoft.com >> %hostspath%
-echo 127.0.0.1 services.wes.df.telemetry.microsoft.com >> %hostspath%
-echo 127.0.0.1 sqm.df.telemetry.microsoft.com >> %hostspath%
-echo 127.0.0.1 telemetry.microsoft.com >> %hostspath%
-echo 127.0.0.1 watson.ppe.telemetry.microsoft.com >> %hostspath%
-echo 127.0.0.1 telemetry.appex.bing.net >> %hostspath%
-echo 127.0.0.1 telemetry.urs.microsoft.com >> %hostspath%
-echo 127.0.0.1 telemetry.appex.bing.net:443 >> %hostspath%
-echo 127.0.0.1 vortex-sandbox.data.microsoft.com >> %hostspath%
-echo 127.0.0.1 settings-sandbox.data.microsoft.com >> %hostspath%
-echo 127.0.0.1 watson.microsoft.com >> %hostspath%
-echo 127.0.0.1 wes.df.telemetry.microsoft.com >> %hostspath%
-echo 127.0.0.1 survey.watson.microsoft.com >> %hostspath%
-echo 127.0.0.1 watson.live.com >> %hostspath%
-echo 127.0.0.1 statsfe2.ws.microsoft.com >> %hostspath%
-echo 127.0.0.1 corpext.msitadfs.glbdns2.microsoft.com >> %hostspath%
-echo 127.0.0.1 compatexchange.cloudapp.net >> %hostspath%
-echo 127.0.0.1 cs1.wpc.v0cdn.net >> %hostspath%
-echo 127.0.0.1 a-0001.a-msedge.net >> %hostspath%
-echo 127.0.0.1 a-0002.a-msedge.net >> %hostspath%
-echo 127.0.0.1 a-0003.a-msedge.net >> %hostspath%
-echo 127.0.0.1 a-0004.a-msedge.net >> %hostspath%
-echo 127.0.0.1 a-0005.a-msedge.net >> %hostspath%
-echo 127.0.0.1 a-0006.a-msedge.net >> %hostspath%
-echo 127.0.0.1 a-0007.a-msedge.net >> %hostspath%
-echo 127.0.0.1 a-0008.a-msedge.net >> %hostspath%
-echo 127.0.0.1 a-0009.a-msedge.net >> %hostspath%
-echo 127.0.0.1 msedge.net >> %hostspath%
-echo 127.0.0.1 a-msedge.net >> %hostspath%
-echo 127.0.0.1 statsfe2.update.microsoft.com.akadns.net >> %hostspath%
-echo 127.0.0.1 sls.update.microsoft.com.akadns.net >> %hostspath%
-echo 127.0.0.1 fe2.update.microsoft.com.akadns.net >> %hostspath%
-echo 127.0.0.1 diagnostics.support.microsoft.com >> %hostspath%
-echo 127.0.0.1 corp.sts.microsoft.com >> %hostspath%
-echo 127.0.0.1 statsfe1.ws.microsoft.com >> %hostspath%
-echo 127.0.0.1 pre.footprintpredict.com >> %hostspath%
-echo 127.0.0.1 i1.services.social.microsoft.com >> %hostspath%
-echo 127.0.0.1 i1.services.social.microsoft.com.nsatc.net >> %hostspath%
-echo 127.0.0.1 feedback.windows.com >> %hostspath%
-echo 127.0.0.1 feedback.microsoft-hohm.com >> %hostspath%
-echo 127.0.0.1 feedback.search.microsoft.com >> %hostspath%
-echo 127.0.0.1 live.rads.msn.com >> %hostspath%
-echo 127.0.0.1 ads1.msn.com >> %hostspath%
-echo 127.0.0.1 static.2mdn.net >> %hostspath%
-echo 127.0.0.1 g.msn.com >> %hostspath%
-echo 127.0.0.1 a.ads2.msads.net >> %hostspath%
-echo 127.0.0.1 b.ads2.msads.net >> %hostspath%
-echo 127.0.0.1 ad.doubleclick.net >> %hostspath%
-echo 127.0.0.1 ac3.msn.com >> %hostspath%
-echo 127.0.0.1 rad.msn.com >> %hostspath%
-echo 127.0.0.1 msntest.serving-sys.com >> %hostspath%
-echo 127.0.0.1 bs.serving-sys.com1 >> %hostspath%
-echo 127.0.0.1 flex.msn.com >> %hostspath%
-echo 127.0.0.1 ec.atdmt.com >> %hostspath%
-echo 127.0.0.1 cdn.atdmt.com >> %hostspath%
-echo 127.0.0.1 db3aqu.atdmt.com >> %hostspath%
-echo 127.0.0.1 cds26.ams9.msecn.net >> %hostspath%
-echo 127.0.0.1 sO.2mdn.net >> %hostspath%
-echo 127.0.0.1 aka-cdn-ns.adtech.de >> %hostspath%
-echo 127.0.0.1 secure.flashtalking.com >> %hostspath%
-echo 127.0.0.1 adnexus.net >> %hostspath%
-echo 127.0.0.1 adnxs.com >> %hostspath%
-echo 127.0.0.1 *.rad.msn.com >> %hostspath%
-echo 127.0.0.1 *.msads.net >> %hostspath%
-echo 127.0.0.1 *.msecn.net >> %hostspath%
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\StorageSense" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Device Metadata" /f
 reg add "HKLM\SOFTWARE\NVIDIA Corporation\NvControlPanel2\Client" /v "OptInOrOutPreference" /t REG_DWORD /d "0" /f
@@ -426,19 +408,19 @@ fsutil behavior set memoryusage 2
 fsutil behavior set disable8dot3 1
 fsutil behavior set disablecompression 0
 fsutil behavior set disableencryption 0
-for /F "eol=E" %%a in ('REG QUERY "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services" /S /F "IoLatencyCap"^| FINDSTR /V "IoLatencyCap"') DO (
+for /F "eol=E" %%a in ('REG QUERY "HKLM\System\CurrentControlSet\Services" /S /F "IoLatencyCap"^| FINDSTR /V "IoLatencyCap"') DO (
 	REG ADD "%%a" /v "IoLatencyCap" /t REG_DWORD /d "0" /f
 	for /F "tokens=*" %%z IN ("%%a") DO (
 		SET STR=%%z
-		SET STR=!STR:HKEY_LOCAL_MACHINE\System\CurrentControlSet\services\=!
+		SET STR=!STR:HKLM\System\CurrentControlSet\services\=!
 		SET STR=!STR:\Parameters=!
 	)
 )
-for /F "tokens=*" %%a in ('REG QUERY "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Enum" /S /F "StorPort"^| FINDSTR /E "StorPort"') DO (
+for /F "tokens=*" %%a in ('REG QUERY "HKLM\System\CurrentControlSet\Enum" /S /F "StorPort"^| FINDSTR /E "StorPort"') DO (
 	REG ADD "%%a" /v "EnableIdlePowerManagement" /t REG_DWORD /d "0" /f
 	for /F "tokens=*" %%z IN ("%%a") DO (
 		SET STR=%%z
-		SET STR=!STR:HKEY_LOCAL_MACHINE\System\CurrentControlSet\Enum\=!
+		SET STR=!STR:HKLM\System\CurrentControlSet\Enum\=!
 		SET STR=!STR:\Device Parameters\StorPort=!
 	)
 )
@@ -472,12 +454,12 @@ reg add "HKLM\SYSTEM\CurrentControlSet\services\iaStorA\Parameters\Device" /v "C
 reg add "HKLM\SYSTEM\CurrentControlSet\services\iaStorA\Parameters\Device" /v "Controller0Phy0DIPM" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\services\iaStorA\Parameters\Device" /v "Controller0Phy1HIPM" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\services\iaStorA\Parameters\Device" /v "Controller0Phy1DIPM" /t REG_DWORD /d "0" /f
-for /F "eol=E" %%a in ('REG QUERY "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services" /S /F "EnableHIPM"^| FINDSTR /V "EnableHIPM"') DO (
+for /F "eol=E" %%a in ('REG QUERY "HKLM\System\CurrentControlSet\Services" /S /F "EnableHIPM"^| FINDSTR /V "EnableHIPM"') DO (
 	REG ADD "%%a" /v "EnableHIPM" /t REG_DWORD /d "0" /f
 	REG ADD "%%a" /v "EnableDIPM" /t REG_DWORD /d "0" /f
 	for /F "tokens=*" %%z IN ("%%a") DO (
 		SET STR=%%z
-		SET STR=!STR:HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\=!
+		SET STR=!STR:HKLM\System\CurrentControlSet\Services\=!
 	)
 )
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\DisplayPostProcessing" /v "Affinity" /t REG_DWORD /d "0" /f
@@ -760,7 +742,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "PowerMizerLevelAC" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "TCCSupported" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "RMHdcpKeyglobZero" /t REG_DWORD /d "1" /f
-for /f %%i in ('REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" /s /f Scaling') do set "str=%%i" & if "!str!" neq "!str:Configuration\=!" (
+for /f %%i in ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" /s /f Scaling') do set "str=%%i" & if "!str!" neq "!str:Configuration\=!" (
 	REG ADD "%%i" /v "Scaling" /t REG_DWORD /d "1" /f
 )
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\DXGKrnl" /v "MonitorLatencyTolerance" /t REG_DWORD /d "1" /f
@@ -884,8 +866,8 @@ netsh interface ip set interface WLAN weakhostsend=enabled
 netsh interface ip set interface WLAN weakhostreceive=enabled
 netsh interface ipv4 set subinterface "WLAN" mtu=1470 store=persistent
 for /f "delims=" %%a in ('powershell -nop -ep bypass -c "Get-CimInstance -ClassName Win32_PnPEntity | where-object {($_.PNPClass -match 'Net') -and ($_.Status -match 'OK') -and ($_.Name -like '*Connection*')} | ForEach-Object { ($_ | Invoke-CimMethod -MethodName GetDeviceProperties).deviceProperties.where({$_.KeyName -EQ 'DEVPKEY_Device_Driver'}).data }"') do set "ETHERNET_DEVICE_CLASS_GUID_WITH_KEY=%%a"
-FOR /F "tokens=3*" %%I IN ('REG QUERY "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\NetworkCards" /F "ServiceName" /S^| FINDSTR /I /L "ServiceName"') DO (
-	FOR /F %%a IN ('REG QUERY "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Class\{4D36E972-E325-11CE-BFC1-08002BE10318}" /F "%%I" /D /E /S^| FINDSTR /I /L "\\Class\\"') DO SET "REGPATH=%%a"
+FOR /F "tokens=3*" %%I IN ('REG QUERY "HKLM\Software\Microsoft\Windows NT\CurrentVersion\NetworkCards" /F "ServiceName" /S^| FINDSTR /I /L "ServiceName"') DO (
+	FOR /F %%a IN ('REG QUERY "HKLM\System\CurrentControlSet\Control\Class\{4D36E972-E325-11CE-BFC1-08002BE10318}" /F "%%I" /D /E /S^| FINDSTR /I /L "\\Class\\"') DO SET "REGPATH=%%a"
 	FOR /F "tokens=3*" %%n in ('REG QUERY "!REGPATH!" /V "FilterList"') DO SET newFilterList=%%n
 	SET newFilterList=!newFilterList:-{B5F4D659-7DAA-4565-8E41-BE220ED60542}=!
 	SET newFilterList=!newFilterList:-{430BDADD-BAB0-41AB-A369-94B67FA5BE0A}=!
@@ -894,15 +876,15 @@ FOR /F "tokens=3*" %%I IN ('REG QUERY "HKEY_LOCAL_MACHINE\Software\Microsoft\Win
 		REG ADD !REGPATH! /F /V "FilterList" /T REG_MULTI_SZ /d "!newFilterList!"
 	)
 )
-FOR /F %%a in ('REG QUERY "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Psched\Parameters\Adapters"') DO (
+FOR /F %%a in ('REG QUERY "HKLM\System\CurrentControlSet\Services\Psched\Parameters\Adapters"') DO (
 	REG DELETE %%a /F
 	FOR /F "tokens=*" %%z IN ("%%a") DO (
 		SET STR=%%z
-		SET STR=!STR:HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Psched\Parameters\Adapters\=!
+		SET STR=!STR:HKLM\System\CurrentControlSet\Services\Psched\Parameters\Adapters\=!
 	)
 )
 reg add "HKLM\SOFTWARE\Microsoft\MSMQ\Parameters" /v "TCPNoDelay" /t REG_DWORD /d "1" /f
-for /f %%r in ('REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces" /f "1" /d /s^|Findstr HKEY_') do (
+for /f %%r in ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces" /f "1" /d /s^|Findstr HKEY_') do (
 	REG ADD %%r /v "NonBestEffortLimit" /t Reg_DWORD /d "0" /f
 	REG ADD %%r /v "DeadGWDetectDefault" /t Reg_DWORD /d "1" /f
 	REG ADD %%r /v "PerformRouterDiscovery" /t Reg_DWORD /d 1"/f
@@ -976,14 +958,10 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\NDIS\Parameters" /v "smpProcesso
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\NDIS\Parameters" /v "smpProcessorAffinityMask2" /t REG_DWORD /d "55" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\NDIS\Parameters" /v "ThreadPoolUseIdealCpu" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "NoNetCrawling" /t REG_DWORD /d "1" /f
-for /f "tokens=2 delims==" %%a in ('wmic cpu get NumberOfCores /value') do set /a CoresQty=%%a
-REG ADD "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NDIS\Parameters" /v "MaxNumRssCpus" /t REG_DWORD /d "%CoresQty%" /f
-for /f "tokens=2 delims==" %%a in ('wmic cpu get NumberOfLogicalProcessors /value') do set /a LogicalProcessorsQty=%%a
-REG ADD "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NDIS\Parameters" /v "MaxNumRssThreads" /t REG_DWORD /d "%LogicalProcessorsQty%" /f
-for /f "tokens=2 delims==" %%a in ('wmic cpu get NumberOfCores /value') do set /a CoresQty=%%a
-REG ADD "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameterss" /v "MaxNumRssCpus" /t REG_DWORD /d "%CoresQty%" /f
-for /f "tokens=2 delims==" %%a in ('wmic cpu get NumberOfLogicalProcessors /value') do set /a LogicalProcessorsQty=%%a
-REG ADD "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "MaxNumRssThreads" /t REG_DWORD /d "%LogicalProcessorsQty%" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\NDIS\Parameters" /v "MaxNumRssCpus" /t REG_DWORD /d "6" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\NDIS\Parameters" /v "MaxNumRssThreads" /t REG_DWORD /d "6" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameterss" /v "MaxNumRssCpus" /t REG_DWORD /d "6" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "MaxNumRssThreads" /t REG_DWORD /d "6" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "DynamicSendBufferDisable" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "IgnorePushBitOnReceives" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "NonBlockingSendSpecialBuffering" /t REG_DWORD /d "1" /f
@@ -1008,7 +986,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "transmitIoLe
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "DoNotHoldNicBuffers" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "FastSendDatagramThreshold" /t REG_DWORD /d "1400" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "FastCopyReceiveThreshold" /t REG_DWORD /d "1400" /f
-for /f %%i in ('REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\NetBT\Parameters\Interfaces" /s /f "NetbiosOptions"^| findstr "HKEY"') do REG ADD "%%i" /v "NetbiosOptions" /t REG_DWORD /d "2" /f
+for /f %%i in ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\services\NetBT\Parameters\Interfaces" /s /f "NetbiosOptions"^| findstr "HKEY"') do REG ADD "%%i" /v "NetbiosOptions" /t REG_DWORD /d "2" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\Wpad" /v "WpadOverride" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters" /v "DisableParallelAandAAAA" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" /v "DisableSmartNameResolution" /t REG_DWORD /d "1" /f
@@ -1016,66 +994,6 @@ reg add "HKLM\SOFTWARE\Microsoft\wcmsvc\wifinetworkmanager\config" /v "AutoConne
 reg add "HKLM\SOFTWARE\Microsoft\wcmsvc\wifinetworkmanager" /v "WifiSenseCredShared" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\wcmsvc\wifinetworkmanager" /v "WifiSenseOpen" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\WlanSvc\AnqpCache" /v "OsuRegistrationStatus" /t REG_DWORD /d "0" /f
-for /f %%a in ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\Control\Class" /v "*WakeOnMagicPacket" /s ^| findstr "HKEY"') do (
-    for %%i in (
-			"EEE"
-			"*EEE"
-			"*FlowControl"
-			"*LsoV2IPv4"
-			"*LsoV2IPv6"
-			"*SelectiveSuspend"
-			"*WakeOnMagicPacket"
-			"*WakeOnPattern"
-			"AdvancedEEE"
-			"AutoDisableGigabit"
-			"AutoPowerSaveModeEnabled"
-			"EnableConnectedPowerGating"
-			"EnableDynamicPowerGating"
-			"EnableGreenEthernet"
-			"EnableModernStandby"
-			"EnablePME"
-			"EnablePowerManagement"
-			"EnableSavePowerNow"
-			"GigaLite"
-			"PowerSavingMode"
-			"ReduceSpeedOnPowerDown"
-			"ULPMode"
-			"WakeOnLink"
-			"WakeOnSlot"
-			"WakeUpModeCap"
-			"PowerDownPll"
-			"*NicAutoPowerSaver"
-			"EeePhyEnable"
-			"MasterSlave"
-			"SavePowerNowEnabled"
-			"SipsEnabled"
-			"MPC"
-			"PowerSaveMode"
-			"ApCompatMode"
-			"bLeisurePs"
-			"bLowPowerEnable"
-			"bAdvancedLPs"
-			"InactivePs"
-			"Enable9KJFTpt"
-			"DMACoalescing"
-			"PMWiFiRekeyOffload"
-			"uAPSDSupport"
-			"*PacketCoalescing"
-			"NSOffloadEnable"
-			"ARPOffloadEnable"
-			"GTKOffloadEnable"
-			"WoWLANLPSLevel"
-			"*ModernStandbyWoLMagicPacket"
-			"S5WakeOnLan"
-			"WakeOnDisconnect"
-			"WoWLANS5Support"
-			"EnableWakeOnLan"
-    ) do (
-        for /f %%j in ('REG QUERY "%%a" /v "%%~i" ^| findstr "HKEY"') do (
-            REG ADD "%%j" /v "%%~i" /t REG_SZ /d "0" /f
-        )
-    )
-)
 reg add "HKCU\Control Panel\Mouse" /v "MouseSensitivity" /t REG_SZ /d "10" /f
 reg add "HKCU\Control Panel\Mouse" /v "MouseSpeed" /t REG_SZ /d "0" /f
 reg add "HKCU\Control Panel\Mouse" /v "MouseThreshold1" /t REG_SZ /d "0" /f
@@ -1090,7 +1008,7 @@ reg add "HKCU\Control Panel\Mouse" /v "MouseDelay" /t REG_SZ /d "0" /f
 reg add "HKCU\Control Panel\Mouse" /v "ActiveWindowTracking" /t REG_DWORD /d "0" /f
 reg delete "HKCU\Control Panel\Mouse" /v "SmoothMouseXCurve /f
 reg delete "HKCU\Control Panel\Mouse" /v "SmoothMouseYCurve /f
-for /f "delims=" %%b in ('REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\USB" ^| findstr "^Device Parameters$"') do (
+for /f "delims=" %%b in ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\Enum\USB" ^| findstr "^Device Parameters$"') do (
 	REG ADD "%%b" /v "EnhancedPowerManagementEnabled" /t REG_DWORD /d "0" /f
 )
 reg add "HKCU\Control Panel\Keyboard" /v "KeyboardDelay" /t REG_SZ /d "0" /f
@@ -1135,17 +1053,17 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\mouhid\Parameters" /v "TreatAbso
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\mouhid\Parameters" /v "TreatAbsoluteAsRelative" /t REG_DWORD /d "0" /f
 powershell -nop -ep bypass -c "$devices = Get-WmiObject Win32_PnPEntity; $powerMgmt = Get-WmiObject MSPower_DeviceEnable -Namespace root\wmi; foreach ($p in $powerMgmt){$IN = $p.InstanceName.ToUpper(); foreach ($h in $devices){$PNPDI = $h.PNPDeviceID; if ($IN -like \"*$PNPDI*\"){$p.enable = $False; $p.psbase.put()}}}"
 for /F %%a in ('wmic path Win32_USBHub GET DeviceID^ | FINDSTR /L 'VID_'') DO (
-	REG ADD "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Enum\%%a\Device Parameters" /v "EnhancedPowerManagementEnabled" /t REG_DWORD /d "0" /f
-	REG ADD "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Enum\%%a\Device Parameters" /v "AllowIdleIrpInD3" /t REG_DWORD /d "0" /f
-	REG ADD "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Enum\%%a\Device Parameters" /v "DeviceSelectiveSuspended" /t REG_DWORD /d "0" /f
-	REG ADD "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Enum\%%a\Device Parameters" /v "SelectiveSuspendEnabled" /t REG_DWORD /d "0" /f
-	REG ADD "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Enum\%%a\Device Parameters" /v "SelectiveSuspendOn" /t REG_DWORD /d "0" /f
-	REG ADD "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Enum\%%a\Device Parameters" /v "fid_D1Latency" /t REG_DWORD /d "0" /f
-	REG ADD "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Enum\%%a\Device Parameters" /v "fid_D2Latency" /t REG_DWORD /d "0" /f
-	REG ADD "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Enum\%%a\Device Parameters" /v "fid_D3Latency" /t REG_DWORD /d "0" /f
-	REG ADD "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\usbflags" /v "fid_D1Latency" /t REG_DWORD /d "0" /f
-	REG ADD "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\usbflags" /v "fid_D2Latency" /t REG_DWORD /d "0" /f
-	REG ADD "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\usbflags" /v "fid_D3Latency" /t REG_DWORD /d "0" /f
+	REG ADD "HKLM\System\CurrentControlSet\Enum\%%a\Device Parameters" /v "EnhancedPowerManagementEnabled" /t REG_DWORD /d "0" /f
+	REG ADD "HKLM\System\CurrentControlSet\Enum\%%a\Device Parameters" /v "AllowIdleIrpInD3" /t REG_DWORD /d "0" /f
+	REG ADD "HKLM\System\CurrentControlSet\Enum\%%a\Device Parameters" /v "DeviceSelectiveSuspended" /t REG_DWORD /d "0" /f
+	REG ADD "HKLM\System\CurrentControlSet\Enum\%%a\Device Parameters" /v "SelectiveSuspendEnabled" /t REG_DWORD /d "0" /f
+	REG ADD "HKLM\System\CurrentControlSet\Enum\%%a\Device Parameters" /v "SelectiveSuspendOn" /t REG_DWORD /d "0" /f
+	REG ADD "HKLM\System\CurrentControlSet\Enum\%%a\Device Parameters" /v "fid_D1Latency" /t REG_DWORD /d "0" /f
+	REG ADD "HKLM\System\CurrentControlSet\Enum\%%a\Device Parameters" /v "fid_D2Latency" /t REG_DWORD /d "0" /f
+	REG ADD "HKLM\System\CurrentControlSet\Enum\%%a\Device Parameters" /v "fid_D3Latency" /t REG_DWORD /d "0" /f
+	REG ADD "HKLM\System\CurrentControlSet\Control\usbflags" /v "fid_D1Latency" /t REG_DWORD /d "0" /f
+	REG ADD "HKLM\System\CurrentControlSet\Control\usbflags" /v "fid_D2Latency" /t REG_DWORD /d "0" /f
+	REG ADD "HKLM\System\CurrentControlSet\Control\usbflags" /v "fid_D3Latency" /t REG_DWORD /d "0" /f
 )
 powershell -nop -ep bypass -c "$power_device_enable = Get-WmiObject MSPower_DeviceEnable -Namespace root\wmi; $usb_devices = @(\"Win32_USBController\", \"Win32_USBControllerDevice\", \"Win32_USBHub\"); foreach ($power_device in $power_device_enable) { $instance_name = $power_device.InstanceName.ToUpper(); foreach ($device in $usb_devices) { foreach ($hub in Get-WmiObject $device) { $pnp_id = $hub.PNPDeviceID; if ($instance_name -like \"*$pnp_id*\") { $power_device.enable = $False; $power_device.psbase.put(); }}}}"
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\USBXHCI\Parameters\Wdf" /v "NoExtraBufferRoom" /t REG_DWORD /d "1" /f
@@ -1153,9 +1071,9 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Enum\USB" /v "AllowIdleIrpInD3" /t REG_DW
 reg add "HKLM\SYSTEM\CurrentControlSet\Enum\USB" /v "EnhancedPowerManagementEnabled" /t REG_DWORD /d "0" /f
 for /L %%V in (0,1,32) do (
     if %%V LSS 10 (
-		REG ADD "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Class\USB\000%%V" /v "IdleEnable" /t REG_DWORD /d "0" /f
+		REG ADD "HKLM\SYSTEM\CurrentControlSet\Services\Class\USB\000%%V" /v "IdleEnable" /t REG_DWORD /d "0" /f
 	) else (
-		REG ADD "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Class\USB\00%%V" /v "IdleEnable" /t REG_DWORD /d "0" /f
+		REG ADD "HKLM\SYSTEM\CurrentControlSet\Services\Class\USB\00%%V" /v "IdleEnable" /t REG_DWORD /d "0" /f
 	)
 )
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\USB\AutomaticSurpriseRemovals" /v "AttemptRecoveryFromUsbPowerDrain" /t REG_DWORD /d "0" /f
@@ -1165,80 +1083,47 @@ reg add "HKCU\Control Panel\Cursors" /v "CursorBaseSize" /t REG_DWORD /d "32" /f
 reg add "HKCU\Control Panel\Cursors" /v "Scheme Source" /t REG_DWORD /d "0" /f
 reg add "HKCU\Control Panel\Cursors" /v "Crosshair" /t REG_SZ /d " /f
 reg add "HKCU\Control Panel\Cursors" /v "IBeam" /t REG_SZ /d " /f
-for /f %%K in ('REG QUERY HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\PowerSettings /s /v "Attributes"^|findstr HKEY_') do REG ADD %%K /v "Attributes" /t REG_DWORD /d "0" /f
-:: USB selective suspend setting
+powercfg -h off
+powercfg -delete a1841308-3541-4fab-bc81-f71556f20b4a
+powercfg -delete 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
+powercfg /setactive e9a42b02-d5df-448d-aa00-03f14749eb61
+for /f %%K in ('REG QUERY HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerSettings /s /v "Attributes"^|findstr HKEY_') do REG ADD %%K /v "Attributes" /t REG_DWORD /d "0" /f
 powercfg /setacvalueindex SCHEME_CURRENT 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 0
-:: Processor idle demote threshold
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82BE-4824-96C1-47B60B740D00 4B92D758-5A24-4851-A470-815D78AEE119 100
-:: Processor idle promote threshold
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82BE-4824-96C1-47B60B740D00 7B224883-B3CC-4D79-819F-8374152CBE7C 100
-:: PCI Express Link state power management
 powercfg /setacvalueindex SCHEME_CURRENT 501a4d13-42af-4429-9fd1-a8218c268e20 ee12f906-d277-404b-b6da-e5fa1a576df5 0
-:: USB 3 Link Power Mangement
 powercfg /setacvalueindex SCHEME_CURRENT 2a737441-1930-4402-8d77-b2bebba308a3 d4e98f31-5ffe-4ce1-be31-1b38b384c009 0
-:: Allow hybrid sleep
 powercfg /setacvalueindex SCHEME_CURRENT 238c9fa8-0aad-41ed-83f4-97be242c8f20 94ac6d29-73ce-41a6-809f-6363ba21b47e 0
-:: Allow wake timers
 powercfg /setacvalueindex SCHEME_CURRENT 238c9fa8-0aad-41ed-83f4-97be242c8f20 bd3b718a-0680-4d9d-8ab2-e1d2b4ac806d 0
-:: System unattended sleep timeout
 powercfg /setacvalueindex SCHEME_CURRENT 238c9fa8-0aad-41ed-83f4-97be242c8f20 7bc4a2f9-d8fc-4469-b07b-33eb785aaca0 0
-:: Allow Standby States
 powercfg /setacvalueindex SCHEME_CURRENT 238c9fa8-0aad-41ed-83f4-97be242c8f20 abfc2519-3608-4c2a-94ea-171b0ed546ab 0
-:: Deep sleep
 powercfg /setacvalueindex SCHEME_CURRENT 2e601130-5351-4d9d-8e04-252966bad054 d502f7ee-1dc7-4efd-a55d-f04b6f5c0545 0
-:: Processor performance increase threshold
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 06cadf0e-64ed-448a-8927-ce7bf90eb35d 0
-:: Processor performance increase threshold for Processor Power Efficiency Class 1
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 06cadf0e-64ed-448a-8927-ce7bf90eb35e 0
-:: Allow throttle states
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 3b04d4fd-1cc7-4f23-ab1c-d1337819c4bb 0
-:: Latency sensitivity hint processor performance
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 619b7505-003b-4e82-b7a6-4dd29c300971 0
-:: Latency sensitivity hint processor performance for Processor Power Efficiency Class 1
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 619b7505-003b-4e82-b7a6-4dd29c300972 0
-:: Dim display after
 powercfg /setacvalueindex SCHEME_CURRENT 7516b95f-f776-4464-8c53-06167f40cc99 17aaa29b-8b43-4b94-aafe-35f64daaf1ee 0
-:: Turn off display after
 powercfg /setacvalueindex SCHEME_CURRENT 7516b95f-f776-4464-8c53-06167f40cc99 3c0bc021-c8a8-4e07-a973-6b14cbcb2b7e 0
-:: Disable critical battery action
 powercfg /setacvalueindex SCHEME_CURRENT e73a048d-bf27-4f12-9731-8b2076e8891f 637ea02f-bbcb-4015-8e2c-a1c7b9c0b546 0
-:: Disconnected standby mode
 powercfg /setacvalueindex SCHEME_CURRENT fea3413e-7e05-4911-9a71-700331f1c294 68afb2d9-ee95-47a8-8f50-4115088073b1 0
-:: Turn off hard disk after
 powercfg /setacvalueindex SCHEME_CURRENT 0012ee47-9041-4b5d-9b77-535fba8b1442 6738e2c4-e8a5-4a42-b16a-e040e769756e 0
-:: NVMe Power State Transition Latency Tolerance
 powercfg /setacvalueindex SCHEME_CURRENT 0012ee47-9041-4b5d-9b77-535fba8b1442 fc95af4d-40e7-4b6d-835a-56d131dbc80e 0
-:: Maximum processor state for Processor Power Efficiency Class 1
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 bc5038f7-23e0-4960-96da-33abaf5935ed 100
-:: When playing video
 powercfg /setacvalueindex SCHEME_CURRENT 9596fb26-9850-41fd-ac3e-f7c3c00afd4b 34c7b99f-9a6d-4b3c-8dc7-b6693b78cef4 0
-:: Processor performance core parking core override
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 a55612aa-f624-42c6-a443-7397d064c04f 0
-:: Processor performance core parking max cores
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 ea062031-0e34-4ff1-9b6d-eb1059334028 100
-:: Processor performance boost mode
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 be337238-0d82-4146-a960-4f3749d470c7 2
-:: NVMe Idle Timeout
 powercfg /setacvalueindex SCHEME_CURRENT 0012ee47-9041-4b5d-9b77-535fba8b1442 d639518a-e56d-4345-8af2-b9f32fb26109 0
-:: Secondary NVMe Idle Timeout
 powercfg /setacvalueindex SCHEME_CURRENT 0012ee47-9041-4b5d-9b77-535fba8b1442 d3d55efd-c1ff-424e-9dc3-441be7833010 0
-:: NVMe NOPPME
 powercfg /setacvalueindex SCHEME_CURRENT 0012ee47-9041-4b5d-9b77-535fba8b1442 fc7372b6-ab2d-43ee-8797-15e9841f2cca 0
-:: Set slide show to paused
 powercfg /setacvalueindex SCHEME_CURRENT 0d7dbae2-4294-402a-ba8e-26777e8488cd 309dce9b-bef4-4119-9921-a851fb12f0f4 1
-:: Hub Selective Suspend Timeout
 powercfg /setacvalueindex SCHEME_CURRENT 2a737441-1930-4402-8d77-b2bebba308a3 0853a681-27c8-4100-a2fd-82013e970683 0
-:: Critical battery notification
 powercfg /setacvalueindex SCHEME_CURRENT e73a048d-bf27-4f12-9731-8b2076e8891f 5dbb7c9f-38e9-40d2-9749-4f8a0e9f640f 0
-:: Processor energy performance preference policy
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 36687f9e-e3a5-4dbf-b1dc-15eb381c6863 0
-:: Processor performance decrease policy
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 40fbefc7-2e9d-4d25-a185-0cfd8574bac6 2
-:: Processor performance decrease policy for Processor Power Efficiency Class 1
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 40fbefc7-2e9d-4d25-a185-0cfd8574bac 2
-:: Processor performance increase policy
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 465e1f50-b610-473a-ab58-00d1077dc418 2
-:: Processor performance increase policy for Processor Power Efficiency Class 1
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 465e1f50-b610-473a-ab58-00d1077dc419 2
 :: Processor performance autonomous mode
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 8baa4a8a-14c6-4451-8e8b-14bdbd197537 0
@@ -1266,6 +1151,7 @@ powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 89
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 bc5038f7-23e0-4960-96da-33abaf5935ec 100
 :: When sharing media
 powercfg /setacvalueindex SCHEME_CURRENT 9596fb26-9850-41fd-ac3e-f7c3c00afd4b 03680956-93bc-4294-bba6-4e0f09bb717f 1
+:: Processor performance decrease threshold
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 12a0ab44-fe28-4fa9-b3bd-4b64f44960a6 10
 :: Processor performance boost policy
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 45bcc044-d885-43e2-8605-ee0ec6e96b59 100
@@ -1273,6 +1159,7 @@ powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 45
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 4d2b0152-7d5c-498b-88e2-34345392a2c5 15
 :: Processor performance core parking increase policy
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 c7be0679-2817-4d69-9d02-519a537ed0c6 0
+:: Processor performance decrease threshold for Processor Power Efficiency Class 1
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 12a0ab44-fe28-4fa9-b3bd-4b64f44960a7 10
 :: Device idle policy
 powercfg /setacvalueindex SCHEME_CURRENT fea3413e-7e05-4911-9a71-700331f1c294 4faab71a-92e5-4726-b531-224559672d19 0
@@ -1306,6 +1193,7 @@ powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 0c
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 0cc5b647-c1df-4637-891a-dec35c318584 100
 :: Processor energy performance preference policy for Processor Power Efficiency Class 1
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 36687f9e-e3a5-4dbf-b1dc-15eb381c6864 0
+:: Processor performance increase policy for Processor Power Efficiency Class 1
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 465e1f50-b610-473a-ab58-00d1077dc419 3
 :: Processor idle threshold scaling
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 6c2993b0-8f48-481f-bcc6-00dd2742aa06 0
@@ -1323,67 +1211,41 @@ powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 ea
 powercfg /setacvalueindex SCHEME_CURRENT 5fb4938d-1ee8-4b0f-9a3c-5036b0ab995c dd848b2a-8a5d-4451-9ae2-39cd41658f6c 0
 :: Advanced Color quality bias
 powercfg /setacvalueindex SCHEME_CURRENT 7516b95f-f776-4464-8c53-06167f40cc99 684c3e69-a4f7-4014-8754-d45179a56167 1
-:: Standby Reserve Time
 powercfg /setacvalueindex SCHEME_CURRENT 8619b916-e004-4dd8-9b66-dae86f806698 468fe7e5-1158-46ec-88bc-5b96c9e44fd0 0
-:: Standby Reset Percentage
 powercfg /setacvalueindex SCHEME_CURRENT 8619b916-e004-4dd8-9b66-dae86f806698 49cb11a5-56e2-4afb-9d38-3df47872e21b 0
-:: Standby Budget Grace Period
 powercfg /setacvalueindex SCHEME_CURRENT 8619b916-e004-4dd8-9b66-dae86f806698 60c07fe1-0556-45cf-9903-d56e32210242 0
-:: User Presence Prediction mode
 powercfg /setacvalueindex SCHEME_CURRENT 8619b916-e004-4dd8-9b66-dae86f806698 82011705-fb95-4d46-8d35-4042b1d20def 0
-:: Standby Budget Percent
 powercfg /setacvalueindex SCHEME_CURRENT 8619b916-e004-4dd8-9b66-dae86f806698 9fe527be-1b70-48da-930d-7bcf17b44990 0
-:: Standby Reserve Grace Period
 powercfg /setacvalueindex SCHEME_CURRENT 8619b916-e004-4dd8-9b66-dae86f806698 c763ee92-71e8-4127-84eb-f6ed043a3e3d 0
-:: Video playback quality bias
 powercfg /setacvalueindex SCHEME_CURRENT 8619b916-e004-4dd8-9b66-dae86f806698 10778347-1370-4ee0-8bbd-33bdacaade49 1
-:: Energy Saver Policy
 powercfg /setacvalueindex SCHEME_CURRENT de830923-a562-41af-a086-e3a2c6bad2da 5c5bb349-ad29-4ee2-9d0b-2b25270f7a81 0
-:: Processor performance core parking overutilization threshold
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 943c8cb6-6f93-4227-ad87-e9a3feec08d1 60
-:: Processor performance core parking utility distribution
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 e0007330-f589-42ed-a401-5ddb10e785d3 0
-:: Processor performance core parking distribution threshold
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 4bdaf4e9-d103-46d7-a5f0-6280121616ef 0
-:: Initial performance for Processor Power Efficiency Class 1 when unparked
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 1facfc65-a930-4bc5-9f38-504ec097bbc0 100
-:: A floor performance for Processor Power Efficiency Class 0 when there are Processor Power Efficiency Class 1 processors unparked
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 fddc842b-8364-4edc-94cf-c17f60de1c80 100
-:: Processor performance increase time
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 984cf492-3bed-4488-a8f9-4286c97bf5aa 0
-:: Processor performance increase time for Processor Power Efficiency Class 1
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 984cf492-3bed-4488-a8f9-4286c97bf5ab 0
-:: Processor performance decrease threshold
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 12a0ab44-fe28-4fa9-b3bd-4b64f44960a6 0
-:: Processor performance decrease threshold for Processor Power Efficiency Class 1
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 12a0ab44-fe28-4fa9-b3bd-4b64f44960a7 0
-:: Processor performance core parking increase time
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 2ddd5a84-5a71-437e-912a-db0b8c788732 0
-:: Processor performance core parking decrease time
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 dfd10d17-d5eb-45dd-877a-9a34ddd15c82 100
-:: Processor performance core parking decrease policy
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 71021b41-c749-4d21-be74-a00f335d582b 2
-:: Processor performance core parking concurrency headroom threshold
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 f735a673-2066-4f80-a0c5-ddee0cf1bf5d 0
-:: Processor performance core parking concurrency threshold
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 2430ab6f-a520-44a2-9601-f7f23b5134b1 0
-:: Latency sensitivity hint min unparked cores/packages
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 616cdaa5-695e-4545-97ad-97dc2d1bdd88 0
-:: Latency sensitivity hint min unparked cores/packages for Processor Power Efficiency Class 1
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 616cdaa5-695e-4545-97ad-97dc2d1bdd89 0
-:: Processor idle time check
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 c4581c31-89ab-4597-8e2b-9c9cab440e6b 20000
-:: Processor performance history count
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 7d24baa7-0b84-480f-840c-1b0743c00f5f 20
-:: NVIDIA Display Power Saving technology
 powercfg /setacvalueindex SCHEME_CURRENT 7516b95f-f776-4464-8c53-06167f40cc99 89cc76a4-f226-4d4b-a040-6e9a1da9b882 0
-:: Processor performance decrease time
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 d8edeb9b-95cf-4f95-a73c-b061973693c8 20
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 7f2f5cfa-f10c-4823-b5e1-e93ae85f46b5 0
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 93b8b6dc-0698-4d1c-9ee4-0644e900c85d 2
 powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 bae08b81-2d5e-4688-ad6a-13243356654b 4
 powercfg /setacvalueindex SCHEME_CURRENT 48672f38-7a9a-4bb2-8bf8-3d85be19de4e 2bfc24f9-5ea2-4801-8213-3dbae01aa39d 0
-powercfg -h off
+powercfg -change -hibernate-timeout-dc 0
+powercfg -change -monitor-timeout-ac 30
+powercfg -change -standby-timeout-dc 0
 for %%a in (
     "EnhancedPowerManagementEnabled"
     "AllowIdleIrpInD3"
@@ -1397,7 +1259,7 @@ for %%a in (
     "EnableIdlePowerManagement"
     "IdleInWorkingState"
 ) do (
-    for /f "delims=" %%b in ('REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum" /s /f "%%~a" ^| findstr "HKEY"') do (
+    for /f "delims=" %%b in ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\Enum" /s /f "%%~a" ^| findstr "HKEY"') do (
         REG ADD "%%b" /v "%%~a" /t REG_DWORD /d "0" /f
     )
 )
@@ -1405,14 +1267,14 @@ for %%a in (
     "WakeEnabled"
     "WdkSelectiveSuspendEnable"
 ) do (
-    for /f "delims=" %%b in ('REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class" /s /f "%%~a" ^| findstr "HKEY"') do (
+    for /f "delims=" %%b in ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\Control\Class" /s /f "%%~a" ^| findstr "HKEY"') do (
         REG ADD "%%b" /v "%%~a" /t REG_DWORD /d "0" /f
     )
 )
 for %%a in (
     "DisableIdlePowerManagement"
 ) do (
-	for /f "delims=" %%b in ('REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum" /s /f "%%~a" ^| findstr "HKEY"') do (
+	for /f "delims=" %%b in ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\Enum" /s /f "%%~a" ^| findstr "HKEY"') do (
 		REG ADD "%%b" /v "%%~a" /t REG_DWORD /d "1" /f
 	)
 )
@@ -1534,6 +1396,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server" /v "fEncryptRPCT
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" /v "fLogonDisabled" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Remote Assistance" /v "fAllowToGetHelp" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Remote Assistance" /v "fAllowFullControl" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableLUA" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "ConsentPromptBehaviorAdmin" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "PromptOnSecureDesktop" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" /v "Enabled" /t REG_DWORD /d "0" /f
@@ -2038,9 +1901,66 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "T
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Chat" /v "ChatIcon" /t REG_DWORD /d "3" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoTrayItemsDisplay" /t REG_DWORD /d "0" /f
 reg add "HKCU\Control Panel\Mouse" /v "DockTargetMouseWidth" /t REG_DWORD /d "0" /f
+reg delete "HKCR\*\shellex\ContextMenuHandlers\Sharing" /f
+reg delete "HKCR\Directory\Background\shellex\ContextMenuHandlers\Sharing" /f
+reg delete "HKCR\Directory\shellex\ContextMenuHandlers\Sharing" /f
+reg delete "HKCR\Drive\shellex\ContextMenuHandlers\Sharing" /f
+reg delete "HKCR\LibraryFolder\background\shellex\ContextMenuHandlers\Sharing" /f
+reg delete "HKCR\UserLibraryFolder\shellex\ContextMenuHandlers\Sharing" /f
+reg delete "HKCR\*\shellex\ContextMenuHandlers\ModernSharing" /f
+reg delete "HKCR\AllFilesystemObjects\shellex\ContextMenuHandlers\ModernSharing" /f
+reg delete "HKCR\MSGraphDocument\shellex\ContextMenuHandlers\ModernSharing" /f
+reg delete "HKCR\Folder\ShellEx\ContextMenuHandlers\Library Location" /f
+reg delete "HKLM\SOFTWARE\Classes\Folder\ShellEx\ContextMenuHandlers\Library Location" /f
+reg delete "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f
+reg delete "HKCR\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f
+reg delete "HKLM\SOFTWARE\Classes\Drive\shellex\ContextMenuHandlers\EPP" /f
+reg delete "HKLM\SOFTWARE\Classes\Directory\background\shellex\ContextMenuHandlers\NvCplDesktopContext" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{2C7339CF-2B09-4501-B3F3-F3508C9228ED}" /v "StubPath" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{6BF52A52-394A-11d3-B153-00C04F79FAA6}" /v "StubPath" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{89820200-ECBD-11cf-8B85-00AA005B4340}" /v "StubPath" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{89820200-ECBD-11cf-8B85-00AA005B4383}" /v "StubPath" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\>{22d6f312-b0f6-11d0-94ab-0080c74c7e95}" /v "StubPath" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{89B4C1CD-B018-4511-B0A1-5476DBF70820}" /v "StubPath" /f
+reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Active Setup\Installed Components\{89B4C1CD-B018-4511-B0A1-5476DBF70820}" /v "StubPath" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\DelegateFolders\{F5FB2C77-0E2F-4A16-A381-3E560C68BC83}" /f
+reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\DelegateFolders\{F5FB2C77-0E2F-4A16-A381-3E560C68BC83}" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd" /v "StartupPrograms" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "VMApplet" /f
+reg delete "HKCR\.library-ms\ShellNew" /f
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{7AD84985-87B4-4a16-BE58-8B72A5B390F7}" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{E97DEC16-A50D-49bb-AE24-CF682282E08D}" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{A929C4CE-FD36-4270-B4F5-34ECAC5BD63C}" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{A70C977A-BF00-412C-90B7-034C51DA2439}" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{3D1975AF-48C6-4f8e-A182-BE0E08FA86A9}" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\AudioCD\shell\play" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\SystemFileAssociations\audio\shell\Enqueue" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\SystemFileAssociations\Directory.Audio\shell\Enqueue" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\SystemFileAssociations\Directory.Audio\shell\Play" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\SystemFileAssociations\Directory.Image\shell\Enqueue" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\SystemFileAssociations\Directory.Image\shell\Play" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\WMP11.AssocFile.AIFF\shell\Enqueue" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\WMP11.AssocFile.ASX\shell\Enqueue" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\WMP11.AssocFile.AU\shell\Enqueue" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\WMP11.AssocFile.MIDI\shell\Enqueue" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\WMP11.AssocFile.MK3D\shell\Enqueue" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\WMP11.AssocFile.MP3\shell\Enqueue" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\WMP11.AssocFile.WAX\shell\Enqueue" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg add "HKLM\Software\Classes\WMP11.AssocFile.WVX\shell\Enqueue" /v "LegacyDisable" /t REG_SZ /d "" /f
+reg delete "HKLM\SOFTWARE\Classes\Diagnostic.Cabinet" /f
+reg delete "HKLM\SOFTWARE\Classes\Diagnostic.Config" /f
+reg delete "HKLM\SOFTWARE\Classes\Diagnostic.Document" /f
+reg delete "HKLM\SOFTWARE\Classes\Diagnostic.Perfmon.Config" /f
+reg delete "HKLM\SOFTWARE\Classes\Diagnostic.Perfmon.Document" /f
+reg delete "HKLM\SOFTWARE\Classes\Diagnostic.Resmon.Config" /f
+reg delete "HKLM\SOFTWARE\Classes\DiagnosticLog" /f
+reg delete "HKCR\Directory\shellex\PropertySheetHandlers\Sharing" /f
+reg delete "HKCR\Drive\shellex\PropertySheetHandlers\Sharing" /f
+del /S /Q "C:\Users\Administrator\Desktop\Microsoft Edge.lnk"
+del /S /Q "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
+rmdir /s /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch"
 
 :: finish
-del /S /Q "C:\Users\Administrator\Desktop\Microsoft Edge.lnk"
 move "C:\TEMP\SetTimerResolution.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
 move "C:\TEMP\RunRealHidden.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
 move "C:\TEMP\CleanUp.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
