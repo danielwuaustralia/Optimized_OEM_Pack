@@ -18,15 +18,17 @@ download-bubble
 
 #shopping-list
 
-#smooth-scrolling
-
 #side-search
-
-#disable-accelerated-video-decode
 
 #power-bookmark-backend
 
 #search-web-in-side-panel
+
+#enable-gpu-rasterization
+
+#canvas-oop-rasterization
+
+#skia-graphite
 
 ##################################################       开启       ########################################################
 
@@ -45,3 +47,7 @@ download-bubble
 ##################################################    广告屏蔽规则   ########################################################
 
 https://raw.githubusercontent.com/o0HalfLife0o/list/master/ad-pc.txt
+
+##################################################    brave同步   ########################################################
+
+tiny label soldier injury pilot list run soul clump coyote what argue assume shed alert glance weird indicate cute sure model wear lawn try cushion
