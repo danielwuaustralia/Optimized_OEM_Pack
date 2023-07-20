@@ -145,14 +145,14 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MinimumBuffers" /t REG_DWORD /d "1" /f
 
 :: no ms edge
+taskkill.exe /f /im "msedge.exe"
 reg add "HKLM\SOFTWARE\Microsoft\EdgeUpdate" /v "DoNotUpdateToEdgeWithChromium" /t REG_DWORD /d "1" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\edgeupdatem" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\edgeupdate" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{9459C573-B17A-45AE-9F64-1857B5D58CEE}" /f
-rmdir /s /q "C:\Program Files (x86)\Microsoft\Edge"
-rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeCore"
-rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeWebView"
-rmdir /s /q "C:\Program Files (x86)\Microsoft\Temp"
+REG DELETE "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects" /f
+REG DELETE "HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects" /f
+rmdir /s /q "C:\Program Files (x86)\Microsoft"
 
 :: no onedrive
 del /f /q /s "C:\Windows\System32\OneDriveSetup.exe"
