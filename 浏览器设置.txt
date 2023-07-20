@@ -20,17 +20,13 @@ download-bubble
 
 #side-search
 
-#power-bookmark-backend
+#power-bookmarks-side-panel
 
-#search-web-in-side-panel
+##################################################       开启       ########################################################
 
 #enable-gpu-rasterization
 
 #canvas-oop-rasterization
-
-#skia-graphite
-
-##################################################       开启       ########################################################
 
 #enable-webrtc-hide-local-ips-with-mdns
 
@@ -47,7 +43,3 @@ download-bubble
 ##################################################    广告屏蔽规则   ########################################################
 
 https://raw.githubusercontent.com/o0HalfLife0o/list/master/ad-pc.txt
-
-##################################################    brave同步   ########################################################
-
-tiny label soldier injury pilot list run soul clump coyote what argue assume shed alert glance weird indicate cute sure model wear lawn try cushion
