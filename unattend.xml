@@ -58,6 +58,11 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>6</Order>
                     <RequiresUserInput>false</RequiresUserInput>
+                    <CommandLine>C:\TEMP\ChromeDevStandaloneSetup64.exe /silent /install</CommandLine>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>7</Order>
+                    <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>cmd.exe /c "C:\TEMP\Setup2.cmd"</CommandLine>
                 </SynchronousCommand>
             </FirstLogonCommands>
