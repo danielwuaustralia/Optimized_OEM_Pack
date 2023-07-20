@@ -605,18 +605,10 @@ DISM.exe /Online /Remove-DefaultAppAssociations
 DISM.exe /Online /Set-ReservedStorageState /State:Disabled
 reagentc /disable
 
-:: system APP removal
-set "UWP=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Applications"
-for %%i in (
-Microsoft.SecHealthUI
-Microsoft.MicrosoftEdge.Stable
+:: UWP removal
+for %%z in (
 NVIDIACorp.NVIDIAControlPanel
-) do (
-  for /f %%a in ('reg query "%UWP%" /f %%i /k ^| find /i "Applications"') do if not errorlevel 1 (reg delete %%a /f)
-)
-
-set "InboxApplications=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications"
-for %%i in (
+Microsoft.MicrosoftEdge.Stable
 MicrosoftEdge
 MicrosoftEdgeDevToolsClient
 Microsoft.Win32WebViewHost
@@ -628,9 +620,15 @@ Microsoft.Windows.ParentalControls
 Microsoft.Windows.NarratorQuickStart
 Microsoft.Windows.XGpuEjectDialog
 Windows.PrintDialog
+MicrosoftWindows.Client.WebExperience
+Microsoft.Windows.PrintQueueActionCenter
 ) do (
-  for /f %%a in ('reg query "%InboxApplications%" /f %%i /k ^| find /i "InboxApplications"') do if not errorlevel 1 (reg delete %%a /f)
+Powershell -C "Get-ChildItem -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Config' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Recurse -Force -EA 0 -Verbose"
+Powershell -C "Get-ChildItem -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Recurse -Force -EA 0 -Verbose"
+Powershell -C "Get-ChildItem -Path 'C:\Windows\SystemApps' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Force -Recurse -EA 0 -Verbose"
+Powershell -C "Get-ChildItem -Path 'C:\Program Files\WindowsApps' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Force -Recurse -EA 0 -Verbose"
 )
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned\Microsoft.Windows.PrintQueueActionCenter_cw5n1h2txyewy" /f
 
 :: https://www.seagate.com/au/en/support/software/seachest/
 :: "C:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" --scan
