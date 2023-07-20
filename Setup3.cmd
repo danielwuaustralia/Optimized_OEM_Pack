@@ -5,6 +5,9 @@ setlocal enabledelayedexpansion
 setlocal enableextensions
 
 :: Disabled scheduled apps tasks
+schtasks /change /tn "CreateExplorerShellUnelevatedTask" /enable
+schtasks /change /tn "Microsoft\Windows\TextServicsFramework\MsCtfMonitor" /enable
+del /F /Q "C:\Windows\System32\Tasks\Microsoft\Windows\SettingSync\*"
 schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Scan" /f
 schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Scan Static Task" /f
 schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\UpdateModelTask" /f
@@ -206,10 +209,22 @@ schtasks /delete /tn "Microsoft\Windows\InstallService\WakeUpAndContinueUpdates"
 schtasks /delete /tn "Microsoft\Windows\InstallService\WakeUpAndScanForUpdates" /f
 schtasks /delete /tn "Microsoft\Windows\Input\InputSettingsRestoreDataAvailable" /f
 schtasks /delete /tn "Microsoft\Windows\Input\syncpensettings" /f
-schtasks /change /tn "CreateExplorerShellUnelevatedTask" /enable
-schtasks /change /tn "Microsoft\Windows\TextServicsFramework\MsCtfMonitor" /enable
-schtasks /change /tn "Microsoft\Windows\RecoveryEnvironment\VerifyWinRE" /disable
-del /F /Q "C:\Windows\System32\Tasks\Microsoft\Windows\SettingSync\*"
+schtasks /delete /tn "Microsoft\Windows\Active Directory Rights Management Services Client\AD RMS Rights Policy Template Management (Automated)" /f
+schtasks /delete /tn "Microsoft\Windows\Active Directory Rights Management Services Client\AD RMS Rights Policy Template Management (Manual)" /f
+schtasks /delete /tn "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser Exp" /f
+schtasks /delete /tn "Microsoft\Windows\AppxDeploymentClient\Pre-staged app cleanup" /f
+schtasks /delete /tn "Microsoft\Windows\CloudRestore\Restore" /f
+schtasks /delete /tn "Microsoft\Windows\Data Integrity Scan\Data Integrity Check And Scan" /f
+schtasks /delete /tn "Microsoft\Windows\Data Integrity Scan\Data Integrity Scan" /f
+schtasks /delete /tn "Microsoft\Windows\Data Integrity Scan\Data Integrity Scan for Crash Recovery" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceLocationRightsChange" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\RegisterDevicePeriodic24" /f
+schtasks /delete /tn "Microsoft\Windows\EDP\EDP App Launch Task" /f
+schtasks /delete /tn "Microsoft\Windows\EDP\EDP Auth Task" /f
+schtasks /delete /tn "Microsoft\Windows\EDP\EDP Inaccessible Credentials Task" /f
+schtasks /delete /tn "Microsoft\Windows\EDP\StorageCardEncryption Task" /f
+schtasks /delete /tn "Microsoft\Windows\PI\SecureBootEncodeUEFI" /f
+schtasks /delete /tn "Microsoft\Windows\PI\Secure-Boot-Update" /f
 
 :: Intel Drivers
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\iai2c" /v "Start" /t REG_DWORD /d "4" /f
@@ -283,11 +298,11 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\rdbss" /v "Start" /t REG_DWORD /
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\sppsvc" /v "Start" /t REG_DWORD /d "3" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\InstallService" /v "Start" /t REG_DWORD /d "3" /f
 reg add "HKLM\System\CurrentControlSet\Services\Dhcp" /v "DependOnService" /t REG_MULTI_SZ /d "NSI\0Afd" /f
-reg add "HKLM\System\CurrentControlSet\Services\hidserv" /v "DependOnService" /t REG_MULTI_SZ /d " /f
-reg add "HKLM\System\CurrentControlSet\Control\Class\{4d36e96c-e325-11ce-bfc1-08002be10318}" /v "UpperFilters" /t REG_MULTI_SZ /d " /f
-reg add "HKLM\System\CurrentControlSet\Control\Class\{4d36e967-e325-11ce-bfc1-08002be10318}" /v "LowerFilters" /t REG_MULTI_SZ /d " /f
-reg add "HKLM\System\CurrentControlSet\Control\Class\{6bdd1fc6-810f-11d0-bec7-08002be2092f}" /v "UpperFilters" /t REG_MULTI_SZ /d " /f
-reg add "HKLM\System\CurrentControlSet\Control\Class\{71a27cdd-812a-11d0-bec7-08002be2092f}" /v "LowerFilters" /t REG_MULTI_SZ /d " /f
+reg add "HKLM\System\CurrentControlSet\Services\hidserv" /v "DependOnService" /t REG_MULTI_SZ /d "" /f
+reg add "HKLM\System\CurrentControlSet\Control\Class\{4d36e96c-e325-11ce-bfc1-08002be10318}" /v "UpperFilters" /t REG_MULTI_SZ /d "" /f
+reg add "HKLM\System\CurrentControlSet\Control\Class\{4d36e967-e325-11ce-bfc1-08002be10318}" /v "LowerFilters" /t REG_MULTI_SZ /d "" /f
+reg add "HKLM\System\CurrentControlSet\Control\Class\{6bdd1fc6-810f-11d0-bec7-08002be2092f}" /v "UpperFilters" /t REG_MULTI_SZ /d "" /f
+reg add "HKLM\System\CurrentControlSet\Control\Class\{71a27cdd-812a-11d0-bec7-08002be2092f}" /v "LowerFilters" /t REG_MULTI_SZ /d "" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\fvevol" /v "ErrorControl" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\fvevol" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\rdyboost" /v "Start" /t REG_DWORD /d "4" /f
@@ -298,6 +313,7 @@ reg delete "HKLM\SYSTEM\CurrentControlSet\Services\MicrosoftEdgeElevationService
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\msisadrv" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\XblGameSave" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\WSearch" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\wscsvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\WpnService" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\wisvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\WerSvc" /v "Start" /t REG_DWORD /d "4" /f
@@ -449,7 +465,6 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\NetBT" /v "Start" /t REG_DWORD /
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CDPSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CDPUserSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\VSS" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\QWAVEdrv" /v "Start" /t REG_DWORD /d "4" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\RTUsbSwSrvc" /f
 
 ::Image File Execution Options
