@@ -509,6 +509,7 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution 
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\cs2.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "5" /f
 
 :: event tracing session
+logman stop SCM -ets
 reg add "HKLM\SOFTWARE\Classes\AppID\slui.exe" /v "NoGenTicket" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" /v "EnableLog" /t REG_SZ /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" /v "DisableWerReporting" /t REG_DWORD /d "1" /f
@@ -523,7 +524,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "FileMax" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MaxFileSize" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MinimumBuffers" /t REG_DWORD /d "1" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib\V2Providers" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib\_V2Providers" /f
 
 :: performance
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "AllowHeadlessExecution" /t REG_DWORD /d "1" /f
@@ -541,6 +542,7 @@ del /f /q /s "C:\Windows\System32\SIHClient.exe"
 :: Further Cleanup
 rmdir /s /q "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\DesktopSpotlight"
 rmdir /s /q "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\DesktopStickerEditorWin32Exe"
+rmdir /s /q "C:\Windows\System32\LogFiles\Scm"
 del /f /q /s "C:\Windows\System32\microsoft-windows-sleepstudy-events.dll"
 rmdir /s /q "C:\ProgramData\Microsoft\Windows Defender"
 rmdir /s /q "C:\Windows\System32\LogFiles\WMI"
@@ -548,8 +550,8 @@ rmdir /s /q "C:\Windows\System32\WDI\LogFiles"
 del /f /q /s "C:\Users\Administrator\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\*.*"
 taskkill /f /im SearchApp.exe
 del /f /q /s "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchHost.exe"
-ren C:\Windows\System32\mcupdate_GenuineIntel.dll mcupdate_GenuineIntel.dll.backup
-ren C:\Windows\System32\mcupdate_AuthenticAMD.dll mcupdate_AuthenticAMD.dll.backup
+del /f /q /s "C:\Windows\System32\mcupdate_GenuineIntel.dll"
+del /f /q /s "C:\Windows\System32\mcupdate_AuthenticAMD.dll"
 del /f /q /s "C:\Windows\System32\mobsync.exe"
 del /f /q /s "C:\Windows\SysWOW64\mobsync.exe"
 del /f /q /s "C:\Windows\System32\AggregatorHost.exe"
