@@ -21,7 +21,7 @@
         <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <InputLocale>en-US; zh-CN</InputLocale>
             <SystemLocale>zh-CN</SystemLocale>
-            <UILanguage>zh-CN</UILanguage>
+            <UILanguage>en-US</UILanguage>
             <UserLocale>zh-CN</UserLocale>
         </component>
         <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -58,10 +58,15 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>6</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\ChromeDevStandaloneSetup64.exe /silent /install</CommandLine>
+                    <CommandLine>C:\TEMP\ChromeBetaStandaloneSetup64.exe /silent /install</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>7</Order>
+                    <RequiresUserInput>false</RequiresUserInput>
+                    <CommandLine>C:\TEMP\amd_chipset.exe /S</CommandLine>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>8</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>cmd.exe /c "C:\TEMP\Setup2.cmd"</CommandLine>
                 </SynchronousCommand>
