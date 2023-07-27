@@ -1,6 +1,5 @@
 @echo on
 color 0a
-chcp 65001>nul
 setlocal enabledelayedexpansion
 setlocal enableextensions
 
@@ -24,6 +23,8 @@ Dism /online /Disable-Feature /FeatureName:SearchEngine-Client-Package /Remove /
 Dism /online /Disable-Feature /FeatureName:Windows-Defender-ApplicationGuard /Remove /NoRestart
 Dism /online /Disable-Feature /FeatureName:Windows-Defender-Default-Definitions /Remove /NoRestart
 Dism /online /Disable-Feature /FeatureName:MSRDC-Infrastructure /Remove /NoRestart
+Dism /online /Disable-Feature /FeatureName:MediaPlayback /NoRestart
+Dism /online /Disable-Feature /FeatureName:WindowsMediaPlayer /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:App.StepsRecorder~~~~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:DirectX.Configuration.Database~~~~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:Hello.Face.20134~~~~0.0.1.0 /NoRestart
@@ -83,7 +84,7 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "EnableF
 
 :: powershell policy
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell" /v "EnableScripts" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell" /v "ExecutionPolicy" /t REG_SZ /d "Unrestricted" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell" /v "ExecutionPolicy" /t REG_SZ /d "Bypass" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ModuleLogging" /v "EnableModuleLogging" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging" /v "EnableScriptBlockLogging" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription" /v "EnableTranscripting" /t REG_DWORD /d "0" /f
@@ -147,11 +148,18 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener
 :: no ms edge
 taskkill.exe /f /im "msedge.exe"
 reg add "HKLM\SOFTWARE\Microsoft\EdgeUpdate" /v "DoNotUpdateToEdgeWithChromium" /t REG_DWORD /d "1" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\edgeupdatem" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\edgeupdate" /f
+reg delete "HKLM\SOFTWARE\Classes\AppUserModelId\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge" /f
+reg delete "HKLM\SOFTWARE\Classes\MSEdgeHTM" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{9459C573-B17A-45AE-9F64-1857B5D58CEE}" /f
-REG DELETE "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects" /f
-REG DELETE "HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoft-windows-edgechromium_31bf3856ad364e35_none_df3ee7b2c5023fd1" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoft-windows-m..osoftedge.appxsetup_31bf3856ad364e35_none_d0472dbbd37cfd67" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoft-windows-microsoftedgebrowser_31bf3856ad364e35_none_cc4c2155158afa1d" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoftedge-autologger_31bf3856ad364e35_none_dd39fb9187e61e2e" /f
+reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate" /f
+reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge" /f
+reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge Update" /f
+reg delete "HKLM\SYSTEM\ControlSet001\Services\edgeupdate" /f
+reg delete "HKLM\SYSTEM\ControlSet001\Services\edgeupdatem" /f
 rmdir /s /q "C:\Program Files (x86)\Microsoft"
 
 :: no onedrive
@@ -166,6 +174,9 @@ REG ADD "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v "System.IsPinnedT
 REG ADD "HKCR\Wow6432Node\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v "System.IsPinnedToNameSpaceTree" /d "0" /t REG_DWORD /f
 
 :: no defender
+rmdir /s /q "C:\Windows\Containers"
+del /f /q /s "C:\Windows\System32\windowsdefenderapplicationguardcsp.dll"
+del /f /q /s "C:\Windows\SysWOW64\windowsdefenderapplicationguardcsp.dll"
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\MsSecCore" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\wscsvc" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WdNisDrv" /f
@@ -639,6 +650,3 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\De
 :: "C:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" -d PD0 --powerBalanceFeature disable
 :: "C:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" -d PD0 --EPCfeature disable
 :: "C:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" -d PD0 --idle_b disable
-
-:: Special PC Config
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "PagingFiles" /t REG_MULTI_SZ /d "c:\pagefile.sys 32768 32768" /f
