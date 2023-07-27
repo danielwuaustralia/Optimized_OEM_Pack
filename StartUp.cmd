@@ -1,12 +1,12 @@
 @echo off
 
 :: performance
-wmic process where name="dwm.exe" CALL setpriority 64
-wmic process where name="wininit.exe" CALL setpriority 256
-wmic process where name="TextInputHost.exe" CALL setpriority 64
-wmic process where name="ctfmon.exe" CALL setpriority 64
-wmic process where name="RTUWPSrvcMain.exe" CALL setpriority 64
-wmic process where name="fontdrvhost.exe" CALL setpriority 64
+"C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c wmic process where name="dwm.exe" CALL setpriority 64
+"C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c wmic process where name="wininit.exe" CALL setpriority 256
+"C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c wmic process where name="TextInputHost.exe" CALL setpriority 64
+"C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c wmic process where name="ctfmon.exe" CALL setpriority 64
+"C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c wmic process where name="RTUWPSrvcMain.exe" CALL setpriority 64
+"C:\Windows\System32\MinSudo.exe" --NoLogo --Verbose --System --TrustedInstaller --Privileged cmd /c wmic process where name="fontdrvhost.exe" CALL setpriority 64
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "Start" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "BufferSize" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "FileCounter" /t REG_DWORD /d "1" /f
