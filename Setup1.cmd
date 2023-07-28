@@ -28,9 +28,13 @@ Dism /online /Disable-Feature /FeatureName:WindowsMediaPlayer /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:App.StepsRecorder~~~~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:DirectX.Configuration.Database~~~~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:Hello.Face.20134~~~~0.0.1.0 /NoRestart
+Dism /Online /Remove-Capability /CapabilityName:Language.Handwriting~~~en-US~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:Language.Handwriting~~~zh-CN~0.0.1.0 /NoRestart
+Dism /Online /Remove-Capability /CapabilityName:Language.OCR~~~en-US~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:Language.OCR~~~zh-CN~0.0.1.0 /NoRestart
+Dism /Online /Remove-Capability /CapabilityName:Language.Speech~~~en-US~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:Language.Speech~~~zh-CN~0.0.1.0 /NoRestart
+Dism /Online /Remove-Capability /CapabilityName:Language.TextToSpeech~~~en-US~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:Language.TextToSpeech~~~zh-CN~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:Language.Fonts.Hans~~~und-HANS~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:MathRecognizer~~~~0.0.1.0 /NoRestart
@@ -71,6 +75,11 @@ Dism /Online /Remove-Capability /CapabilityName:Microsoft.Windows.Wifi.Client.Re
 Dism /Online /Remove-Capability /CapabilityName:Microsoft.Windows.Wifi.Client.Realtek.Rtwlane~~~~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:OneCoreUAP.OneSync~~~~0.0.1.0 /NoRestart
 Dism /Online /Remove-Capability /CapabilityName:Print.Management.Console~~~~0.0.1.0 /NoRestart
+Dism /Online /Remove-Capability /CapabilityName:Windows.Client.ProjFS~~~~ /NoRestart
+Dism /Online /Remove-Capability /CapabilityName:Windows.Container.ClientSupportImage~~~~0.0.1.0 /NoRestart
+Dism /Online /Remove-Capability /CapabilityName:Windows.Telnet.Client~~~~ /NoRestart
+Dism /Online /Remove-Capability /CapabilityName:Windows.TFTP.Client~~~~ /NoRestart
+Dism /Online /Remove-Capability /CapabilityName:Windows.WinOcr~~~~ /NoRestart
 
 :: TEMP Folder
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v "TEMP" /t REG_EXPAND_SZ /d "C:\TEMP" /f
@@ -127,7 +136,6 @@ reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\Vol
 reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UpdatePolicy\PolicyState" /v "ExcludeWUDrivers" /t REG_DWORD /d "1" /f
 
 :: no firewall
-netsh advfirewall firewall delete rule all
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile" /v "EnableFirewall" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" /v "EnableFirewall" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" /v "EnableFirewall" /t REG_DWORD /d "0" /f
@@ -160,6 +168,8 @@ reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall
 reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge Update" /f
 reg delete "HKLM\SYSTEM\ControlSet001\Services\edgeupdate" /f
 reg delete "HKLM\SYSTEM\ControlSet001\Services\edgeupdatem" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects\{1FD49718-1D00-4B19-AF5F-070AF6D5D54C}" /f
+reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects\{1FD49718-1D00-4B19-AF5F-070AF6D5D54C}" /f
 rmdir /s /q "C:\Program Files (x86)\Microsoft"
 
 :: no onedrive
@@ -202,6 +212,7 @@ del /f /q /s "C:\Windows\SysWOW64\GameBarPresenceWriter.exe"
 del /f /q /s "C:\Windows\SysWOW64\smartscreen.dll"
 del /f /q /s "C:\Windows\SysWOW64\smartscreen.exe"
 del /f /q /s "C:\Windows\SysWOW64\smartscreenps.dll"
+del /f /q /s "C:\Windows\System32\CompatTelRunner.exe"
 del /f /q /s "C:\Windows\System32\DWWIN.EXE"
 del /f /q /s "C:\Windows\System32\GameBarPresenceWriter.exe"
 del /f /q /s "C:\Windows\System32\SecurityAndMaintenance.png"
@@ -605,9 +616,6 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows Security Health\Health Advisor\Storage 
 reg add "HKLM\SOFTWARE\Microsoft\Windows Security Health\Health Advisor\Time Service" /v "UIReportingDisabled" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows Security Health\Health Advisor\Update Monitor" /v "UIReportingDisabled" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "SettingsPageVisibility" /t REG_SZ /d "hide:windowsdefender;" /f
-
-:: Turn On MSI Mode
-powershell -nop -ep bypass -file "C:\TEMP\interrupt_affinity_auto.ps1"
 
 :: uncompress C drive
 COMPACT.EXE /u /i /f /s "C:\*.*"
