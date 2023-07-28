@@ -1,5 +1,6 @@
 @echo on
 color 0a
+chcp 65001>nul
 setlocal enabledelayedexpansion
 setlocal enableextensions
 
@@ -299,7 +300,7 @@ bcdedit /set linearaddress57 OptOut
 bcdedit /set increaseuserva 268435328
 bcdedit /timeout 0
 bcdedit /deletevalue flightsigning
-powershell -nop -ep bypass -c "$devices = @('ACPI Processor Aggregator','Microsoft Windows Management Interface for ACPI','AMD PSP','AMD SMBus','Base System Device','*Bluetooth*','Composite Bus Enumerator','High precision event timer','Intel Management Engine','Intel SMBus','*Hyper-V*','Microsoft Kernel Debug Network Adapter','Microsoft RRAS Root Enumerator', 'NDIS Virtual Network Adapter Enumerator', '*WAN Miniport*', 'Motherboard resources','Numeric Data Processor','PCI Data Acquisition and Signal Processing Controller','PCI Encryption/Decryption Controller','PCI Memory Controller','PCI Simple Communications Controller','SM Bus Controller','System CMOS/real time clock','System Speaker','System Timer','UMBus Root Bus Enumerator','Remote Desktop Device Redirector Bus','Microsoft GS Wavetable Synth','AURA LED Controller', 'Microsoft Virtual Drive Enumerator', 'Microsoft iSCSI Initiator', 'SMBus', 'UMBus', 'Terminal Server Mouse Driver', 'Terminal Server Keyboard Driver', 'Microsoft Usbccid Smartcard Reader (WUDF)'); Get-PnpDevice -FriendlyName $devices -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore;"
+powershell -nop -ep bypass -c "$devices = @('ACPI Processor Aggregator','Microsoft Windows Management Interface for ACPI','AMD PSP','AMD SMBus','Base System Device','*Bluetooth*','Composite Bus Enumerator','高精度事件计时器','Intel Management Engine','Intel SMBus','*Hyper-V*','Microsoft Kernel Debug Network Adapter','Microsoft RRAS Root Enumerator', 'NDIS 虚拟网络适配器枚举器', '*WAN Miniport*', 'Motherboard resources','Numeric Data Processor','PCI Data Acquisition and Signal Processing Controller','PCI Encryption/Decryption Controller','PCI Memory Controller','PCI Simple Communications Controller','SM Bus Controller','System CMOS/real time clock','System Speaker','System Timer','UMBus Root Bus Enumerator','远程桌面设备重定向程序总线','Microsoft GS 波表合成器','AURA LED Controller', 'Microsoft 虚拟驱动器枚举器', 'Microsoft iSCSI Initiator', 'SM 总线控制器', 'UMBus', 'Terminal Server Mouse Driver', 'Terminal Server Keyboard Driver', 'Microsoft Usbccid Smartcard Reader (WUDF)'); Get-PnpDevice -FriendlyName $devices -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore;"
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Serialize" /v "StartupDelayInMSec" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "DelayedDesktopSwitchTimeout" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "VerboseStatus" /t REG_DWORD /d "1" /f
