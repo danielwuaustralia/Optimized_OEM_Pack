@@ -970,6 +970,7 @@ reg add "HKCU\Control Panel\Cursors" /v "GestureVisualization" /t REG_DWORD /d "
 reg add "HKCU\Control Panel\Cursors" /v "CursorBaseSize" /t REG_DWORD /d "32" /f
 powercfg -h off
 powercfg -delete a1841308-3541-4fab-bc81-f71556f20b4a
+powercfg -delete 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 powercfg -changename e9a42b02-d5df-448d-aa00-03f14749eb61 "Extreme Game Mode" "Only use this plan while gaming !!!"
 for /f %%K in ('REG QUERY HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerSettings /s /v "Attributes"^|findstr HKEY_') do REG ADD %%K /v "Attributes" /t REG_DWORD /d "0" /f
 powercfg /setacvalueindex e9a42b02-d5df-448d-aa00-03f14749eb61 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 0
@@ -1087,38 +1088,6 @@ powercfg /setacvalueindex e9a42b02-d5df-448d-aa00-03f14749eb61 48672f38-7a9a-4bb
 powercfg -change -hibernate-timeout-dc 0
 powercfg -change -monitor-timeout-ac 30
 powercfg -change -standby-timeout-dc 0
-for %%a in (
-    "EnhancedPowerManagementEnabled"
-    "AllowIdleIrpInD3"
-    "EnableSelectiveSuspend"
-    "DeviceSelectiveSuspended"
-    "SelectiveSuspendEnabled"
-    "SelectiveSuspendOn"
-    "WaitWakeEnabled"
-    "D3ColdSupported"
-    "WdfDirectedPowerTransitionEnable"
-    "EnableIdlePowerManagement"
-    "IdleInWorkingState"
-) do (
-    for /f "delims=" %%b in ('REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum" /s /f "%%~a" ^| findstr "HKEY"') do (
-        REG ADD "%%b" /v "%%~a" /t REG_DWORD /d "0" /f 1>nul 2>&1
-    )
-)
-for %%a in (
-    "WakeEnabled"
-    "WdkSelectiveSuspendEnable"
-) do (
-    for /f "delims=" %%b in ('REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class" /s /f "%%~a" ^| findstr "HKEY"') do (
-        REG ADD "%%b" /v "%%~a" /t REG_DWORD /d "0" /f 1>nul 2>&1
-    )
-)
-for %%a in (
-    "DisableIdlePowerManagement"
-) do (
-	for /f "delims=" %%b in ('REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum" /s /f "%%~a" ^| findstr "HKEY"') do (
-		REG ADD "%%b" /v "%%~a" /t REG_DWORD /d "1" /f 1>nul 2>&1
-	)
-)
 reg add "HKLM\System\CurrentControlSet\Control\Power\ModernSleep" /v "CoalescingTimerInterval" /t REG_DWORD /d "0" /f
 reg add "HKLM\System\CurrentControlSet\Control\Power" /v "CoalescingTimerInterval" /t REG_DWORD /d "0" /f
 reg add "HKLM\System\CurrentControlSet\Control\Session Manager\Power" /v "CoalescingTimerInterval" /t REG_DWORD /d "0" /f
@@ -1443,7 +1412,7 @@ reg delete "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Accent" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" /v "AccentColorMenu" /t REG_DWORD /d "2852126720" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" /v "StartColorMenu" /t REG_DWORD /d "2854232096" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" /v "AccentPalette" /t REG_BINARY /d "808080aa000000aa808080aa808080aa000000aa000000aa000000aa000000aa" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\DWM" /v "ColorPrevalence" /t REG_DWORD /d "0" /f
+reg add "HKCU\SOFTWARE\Microsoft\Windows\DWM" /v "ColorPrevalence" /t REG_DWORD /d "1" /f
 reg add "HKCU\SOFTWARE\Microsoft\Windows\DWM" /v "AccentColor" /t REG_DWORD /d "2852126720" /f
 reg add "HKCU\SOFTWARE\Microsoft\Windows\DWM" /v "AccentColorInactive" /t REG_DWORD /d "2854232096" /f
 reg delete "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /f
@@ -1640,6 +1609,8 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "T
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSn" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarBadges" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarFlashing" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarMn" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "MMTaskbarGlomLevel" /t REG_DWORD /d "2" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /v "VisualFXSetting" /t REG_DWORD /d "3" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\AnimateMinMax" /v "DefaultApplied" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ComboBoxAnimation" /v "DefaultApplied" /t REG_DWORD /d "0" /f
@@ -1670,6 +1641,23 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\SQMClient\Windows" /v "CEIPEnable" /t 
 reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\VSCommon\15.0\SQM" /v "OptIn" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\usbhub\hubg" /v "DisableOnSoftRemove" /t REG_DWORD /d "1" /f
 reg add "HKCR\SystemFileAssociations\image\shell\print" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\NetworkConnectivityStatusIndicator" /v "NoActiveProbe" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\NetworkConnectivityStatusIndicator" /v "DisablePassivePolling" /t REG_DWORD /d "1" /f
+reg add "HKCU\Control Panel\Cursors" /v "Hand" /t REG_EXPAND_SZ /d "" /f
+reg add "HKCU\Control Panel\Cursors" /v "Wait" /t REG_EXPAND_SZ /d "" /f
+reg add "HKCU\Control Panel\Cursors" /v "UpArrow" /t REG_EXPAND_SZ /d "" /f
+reg add "HKCU\Control Panel\Cursors" /v "SizeWE" /t REG_EXPAND_SZ /d "" /f
+reg add "HKCU\Control Panel\Cursors" /v "SizeNWSE" /t REG_EXPAND_SZ /d "" /f
+reg add "HKCU\Control Panel\Cursors" /v "SizeNS" /t REG_EXPAND_SZ /d "" /f
+reg add "HKCU\Control Panel\Cursors" /v "SizeNESW" /t REG_EXPAND_SZ /d "" /f
+reg add "HKCU\Control Panel\Cursors" /v "SizeAll" /t REG_EXPAND_SZ /d "" /f
+reg add "HKCU\Control Panel\Cursors" /v "Scheme Source" /t REG_DWORD /d "0" /f
+reg add "HKCU\Control Panel\Cursors" /v "NWPen" /t REG_EXPAND_SZ /d "" /f
+reg add "HKCU\Control Panel\Cursors" /v "AppStarting" /t REG_EXPAND_SZ /d "" /f
+reg add "HKCU\Control Panel\Cursors" /v "Arrow" /t REG_EXPAND_SZ /d "" /f
+reg add "HKCU\Control Panel\Cursors" /ve /t REG_SZ /d "" /f
+reg add "HKCU\Control Panel\Cursors" /v "Help" /t REG_EXPAND_SZ /d "" /f
+reg add "HKCU\Control Panel\Cursors" /v "No" /t REG_EXPAND_SZ /d "" /f
 for %%a in (
     "batfile"
     "cmdfile"
@@ -1705,7 +1693,6 @@ reg add "HKLM\Software\Policies\Microsoft\WindowsStore" /v "DisableStoreApps" /t
 reg add "HKLM\SOFTWARE\Policies\Microsoft\PushToInstall" /v "DisablePushToInstall" /t REG_DWORD /d "1" /f
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\Subscriptions" /f
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\SuggestedApps" /f
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarMn" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Chat" /v "ChatIcon" /t REG_DWORD /d "3" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoTrayItemsDisplay" /t REG_DWORD /d "0" /f
 reg add "HKCU\Control Panel\Mouse" /v "DockTargetMouseWidth" /t REG_DWORD /d "0" /f
@@ -1719,6 +1706,38 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\NonEnum" /v "{3
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\NonEnum" /v "{A0953C92-50DC-43bf-BE83-3742FED03C9C}" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer" /v "PageSpaceControlSizer" /t REG_BINARY /d "a00000000000000000000000ec030000" /f
+for %%a in (
+    "EnhancedPowerManagementEnabled"
+    "AllowIdleIrpInD3"
+    "EnableSelectiveSuspend"
+    "DeviceSelectiveSuspended"
+    "SelectiveSuspendEnabled"
+    "SelectiveSuspendOn"
+    "WaitWakeEnabled"
+    "D3ColdSupported"
+    "WdfDirectedPowerTransitionEnable"
+    "EnableIdlePowerManagement"
+    "IdleInWorkingState"
+) do (
+    for /f "delims=" %%b in ('REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum" /s /f "%%~a" ^| findstr "HKEY"') do (
+        REG ADD "%%b" /v "%%~a" /t REG_DWORD /d "0" /f 1>nul 2>&1
+    )
+)
+for %%a in (
+    "WakeEnabled"
+    "WdkSelectiveSuspendEnable"
+) do (
+    for /f "delims=" %%b in ('REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class" /s /f "%%~a" ^| findstr "HKEY"') do (
+        REG ADD "%%b" /v "%%~a" /t REG_DWORD /d "0" /f 1>nul 2>&1
+    )
+)
+for %%a in (
+    "DisableIdlePowerManagement"
+) do (
+	for /f "delims=" %%b in ('REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum" /s /f "%%~a" ^| findstr "HKEY"') do (
+		REG ADD "%%b" /v "%%~a" /t REG_DWORD /d "1" /f 1>nul 2>&1
+	)
+)
 reg delete "HKCR\*\shellex\ContextMenuHandlers\Sharing" /f
 reg delete "HKCR\Directory\Background\shellex\ContextMenuHandlers\Sharing" /f
 reg delete "HKCR\Directory\shellex\ContextMenuHandlers\Sharing" /f
@@ -1753,12 +1772,12 @@ reg delete "HKCU\SOFTWARE\Classes\*\shell\Windows.CompressTo" /f
 :: finish
 move "C:\TEMP\SetTimerResolution.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
 move "C:\TEMP\RunRealHidden.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
-move "C:\TEMP\CleanUp.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
-start /b /wait C:\TEMP\IDMan.exe /onsilentsetup /s /q
+move "C:\TEMP\StartUp.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
 start /b /wait C:\Tools\NVidiaProfileInspector\nvidiaProfileInspector.exe
 start /b /wait C:\TEMP\ColorControl\ColorControl.exe
 start /b /wait C:\TEMP\2345.exe
 start /b /wait C:\TEMP\Startallback.exe
-"C:\Windows\System32\MinSudo.exe" --NoLogo --System --Verbose --TrustedInstaller --Privileged cmd /c "C:\TEMP\Setup3.cmd"
+C:\Windows\System32\PowerRun_x64.exe cmd /c "C:\TEMP\Setup3.cmd"
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "1" /t REG_SZ /d "C:\Tools\IDM-pawel97.exe" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "2" /t REG_SZ /d "C:\Tools\WinSxSCleanup.cmd" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "2" /t REG_SZ /d "C:\Tools\ProcessLassoPatch.exe" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "3" /t REG_SZ /d "C:\Tools\WinSxSCleanup.cmd" /f
