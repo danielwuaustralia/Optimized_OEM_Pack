@@ -24,15 +24,9 @@ download-bubble
 
 ##################################################       开启       ########################################################
 
-#enable-gpu-rasterization
-
-#canvas-oop-rasterization
-
 #enable-webrtc-hide-local-ips-with-mdns
 
 #enable-parallel-downloading
-
-#use-dns-https-svcb-alpn
 
 #encrypted-client-hello
 
