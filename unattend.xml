@@ -33,40 +33,45 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>1</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\VC_redist.x86.exe /install /passive /norestart</CommandLine>
+                    <CommandLine>powershell -nop -ep bypass -file "C:\TEMP\interrupt_affinity_auto.ps1"</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>2</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\VC_redist.x64.exe /install /passive /norestart</CommandLine>
+                    <CommandLine>C:\TEMP\VC_redist.x86.exe /install /passive /norestart</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>3</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\netframework.exe /install /quiet /norestart</CommandLine>
+                    <CommandLine>C:\TEMP\VC_redist.x64.exe /install /passive /norestart</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>4</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\DirectX\DXSETUP.exe /silent</CommandLine>
+                    <CommandLine>C:\TEMP\netframework.exe /install /quiet /norestart</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>5</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\7z2301-x64.exe /S /D="C:\Program Files\7-Zip"</CommandLine>
+                    <CommandLine>C:\TEMP\DirectX\DXSETUP.exe /silent</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>6</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\ChromeBetaStandaloneSetup64.exe /silent /install</CommandLine>
+                    <CommandLine>C:\TEMP\7z2301-x64.exe /S /D="C:\Program Files\7-Zip"</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>7</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\amd_chipset.exe /S</CommandLine>
+                    <CommandLine>C:\TEMP\ChromeBetaStandaloneSetup64.exe /silent /install</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>8</Order>
+                    <RequiresUserInput>false</RequiresUserInput>
+                    <CommandLine>C:\TEMP\amd_chipset.exe /S</CommandLine>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>9</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>cmd.exe /c "C:\TEMP\Setup2.cmd"</CommandLine>
                 </SynchronousCommand>
