@@ -4,14 +4,17 @@ setlocal enabledelayedexpansion
 setlocal enableextensions
 
 :: Disabled scheduled apps tasks
-del /F /Q "C:\Windows\System32\Tasks\Microsoft\Windows\Customer Experience Improvement Program\*"
-del /F /Q "C:\Windows\System32\Tasks\Microsoft\Windows\DeviceDirectoryClient\*"
-del /F /Q "C:\Windows\System32\Tasks\Microsoft\Windows\DiskDiagnostic\*"
-del /F /Q "C:\Windows\System32\Tasks\Microsoft\Windows\Feedback\Siuf\*"
-del /F /Q "C:\Windows\System32\Tasks\Microsoft\Windows\Location\*"
-del /F /Q "C:\Windows\System32\Tasks\Microsoft\Windows\Maps\*"
-del /F /Q "C:\Windows\System32\Tasks\Microsoft\Windows\Speech\*"
-del /F /Q "C:\Windows\System32\Tasks\Microsoft\Windows\Windows Defender\*"
+rmdir /s /q "C:\Windows\System32\Tasks\Microsoft\Windows\Customer Experience Improvement Program"
+rmdir /s /q "C:\Windows\System32\Tasks\Microsoft\Windows\DeviceDirectoryClient"
+rmdir /s /q "C:\Windows\System32\Tasks\Microsoft\Windows\DiskDiagnostic"
+rmdir /s /q "C:\Windows\System32\Tasks\Microsoft\Windows\Feedback\Siuf"
+rmdir /s /q "C:\Windows\System32\Tasks\Microsoft\Windows\Location"
+rmdir /s /q "C:\Windows\System32\Tasks\Microsoft\Windows\Maps"
+rmdir /s /q "C:\Windows\System32\Tasks\Microsoft\Windows\Speech"
+rmdir /s /q "C:\Windows\System32\Tasks\Microsoft\Windows\Windows Defender"
+rmdir /s /q "C:\Windows\System32\Tasks\Microsoft\Windows\WDI"
+rmdir /s /q "C:\Windows\System32\Tasks\Microsoft\Windows\TPM"
+rmdir /s /q "C:\Windows\System32\Tasks\\Microsoft\Windows\Management\Provisioning"
 schtasks /delete /tn "Microsoft\Windows\AppID\EDP Policy Manager" /f
 schtasks /delete /tn "Microsoft\Windows\ApplicationData\appuriverifierdaily" /f
 schtasks /delete /tn "Microsoft\Windows\ApplicationData\appuriverifierinstall" /f
@@ -20,6 +23,8 @@ schtasks /delete /tn "Microsoft\Windows\Application Experience\Microsoft Compati
 schtasks /delete /tn "Microsoft\Windows\Application Experience\PcaPatchDbTask" /f
 schtasks /delete /tn "Microsoft\Windows\Application Experience\ProgramDataUpdater" /f
 schtasks /delete /tn "Microsoft\Windows\Application Experience\StartupAppTask" /f
+schtasks /delete /tn "Microsoft\Windows\Application Experience\MareBackup" /f
+schtasks /delete /tn "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser Exp" /f
 schtasks /delete /tn "Microsoft\Windows\Autochk\Proxy" /f
 schtasks /delete /tn "Microsoft\Windows\BrokerInfrastructure\BgTaskRegistrationMaintenanceTask" /f
 schtasks /delete /tn "Microsoft\Windows\CloudExperienceHost\CreateObjectTask" /f
@@ -59,8 +64,20 @@ schtasks /delete /tn "Microsoft\Windows\Windows Filtering Platform\BfeOnServiceS
 schtasks /delete /tn "Microsoft\Windows\Windows Media Sharing\UpdateLibrary" /f
 schtasks /delete /tn "Microsoft\Windows\WindowsUpdate\Scheduled Start" /f  
 schtasks /delete /tn "Microsoft\Windows\Wininet\CacheTask" /f
-schtasks /delete /tn "Microsoft\Windows\Application Experience\MareBackup" /f
-schtasks /delete /tn "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser Exp" /f
+schtasks /delete /tn "Microsoft\Windows\ExploitGuard\ExploitGuard MDM policy Refresh" /f
+schtasks /delete /tn "\Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319 64 Critical" /f
+schtasks /delete /tn "\Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319 Critical" /f
+schtasks /delete /tn "\Microsoft\Windows\DiskCleanup\SilentCleanup" /f
+schtasks /delete /tn "\Microsoft\Windows\International\Synchronize Language Settings" /f
+schtasks /delete /tn "\Microsoft\Windows\Security\Pwdless\IntelligentPwdlessTask" /f
+schtasks /delete /tn "\Microsoft\Windows\LanguageComponentsInstaller\Installation" /f
+schtasks /delete /tn "\Microsoft\Windows\PushToInstall\Registration" /f
+schtasks /delete /tn "\Microsoft\Windows\Flighting\FeatureConfig\ReconcileFeatures" /f
+schtasks /delete /tn "\Microsoft\Windows\WwanSvc\OobeDiscovery" /f
+schtasks /delete /tn "\Microsoft\Windows\WDI\ResolutionHost" /f
+schtasks /delete /tn "\Microsoft\Windows\Input\LocalUserSyncDataAvailable" /f
+schtasks /delete /tn "\Microsoft\Windows\Input\PenSyncDataAvailable" /f
+schtasks /delete /tn "\Microsoft\Windows\PI\Secure-Boot-Update" /f
 
 :: Intel Drivers
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\iai2c" /v "Start" /t REG_DWORD /d "4" /f
@@ -312,6 +329,8 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution 
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions" /v "IoPriority" /t REG_DWORD /d "3" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\dwm.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\dwm.exe\PerfOptions" /v "IoPriority" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\StartMenuExperienceHost.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\StartMenuExperienceHost.exe\PerfOptions" /v "IoPriority" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\wininit.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "5" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\lsass.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\lsass.exe\PerfOptions" /v "IoPriority" /t REG_DWORD /d "0" /f
@@ -352,6 +371,10 @@ reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib\_V2Provide
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "AllowHeadlessExecution" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "AllowMultipleBackgroundTasks" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "InactivityTimeoutMs" /t REG_DWORD /d "4294967295" /f
+
+:: reset firewall
+netsh advfirewall firewall delete rule name=all
+netsh advfirewall set allprofiles logging maxfilesize 1
 
 :: re-clean MS Edge
 rmdir /s /q "C:\Program Files (x86)\Microsoft"
