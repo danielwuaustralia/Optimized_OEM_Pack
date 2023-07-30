@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+    <settings pass="windowsPE">
+        <!-- defined language -->
+        <component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <SetupUILanguage>
+                <UILanguage>en-US</UILanguage>
+            </SetupUILanguage>
+            <!-- InputLocale (microsoft-windows-international-core-inputlocale), Link Here: https://tinyurl.com/4he9uwut -->
+            <InputLocale>en-US; he-IL;</InputLocale>
+            <SystemLocale>he-IL</SystemLocale>
+            <UILanguage>en-US</UILanguage>
+            <UserLocale>he-IL</UserLocale>
+        </component>
+        <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <UserData>
+                <ProductKey>
+                    <WillShowUI>OnError</WillShowUI>
+                    <Key>AAAAA-BBBBB-CCCCC-DDDDD-EEEEE</Key>
+                </ProductKey>
+                <AcceptEula>true</AcceptEula>
+                <FullName>Administrator</FullName>
+            </UserData>
+            <ComplianceCheck>
+                <DisplayReport>Never</DisplayReport>
+            </ComplianceCheck>
+            <Diagnostics>
+                <OptIn>false</OptIn>
+            </Diagnostics>
+            <DynamicUpdate>
+                <Enable>true</Enable>
+                <WillShowUI>Never</WillShowUI>
+            </DynamicUpdate>
+            <EnableNetwork>false</EnableNetwork>
+            <RunSynchronous>
+                <!-- Skip 11 Checks on Boot via reg - unreliable vs winsetup.dll patch used in MediaCreationTool.bat -->
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>1</Order>
+                    <Path>cmd /c for %$ IN (TPM, SecureBoot, RAM, Storage, CPU) do reg add HKLM\SYSTEM\Setup\LabConfig /v Bypass%$Check /d 1 /t reg_dword /f</Path>
+                </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>2</Order>
+                    <Path>reg add HKLM\SYSTEM\Setup\MoSetup /f /v AllowUpgradesWithUnsupportedTPMorCPU /d 1 /t reg_dword</Path>
+                </RunSynchronousCommand>
+            </RunSynchronous>
+        </component>
+    </settings>
+    <!-- DISABLE UAC -->
+    <settings pass="offlineServicing">
+        <component name="Microsoft-Windows-LUA-Settings" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <EnableLUA>false</EnableLUA>
+        </component>
+    </settings>
+    <settings pass="specialize">
+        <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <RunSynchronous>
+                <!-- offline local account via OOBE\BYPASSNRO on every site but literally no one credits AveYo for sharing it -->
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>1</Order>
+                    <Path>reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE /v BypassNRO /t reg_dword /d 1 /f</Path>
+                </RunSynchronousCommand>
+                <!-- hide unsupported nag on update settings - 25H1 is not a typo ;) -->
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>2</Order>
+                    <Path>reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v TargetReleaseVersion /d 1 /t reg_dword /f</Path>
+                </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>3</Order>
+                    <Path>reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /v TargetReleaseVersionInfo /d 25H1 /f</Path>
+                </RunSynchronousCommand>
+                <!-- specialize stage -->
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>4</Order>
+                    <Path>cmd /c call %windir%\temp\specialize.cmd</Path>
+                </RunSynchronousCommand>
+            </RunSynchronous>
+        </component>
+        <!-- Disable System Restore -->
+        <component name="Microsoft-Windows-SystemRestore-Main" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <DisableSR>1</DisableSR>
+        </component>
+        <!-- Skip Auto Activation -->
+        <component name="Microsoft-Windows-Security-SPP-UX" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <SkipAutoActivation>true</SkipAutoActivation>
+        </component>
+        <component name="Microsoft-Windows-powercpl" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <PreferredPlan>8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c</PreferredPlan>
+        </component>
+    </settings>
+    <settings pass="oobeSystem">
+        <!-- Disable Bitlocker -->
+        <component name="Microsoft-Windows-SecureStartup-FilterDriver" processorArchitecture="amd64" language="neutral" publicKeyToken="31bf3856ad364e35" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <PreventDeviceEncryption>true</PreventDeviceEncryption>
+        </component>
+        <!-- defined language -->
+        <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <!-- InputLocale (microsoft-windows-international-core-inputlocale), Link Here: https://tinyurl.com/4he9uwut -->
+            <InputLocale>en-US; he-IL;</InputLocale>
+            <SystemLocale>he-IL</SystemLocale>
+            <UILanguage>en-US</UILanguage>
+            <UserLocale>he-IL</UserLocale>
+        </component>
+        <!-- Disable Defender -->
+        <component name="Security-Malware-Windows-Defender" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <DisableAntiSpyware>true</DisableAntiSpyware>
+        </component>
+        <!-- Auto login settings -->
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <AutoLogon>
+                <Password>
+                    <Value></Value>
+                    <PlainText>true</PlainText>
+                </Password>
+                <Enabled>true</Enabled>
+                <Username>Administrator</Username>
+            </AutoLogon>
+            <OOBE>
+                <HideEULAPage>true</HideEULAPage>
+                <HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
+                <SkipUserOOBE>true</SkipUserOOBE>
+                <SkipMachineOOBE>true</SkipMachineOOBE>
+                <HideLocalAccountScreen>true</HideLocalAccountScreen>
+                <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
+                <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
+                <ProtectYourPC>3</ProtectYourPC>
+            </OOBE>
+            <RegisteredOwner>Administrator</RegisteredOwner>
+            <!-- Default Time Zones, Link Here: https://tinyurl.com/mw5fzvew -->
+            <TimeZone>Israel Standard Time</TimeZone>
+            <FirstLogonCommands>
+                <!-- hide unsupported nag on desktop - originally shared by awuctl @ MDL -->
+                <SynchronousCommand wcm:action="add">
+                    <Order>1</Order>
+                    <CommandLine>cmd /c for %$ IN (SV1, SV2, SV3) do reg add "HKCU\Control Panel\UnsupportedHardwareNotificationCache" /v %$ /d 0 /t reg_dword /f</CommandLine>
+                </SynchronousCommand>
+                <!-- backup methood to make sure setupcomplete will run  -->
+                <SynchronousCommand wcm:action="add">
+                    <Order>2</Order>
+                    <CommandLine>cmd /c call %windir%\Setup\Scripts\setupcomplete.cmd</CommandLine>
+                </SynchronousCommand>
+            </FirstLogonCommands>
+        </component>
+    </settings>
+    <cpi:offlineImage cpi:source="catalog:d:/documents/install_windows 10 pro.clg" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+</unattend>
