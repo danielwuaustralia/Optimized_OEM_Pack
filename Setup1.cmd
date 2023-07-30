@@ -7,53 +7,49 @@ setlocal enableextensions
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1" /f /v "Path" /t REG_SZ /d "C:\TEMP\Drivers"
 "C:\Windows\System32\pnpunattend.exe" AuditSystem /L
 
-:: feature
-Dism /online /Enable-Feature /FeatureName:LegacyComponents /NoRestart
-Dism /online /Enable-Feature /FeatureName:DirectPlay /NoRestart
-Dism /online /Disable-Feature /FeatureName:SmbDirect /Remove /NoRestart
-Dism /online /Disable-Feature /FeatureName:Printing-PrintToPDFServices-Features /Remove /NoRestart
-Dism /online /Disable-Feature /FeatureName:MicrosoftWindowsPowerShellV2Root /Remove /NoRestart
-Dism /online /Disable-Feature /FeatureName:MicrosoftWindowsPowerShellV2 /Remove /NoRestart
-Dism /online /Disable-Feature /FeatureName:Printing-Foundation-Features /Remove /NoRestart
-Dism /online /Disable-Feature /FeatureName:Printing-Foundation-InternetPrinting-Client /Remove /NoRestart
-Dism /online /Disable-Feature /FeatureName:Printing-Foundation-LPDPrintService /Remove /NoRestart
-Dism /online /Disable-Feature /FeatureName:Printing-Foundation-LPRPortMonitor /Remove /NoRestart
-Dism /online /Disable-Feature /FeatureName:WorkFolders-Client /Remove /NoRestart
-Dism /online /Disable-Feature /FeatureName:SearchEngine-Client-Package /Remove /NoRestart
-Dism /online /Disable-Feature /FeatureName:Windows-Defender-ApplicationGuard /Remove /NoRestart
-Dism /online /Disable-Feature /FeatureName:Windows-Defender-Default-Definitions /Remove /NoRestart
-Dism /online /Disable-Feature /FeatureName:MSRDC-Infrastructure /Remove /NoRestart
-Dism /online /Disable-Feature /FeatureName:MediaPlayback /NoRestart
-Dism /online /Disable-Feature /FeatureName:WindowsMediaPlayer /NoRestart
-
-:: capabilities
-for %%z in (
-App.StepsRecorder
-DirectX.Configuration.Database
-Hello.Face
-Language.Handwriting
-Language.OCR
-Language.Speech
-Language.TextToSpeech
-Language.Fonts.Hans~~~und-HANS
-MathRecognizer
-Microsoft.Windows.WordPad
-Microsoft.Windows.PowerShell.ISE
-OpenSSH.Client
-Microsoft.Wallpapers.Extended
-Microsoft.Windows.Ethernet.Client
-Microsoft.Windows.Notepad.System
-Microsoft.Windows.Wifi.Client
-OneCoreUAP.OneSync
-Print.Management.Console
-Windows.Client.ProjFS
-Windows.Container.ClientSupportImage
-Windows.Telnet.Client
-Windows.TFTP.Client
-Windows.WinOcr
-) do (
-   Powershell -Command "Get-WindowsCapability -Online | Where {$_.Name -match '%%z' } | Remove-WindowsCapability -Online -EA ignore"
-)
+:: config
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *LegacyComponents* | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *DirectPlay* | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *SmbDirect* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-PrintToPDFServices-Features* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *MicrosoftWindowsPowerShellV2Root* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *MicrosoftWindowsPowerShellV2* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-Features* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-InternetPrinting-Client* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-LPDPrintService* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-LPRPortMonitor* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *WorkFolders-Client* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *SearchEngine-Client-Package* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Windows-Defender-ApplicationGuard* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Windows-Defender-Default-Definitions* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *MSRDC-Infrastructure* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *MediaPlayback* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *WindowsMediaPlayer* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *App.StepsRecorder* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *DirectX.Configuration.Database* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Hello.Face* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.Handwriting* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.OCR* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.Speech* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.TextToSpeech* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.Fonts.Hans~~~und-HANS* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *MathRecognizer* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.WordPad* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.PowerShell.ISE* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *OpenSSH.Client* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Wallpapers.Extended* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.Ethernet.Client* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.Notepad.System* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.Wifi.Client* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *OneCoreUAP.OneSync* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Print.Management.Console* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Windows.Client.ProjFS* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Windows.Container.ClientSupportImage* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Windows.Telnet.Client* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Windows.TFTP.Client* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Windows.WinOcr* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Remove-Printer -Name 'Fax' -ErrorAction SilentlyContinue"
+DISM /Online /Remove-ProvisionedAppxPackage /PackageName:Microsoft.MicrosoftEdge.Stable_100.0.1185.36_neutral__8wekyb3d8bbwe
 
 :: TEMP Folder
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v "TEMP" /t REG_EXPAND_SZ /d "C:\TEMP" /f
@@ -145,6 +141,15 @@ REG DELETE "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f
 REG DELETE "HKCR\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f
 REG ADD "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v "System.IsPinnedToNameSpaceTree" /d "0" /t REG_DWORD /f
 REG ADD "HKCR\Wow6432Node\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v "System.IsPinnedToNameSpaceTree" /d "0" /t REG_DWORD /f
+
+:: no firewall
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\IPSec\ICFv4" /v "BypassFirewall" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" /v "EnableFirewall" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" /v "LogDroppedPackets" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" /v "LogSuccessfulConnections" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile" /v "EnableFirewall" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile\Logging" /v "LogDroppedPackets" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile\Logging" /v "LogSuccessfulConnections" /t REG_DWORD /d "0" /f
 
 :: no defender
 rmdir /s /q "C:\Windows\Containers"
@@ -604,6 +609,11 @@ Microsoft.Windows.XGpuEjectDialog
 Windows.PrintDialog
 MicrosoftWindows.Client.WebExperience
 Microsoft.Windows.PrintQueueActionCenter
+Microsoft.CredDialogHost
+Microsoft.BioEnrollment
+Microsoft.Windows.CallingShellApp
+ParentalControls
+Windows.CBSPrevie
 ) do (
 Powershell -C "Get-ChildItem -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Config' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Recurse -Force -EA 0 -Verbose"
 Powershell -C "Get-ChildItem -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Recurse -Force -EA 0 -Verbose"
