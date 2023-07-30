@@ -1,7 +1,8 @@
+@cls
 @echo on
-color 0a
 setlocal enabledelayedexpansion
 setlocal enableextensions
+color 0a
 
 :: 3rd Party Drivers
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1" /f /v "Path" /t REG_SZ /d "C:\TEMP\Drivers"
