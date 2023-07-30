@@ -1,0 +1,11 @@
+Put any .cmd .bat .reg files,
+it will lunch once a time
+
+it will work with archive file's -
+like 7z, zip, rar
+they must contain proc.cmd file
+(custom processing steps file)
+
+files will run under new shell,
+so don't worry to use exit command
+it will close one the new shell (cmd.exe)
