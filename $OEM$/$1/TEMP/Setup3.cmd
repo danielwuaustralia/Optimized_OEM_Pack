@@ -1,7 +1,8 @@
+@cls
 @echo on
-color 0a
 setlocal enabledelayedexpansion
 setlocal enableextensions
+color 0a
 
 :: Disabled scheduled apps tasks
 rmdir /s /q "C:\Windows\System32\Tasks\Microsoft\Windows\Customer Experience Improvement Program"
@@ -319,6 +320,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\CDPSvc" /v "Start" /t REG_DWORD 
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CDPUserSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\VSS" /v "Start" /t REG_DWORD /d "4" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\RTUsbSwSrvc" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\NVDisplay.ContainerLocalSystem" /v "Start" /t REG_DWORD /d "4" /f
 
 ::Image File Execution Options
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options" /f
@@ -380,7 +382,6 @@ del /f /q /s "C:\Users\Administrator\AppData\Local\Packages\Microsoft.Windows.St
 taskkill /f /im SearchApp.exe
 del /f /q /s "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchHost.exe"
 del /f /q /s "C:\Windows\System32\mobsync.exe"
-rmdir /s /q "C:\Windows\System32\WDI\LogFiles"
 rmdir /s /q "C:\Windows\Logs"
 rmdir /s /q "C:\ProgramData\USOShared\Logs"
 rmdir /s /q "C:\ProgramData\Microsoft\Diagnosis"
@@ -388,3 +389,16 @@ rmdir /s /q "C:\Windows\System32\LogFiles"
 rmdir /s /q "C:\Users\Administrator\AppData\Local\Temp"
 rmdir /s /q "C:\Windows\Temp"
 rmdir /s /q "C:\Windows\Prefetch"
+rmdir /s /q "C:\Windows\System32\sru"
+rmdir /s /q "C:\Windows\System32\WDI"
+rmdir /s /q "C:\Windows\System32\winevt\Logs"
+rmdir /s /q "C:\Windows\System32\config\systemprofile\AppData\Local"
+
+:: package removal
+for %%z in (
+Windows-Defender
+) do (
+powershell -nop -ep bypass -c "Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*%%z*' -Name Visibility -Value 1 -Force -EA SilentlyContinue -Verbose"
+powershell -nop -ep bypass -c "Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*%%z*' -Include *Owner* -Recurse -Force -EA SilentlyContinue -Verbose"
+powershell -nop -ep bypass -c "Get-WindowsPackage -Online | Where {$_.PackageName -match '%%z' } | Remove-WindowsPackage -Online -NoRestart -EA SilentlyContinue"
+)
