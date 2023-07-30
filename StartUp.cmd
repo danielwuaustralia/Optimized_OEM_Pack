@@ -1,31 +1,27 @@
 @echo off
 
 :: performance
-C:\Windows\System32\PowerRun_x64.exe cmd /c wmic process where name="dwm.exe" CALL setpriority 64
-C:\Windows\System32\PowerRun_x64.exe cmd /c wmic process where name="wininit.exe" CALL setpriority 256
-C:\Windows\System32\PowerRun_x64.exe cmd /c wmic process where name="TextInputHost.exe" CALL setpriority 64
-C:\Windows\System32\PowerRun_x64.exe cmd /c wmic process where name="ctfmon.exe" CALL setpriority 64
-C:\Windows\System32\PowerRun_x64.exe cmd /c wmic process where name="RTUWPSrvcMain.exe" CALL setpriority 64
-C:\Windows\System32\PowerRun_x64.exe cmd /c wmic process where name="fontdrvhost.exe" CALL setpriority 64
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c wmic process where name="dwm.exe" CALL setpriority 64
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c wmic process where name="wininit.exe" CALL setpriority 256
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c wmic process where name="TextInputHost.exe" CALL setpriority 32
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c wmic process where name="ctfmon.exe" CALL setpriority 32
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c wmic process where name="fontdrvhost.exe" CALL setpriority 32
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "Start" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "BufferSize" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "FileCounter" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "FileMax" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MaxFileSize" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MinimumBuffers" /t REG_DWORD /d "1" /f
-C:\Windows\System32\PowerRun_x64.exe cmd /c logman stop EventLog-Application -ets
-C:\Windows\System32\PowerRun_x64.exe cmd /c logman stop EventLog-System -ets
 
 :: cleanup
 del /q "C:\TEMP\*"
 for /d %%x in ("C:\TEMP\*") do @rd /s /q "%%x"
 del /q "C:\Steam\dumps\*"
 for /d %%x in ("C:\Steam\dumps\*") do @rd /s /q "%%x"
-C:\Windows\System32\PowerRun_x64.exe cmd /c rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\DXCache"
-C:\Windows\System32\PowerRun_x64.exe cmd /c reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator" /f
-C:\Windows\System32\PowerRun_x64.exe cmd /c reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WindowsUpdate" /f
-C:\Windows\System32\PowerRun_x64.exe cmd /c del /f /q /s "C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog.etl"
-C:\Windows\System32\PowerRun_x64.exe cmd /c rmdir /s /q "C:\Windows\System32\LogFiles\WMI"
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\DXCache"
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator" /f
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WindowsUpdate" /f
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /f /q /s "C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog.etl"
 
 :: CleanMgr.exe
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /f
