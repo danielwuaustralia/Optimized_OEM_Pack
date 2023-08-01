@@ -595,33 +595,54 @@ reagentc /disable
 
 :: UWP removal
 for %%z in (
-NVIDIACorp.NVIDIAControlPanel
-Microsoft.MicrosoftEdge.Stable
-MicrosoftEdge
+Microsoft.AccountsControl
+Microsoft.AsyncTextService
+Microsoft.BioEnrollment
+Microsoft.CredDialogHost
+Microsoft.ECApp
+Microsoft.LockApp
+Microsoft.MicrosoftEdge
 MicrosoftEdgeDevToolsClient
-Microsoft.Win32WebViewHost
-Microsoft.XboxGameCallableUI
+Microsoft.Windows.AddSuggestedFoldersToLibraryDialog
+Microsoft.Windows.AppRep.ChxApp
+Microsoft.Windows.AppResolverUX
+Microsoft.Windows.AssignedAccessLockApp
+Microsoft.Windows.CallingShellApp
+Microsoft.Windows.CapturePicker
 Microsoft.Windows.ContentDeliveryManager
+Microsoft.Windows.OOBENetworkCaptivePortal
+Microsoft.Windows.OOBENetworkConnectionFlow
 Microsoft.Windows.PeopleExperienceHost
+Microsoft.Windows.PinningConfirmationDialog
 Microsoft.Windows.SecureAssessmentBrowser
+Microsoft.XboxGameCallableUI
+MicrosoftWindows.UndockedDevKit
+NcsiUwpApp
 Microsoft.Windows.ParentalControls
+Windows.CBSPreview
+Microsoft.Windows.StartMenuExperienceHost
+NVIDIACorp.NVIDIAControlPanel
+Microsoft.Win32WebViewHost
 Microsoft.Windows.NarratorQuickStart
 Microsoft.Windows.XGpuEjectDialog
 Windows.PrintDialog
 MicrosoftWindows.Client.WebExperience
 Microsoft.Windows.PrintQueueActionCenter
-Microsoft.CredDialogHost
-Microsoft.BioEnrollment
-Microsoft.Windows.CallingShellApp
-ParentalControls
-Windows.CBSPrevie
 ) do (
 Powershell -C "Get-ChildItem -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Config' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Recurse -Force -EA 0 -Verbose"
 Powershell -C "Get-ChildItem -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Recurse -Force -EA 0 -Verbose"
 Powershell -C "Get-ChildItem -Path 'C:\Windows\SystemApps' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Force -Recurse -EA 0 -Verbose"
 Powershell -C "Get-ChildItem -Path 'C:\Program Files\WindowsApps' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Force -Recurse -EA 0 -Verbose"
 )
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned\Microsoft.Windows.PrintQueueActionCenter_cw5n1h2txyewy" /f
+
+:: package removal
+for %%z in (
+Windows-Defender
+) do (
+powershell -nop -ep bypass -c "Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*%%z*' -Name Visibility -Value 1 -Force -EA SilentlyContinue -Verbose"
+powershell -nop -ep bypass -c "Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*%%z*' -Include *Owner* -Recurse -Force -EA SilentlyContinue -Verbose"
+powershell -nop -ep bypass -c "Get-WindowsPackage -Online | Where {$_.PackageName -match '%%z' } | Remove-WindowsPackage -Online -NoRestart -EA SilentlyContinue"
+)
 
 :: https://www.seagate.com/au/en/support/software/seachest/
 :: "C:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" --scan
