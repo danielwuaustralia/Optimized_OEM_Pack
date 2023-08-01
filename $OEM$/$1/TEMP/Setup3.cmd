@@ -360,9 +360,10 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MinimumBuffers" /t REG_DWORD /d "1" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib\_V2Providers" /f
 Auditpol /set /category:* /Success:disable /failure:disable
-for /f "usebackq tokens=1*" %%a in (`2^> nul reg query "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger" /s  "Enabled" ^| findstr "HKEY"`) do >nul reg add "%%a %%b" /f /v "Enabled" /t REG_DWORD /d "0" /f
-for /f "usebackq tokens=1*" %%a in (`2^> nul reg query "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger" /s  "Start"   ^| findstr "HKEY"`) do >nul reg add "%%a %%b" /f /v "Start"   /t REG_DWORD /d "0" /f
+for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger" /s /f "Enabled"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Enabled" /t REG_DWORD /d "0" /f
+for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger" /s /f "Start"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Start" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-System" /v "Start" /t REG_DWORD /d "1" /f
+for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT" /s /f "Enabled"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Enabled" /t REG_DWORD /d "0" /f
 
 :: performance
 reg add "HKLM\SOFTWARE\Classes\AppID\slui.exe" /v "NoGenTicket" /t REG_DWORD /d "1" /f
@@ -378,6 +379,7 @@ del /f /q /s "C:\Windows\System32\microsoft-windows-sleepstudy-events.dll"
 del /f /q /s "C:\Windows\System32\wuaueng.dll"
 del /f /q /s "C:\Windows\System32\usosvc.dll"
 del /f /q /s "C:\Windows\System32\SIHClient.exe"
+del /f /q /s "C:\Windows\System32\wuapihost.exe"
 del /f /q /s "C:\Users\Administrator\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\*.*"
 taskkill /f /im SearchApp.exe
 del /f /q /s "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchHost.exe"
@@ -393,12 +395,7 @@ rmdir /s /q "C:\Windows\System32\sru"
 rmdir /s /q "C:\Windows\System32\WDI"
 rmdir /s /q "C:\Windows\System32\winevt\Logs"
 rmdir /s /q "C:\Windows\System32\config\systemprofile\AppData\Local"
-
-:: package removal
-for %%z in (
-Windows-Defender
-) do (
-powershell -nop -ep bypass -c "Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*%%z*' -Name Visibility -Value 1 -Force -EA SilentlyContinue -Verbose"
-powershell -nop -ep bypass -c "Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*%%z*' -Include *Owner* -Recurse -Force -EA SilentlyContinue -Verbose"
-powershell -nop -ep bypass -c "Get-WindowsPackage -Online | Where {$_.PackageName -match '%%z' } | Remove-WindowsPackage -Online -NoRestart -EA SilentlyContinue"
-)
+rmdir /s /q "C:\ProgramData\NVIDIA Corporation\GameSessionTelemetry"
+rmdir /s /q "C:\Windows\System32\IME\IMEJP"
+rmdir /s /q "C:\Windows\System32\IME\IMEKR"
+rmdir /s /q "C:\Windows\System32\IME\IMETC"
