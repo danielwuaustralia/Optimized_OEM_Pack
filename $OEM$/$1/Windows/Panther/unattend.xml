@@ -118,6 +118,11 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>18</Order>
                     <RequiresUserInput>false</RequiresUserInput>
+                    <CommandLine>cmd.exe /c msiexec /package "C:\TEMP\googlechromebetastandaloneenterprise64.msi" /quiet /norestart /qn</CommandLine>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>19</Order>
+                    <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>cmd.exe /c "C:\TEMP\Setup2.cmd"</CommandLine>
                 </SynchronousCommand>
             </FirstLogonCommands>
