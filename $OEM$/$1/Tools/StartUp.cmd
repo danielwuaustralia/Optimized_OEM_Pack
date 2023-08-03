@@ -1,6 +1,7 @@
 @echo off
 
 :: performance
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c logman stop Diagtrack-Listener -ets
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c wmic process where name="dwm.exe" CALL setpriority 64
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c wmic process where name="wininit.exe" CALL setpriority 256
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c wmic process where name="TextInputHost.exe" CALL setpriority 32
