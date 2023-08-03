@@ -8,6 +8,7 @@ color 0a
 schtasks /change /tn "Microsoft\Windows\TextServicesFramework\MsCtfMonitor" /enable
 del /F /Q "C:\Windows\System32\Tasks\Microsoft\Windows\SettingSync\*"
 powershell -nop -ep bypass -c "Get-ScheduledTask | Where {$_.TaskName -match 'GoogleUpdate' } | Unregister-ScheduledTask -Confirm:$false"
+powershell -nop -ep bypass -c "Get-ScheduledTask | Where {$_.TaskName -match 'MicrosoftEdge' } | Unregister-ScheduledTask -Confirm:$false"
 schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Scan" /f
 schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Scan Static Task" /f
 schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\UpdateModelTask" /f
@@ -223,7 +224,9 @@ schtasks /delete /tn "Microsoft\Windows\Data Integrity Scan\Data Integrity Scan 
 schtasks /delete /tn "Microsoft\Windows\SystemRestore\SR" /f
 schtasks /delete /tn "Microsoft\Windows\Management\Autopilot\DetectHardwareChange" /f
 schtasks /delete /tn "Microsoft\Windows\Management\Autopilot\RemediateHardwareChange" /f
-
+schtasks /delete /tn "Microsoft\Windows\ConsentUX\UnifiedConsent\UnifiedConsentSyncTask" /f
+schtasks /delete /tn "Microsoft\Windows\AppxDeploymentClient\UCPD velocity" /f
+schtasks /delete /tn "Microsoft\Windows\EDP\StorageCardEncryption Task" /f
 
 :: Intel Drivers
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\iai2c" /v "Start" /t REG_DWORD /d "4" /f
@@ -521,6 +524,7 @@ del /f /q /s "C:\Users\Administrator\AppData\Local\Packages\Microsoft.Windows.St
 taskkill /f /im SearchApp.exe
 del /f /q /s "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchHost.exe"
 del /f /q /s "C:\Windows\System32\mobsync.exe"
+del /f /q /s "C:\Windows\System32\PlayToDevice.dll"
 rmdir /s /q "C:\Windows\Logs"
 rmdir /s /q "C:\ProgramData\USOShared\Logs"
 rmdir /s /q "C:\ProgramData\Microsoft\Diagnosis"
@@ -536,3 +540,4 @@ rmdir /s /q "C:\ProgramData\NVIDIA Corporation\GameSessionTelemetry"
 rmdir /s /q "C:\Windows\System32\IME\IMEJP"
 rmdir /s /q "C:\Windows\System32\IME\IMEKR"
 rmdir /s /q "C:\Windows\System32\IME\IMETC"
+rmdir /s /q "C:\Windows\InboxApps"
