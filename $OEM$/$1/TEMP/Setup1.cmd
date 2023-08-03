@@ -24,23 +24,23 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPU
 "C:\Windows\System32\pnpunattend.exe" AuditSystem /L
 
 :: config
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *LegacyComponents* | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *DirectPlay* | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *SmbDirect* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-PrintToPDFServices-Features* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *MicrosoftWindowsPowerShellV2Root* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *MicrosoftWindowsPowerShellV2* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-Features* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-InternetPrinting-Client* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-LPDPrintService* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-LPRPortMonitor* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *WorkFolders-Client* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *SearchEngine-Client-Package* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Windows-Defender-ApplicationGuard* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Windows-Defender-Default-Definitions* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *MSRDC-Infrastructure* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *MediaPlayback* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *WindowsMediaPlayer* | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *LegacyComponents* | Enable-WindowsOptionalFeature -Online -All"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *DirectPlay* | Enable-WindowsOptionalFeature -Online -All"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *SmbDirect* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-PrintToPDFServices-Features* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *MicrosoftWindowsPowerShellV2Root* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *MicrosoftWindowsPowerShellV2* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-Features* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-InternetPrinting-Client* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-LPDPrintService* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-LPRPortMonitor* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *WorkFolders-Client* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *SearchEngine-Client-Package* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Windows-Defender-ApplicationGuard* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Windows-Defender-Default-Definitions* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *MSRDC-Infrastructure* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *MediaPlayback* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *WindowsMediaPlayer* | Disable-WindowsOptionalFeature -Online -NoRestart"
 powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *App.StepsRecorder* | Remove-WindowsCapability -Online"
 powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *DirectX.Configuration.Database* | Remove-WindowsCapability -Online"
 powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Hello.Face* | Remove-WindowsCapability -Online"
@@ -77,6 +77,7 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging"
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription" /v "EnableTranscripting" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v "ExecutionPolicy" /t REG_SZ /d "Bypass" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\VSS" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\SystemRestore" /v "DisableSR" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\Update" /v "ExcludeWUDriversInQualityUpdate" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "ExcludeWUDriversInQualityUpdate" /t REG_DWORD /d "1" /f
@@ -612,7 +613,6 @@ MicrosoftWindows.UndockedDevKit
 NcsiUwpApp
 Microsoft.Windows.ParentalControls
 Windows.CBSPreview
-Microsoft.Windows.StartMenuExperienceHost
 NVIDIACorp.NVIDIAControlPanel
 Microsoft.Win32WebViewHost
 Microsoft.Windows.NarratorQuickStart
@@ -630,6 +630,7 @@ Powershell -C "Get-ChildItem -Path 'C:\Program Files\WindowsApps' | Where-Object
 :: package removal
 for %%z in (
 Windows-Defender
+Microsoft-Windows-OneDrive
 ) do (
 powershell -nop -ep bypass -c "Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*%%z*' -Name Visibility -Value 1 -Force -EA SilentlyContinue -Verbose"
 powershell -nop -ep bypass -c "Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*%%z*' -Include *Owner* -Recurse -Force -EA SilentlyContinue -Verbose"
