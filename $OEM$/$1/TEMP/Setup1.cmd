@@ -44,10 +44,10 @@ powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object
 powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *App.StepsRecorder* | Remove-WindowsCapability -Online"
 powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *DirectX.Configuration.Database* | Remove-WindowsCapability -Online"
 powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Hello.Face* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.Handwriting* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.OCR* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.Speech* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.TextToSpeech* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.Handwriting~~~zh-CN* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.OCR~~~zh-CN* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.Speech~~~zh-CN* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.TextToSpeech~~~zh-CN* | Remove-WindowsCapability -Online"
 powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.Fonts.Hans~~~und-HANS* | Remove-WindowsCapability -Online"
 powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *MathRecognizer* | Remove-WindowsCapability -Online"
 powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.WordPad* | Remove-WindowsCapability -Online"
@@ -588,6 +588,7 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows Security Health\Health Advisor\Update M
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "SettingsPageVisibility" /t REG_SZ /d "hide:windowsdefender;" /f
 
 :: UWP removal
+rmdir /s /q "C:\Program Files\WindowsApps"
 for %%z in (
 Microsoft.AAD.BrokerPlugin
 Microsoft.AccountsControl
