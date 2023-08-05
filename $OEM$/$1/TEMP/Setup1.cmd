@@ -17,7 +17,7 @@ color 0a
 :: SSH Command ---- asus router full clone NAT
 :: nvram set nat_type=1
 :: nvram kset nat_type=1
-:: nvram restart
+:: nvram commit
 
 :: 3rd Party Drivers
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1" /f /v "Path" /t REG_SZ /d "C:\TEMP\Drivers"
@@ -64,6 +64,8 @@ powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name
 powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Windows.Telnet.Client* | Remove-WindowsCapability -Online"
 powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Windows.TFTP.Client* | Remove-WindowsCapability -Online"
 powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Windows.WinOcr* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-AppxProvisionedPackage -Online | Where-Object DisplayName -like *Microsoft.MicrosoftEdge* | Remove-AppxProvisionedPackage -Online -AllUsers"
+powershell -nop -ep bypass -c "Get-AppxProvisionedPackage -Online | Where-Object DisplayName -like *NVIDIACorp.NVIDIAControlPanel* | Remove-AppxProvisionedPackage -Online -AllUsers"
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v "TEMP" /t REG_EXPAND_SZ /d "C:\TEMP" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v "TMP" /t REG_EXPAND_SZ /d "C:\TEMP" /f
 reg add "HKLM\SOFTWARE\DefaultUserEnvironment" /v "TEMP" /t REG_EXPAND_SZ /d "C:\TEMP" /f
@@ -153,7 +155,6 @@ REG ADD "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v "System.IsPinnedT
 REG ADD "HKCR\Wow6432Node\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v "System.IsPinnedToNameSpaceTree" /d "0" /t REG_DWORD /f
 
 :: no defender
-rmdir /s /q "C:\Windows\Containers"
 del /f /q /s "C:\Windows\System32\windowsdefenderapplicationguardcsp.dll"
 del /f /q /s "C:\Windows\SysWOW64\windowsdefenderapplicationguardcsp.dll"
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\MsSecCore" /f
@@ -588,17 +589,21 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "S
 
 :: UWP removal
 for %%z in (
+Microsoft.AAD.BrokerPlugin
 Microsoft.AccountsControl
 Microsoft.AsyncTextService
 Microsoft.BioEnrollment
-Microsoft.CredDialogHost
+microsoft.creddialoghost
 Microsoft.ECApp
 Microsoft.LockApp
 Microsoft.MicrosoftEdge
 MicrosoftEdgeDevToolsClient
-Microsoft.Windows.AddSuggestedFoldersToLibraryDialog
 Microsoft.Windows.AppRep.ChxApp
 Microsoft.Windows.AppResolverUX
+E2A4F912-2574-4A75-9BB0-0D023378592B
+Microsoft.Windows.AddSuggestedFoldersToLibraryDialog
+F46D4000-FD22-4DB4-AC8E-4E1DDDE828FE
+Microsoft.549981C3F5F10
 Microsoft.Windows.AssignedAccessLockApp
 Microsoft.Windows.CallingShellApp
 Microsoft.Windows.CapturePicker
@@ -608,23 +613,34 @@ Microsoft.Windows.OOBENetworkConnectionFlow
 Microsoft.Windows.PeopleExperienceHost
 Microsoft.Windows.PinningConfirmationDialog
 Microsoft.Windows.SecureAssessmentBrowser
+Microsoft.Win32WebViewHost
 Microsoft.XboxGameCallableUI
 MicrosoftWindows.UndockedDevKit
 NcsiUwpApp
-Microsoft.Windows.ParentalControls
+ParentalControls
 Windows.CBSPreview
-NVIDIACorp.NVIDIAControlPanel
-Microsoft.Win32WebViewHost
 Microsoft.Windows.NarratorQuickStart
 Microsoft.Windows.XGpuEjectDialog
-Windows.PrintDialog
-MicrosoftWindows.Client.WebExperience
+Microsoft.Windows.PinningConfirmationDialog
 Microsoft.Windows.PrintQueueActionCenter
+Microsoft.DesktopAppInstaller
+Microsoft.OneConnect
+Microsoft.Paint
+Microsoft.ScreenSketch
+Microsoft.Windows.Cortana
+Microsoft.Windows.Photos
+Microsoft.Windows.Search
+Microsoft.WindowsCamera
+Microsoft.WindowsNotepad
+Microsoft.WindowsStore
+Microsoft.XboxIdentityProvider
+Microsoft.ZuneMusic
+microsoft.windowscommunicationsapps
 ) do (
-Powershell -C "Get-ChildItem -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Config' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Recurse -Force -EA 0 -Verbose"
-Powershell -C "Get-ChildItem -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Recurse -Force -EA 0 -Verbose"
-Powershell -C "Get-ChildItem -Path 'C:\Windows\SystemApps' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Force -Recurse -EA 0 -Verbose"
-Powershell -C "Get-ChildItem -Path 'C:\Program Files\WindowsApps' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Force -Recurse -EA 0 -Verbose"
+Powershell -C "Get-ChildItem -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Config' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Recurse -Force -EA SilentlyContinue -Verbose"
+Powershell -C "Get-ChildItem -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Recurse -Force -EA SilentlyContinue -Verbose"
+Powershell -C "Get-ChildItem -Path 'C:\Windows\SystemApps' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Force -Recurse -EA SilentlyContinue -Verbose"
+Powershell -C "Get-ChildItem -Path 'C:\Program Files\WindowsApps' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Force -Recurse -EA SilentlyContinue -Verbose"
 )
 
 :: package removal
