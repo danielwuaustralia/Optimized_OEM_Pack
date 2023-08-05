@@ -1,0 +1,15 @@
+1 Copy the sku certs from pro
+
+2 do slmgr /rilc
+
+3 do slmgr /ipk <pro serial>
+
+reboot
+
+do whatever you need to install drivers and / or unsupported sw in server
+
+4 slmgr /ipk <server serial>
+
+reboot (you are back on server )
+
+optional if you want to stay on pro and activate it, replace the branding folder as well
