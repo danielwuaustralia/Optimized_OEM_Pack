@@ -1,4 +1,4 @@
-1 Copy the sku certs from pro
+1 Copy the sku certs  (C:\Windows\System32\spp\tokens\skus) from pro
 
 2 do slmgr /rilc
 
