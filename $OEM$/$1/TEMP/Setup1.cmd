@@ -636,6 +636,9 @@ Microsoft.WindowsStore
 Microsoft.XboxIdentityProvider
 Microsoft.ZuneMusic
 microsoft.windowscommunicationsapps
+Windows.PrintDialog
+MicrosoftWindows.Client.OOBE
+Microsoft.Windows.CloudExperienceHost
 ) do (
 Powershell -C "Get-ChildItem -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Config' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Recurse -Force -EA SilentlyContinue -Verbose"
 Powershell -C "Get-ChildItem -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Recurse -Force -EA SilentlyContinue -Verbose"
