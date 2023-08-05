@@ -16,7 +16,7 @@ reg add "HKCU\Environment" /v "TMP" /t REG_EXPAND_SZ /d "C:\TEMP" /f
 slmgr -ato
 
 :: Start Optimize
-reg add "HKCU\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "D:\SteamLibrary\steamapps\common\Alien Isolation\AI.exe" /t REG_SZ /d "~ HIGHDPIAWARE DISABLEDWM DISABLEDXMAXIMIZEDWINDOWEDMODE" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "PagingFiles" /t REG_MULTI_SZ /d "c:\pagefile.sys 49152 49152" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "HardwareAccelerationModeEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "DownloadBubbleEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "HttpsOnlyMode" /t REG_SZ /d "disallowed" /f
@@ -82,6 +82,8 @@ reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "WebRtcTextLogCollectionAllowe
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "WebRtcEventLogCollectionAllowed" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "GoogleSearchSidePanelEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "PdfUseSkiaRendererEnabled" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "AudioSandboxEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "NetworkServiceSandboxEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome\TabDiscardingExceptions" /v "1" /t REG_SZ /d '*' /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome\ExtensionInstallBlocklist" /v "1" /t REG_SZ /d "ghbmnnjooekpmoecnnnilnnbdlolhkhi" /f
 reg add "HKCU\Software\StartIsBack" /v "ModernIconsColorized" /t REG_DWORD /d "1" /f
@@ -140,6 +142,21 @@ reg add "HKCU\Software\StartIsBack" /v "OrbBitmap" /t REG_SZ /d "C:\Program File
 reg add "HKCU\Software\StartIsBack" /v "Start_ShowNetConn" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\StartIsBack" /v "Start_NotifyNewApps" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\StartIsBack" /v "LegacyTaskbar" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\DownloadManager" /v "bHideTabsBtn" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\DownloadManager" /v "bHideSLTabOnDwnlDlg" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\DownloadManager" /v "bHideCTabOnDwnlDlg" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\DownloadManager" /v "PrgrDlgVisiblity" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\DownloadManager" /v "ExceptionProxyServers" /t REG_SZ /d "" /f
+reg add "HKCU\Software\DownloadManager" /v "bUseSocks" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\DownloadManager" /v "SocksType" /t REG_DWORD /d "5" /f
+reg add "HKCU\Software\DownloadManager" /v "Socks5ProxyDNS" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\DownloadManager" /v "nHttpPrChbSt" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\DownloadManager" /v "nFtpPrChbSt" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\DownloadManager" /v "nHttpsPrChbSt" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\DownloadManager" /v "UseHttpsProxy" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\DownloadManager" /v "nProxyMode" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\DownloadManager" /v "kbUPFBoErfCD" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\DownloadManager" /v "MaxConnectionsNumber" /t REG_DWORD /d "24" /f
 reg add "HKCU\Software\DownloadManager" /v "RunIEMonitor2" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\DownloadManager" /v "bQueueSelPnlOnGAL" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\DownloadManager" /v "bQueueSelPnlOnDlLt" /t REG_DWORD /d "1" /f
@@ -159,6 +176,35 @@ reg add "HKCU\Software\DownloadManager\FoldersTree\Music" /v "rememberLastPath" 
 reg add "HKCU\Software\DownloadManager\FoldersTree\Video" /v "rememberLastPath" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\DownloadManager\FoldersTree\Video" /v "pathW" /t REG_NONE /d "C:\TEMP" /f
 reg add "HKCU\Software\7-Zip\Options" /v "CascadedMenu" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "EulaAccepted" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "FilterDialog" /t REG_BINARY /d "2c0000000000000001000000ffffffffffffffffffffffffffffffff11040000d6000000f608000036040000" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "FilterControlColumns" /t REG_BINARY /d "4f01000036000000180100006400000000000000010000000200000003000000" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "ModulePropertiesDialog" /t REG_BINARY /d "2c0000000000000001000000ffffffffffffffffffffffffffffffffd0030000f20100006a050000de020000" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "PropertySheetDialog" /t REG_BINARY /d "2c0000000000000001000000fffffffffffffffffffffffffffffffff7030000350100006f070000aa040000" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "MainWindow" /t REG_BINARY /d "2c0000000200000003000000ffffffffffffffffffffffffffffffffea000000ea000000fe0a0000ef040000" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "Columns" /t REG_BINARY /d "4600280100019203f30285026400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "ColumnCount" /t REG_DWORD /d "6" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "ColumnMap" /t REG_BINARY /d "8e9c0000849c0000779c0000879c0000829c0000799c0000849c0000829c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "DbgHelpPath" /t REG_SZ /d "C:\Windows\SYSTEM32\dbghelp.dll" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "Logfile" /t REG_SZ /d "" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "HighlightFG" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "HighlightBG" /t REG_DWORD /d "16777088" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "Theme" /t REG_SZ /d "" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "LogFont" /t REG_BINARY /d "09000000000000000000000000000000900100000000008603020122ae5f6f8fc596d19e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "BoookmarkFont" /t REG_BINARY /d "09000000000000000000000000000000bc0200000000008603020122ae5f6f8fc596d19e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "AdvancedMode" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "Autoscroll" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "HistoryDepth" /t REG_DWORD /d "18" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "Profiling" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "DestructiveFilter" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "AlwaysOnTop" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "ResolveAddresses" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "FilterRules" /t REG_BINARY /d "014d000000759c00000000000000160000006300680072006f006d0065002e0065007800650000000000000000000000759c000000000000001a0000005600530043006f006400690075006d002e0065007800650000000000000000000000779c000000000000001a00000052006500670045006e0075006d00560061006c007500650000000000000000000000779c00000000000000160000005200650067004f00700065006e004b006500790000000000000000000000779c0000000000000018000000520065006700510075006500720079004b006500790000000000000000000000779c000000000000001c00000052006500670051007500650072007900560061006c007500650000000000000000000000779c000000000000003a00000053006500740041006c006c006f0063006100740069006f006e0049006e0066006f0072006d006100740069006f006e00460069006c00650000000000000000000000779c00000000000000300000005300650074004200610073006900630049006e0066006f0072006d006100740069006f006e00460069006c00650000000000000000000000779c000000000000003800000053006500740044006900730070006f0073006900740069006f006e0049006e0066006f0072006d006100740069006f006e004500780000000000000000000000779c000000000000003800000053006500740045006e0064004f006600460069006c00650049006e0066006f0072006d006100740069006f006e00460069006c00650000000000000000000000779c000000000000001400000043006c006f0073006500460069006c00650000000000000000000000779c0000000000000016000000430072006500610074006500460069006c00650000000000000000000000779c0000000000000024000000430072006500610074006500460069006c0065004d0061007000700069006e00670000000000000000000000779c000000000000002000000044006500760069006300650049006f0043006f006e00740072006f006c0000000000000000000000779c0000000000000024000000460069006c006500530079007300740065006d0043006f006e00740072006f006c0000000000000000000000779c00000400000000100000004900520050005f004d004a005f0000000000000000000000779c00000000000000160000004c006f0061006400200049006d0061006700650000000000000000000000779c000000000000003600000051007500650072007900530069007a00650049006e0066006f0072006d006100740069006f006e0056006f006c0075006d00650000000000000000000000779c000000000000003a000000510075006500720079005300740061006e00640061007200640049006e0066006f0072006d006100740069006f006e00460069006c00650000000000000000000000779c000000000000003600000051007500650072007900530074007200650061006d0049006e0066006f0072006d006100740069006f006e00460069006c00650000000000000000000000779c00000000000000120000005200650061006400460069006c00650000000000000000000000779c000000000000001800000052006500670043006c006f00730065004b006500790000000000000000000000779c00000000000000400000005100750065007200790041007400740072006900620075007400650049006e0066006f0072006d006100740069006f006e0056006f006c0075006d00650000000000000000000000779c000000000000002c00000051007500650072007900410074007400720069006200750074006500540061006700460069006c00650000000000000000000000779c0000000000000034000000510075006500720079004200610073006900630049006e0066006f0072006d006100740069006f006e00460069006c00650000000000000000000000779c000000000000001c000000540068007200650061006400200043007200650061007400650000000000000000000000779c00000000000000180000005400680072006500610064002000450078006900740000000000000000000000779c000000000000001600000052006500670045006e0075006d004b006500790000000000000000000000779c000000000000001e000000510075006500720079004400690072006500630074006f007200790000000000000000000000779c00000000000000180000005100750065007200790045004100460069006c00650000000000000000000000779c000000000000002e000000510075006500720079004500610049006e0066006f0072006d006100740069006f006e00460069006c00650000000000000000000000779c000000000000002e0000005100750065007200790049006e0066006f0072006d006100740069006f006e0056006f006c0075006d00650000000000000000000000779c0000000000000032000000510075006500720079004e0061006d00650049006e0066006f0072006d006100740069006f006e00460069006c00650000000000000000000000779c0000000000000040000000510075006500720079004e006500740077006f0072006b004f00700065006e0049006e0066006f0072006d006100740069006f006e00460069006c00650000000000000000000000779c0000000000000046000000510075006500720079004e006f0072006d0061006c0069007a00650064004e0061006d00650049006e0066006f0072006d006100740069006f006e00460069006c00650000000000000000000000779c00000000000000120000004c006f0063006b00460069006c00650000000000000000000000779c000000000000001a000000500072006f0063006500730073002000450078006900740000000000000000000000779c000000000000001c000000500072006f00630065007300730020005300740061007200740000000000000000000000779c0000040000000010000000460041005300540049004f005f0000000000000000000000779c00000000000000300000005100750065007200790041006c006c0049006e0066006f0072006d006100740069006f006e00460069006c00650000000000000000000000779c00000000000000240000005100750065007200790053006500630075007200690074007900460069006c00650000000000000000000000779c0000000000000014000000510075006500720079004f00700065006e0000000000000000000000779c000000000000003e00000051007500650072007900520065006d006f0074006500500072006f0074006f0063006f006c0049006e0066006f0072006d006100740069006f006e0000000000000000000000779c000000000000002c0000004e006f0074006900660079004300680061006e00670065004400690072006500630074006f007200790000000000000000000000779c0000000000000040000000530065007400530074006f007200610067006500520065007300650072007600650064004900640049006e0066006f0072006d006100740069006f006e0000000000000000000000779c000000000000003e00000051007500650072007900460075006c006c00530069007a00650049006e0066006f0072006d006100740069006f006e0056006f006c0075006d00650000000000000000000000779c000000000000002200000055006e006c006f0063006b00460069006c006500530069006e0067006c00650000000000000000000000779c000000000000002200000046006c007500730068004200750066006600650072007300460069006c00650000000000000000000000779c000000000000002000000053006500740053006500630075007200690074007900460069006c00650000000000000000000000779c000000000000002e000000530065007400520065006e0061006d00650049006e0066006f0072006d006100740069006f006e004500780000000000000000000000779c000000000000003e000000510075006500720079004f0062006a006500630074004900640049006e0066006f0072006d006100740069006f006e0056006f006c0075006d00650000000000000000000000789c00000400000000100000004600410053005400200049004f0000000000000000000000849c000000000000002600000043003a005c0053007400650061006d005c0073007400650061006d002e0065007800650000000000000000000000849c000000000000006800000063003a005c0053007400650061006d005c00620069006e005c006300650066005c006300650066002e00770069006e0037007800360034005c0073007400650061006d00770065006200680065006c007000650072005f006d0069006e002e0065007800650000000000000000000000879c000005000000000a00000024004d006600740000000000000000000000879c00000500000000120000002400410074007400720044006500660000000000000000000000879c0000050000000012000000240042006100640043006c007500730000000000000000000000879c0000050000000010000000240056006f006c0075006d00650000000000000000000000879c000005000000001200000024004c006f006700460069006c00650000000000000000000000879c0000060000000010000000240045007800740065006e00640000000000000000000000879c000005000000000c000000240052006f006f00740000000000000000000000879c000005000000001200000024004d00660074004d0069007200720000000000000000000000879c000005000000001a0000007000610067006500660069006c0065002e0073007900730000000000000000000000879c0000050000000010000000240053006500630075007200650000000000000000000000879c0000050000000010000000240055007000430061007300650000000000000000000000879c000000000000007000000048004b00430055005c0053006f006600740077006100720065005c0053007900730069006e007400650072006e0061006c0073005c00500072006f00630065007300730020004d006f006e00690074006f0072005c00460069006c007400650072004400690061006c006f00670000000000000000000000879c000000000000008000000048004b00430055005c0053006f006600740077006100720065005c0053007900730069006e007400650072006e0061006c0073005c00500072006f00630065007300730020004d006f006e00690074006f0072005c00460069006c0074006500720043006f006e00740072006f006c0043006f006c0075006d006e00730000000000000000000000879c000005000000000c000000240042006f006f00740000000000000000000000879c000005000000001000000024004200690074006d006100700000000000000000000000879c000000000000004400000043003a005c00550073006500720073005c00410064006d0069006e006900730074007200610074006f0072005c004e00540055005300450052002e0044004100540000000000000000000000879c000000000000004000000048004b00430055005c0053006f006600740077006100720065005c0053007400610072007400490073004200610063006b005c004300610063006800650000000000000000000000879c000000000000005c00000048004b00430055005c0053006f006600740077006100720065005c0053007400610072007400490073004200610063006b005c00430061006300680065005c0049006400650061006c004800650069006700680074002e00360000000000000000000000879c000000000000009400000043003a005c00550073006500720073005c00410064006d0069006e006900730074007200610074006f0072005c0041007000700044006100740061005c004c006f00630061006c005c0047006f006f0067006c0065005c004300680072006f006d006500200042006500740061005c005500730065007200200044006100740061005c00440065006600610075006c00740000000000000000000000879c00000000000000c400000043003a005c00550073006500720073005c00410064006d0069006e006900730074007200610074006f0072005c0041007000700044006100740061005c004c006f00630061006c005c0047006f006f0067006c0065005c004300680072006f006d006500200042006500740061005c005500730065007200200044006100740061005c00440065006600610075006c0074005c00430061006300680065005c00430061006300680065005f0044006100740061005c0064006100740061005f00300000000000000000000000879c00000000000000a400000043003a005c00550073006500720073005c00410064006d0069006e006900730074007200610074006f0072005c0041007000700044006100740061005c004c006f00630061006c005c0047006f006f0067006c0065005c004300680072006f006d006500200042006500740061005c005500730065007200200044006100740061005c00440065006600610075006c0074005c004e006500740077006f0072006b0000000000000000000000879c000000000000007000000043003a005c00500072006f006700720061006d002000460069006c00650073005c005300740061007200740041006c006c004200610063006b005c005300740061007200740041006c006c004200610063006b004c006f0061006400650072005800360034002e0064006c006c0000000000000000000000929c0000000000000014000000500072006f00660069006c0069006e00670000000000000000000000" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "HighlightRules" /t REG_BINARY /d "0101000000759c00000000000001220000004e00560049004400490041002000530068006100720065002e0065007800650000000000000000000000" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "FlightRecorder" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "RingBufferSize" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Sysinternals\Process Monitor" /v "RingBufferMin" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "D:\SteamLibrary\steamapps\common\Alien Isolation\AI.exe" /t REG_SZ /d "~ HIGHDPIAWARE DISABLEDWM DISABLEDXMAXIMIZEDWINDOWEDMODE" /f
 logman stop SCM -ets
 reg add "HKCU\Control Panel\International\Geo" /v "Nation" /t REG_SZ /d "244" /f
 reg add "HKCU\Control Panel\International\Geo" /v "Name" /t REG_SZ /d "US" /f
@@ -207,7 +253,7 @@ reg add "HKLM\SOFTWARE\NVIDIA Corporation\Global\FTS" /v "EnableRID66610" /t REG
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "AllowTelemetry" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" /v "AllowTelemetry" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "AITEnable" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Input\TIPC" /v "Enabled" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Input\TIPC" /v "Enabled" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Policies\Microsoft\Windows\EdgeUI" /v "DisableMFUTracking" /t REG_DWORD /d "1" /f
 reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoInstrumentation" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoInstrumentation" /t REG_DWORD /d "1" /f
@@ -219,8 +265,8 @@ reg add "HKLM\SOFTWARE\Microsoft\PCHealth\ErrorReporting" /v "ShowUI" /t REG_DWO
 reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\PCHealth\ErrorReporting" /v "DoReport" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\PCHealth\ErrorReporting" /v "ShowUI" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /v "SmartScreenEnabled" /t REG_SZ /d "Off" /f
-reg add "HKCU\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\PhishingFilter" /v EnabledV9 /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "HideRecentlyAddedApps" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\PhishingFilter" /v EnabledV9 /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v "HideRecentlyAddedApps" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Assistance\Client\1.0" /v "NoActiveHelp" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\CrashControl\StorageTelemetry" /v "DeviceDumpEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Audio" /v "Affinity" /t REG_DWORD /d "0" /f
@@ -408,9 +454,10 @@ reg add "HKLM\SOFTWARE\Microsoft\Direct3D" /v "DisableVidMemVBs" /t REG_DWORD /d
 reg add "HKLM\SOFTWARE\Microsoft\Direct3D\Drivers" /v "SoftwareOnly" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Direct3D\ReferenceDevice" /v "AllowAsync" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\DirectDraw" /v "EmulationOnly" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Avalon.Graphics" /v "DisableHWAcceleration" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Avalon.Graphics" /v "DisableHWAcceleration" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" /v "HwSchMode" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\DirectX\UserGpuPreferences" /v "DirectXUserGlobalSettings" /t REG_SZ /d "SwapEffectUpgradeEnable=1;" /f
+reg add "HKCU\Software\Microsoft\DirectX\GraphicsSettings" /v "SwapEffectUpgradeCache" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\DirectX\UserGpuPreferences" /v "DirectXUserGlobalSettings" /t REG_SZ /d "AutoHDREnable=0;VRROptimizeEnable=0;SwapEffectUpgradeEnable=1;" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\services\nvlddmkm" /v "DisableWriteCombining" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\services\nvlddmkm\FTS" /v "EnableRID73779" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\services\nvlddmkm\FTS" /v "EnableRID73780" /t REG_DWORD /d "1" /f
@@ -658,9 +705,8 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "TCCSupported" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\DXGKrnl" /v "MonitorLatencyTolerance" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\DXGKrnl" /v "MonitorRefreshLatencyTolerance" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\DirectX\GraphicsSettings" /v "SwapEffectUpgradeCache" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\NVIDIA Corporation\Global\NGXCore" /v "ShowDlssIndicator" /t REG_DWORD /d "0" /f
-for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Configuration" /s /f "Scaling"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Scaling" /t REG_DWORD /d "1" /f
+for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Configuration" /s /f "Scaling"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Scaling" /t REG_DWORD /d "2" /f
 powershell -nop -ep bypass -c "Disable-MMAgent -MemoryCompression -PageCombining -ApplicationPreLaunch"
 reg add "HKLM\System\CurrentControlSet\Control\Session Manager\Memory Management" /v "DisablePagingExecutive" /t REG_DWORD /d "1" /f
 reg add "HKLM\System\CurrentControlSet\Control\Session Manager" /v "DisablePagingExecutive" /t REG_DWORD /d "1" /f
@@ -675,7 +721,6 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager" /v "HeapDeCommit
 reg add "HKLM\System\CurrentControlSet\Control\Session Manager\Memory Management" /v "DisablePageCombining" /t REG_DWORD /d "1" /f
 reg add "HKLM\System\CurrentControlSet\Control\Session Manager\Memory Management" /v "DisablePagingCombining" /t REG_DWORD /d "1" /f
 reg add "HKLM\System\CurrentControlSet\Control\Session Manager\Memory Management" /v "IoPageLockLimit" /t REG_DWORD /d "4294967295" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "PagingFiles" /t REG_MULTI_SZ /d "c:\pagefile.sys 32768 32768" /f
 reg add "HKLM\System\CurrentControlSet\Control\Session Manager\Memory Management" /v "CacheUnmapBehindLengthInMB" /t REG_DWORD /d "100" /f
 reg add "HKLM\System\CurrentControlSet\Control\Session Manager\Memory Management" /v "ModifiedWriteMaximum" /t REG_DWORD /d "20" /f
 reg add "HKLM\System\CurrentControlSet\Control\Session Manager\Memory Management" /v "SystemPages" /t REG_DWORD /d "4294967295" /f
@@ -691,7 +736,6 @@ reg add "HKLM\System\CurrentControlSet\Control\Session Manager\Memory Management
 reg add "HKLM\System\CurrentControlSet\Control\Session Manager\Memory Management" /v "TrackPtes" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager" /v "AlpcWakePolicy" /t REG_DWORD /d "1" /f
 powershell Set-NetOffloadGlobalSetting -ReceiveSegmentCoalescing Disabled -PacketCoalescingFilter Disabled -Chimney Disabled -ReceiveSideScaling Enabled -TaskOffload Enabled
-powershell Set-NetTCPSetting -SettingName "*" -InitialCongestionWindow 10 -MinRto 300
 powershell Set-NetIPv4Protocol -MulticastForwarding Disabled -MediaSenseEventLog Disabled
 powershell Disable-NetAdapterChecksumOffload -Name "*" -ErrorAction SilentlyContinue
 powershell Disable-NetAdapterLso -Name "*" -ErrorAction SilentlyContinue
@@ -883,6 +927,7 @@ reg add "HKLM\SOFTWARE\Microsoft\wcmsvc\wifinetworkmanager" /v "WifiSenseOpen" /
 reg add "HKLM\SOFTWARE\Microsoft\WlanSvc\AnqpCache" /v "OsuRegistrationStatus" /t REG_DWORD /d "0" /f
 reg add "HKCU\Control Panel\Mouse" /v "MouseSensitivity" /t REG_SZ /d "10" /f
 reg add "HKCU\Control Panel\Mouse" /v "MouseSpeed" /t REG_SZ /d "-" /f
+reg add "HKCU\Control Panel\Mouse" /v "MouseDelay" /t REG_SZ /d "0" /f
 reg add "HKCU\Control Panel\Mouse" /v "MouseAccel" /t REG_SZ /d "0" /f
 reg add "HKCU\Control Panel\Mouse" /v "MouseThreshold1" /t REG_SZ /d "0" /f
 reg add "HKCU\Control Panel\Mouse" /v "MouseThreshold2" /t REG_SZ /d "0" /f
@@ -892,7 +937,6 @@ reg add "HKCU\Control Panel\Mouse" /v "DoubleClickSpeed" /t REG_SZ /d "200" /f
 reg add "HKCU\Control Panel\Mouse" /v "SwapMouseButtons" /t REG_SZ /d "0" /f
 reg add "HKCU\Control Panel\Mouse" /v "RawInput" /t REG_SZ /d "1" /f
 reg add "HKCU\Control Panel\Mouse" /v "SnapToDefaultButton" /t REG_SZ /d "0" /f
-reg add "HKCU\Control Panel\Mouse" /v "MouseDelay" /t REG_SZ /d "0" /f
 reg add "HKCU\Control Panel\Mouse" /v "ActiveWindowTracking" /t REG_DWORD /d "0" /f
 reg delete "HKCU\Control Panel\Mouse" /v "SmoothMouseXCurve" /f
 reg delete "HKCU\Control Panel\Mouse" /v "SmoothMouseYCurve" /f
@@ -1225,7 +1269,7 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WCN\Registrars" /v "DisableUPn
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WCN\Registrars" /v "DisableWPDRegistrar" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WCN\Registrars" /v "EnableRegistrars" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "EnableSmartScreen" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\AppHost" /v "ContentEvaluation" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\AppHost" /v "ContentEvaluation" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\PhishingFilter" /v "EnabledV9" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\AppHost" /v "EnableWebContentEvaluation" /t REG_DWORD /d "0" /f
 reg add "HKLM\Software\Policies\Microsoft\Windows Defender\SmartScreen" /v "ConfigureAppInstallControl" /t REG_SZ /d "Anywhere" /f
@@ -1254,7 +1298,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Kernel" /v "Disab
 reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System" /v "DontDisplayLastUserName" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "EnableCdp" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "EnableMmx" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CDP" /v "RomeSdkChannelUserAuthzPolicy" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\CDP" /v "RomeSdkChannelUserAuthzPolicy" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\ApplicationManagement\AllowGameDVR" /v "value" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\GameDVR" /v "AllowGameDVR" /t REG_DWORD /d "0" /f
 reg add "HKCU\System\GameConfigStore" /v "GameDVR_FSEBehavior" /t REG_DWORD /d "2" /f
@@ -1371,27 +1415,27 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "N
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoOnlinePrintsWizard" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoPublishingWizard" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoWebServices" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" /v "AllowSearchToUseLocation" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" /v "BingSearchEnabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" /v "CortanaConsent" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" /v "HistoryViewEnabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" /v "DeviceHistoryEnabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" /v "SearchboxTaskbarMode" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "AllowSearchToUseLocation" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "BingSearchEnabled" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "CortanaConsent" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "HistoryViewEnabled" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "DeviceHistoryEnabled" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "SearchboxTaskbarMode" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "AllowCortana" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "DisableWebSearch" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "AllowCloudSearch" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "ConnectedSearchSafeSearch" /t REG_DWORD /d "3" /f
-reg add "HKCU\SOFTWARE\Microsoft\Personalization\Settings" /v "AcceptedPrivacyPolicy" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Personalization\Settings" /v "AcceptedPrivacyPolicy" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\TextInput" /v "AllowLinguisticDataCollection" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\InputPersonalization" /v "RestrictImplicitTextCollection" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\InputPersonalization" /v "RestrictImplicitInkCollection" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\InputPersonalization\TrainedDataStore" /v "HarvestContacts" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\InputPersonalization" /v "RestrictImplicitTextCollection" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\InputPersonalization" /v "RestrictImplicitInkCollection" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\InputPersonalization\TrainedDataStore" /v "HarvestContacts" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "NoUseStoreOpenWith" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "DisableSearchBoxSuggestions" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "HidePeopleBar" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_TrackDocs" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoRecentDocsHistory" /d "1" /t REG_DWORD /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "ClearRecentDocsOnExit" /d "1" /t REG_DWORD /f
+reg add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v "DisableSearchBoxSuggestions" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v "HidePeopleBar" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_TrackDocs" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoRecentDocsHistory" /d "1" /t REG_DWORD /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "ClearRecentDocsOnExit" /d "1" /t REG_DWORD /f
 reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows Media Foundation\Platform" /v "EnableFrameServerMode" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v "Disabled" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v "AutoApproveOSDumps" /t REG_DWORD /d "0" /f
@@ -1452,27 +1496,24 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "H
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent" /v "DisableWindowsConsumerFeatures" /t REG_DWORD /d "1" /f
 reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\ImmersiveShell" /v "UseActionCenterExperience" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "EnableBalloonTips" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "DisableNotificationCenter" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\PushNotifications" /v "ToastEnabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\PushNotifications" /v "NoTileApplicationNotification" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\PushNotifications" /v "NoToastApplicationNotification" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" /v "PeopleBand" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowTaskViewButton" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowCortanaButton" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAl" /t REG_DWORD /d "0" /f
-reg delete "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Accent" /f
+reg add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v "DisableNotificationCenter" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\PushNotifications" /v "ToastEnabled" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\PushNotifications" /v "NoTileApplicationNotification" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\PushNotifications" /v "NoToastApplicationNotification" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" /v "PeopleBand" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowTaskViewButton" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowCortanaButton" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAl" /t REG_DWORD /d "0" /f
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" /v "AccentColorMenu" /t REG_DWORD /d "2852126720" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" /v "StartColorMenu" /t REG_DWORD /d "2854232096" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" /v "AccentPalette" /t REG_BINARY /d "808080aa000000aa808080aa808080aa000000aa000000aa000000aa000000aa" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\DWM" /v "ColorPrevalence" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\DWM" /v "AccentColor" /t REG_DWORD /d "2852126720" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\DWM" /v "AccentColorInactive" /t REG_DWORD /d "2854232096" /f
-reg delete "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "ColorPrevalence" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "AppsUseLightTheme" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "SystemUsesLightTheme" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "EnableBlurBehind" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "EnableTransparency" /t REG_DWORD /d "0" /f
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "ColorPrevalence" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "AppsUseLightTheme" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "SystemUsesLightTheme" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "EnableBlurBehind" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "EnableTransparency" /t REG_DWORD /d "0" /f
 reg delete "HKCU\Control Panel\Colors" /f
 reg add "HKCU\Control Panel\Colors" /v "Hilight" /t REG_SZ /d "128 128 128" /f
 reg add "HKCU\Control Panel\Colors" /v "HotTrackingColor" /t REG_SZ /d "128 128 128" /f
@@ -1484,7 +1525,10 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "DisableLogonBackgr
 reg add "HKLM\Software\Policies\Microsoft\Windows\Personalization" /v "PersonalColors_Background" /t REG_SZ /d "#000000" /f
 reg delete "HKLM\Software\Policies\Microsoft\Windows\Personalization" /v "PersonalColors_Accent" /f
 reg add "HKLM\Software\Policies\Microsoft\Windows\Personalization" /v "NoLockScreen" /t REG_DWORD /d "1" /f
-reg add "HKLM\Software\Microsoft\Windows\DWM" /v "EnableAeroPeek" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\DWM" /v "ColorPrevalence" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Windows\DWM" /v "AccentColor" /t REG_DWORD /d "2852126720" /f
+reg add "HKCU\Software\Microsoft\Windows\DWM" /v "AccentColorInactive" /t REG_DWORD /d "2854232096" /f
+reg add "HKCU\Software\Microsoft\Windows\DWM" /v "EnableAeroPeek" /t REG_DWORD /d "0" /f
 reg add "HKLM\Software\Microsoft\Windows\DWM" /v "Blur" /t REG_DWORD /d "0" /f
 reg add "HKLM\Software\Microsoft\Windows\DWM" /v "CompositionPolicy" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\DWM" /v "Composition" /t REG_DWORD /d "0" /f
@@ -1498,6 +1542,7 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\DWM" /v "EnableShadow" /t REG_DWORD /d 
 reg add "HKLM\SOFTWARE\Microsoft\Windows\DWM" /v "DisableHologramCompositor" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\DWM" /v "DisableProjectedShadows" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\DWM" /v "EnableDesktopOverlays" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\Dwm" /v "OverlayTestMode" /t REG_DWORD /d "5" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\DWM\ExtendedComposition" /v "Compositor" /t REG_SZ /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\DWM\ExtendedComposition" /v "enableColorSeparation" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\DWM\ExtendedComposition" /v "ExclusiveModeFramerateAveragingPeriodMs" /t REG_DWORD /d "0" /f
@@ -1513,17 +1558,16 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DWM" /v "DisallowFlip3d" /t RE
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DWM" /v "Composition" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DWM" /v "DisallowAnimations" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows" /v "EnableDwmInputProcessing" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\Dwm" /v "OverlayTestMode" /t REG_DWORD /d "5" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "SharingWizardOn" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_TrackProgs" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_TrackProgs" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAnimations" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ListviewShadow" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ExtendedUIHoverTime" /t REG_DWORD /d "30000" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "HideFileExt" /t  REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Hidden" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "DisallowShaking" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "DisableThumbnailCache" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "DisableThumbsDBOnNetworkFolders" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ExtendedUIHoverTime" /t REG_DWORD /d "30000" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "HideFileExt" /t  REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Hidden" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "DisallowShaking" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "DisableThumbnailCache" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "DisableThumbsDBOnNetworkFolders" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Feeds" /v "EnableFeeds" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Feeds" /v "ShellFeedsTaskbarViewMode" /t REG_DWORD /d "2" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo" /v "Enabled" /t REG_DWORD /d "0" /f
@@ -1571,7 +1615,7 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\DeviceAccess\Global\{D89
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\DeviceAccess\Global\{8BC668CF-7728-45BD-93F8-CF2B3B41D7AB}" /v Value /t REG_SZ /d "Deny" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\DeviceAccess\Global\{9231CB4C-BF57-4AF3-8C55-FDA7BFCC04C5}" /v Value /t REG_SZ /d "Deny" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\DeviceAccess\Global\{E390DF20-07DF-446D-B962-F5C953072741}" /v Value /t REG_SZ /d "Deny" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Privacy" /v "TailoredExperiencesWithDiagnosticDataEnabled" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Privacy" /v "TailoredExperiencesWithDiagnosticDataEnabled" /t REG_DWORD /d "0" /f
 reg delete "HKCR\ms-msdt" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\ScriptedDiagnostics" /v "EnableDiagnostics" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SilentInstalledAppsEnabled" /t REG_DWORD /d "0" /f
@@ -1589,14 +1633,14 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" 
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "PreInstalledAppsEnabled" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "PreInstalledAppsEverEnabled" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "RotatingLockScreenOverlayEnabled" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ImmersiveShell" /v "SignInMode" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\TabletTip\1.7" /v "EnableSpellchecking" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\TabletTip\1.7" /v "EnableTextPrediction" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\TabletTip\1.7" /v "EnablePredictionSpaceInsertion" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\TabletTip\1.7" /v "EnableDoubleTapSpace" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\TabletTip\1.7" /v "EnableAutocorrection" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ImmersiveShell" /v "SignInMode" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\TabletTip\1.7" /v "EnableSpellchecking" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\TabletTip\1.7" /v "EnableTextPrediction" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\TabletTip\1.7" /v "EnablePredictionSpaceInsertion" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\TabletTip\1.7" /v "EnableDoubleTapSpace" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\TabletTip\1.7" /v "EnableAutocorrection" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\TabletTip\1.7" /v "TipbandDesiredVisibility" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowSyncProviderNotifications" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowSyncProviderNotifications" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "UseOLEDTaskbarTransparency" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config" /v "DownloadMode" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization" /v "SystemSettingsDownloadMode" /t REG_DWORD /d "0" /f
@@ -1604,8 +1648,8 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent" /v "DisableWindo
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent" /v "DisableSoftLanding" /t REG_DWORD /d "1" /f
 reg add "HKLM\Software\Policies\Microsoft\WindowsInkWorkspace" /v "AllowSuggestedAppsInWindowsInkWorkspace" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "RunStartupScriptSync" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MultitaskingView\AllUpView" /v Value /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MultitaskingView\AllUpView" /v "Remove TaskView" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\MultitaskingView\AllUpView" /v Value /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\MultitaskingView\AllUpView" /v "Remove TaskView" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "SynchronousUserGroupPolicy" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "SynchronousMachineGroupPolicy" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableCursorSuppression" /t REG_DWORD /d "0" /f
@@ -1621,11 +1665,11 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "AllowCrossDeviceCl
 reg delete "HKCU\Software\Microsoft\Clipboard" /v "CloudClipboardAutomaticUpload" /f
 reg delete "HKCU\Software\Microsoft\Clipboard" /v "EnableCloudClipboard" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\InputPersonalization" /v "AllowInputPersonalization" /t REG_DWORD /d "0" /f
-reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\CloudContent" /v "DisableThirdPartySuggestions" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers" /v "DisableAutoplay" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Policies\Microsoft\Windows\CloudContent" /v "DisableThirdPartySuggestions" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers" /v "DisableAutoplay" /t REG_DWORD /d "1" /f
 reg add "HKLM\Software\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform" /v "NoGenTicket" /t REG_DWORD /d "1" /f
 reg add "HKLM\Software\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform" /v "AllowWindowsEntitlementReactivation" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync" /v "SyncPolicy" /t REG_DWORD /d "5" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync" /v "SyncPolicy" /t REG_DWORD /d "5" /f
 reg add "HKLM\Software\Policies\Microsoft\Windows\SettingSync" /v "DisableSettingSync" /t REG_DWORD /d "2" /f
 reg add "HKLM\Software\Policies\Microsoft\Windows\SettingSync" /v "DisableSettingSyncUserOverride" /t REG_DWORD /d "1" /f
 reg add "HKLM\Software\Policies\Microsoft\Windows\SettingSync" /v "DisableSyncOnPaidNetwork" /t REG_DWORD /d "1" /f
@@ -1643,7 +1687,7 @@ reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\N
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\TabletPC" /v "TurnOffPenFeedback" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\PenWorkspace" /v "PenWorkspaceAppSuggestionsEnabled" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\PenWorkspace" /v "PenWorkspaceAppSuggestionsEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\Bluetooth" /v "AllowAdvertising" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "NoStartMenuMFUprogramsList" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Classes\CLSID\{031E4825-7B94-4dc3-B131-E946B44C8DD5}" /v "System.IsPinnedToNameSpaceTree" /t REG_DWORD /d "0" /f
@@ -1738,7 +1782,7 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\NonEnum" /v "{1
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\NonEnum" /v "{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\NonEnum" /v "{A0953C92-50DC-43bf-BE83-3742FED03C9C}" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer" /v "PageSpaceControlSizer" /t REG_BINARY /d "a00000000000000000000000ec030000" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer" /v "PageSpaceControlSizer" /t REG_BINARY /d "a00000000000000000000000ec030000" /f
 reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{FF393560-C2A7-11CF-BFF4-444553540000}" /t REG_SZ /d "" /f
 reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{09A47860-11B0-4DA5-AFA5-26D86198A780}" /t REG_SZ /d "" /f
 reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked" /v "{A70C977A-BF00-412C-90B7-034C51DA2439}" /t REG_SZ /d "" /f
@@ -1827,10 +1871,10 @@ del /S /Q "C:\Users\Public\Desktop\Microsoft Edge.lnk"
 del /S /Q "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
 rmdir /s /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch"
 rmdir /s /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations"
-reg delete "HKCU\SOFTWARE\Classes\*\shell\connectNetworkDrive" /f
-reg delete "HKCU\SOFTWARE\Classes\Directory\shell\connectNetworkDrive" /f
-reg delete "HKCU\SOFTWARE\Classes\*\shell\disconnectNetworkDrive" /f
-reg delete "HKCU\SOFTWARE\Classes\*\shell\Windows.CompressTo" /f
+reg delete "HKCU\Software\Classes\*\shell\connectNetworkDrive" /f
+reg delete "HKCU\Software\Classes\Directory\shell\connectNetworkDrive" /f
+reg delete "HKCU\Software\Classes\*\shell\disconnectNetworkDrive" /f
+reg delete "HKCU\Software\Classes\*\shell\Windows.CompressTo" /f
 reg delete "HKLM\SOFTWARE\Microsoft\PolicyManager\default\TextInput\ConfigureJapaneseIMEVersion" /f
 reg delete "HKLM\SOFTWARE\Microsoft\PolicyManager\default\TextInput\ConfigureKoreanIMEVersion" /f
 reg delete "HKLM\SOFTWARE\Microsoft\PolicyManager\default\TextInput\ConfigureTraditionalChineseIMEVersion" /f
@@ -1838,10 +1882,10 @@ reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\SyncRootMana
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DeviceAccess" /v "ActivePolicyCode" /f
 
 :: finish
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "1" /t REG_SZ /d "C:\Tools\AfterReboot.cmd" /f
 move "C:\TEMP\SetTimerResolution.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
 move "C:\TEMP\RunRealHidden.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
 move "C:\TEMP\StartUp.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
-C:\Windows\System32\PowerRun_x64.exe cmd /c "C:\TEMP\Setup3.cmd"
-start /b /wait C:\TEMP\Startallback.exe /ai /gm2
-start /b /wait C:\TEMP\idman641build17.exe /skipdlgs
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "1" /t REG_SZ /d "C:\Tools\AfterReboot.cmd" /f
+:: C:\Windows\System32\PowerRun_x64.exe cmd /c "C:\TEMP\Setup3.cmd"
+start /w C:\Tools\NVidiaProfileInspector\nvidiaProfileInspector.exe
+start /w C:\TEMP\Startallback.exe
