@@ -22,29 +22,21 @@ schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\StartOobeAppsScan_Lic
 schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Wake To Work" /f
 schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Maintenance Work" /f
 schtasks /delete /tn "Microsoft\Windows\WindowsUpdate\Scheduled Start" /f
-schtasks /delete /tn "Microsoft\Windows\Customer Experience Improvement Program\BthSQM" /f
-schtasks /delete /tn "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /f
-schtasks /delete /tn "Microsoft\Windows\Application Experience\ProgramDataUpdater" /f
 schtasks /delete /tn "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" /f
 schtasks /delete /tn "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticResolver" /f
 schtasks /delete /tn "Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem" /f
-schtasks /delete /tn "Microsoft\Windows\Shell\FamilySafetyMonitor" /f
-schtasks /delete /tn "Microsoft\Windows\Shell\FamilySafetyRefresh" /f
 schtasks /delete /tn "Microsoft\Windows\Shell\FamilySafetyUpload" /f
 schtasks /delete /tn "Microsoft\Windows\Autochk\Proxy" /f
 schtasks /delete /tn "Microsoft\Windows\Maintenance\WinSAT" /f
 schtasks /delete /tn "Microsoft\Windows\Application Experience\AitAgent" /f
 schtasks /delete /tn "Microsoft\Windows\CloudExperienceHost\CreateObjectTask" /f
 schtasks /delete /tn "Microsoft\Windows\FileHistory\File History (maintenance mode)" /f
-schtasks /delete /tn "Microsoft\Windows\PI\Sqm-Tasks" /f
 schtasks /delete /tn "Microsoft\Windows\AppID\SmartScreenSpecific" /f
 schtasks /delete /tn "Microsoft\Windows\SettingSync\BackgroundUploadTask" /f
-schtasks /delete /tn "Microsoft\Windows\AppID\SmartScreenSpecific" /f
 schtasks /delete /tn "Microsoft\Windows\ApplicationData\CleanupTemporaryState" /f
 schtasks /delete /tn "Microsoft\Windows\ApplicationData\DsSvcCleanup" /f
 schtasks /delete /tn "Microsoft\Windows\ApplicationData\appuriverifierinstall" /f
 schtasks /delete /tn "Microsoft\Windows\ApplicationData\appuriverifierdaily" /f
-schtasks /delete /tn "Microsoft\Windows\Application Experience\AitAgent" /f
 schtasks /delete /tn "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /f
 schtasks /delete /tn "Microsoft\Windows\Application Experience\ProgramDataUpdater" /f
 schtasks /delete /tn "Microsoft\Windows\Application Experience\StartupAppTask" /f
@@ -474,7 +466,9 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\NetBT" /v "Start" /t REG_DWORD /
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CDPSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CDPUserSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\VSS" /v "Start" /t REG_DWORD /d "4" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\RTUsbSwSrvc" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\QWAVE" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Vid" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\amdpsp" /v "Start" /t REG_DWORD /d "4" /f
 
 ::Image File Execution Options
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options" /f
@@ -525,3 +519,5 @@ rmdir /s /q "C:\Users\Administrator\AppData\Local\Temp"
 del /f /q /s "C:\Windows\System32\microsoft-windows-sleepstudy-events.dll"
 del /f /q /s "C:\Users\Administrator\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\*.*"
 del /f /q /s "C:\Windows\System32\mobsync.exe"
+taskkill /f /im SearchHost.exe
+ren C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchHost.exe SearchHost_old.exe
