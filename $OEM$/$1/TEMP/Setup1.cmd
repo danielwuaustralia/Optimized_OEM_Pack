@@ -657,10 +657,12 @@ Microsoft.Windows.CloudExperienceHost
 1527c705-839a-4832-9118-54d4Bd6a0c89
 c5e2524a-ea46-4f67-841f-6a9465d9d515
 ) do (
-powershell -nop -ep bypass -c "Get-ChildItem -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Recurse -Force -EA SilentlyContinue -Verbose"
+powershell -nop -ep bypass -c "Get-ChildItem -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Applications' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Recurse -Force -EA SilentlyContinue -Verbose"
+powershell -nop -ep bypass -c "Get-ChildItem -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Recurse -Force -EA SilentlyContinue -Verbose"
 powershell -nop -ep bypass -c "Get-ChildItem -Path 'C:\Windows\SystemApps' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Force -Recurse -EA SilentlyContinue -Verbose"
 powershell -nop -ep bypass -c "Get-ChildItem -Path 'C:\Program Files\WindowsApps' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Force -Recurse -EA SilentlyContinue -Verbose"
 powershell -nop -ep bypass -c "New-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned' -Name '%%z' -Force -Verbose"
+powershell -nop -ep bypass -c "New-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\EndOfLife' -Name '%%z' -Force -Verbose"
 )
 
 :: uncompress C drive
