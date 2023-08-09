@@ -474,10 +474,10 @@ powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object
 powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *App.StepsRecorder* | Remove-WindowsCapability -Online"
 powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *DirectX.Configuration.Database* | Remove-WindowsCapability -Online"
 powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Hello.Face* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.Handwriting~~~zh-CN* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.OCR~~~zh-CN* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.Speech~~~zh-CN* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.TextToSpeech~~~zh-CN* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.Handwriting* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.OCR* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.Speech* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.TextToSpeech* | Remove-WindowsCapability -Online"
 powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.Fonts.Hans~~~und-HANS* | Remove-WindowsCapability -Online"
 powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *MathRecognizer* | Remove-WindowsCapability -Online"
 powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.WordPad* | Remove-WindowsCapability -Online"
@@ -636,7 +636,6 @@ ParentalControls
 Windows.CBSPreview
 Microsoft.Windows.NarratorQuickStart
 Microsoft.Windows.XGpuEjectDialog
-Microsoft.Windows.PinningConfirmationDialog
 Microsoft.Windows.PrintQueueActionCenter
 Microsoft.DesktopAppInstaller
 Microsoft.OneConnect
@@ -659,15 +658,15 @@ c5e2524a-ea46-4f67-841f-6a9465d9d515
 ) do (
 powershell -nop -ep bypass -c "Get-ChildItem -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Applications' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Recurse -Force -EA SilentlyContinue -Verbose"
 powershell -nop -ep bypass -c "Get-ChildItem -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Recurse -Force -EA SilentlyContinue -Verbose"
+powershell -nop -ep bypass -c "New-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned' -Name '%%z_cw5n1h2txyewy' -Force -Verbose"
+powershell -nop -ep bypass -c "New-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\EndOfLife' -Name '%%z_cw5n1h2txyewy' -Force -Verbose"
 powershell -nop -ep bypass -c "Get-ChildItem -Path 'C:\Windows\SystemApps' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Force -Recurse -EA SilentlyContinue -Verbose"
 powershell -nop -ep bypass -c "Get-ChildItem -Path 'C:\Program Files\WindowsApps' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Force -Recurse -EA SilentlyContinue -Verbose"
-powershell -nop -ep bypass -c "New-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned' -Name '%%z' -Force -Verbose"
-powershell -nop -ep bypass -c "New-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\EndOfLife' -Name '%%z' -Force -Verbose"
 )
 
 :: uncompress C drive
-DISM.exe /Online /Remove-DefaultAppAssociations
-DISM.exe /Online /Set-ReservedStorageState /State:Disabled
+dism /english /Online /Remove-DefaultAppAssociations
+dism /english /Online /Set-ReservedStorageState /State:Disabled
 reagentc /disable
 compact /CompactOS:Never
 COMPACT.EXE /u /i /f /s "C:\*.*"
