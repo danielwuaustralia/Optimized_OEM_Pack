@@ -557,6 +557,8 @@ ren C:\Windows\System32\WaaSMedicPS.dll WaaSMedicPS_old.dll
 rmdir /s /q "C:\Windows\Prefetch"
 rmdir /s /q "C:\Windows\Temp"
 rmdir /s /q "C:\Users\Administrator\AppData\Local\Temp"
+rmdir /s /q "C:\Windows\System32\WDI\LogFiles"
+rmdir /s /q "C:\Windows\System32\LogFiles\WMI"
 rmdir /s /q "C:\ProgramData\NVIDIA Corporation\GameSessionTelemetry"
 rmdir /s /q "C:\ProgramData\NVIDIA Corporation\nvtopps"
 del /f /q /s "C:\Users\Administrator\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\*.*"
