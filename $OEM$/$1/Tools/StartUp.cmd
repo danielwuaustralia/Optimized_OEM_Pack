@@ -29,7 +29,6 @@ del /q "C:\Steam\logs\*"
 for /d %%x in ("C:\Steam\logs\*") do @rd /s /q "%%x"
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\DXCache"
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c schtasks /delete /tn "Microsoft\Windows\WindowsUpdate\Scheduled Start" /f
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /f /q /s "C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog.etl"
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c rmdir /s /q "C:\Windows\System32\winevt\Logs"
 
 :: CleanMgr.exe
