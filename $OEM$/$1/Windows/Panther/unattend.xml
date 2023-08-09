@@ -11,10 +11,10 @@
         </component>
         <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <ComputerName>Nostromo</ComputerName>
-            <RegisteredOwner>LV426</RegisteredOwner>
-            <RegisteredOrganization>Alien</RegisteredOrganization>
+            <RegisteredOwner>Ellen Ripley</RegisteredOwner>
+            <RegisteredOrganization>Weyland-Yutani</RegisteredOrganization>
             <TimeZone>AUS Eastern Standard Time</TimeZone>
-            <ProductKey>DXG7C-N36C4-C4HTG-X4T3X-2YV77</ProductKey>
+            <ProductKey>VK7JG-NPHTM-C97JM-9MPGT-3V66T</ProductKey>
         </component>
     </settings>
     <settings pass="oobeSystem">
@@ -34,11 +34,13 @@
                     <Order>1</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>powershell -nop -ep bypass -file "C:\TEMP\interrupt_affinity_auto.ps1"</CommandLine>
+                    <Description></Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>2</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>C:\TEMP\2005_x86.exe /q</CommandLine>
+                    <Description></Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>3</Order>
@@ -113,15 +115,10 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>17</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\amdchipset.exe /S</CommandLine>
+                    <CommandLine>C:\TEMP\mini_installer.exe --install --silent --system-level</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>18</Order>
-                    <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>cmd.exe /c msiexec /package "C:\TEMP\googlechromebetastandaloneenterprise64.msi" /quiet /norestart /qn</CommandLine>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>19</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>cmd.exe /c "C:\TEMP\Setup2.cmd"</CommandLine>
                 </SynchronousCommand>
@@ -134,8 +131,8 @@
             </UserAccounts>
             <AutoLogon>
                 <Password>
-                <Value></Value>
-                <PlainText>true</PlainText>
+                    <Value></Value>
+                    <PlainText>true</PlainText>
                 </Password>
                 <Enabled>true</Enabled>
                 <LogonCount>9999999</LogonCount>
@@ -143,4 +140,5 @@
             </AutoLogon>
         </component>
     </settings>
+    <cpi:offlineImage cpi:source="wim:d:/install.wim#Windows 11 专业版" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
 </unattend>
