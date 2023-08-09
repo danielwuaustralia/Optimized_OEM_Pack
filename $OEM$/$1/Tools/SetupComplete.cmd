@@ -5,7 +5,4 @@ powershell -nop -ep bypass -c "Get-ScheduledTask | Where {$_.TaskName -match 'Go
 powershell -nop -ep bypass -c "Get-ScheduledTask | Where {$_.TaskName -match 'StartAllBack' } | Unregister-ScheduledTask -Confirm:$false"
 start /w C:\Tools\IDM-pawel97.exe
 DISM /online /Cleanup-Image /StartComponentCleanup /ResetBase
-:: Remove Read Only & archive feature on all files
-:: C:\Windows\System32\PowerRun_x64.exe cmd /c attrib -a -s -r +i -h "D:\Games\*.*" /d /s
-:: C:\Windows\System32\PowerRun_x64.exe cmd /c attrib -a -s -r +i -h "D:\SteamLibrary\*.*" /d /s
 pause
