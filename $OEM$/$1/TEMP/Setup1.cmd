@@ -19,144 +19,7 @@ color 0a
 :: nvram kset nat_type=1
 :: nvram commit
 
-:: 3rd Party Drivers
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1" /f /v "Path" /t REG_SZ /d "C:\TEMP\Drivers"
-"C:\Windows\System32\pnpunattend.exe" AuditSystem /L
-
-:: config
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *LegacyComponents* | Enable-WindowsOptionalFeature -Online -All"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *DirectPlay* | Enable-WindowsOptionalFeature -Online -All"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *SmbDirect* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-PrintToPDFServices-Features* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *MicrosoftWindowsPowerShellV2Root* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *MicrosoftWindowsPowerShellV2* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-Features* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-InternetPrinting-Client* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-LPDPrintService* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-LPRPortMonitor* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *WorkFolders-Client* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *SearchEngine-Client-Package* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Windows-Defender-ApplicationGuard* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Windows-Defender-Default-Definitions* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *MSRDC-Infrastructure* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *MediaPlayback* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *WindowsMediaPlayer* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *App.StepsRecorder* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *DirectX.Configuration.Database* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Hello.Face* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.Handwriting~~~zh-CN* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.OCR~~~zh-CN* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.Speech~~~zh-CN* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.TextToSpeech~~~zh-CN* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.Fonts.Hans~~~und-HANS* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *MathRecognizer* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.WordPad* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.PowerShell.ISE* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *OpenSSH.Client* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Wallpapers.Extended* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.Ethernet.Client* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.Notepad.System* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.Wifi.Client* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *OneCoreUAP.OneSync* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Print.Management.Console* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Windows.Client.ProjFS* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Windows.Container.ClientSupportImage* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Windows.Telnet.Client* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Windows.TFTP.Client* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Windows.WinOcr* | Remove-WindowsCapability -Online"
-powershell -nop -ep bypass -c "Get-AppxProvisionedPackage -Online | Where-Object DisplayName -like *Microsoft.MicrosoftEdge* | Remove-AppxProvisionedPackage -Online -AllUsers"
-powershell -nop -ep bypass -c "Get-AppxProvisionedPackage -Online | Where-Object DisplayName -like *NVIDIACorp.NVIDIAControlPanel* | Remove-AppxProvisionedPackage -Online -AllUsers"
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v "TEMP" /t REG_EXPAND_SZ /d "C:\TEMP" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v "TMP" /t REG_EXPAND_SZ /d "C:\TEMP" /f
-reg add "HKLM\SOFTWARE\DefaultUserEnvironment" /v "TEMP" /t REG_EXPAND_SZ /d "C:\TEMP" /f
-reg add "HKLM\SOFTWARE\DefaultUserEnvironment" /v "TMP" /t REG_EXPAND_SZ /d "C:\TEMP" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableFirstLogonAnimation" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "EnableFirstLogonAnimation" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell" /v "EnableScripts" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell" /v "ExecutionPolicy" /t REG_SZ /d "Bypass" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ModuleLogging" /v "EnableModuleLogging" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging" /v "EnableScriptBlockLogging" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription" /v "EnableTranscripting" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v "ExecutionPolicy" /t REG_SZ /d "Bypass" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\VSS" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\SystemRestore" /v "DisableSR" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\Update" /v "ExcludeWUDriversInQualityUpdate" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "ExcludeWUDriversInQualityUpdate" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\Update" /v "ExcludeWUDriversInQualityUpdate" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\Update\ExcludeWUDriversInQualityUpdate" /v "value" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\Update\ExcludeWUDriversInQualityUpdate" /v "value" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\Update\ExcludeWUDriversInQualityUpdate" /v "value" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\device\Update\ExcludeWUDriversInQualityUpdate" /v "value" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DriverSearching" /v "SearchOrderConfig" /t REG_DWORD /d "3" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DriverSearching" /v "DontSearchWindowsUpdate" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DriverSearching" /v "DontPromptForWindowsUpdate" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DriverSearching" /v "DriverServerSelection" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DriverSearching" /v "DriverUpdateWizardWuSearchEnabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Settings" /v "DisableBalloonTips" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Settings" /v "DisableSendRequestAdditionalSoftwareToWER" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Settings" /v "PreventDeviceMetadataFromNetwork" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Settings" /v "DisableSystemRestore" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Settings" /v "DisableSendGenericDriverNotFoundToWER" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Policies\Microsoft\Windows\WindowsUpdate" /v "ExcludeWUDriversInQualityUpdate" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Policies\Microsoft\Windows\DriverSearching" /v "SearchOrderConfig" /t REG_DWORD /d "3" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DriverSearching" /v "SearchOrderConfig" /t REG_DWORD /d "3" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\WindowsUpdate\UX\Settings" /v "ExcludeWUDriversInQualityUpdate" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Device Metadata" /v "DeviceMetadataServiceURL" /t REG_SZ /d "0" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Device Metadata" /v "PreventDeviceMetadataFromNetwork" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Device Metadata" /v "PreventDeviceMetadataFromNetwork" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Device Driver Packages" /v "Autorun" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Device Driver Packages" /v "StateFlags" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Device Driver Packages" /v "Autorun" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Device Driver Packages" /v "StateFlags" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UpdatePolicy\PolicyState" /v "ExcludeWUDrivers" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\IPSec\ICFv4" /v "BypassFirewall" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" /v "EnableFirewall" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" /v "LogDroppedPackets" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" /v "LogSuccessfulConnections" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile" /v "EnableFirewall" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile\Logging" /v "LogDroppedPackets" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile\Logging" /v "LogSuccessfulConnections" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Classes\AppID\slui.exe" /v "NoGenTicket" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" /v "EnableLog" /t REG_SZ /d "0" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" /v "DisableWerReporting" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "AllowHeadlessExecution" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "AllowMultipleBackgroundTasks" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "InactivityTimeoutMs" /t REG_DWORD /d "4294967295" /f
-
-:: no ms edge
-taskkill.exe /f /im "msedge.exe"
-reg add "HKLM\SOFTWARE\Microsoft\EdgeUpdate" /v "DoNotUpdateToEdgeWithChromium" /t REG_DWORD /d "1" /f
-reg delete "HKLM\SOFTWARE\Classes\AppUserModelId\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge" /f
-reg delete "HKLM\SOFTWARE\Classes\MSEdgeHTM" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{9459C573-B17A-45AE-9F64-1857B5D58CEE}" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoft-windows-edgechromium_31bf3856ad364e35_none_df3ee7b2c5023fd1" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoft-windows-m..osoftedge.appxsetup_31bf3856ad364e35_none_d0472dbbd37cfd67" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoft-windows-microsoftedgebrowser_31bf3856ad364e35_none_cc4c2155158afa1d" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoftedge-autologger_31bf3856ad364e35_none_dd39fb9187e61e2e" /f
-reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate" /f
-reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge" /f
-reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge Update" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\edgeupdate" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\edgeupdatem" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects\{1FD49718-1D00-4B19-AF5F-070AF6D5D54C}" /f
-reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects\{1FD49718-1D00-4B19-AF5F-070AF6D5D54C}" /f
-rmdir /s /q "C:\Program Files (x86)\Microsoft"
-
-:: no onedrive
-del /f /q /s "C:\Windows\System32\OneDriveSetup.exe"
-del /f /q /s "C:\Windows\SysWOW64\OneDriveSetup.exe"
-reg load HKLM\NTUSER C:\Users\Default\NTUSER.DAT
-reg delete "HKLM\NTUSER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
-reg unload HKLM\NTUSER
-REG DELETE "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f
-REG DELETE "HKCR\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f
-REG ADD "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v "System.IsPinnedToNameSpaceTree" /d "0" /t REG_DWORD /f
-REG ADD "HKCR\Wow6432Node\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v "System.IsPinnedToNameSpaceTree" /d "0" /t REG_DWORD /f
-
 :: no defender
-del /f /q /s "C:\Windows\System32\windowsdefenderapplicationguardcsp.dll"
-del /f /q /s "C:\Windows\SysWOW64\windowsdefenderapplicationguardcsp.dll"
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\MsSecCore" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\wscsvc" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WdNisDrv" /f
@@ -234,8 +97,9 @@ rmdir /s /q "C:\Windows\System32\Tasks_Migrated\Microsoft\Windows\Windows Defend
 rmdir /s /q "C:\Windows\System32\WebThreatDefSvc"
 rmdir /s /q "C:\Windows\System32\WindowsPowerShell\v1.0\Modules\Defender"
 rmdir /s /q "C:\Windows\System32\WindowsPowerShell\v1.0\Modules\DefenderPerformance"
-rmdir /s /q "C:\Windows\SystemApps\Microsoft.Windows.AppRep.ChxApp_cw5n1h2txyewy"
 rmdir /s /q "C:\Windows\bcastdvr"
+del /f /q /s "C:\Windows\System32\windowsdefenderapplicationguardcsp.dll"
+del /f /q /s "C:\Windows\SysWOW64\windowsdefenderapplicationguardcsp.dll"
 reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\Defender\AllowIOAVProtection" /v "value" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "PUAProtection" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "DisableRoutinelyTakingAction" /t REG_DWORD /d "1" /f
@@ -587,8 +451,159 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows Security Health\Health Advisor\Time Ser
 reg add "HKLM\SOFTWARE\Microsoft\Windows Security Health\Health Advisor\Update Monitor" /v "UIReportingDisabled" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "SettingsPageVisibility" /t REG_SZ /d "hide:windowsdefender;" /f
 
+:: 3rd Party Drivers
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1" /f /v "Path" /t REG_SZ /d "C:\TEMP\Drivers"
+"C:\Windows\System32\pnpunattend.exe" AuditSystem /L
+
+:: config
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *LegacyComponents* | Enable-WindowsOptionalFeature -Online -All"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *DirectPlay* | Enable-WindowsOptionalFeature -Online -All"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *SmbDirect* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-PrintToPDFServices-Features* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *MicrosoftWindowsPowerShellV2Root* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *MicrosoftWindowsPowerShellV2* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-Features* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-InternetPrinting-Client* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-LPDPrintService* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-LPRPortMonitor* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *WorkFolders-Client* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *SearchEngine-Client-Package* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Windows-Defender-ApplicationGuard* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Windows-Defender-Default-Definitions* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *MSRDC-Infrastructure* | Disable-WindowsOptionalFeature -Online -NoRestart"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *App.StepsRecorder* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *DirectX.Configuration.Database* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Hello.Face* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.Handwriting~~~zh-CN* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.OCR~~~zh-CN* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.Speech~~~zh-CN* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.TextToSpeech~~~zh-CN* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Language.Fonts.Hans~~~und-HANS* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *MathRecognizer* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.WordPad* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.PowerShell.ISE* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *OpenSSH.Client* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Wallpapers.Extended* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.Ethernet.Client* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.Notepad.System* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.Wifi.Client* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *OneCoreUAP.OneSync* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Print.Management.Console* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Windows.Client.ProjFS* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Windows.Container.ClientSupportImage* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Windows.Telnet.Client* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Windows.TFTP.Client* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Windows.WinOcr* | Remove-WindowsCapability -Online"
+powershell -nop -ep bypass -c "Get-AppxProvisionedPackage -Online | Where-Object DisplayName -like *Microsoft.MicrosoftEdge* | Remove-AppxProvisionedPackage -Online -AllUsers"
+powershell -nop -ep bypass -c "Get-AppxProvisionedPackage -Online | Where-Object DisplayName -like *NVIDIACorp.NVIDIAControlPanel* | Remove-AppxProvisionedPackage -Online -AllUsers"
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v "TEMP" /t REG_EXPAND_SZ /d "C:\TEMP" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v "TMP" /t REG_EXPAND_SZ /d "C:\TEMP" /f
+reg add "HKLM\SOFTWARE\DefaultUserEnvironment" /v "TEMP" /t REG_EXPAND_SZ /d "C:\TEMP" /f
+reg add "HKLM\SOFTWARE\DefaultUserEnvironment" /v "TMP" /t REG_EXPAND_SZ /d "C:\TEMP" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableFirstLogonAnimation" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "EnableFirstLogonAnimation" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell" /v "EnableScripts" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell" /v "ExecutionPolicy" /t REG_SZ /d "Bypass" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ModuleLogging" /v "EnableModuleLogging" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging" /v "EnableScriptBlockLogging" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription" /v "EnableTranscripting" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v "ExecutionPolicy" /t REG_SZ /d "Bypass" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\VSS" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\SystemRestore" /v "DisableSR" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\IPSec\ICFv4" /v "BypassFirewall" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" /v "EnableFirewall" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" /v "LogDroppedPackets" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" /v "LogSuccessfulConnections" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile" /v "EnableFirewall" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile\Logging" /v "LogDroppedPackets" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\StandardProfile\Logging" /v "LogSuccessfulConnections" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\Update" /v "ExcludeWUDriversInQualityUpdate" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "ExcludeWUDriversInQualityUpdate" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\Update" /v "ExcludeWUDriversInQualityUpdate" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\Update\ExcludeWUDriversInQualityUpdate" /v "value" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\Update\ExcludeWUDriversInQualityUpdate" /v "value" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\Update\ExcludeWUDriversInQualityUpdate" /v "value" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\device\Update\ExcludeWUDriversInQualityUpdate" /v "value" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DriverSearching" /v "SearchOrderConfig" /t REG_DWORD /d "3" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DriverSearching" /v "DontSearchWindowsUpdate" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DriverSearching" /v "DontPromptForWindowsUpdate" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DriverSearching" /v "DriverServerSelection" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DriverSearching" /v "DriverUpdateWizardWuSearchEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Settings" /v "DisableBalloonTips" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Settings" /v "DisableSendRequestAdditionalSoftwareToWER" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Settings" /v "PreventDeviceMetadataFromNetwork" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Settings" /v "DisableSystemRestore" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Settings" /v "DisableSendGenericDriverNotFoundToWER" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Policies\Microsoft\Windows\WindowsUpdate" /v "ExcludeWUDriversInQualityUpdate" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Policies\Microsoft\Windows\DriverSearching" /v "SearchOrderConfig" /t REG_DWORD /d "3" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DriverSearching" /v "SearchOrderConfig" /t REG_DWORD /d "3" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\WindowsUpdate\UX\Settings" /v "ExcludeWUDriversInQualityUpdate" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Device Metadata" /v "DeviceMetadataServiceURL" /t REG_SZ /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Device Metadata" /v "PreventDeviceMetadataFromNetwork" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Device Metadata" /v "PreventDeviceMetadataFromNetwork" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Device Driver Packages" /v "Autorun" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Device Driver Packages" /v "StateFlags" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Device Driver Packages" /v "Autorun" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Device Driver Packages" /v "StateFlags" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UpdatePolicy\PolicyState" /v "ExcludeWUDrivers" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "FlightSettingsMaxPauseDays" /t REG_DWORD /d "5279" /f
+reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "PauseFeatureUpdatesStartTime" /t REG_SZ /d "2023-08-06T08:00:00Z" /f
+reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "PauseFeatureUpdatesEndTime" /t REG_SZ /d "2038-01-19T03:14:07Z" /f
+reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "PauseQualityUpdatesStartTime" /t REG_SZ /d "2023-08-06T08:00:00Z" /f
+reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "PauseQualityUpdatesEndTime" /t REG_SZ /d "2038-01-19T03:14:07Z" /f
+reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "PauseUpdatesExpiryTime" /t REG_SZ /d "2038-01-19T03:14:07Z" /f
+reg add "HKLM\SOFTWARE\Classes\AppID\slui.exe" /v "NoGenTicket" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" /v "EnableLog" /t REG_SZ /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" /v "DisableWerReporting" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "AllowHeadlessExecution" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "AllowMultipleBackgroundTasks" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "InactivityTimeoutMs" /t REG_DWORD /d "4294967295" /f
+
+:: no ms edge
+taskkill.exe /f /im "msedge.exe"
+rmdir /s /q "C:\Program Files (x86)\Microsoft"
+rmdir /s /q "C:\Windows\SystemApps\Shared\WebView2SDK"
+rmdir /s /q "C:\Windows\System32\Microsoft-Edge-WebView"
+reg add "HKLM\SOFTWARE\Microsoft\EdgeUpdate" /v "DoNotUpdateToEdgeWithChromium" /t REG_DWORD /d "1" /f
+reg delete "HKLM\SOFTWARE\Classes\AppUserModelId\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge" /f
+reg delete "HKLM\SOFTWARE\Classes\MSEdgeHTM" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{9459C573-B17A-45AE-9F64-1857B5D58CEE}" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoft-windows-edgechromium_31bf3856ad364e35_none_df3ee7b2c5023fd1" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoft-windows-m..osoftedge.appxsetup_31bf3856ad364e35_none_d0472dbbd37cfd67" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoft-windows-microsoftedgebrowser_31bf3856ad364e35_none_cc4c2155158afa1d" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoftedge-autologger_31bf3856ad364e35_none_dd39fb9187e61e2e" /f
+reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate" /f
+reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge" /f
+reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge Update" /f
+reg delete "HKLM\SYSTEM\ControlSet001\Services\edgeupdate" /f
+reg delete "HKLM\SYSTEM\ControlSet001\Services\edgeupdatem" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects\{1FD49718-1D00-4B19-AF5F-070AF6D5D54C}" /f
+reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Explorer\Browser Helper Objects\{1FD49718-1D00-4B19-AF5F-070AF6D5D54C}" /f
+
+:: no onedrive
+del /f /q /s "C:\Windows\System32\OneDriveSetup.exe"
+reg load HKLM\NTUSER C:\Users\Default\NTUSER.DAT
+reg delete "HKLM\NTUSER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
+reg unload HKLM\NTUSER
+REG DELETE "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f
+REG DELETE "HKCR\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f
+REG ADD "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v "System.IsPinnedToNameSpaceTree" /d "0" /t REG_DWORD /f
+REG ADD "HKCR\Wow6432Node\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v "System.IsPinnedToNameSpaceTree" /d "0" /t REG_DWORD /f
+
+:: no wallpaper
+rmdir /s /q "C:\Windows\Web"
+
+:: no workplace sync
+del /f /q /s "C:\Windows\System32\mobsync.exe"
+del /f /q /s "C:\Windows\SysWOW64\mobsync.exe"
+
+:: unused IMEs
+rmdir /s /q "C:\Windows\IME\IMEJP"
+rmdir /s /q "C:\Windows\IME\IMEKR"
+rmdir /s /q "C:\Windows\IME\IMETC"
+
 :: UWP removal
-rmdir /s /q "C:\Program Files\WindowsApps"
 for %%z in (
 Microsoft.AAD.BrokerPlugin
 Microsoft.AccountsControl
@@ -647,19 +662,9 @@ Powershell -C "Get-ChildItem -Path 'C:\Windows\SystemApps' | Where-Object { $_.N
 Powershell -C "Get-ChildItem -Path 'C:\Program Files\WindowsApps' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Force -Recurse -EA SilentlyContinue -Verbose"
 )
 
-:: package removal
-for %%z in (
-Windows-Defender
-Microsoft-Windows-OneDrive
-) do (
-powershell -nop -ep bypass -c "Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*%%z*' -Name Visibility -Value 1 -Force -EA SilentlyContinue -Verbose"
-powershell -nop -ep bypass -c "Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*%%z*' -Include *Owner* -Recurse -Force -EA SilentlyContinue -Verbose"
-powershell -nop -ep bypass -c "Get-WindowsPackage -Online | Where {$_.PackageName -match '%%z' } | Remove-WindowsPackage -Online -NoRestart -EA SilentlyContinue"
-)
-
 :: uncompress C drive
-COMPACT.EXE /u /i /f /s "C:\*.*"
-COMPACT.EXE /CompactOS:Never
 DISM.exe /Online /Remove-DefaultAppAssociations
 DISM.exe /Online /Set-ReservedStorageState /State:Disabled
 reagentc /disable
+compact /CompactOS:Never
+COMPACT.EXE /u /i /f /s "C:\*.*"
