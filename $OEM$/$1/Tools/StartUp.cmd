@@ -18,9 +18,8 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "FileMax" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MaxFileSize" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MinimumBuffers" /t REG_DWORD /d "1" /f
-taskkill /f /im GoogleUpdate.exe
 
-:: cleanup
+:: C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c powershell -nop -ep bypass -c "Get-ChildItem -Path 'C:\' *.log -Recurse | ForEach-Object { Remove-Item -Path $_.FullName -Force -Recurse}"
 del /q "C:\TEMP\*"
 for /d %%x in ("C:\TEMP\*") do @rd /s /q "%%x"
 del /q "C:\Steam\dumps\*"
