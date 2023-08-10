@@ -4,21 +4,6 @@ setlocal enabledelayedexpansion
 setlocal enableextensions
 color 0a
 
-:: https://www.seagate.com/au/en/support/software/seachest/
-:: "D:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" --scan
-:: "D:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" -d PD0 --deviceInfo
-:: "D:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" -d PD0 --showEPCSettings
-:: "D:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" -d PD0 --checkPowerMode
-:: idle_a is dipm timer. idle_b is head parking. idle_c slows down the rpm without stopping it (this I feel is quite neat). Makes the 7200rpm drives consume similar to 5400rpm drives. standby_z is spindown.
-:: "D:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" -d PD0 --powerBalanceFeature disable
-:: "D:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" -d PD0 --EPCfeature disable
-:: "D:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" -d PD0 --idle_b disable
-
-:: SSH Command ---- asus router full clone NAT
-:: nvram set nat_type=1
-:: nvram kset nat_type=1
-:: nvram commit
-
 :: no defender
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\MsSecCore" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\wscsvc" /f
@@ -31,23 +16,20 @@ reg delete "HKLM\SYSTEM\CurrentControlSet\Services\SgrmAgent" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\SgrmBroker" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WinDefend" /f
 taskkill.exe /f /im "explorer.exe"
-taskkill.exe /f /im "CompatTelRunner.exe"
 taskkill.exe /f /im "DWWIN.EXE"
 taskkill.exe /f /im "DeviceCensus.exe"
-taskkill.exe /f /im "GameBarPresenceWriter.exe"
 taskkill.exe /f /im "SecurityHealthHost.exe"
 taskkill.exe /f /im "SecurityHealthService.exe"
 taskkill.exe /f /im "SecurityHealthSystray.exe"
 taskkill.exe /f /im "smartscreen.exe"
+taskkill.exe /f /im "CompatTelRunner.exe"
 del /f /q /s "C:\Windows\SysWOW64\CompatTelRunner.exe"
 del /f /q /s "C:\Windows\SysWOW64\DeviceCensus.exe"
-del /f /q /s "C:\Windows\SysWOW64\GameBarPresenceWriter.exe"
 del /f /q /s "C:\Windows\SysWOW64\smartscreen.dll"
 del /f /q /s "C:\Windows\SysWOW64\smartscreen.exe"
 del /f /q /s "C:\Windows\SysWOW64\smartscreenps.dll"
 del /f /q /s "C:\Windows\System32\CompatTelRunner.exe"
 del /f /q /s "C:\Windows\System32\DWWIN.EXE"
-del /f /q /s "C:\Windows\System32\GameBarPresenceWriter.exe"
 del /f /q /s "C:\Windows\System32\SecurityAndMaintenance.png"
 del /f /q /s "C:\Windows\System32\SecurityAndMaintenance_Error.png"
 del /f /q /s "C:\Windows\System32\SecurityHealthAgent.dll"
@@ -558,6 +540,25 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicin
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "AllowHeadlessExecution" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "AllowMultipleBackgroundTasks" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "InactivityTimeoutMs" /t REG_DWORD /d "4294967295" /f
+
+:: no xbox gaming stuff
+taskkill.exe /f /im "GameBarPresenceWriter.exe"
+del /f /q /s "C:\Windows\SysWOW64\GameBarPresenceWriter.exe"
+del /f /q /s "C:\Windows\System32\GameBarPresenceWriter.exe"
+del /f /q /s "C:\Windows\System32\GameBarPresenceWriter.proxy.dll"
+del /f /q /s "C:\Windows\SysWOW64\GameBarPresenceWriter.proxy.dll"
+del /f /q /s "C:\Windows\System32\GamePanel.exe"
+del /f /q /s "C:\Windows\SysWOW64\GamePanel.exe"
+del /f /q /s "C:\Windows\System32\GamePanelExternalHook.dll"
+del /f /q /s "C:\Windows\SysWOW64\GamePanelExternalHook.dll"
+del /f /q /s "C:\Windows\System32\GameChatOverlayExt.dll"
+del /f /q /s "C:\Windows\SysWOW64\GameChatOverlayExt.dll"
+del /f /q /s "C:\Windows\System32\GameChatTranscription.dll"
+del /f /q /s "C:\Windows\SysWOW64\GameChatTranscription.dll"
+del /f /q /s "C:\Windows\System32\gamestreamingext.dll"
+del /f /q /s "C:\Windows\SysWOW64\gamestreamingext.dll"
+del /f /q /s "C:\Windows\System32\gamingtcui.dll"
+del /f /q /s "C:\Windows\SysWOW64\gamingtcui.dll"
 
 :: no ms edge
 taskkill.exe /f /im "msedge.exe"
