@@ -1016,7 +1016,7 @@ reg add "HKCU\Control Panel\Cursors" /v "CursorBaseSize" /t REG_DWORD /d "32" /f
 powercfg -h off
 powercfg -delete a1841308-3541-4fab-bc81-f71556f20b4a
 powercfg -delete 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
-powercfg -import C:\TEMP\GAMER.pow
+powercfg -import C:\TEMP\PowerPlan.pow
 powercfg -change -hibernate-timeout-dc 0
 powercfg -change -monitor-timeout-ac 0
 powercfg -change -standby-timeout-dc 0
