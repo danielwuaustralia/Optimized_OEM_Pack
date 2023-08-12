@@ -4,6 +4,8 @@ setlocal enabledelayedexpansion
 setlocal enableextensions
 color 0a
 
+:: delete C:\Windows\System32\mcupdate_AuthenticAMD.dll and mcupdate_GenuineIntel.dll from WIM file
+
 :: no defender
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\MsSecCore" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\wscsvc" /f
