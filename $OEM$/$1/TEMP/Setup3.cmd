@@ -39,6 +39,32 @@ powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name
 powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *OneCoreUAP.OneSync* | Remove-WindowsCapability -Online"
 powershell -nop -ep bypass -c "Get-WindowsCapability -Online | Where-Object Name -like *Print.Management.Console* | Remove-WindowsCapability -Online"
 powershell -nop -ep bypass -c "Get-AppxProvisionedPackage -Online | Where-Object DisplayName -like *Microsoft.MicrosoftEdge* | Remove-AppxProvisionedPackage -Online -AllUsers"
+for %%z in (
+Windows-Defender
+Microsoft-Windows-OneDrive
+Microsoft-Windows-Shell-Wallpaper
+Microsoft-OneCore-Fonts-DesktopFonts-NonLeanSupplement
+Microsoft-OneCore-Fonts-DesktopFonts-Supplement-Hant
+Microsoft-OneCore-Fonts-DesktopFonts-Supplement-Jpan
+Microsoft-OneCore-Fonts-DesktopFonts-Supplement-Kore
+Microsoft-Windows-SensorDataService
+LanguageFeatures-WordBreaking-Common-legacy
+Microsoft-Windows-BioEnrollment-UX
+Microsoft-Windows-Printer-Drivers
+Microsoft-Windows-RecoveryDrive
+Microsoft-Windows-ScreenSavers-3D
+Microsoft-Windows-ShellOptions
+Microsoft-Windows-AppManagement-UEV
+Microsoft-Windows-Printing-PremiumTools
+Microsoft-Windows-BootEnvironment-Dvd
+Microsoft-Windows-Portable-Devices
+Microsoft-Windows-WebcamExperience
+Microsoft-Windows-WinSATMediaFiles
+) do (
+powershell -nop -ep bypass -c "Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*%%z*' -Name Visibility -Value 1 -Force -EA SilentlyContinue -Verbose"
+powershell -nop -ep bypass -c "Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*%%z*' -Include *Owner* -Recurse -Force -EA SilentlyContinue -Verbose"
+powershell -nop -ep bypass -c "Get-WindowsPackage -Online | Where {$_.PackageName -match '%%z' } | Remove-WindowsPackage -Online -NoRestart -EA SilentlyContinue"
+)
 
 :: Intel Drivers
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\iai2c" /v "Start" /t REG_DWORD /d "4" /f
@@ -371,6 +397,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\SysMain" /v "Start" /t REG_DWORD
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\AssignedAccessManagerSvc" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\RetailDemo" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\MicrosoftEdgeElevationService" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\RTUsbSwSrvc" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\msisadrv" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\GoogleChromeBetaElevationService" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\gupdate" /v "Start" /t REG_DWORD /d "3" /f
