@@ -20,11 +20,10 @@ color 0a
 :: nvram commit
 
 start /w C:\TEMP\idman641build18.exe /skipdlgs
-start /w C:\Tools\Startallback.exe
 start /w C:\Tools\IDM-pawel97.exe
 powershell -nop -ep bypass -c "Get-ScheduledTask | Where {$_.TaskName -match 'GoogleUpdateTask' } | Unregister-ScheduledTask -Confirm:$false"
 powershell -nop -ep bypass -c "Get-ScheduledTask | Where {$_.TaskName -match 'StartAllBack' } | Unregister-ScheduledTask -Confirm:$false"
 del /f /q /s "C:\Tools\Startallback.exe"
 del /f /q /s "C:\Tools\IDM-pawel97.exe"
-Dism.exe /online /Cleanup-Image /StartComponentCleanup
+dism.exe /Online /Cleanup-Image /StartComponentCleanup
 pause
