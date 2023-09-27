@@ -5,6 +5,7 @@ setlocal enableextensions
 color 0a
 
 :: no defender
+rmdir /s /q "C:\Windows\Containers"
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\MsSecCore" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\wscsvc" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WdNisDrv" /f
@@ -527,6 +528,10 @@ taskkill.exe /f /im "msedge.exe"
 rmdir /s /q "C:\Program Files (x86)\Microsoft"
 rmdir /s /q "C:\Windows\SystemApps\Shared\WebView2SDK"
 rmdir /s /q "C:\Windows\System32\Microsoft-Edge-WebView"
+del /f /q /s "C:\Windows\System32\MicrosoftEdgeBCHost.exe"
+del /f /q /s "C:\Windows\System32\MicrosoftEdgeCP.exe"
+del /f /q /s "C:\Windows\System32\MicrosoftEdgeDevTools.exe"
+del /f /q /s "C:\Windows\System32\MicrosoftEdgeSH.exe"
 reg add "HKLM\SOFTWARE\Microsoft\EdgeUpdate" /v "DoNotUpdateToEdgeWithChromium" /t REG_DWORD /d "1" /f
 reg delete "HKLM\SOFTWARE\Classes\AppUserModelId\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge" /f
 reg delete "HKLM\SOFTWARE\Classes\MSEdgeHTM" /f
@@ -618,6 +623,7 @@ MicrosoftWindows.Client.OOBE
 Microsoft.Windows.CloudExperienceHost
 1527c705-839a-4832-9118-54d4Bd6a0c89
 c5e2524a-ea46-4f67-841f-6a9465d9d515
+MicrosoftWindows.Client.WebExperience
 ) do (
 powershell -nop -ep bypass -c "Get-ChildItem -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Applications' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Recurse -Force -EA SilentlyContinue -Verbose"
 powershell -nop -ep bypass -c "Get-ChildItem -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Recurse -Force -EA SilentlyContinue -Verbose"
