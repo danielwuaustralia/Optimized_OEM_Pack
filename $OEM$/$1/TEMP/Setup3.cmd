@@ -43,7 +43,6 @@ for %%z in (
 Windows-Defender
 Microsoft-Windows-OneDrive
 Microsoft-Windows-Shell-Wallpaper
-Microsoft-OneCore-Fonts-DesktopFonts-NonLeanSupplement
 Microsoft-OneCore-Fonts-DesktopFonts-Supplement-Hant
 Microsoft-OneCore-Fonts-DesktopFonts-Supplement-Jpan
 Microsoft-OneCore-Fonts-DesktopFonts-Supplement-Kore
@@ -612,6 +611,12 @@ for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SYSTEM\CurrentControlSet\Co
 for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger" /s /f "Start"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Start" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-System" /v "Start" /t REG_DWORD /d "1" /f
 for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT" /s /f "Enabled"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Enabled" /t REG_DWORD /d "0" /f
+
+
+:: audio optimize
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "AllowHeadlessExecution" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "AllowMultipleBackgroundTasks" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "InactivityTimeoutMs" /t REG_DWORD /d "0xFFFFFFFF" /f
 
 :: Removal
 rmdir /s /q "C:\Program Files (x86)\Microsoft"
