@@ -88,6 +88,7 @@ reg add "HKLM\SOFTWARE\Policies\Chromium" /v "GoogleSearchSidePanelEnabled" /t R
 reg add "HKLM\SOFTWARE\Policies\Chromium" /v "PdfUseSkiaRendererEnabled" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Chromium" /v "AudioSandboxEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Chromium" /v "NetworkServiceSandboxEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Chromium" /v "SafeBrowsingSurveysEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Chromium\TabDiscardingExceptions" /v "1" /t REG_SZ /d '*' /f
 reg add "HKLM\SOFTWARE\Policies\Chromium\ExtensionInstallBlocklist" /v "1" /t REG_SZ /d "ghbmnnjooekpmoecnnnilnnbdlolhkhi" /f
 reg add "HKCU\Software\StartIsBack" /v "ModernIconsColorized" /t REG_DWORD /d "1" /f
@@ -183,14 +184,16 @@ reg add "HKCU\Software\DownloadManager\FoldersTree\Video" /v "rememberLastPath" 
 reg add "HKCU\Software\DownloadManager\FoldersTree\Video" /v "pathW" /t REG_NONE /d "C:\TEMP" /f
 reg add "HKCU\Software\7-Zip\Options" /v "CascadedMenu" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Sysinternals\Process Monitor" /v "EulaAccepted" /t REG_DWORD /d "1" /f
+for /f "tokens=2 delims==" %%a in ('wmic cpu get NumberOfCores /value') do set /a CoresQty=%%a
+for /f "tokens=2 delims==" %%a in ('wmic cpu get NumberOfLogicalProcessors /value') do set /a LogicalProcessorsQty=%%a
 logman stop SCM -ets
 reg add "HKCU\Control Panel\International\Geo" /v "Nation" /t REG_SZ /d "244" /f
 reg add "HKCU\Control Panel\International\Geo" /v "Name" /t REG_SZ /d "US" /f
 powershell -nop -ep bypass -c "Set-LocalUser -Name 'Administrator' -PasswordNeverExpires 1"
 powershell -nop -ep bypass -c "Get-CimInStance Win32_UserAccount | Set-CimInstance -Property @{PasswordExpires=\"False\"} -PassThru"
 reg add "HKLM\Software\Policies\Microsoft\SystemCertificates\AuthRoot" /v "DisableRootAutoUpdate" /t REG_DWORD /d "1" /f
-reg add "HKCU\Keyboard Layout\Preload" /v "1" /t REG_SZ /d "00000409" /f
-reg add "HKCU\Keyboard Layout\Preload" /v "2" /t REG_SZ /d "00000804" /f
+reg add "HKCU\Keyboard Layout\Preload" /v "1" /t REG_SZ /d "409" /f
+reg add "HKCU\Keyboard Layout\Preload" /v "2" /t REG_SZ /d "804" /f
 reg delete "HKCU\Control Panel\Input Method\Hot Keys\00000104" /f
 reg add "HKCU\Keyboard Layout\Toggle" /v "Language Hotkey" /t REG_SZ /d "3" /f
 reg add "HKCU\Keyboard Layout\Toggle" /v "Layout Hotkey" /t REG_SZ /d "3" /f
@@ -328,6 +331,11 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "FileMax" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MaxFileSize" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MinimumBuffers" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib" /v "ExtCounterTestLevel" /t REG_DWORD /d "4" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib" /v "DebugTraceLevel" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib" /v "Disable" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib" /v "Disable Performance Counters" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib" /v "EventLogLevel" /t REG_DWORD /d "2" /f
 powershell -nop -ep bypass -c "$devices = @('ACPI Processor Aggregator','Microsoft Windows Management Interface for ACPI','AMD PSP','AMD SMBus','Base System Device','*Bluetooth*','复合总线枚举器','高精度事件计时器','Intel Management Engine','Intel SMBus','*Hyper-V*','Microsoft Kernel Debug Network Adapter','Microsoft RRAS Root Enumerator', 'NDIS 虚拟网络适配器枚举器', '*WAN Miniport*', '母板资源','Numeric Data Processor','PCI Data Acquisition and Signal Processing Controller','PCI Encryption/Decryption Controller','PCI Memory Controller','PCI Simple Communications Controller','系统 CMOS/实时时钟','系统扬声器','系统计时器','UMBus Root Bus Enumerator','远程桌面设备重定向程序总线','Microsoft GS 波表合成器', 'Microsoft 虚拟驱动器枚举器', 'PCI 标准 ISA 桥', 'SM 总线控制器', 'UMBus', 'Terminal Server Mouse Driver', 'Terminal Server Keyboard Driver', 'AMD GPIO 控制器'); Get-PnpDevice -FriendlyName $devices -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore;"
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Serialize" /v "StartupDelayInMSec" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "DelayedDesktopSwitchTimeout" /t REG_DWORD /d "0" /f
@@ -346,19 +354,19 @@ fsutil behavior set memoryusage 2
 fsutil behavior set disable8dot3 1
 fsutil behavior set disablecompression 1
 fsutil behavior set disableencryption 1
-for /F "eol=E" %%a in ('REG QUERY "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services" /S /F "IoLatencyCap"^| FINDSTR /V "IoLatencyCap"') DO (
-	REG ADD "%%a" /v IoLatencyCap /t REG_DWORD /d "0" /f
+for /F "eol=E" %%a in ('REG QUERY "HKLM\System\CurrentControlSet\Services" /S /F "IoLatencyCap"^| FINDSTR /V "IoLatencyCap"') DO (
+	reg add "%%a" /v IoLatencyCap /t REG_DWORD /d "0" /f
 	for /F "tokens=*" %%z IN ("%%a") DO (
 		SET STR=%%z
-		SET STR=!STR:HKEY_LOCAL_MACHINE\System\CurrentControlSet\services\=!
+		SET STR=!STR:HKLM\System\CurrentControlSet\services\=!
 		SET STR=!STR:\Parameters=!
 	)
 )
-for /F "tokens=*" %%a in ('REG QUERY "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Enum" /S /F "StorPort"^| FINDSTR /E "StorPort"') DO (
-	REG ADD "%%a" /v EnableIdlePowerManagement /t REG_DWORD /d "0" /f
+for /F "tokens=*" %%a in ('REG QUERY "HKLM\System\CurrentControlSet\Enum" /S /F "StorPort"^| FINDSTR /E "StorPort"') DO (
+	reg add "%%a" /v EnableIdlePowerManagement /t REG_DWORD /d "0" /f
 	for /F "tokens=*" %%z IN ("%%a") DO (
 		SET STR=%%z
-		SET STR=!STR:HKEY_LOCAL_MACHINE\System\CurrentControlSet\Enum\=!
+		SET STR=!STR:HKLM\System\CurrentControlSet\Enum\=!
 		SET STR=!STR:\Device Parameters\StorPort=!
 	)
 )
@@ -386,20 +394,32 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" /v "NtfsDisable8dot3N
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" /v "ContigFileAllocSize" /t REG_DWORD /d "1536" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" /v "DontVerifyRandomDrivers" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" /v "FilterSupportedFeaturesMode" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" /v "NTFSDisableLastAccessUpdate" /t REG_DWORD /d "80000001" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" /v "NTFSDisableLastAccessUpdate" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" /v "LongPathsEnabled" /t REG_DWORD /d "1" /f
 reg add "HKLM\Software\Policies\Microsoft\Windows\EnhancedStorageDevices" /v "PreventDeviceEncryption" /t REG_DWORD /d "1" /f
 reg add "HKLM\Software\Policies\Microsoft\Windows\EnhancedStorageDevices" /v "TCGSecurityActivationDisabled" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\services\iaStorA\Parameters\Device" /v "Controller0Phy0HIPM" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\services\iaStorA\Parameters\Device" /v "Controller0Phy0DIPM" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\services\iaStorA\Parameters\Device" /v "Controller0Phy1HIPM" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\services\iaStorA\Parameters\Device" /v "Controller0Phy1DIPM" /t REG_DWORD /d "0" /f
-for /F "eol=E" %%a in ('REG QUERY "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services" /S /F "EnableHIPM"^| FINDSTR /V "EnableHIPM"') DO (
-	REG ADD "%%a" /v EnableHIPM /t REG_DWORD /d "0" /f
-	REG ADD "%%a" /v EnableDIPM /t REG_DWORD /d "0" /f
+for /F "eol=E" %%a in ('REG QUERY "HKLM\System\CurrentControlSet\Services" /S /F "EnableHIPM"^| FINDSTR /V "EnableHIPM"') DO (
+	reg add "%%a" /v EnableHIPM /t REG_DWORD /d 0 /f >NUL 2>&1
+	reg add "%%a" /v EnableDIPM /t REG_DWORD /d 0 /f >NUL 2>&1
 	for /F "tokens=*" %%z IN ("%%a") DO (
 		SET STR=%%z
-		SET STR=!STR:HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\=!
+		SET STR=!STR:HKLM\System\CurrentControlSet\Services\=!
 	)
+)
+for /L %%V in (0,1,3) do (
+		reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\NVME\IdleState\%%V" /v "IdleExitEnergyMicroJoules" /t REG_DWORD /d "0" /f
+		reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\NVME\IdleState\%%V" /v "IdleExitLatencyMs" /t REG_DWORD /d "0" /f
+		reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\NVME\IdleState\%%V" /v "IdlePowerMw" /t REG_DWORD /d "0" /f
+		reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\NVME\IdleState\%%V" /v "IdleTimeLengthMs" /t REG_DWORD /d "0xffffffff" /f
+
+		reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\SD\IdleState\%%V" /v "IdleExitEnergyMicroJoules" /t REG_DWORD /d "0" /f
+		reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\SD\IdleState\%%V" /v "IdleExitLatencyMs" /t REG_DWORD /d "0" /f
+		reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\SD\IdleState\%%V" /v "IdlePowerMw" /t REG_DWORD /d "0" /f
+		reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\SD\IdleState\%%V" /v "IdleTimeLengthMs" /t REG_DWORD /d "0xffffffff" /f
 )
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\DisplayPostProcessing" /v "Affinity" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\DisplayPostProcessing" /v "Background Only" /t REG_SZ /d "True" /f
@@ -716,8 +736,14 @@ reg add "HKLM\System\CurrentControlSet\Control\Session Manager\Memory Management
 reg add "HKLM\System\CurrentControlSet\Control\Session Manager\Memory Management" /v "TrackLockedPages" /t REG_DWORD /d "0" /f
 reg add "HKLM\System\CurrentControlSet\Control\Session Manager\Memory Management" /v "TrackPtes" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager" /v "AlpcWakePolicy" /t REG_DWORD /d "1" /f
-powershell Set-NetOffloadGlobalSetting -ReceiveSegmentCoalescing Disabled -PacketCoalescingFilter Disabled -Chimney Disabled -ReceiveSideScaling Enabled -TaskOffload Enabled
-powershell Set-NetIPv4Protocol -MulticastForwarding Disabled -MediaSenseEventLog Disabled
+powershell Set-NetOffloadGlobalSetting -ReceiveSegmentCoalescing Disabled -ErrorAction SilentlyContinue
+powershell Set-NetOffloadGlobalSetting -PacketCoalescingFilter Disabled -ErrorAction SilentlyContinue
+powershell Set-NetOffloadGlobalSetting -Chimney Disabled -ErrorAction SilentlyContinue
+powershell Set-NetOffloadGlobalSetting -ReceiveSideScaling Enabled -ErrorAction SilentlyContinue
+powershell Set-NetOffloadGlobalSetting -TaskOffload Enabled -ErrorAction SilentlyContinue
+powershell Set-NetOffloadGlobalSetting -ScalingHeuristics Disabled -ErrorAction SilentlyContinue
+powershell Set-NetTCPSetting -SettingName "*" -InitialCongestionWindow 10 -MinRto 300 -ErrorAction SilentlyContinue
+powershell Set-NetIPv4Protocol -MulticastForwarding Disabled -MediaSenseEventLog Disabled -ErrorAction SilentlyContinue
 powershell Disable-NetAdapterChecksumOffload -Name "*" -ErrorAction SilentlyContinue
 powershell Disable-NetAdapterLso -Name "*" -ErrorAction SilentlyContinue
 powershell Disable-NetAdapterRsc -Name "*" -ErrorAction SilentlyContinue
@@ -726,8 +752,37 @@ powershell Disable-NetAdapterPowerManagement -Name "*" -ErrorAction SilentlyCont
 powershell Disable-NetAdapterQos -Name "*" -ErrorAction SilentlyContinue
 powershell Disable-NetAdapterEncapsulatedPacketTaskOffload -Name "*" -ErrorAction SilentlyContinue
 powershell Disable-NetAdapterUso -Name "*" -ErrorAction SilentlyContinue
-powershell Set-NetAdapterRss -Name "*" -BaseProcessorNumber 2
-powershell Set-NetAdapterRss -Name "*" -MaxProcessorNumber 2
+:: Get-NetAdapterAdvancedProperty -Name "*" -AllProperties -IncludeHidden | SELECT * -ExpandProperty RegistryKeyword
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword *FlowControl -RegistryValue 0 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword *InterruptModeration -RegistryValue 0 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword ULPMode -RegistryValue 0 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword ITR -RegistryValue 0 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword *LsoV2IPv4 -RegistryValue 0 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword *LsoV2IPv6 -RegistryValue 0 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword *PriorityVLANTag -RegistryValue 0 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword AdaptiveIFS -RegistryValue 0 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword *IPChecksumOffloadIPv4 -RegistryValue 3 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword *TCPChecksumOffloadIPv4 -RegistryValue 3 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword *TCPChecksumOffloadIPv6 -RegistryValue 3 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword *UDPChecksumOffloadIPv4 -RegistryValue 3 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword *UDPChecksumOffloadIPv6 -RegistryValue 3 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword *PMARPOffload -RegistryValue 0 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword *PMNSOffload -RegistryValue 0 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword *RSS -RegistryValue 1 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword *NumRssQueues -RegistryValue %CoresQty% -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword *WakeOnMagicPacket -RegistryValue 0 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword *WakeOnPattern -RegistryValue 0 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword EEELinkAdvertisement -RegistryValue 0 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword EnablePME -RegistryValue 0 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword ReduceSpeedOnPowerDown -RegistryValue 0 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword EnableWakeOnManagmentOnTCO -RegistryValue 0 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword ULPMode -RegistryValue 0 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword LogLinkStateEvent -RegistryValue 16 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword *JumboPacket -RegistryValue 1514 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword *RSSProfile -RegistryValue 3 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword *PtpHardwareTimestamp -RegistryValue 1 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterAdvancedProperty -Name "*" -RegistryKeyword *SoftwareTimestamp -RegistryValue 0 -ErrorAction SilentlyContinue
+powershell Set-NetAdapterRss -Name "*" -BaseProcessorNumber 1 -ErrorAction SilentlyContinue
 powershell Disable-NetAdapterBinding -Name "*" -ComponentID ms_lldp -ErrorAction SilentlyContinue
 powershell Disable-NetAdapterBinding -Name "*" -ComponentID ms_lltdio -ErrorAction SilentlyContinue
 powershell Disable-NetAdapterBinding -Name "*" -ComponentID ms_msclient -ErrorAction SilentlyContinue
@@ -752,7 +807,9 @@ netsh int ip set global taskoffload=disabled
 netsh int ip set global neighborcachelimit=4096
 netsh int tcp set heuristics disabled
 netsh int tcp set global autotuninglevel=disabled
+netsh int tcp set supplemental Internet congestionprovider=newreno
 netsh int tcp set supplemental Internet congestionprovider=bbr2
+netsh int tcp set supplemental InternetCustom congestionprovider=newreno
 netsh int tcp set supplemental InternetCustom congestionprovider=bbr2
 netsh int tcp set global chimney=disabled
 netsh int tcp set global ecncapability=disabled
@@ -775,35 +832,39 @@ netsh interface ip set interface wlan currenthoplimit=64
 netsh interface ip set interface wlan weakhostsend=enabled
 netsh interface ip set interface wlan weakhostreceive=enabled
 netsh interface ipv4 set subinterface "WLAN" mtu=1470 store=persistent
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\NDIS\Parameters" /v MaxNumRssCpus /t REG_DWORD /d %CoresQty% /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\NDIS\Parameters" /v MaxNumRssThreads /t REG_DWORD /d %LogicalProcessorsQty% /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameterss" /v MaxNumRssCpus /t REG_DWORD /d %CoresQty% /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v MaxNumRssThreads /t REG_DWORD /d %LogicalProcessorsQty% /f
 for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles" /s /f "Category"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Category" /t REG_DWORD /d "1" /f
-FOR /F "tokens=3*" %%I IN ('REG QUERY "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\NetworkCards" /F "ServiceName" /S^| FINDSTR /I /L "ServiceName"') DO (
-	FOR /F %%a IN ('REG QUERY "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Class\{4D36E972-E325-11CE-BFC1-08002BE10318}" /F "%%I" /D /E /S^| FINDSTR /I /L "\\Class\\"') DO SET "REGPATH=%%a"
+FOR /F "tokens=3*" %%I IN ('REG QUERY "HKLM\Software\Microsoft\Windows NT\CurrentVersion\NetworkCards" /F "ServiceName" /S^| FINDSTR /I /L "ServiceName"') DO (
+	FOR /F %%a IN ('REG QUERY "HKLM\System\CurrentControlSet\Control\Class\{4D36E972-E325-11CE-BFC1-08002BE10318}" /F "%%I" /D /E /S^| FINDSTR /I /L "\\Class\\"') DO SET "REGPATH=%%a"
 	FOR /F "tokens=3*" %%n in ('REG QUERY "!REGPATH!" /V "FilterList"') DO SET newFilterList=%%n
 	SET newFilterList=!newFilterList:-{B5F4D659-7DAA-4565-8E41-BE220ED60542}=!
 	SET newFilterList=!newFilterList:-{430BDADD-BAB0-41AB-A369-94B67FA5BE0A}=!
 	REG QUERY !REGPATH! /V "FilterList" | FINDSTR /I "{B5F4D659-7DAA-4565-8E41-BE220ED60542} {430BDADD-BAB0-41AB-A369-94B67FA5BE0A}"
 	IF NOT ERRORLEVEL 1 (
-		REG ADD !REGPATH! /F /V "FilterList" /T REG_MULTI_SZ /d "!newFilterList!"
+		reg add !REGPATH! /F /V "FilterList" /T REG_MULTI_SZ /d "!newFilterList!"
 	)
 )
-FOR /F %%a in ('REG QUERY "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Psched\Parameters\Adapters"') DO (
+FOR /F %%a in ('REG QUERY "HKLM\System\CurrentControlSet\Services\Psched\Parameters\Adapters"') DO (
 	reg delete %%a /F
 	FOR /F "tokens=*" %%z IN ("%%a") DO (
 		SET STR=%%z
-		SET STR=!STR:HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Psched\Parameters\Adapters\=!
+		SET STR=!STR:HKLM\System\CurrentControlSet\Services\Psched\Parameters\Adapters\=!
 	)
 )
 reg add "HKLM\SOFTWARE\Microsoft\MSMQ\Parameters" /v "TCPNoDelay" /t REG_DWORD /d "1" /f
-for /f %%r in ('REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces" /f "1" /d /s^|Findstr HKEY_') do (
-	REG ADD %%r /v "NonBestEffortLimit" /t Reg_DWORD /d "0" /f
-	REG ADD %%r /v "DeadGWDetectDefault" /t Reg_DWORD /d "1" /f
-	REG ADD %%r /v "PerformRouterDiscovery" /t Reg_DWORD /d 1"/f
-	REG ADD %%r /v "TCPNoDelay" /t Reg_DWORD /d "1" /f
-	REG ADD %%r /v "TcpAckFrequency" /t Reg_DWORD /d "1" /f
-	REG ADD %%r /v "TcpInitialRTT" /t Reg_DWORD /d "2" /f
-	REG ADD %%r /v "TcpDelAckTicks" /t Reg_DWORD /d "0" /f
-	REG ADD %%r /v "UseZeroBroadcast" /t Reg_DWORD /d "0" /f
-	REG ADD %%r /v "InterfaceMetric" /t Reg_DWORD /d "55" /f
+for /f %%r in ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces" /f "1" /d /s^|Findstr HKEY_') do (
+	reg add %%r /v "NonBestEffortLimit" /t REG_DWORD /d "0" /f
+	reg add %%r /v "DeadGWDetectDefault" /t REG_DWORD /d "1" /f
+	reg add %%r /v "PerformRouterDiscovery" /t REG_DWORD /d 1"/f
+	reg add %%r /v "TCPNoDelay" /t REG_DWORD /d "1" /f
+	reg add %%r /v "TcpAckFrequency" /t REG_DWORD /d "1" /f
+	reg add %%r /v "TcpInitialRTT" /t REG_DWORD /d "2" /f
+	reg add %%r /v "TcpDelAckTicks" /t REG_DWORD /d "0" /f
+	reg add %%r /v "UseZeroBroadcast" /t REG_DWORD /d "0" /f
+	reg add %%r /v "InterfaceMetric" /t REG_DWORD /d "55" /f
 )
 reg add "HKLM\System\CurrentControlSet\services\Tcpip6\Parameters" /v "EnableICSIPv6" /t REG_DWORD /d "0" /f
 reg add "HKLM\System\CurrentControlSet\Services\Tcpip6\Parameters" /v "DisabledComponents" /t REG_DWORD /d "255" /f
@@ -831,6 +892,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "MaxUserPor
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "MaxFreeTcbs" /t REG_DWORD /d "65536" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "Tcp1323Opts" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "DisableTaskOffload" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "MaximumReassemblyHeaders" /t REG_DWORD /d "0xffff" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\NetBT\Parameters" /v "NameSrvQueryTimeout" /t REG_DWORD /d "3000" /f
 reg add "HKLM\System\CurrentControlSet\Services\NetBT\Parameters" /v "EnableLMHOSTS" /t REG_DWORD /d "0" /f
 reg add "HKLM\System\CurrentControlSet\Services\NetBT\Parameters" /v "NodeType" /t REG_DWORD /d "2" /f
@@ -862,23 +924,17 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters" /v "Registr
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters" /v "EnableAutoDoh" /t REG_DWORD /d "2" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\DnsClient" /v "EnableMulticast" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\NDIS\Parameters" /v "ProcessorAffinityMask" /t REG_DWORD /d "55" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\NDIS\Parameters" /v "RssBaseCpu" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\NDIS\Parameters" /v "RssBaseCpu" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\NDIS\Parameters" /v "smpAffinitized" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\NDIS\Parameters" /v "smpProcessorAffinityMask" /t REG_DWORD /d "55" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\NDIS\Parameters" /v "smpProcessorAffinityMask2" /t REG_DWORD /d "55" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\NDIS\Parameters" /v "ThreadPoolUseIdealCpu" /t REG_DWORD /d "0" /f
-for /f "tokens=2 delims==" %%a in ('wmic cpu get NumberOfCores /value') do set /a CoresQty=%%a
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\NDIS\Parameters" /v "MaxNumRssCpus" /t REG_DWORD /d "%CoresQty%" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameterss" /v "MaxNumRssCpus" /t REG_DWORD /d "%CoresQty%" /f
-for /f "tokens=2 delims==" %%a in ('wmic cpu get NumberOfLogicalProcessors /value') do set /a LogicalProcessorsQty=%%a
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\NDIS\Parameters" /v "MaxNumRssThreads" /t REG_DWORD /d "%LogicalProcessorsQty%" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "MaxNumRssThreads" /t REG_DWORD /d "%LogicalProcessorsQty%" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "DynamicSendBufferDisable" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "IgnorePushBitOnReceives" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "NonBlockingSendSpecialBuffering" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "DisableRawSecurity" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "DefaultReceiveWindow" /t REG_DWORD /d "4000" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "DefaultSendWindow" /t REG_DWORD /d "4000" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "DefaultReceiveWindow" /t REG_DWORD /d "0x10000" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "DefaultSendWindow" /t REG_DWORD /d "0x10000" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "EnableDynamicBacklog" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "MinimumDynamicBacklog" /t REG_DWORD /d "20" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "MaximumDynamicBacklog" /t REG_DWORD /d "20000" /f
@@ -895,9 +951,9 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "DisableAddre
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "StandardAddressLength" /t REG_DWORD /d "1024" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "transmitIoLength" /t REG_DWORD /d "4294967295" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "DoNotHoldNicBuffers" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "FastSendDatagramThreshold" /t REG_DWORD /d "1400" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "FastCopyReceiveThreshold" /t REG_DWORD /d "1400" /f
-for /f %%i in ('REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\NetBT\Parameters\Interfaces" /s /f "NetbiosOptions"^| findstr "HKEY"') do REG ADD "%%i" /v "NetbiosOptions" /t REG_DWORD /d "2" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "FastSendDatagramThreshold" /t REG_DWORD /d "1470" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v "FastCopyReceiveThreshold" /t REG_DWORD /d "1470" /f
+for /f %%i in ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\services\NetBT\Parameters\Interfaces" /s /f "NetbiosOptions"^| findstr "HKEY"') do reg add "%%i" /v "NetbiosOptions" /t REG_DWORD /d "2" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\Wpad" /v "WpadOverride" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters" /v "DisableParallelAandAAAA" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" /v "DisableSmartNameResolution" /t REG_DWORD /d "1" /f
@@ -923,8 +979,8 @@ reg add "HKCU\Control Panel\Mouse" /v "ActiveWindowTracking" /t REG_DWORD /d "0"
 reg add "HKCU\Control Panel\Mouse" /v "MouseHoverWidth" /t REG_SZ /d "1" /f
 reg delete "HKCU\Control Panel\Mouse" /v "SmoothMouseXCurve" /f
 reg delete "HKCU\Control Panel\Mouse" /v "SmoothMouseYCurve" /f
-for /f "delims=" %%b in ('REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\USB" ^| findstr "^Device Parameters$"') do (
-	REG ADD "%%b" /v "EnhancedPowerManagementEnabled" /t REG_DWORD /d "0" /f
+for /f "delims=" %%b in ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\Enum\USB" ^| findstr "^Device Parameters$"') do (
+	reg add "%%b" /v "EnhancedPowerManagementEnabled" /t REG_DWORD /d "0" /f
 )
 reg add "HKLM\SOFTWARE\Microsoft\Input\Settings\ControllerProcessor\CursorMagnetism" /v "AttractionRectInsetInDIPS" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Input\Settings\ControllerProcessor\CursorMagnetism" /v "DistanceThresholdInDIPS" /t REG_DWORD /d "0" /f
@@ -1612,6 +1668,7 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\AppV\CEIP" /v "CEIPEnable" /t REG_DWOR
 reg add "HKLM\SOFTWARE\Microsoft\SQMClient\Windows" /v "CEIPEnable" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\SQMClient\Windows" /v "CEIPEnable" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Wow6432Node\Microsoft\VSCommon\15.0\SQM" /v "OptIn" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\USBHUB\Parameters" /v "DisableOnSoftRemove" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\usbhub\hubg" /v "DisableOnSoftRemove" /t REG_DWORD /d "1" /f
 reg add "HKCR\SystemFileAssociations\image\shell\print" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
 reg add "HKCU\Control Panel\Cursors" /v "Hand" /t REG_EXPAND_SZ /d "" /f
@@ -1709,23 +1766,23 @@ for %%a in (
     "EnableIdlePowerManagement"
     "IdleInWorkingState"
 ) do (
-    for /f "delims=" %%b in ('REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum" /s /f "%%~a" ^| findstr "HKEY"') do (
-        REG ADD "%%b" /v "%%~a" /t REG_DWORD /d "0" /f 1>nul 2>&1
+    for /f "delims=" %%b in ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\Enum" /s /f "%%~a" ^| findstr "HKEY"') do (
+        reg add "%%b" /v "%%~a" /t REG_DWORD /d "0" /f 1>nul 2>&1
     )
 )
 for %%a in (
     "WakeEnabled"
     "WdkSelectiveSuspendEnable"
 ) do (
-    for /f "delims=" %%b in ('REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class" /s /f "%%~a" ^| findstr "HKEY"') do (
-        REG ADD "%%b" /v "%%~a" /t REG_DWORD /d "0" /f 1>nul 2>&1
+    for /f "delims=" %%b in ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\Control\Class" /s /f "%%~a" ^| findstr "HKEY"') do (
+        reg add "%%b" /v "%%~a" /t REG_DWORD /d "0" /f 1>nul 2>&1
     )
 )
 for %%a in (
     "DisableIdlePowerManagement"
 ) do (
-	for /f "delims=" %%b in ('REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum" /s /f "%%~a" ^| findstr "HKEY"') do (
-		REG ADD "%%b" /v "%%~a" /t REG_DWORD /d "1" /f 1>nul 2>&1
+	for /f "delims=" %%b in ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\Enum" /s /f "%%~a" ^| findstr "HKEY"') do (
+		reg add "%%b" /v "%%~a" /t REG_DWORD /d "1" /f 1>nul 2>&1
 	)
 )
 for %%a in (
@@ -1789,7 +1846,7 @@ reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DeviceAccess" /v "Act
 :: Finish
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "1" /t REG_SZ /d "C:\Tools\Setup4.cmd" /f
 move "C:\TEMP\SetTimerResolution.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
-move "C:\TEMP\RunRealHidden.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
+move "C:\TEMP\LowAudioLatency.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
 move "C:\TEMP\StartUp.lnk" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\"
 C:\Windows\System32\PowerRun_x64.exe cmd /c "C:\TEMP\Setup3.cmd"
 start /w C:\TEMP\NVidiaProfileInspector\nvidiaProfileInspector.exe
