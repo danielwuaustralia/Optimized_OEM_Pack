@@ -33,11 +33,7 @@ md "C:\Mount\windows\WinNTSetup"
 
 Xcopy D:\Tools\WinNTSetup "C:\Mount\windows\WinNTSetup" /s /e
 
-md "C:\Mount\windows\DISMPlus"
-
-Xcopy "D:\$OEM$\$1\Tools\DISM" "C:\Mount\windows\DISMPlus" /s /e
-
-Xcopy "D:\$OEM$\Winpeshl.ini" "C:\Mount\windows\System32"
+Xcopy "D:\Tools\Winpeshl.ini" "C:\Mount\windows\System32"
 
 Dism /English /Unmount-Image /MountDir:"C:\Mount" /commit
 
