@@ -13,17 +13,20 @@ color 0a
 :: Remove Read Only & archive feature on all files
 :: C:\Windows\System32\PowerRun_x64.exe cmd /c attrib -a -s -r +i -h "D:\Games\*.*" /d /s
 :: C:\Windows\System32\PowerRun_x64.exe cmd /c attrib -a -s -r +i -h "D:\SteamLibrary\*.*" /d /s
+:: C:\Windows\System32\PowerRun_x64.exe cmd /c attrib -a -s -r +i -h "D:\$OEM$\*.*" /d /s
 
 :: SSH Command ---- asus router full clone NAT
 :: nvram set nat_type=1
 :: nvram kset nat_type=1
 :: nvram commit
 
-start /w C:\TEMP\idman641build18.exe /skipdlgs
-start /w C:\Tools\IDM-pawel97.exe
+start /w C:\Tools\idman641build20.exe /skipdlgs
+start /w C:\Tools\Startallback.exe
+start /w C:\Tools\IDM_6.4x_Crack_v18.1.exe
+dism.exe /Online /Cleanup-Image /StartComponentCleanup
 powershell -nop -ep bypass -c "Get-ScheduledTask | Where {$_.TaskName -match 'GoogleUpdateTask' } | Unregister-ScheduledTask -Confirm:$false"
 powershell -nop -ep bypass -c "Get-ScheduledTask | Where {$_.TaskName -match 'StartAllBack' } | Unregister-ScheduledTask -Confirm:$false"
 del /f /q /s "C:\Tools\Startallback.exe"
-del /f /q /s "C:\Tools\IDM-pawel97.exe"
-dism.exe /Online /Cleanup-Image /StartComponentCleanup
+del /f /q /s "C:\Tools\IDM_6.4x_Crack_v18.1.exe"
+del /f /q /s "C:\Tools\idman641build20.exe"
 pause
