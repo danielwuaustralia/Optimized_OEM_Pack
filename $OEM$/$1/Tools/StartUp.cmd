@@ -26,10 +26,10 @@ del /q "C:\Steam\dumps\*"
 for /d %%x in ("C:\Steam\dumps\*") do @rd /s /q "%%x"
 del /q "C:\Steam\logs\*"
 for /d %%x in ("C:\Steam\logs\*") do @rd /s /q "%%x"
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\DXCache"
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /q "C:\Users\Administrator\AppData\Local\NVIDIA\DXCache\*"
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /q "C:\Windows\System32\winevt\Logs\*"
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations\*"
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c schtasks /delete /tn "Microsoft\Windows\WindowsUpdate\Scheduled Start" /f
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c rmdir /s /q "C:\Windows\System32\winevt\Logs"
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c rmdir /s /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations"
 
 :: CleanMgr.exe
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /f
