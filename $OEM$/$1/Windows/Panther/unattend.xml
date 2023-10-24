@@ -14,7 +14,7 @@
             <RegisteredOwner>Ellen Ripley</RegisteredOwner>
             <RegisteredOrganization>Weyland-Yutani</RegisteredOrganization>
             <TimeZone>AUS Eastern Standard Time</TimeZone>
-            <ProductKey>VK7JG-NPHTM-C97JM-9MPGT-3V66T</ProductKey>
+            <ProductKey>XGVPP-NMH47-7TTHJ-W3FW7-8HV2C</ProductKey>
         </component>
     </settings>
     <settings pass="oobeSystem">
@@ -33,7 +33,7 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>1</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>powershell -nop -ep bypass -file "C:\TEMP\interrupt_affinity_auto.ps1"</CommandLine>
+                    <CommandLine>powershell -NoProfile -ExecutionPolicy Bypass -File "C:\TEMP\Setup_InterruptAffinity.ps1"</CommandLine>
                     <Description></Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
