@@ -1,24 +1,17 @@
 @echo off
 
+ipconfig /flushdns
+
 :: performance
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c logman stop Diagtrack-Listener -ets
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c wmic process where name="ctfmon.exe" CALL setpriority 32
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c wmic process where name="lsass.exe" CALL setpriority 32
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c wmic process where name="fontdrvhost.exe" CALL setpriority 32
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c wmic process where name="svchost.exe" CALL setpriority 32
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c wmic process where name="sppsvc.exe" CALL setpriority 32
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c wmic process where name="WmiPrvSE.exe" CALL setpriority 32
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c wmic process where name="TextInputHost.exe" CALL setpriority 32
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c wmic process where name="ShellExperienceHost.exe" CALL setpriority 32
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c wmic process where name="sihost.exe" CALL setpriority 32
-ipconfig /flushdns
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "Start" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "BufferSize" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "FileCounter" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "FileMax" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MaxFileSize" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "MinimumBuffers" /t REG_DWORD /d "1" /f
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c logman stop WINNETESP -ets
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c logman stop WindowsUpdate_trace_log -ets
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c wmic process where name="csrss.exe" CALL setpriority 256
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c wmic process where name="wininit.exe" CALL setpriority 256
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c wmic process where name="dwm.exe" CALL setpriority 64
 
+
+:: cleanup
 :: C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c powershell -nop -ep bypass -c "Get-ChildItem -Path 'C:\' *.log -Recurse | ForEach-Object { Remove-Item -Path $_.FullName -Force -Recurse}"
 del /q "C:\TEMP\*"
 for /d %%x in ("C:\TEMP\*") do @rd /s /q "%%x"
@@ -26,10 +19,12 @@ del /q "C:\Steam\dumps\*"
 for /d %%x in ("C:\Steam\dumps\*") do @rd /s /q "%%x"
 del /q "C:\Steam\logs\*"
 for /d %%x in ("C:\Steam\logs\*") do @rd /s /q "%%x"
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /q "C:\Users\Administrator\AppData\Local\NVIDIA\DXCache\*"
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /q "C:\Windows\System32\winevt\Logs\*"
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations\*"
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Users\Administrator\AppData\Local\NVIDIA\DXCache\*.*"
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Windows\System32\winevt\Logs\*.*"
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations\*.*"
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c schtasks /delete /tn "Microsoft\Windows\WindowsUpdate\Scheduled Start" /f
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Windows\System32\WDI\LogFiles\*.*"
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Windows\System32\LogFiles\WMI\*.*"
 
 :: CleanMgr.exe
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /f
