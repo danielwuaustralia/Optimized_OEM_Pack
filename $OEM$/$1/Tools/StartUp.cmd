@@ -10,21 +10,23 @@ C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c wmic process where name="csrss
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c wmic process where name="wininit.exe" CALL setpriority 256
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c wmic process where name="dwm.exe" CALL setpriority 64
 
-
 :: cleanup
-:: C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c powershell -nop -ep bypass -c "Get-ChildItem -Path 'C:\' *.log -Recurse | ForEach-Object { Remove-Item -Path $_.FullName -Force -Recurse}"
 del /q "C:\TEMP\*"
 for /d %%x in ("C:\TEMP\*") do @rd /s /q "%%x"
 del /q "C:\Steam\dumps\*"
 for /d %%x in ("C:\Steam\dumps\*") do @rd /s /q "%%x"
 del /q "C:\Steam\logs\*"
 for /d %%x in ("C:\Steam\logs\*") do @rd /s /q "%%x"
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Users\Administrator\AppData\Local\NVIDIA\DXCache\*.*"
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Windows\System32\winevt\Logs\*.*"
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations\*.*"
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c schtasks /delete /tn "Microsoft\Windows\WindowsUpdate\Scheduled Start" /f
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Windows\System32\WDI\LogFiles\*.*"
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Windows\System32\LogFiles\WMI\*.*"
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Users\Administrator\AppData\Local\NVIDIA\DXCache"
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Users\Administrator\AppData\LocalLow\NVIDIA\PerDriverVersion\DXCache"
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Users\Administrator\AppData\LocalLow\NVIDIA\PerDriverVersion\GLCache"
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Windows\System32\winevt\Logs"
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations"
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Windows\System32\WDI\LogFiles"
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Windows\System32\LogFiles\WMI"
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Windows\Logs\NetSetup"
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\ProgramData\Microsoft\Diagnosis"
 
 :: CleanMgr.exe
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /f
