@@ -1,10 +1,9 @@
-@cls
 @echo on
-setlocal enabledelayedexpansion
-setlocal enableextensions
+setlocal EnableExtensions
+setlocal DisableDelayedExpansion
 color 0a
 
-:: Machine Special
+:: SPECIAL CONFIG
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\iai2c" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\iaLPSS2i_GPIO2" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\iaLPSS2i_GPIO2_BXT_P" /v "Start" /t REG_DWORD /d "4" /f
@@ -24,6 +23,8 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\intelpmax" /v "Start" /t REG_DWO
 
 :: powershell -noprofile -executionpolicy bypass -command "Get-ScheduledTask | Where {$_.State -match 'Ready'}"
 powershell -noprofile -executionpolicy bypass -command "Get-ScheduledTask | Where {$_.TaskName -match 'MicrosoftEdge' } | Unregister-ScheduledTask -Confirm:$false"
+schtasks /change /disable /tn "GoogleUpdateTaskMachineCore"
+schtasks /change /disable /tn "GoogleUpdateTaskMachineUA"
 rmdir /s /q "C:\Windows\System32\Tasks\Microsoft\Windows\SettingSync"
 schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Scan" /f
 schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Scan Static Task" /f
@@ -336,20 +337,22 @@ reg delete "HKLM\SYSTEM\CurrentControlSet\Services\AssignedAccessManagerSvc" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\RetailDemo" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\MicrosoftEdgeElevationService" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\RTUsbSwSrvc" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\BITS" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\bam\State\UserSettings" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\msisadrv" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\GoogleChromeBetaElevationService" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\gupdate" /v "Start" /t REG_DWORD /d "3" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\gupdatem" /v "Start" /t REG_DWORD /d "3" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\XblGameSave" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\WSearch" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\wscsvc" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\SamSs" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\PolicyAgent" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\wisvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\WerSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\wercplsupport" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\wuauserv" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\WaaSMedicSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\UsoSvc" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\uhssvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\PNRPAutoReg" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\pla" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\lfsvc" /v "Start" /t REG_DWORD /d "4" /f
@@ -358,7 +361,6 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\dmwappushservice" /v "Start" /t 
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\diagnosticshub.standardcollector.service" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\DiagTrack" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\DoSvc" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\BITS" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\iphlpsvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\XblAuthManager" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\XboxNetApiSvc" /v "Start" /t REG_DWORD /d "4" /f
@@ -510,6 +512,8 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\TokenBroker" /v "Start" /t REG_D
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\SpatialGraphFilter" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\WpdUpFltr" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\cloudidsvc" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\AppReadiness" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\AppXSvc" /v "Start" /t REG_DWORD /d "4" /f
 
 ::Image File Execution Options
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options" /f
@@ -537,31 +541,24 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution 
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WmiPrvSE.exe\PerfOptions" /v "IoPriority" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe" /v "MitigationAuditOptions" /t REG_BINARY /d "222222222222222222222222222222222222222222222222" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe" /v "MitigationOptions" /t REG_BINARY /d "222222222222222222222222222222222222222222222222" /f
-powershell -NoP -C "Set-ProcessMitigation -Name cs2.exe -Enable CFG"
-powershell -NoP -C "Set-ProcessMitigation -Name cs2.exe -Enable SEHOP"
-powershell -NoP -C "Set-ProcessMitigation -Name cs2.exe -Enable DEP"
-powershell -NoP -C "Set-ProcessMitigation -Name cs2.exe -Enable EmulateAtlThunks"
+powershell -noprofile -executionpolicy bypass -command "Set-ProcessMitigation -Name cs2.exe -Enable CFG, SEHOP, DEP, EmulateAtlThunks"
 
 :: optimize
-for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger" /s /f "Enabled"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Enabled" /t REG_DWORD /d "0" /f
-for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger" /s /f "Start"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Start" /t REG_DWORD /d "0" /f
-:: reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\EventLog-System" /v "Start" /t REG_DWORD /d "1" /f
-for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT" /s /f "Enabled"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Enabled" /t REG_DWORD /d "0" /f
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *LegacyComponents* | Enable-WindowsOptionalFeature -Online -All"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *DirectPlay* | Enable-WindowsOptionalFeature -Online -All"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *SmbDirect* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-PrintToPDFServices-Features* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *MicrosoftWindowsPowerShellV2Root* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *MicrosoftWindowsPowerShellV2* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-Features* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-InternetPrinting-Client* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-LPDPrintService* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Printing-Foundation-LPRPortMonitor* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *WorkFolders-Client* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *SearchEngine-Client-Package* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Windows-Defender-ApplicationGuard* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *Windows-Defender-Default-Definitions* | Disable-WindowsOptionalFeature -Online -NoRestart"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq *MSRDC-Infrastructure* | Disable-WindowsOptionalFeature -Online -NoRestart"
+dism /english /Online /Enable-Feature /FeatureName:LegacyComponents /All /NoRestart
+dism /english /Online /Enable-Feature /FeatureName:DirectPlay /All /NoRestart
+dism /english /Online /Disable-Feature /featurename:SmbDirect /Remove /NoRestart
+dism /english /Online /Disable-Feature /featurename:Printing-PrintToPDFServices-Features /Remove /NoRestart
+dism /english /Online /Disable-Feature /featurename:MicrosoftWindowsPowerShellV2Root /Remove /NoRestart
+dism /english /Online /Disable-Feature /featurename:MicrosoftWindowsPowerShellV2 /Remove /NoRestart
+dism /english /Online /Disable-Feature /featurename:Printing-Foundation-Features /Remove /NoRestart
+dism /english /Online /Disable-Feature /featurename:Printing-Foundation-InternetPrinting-Client /Remove /NoRestart
+dism /english /Online /Disable-Feature /featurename:Printing-Foundation-LPDPrintService /Remove /NoRestart
+dism /english /Online /Disable-Feature /featurename:Printing-Foundation-LPRPortMonitor /Remove /NoRestart
+dism /english /Online /Disable-Feature /featurename:WorkFolders-Client /Remove /NoRestart
+dism /english /Online /Disable-Feature /featurename:SearchEngine-Client-Package /Remove /NoRestart
+dism /english /Online /Disable-Feature /featurename:Windows-Defender-ApplicationGuard /Remove /NoRestart
+dism /english /Online /Disable-Feature /featurename:Windows-Defender-Default-Definitions /Remove /NoRestart
+dism /english /Online /Disable-Feature /featurename:MSRDC-Infrastructure /Remove /NoRestart
 powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *App.StepsRecorder* | Remove-WindowsCapability -Online"
 powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *DirectX.Configuration.Database* | Remove-WindowsCapability -Online"
 powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Hello.Face* | Remove-WindowsCapability -Online"
@@ -585,10 +582,13 @@ for %%z in (
 Windows-Defender
 Microsoft-Windows-SenseClient
 ) do (
-powershell -nop -ep bypass -c "Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*%%z*' -Name Visibility -Value 1 -Force -EA SilentlyContinue -Verbose"
-powershell -nop -ep bypass -c "Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*%%z*' -Include *Owner* -Recurse -Force -EA SilentlyContinue -Verbose"
-powershell -nop -ep bypass -c "Get-WindowsPackage -Online | Where {$_.PackageName -match '%%z' } | Remove-WindowsPackage -Online -NoRestart -EA SilentlyContinue"
+powershell -noprofile -executionpolicy bypass -command "Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*%%z*' -Name Visibility -Value 1 -Force -EA SilentlyContinue -Verbose"
+powershell -noprofile -executionpolicy bypass -command "Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*%%z*' -Include *Owner* -Recurse -Force -EA SilentlyContinue -Verbose"
+powershell -noprofile -executionpolicy bypass -command "Get-WindowsPackage -Online | Where {$_.PackageName -match '%%z' } | Remove-WindowsPackage -Online -NoRestart -EA SilentlyContinue"
 )
+for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger" /s /f "Enabled"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Enabled" /t REG_DWORD /d "0" /f
+for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger" /s /f "Start"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Start" /t REG_DWORD /d "0" /f
+for /f "usebackq tokens=1*" %%a in (`reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT" /s /f "Enabled"^| findstr "HKEY"`) do reg add "%%a %%b" /v "Enabled" /t REG_DWORD /d "0" /f
 for %a in ("SleepStudy" "Kernel-Processor-Power" "UserModePowerService") do (wevtutil sl Microsoft-Windows-%~a/Diagnostic /e:false)
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "AllowHeadlessExecution" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "AllowMultipleBackgroundTasks" /t REG_DWORD /d "1" /f
@@ -598,8 +598,12 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicin
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" /v "EnableDpxLog" /t REG_SZ /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" /v "DisableWerReporting" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Communications" /v "ConfigureChatAutoInstall" /t REG_DWORD /d "0" /f
+for /f "delims=" %%d in ('powershell -noprofile -c "Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\State\DisplayDatabase' | Select-Object -ExpandProperty Name | %% { $pathSplit = $_.Split('\'); $displayName = $pathSplit[$pathSplit.Length - 1]; $displayNameSplit = $displayName.Split('_'); if ($displayNameSplit.Length -eq 4) { return $displayName } }"') do (
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\nvlddmkm\State\DisplayDatabase\%%d" /v "DitherRegistryKey" /t REG_BINARY /d "db0100001000000002000104f3000000" /f
+)
 
 :: Cleanup
+rd /s /q C:\$Recycle.bin
 rmdir /s /q "C:\Program Files (x86)\Microsoft"
 icacls "C:\Program Files (x86)\Microsoft" /inheritance:r
 del /s /f /q "C:\Users\Administrator\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\*.*"
@@ -607,6 +611,7 @@ rd /s /q "C:\Windows\SoftwareDistribution"
 rmdir /s /q "C:\Windows\SoftwareDistribution"
 del /s /f /q "C:\Windows\System32\CompatTelRunner.exe"
 del /s /f /q "C:\Windows\System32\DeviceCensus.exe"
+del /s /f /q "C:\Windows\System32\backgroundTaskHost.exe"
 rd /s /q "C:\Windows\Prefetch"
 rmdir /s /q "C:\Windows\Prefetch"
 rd /s /q "C:\Windows\Temp"
