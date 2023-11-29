@@ -18,11 +18,14 @@ for /d %%x in ("C:\Steam\dumps\*") do @rd /s /q "%%x"
 del /q "C:\Steam\logs\*"
 for /d %%x in ("C:\Steam\logs\*") do @rd /s /q "%%x"
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c schtasks /delete /tn "Microsoft\Windows\WindowsUpdate\Scheduled Start" /f
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Scan Static Task" /f
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Scan" /f
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Users\Administrator\AppData\Local\NVIDIA\DXCache"
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Users\Administrator\AppData\LocalLow\NVIDIA\PerDriverVersion\DXCache"
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Users\Administrator\AppData\LocalLow\NVIDIA\PerDriverVersion\GLCache"
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Windows\System32\winevt\Logs"
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations"
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch"
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Windows\System32\WDI\LogFiles"
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Windows\System32\LogFiles\WMI"
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c del /s /f /q "C:\Windows\Logs\NetSetup"
