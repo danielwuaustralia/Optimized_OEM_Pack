@@ -38,6 +38,7 @@ compact /CompactOS:Never
 :: remove OneDrive
 taskkill /F /IM OneDrive.exe
 del /s /f /q "C:\Windows\System32\OneDriveSetup.exe"
+powershell -noprofile -executionpolicy bypass -command "Remove-Item -Path 'C:\Windows\WinSxS\*onedrive*' -Recurse -EA 0 -Verbose"
 reg load HKLM\NTUSER C:\Users\Default\NTUSER.DAT
 reg delete "HKLM\NTUSER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
 reg unload HKLM\NTUSER
@@ -48,11 +49,6 @@ reg add "HKCR\Wow6432Node\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v "System.IsP
 
 :: no MS Edge
 taskkill /F /IM msedge.exe
-rd /s /q "C:\Program Files (x86)\Microsoft\Edge"
-rd /s /q "C:\Program Files (x86)\Microsoft\EdgeUpdate"
-rd /s /q "C:\Program Files (x86)\Microsoft\EdgeCore"
-rd /s /q "C:\Program Files (x86)\Microsoft\EdgeWebView"
-rd /s /q "C:\Windows\System32\Microsoft-Edge-WebView"
 rmdir /s /q "C:\Program Files (x86)\Microsoft\Edge"
 rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeUpdate"
 rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeCore"
@@ -81,7 +77,6 @@ del /f /q /s "C:\Windows\SysWOW64\GameBarPresenceWriter.proxy.dll"
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoft-gaming-ga..rnal-presencewriter_31bf3856ad364e35_none_f7b4abb1b457ca9e" /f
 
 :: no wallpaper
-rd /s /q "C:\Windows\Web"
 rmdir /s /q "C:\Windows\Web"
 
 :: no sleepstudy
@@ -109,7 +104,7 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "UseWUSer
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization" /v "DODownloadMode" /t REG_DWORD /d "99" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config" /v "DODownloadMode" /t REG_DWORD /d "99" /f
 
-:: :: no defender & smartscreen & firewall
+:: no defender & smartscreen & firewall
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\IPSec\ICFv4" /v "BypassFirewall" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" /v "EnableFirewall" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" /v "LogDroppedPackets" /t REG_DWORD /d "0" /f
@@ -144,18 +139,13 @@ reg delete "HKLM\SYSTEM\ControlSet001\Services\SgrmAgent" /f
 reg delete "HKLM\SYSTEM\ControlSet001\Services\SgrmBroker" /f
 reg delete "HKLM\SYSTEM\ControlSet001\Services\wscsvc" /f
 reg delete "HKLM\SYSTEM\ControlSet001\Services\webthreatdefsvc" /f
-rd /s /q "C:\ProgramData\Microsoft\Windows Defender"
-rd /s /q "C:\ProgramData\Microsoft\Windows Defender Advanced Threat Protection"
-rd /s /q "C:\ProgramData\Microsoft\Windows Security Health"
-rd /s /q "C:\Program Files (x86)\Windows Defender"
-rd /s /q "C:\Program Files\Windows Defender"
-rd /s /q "C:\Program Files\Windows Defender Advanced Threat Protection"
 rmdir /s /q "C:\ProgramData\Microsoft\Windows Defender"
 rmdir /s /q "C:\ProgramData\Microsoft\Windows Defender Advanced Threat Protection"
 rmdir /s /q "C:\ProgramData\Microsoft\Windows Security Health"
 rmdir /s /q "C:\Program Files (x86)\Windows Defender"
 rmdir /s /q "C:\Program Files\Windows Defender"
 rmdir /s /q "C:\Program Files\Windows Defender Advanced Threat Protection"
+powershell -noprofile -executionpolicy bypass -command "Remove-Item -Path 'C:\Windows\WinSxS\*defender*' -Recurse -EA 0 -Verbose"
 reg delete "HKLM\SOFTWARE\Classes\CLSID\{09A47860-11B0-4DA5-AFA5-26D86198A780}\InprocServer32" /va /f
 reg delete "HKCR\CLSID\{09A47860-11B0-4DA5-AFA5-26D86198A780}" /v "InprocServer32" /f
 reg delete "HKCR\*\shellex\ContextMenuHandlers" /v "EPP" /f
