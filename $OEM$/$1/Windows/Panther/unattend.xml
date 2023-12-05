@@ -113,10 +113,15 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>17</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\mini_installer.exe --install --silent --system-level</CommandLine>
+                    <CommandLine>cmd.exe /c msiexec /i C:\TEMP\googlechromestandaloneenterprise64.msi /quiet /norestart</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>18</Order>
+                    <RequiresUserInput>false</RequiresUserInput>
+                    <CommandLine>powershell -NoProfile -ExecutionPolicy Bypass -File "C:\TEMP\Setup_InterruptAffinity.ps1"</CommandLine>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>19</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>cmd.exe /c "C:\TEMP\Setup2.cmd"</CommandLine>
                 </SynchronousCommand>
