@@ -628,3 +628,5 @@ taskkill /f /im TiWorker.exe
 ren "C:\Windows\WinSxS\amd64_microsoft-windows-servicingstack_31bf3856ad364e35_10.0.22621.2776_none_e92b290e42f3eba8\TiWorker.exe" TiWorker_old.exe
 taskkill /f /im TextInputHost.exe
 ren "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\TextInputHost.exe" TextInputHost_old.exe
+taskkill /f /im ctfmon.exe
+ren "C:\Windows\System32\ctfmon.exe" ctfmon_old.exe
