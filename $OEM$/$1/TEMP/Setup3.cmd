@@ -2,6 +2,7 @@
 setlocal EnableExtensions
 setlocal EnableDelayedExpansion
 color 0a
+>nul chcp 65001
 
 :: Intel Services
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\iagpio" /v "Start" /t REG_DWORD /d "4" /f
@@ -547,8 +548,7 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution 
 powershell -noprofile -executionpolicy bypass -command "Set-ProcessMitigation -Name cs2.exe -Enable CFG, SEHOP, DEP, EmulateAtlThunks"
 
 :: optimize
-powershell -noprofile -executionpolicy bypass -command "$devices = @('ACPI Processor Aggregator','Microsoft Windows Management Interface for ACPI','AMD PSP','AMD SMBus','Base System Device','*Bluetooth*','Composite Bus Enumerator','High precision event timer','Intel Management Engine','Intel SMBus','*Hyper-V*','Microsoft Kernel Debug Network Adapter','Microsoft RRAS Root Enumerator', 'NDIS Virtual Network Adapter Enumerator', '*WAN Miniport*', 'Motherboard resources','Numeric Data Processor','PCI Data Acquisition and Signal Processing Controller','PCI Encryption/Decryption Controller','PCI Memory Controller','PCI Simple Communications Controller','SM Bus Controller','System CMOS/real time clock','System Speaker','System Timer','UMBus Root Bus Enumerator','Remote Desktop Device Redirector Bus','Microsoft GS Wavetable Synth','AURA LED Controller', 'Microsoft Virtual Drive Enumerator', 'Microsoft iSCSI Initiator', 'SMBus', 'UMBus', 'Terminal Server Mouse Driver', 'Terminal Server Keyboard Driver', 'Microsoft Usbccid Smartcard Reader (WUDF)', 'Steelseries GG Component', 'Microsoft Storage Spaces Controller', 'AMD GPIO Controller', 'Sonar APO', 'FiiO DFU', 'Microsoft UEFI-Compliant System', 'Steelseries Sonar Virtual Audio Device'); Get-PnpDevice -FriendlyName $devices -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore;"
-:: powershell -noprofile -executionpolicy bypass -command "$devices = @('ACPI Processor Aggregator','Microsoft Windows Management Interface for ACPI','AMD PSP','AMD SMBus','Base System Device','*Bluetooth*','复合总线枚举器','高精度事件计时器','Intel Management Engine','Intel SMBus','*Hyper-V*','Microsoft Kernel Debug Network Adapter','Microsoft RRAS Root Enumerator', 'NDIS 虚拟网络适配器枚举器', '*WAN Miniport*', '母板资源','Numeric Data Processor','PCI Data Acquisition and Signal Processing Controller','PCI Encryption/Decryption Controller','PCI Memory Controller','PCI Simple Communications Controller','系统 CMOS/实时时钟','系统扬声器','系统计时器','UMBus Root Bus Enumerator','远程桌面设备重定向程序总线','Microsoft GS 波表合成器', 'Microsoft 虚拟驱动器枚举器', 'PCI 标准 ISA 桥', 'SM 总线控制器', 'UMBus', 'Terminal Server Mouse Driver', 'Terminal Server Keyboard Driver', 'AMD GPIO 控制器'); Get-PnpDevice -FriendlyName $devices -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore;"
+powershell -noprofile -executionpolicy bypass -command "$devices = @('ACPI Processor Aggregator','Microsoft Windows Management Interface for ACPI','AMD PSP','AMD SMBus','Base System Device','*Bluetooth*','复合总线枚举器','高精度事件计时器','Intel Management Engine','Intel SMBus','*Hyper-V*','Microsoft Kernel Debug Network Adapter','Microsoft RRAS Root Enumerator', 'NDIS 虚拟网络适配器枚举器', '*WAN Miniport*', '母板资源','Numeric Data Processor','PCI Data Acquisition and Signal Processing Controller','PCI Encryption/Decryption Controller','PCI Memory Controller','PCI Simple Communications Controller','系统 CMOS/实时时钟','系统扬声器','系统计时器','UMBus Root Bus Enumerator','远程桌面设备重定向程序总线','Microsoft GS 波表合成器', 'Microsoft 虚拟驱动器枚举器', 'PCI 标准 ISA 桥', 'SM 总线控制器', 'UMBus', 'Terminal Server Mouse Driver', 'Terminal Server Keyboard Driver', 'AMD GPIO 控制器'); Get-PnpDevice -FriendlyName $devices -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore;"
 dism /english /Online /Enable-Feature /FeatureName:LegacyComponents /All /NoRestart
 dism /english /Online /Enable-Feature /FeatureName:DirectPlay /All /NoRestart
 dism /english /Online /Disable-Feature /featurename:SmbDirect /Remove /NoRestart
@@ -618,12 +618,6 @@ rmdir /s /q "C:\ProgramData\Microsoft\DiagnosticLogCSP"
 rmdir /s /q "C:\Windows\System32\SleepStudy"
 rmdir /s /q "C:\Windows\Logs"
 taskkill /f /im SearchHost.exe
-ren "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchHost.exe" SearchHost_old.exe
+del /s /f /q "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchHost.exe"
 taskkill /f /im TiWorker.exe
-ren "C:\Windows\WinSxS\x86_microsoft-windows-servicingstack_31bf3856ad364e35_10.0.22621.2567_none_8d2116508a8742da\TiWorker.exe" TiWorker_old.exe
-taskkill /f /im TextInputHost.exe
-ren "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\TextInputHost.exe" TextInputHost_old.exe
-taskkill /f /im ctfmon.exe
-ren "C:\Windows\System32\ctfmon.exe" ctfmon_old.exe
-taskkill /f /im ChsIME.exe
-ren "C:\Windows\System32\InputMethod\CHS\ChsIME.exe" ChsIME_Old.exe
+del /s /f /q "C:\Windows\WinSxS\x86_microsoft-windows-servicingstack_31bf3856ad364e35_10.0.22621.2567_none_8d2116508a8742da\TiWorker.exe"
