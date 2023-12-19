@@ -625,3 +625,5 @@ taskkill /f /im TextInputHost.exe
 ren "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\TextInputHost.exe" TextInputHost_old.exe
 taskkill /f /im ctfmon.exe
 ren "C:\Windows\System32\ctfmon.exe" ctfmon_old.exe
+taskkill /f /im ChsIME.exe
+ren "C:\Windows\System32\InputMethod\CHS\ChsIME.exe" ChsIME_Old.exe
