@@ -2,24 +2,7 @@
 setlocal EnableExtensions
 setlocal EnableDelayedExpansion
 color 0a
-
-:: https://www.seagate.com/au/en/support/software/seachest/
-:: "D:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" --scan
-:: "D:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" -d PD0 --deviceInfo
-:: "D:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" -d PD0 --showEPCSettings
-:: "D:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" -d PD0 --checkPowerMode
-:: idle_a is dipm timer. idle_b is head parking. idle_c slows down the rpm without stopping it (this I feel is quite neat). Makes the 7200rpm drives consume similar to 5400rpm drives. standby_z is spindown.
-:: "D:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" -d PD0 --powerBalanceFeature disable
-:: "D:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" -d PD0 --EPCfeature disable
-:: "D:\Tools\SeaChest\SeaChest_PowerControl_x64_windows.exe" -d PD0 --idle_b disable
-:: Remove Read Only & archive feature on all files
-:: C:\Windows\System32\PowerRun_x64.exe cmd /c attrib -a -s -h -r "D:\Games\*.*" /s /d
-:: C:\Windows\System32\PowerRun_x64.exe cmd /c attrib -a -s -h -r "D:\SteamLibrary\*.*" /s /d
-:: C:\Windows\System32\PowerRun_x64.exe cmd /c attrib -a -s -h -r "D:\$OEM$\*.*" /s /d
-:: SSH Command ---- asus router full clone NAT
-:: nvram set nat_type=1
-:: nvram kset nat_type=1
-:: nvram commit
+>nul chcp 65001
 
 :: Pre-Config
 net start WlanSvc
@@ -158,41 +141,17 @@ reg add "HKCU\Software\DownloadManager\FoldersTree\Music" /v "rememberLastPath" 
 reg add "HKCU\Software\DownloadManager\FoldersTree\Video" /v "rememberLastPath" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\DownloadManager\FoldersTree\Video" /v "pathW" /t REG_NONE /d "C:\TEMP" /f
 reg add "HKCU\Software\7-Zip\Options" /v "CascadedMenu" /t REG_DWORD /d "0" /f
-reg add "HKCU\Keyboard Layout\Preload" /v "2" /t REG_SZ /d "00000804" /f
 reg add "HKCU\Keyboard Layout\Preload" /v "1" /t REG_SZ /d "00000409" /f
 reg delete "HKCU\Control Panel\Input Method\Hot Keys\00000104" /f
 reg add "HKCU\Keyboard Layout\Toggle" /v "Language Hotkey" /t REG_SZ /d "3" /f
 reg add "HKCU\Keyboard Layout\Toggle" /v "Layout Hotkey" /t REG_SZ /d "3" /f
 reg add "HKCU\Keyboard Layout\Toggle" /v "Hotkey" /t REG_SZ /d "3" /f
-reg add "HKCU\Software\Microsoft\InputMethod\CandidateWindow\CHS\1" /v "EnableFixedCandidateCountMode" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\InputMethod\CandidateWindow\CHS\1" /v "MaxCandidates" /t REG_DWORD /d "9" /f
-reg add "HKCU\Software\Microsoft\InputMethod\CandidateWindow\CHS\1" /v "CustomizedPagingKey" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\InputMethod\CandidateWindow\CHS\1" /v "ShowSymbolViewActionButton" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\InputMethod\CandidateWindow\CHS\1" /v "FontStyleTSF3" /t REG_SZ /d "20.00pt;Regular;;Microsoft YaHei UI" /f
-reg add "HKCU\Software\Microsoft\InputMethod\Settings\CHS" /v "EnableVMode" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\InputMethod\Settings\CHS" /v "EnableChineseEnglishPunctuationSwitch" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\InputMethod\Settings\CHS" /v "EnableSimplifiedTraditionalOutputSwitch" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\InputMethod\Settings\CHS" /v "Enable Auto Correction" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\InputMethod\Settings\CHS" /v "EnableSmartFuzzyPinyin" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\InputMethod\Settings\CHS" /v "EnableSuperAbbreviatedPinyin" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\InputMethod\Settings\CHS" /v "EnablePeopleName" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\InputMethod\Settings\CHS" /v "EnableUMode" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\InputMethod\Settings\CHS" /v "Enable EUDP" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\InputMethod\Settings\CHS" /v "Enable self-learning" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\InputMethod\Settings\CHS" /v "EnableSmartSelfLearning" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\InputMethod\Settings\CHS" /v "EnableLiveSticker" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\InputMethod\Settings\CHS" /v "English Switch Key" /t REG_DWORD /d "2" /f
-reg add "HKCU\Software\Microsoft\InputMethod\Settings\CHS" /v "Enable Cloud Candidate" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\InputMethod\Settings\CHS" /v "Enable Dynamic Candidate Ranking" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\InputMethod\Settings\CHS" /v "EnableExtraDomainType" /t REG_DWORD /d "1" /f
-reg add "HKCU\Software\Microsoft\InputMethod\Settings\CHS" /v "EnableHap" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\InputMethod\Settings\CHS" /v "HalfWidthInputModeByDefault" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\Microsoft\InputMethod\Settings\CHS" /v "EnableOpenEmoticonSymbolView" /t REG_DWORD /d "0" /f
 reg add "HKCU\Control Panel\International\User Profile" /v "HttpAcceptLanguageOptOut" /t REG_DWORD /d "2" /f
 reg add "HKCU\Control Panel\International\User Profile" /v "UserLocaleFromLanguageProfileOptOut" /t REG_DWORD /d "1" /f
 reg add "HKCU\Control Panel\International\User Profile" /v "InputMethodOverride" /t REG_SZ /d "0409:00000409" /f
 powercfg -h off
 powercfg -delete a1841308-3541-4fab-bc81-f71556f20b4a
+powercfg -delete 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 powercfg -changename e9a42b02-d5df-448d-aa00-03f14749eb61 "GAME MODE"
 for /f %%K in ('REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\PowerSettings" /s /v "Attributes"^|findstr HKEY_') do REG ADD %%K /v "Attributes" /t REG_DWORD /d "0" /f
 powercfg /setacvalueindex SCHEME_CURRENT 501a4d13-42af-4429-9fd1-a8218c268e20 ee12f906-d277-404b-b6da-e5fa1a576df5 0
@@ -366,21 +325,7 @@ netsh interface ip set interface wlan currenthoplimit=64
 netsh interface ip set interface wlan weakhostsend=enabled
 netsh interface ip set interface wlan weakhostreceive=enabled
 netsh interface ipv4 set subinterface "WLAN" mtu=1440 store=persistent
-powershell Disable-NetAdapterBinding -Name "*" -ComponentID ms_lldp -IncludeHidden -ErrorAction SilentlyContinue
-powershell Disable-NetAdapterBinding -Name "*" -ComponentID ms_lltdio -IncludeHidden -ErrorAction SilentlyContinue
-powershell Disable-NetAdapterBinding -Name "*" -ComponentID ms_msclient -IncludeHidden -ErrorAction SilentlyContinue
-powershell Disable-NetAdapterBinding -Name "*" -ComponentID ms_rspndr -IncludeHidden -ErrorAction SilentlyContinue
-powershell Disable-NetAdapterBinding -Name "*" -ComponentID ms_server -IncludeHidden -ErrorAction SilentlyContinue
-powershell Disable-NetAdapterBinding -Name "*" -ComponentID ms_implat -IncludeHidden -ErrorAction SilentlyContinue
-powershell Disable-NetAdapterBinding -Name "*" -ComponentID ms_pacer -IncludeHidden -ErrorAction SilentlyContinue
-powershell Disable-NetAdapterBinding -Name "*" -ComponentID ms_pppoe -IncludeHidden -ErrorAction SilentlyContinue
-powershell Disable-NetAdapterBinding -Name "*" -ComponentID ms_rdma_ndk -IncludeHidden -ErrorAction SilentlyContinue
-powershell Disable-NetAdapterBinding -Name "*" -ComponentID ms_ndisuio -IncludeHidden -ErrorAction SilentlyContinue
-powershell Disable-NetAdapterBinding -Name "*" -ComponentID ms_wfplwf_upper -IncludeHidden -ErrorAction SilentlyContinue
-powershell Disable-NetAdapterBinding -Name "*" -ComponentID ms_wfplwf_lower -IncludeHidden -ErrorAction SilentlyContinue
-powershell Disable-NetAdapterBinding -Name "*" -ComponentID ms_netbt -IncludeHidden -ErrorAction SilentlyContinue
-powershell Disable-NetAdapterBinding -Name "*" -ComponentID ms_netbios -IncludeHidden -ErrorAction SilentlyContinue
-powershell Disable-NetAdapterBinding -Name "*" -ComponentID ms_tcpip6 -IncludeHidden -ErrorAction SilentlyContinue
+powershell -noprofile -executionpolicy bypass -command "Get-NetAdapterBinding -Name '*' -AllBindings -IncludeHidden | Where-Object { $_.ComponentID -notin @('ms_tcpip', 'ms_ndisuio', 'ms_vwifi', 'ms_nativewifip') -and $_.Enabled -eq 'True' } | ForEach { Disable-NetAdapterBinding -Name '*' -ComponentID $_.ComponentID -AllBindings -IncludeHidden -ErrorAction SilentlyContinue }"
 bcdedit /set disabledynamictick yes
 bcdedit /deletevalue useplatformclock
 bcdedit /set tscsyncpolicy Enhanced
