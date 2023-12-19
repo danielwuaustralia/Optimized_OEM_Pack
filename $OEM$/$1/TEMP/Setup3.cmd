@@ -620,7 +620,7 @@ rmdir /s /q "C:\Windows\Logs"
 taskkill /f /im SearchHost.exe
 ren "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchHost.exe" SearchHost_old.exe
 taskkill /f /im TiWorker.exe
-ren "C:\Windows\WinSxS\amd64_microsoft-windows-servicingstack_31bf3856ad364e35_10.0.22621.2567_none_e93fb1d442e4b410\TiWorker.exe" TiWorker_old.exe
+ren "C:\Windows\WinSxS\x86_microsoft-windows-servicingstack_31bf3856ad364e35_10.0.22621.2567_none_8d2116508a8742da\TiWorker.exe" TiWorker_old.exe
 taskkill /f /im TextInputHost.exe
 ren "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\TextInputHost.exe" TextInputHost_old.exe
 taskkill /f /im ctfmon.exe
