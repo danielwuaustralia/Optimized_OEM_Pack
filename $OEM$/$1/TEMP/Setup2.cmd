@@ -1753,6 +1753,7 @@ del /S /Q "C:\Users\Public\Desktop\Microsoft Edge.lnk"
 del /S /Q "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
 rmdir /s /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch"
 rmdir /s /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations"
+rmdir /s /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned"
 reg delete "HKCU\Software\Classes\*\shell\connectNetworkDrive" /f
 reg delete "HKCU\Software\Classes\Directory\shell\connectNetworkDrive" /f
 reg delete "HKCU\Software\Classes\*\shell\disconnectNetworkDrive" /f
