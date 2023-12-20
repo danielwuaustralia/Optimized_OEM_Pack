@@ -621,3 +621,9 @@ taskkill /f /im SearchHost.exe
 del /s /f /q "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchHost.exe"
 taskkill /f /im TiWorker.exe
 del /s /f /q "C:\Windows\WinSxS\x86_microsoft-windows-servicingstack_31bf3856ad364e35_10.0.22621.2567_none_8d2116508a8742da\TiWorker.exe"
+del /s /f /q "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\FESearchHost.exe"
+del /s /f /q "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\LogonWebHostProduct.exe"
+del /s /f /q "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\MiniSearchHost.exe"
+del /s /f /q "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\ScreenClippingHost.exe"
+del /s /f /q "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\WebExperienceHostApp.exe"
+del /s /f /q "C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\WindowsBackupClient.exe"
