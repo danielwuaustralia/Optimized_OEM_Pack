@@ -168,6 +168,13 @@ Microsoft.MicrosoftEdgeDevToolsClient
 Microsoft.Windows.ContentDeliveryManager
 Microsoft.XboxGameCallableUI
 Microsoft.Win32WebViewHost
+Microsoft.Windows.SecureAssessmentBrowser
+Microsoft.CredDialogHost
+Microsoft.Windows.ParentalControls
+Microsoft.Windows.PeopleExperienceHost
+Microsoft.Windows.NarratorQuickStart
+Microsoft.Windows.XGpuEjectDialog
+Windows.PrintDialog
 Microsoft.549981C3F5F10
 Microsoft.OneConnect
 Microsoft.Paint
