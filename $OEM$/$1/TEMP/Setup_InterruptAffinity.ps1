@@ -12,6 +12,8 @@
 
   Beware: Audio USB and Keyboard might be on the same parent as Mouse, so the parent being the same, it would lose the core assigned of one to the other. Recommended to plug into a different device controller.
 
+	Warn: Do not add HardDisk as device option, otherwise it might break the system in some way, like boot.
+
   Current Choices:
     - Reset all interrupt affinity related options
     - Enable MSI to everything that supports
@@ -19,7 +21,13 @@
 
   In the pre-choice I optionally disabled MSI in the Mouse (parent), because in some cases it's an option to consider, but not for other devices imho. Since legacy interrupts may have a simple interrupt implementation leading to lower latency, since the MSI does not have instant processing.
   I would say for Mouse is worth considering IRQ/Legacy Interrupt vs MSI-X, but not MSI, since MSI-X is also known to have lower latency, but since it's still MSI, it might also not have instant processing, not that the legacy implementation does.
-  It will be based on what works for you. MSI-X should work very well for Ethernet, even more so if you are able to get RSS Queues working, network.cmd script should be able to help with that. 
+  It will be based on what works for you. MSI-X should work very well for Ethernet, even more so if you are able to get RSS Queues working, network.cmd script should be able to help with that.
+
+  https://electronics.stackexchange.com/a/76878
+
+  I suppose if there were a Polling alternative to MSI, it could be even better, as it could able to process faster than interrupts, leading to lower latency, since MSI are not instant processing, if you check the url above this.
+  DevicePriority to High seems to help in lowering latency (even if minor) as it take priority in processing.
+  https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/techpaper/vmw-tuning-latency-sensitive-workloads-white-paper.pdf - Mid Page 8
 
   ---------------------------
 
@@ -51,22 +59,17 @@
   MSISupported: Enable MSI
 #>
 
-# Start as administrator
-if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit
-}
-
 function Reset-Affinity-And-MSI-Tweaks {
 	Write-Host "Resetting Affinity and MSI tweaks!"
 	[Environment]::NewLine
 
 	[PsObject[]]$allPnpDeviceIds = @()
-	Get-WmiObject Win32_VideoController | Where-Object PNPDeviceID -Match "PCI\\VEN*" | Select-Object -ExpandProperty PNPDeviceID | ForEach-Object { $allPnpDeviceIds += $_ }
-	Get-WmiObject Win32_USBController | Where-Object PNPDeviceID -Match "PCI\\VEN*" | Select-Object -ExpandProperty PNPDeviceID | ForEach-Object { $allPnpDeviceIds += $_ }
-	Get-WmiObject Win32_NetworkAdapter | Where-Object PNPDeviceID -Match "PCI\\VEN*" | Select-Object -ExpandProperty PNPDeviceID | ForEach-Object { $allPnpDeviceIds += $_ }
-	Get-WmiObject Win32_IDEController | Where-Object PNPDeviceID -Match "PCI\\VEN*" | Select-Object -ExpandProperty PNPDeviceID | ForEach-Object { $allPnpDeviceIds += $_ }
-	Get-WmiObject Win32_SoundDevice | Where-Object PNPDeviceID -Match "PCI\\VEN*" | Select-Object -ExpandProperty PNPDeviceID | ForEach-Object { $allPnpDeviceIds += $_ }
-	Get-WmiObject Win32_DiskDrive | Where-Object PNPDeviceID -Match "PCI\\VEN*" | Select-Object -ExpandProperty PNPDeviceID | ForEach-Object { $allPnpDeviceIds += $_ }
+	Get-WmiObject Win32_VideoController | Where-Object PNPDeviceID -Match "PCI\\VEN*" | Select-Object -ExpandProperty PNPDeviceID | ForEach { $allPnpDeviceIds += $_ }
+	Get-WmiObject Win32_USBController | Where-Object PNPDeviceID -Match "PCI\\VEN*" | Select-Object -ExpandProperty PNPDeviceID | ForEach { $allPnpDeviceIds += $_ }
+	Get-WmiObject Win32_NetworkAdapter | Where-Object PNPDeviceID -Match "PCI\\VEN*" | Select-Object -ExpandProperty PNPDeviceID | ForEach { $allPnpDeviceIds += $_ }
+	Get-WmiObject Win32_IDEController | Where-Object PNPDeviceID -Match "PCI\\VEN*" | Select-Object -ExpandProperty PNPDeviceID | ForEach { $allPnpDeviceIds += $_ }
+	Get-WmiObject Win32_SoundDevice | Where-Object PNPDeviceID -Match "PCI\\VEN*" | Select-Object -ExpandProperty PNPDeviceID | ForEach { $allPnpDeviceIds += $_ }
+	Get-WmiObject Win32_DiskDrive | Where-Object PNPDeviceID -Match "PCI\\VEN*" | Select-Object -ExpandProperty PNPDeviceID | ForEach { $allPnpDeviceIds += $_ }
 
 	foreach ($devicePath in $allPnpDeviceIds) {
 		$affinityPath = "HKLM:\SYSTEM\CurrentControlSet\Enum\$devicePath\Device Parameters\Interrupt Management\Affinity Policy"
@@ -129,10 +132,10 @@ function Get-Devices-Data {
 		$childDeviceInstanceId = $childDevice.InstanceId
 		$childPnpDevice = Get-PnpDeviceProperty -InstanceId $childDeviceInstanceId
 
-		$childPnpDeviceLocationInfo = $childPnpDevice | Where-Object KeyName -eq 'DEVPKEY_Device_LocationInfo' | Select-Object -ExpandProperty Data
-		$childPnpDevicePDOName = $childPnpDevice | Where-Object KeyName -eq 'DEVPKEY_Device_PDOName' | Select-Object -ExpandProperty Data
+		$childPnpDeviceLocationInfo = $childPnpDevice | Where KeyName -eq 'DEVPKEY_Device_LocationInfo' | Select -ExpandProperty Data
+		$childPnpDevicePDOName = $childPnpDevice | Where KeyName -eq 'DEVPKEY_Device_PDOName' | Select -ExpandProperty Data
 
-		$parentDeviceInstanceId = $childPnpDevice | Where-Object KeyName -eq 'DEVPKEY_Device_Parent' | Select-Object -ExpandProperty Data
+		$parentDeviceInstanceId = $childPnpDevice | Where KeyName -eq 'DEVPKEY_Device_Parent' | Select -ExpandProperty Data
 
 		$parentDevice = $null
 		$parentDeviceName = ""
@@ -143,14 +146,14 @@ function Get-Devices-Data {
 			if (!$parentDevice) {
 				continue
 			}
-			$parentDeviceName = $parentDevice | Where-Object KeyName -eq 'DEVPKEY_NAME' | Select-Object -ExpandProperty Data
+			$parentDeviceName = $parentDevice | Where KeyName -eq 'DEVPKEY_NAME' | Select -ExpandProperty Data
 			if ([string]::IsNullOrWhiteSpace($parentDeviceName)) {
 				continue
 			}
-			$parentDeviceLocationInfo = $parentDevice | Where-Object KeyName -eq 'DEVPKEY_Device_LocationInfo' | Select-Object -ExpandProperty Data
-			$parentDevicePDOName = $parentDevice | Where-Object KeyName -eq 'DEVPKEY_Device_PDOName' | Select-Object -ExpandProperty Data
+			$parentDeviceLocationInfo = $parentDevice | Where KeyName -eq 'DEVPKEY_Device_LocationInfo' | Select -ExpandProperty Data
+			$parentDevicePDOName = $parentDevice | Where KeyName -eq 'DEVPKEY_Device_PDOName' | Select -ExpandProperty Data
 			if ($childDevice.IsUSB -and !$parentDeviceName.Contains('Controller')) {
-				$parentDeviceInstanceId = $parentDevice | Where-Object KeyName -eq 'DEVPKEY_Device_Parent' | Select-Object -ExpandProperty Data
+				$parentDeviceInstanceId = $parentDevice | Where KeyName -eq 'DEVPKEY_Device_Parent' | Select -ExpandProperty Data
 			}
 		} while (!$parentDeviceName.Contains('Controller') -and $childDevice.IsUSB)
 
@@ -221,7 +224,7 @@ function Build-Cores-To-Be-Used {
 }
 
 function Get-Processor-Counts {
-	$processorCounts = Get-WmiObject Win32_Processor | Select-Object NumberOfCores, NumberOfLogicalProcessors
+	$processorCounts = Get-WmiObject Win32_Processor | Select NumberOfCores, NumberOfLogicalProcessors
 	$coresAmount = $processorCounts.NumberOfCores
 	$threadsAmount = $processorCounts.NumberOfLogicalProcessors
 	return @{ CoresAmount = $coresAmount; ThreadsAmount = $threadsAmount }
