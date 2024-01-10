@@ -25,6 +25,7 @@ powershell -noprofile -executionpolicy bypass -command "Get-ScheduledTask | Wher
 powershell -noprofile -executionpolicy bypass -command "Get-ScheduledTask | Where {$_.TaskName -match 'GoogleUpdateTaskMachineCore' } | Unregister-ScheduledTask -Confirm:$false"
 powershell -noprofile -executionpolicy bypass -command "Get-ScheduledTask | Where {$_.TaskName -match 'GoogleUpdateTaskMachineUA' } | Unregister-ScheduledTask -Confirm:$false"
 rmdir /s /q "C:\Windows\System32\Tasks\Microsoft\Windows\SettingSync"
+rmdir /s /q "C:\Windows\System32\Tasks\Microsoft\Windows\EDP"
 schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Scan" /f
 schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Scan Static Task" /f
 schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\UpdateModelTask" /f
@@ -125,6 +126,7 @@ schtasks /delete /tn "Microsoft\Windows\MemoryDiagnostic\RunFullMemoryDiagnostic
 schtasks /delete /tn "Microsoft\Windows\HelloFace\FODCleanupTask" /f
 schtasks /delete /tn "Microsoft\Windows\Defrag\ScheduledDefrag" /f
 schtasks /delete /tn "Microsoft\Windows\Clip\License Validation" /f
+schtasks /delete /tn "Microsoft\Windows\Clip\LicenseImdsIntegration" /f
 schtasks /delete /tn "Microsoft\Windows\Device Information\Device" /f
 schtasks /delete /tn "Microsoft\Windows\Device Information\Device User" /f
 schtasks /delete /tn "Microsoft\Windows\PerfTrack\BackgroundConfigSurveyor" /f
@@ -138,7 +140,6 @@ schtasks /delete /tn "Microsoft\Windows\Time Zone\SynchronizeTimeZone" /f
 schtasks /delete /tn "Microsoft\Windows\Time Synchronization\SynchronizeTime" /f
 schtasks /delete /tn "Microsoft\Windows\Time Synchronization\ForceSynchronizeTime" /f
 schtasks /delete /tn "Microsoft\Windows\StateRepository\MaintenanceTasks" /f
-schtasks /delete /tn "Microsoft\Windows\SoftwareProtectionPlatform\SvcRestartTaskNetwork" /f
 schtasks /delete /tn "Microsoft\Windows\Shell\IndexerAutomaticMaintenance" /f
 schtasks /delete /tn "Microsoft\Windows\Registry\RegIdleBackup" /f
 schtasks /delete /tn "Microsoft\Windows\PushToInstall\LoginCheck" /f
@@ -196,12 +197,12 @@ schtasks /delete /tn "Microsoft\Windows\BitLocker\BitLocker Encrypt All Drives" 
 schtasks /delete /tn "Microsoft\Windows\BitLocker\BitLocker MDM policy Refresh" /f
 schtasks /delete /tn "Microsoft\Windows\DirectX\DXGIAdapterCache" /f
 schtasks /delete /tn "Microsoft\Windows\USB\Usb-Notifications" /f
-schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\IntegrityCheck" /f
 schtasks /delete /tn "Microsoft\Windows\ExploitGuard\ExploitGuard MDM policy Refresh" /f
 schtasks /delete /tn "Microsoft\Windows\Chkdsk\SyspartRepair" /f
 schtasks /delete /tn "Microsoft\Windows\AppListBackup\Backup" /f
 schtasks /delete /tn "Microsoft\Windows\Bluetooth\UninstallDeviceTask" /f
 schtasks /delete /tn "Microsoft\Windows\Chkdsk\ProactiveScan" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\IntegrityCheck" /f
 schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\HandleCommand" /f
 schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\HandleWnsCommand" /f
 schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\LocateCommandUserSession" /f
@@ -210,6 +211,8 @@ schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\RegisterDevicePoli
 schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceProtectionStateChanged" /f
 schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceSettingChange" /f
 schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\RegisterUserDevice" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\RegisterDevicePeriodic24" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceLocationRightsChange" /f
 schtasks /delete /tn "Microsoft\Windows\CertificateServicesClient\SystemTask" /f
 schtasks /delete /tn "Microsoft\Windows\CertificateServicesClient\UserTask" /f
 schtasks /delete /tn "Microsoft\Windows\CertificateServicesClient\UserTask-Roam" /f
@@ -217,6 +220,7 @@ schtasks /delete /tn "Microsoft\Windows\EDP\EDPAppLaunchTask" /f
 schtasks /delete /tn "Microsoft\Windows\EDP\EDPAuthTask" /f
 schtasks /delete /tn "Microsoft\Windows\EDP\EDPInaccessibleCredentialsTask" /f
 schtasks /delete /tn "Microsoft\Windows\EDP\StorageCardEncryptionTask" /f
+schtasks /delete /tn "Microsoft\Windows\EDP\StorageCardEncryption Task" /f
 schtasks /delete /tn "Microsoft\Windows\Shell\CreateObjectTask" /f
 schtasks /delete /tn "Microsoft\Windows\Shell\ThemesSyncedImageDownload" /f
 schtasks /delete /tn "Microsoft\Windows\Shell\UpdateUserPictureTask" /f
@@ -242,7 +246,6 @@ schtasks /delete /tn "Microsoft\Windows\Management\Autopilot\DetectHardwareChang
 schtasks /delete /tn "Microsoft\Windows\Management\Autopilot\RemediateHardwareChange" /f
 schtasks /delete /tn "Microsoft\Windows\ConsentUX\UnifiedConsent\UnifiedConsentSyncTask" /f
 schtasks /delete /tn "Microsoft\Windows\AppxDeploymentClient\UCPD velocity" /f
-schtasks /delete /tn "Microsoft\Windows\EDP\StorageCardEncryption Task" /f
 schtasks /delete /tn "Microsoft\Windows\capabilityaccessmanager\maintenancetasks" /f
 schtasks /delete /tn "Microsoft\Windows\Containers\CmCleanup" /f
 schtasks /delete /tn "Microsoft\Windows\Kernel\La57Cleanup" /f
@@ -256,12 +259,17 @@ schtasks /delete /tn "Microsoft\Windows\ReFsDedupSvc\Initialization" /f
 schtasks /delete /tn "Microsoft\Windows\Network Connectivity Status Indicator\NcsiIdentifyUserProxies" /f
 schtasks /delete /tn "Microsoft\Windows\Management\Connectivity\ESIMPM" /f
 schtasks /delete /tn "Microsoft\Windows\Management\Provisioning\MdmDiagnosticsCleanup" /f
+schtasks /delete /tn "Microsoft\Windows\Management\Provisioning\RunOnReboot" /f
+schtasks /delete /tn "Microsoft\Windows\Management\Provisioning\Retry" /f
 schtasks /delete /tn "Microsoft\Windows\Storage Tiers Management\Storage Tiers Optimization" /f
 schtasks /delete /tn "Microsoft\Windows\UNP\RunUpdateNotificationMgr" /f
 schtasks /delete /tn "Microsoft\Windows\Workplace Join\Recovery-Check" /f
 schtasks /delete /tn "Microsoft\Windows\Workplace Join\Device-Sync" /f
 schtasks /delete /tn "Microsoft\Windows\InstallService\RestoreDevice" /f
 schtasks /delete /tn "Microsoft\Windows\PI\Secure-Boot-Update" /f
+schtasks /delete /tn "Microsoft\Windows\Shell\ThemeAssetTask_SyncFODState" /f
+schtasks /delete /tn "Microsoft\Windows\TextServicesFramework\MsCtfMonitor" /f
+schtasks /delete /tn "Microsoft\Windows\Subscription\LicenseAcquisition" /f
 
 :: powershell -noprofile -executionpolicy bypass -command "Get-Service | Where-Object {$_.Status -EQ 'Running'}"
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\3ware" /v "Start" /t REG_DWORD /d "4" /f
@@ -310,10 +318,10 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\i8042prt" /v "Start" /t REG_DWOR
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\intelpsp" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\amdpsp" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\amdgpio2" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\NVDisplay.ContainerLocalSystem" /v "Start" /t REG_DWORD /d "4" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\MicrosoftEdgeElevationService" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\RTUsbSwSrvc" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\GoogleChromeElevationService" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\NVDisplay.ContainerLocalSystem" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CryptSvc" /v "Start" /t REG_DWORD /d "3" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\rdbss" /v "Start" /t REG_DWORD /d "3" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\sppsvc" /v "Start" /t REG_DWORD /d "3" /f
@@ -340,6 +348,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\msisadrv" /v "Start" /t REG_DWOR
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\gupdate" /v "Start" /t REG_DWORD /d "3" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\gupdatem" /v "Start" /t REG_DWORD /d "3" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\XblGameSave" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\SysMain" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\SamSs" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\PolicyAgent" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\uhssvc" /v "Start" /t REG_DWORD /d "4" /f
@@ -374,6 +383,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\BluetoothUserService" /v "Start"
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\BTAGService" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\BthAvctpSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\bthserv" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\bttflt" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\diagsvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\DispBrokerDesktopSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\DisplayEnhancementService" /v "Start" /t REG_DWORD /d "4" /f
@@ -426,7 +436,6 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\AppVClient" /v "Start" /t REG_DW
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AsyncMac" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\bam" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Beep" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\bindflt" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\BthA2dp" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\BthEnum" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\BthHFEnum" /v "Start" /t REG_DWORD /d "4" /f
@@ -518,6 +527,15 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\AppXSvc" /v "Start" /t REG_DWORD
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\WinHttpAutoProxySvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CloudBackupRestoreSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\GameInputSvc" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\bindflt" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\bindflt" /v "ErrorControl" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\bfs" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\wanarp" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\PRM" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\npsvctrig" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\npsvctrig" /v "ErrorControl" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Wof" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Wof" /v "ErrorControl" /t REG_DWORD /d "0" /f
 
 ::Image File Execution Options
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options" /f
@@ -574,14 +592,10 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\Backg
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\BackgroundModel\BackgroundAudioPolicy" /v "InactivityTimeoutMs" /t REG_DWORD /d "0xFFFFFFFF" /f
 reg add "HKLM\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter" /v "ActivationType" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Internal.Security.SmartScreen.AppReputationService" /v "ActivationType" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" /v "EnableLog" /t REG_SZ /d "0" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" /v "EnableDpxLog" /t REG_SZ /d "0" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" /v "DisableWerReporting" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Communications" /v "ConfigureChatAutoInstall" /t REG_DWORD /d "0" /f
 for /f "tokens=1" %%i in ('driverquery') do reg add "HKLM\SYSTEM\CurrentControlSet\Services\%%i\Parameters" /v "DmaRemappingCompatible" /t REG_DWORD /d "0" /f
 powershell -noprofile -executionpolicy bypass -command "Get-ChildItem 'Registry::\HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}' | ForEach-Object { Set-ItemProperty -Path $_.PSPath -Name 'EnableAdaptivity' -Type 'String' -Value '0' -Force}"
 powershell -noprofile -executionpolicy bypass -command "Get-ChildItem 'Registry::\HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}' | ForEach-Object { Set-ItemProperty -Path $_.PSPath -Name 'WirelessMode' -Type 'String' -Value '256' -Force}"
-powershell -noprofile -executionpolicy bypass -command "Get-ChildItem 'Registry::\HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e96e-e325-11ce-bfc1-08002be10318}' | ForEach-Object { Set-ItemProperty -Path $_.PSPath -Name 'MicrosoftApprovedAcmSupport' -Type 'DWord' -Value '1' -Force}"
 powershell -noprofile -executionpolicy bypass -command "$devices = @('ACPI Processor Aggregator','Microsoft Windows Management Interface for ACPI','AMD PSP','AMD SMBus','Base System Device','*蓝牙*','复合总线枚举器','高精度事件计时器','Intel Management Engine','Intel SMBus','*Hyper-V*','Microsoft Kernel Debug Network Adapter','Microsoft RRAS Root Enumerator', 'NDIS 虚拟网络适配器枚举器', '*WAN Miniport*', '母板资源','Numeric Data Processor','PCI数据捕获和信号处理控制器','PCI 加密/解密控制器','PCI内存控制器','PCI 简单通信控制器','SM 总线控制器','系统 CMOS/实时时钟','系统扬声器','系统计时器','UMBus Root Bus Enumerator','远程桌面设备重定向程序总线','Microsoft GS 波表合成器','AURA LED Controller', 'Microsoft 虚拟驱动器枚举器', 'Microsoft iSCSI Initiator', 'SM 总线', 'UMBus', 'Terminal Server Mouse Driver', 'Terminal Server Keyboard Driver', 'Microsoft Usbccid Smartcard Reader (WUDF)', 'Steelseries GG Component', 'Microsoft Storage Spaces Controller', 'AMD GPIO 控制器', 'Sonar APO', 'FiiO DFU', 'Microsoft UEFI-Compliant System', 'PCI 标准 ISA 桥'); Get-PnpDevice -FriendlyName $devices -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore;"
 powershell -noprofile -executionpolicy bypass -command "Get-PnpDevice -InstanceId 'ACPI\AMDIF030\0'-ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore;"
 powershell -noprofile -executionpolicy bypass -command "Get-PnpDevice -InstanceId 'PCI\VEN_1022&DEV_1485&SUBSYS_14851022&REV_00\4&1FDE7688&0&0041'-ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore;"
