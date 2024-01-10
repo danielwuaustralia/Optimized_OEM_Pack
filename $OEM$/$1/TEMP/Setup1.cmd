@@ -27,7 +27,6 @@ reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\Update" /v "ExcludeWUDriv
 reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "ExcludeWUDriversInQualityUpdate" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "ExcludeWUDriversInQualityUpdate" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\Update\ExcludeWUDriversInQualityUpdate" /v "value" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Device Metadata" /v "PreventDeviceMetadataFromNetwork" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DriverSearching" /v "SearchOrderConfig" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DriverSearching" /v "DontSearchWindowsUpdate" /t REG_DWORD /d "1" /f
 dism /english /Online /Remove-DefaultAppAssociations
@@ -37,11 +36,11 @@ compact /CompactOS:Never
 
 :: remove OneDrive
 taskkill /F /IM OneDrive.exe
-del /s /f /q "C:\Windows\System32\OneDriveSetup.exe"
+del /f /q "C:\Windows\System32\OneDriveSetup.exe"
 powershell -noprofile -executionpolicy bypass -command "Remove-Item -Path 'C:\Windows\WinSxS\*onedrive*' -Recurse -EA 0 -Verbose"
-reg load HKLM\NTUSER C:\Users\Default\NTUSER.DAT
-reg delete "HKLM\NTUSER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
-reg unload HKLM\NTUSER
+reg load HKCU C:\Users\Default\NTUSER.DAT
+reg delete "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
+reg unload HKCU
 reg delete "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f
 reg delete "HKCR\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f
 reg add "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v "System.IsPinnedToNameSpaceTree" /d "0" /t REG_DWORD /f
@@ -60,49 +59,16 @@ reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Edge" /f
 reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate" /f
 reg delete "HKLM\SYSTEM\ControlSet001\Services\edgeupdate" /f
 reg delete "HKLM\SYSTEM\ControlSet001\Services\edgeupdatem" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoft-edge-webview_31bf3856ad364e35_none_b46fc2274e055603" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoft-windows-webview2standalone_31bf3856ad364e35_none_cbf5e415acbcb4f4" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoftedge-autologger_31bf3856ad364e35_none_dd39fb9187e61e2e" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoft-windows-microsoftedgebrowser_31bf3856ad364e35_none_cc4c2155158afa1d" /f
-del /s /f /q "C:\Windows\System32\config\systemprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\Microsoft Edge.lnk"
-del /s /f /q "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
-del /s /f /q "C:\Users\Public\Desktop\Microsoft Edge.lnk"
-
-:: no GameBarPresenceWriter
-taskkill /F /IM GameBarPresenceWriter.exe
-del /f /q /s "C:\Windows\SysWOW64\GameBarPresenceWriter.exe"
-del /f /q /s "C:\Windows\System32\GameBarPresenceWriter.exe"
-del /f /q /s "C:\Windows\System32\GameBarPresenceWriter.proxy.dll"
-del /f /q /s "C:\Windows\SysWOW64\GameBarPresenceWriter.proxy.dll"
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoft-gaming-ga..rnal-presencewriter_31bf3856ad364e35_none_f7b4abb1b457ca9e" /f
+del /f /q "C:\Windows\System32\config\systemprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\Microsoft Edge.lnk"
+del /f /q "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
+del /f /q "C:\Users\Public\Desktop\Microsoft Edge.lnk"
 
 :: no wallpaper
 rmdir /s /q "C:\Windows\Web"
 
-:: no sleepstudy
-del /f /q /s "C:\Windows\System32\microsoft-windows-sleepstudy-events.dll"
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoft-windows-sleepstudy-events_31bf3856ad364e35_none_c266384d99ccaa04" /f
-
 :: no workplace sync
 del /f /q /s "C:\Windows\System32\mobsync.exe"
 del /f /q /s "C:\Windows\SysWOW64\mobsync.exe"
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoft-windows-mobsync.resources_31bf3856ad364e35_zh-cn_aca771c3cf1cda1e" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoft-windows-mobsync_31bf3856ad364e35_none_91d2430be381600d" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoft-windows-mobsyncexe_31bf3856ad364e35_none_8f1207df5410ef0b" /f
-
-:: no windows update
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate" /v "AutoDownload" /t REG_DWORD /d "5" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoWindowsUpdate" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "SetDisableUXWUAccess" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "DisableWindowsUpdateAccess" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "DoNotConnectToWindowsUpdateInternetLocations" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "WUServer" /t REG_SZ /d "\" \"" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "WUStatusServer" /t REG_SZ /d "\" \"" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "UpdateServiceUrlAlternate" /t REG_SZ /d "\" \"" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "NoAutoUpdate" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "UseWUServer" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization" /v "DODownloadMode" /t REG_DWORD /d "99" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config" /v "DODownloadMode" /t REG_DWORD /d "99" /f
 
 :: no defender & smartscreen & firewall
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\IPSec\ICFv4" /v "BypassFirewall" /t REG_DWORD /d "1" /f
@@ -116,17 +82,6 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\Firewall
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile" /v "EnableFirewall" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile" /v "EnableFirewall" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PrivateProfile" /v "EnableFirewall" /t REG_DWORD /d "0" /f
-taskkill /F /IM smartscreen.exe
-del /s /f /q "C:\Windows\System32\smartscreen.exe"
-del /s /f /q "C:\Windows\System32\smartscreen.dll"
-del /s /f /q "C:\Windows\System32\smartscreenps.dll"
-del /s /f /q "C:\Windows\SysWOW64\smartscreen.exe"
-del /s /f /q "C:\Windows\SysWOW64\smartscreenps.dll"
-del /s /f /q "C:\Windows\SysWOW64\smartscreen.dll"
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoft-windows-d..inition-smartscreen_31bf3856ad364e35_none_37141e2f8f021071" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoft-windows-smartscreen.resources_31bf3856ad364e35_zh-cn_34e74524413090a0" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoft-windows-smartscreen_31bf3856ad364e35_none_8c6d0eafaf330721" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\amd64_microsoft-windows-smartscreen-adm_31bf3856ad364e35_none_5b54a2aad676e77e" /f
 reg delete "HKLM\SYSTEM\ControlSet001\Services\MsSecFlt" /f
 reg delete "HKLM\SYSTEM\ControlSet001\Services\SecurityHealthService" /f
 reg delete "HKLM\SYSTEM\ControlSet001\Services\Sense" /f
@@ -139,13 +94,65 @@ reg delete "HKLM\SYSTEM\ControlSet001\Services\SgrmAgent" /f
 reg delete "HKLM\SYSTEM\ControlSet001\Services\SgrmBroker" /f
 reg delete "HKLM\SYSTEM\ControlSet001\Services\wscsvc" /f
 reg delete "HKLM\SYSTEM\ControlSet001\Services\webthreatdefsvc" /f
+taskkill /F /IM GameBarPresenceWriter.exe
+taskkill /F /IM smartscreen.exe
+del /f /q "C:\Windows\SysWOW64\CompatTelRunner.exe"
+del /f /q "C:\Windows\SysWOW64\DeviceCensus.exe"
+del /f /q "C:\Windows\SysWOW64\GameBarPresenceWriter.exe"
+del /f /q "C:\Windows\SysWOW64\smartscreen.dll"
+del /f /q "C:\Windows\SysWOW64\smartscreen.exe"
+del /f /q "C:\Windows\System32\DWWIN.EXE"
+del /f /q "C:\Windows\System32\GameBarPresenceWriter.exe"
+del /f /q "C:\Windows\System32\SecurityAndMaintenance.png"
+del /f /q "C:\Windows\System32\SecurityAndMaintenance_Error.png"
+del /f /q "C:\Windows\System32\SecurityHealthAgent.dll"
+del /f /q "C:\Windows\System32\SecurityHealthCore.dll"
+del /f /q "C:\Windows\System32\SecurityHealthHost.exe"
+del /f /q "C:\Windows\System32\SecurityHealthProxyStub.dll"
+del /f /q "C:\Windows\System32\SecurityHealthService.exe"
+del /f /q "C:\Windows\System32\SecurityHealthSsoUdk.dll"
+del /f /q "C:\Windows\System32\SecurityHealthSystray.exe"
+del /f /q "C:\Windows\System32\SecurityHealthUdk.dll"
+del /f /q "C:\Windows\System32\drivers\SgrmAgent.sys"
+del /f /q "C:\Windows\System32\drivers\WdBoot.sys"
+del /f /q "C:\Windows\System32\drivers\WdDevFlt.sys"
+del /f /q "C:\Windows\System32\drivers\WdFilter.sys"
+del /f /q "C:\Windows\System32\drivers\WdNisDrv.sys"
+del /f /q "C:\Windows\system32\drivers\msseccore.sys"
+del /f /q "C:\Windows\System32\smartscreen.dll"
+del /f /q "C:\Windows\System32\smartscreen.exe"
+del /f /q "C:\Windows\System32\wscadminui.exe"
+del /f /q "C:\Windows\System32\wscapi.dll"
+del /f /q "C:\Windows\System32\wscisvif.dll"
+del /f /q "C:\Windows\System32\wscproxystub.dll"
+del /f /q "C:\Windows\System32\wscsvc.dll"
+del /f /q "C:\Windows\Containers\WindowsDefenderApplicationGuard.wim"
+del /f /q "C:\Windows\Containers\serviced\WindowsDefenderApplicationGuard.wim"
+del /f /q "C:\Windows\WinSxS\FileMaps\amd64_windows-defender*.manifest"
 rmdir /s /q "C:\ProgramData\Microsoft\Windows Defender"
 rmdir /s /q "C:\ProgramData\Microsoft\Windows Defender Advanced Threat Protection"
 rmdir /s /q "C:\ProgramData\Microsoft\Windows Security Health"
 rmdir /s /q "C:\Program Files (x86)\Windows Defender"
+rmdir /s /q "C:\Program Files (x86)\Windows Defender Advanced Threat Protection"
 rmdir /s /q "C:\Program Files\Windows Defender"
 rmdir /s /q "C:\Program Files\Windows Defender Advanced Threat Protection"
-powershell -noprofile -executionpolicy bypass -command "Remove-Item -Path 'C:\Windows\WinSxS\*defender*' -Recurse -EA 0 -Verbose"
+rmdir /s /q "C:\WINDOWS\System32\drivers\wd"
+rmdir /s /q "C:\Windows\GameBarPresenceWriter"
+rmdir /s /q "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\Modules\Defender"
+rmdir /s /q "C:\Windows\SysWOW64\WindowsPowerShell\v1.0\Modules\DefenderPerformance"
+rmdir /s /q "C:\Windows\System32\HealthAttestationClient"
+rmdir /s /q "C:\Windows\System32\SecurityHealth"
+rmdir /s /q "C:\Windows\System32\Sgrm"
+rmdir /s /q "C:\Windows\System32\Tasks\Microsoft\Windows\Windows Defender"
+rmdir /s /q "C:\Windows\System32\Tasks_Migrated\Microsoft\Windows\Windows Defender"
+rmdir /s /q "C:\Windows\System32\WebThreatDefSvc"
+rmdir /s /q "C:\Windows\System32\WindowsPowerShell\v1.0\Modules\Defender"
+rmdir /s /q "C:\Windows\System32\WindowsPowerShell\v1.0\Modules\DefenderPerformance"
+rmdir /s /q "C:\Windows\WinSxS\amd64_security-octagon*"
+rmdir /s /q "C:\Windows\WinSxS\amd64_windows-defender*"
+rmdir /s /q "C:\Windows\WinSxS\wow64_windows-defender*"
+rmdir /s /q "C:\Windows\WinSxS\x86_windows-defender*"
+rmdir /s /q "C:\Windows\bcastdvr"
 reg delete "HKLM\SOFTWARE\Classes\CLSID\{09A47860-11B0-4DA5-AFA5-26D86198A780}\InprocServer32" /va /f
 reg delete "HKCR\CLSID\{09A47860-11B0-4DA5-AFA5-26D86198A780}" /v "InprocServer32" /f
 reg delete "HKCR\*\shellex\ContextMenuHandlers" /v "EPP" /f
@@ -153,10 +160,26 @@ reg delete "HKCR\Directory\shellex\ContextMenuHandlers" /v "EPP" /f
 reg delete "HKCR\Drive\shellex\ContextMenuHandlers" /v "EPP" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MRT.exe" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SecurityHealth" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows Defender" /v "DisableAntiSpyware" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "DisableAntiSpyware" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" /v "DisableAntiSpyware" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows Defender\Features" /v "TamperProtection" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWAVE\Microsoft\Windows Defender\Features" /v "TamperProtection" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWAVE\Policies\Microsoft\Windows Defender" /v "DisableAntiSpyware" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWAVE\Policies\Microsoft\Windows Defender" /v "PUAProtection" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWAVE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "DisableRealtimeMonitoring" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWAVE\Policies\Microsoft\Windows Defender\Real-Time Protection" /v "LocalSettingOverrideDisableRealtimeMonitoring" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWAVE\Policies\Microsoft\Windows Defender\Reporting" /v "WppTracingLevel" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWAVE\Policies\Microsoft\Windows Defender\Reporting" /v "DisableGenericRePorts" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWAVE\Policies\Microsoft\Windows Defender\Reporting" /v "DisableEnhancedNotifications" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWAVE\Policies\Microsoft\Windows Defender\Spynet" /v "LocalSettingOverrideSpynetReporting" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWAVE\Policies\Microsoft\Windows Defender\Spynet" /v "SubmitSamplesConsent" /t REG_DWORD /d "2" /f
+reg add "HKLM\SOFTWAVE\Policies\Microsoft\Windows Defender\Spynet" /v "SpynetReporting" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWAVE\Policies\Microsoft\Windows Defender\Spynet" /v "DisableBlockAtFirstSeen" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWAVE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\Network Protection" /v "EnableNetworkProtection" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWAVE\Microsoft\Windows\CurrentVersion\WINEVT\Channels\Microsoft-Windows-Windows Defender/Operational" /v "Enabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWAVE\Policies\Microsoft\Windows Defender Security Center\Systray" /v "HideSystray" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWAVE\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance" /v "Enabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWAVE\Policies\Microsoft\Windows Defender Security Center\Notifications" /v "DisableNotifications" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWAVE\Policies\Microsoft\Windows Defender Security Center\Notifications" /v "DisableEnhancedNotifications" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWAVE\Policies\Microsoft\Windows Defender\SmartScreen" /v "ConfigureAppInstallControlEnabled" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWAVE\Policies\Microsoft\Windows Defender\SmartScreen" /v "ConfigureAppInstallControl" /t REG_SZ /d "Anywhere" /f
 for /f %%i in ('reg query "HKLM\SYSTEM\ControlSet001\Services" /s /k "webthreatdefusersvc" /f 2^>nul ^| find /i "webthreatdefusersvc" ') do (
   reg delete "%%i" /f
 )
@@ -165,6 +188,7 @@ for /f %%i in ('reg query "HKLM\SYSTEM\ControlSet001\Services" /s /k "webthreatd
 for %%z in (
 Microsoft.MicrosoftEdge
 Microsoft.MicrosoftEdgeDevToolsClient
+Microsoft.Windows.AppRep.ChxApp_cw5n1h2txyewy
 Microsoft.Windows.ContentDeliveryManager
 Microsoft.XboxGameCallableUI
 Microsoft.Win32WebViewHost
@@ -190,6 +214,7 @@ Microsoft.WindowsStore
 Microsoft.XboxIdentityProvider
 Microsoft.ZuneMusic
 SimSecUX
+MicrosoftWindows.Client.CBS
 ) do (
 powershell -noprofile -executionpolicy bypass -command "Get-ChildItem -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Applications' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Recurse -Force -Verbose"
 powershell -noprofile -executionpolicy bypass -command "Get-ChildItem -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Recurse -Force -Verbose"
