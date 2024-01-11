@@ -7,14 +7,9 @@ ipconfig /flushdns
 :: C:\Windows\System32\PowerRun_x64.exe cmd /c attrib -a -s -h -r "D:\SteamLibrary\*.*" /s /d
 :: C:\Windows\System32\PowerRun_x64.exe cmd /c attrib -a -s -h -r "D:\$OEM$\*.*" /s /d
 :: wmic process where name="csrss.exe" CALL setpriority 256
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c logman stop Diagtrack-Listener -ets
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c logman stop UBPM -ets
-logman stop SleepStudyTraceSession -ets
 
-:: cleanup
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c schtasks /delete /tn "Microsoft\Windows\WindowsUpdate\Scheduled Start" /f
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Scan Static Task" /f
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Scan" /f
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c logman stop SleepStudyTraceSession -ets
+C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c logman stop UBPM -ets
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c rmdir /s /q "C:\TEMP"
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c rmdir /s /q "C:\Steam\dumps"
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c rmdir /s /q "C:\Steam\logs"
@@ -29,6 +24,8 @@ C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c rmdir /s /q "C:\Windows\System
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c rmdir /s /q "C:\Windows\Logs"
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c rmdir /s /q "C:\ProgramData\Microsoft\Diagnosis"
 C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c rmdir /s /q "C:\Windows\System32\SleepStudy"
+:: C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Scan" /f
+net stop bindflt
 
 :: CleanMgr.exe
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /f
