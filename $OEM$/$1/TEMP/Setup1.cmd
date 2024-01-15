@@ -199,21 +199,6 @@ Microsoft.Windows.PeopleExperienceHost
 Microsoft.Windows.NarratorQuickStart
 Microsoft.Windows.XGpuEjectDialog
 Windows.PrintDialog
-Microsoft.549981C3F5F10
-Microsoft.OneConnect
-Microsoft.Paint
-Microsoft.ScreenSketch
-Microsoft.Windows.Cortana
-Microsoft.Windows.Photos
-Microsoft.Windows.Search
-Microsoft.Windows.TabExperienceHost
-Microsoft.WindowsCamera
-microsoft.windowscommunicationsapps
-Microsoft.WindowsNotepad
-Microsoft.WindowsStore
-Microsoft.XboxIdentityProvider
-Microsoft.ZuneMusic
-SimSecUX
 MicrosoftWindows.Client.CBS
 ) do (
 powershell -noprofile -executionpolicy bypass -command "Get-ChildItem -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Applications' | Where-Object { $_.Name -match '%%z' } | Remove-Item -Recurse -Force -Verbose"
