@@ -11,6 +11,7 @@ netsh wlan connect name=LV426
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "PagingFiles" /t REG_MULTI_SZ /d "c:\pagefile.sys 49152 49152" /f
 
 :: Optimize
+start /b /w C:\TEMP\UpdateTime.exe /U /M
 start /b /w certutil.exe -generateSSTFromWU C:\TEMP\roots.sst
 powershell -noprofile -executionpolicy bypass -command "Get-ChildItem -Path C:\TEMP\roots.sst | Import-Certificate -CertStoreLocation Cert:\LocalMachine\Root"
 net stop ClipSVC /y
@@ -96,6 +97,10 @@ reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "QuicAllowed" /t REG_DWORD /d 
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "RelatedWebsiteSetsEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "PasswordDismissCompromisedAlertEnabled" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "FeedbackSurveysEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "TabOrganizerSettings" /t REG_DWORD /d "2" /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "CreateThemesSettings" /t REG_DWORD /d "2" /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "HelpMeWriteSettings" /t REG_DWORD /d "2" /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "DefaultJavaScriptJitSetting" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome\TabDiscardingExceptions" /v "1" /t REG_SZ /d "*" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome\ExtensionInstallBlocklist" /v "1" /t REG_SZ /d "ghbmnnjooekpmoecnnnilnnbdlolhkhi" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "PasswordSharingEnabled" /t REG_DWORD /d "1" /f
@@ -896,10 +901,16 @@ powercfg -changename e9a42b02-d5df-448d-aa00-03f14749eb61 "游戏模式" "游戏
 for /f %%K in ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerSettings" /s /v "Attributes"^|findstr HKEY_') do reg add %%K /v "Attributes" /t REG_DWORD /d "0" /f
 powercfg /setacvalueindex scheme_current 2a737441-1930-4402-8d77-b2bebba308a3 d4e98f31-5ffe-4ce1-be31-1b38b384c009 0
 powercfg /setacvalueindex scheme_current 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 0
+powercfg /setacvalueindex scheme_current 0012ee47-9041-4b5d-9b77-535fba8b1442 fc95af4d-40e7-4b6d-835a-56d131dbc80e 0
+powercfg /setacvalueindex scheme_current 0012ee47-9041-4b5d-9b77-535fba8b1442 dbc9e238-6de9-49e3-92cd-8c2b4946b472 0
+powercfg /setacvalueindex scheme_current 238c9fa8-0aad-41ed-83f4-97be242c8f20 abfc2519-3608-4c2a-94ea-171b0ed546ab 0
 powercfg /setacvalueindex e9a42b02-d5df-448d-aa00-03f14749eb61 2a737441-1930-4402-8d77-b2bebba308a3 d4e98f31-5ffe-4ce1-be31-1b38b384c009 0
 powercfg /setacvalueindex e9a42b02-d5df-448d-aa00-03f14749eb61 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 0
 powercfg /setacvalueindex e9a42b02-d5df-448d-aa00-03f14749eb61 54533251-82be-4824-96c1-47b60b740d00 0cc5b647-c1df-4637-891a-dec35c318583 100
 powercfg /setacvalueindex e9a42b02-d5df-448d-aa00-03f14749eb61 54533251-82be-4824-96c1-47b60b740d00 4d2b0152-7d5c-498b-88e2-34345392a2c5 5000
+powercfg /setacvalueindex e9a42b02-d5df-448d-aa00-03f14749eb61 0012ee47-9041-4b5d-9b77-535fba8b1442 fc95af4d-40e7-4b6d-835a-56d131dbc80e 0
+powercfg /setacvalueindex e9a42b02-d5df-448d-aa00-03f14749eb61 0012ee47-9041-4b5d-9b77-535fba8b1442 dbc9e238-6de9-49e3-92cd-8c2b4946b472 0
+powercfg /setacvalueindex e9a42b02-d5df-448d-aa00-03f14749eb61 238c9fa8-0aad-41ed-83f4-97be242c8f20 abfc2519-3608-4c2a-94ea-171b0ed546ab 0
 powercfg -change -hibernate-timeout-ac 0
 powercfg -change -monitor-timeout-ac 0
 powercfg -change -standby-timeout-ac 0
@@ -1602,7 +1613,7 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Control Panel\DeviceRegi
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "ShellState" /t REG_BINARY /d "240000003728010000000000000000000000000001000000130000000000000073000000" /f
 for /f "usebackq tokens=1*" %%a in (`reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume" /s /f "NukeOnDelete"^| findstr "HKEY"`) do reg add "%%a %%b" /v "NukeOnDelete" /t REG_DWORD /d "1" /f
 reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\ICM\RegisteredProfiles" /v "sRGB" /t REG_SZ /d "AdobeRGB1998.icc" /f
-reg add "HKLM\SYSTEM\ControlSet001\Control\Class\{4d36e96e-e325-11ce-bfc1-08002be10318}\0001" /v "ICMProfile" /t REG_MULTI_SZ /d "AdobeRGB1998.icc" /f
+reg add "HKLM\SYSTEM\ControlSet001\Control\Class\{4d36e96e-e325-11ce-bfc1-08002be10318}\0000" /v "ICMProfile" /t REG_MULTI_SZ /d "AdobeRGB1998.icc" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "WebSearchProviderPackageFamilyName" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "WebSearchProviderPackagePath" /f
 reg delete "HKCR\*\shellex\ContextMenuHandlers\Sharing" /f
@@ -1787,7 +1798,6 @@ for %%a in (
 
 :: Finish
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "1" /t REG_SZ /d "C:\Tools\Setup4.cmd" /f
-start /b /w C:\TEMP\UpdateTime.exe /U /M
 start /b /w C:\TEMP\soundvolumeview.exe /SetVolume "扬声器" 100
 move "C:\TEMP\SetTimerResolution.lnk" "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\"
 move "C:\TEMP\LowAudioLatency.lnk" "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\"
