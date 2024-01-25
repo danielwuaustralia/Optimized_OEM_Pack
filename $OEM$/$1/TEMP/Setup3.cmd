@@ -270,6 +270,7 @@ schtasks /delete /tn "Microsoft\Windows\AppListBackup\BackupNonMaintenance" /f
 schtasks /delete /tn "Microsoft\Windows\Application Experience\SdbinstMergeDbTask" /f
 schtasks /delete /tn "Microsoft\Windows\Application Experience\MareBackup" /f
 schtasks /delete /tn "Microsoft\Windows\AppID\EDP Policy Manager" /f
+schtasks /delete /tn "Microsoft\Windows\Subscription\EnableLicenseAcquisition" /f
 
 :: powershell -noprofile -executionpolicy bypass -command "Get-Service | Where-Object {$_.Status -EQ 'Running'}"
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\3ware" /v "Start" /t REG_DWORD /d "4" /f
