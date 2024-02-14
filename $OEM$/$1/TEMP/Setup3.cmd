@@ -47,14 +47,11 @@ schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\StartOobeAppsScan_Lic
 schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Wake To Work" /f
 schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Maintenance Work" /f
 schtasks /delete /tn "Microsoft\Windows\WindowsUpdate\Scheduled Start" /f
-schtasks /delete /tn "Microsoft\Windows\Customer Experience Improvement Program\BthSQM" /f
 schtasks /delete /tn "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /f
 schtasks /delete /tn "Microsoft\Windows\Application Experience\ProgramDataUpdater" /f
 schtasks /delete /tn "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" /f
 schtasks /delete /tn "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticResolver" /f
 schtasks /delete /tn "Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem" /f
-schtasks /delete /tn "Microsoft\Windows\Shell\FamilySafetyMonitor" /f
-schtasks /delete /tn "Microsoft\Windows\Shell\FamilySafetyRefresh" /f
 schtasks /delete /tn "Microsoft\Windows\Shell\FamilySafetyUpload" /f
 schtasks /delete /tn "Microsoft\Windows\Autochk\Proxy" /f
 schtasks /delete /tn "Microsoft\Windows\Maintenance\WinSAT" /f
@@ -64,14 +61,10 @@ schtasks /delete /tn "Microsoft\Windows\FileHistory\File History (maintenance mo
 schtasks /delete /tn "Microsoft\Windows\PI\Sqm-Tasks" /f
 schtasks /delete /tn "Microsoft\Windows\AppID\SmartScreenSpecific" /f
 schtasks /delete /tn "Microsoft\Windows\SettingSync\BackgroundUploadTask" /f
-schtasks /delete /tn "Microsoft\Windows\AppID\SmartScreenSpecific" /f
 schtasks /delete /tn "Microsoft\Windows\ApplicationData\CleanupTemporaryState" /f
 schtasks /delete /tn "Microsoft\Windows\ApplicationData\DsSvcCleanup" /f
 schtasks /delete /tn "Microsoft\Windows\ApplicationData\appuriverifierinstall" /f
 schtasks /delete /tn "Microsoft\Windows\ApplicationData\appuriverifierdaily" /f
-schtasks /delete /tn "Microsoft\Windows\Application Experience\AitAgent" /f
-schtasks /delete /tn "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /f
-schtasks /delete /tn "Microsoft\Windows\Application Experience\ProgramDataUpdater" /f
 schtasks /delete /tn "Microsoft\Windows\Application Experience\StartupAppTask" /f
 schtasks /delete /tn "Microsoft\Windows\Application Experience\PcaPatchDbTask" /f
 schtasks /delete /tn "Microsoft\Windows\Customer Experience Improvement Program\Consolidator" /f
@@ -97,7 +90,6 @@ schtasks /delete /tn "Microsoft\Windows\NetCfg\BindingWorkItemQueueHandler" /f
 schtasks /delete /tn "Microsoft\Windows\NetTrace\GatherNetworkInfo" /f
 schtasks /delete /tn "Microsoft\Windows\Offline Files\Background Synchronization" /f
 schtasks /delete /tn "Microsoft\Windows\Offline Files\Logon Synchronization" /f
-schtasks /delete /tn "Microsoft\Windows\PI\Sqm-Tasks" /f
 schtasks /delete /tn "Microsoft\Windows\Ras\MobilityManager" /f
 schtasks /delete /tn "Microsoft\Windows\RemoteAssistance\RemoteAssistanceTask" /f
 schtasks /delete /tn "Microsoft\Windows\Servicing\StartComponentCleanup" /f
@@ -325,7 +317,6 @@ reg delete "HKLM\SYSTEM\CurrentControlSet\Services\GoogleChromeElevationService"
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\NVDisplay.ContainerLocalSystem" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CryptSvc" /v "Start" /t REG_DWORD /d "3" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\rdbss" /v "Start" /t REG_DWORD /d "3" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\InstallService" /v "Start" /t REG_DWORD /d "3" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\StateRepository" /v "Start" /t REG_DWORD /d "3" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AudioEndpointBuilder" /v "Start" /t REG_DWORD /d "3" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\EventSystem" /v "Start" /t REG_DWORD /d "3" /f
@@ -515,7 +506,6 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\SENS" /v "Start" /t REG_DWORD /d
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\NcdAutoSetup" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\WpnUserService" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AppMgmt" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\InstallService" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\DusmSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\hidserv" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\TokenBroker" /v "Start" /t REG_DWORD /d "4" /f
@@ -523,7 +513,6 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\SpatialGraphFilter" /v "Start" /
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\WpdUpFltr" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\cloudidsvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AppReadiness" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\AppXSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\WinHttpAutoProxySvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CloudBackupRestoreSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\GameInputSvc" /v "Start" /t REG_DWORD /d "4" /f
@@ -536,6 +525,11 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\npsvctrig" /v "Start" /t REG_DWO
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\npsvctrig" /v "ErrorControl" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Wof" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Wof" /v "ErrorControl" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\AppXSvc" /v "Start" /t REG_DWORD /d "3" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\wlidsvc" /v "Start" /t REG_DWORD /d "3" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\PushToInstall" /v "Start" /t REG_DWORD /d "3" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\InstallService" /v "Start" /t REG_DWORD /d "3" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\WSService" /v "Start" /t REG_DWORD /d "3" /f
 
 ::Image File Execution Options
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options" /f
@@ -653,6 +647,8 @@ for %%a in ("HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Capt
         reg delete "%%b\Properties" /v "{3d6e1656-2e50-4c4c-8d85-d0acae3c6c68},2" /f
     )
 )
+move C:\Windows\System32\mcupdate_GenuineIntel.dll C:\Windows\System32\mcupdate_GenuineIntel.dll.backup
+move C:\Windows\System32\mcupdate_AuthenticAMD.dll C:\Windows\System32\mcupdate_AuthenticAMD.dll.backup
 
 :: Cleanup
 del /s /q "C:\Users\Administrator\AppData\Local\Microsoft\Windows\Explorer\ExplorerStartupLog.etl"
