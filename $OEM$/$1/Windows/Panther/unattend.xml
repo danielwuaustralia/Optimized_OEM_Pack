@@ -108,7 +108,7 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>16</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\7z2301-x64.exe /S /D="C:\Program Files\7-Zip"</CommandLine>
+                    <CommandLine>C:\TEMP\7z2400-x64.exe /S /D="C:\Program Files\7-Zip"</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>17</Order>
