@@ -9,12 +9,10 @@ netsh wlan add profile filename="C:\TEMP\WiFi.xml" user=all
 netsh wlan set profileparameter name="LV426" connectionmode=auto
 netsh wlan connect name=LV426
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "PagingFiles" /t REG_MULTI_SZ /d "c:\pagefile.sys 49152 49152" /f
-timeout /t 4 /nobreak
 
 :: Optimize
 net stop ClipSVC /y
 net start ClipSVC
-slmgr /ato
 start /b /w C:\TEMP\UpdateTime.exe /U /M
 start /b /w certutil.exe -generateSSTFromWU C:\TEMP\roots.sst
 powershell -noprofile -executionpolicy bypass -command "Get-ChildItem -Path C:\TEMP\roots.sst | Import-Certificate -CertStoreLocation Cert:\LocalMachine\Root"
@@ -678,8 +676,8 @@ netsh interface teredo set state disabled
 netsh interface 6to4 set state disabled
 netsh interface isatap set state disable
 netsh int tcp set global autotuninglevel=disabled
-netsh int tcp set supplemental Internet congestionprovider=bbr2
-netsh int tcp set supplemental InternetCustom congestionprovider=bbr2
+netsh int tcp set supplemental Internet congestionprovider=ctcp
+netsh int tcp set supplemental InternetCustom congestionprovider=ctcp
 netsh int tcp set global chimney=disabled
 netsh int tcp set global ecncapability=enabled
 netsh int tcp set global rss=enabled
@@ -1674,6 +1672,8 @@ reg delete "HKCU\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\Shel
 reg Delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Streams\Defaults" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{89B4C1CD-B018-4511-B0A1-5476DBF70820}" /v "StubPath" /f
 reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Active Setup\Installed Components\{89B4C1CD-B018-4511-B0A1-5476DBF70820}" /v "StubPath" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{8A69D345-D564-463c-AFF1-A69D9E530F96}" /v "StubPath" /f
+reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Active Setup\Installed Components\{8A69D345-D564-463c-AFF1-A69D9E530F96}" /v "StubPath" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Font Drivers" /v "Adobe Type Manager" /f
 reg add "HKCU\AppID\{3eb3c877-1f16-487c-9050-104dbcd66683}" /f
 reg add "HKCU\CLSID\{0358b920-0ac7-461f-98f4-58e32cd89148}" /f
@@ -1832,7 +1832,8 @@ move "C:\TEMP\StartUp.lnk" "C:\Users\Administrator\AppData\Roaming\Microsoft\Win
 start /b /w C:\TEMP\NVidiaProfileInspector\nvidiaProfileInspector.exe
 start /b /w C:\TEMP\ColorControl\ColorControl.exe
 C:\Windows\System32\PowerRun_x64.exe cmd /c "C:\TEMP\Setup3.cmd"
-start /b /w C:\TEMP\StartAllBack.exe /ai /gm2
-start explorer.exe
+start /b /w C:\TEMP\StartAllBack_setup.exe
+start /b /w C:\TEMP\StartAllBack_3.x_Patch.exe
 start /w C:\Tools\idman642build3.exe
+slmgr /ato
 start /w C:\Tools\IDMcrack.exe
