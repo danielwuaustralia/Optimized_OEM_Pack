@@ -418,6 +418,7 @@ reg delete "HKLM\SOFTWARE\Microsoft\Windows Defender" /f
 reg delete "HKCR\Folder\shell\WindowsDefender" /f
 reg delete "HKCR\DesktopBackground\Shell\WindowsSecurity" /f
 reg delete "HKCR\Folder\shell\WindowsDefender\Command" /f
+reg delete "HKLM\SOFTWARE\Classes\Drive\shellex\ContextMenuHandlers\EPP" /f
 taskkill /f /im explorer.exe >nul
 taskkill /f /im smartscreen.exe >nul
 taskkill /f /im SecurityHealthSystray.exe >nul
