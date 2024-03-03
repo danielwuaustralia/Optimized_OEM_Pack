@@ -35,19 +35,15 @@ reagentc /disable
 compact /CompactOS:Never
 
 :: remove OneDrive
-taskkill /F /IM OneDrive.exe
+taskkill /F /IM "OneDrive.exe"
 del /f /q "C:\Windows\System32\OneDriveSetup.exe"
-powershell -noprofile -executionpolicy bypass -command "Remove-Item -Path 'C:\Windows\WinSxS\*onedrive*' -Recurse -EA 0 -Verbose"
-reg load HKCU C:\Users\Default\NTUSER.DAT
-reg delete "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "OneDriveSetup" /f
-reg unload HKCU
 reg delete "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f
 reg delete "HKCR\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f
 reg add "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v "System.IsPinnedToNameSpaceTree" /d "0" /t REG_DWORD /f
 reg add "HKCR\Wow6432Node\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v "System.IsPinnedToNameSpaceTree" /d "0" /t REG_DWORD /f
 
 :: no MS Edge
-taskkill /F /IM msedge.exe
+taskkill /F /IM "msedge.exe"
 rmdir /s /q "C:\Program Files (x86)\Microsoft\Edge"
 rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeUpdate"
 rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeCore"
@@ -419,7 +415,8 @@ reg delete "HKCR\Folder\shell\WindowsDefender" /f
 reg delete "HKCR\DesktopBackground\Shell\WindowsSecurity" /f
 reg delete "HKCR\Folder\shell\WindowsDefender\Command" /f
 reg delete "HKLM\SOFTWARE\Classes\Drive\shellex\ContextMenuHandlers\EPP" /f
-taskkill /f /im explorer.exe >nul
+reg delete "HKLM\SOFTWARE\Classes\*\shellex\ContextMenuHandlers\EPP" /f
+reg delete "HKLM\SOFTWARE\Classes\Directory\shellex\ContextMenuHandlers\EPP" /f
 taskkill /f /im smartscreen.exe >nul
 taskkill /f /im SecurityHealthSystray.exe >nul
 taskkill /f /im SecurityHealthHost.exe >nul
