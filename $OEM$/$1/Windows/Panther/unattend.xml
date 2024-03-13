@@ -83,45 +83,35 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>11</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\vstor_redist.exe /q /norestart</CommandLine>
+                    <CommandLine>C:\TEMP\VC_redist.x86.exe /install /passive /norestart</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>12</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\VC_redist.x86.exe /install /passive /norestart</CommandLine>
+                    <CommandLine>C:\TEMP\VC_redist.x64.exe /install /passive /norestart</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>13</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\VC_redist.x64.exe /install /passive /norestart</CommandLine>
+                    <CommandLine>C:\TEMP\LegacyRedist\DXSETUP.exe /silent</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>14</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\netframework.exe /install /quiet /norestart</CommandLine>
+                    <CommandLine>C:\TEMP\7zip.exe /S /D="C:\Program Files\7-Zip"</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>15</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\LegacyRedist\DXSETUP.exe /silent</CommandLine>
+                    <CommandLine>cmd.exe /c msiexec /i C:\TEMP\googlechromestandaloneenterprise64.msi /quiet /norestart</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <Order>16</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\7z2400-x64.exe /S /D="C:\Program Files\7-Zip"</CommandLine>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>17</Order>
-                    <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>cmd.exe /c msiexec /i C:\TEMP\googlechromestandaloneenterprise64.msi /quiet /norestart</CommandLine>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>18</Order>
-                    <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>powershell -NoProfile -ExecutionPolicy Bypass -File "C:\TEMP\Setup_InterruptAffinity.ps1"</CommandLine>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <Order>19</Order>
+                    <Order>17</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>cmd.exe /c "C:\TEMP\Setup2.cmd"</CommandLine>
                 </SynchronousCommand>
