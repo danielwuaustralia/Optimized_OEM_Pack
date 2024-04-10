@@ -1,10 +1,6 @@
 @echo on
 color 0a
 
-:: install drivers
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1" /f /v "Path" /t REG_SZ /d "C:\TEMP\Drivers"
-"C:\Windows\System32\pnpunattend.exe" AuditSystem /L
-
 :: pre config
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v "TEMP" /t REG_EXPAND_SZ /d "C:\TEMP" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v "TMP" /t REG_EXPAND_SZ /d "C:\TEMP" /f
@@ -29,20 +25,9 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "ExcludeWUDr
 reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\Update\ExcludeWUDriversInQualityUpdate" /v "value" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DriverSearching" /v "SearchOrderConfig" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DriverSearching" /v "DontSearchWindowsUpdate" /t REG_DWORD /d "1" /f
-dism /english /Online /Remove-DefaultAppAssociations
-dism /english /Online /Set-ReservedStorageState /State:Disabled
-reagentc /disable
-compact /CompactOS:Never
-
-:: remove OneDrive
-taskkill /f /im OneDrive.exe >nul
-del /f /q "C:\Windows\System32\OneDriveSetup.exe"
-reg delete "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f
-reg delete "HKCR\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /f
-reg add "HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v "System.IsPinnedToNameSpaceTree" /d "0" /t REG_DWORD /f
-reg add "HKCR\Wow6432Node\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" /v "System.IsPinnedToNameSpaceTree" /d "0" /t REG_DWORD /f
 
 :: no MS Edge
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Control Panel\DeviceRegion" /v "DeviceRegion" /t REG_DWORD /d "68" /f
 taskkill /f /im msedge.exe >nul
 rmdir /s /q "C:\Program Files (x86)\Microsoft\Edge"
 rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeUpdate"
@@ -58,13 +43,6 @@ reg delete "HKLM\SYSTEM\ControlSet001\Services\edgeupdatem" /f
 del /f /q "C:\Windows\System32\config\systemprofile\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\Microsoft Edge.lnk"
 del /f /q "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk"
 del /f /q "C:\Users\Public\Desktop\Microsoft Edge.lnk"
-
-:: no wallpaper
-rmdir /s /q "C:\Windows\Web"
-
-:: no workplace sync
-del /f /q /s "C:\Windows\System32\mobsync.exe"
-del /f /q /s "C:\Windows\SysWOW64\mobsync.exe"
 
 :: no defender & smartscreen & firewall
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\IPSec\ICFv4" /v "BypassFirewall" /t REG_DWORD /d "1" /f
