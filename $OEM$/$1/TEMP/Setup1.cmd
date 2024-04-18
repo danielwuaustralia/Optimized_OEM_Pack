@@ -25,9 +25,23 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "ExcludeWUDr
 reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\Update\ExcludeWUDriversInQualityUpdate" /v "value" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DriverSearching" /v "SearchOrderConfig" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DriverSearching" /v "DontSearchWindowsUpdate" /t REG_DWORD /d "1" /f
+dism /english /Online /Remove-DefaultAppAssociations
+dism /english /Online /Set-ReservedStorageState /State:Disabled
+reagentc /disable
+compact /CompactOS:Never
+
+:: no Onedrive
+taskkill /f /im OneDrive.exe
+del /f /q "C:\Windows\System32\OneDriveSetup.exe"
+
+:: no wallpapers
+rmdir /s /q "C:\Windows\Web"
+
+:: no workplace sync
+del /f /q "C:\Windows\System32\mobsync.exe"
+del /f /q "C:\Windows\SysWOW64\mobsync.exe"
 
 :: no MS Edge
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Control Panel\DeviceRegion" /v "DeviceRegion" /t REG_DWORD /d "68" /f
 taskkill /f /im msedge.exe >nul
 rmdir /s /q "C:\Program Files (x86)\Microsoft\Edge"
 rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeUpdate"
