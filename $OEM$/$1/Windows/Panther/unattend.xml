@@ -5,7 +5,7 @@
             <RunSynchronous>
                 <RunSynchronousCommand wcm:action="add">
                     <Order>1</Order>
-                    <Path>cmd.exe /c "C:\TEMP\Setup1.cmd"</Path>
+                    <Path>cmd.exe /c "C:\TEMP\Setup0.cmd"</Path>
                 </RunSynchronousCommand>
             </RunSynchronous>
         </component>
@@ -14,7 +14,7 @@
             <RegisteredOwner>Ellen Ripley</RegisteredOwner>
             <RegisteredOrganization>Weyland-Yutani</RegisteredOrganization>
             <TimeZone>AUS Eastern Standard Time</TimeZone>
-            <ProductKey>XGVPP-NMH47-7TTHJ-W3FW7-8HV2C</ProductKey>
+            <ProductKey>VK7JG-NPHTM-C97JM-9MPGT-3V66T</ProductKey>
         </component>
     </settings>
     <settings pass="oobeSystem">
@@ -138,12 +138,7 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>18</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -File &quot;C:\TEMP\Setup_InterruptAffinity.ps1&quot;</CommandLine>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>19</Order>
-                    <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>cmd.exe /c "C:\TEMP\Setup2.cmd"</CommandLine>
+                    <CommandLine>cmd.exe /c "C:\TEMP\Setup1.cmd"</CommandLine>
                 </SynchronousCommand>
             </FirstLogonCommands>
             <UserAccounts>
