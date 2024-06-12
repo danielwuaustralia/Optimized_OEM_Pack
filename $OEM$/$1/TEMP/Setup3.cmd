@@ -8,38 +8,6 @@ del /F /Q "C:\Windows\System32\Tasks\Microsoft\Windows\DeviceDirectoryClient\*"
 del /F /Q "C:\Windows\System32\Tasks\Microsoft\Windows\Location\*"
 powershell -noprofile -executionpolicy bypass -command "Get-ScheduledTask | Where {$_.TaskName -match 'MicrosoftEdge' } | Unregister-ScheduledTask -Confirm:$false"
 powershell -noprofile -executionpolicy bypass -command "Get-ScheduledTask | Where {$_.TaskName -match 'GoogleUpdater' } | Unregister-ScheduledTask -Confirm:$false"
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\AppID" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Application Experience" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\AppxDeploymentClient" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Autochk" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\CloudExperienceHost" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Customer Experience Improvement Program" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Device Information" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Diagnosis" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DiskDiagnostic" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\DiskFootprint" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Feedback" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Flighting" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Location" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Maintenance" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Maps" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\MemoryDiagnostic" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\NetTrace" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Offline Files" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Power Efficiency Diagnostics" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\PushToInstall" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Ras" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Registry" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Time Synchronization" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Time Zone" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\User Profile Service" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Defender" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Error Reporting" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Windows Filtering Platform" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WindowsUpdate" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\UpdateOrchestrator" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\WaaSMedic" /f
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\XblGameSave" /f
 schtasks /delete /tn "StartAllBack Update" /f
 schtasks /delete /tn "Microsoft\Windows\DiskCleanup\SilentCleanup" /f
 schtasks /delete /tn "Microsoft\Windows\Diagnosis\Scheduled" /f
@@ -111,6 +79,181 @@ schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceSett
 schtasks /delete /tn "Microsoft\Windows\Input\LocalUserSyncDataAvailable" /f
 schtasks /delete /tn "Microsoft\Windows\Input\PenSyncDataAvailable" /f
 schtasks /delete /tn "Microsoft\Windows\Management\Provisioning\MdmDiagnosticsCleanup" /f
+schtasks /delete /tn "Microsoft\Windows\WindowsColorSystem\Calibration Loader" /f
+schtasks /delete /tn "Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319 64 Critical" /f
+schtasks /delete /tn "Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319 Critical" /f
+schtasks /delete /tn "Microsoft\Windows\ConsentUX\UnifiedConsent\UnifiedConsentSyncTask" /f
+schtasks /delete /tn "Microsoft\Windows\Security\Pwdless\IntelligentPwdlessTask" /f
+schtasks /delete /tn "Microsoft\Windows\Setup\SetupCleanupTask" /f
+schtasks /delete /tn "Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319" /f
+schtasks /delete /tn "Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319 64" /f
+schtasks /delete /tn "Microsoft\Windows\Active Directory Rights Management Services Client\AD RMS Rights Policy Template Management (Automated)" /f
+schtasks /delete /tn "Microsoft\Windows\Active Directory Rights Management Services Client\AD RMS Rights Policy Template Management (Manual)" /f
+schtasks /delete /tn "Microsoft\Windows\Management\Provisioning\Logon" /f
+schtasks /delete /tn "Microsoft\Windows\InstallService\RestoreDevice" /f
+schtasks /delete /tn "Microsoft\Windows\DirectX\DXGIAdapterCache" /f
+schtasks /delete /tn "Microsoft\Windows\AppListBackup\BackupNonMaintenance" /f
+schtasks /delete /tn "Microsoft\Windows\Clip\LicenseImdsIntegration" /f
+schtasks /delete /tn "Microsoft\Windows\CloudRestore\Backup" /f
+schtasks /delete /tn "Microsoft\Windows\CloudRestore\Restore" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\IntegrityCheck" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\RegisterDevicePeriodic24" /f
+schtasks /delete /tn "Microsoft\Windows\File Classification Infrastructure\Property Definition Sync" /f
+schtasks /delete /tn "Microsoft\Windows\Printing\PrinterCleanupTask" /f
+schtasks /delete /tn "Microsoft\Windows\Printing\PrintJobCleanupTask" /f
+schtasks /delete /tn "Microsoft\Windows\Storage Tiers Management\Storage Tiers Optimization" /f
+schtasks /delete /tn "Microsoft\Windows\RemoteAssistance\RemoteAssistanceTask" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Scan" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Scan Static Task" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\UpdateModelTask" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\USO_UxBroker" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Report policies" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\UUS Failover Task" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Refresh Settings" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule work" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Start Oobe Expedite Work" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\StartOobeAppsScan" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\StartOobeAppsScanAfterUpdate" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\StartOobeAppsScan_LicenseAccepted" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Wake To Work" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Maintenance Work" /f
+schtasks /delete /tn "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /f
+schtasks /delete /tn "Microsoft\Windows\Application Experience\ProgramDataUpdater" /f
+schtasks /delete /tn "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticResolver" /f
+schtasks /delete /tn "Microsoft\Windows\Shell\FamilySafetyUpload" /f
+schtasks /delete /tn "Microsoft\Windows\Autochk\Proxy" /f
+schtasks /delete /tn "Microsoft\Windows\Application Experience\AitAgent" /f
+schtasks /delete /tn "Microsoft\Windows\AppID\SmartScreenSpecific" /f
+schtasks /delete /tn "Microsoft\Windows\SettingSync\BackgroundUploadTask" /f
+schtasks /delete /tn "Microsoft\Windows\ApplicationData\CleanupTemporaryState" /f
+schtasks /delete /tn "Microsoft\Windows\Customer Experience Improvement Program\Consolidator" /f
+schtasks /delete /tn "Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask" /f
+schtasks /delete /tn "Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" /f
+schtasks /delete /tn "Microsoft\Windows\Customer Experience Improvement Program\BthSQM" /f
+schtasks /delete /tn "Microsoft\Windows\Customer Experience Improvement Program\HypervisorFlightingTask" /f
+schtasks /delete /tn "Microsoft\Windows\Customer Experience Improvement Program\Uploader" /f
+schtasks /delete /tn "Microsoft\Windows\DiskFootprint\StorageSense" /f
+schtasks /delete /tn "Microsoft\Windows\ErrorDetails\EnableErrorDetailsUpdate" /f
+schtasks /delete /tn "Microsoft\Windows\Feedback\Siuf\DmClient" /f
+schtasks /delete /tn "Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload" /f
+schtasks /delete /tn "Microsoft\Windows\Maps\MapsToastTask" /f
+schtasks /delete /tn "Microsoft\Windows\Maps\MapsUpdateTask" /f
+schtasks /delete /tn "Microsoft\Windows\Mobile Broadband Accounts\MNO Metadata Parser" /f
+schtasks /delete /tn "Microsoft\Windows\Multimedia\SystemSoundsService" /f
+schtasks /delete /tn "Microsoft\Windows\NlaSvc\WiFiTask" /f
+schtasks /delete /tn "Microsoft\Windows\NetCfg\BindingWorkItemQueueHandler" /f
+schtasks /delete /tn "Microsoft\Windows\NetTrace\GatherNetworkInfo" /f
+schtasks /delete /tn "Microsoft\Windows\Offline Files\Background Synchronization" /f
+schtasks /delete /tn "Microsoft\Windows\Offline Files\Logon Synchronization" /f
+schtasks /delete /tn "Microsoft\Windows\Servicing\StartComponentCleanup" /f
+schtasks /delete /tn "Microsoft\Windows\User Profile Service\HiveUploadTask" /f
+schtasks /delete /tn "Microsoft\Windows\WCM\WiFiTask" /f
+schtasks /delete /tn "Microsoft\Windows\Windows Defender\Windows Defender Cache Maintenance" /f
+schtasks /delete /tn "Microsoft\Windows\Windows Defender\Windows Defender Cleanup" /f
+schtasks /delete /tn "Microsoft\Windows\Windows Defender\Windows Defender Scheduled Scan" /f
+schtasks /delete /tn "Microsoft\Windows\Windows Defender\Windows Defender Verification" /f
+schtasks /delete /tn "Microsoft\Windows\Windows Error Reporting\QueueReporting" /f
+schtasks /delete /tn "Microsoft\Windows\Windows Filtering Platform\BfeOnServiceStartTypeChange" /f
+schtasks /delete /tn "Microsoft\Windows\Work Folders\Work Folders Logon Synchronization" /f
+schtasks /delete /tn "Microsoft\Windows\Work Folders\Work Folders Maintenance Work" /f
+schtasks /delete /tn "Microsoft\Windows\Workplace Join\Automatic-Device-Join" /f
+schtasks /delete /tn "Microsoft\XblGameSave\XblGameSaveTask" /f
+schtasks /delete /tn "Microsoft\XblGameSave\XblGameSaveTaskLogon" /f
+schtasks /delete /tn "Microsoft\Office\OfficeTelemetryAgentFallBack2016" /f
+schtasks /delete /tn "Microsoft\Office\OfficeTelemetryAgentLogOn2016" /f
+schtasks /delete /tn "Microsoft\Office\Office ClickToRun Service Monitor" /f
+schtasks /delete /tn "Microsoft\Office\OfficeTelemetryAgentLogOn" /f
+schtasks /delete /tn "Microsoft\Office\OfficeTelemetryAgentFallBack" /f
+schtasks /delete /tn "Microsoft\Office\Office 15 Subscription Heartbeat" /f
+schtasks /delete /tn "Microsoft\Windows\HelloFace\FODCleanupTask" /f
+schtasks /delete /tn "Microsoft\Windows\Clip\License Validation" /f
+schtasks /delete /tn "Microsoft\Windows\Device Information\Device" /f
+schtasks /delete /tn "Microsoft\Windows\Device Information\Device User" /f
+schtasks /delete /tn "Microsoft\Windows\PerfTrack\BackgroundConfigSurveyor" /f
+schtasks /delete /tn "Microsoft\Windows\Location\Notifications" /f
+schtasks /delete /tn "Microsoft\Windows\Location\WindowsActionDialog" /f
+schtasks /delete /tn "Microsoft\Windows\Retail Demo\CleanupOfflineContent" /f
+schtasks /delete /tn "Microsoft\Windows\Shell\FamilySafetyRefreshTask" /f
+schtasks /delete /tn "Microsoft\Windows\Time Zone\SynchronizeTimeZone" /f
+schtasks /delete /tn "Microsoft\Windows\Time Synchronization\SynchronizeTime" /f
+schtasks /delete /tn "Microsoft\Windows\Time Synchronization\ForceSynchronizeTime" /f
+schtasks /delete /tn "Microsoft\Windows\MUI\LPRemove" /f
+schtasks /delete /tn "Microsoft\Windows\Diagnosis\RecommendedTroubleshootingScanner" /f
+schtasks /delete /tn "Microsoft\Windows\DUSM\dusmtask" /f
+schtasks /delete /tn "Microsoft\Windows\EnterpriseMgmt\MDMMaintenenceTask" /f
+schtasks /delete /tn "Microsoft\Windows\Flighting\FeatureConfig\ReconcileFeatures" /f
+schtasks /delete /tn "Microsoft\Windows\Flighting\FeatureConfig\UsageDataFlushing" /f
+schtasks /delete /tn "Microsoft\Windows\Flighting\FeatureConfig\UsageDataReporting" /f
+schtasks /delete /tn "Microsoft\Windows\Flighting\OneSettings\RefreshCache" /f
+schtasks /delete /tn "Microsoft\Windows\Input\MouseSyncDataAvailable" /f
+schtasks /delete /tn "Microsoft\Windows\Input\TouchpadSyncDataAvailable" /f
+schtasks /delete /tn "Microsoft\Windows\License Manager\TempSignedLicenseExchange" /f
+schtasks /delete /tn "Microsoft\Windows\PushToInstall\Registration" /f
+schtasks /delete /tn "Microsoft\Windows\RetailDemo\CleanupOfflineContent" /f
+schtasks /delete /tn "Microsoft\Windows\SettingSync\NetworkStateChangeTask" /f
+schtasks /delete /tn "Microsoft\Windows\Setup\SnapshotCleanupTask" /f
+schtasks /delete /tn "Microsoft\Windows\Storage Tiers Management\Storage Tiers Management Initialization" /f
+schtasks /delete /tn "Microsoft\Windows\Sysmain\ResPriStaticDbSync" /f
+schtasks /delete /tn "Microsoft\Windows\Sysmain\WsSwapAssessmentTask" /f
+schtasks /delete /tn "Microsoft\Windows\Task Manager\Interactive" /f
+schtasks /delete /tn "Microsoft\Windows\WDI\ResolutionHost" /f
+schtasks /delete /tn "Microsoft\Windows\WOF\WIM-Hash-Management" /f
+schtasks /delete /tn "Microsoft\Windows\WOF\WIM-Hash-Validation" /f
+schtasks /delete /tn "Microsoft\Windows\WwanSvc\NotificationTask" /f
+schtasks /delete /tn "MicrosoftEdgeUpdateTaskMachineUA" /f
+schtasks /delete /tn "MicrosoftEdgeUpdateTaskMachineCore" /f
+schtasks /delete /tn "Microsoft\Windows\USB\Usb-Notifications" /f
+schtasks /delete /tn "Microsoft\Windows\AppID\EDPPolicyManager" /f
+schtasks /delete /tn "Microsoft\Windows\AppListBackup\Backup" /f
+schtasks /delete /tn "Microsoft\Windows\Bluetooth\UninstallDeviceTask" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\HandleCommand" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\HandleWnsCommand" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\LocateCommandUserSession" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceAccountChange" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\RegisterDevicePolicyChange" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceProtectionStateChanged" /f
+schtasks /delete /tn "Microsoft\Windows\CertificateServicesClient\SystemTask" /f
+schtasks /delete /tn "Microsoft\Windows\CertificateServicesClient\UserTask" /f
+schtasks /delete /tn "Microsoft\Windows\CertificateServicesClient\UserTask-Roam" /f
+schtasks /delete /tn "Microsoft\Windows\EDP\EDPAppLaunchTask" /f
+schtasks /delete /tn "Microsoft\Windows\EDP\EDPAuthTask" /f
+schtasks /delete /tn "Microsoft\Windows\EDP\EDPInaccessibleCredentialsTask" /f
+schtasks /delete /tn "Microsoft\Windows\EDP\StorageCardEncryptionTask" /f
+schtasks /delete /tn "Microsoft\Windows\Shell\CreateObjectTask" /f
+schtasks /delete /tn "Microsoft\Windows\Shell\ThemesSyncedImageDownload" /f
+schtasks /delete /tn "Microsoft\Windows\TaskScheduler\Maintenance Configurator" /f
+schtasks /delete /tn "Microsoft\Windows\Input\InputSettingsRestoreDataAvailable" /f
+schtasks /delete /tn "Microsoft\Windows\Input\syncpensettings" /f
+schtasks /delete /tn "Microsoft\Windows\RecoveryEnvironment\VerifyWinRE" /f
+schtasks /delete /tn "Microsoft\Windows\SharedPC\Account Cleanup" /f
+schtasks /delete /tn "Microsoft\Windows\Management\Autopilot\DetectHardwareChange" /f
+schtasks /delete /tn "Microsoft\Windows\Workplace Join\Device-Sync" /f
+schtasks /delete /tn "Microsoft\Windows\EDP\EDP App Launch Task" /f
+schtasks /delete /tn "Microsoft\Windows\EDP\EDP Auth Task" /f
+schtasks /delete /tn "Microsoft\Windows\EDP\EDP Inaccessible Credentials Task" /f
+schtasks /delete /tn "Microsoft\Windows\Sysmain\HybridDriveCachePrepopulate" /f
+schtasks /delete /tn "Microsoft\Windows\Sysmain\HybridDriveCacheRebalance" /f
+schtasks /delete /tn "Microsoft\Windows\CertificateServicesClient\KeyPreGenTask" /f
+schtasks /delete /tn "Microsoft\Windows\Kernel\La57Cleanup" /f
+schtasks /delete /tn "Microsoft\Windows\capabilityaccessmanager\maintenancetasks" /f
+schtasks /delete /tn "Microsoft\Windows\Application Experience\MareBackup" /f
+schtasks /delete /tn "Microsoft\Windows\AppID\PolicyConverter" /f
+schtasks /delete /tn "Microsoft\Windows\AppxDeploymentClient\Pre-staged app cleanup" /f
+schtasks /delete /tn "Microsoft\Windows\Workplace Join\Recovery-Check" /f
+schtasks /delete /tn "Microsoft\Windows\WindowsUpdate\Refresh Group Policy Cache" /f
+schtasks /delete /tn "Microsoft\Windows\DeviceDirectoryClient\RegisterDeviceLocationRightsChange" /f
+schtasks /delete /tn "Microsoft\Windows\Management\Autopilot\RemediateHardwareChange" /f
+schtasks /delete /tn "Microsoft\Windows\Management\Provisioning\Retry" /f
+schtasks /delete /tn "Microsoft\Windows\Management\Provisioning\RunOnReboot" /f
+schtasks /delete /tn "Microsoft\Windows\Application Experience\SdbinstMergeDbTask" /f
+schtasks /delete /tn "Microsoft\Windows\SystemRestore\SR" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\StartOobeAppsScan_OobeAppReady" /f
+schtasks /delete /tn "Microsoft\Windows\EDP\StorageCardEncryption Task" /f
+schtasks /delete /tn "Microsoft\Windows\Shell\ThemeAssetTask_SyncFODState" /f
+schtasks /delete /tn "Microsoft\Windows\AppID\VerifiedPublisherCertStoreCheck" /f
+schtasks /delete /tn "Microsoft\Windows\Application Experience\PcaWallpaperAppDetect" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Scan" /f
+schtasks /delete /tn "Microsoft\Windows\UpdateOrchestrator\Schedule Scan Static Task" /f
 
 :: Legacy Driver
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\3ware" /v "Start" /t REG_DWORD /d "4" /f
@@ -176,67 +319,55 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\intelpmax" /v "Start" /t REG_DWO
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\intelpep" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\iaStorAVC" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\iaStorV" /v "Start" /t REG_DWORD /d "4" /f
+
+:: services
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\MicrosoftEdgeElevationService" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\RTUsbSwSrvc" /f
-
-:: Windows Services
-reg delete "HKLM\SYSTEM\ControlSet001\Services\wercplsupport" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\WerSvc" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\WSearch" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\lfsvc" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\MapsBroker" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\edgeupdate" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\edgeupdatem" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\diagnosticshub.standardcollector.service" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\dmwappushservice" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\pla" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\PNRPAutoReg" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\SecurityHealthService" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\WdBoot" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\WdFilter" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\WdNisDrv" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\WdNisSvc" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\WinDefend" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\wscsvc" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\DiagTrack" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\DPS" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\WdiServiceHost" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\WdiSystemHost" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\wisvc" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\BITS" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\DoSvc" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\UsoSvc" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\WaaSMedicSvc" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\WpnService" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\wuauserv" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\XblAuthManager" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\XblGameSave" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\xboxgip" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\XboxGipSvc" /f
-reg delete "HKLM\SYSTEM\ControlSet001\Services\XboxNetApiSvc" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\edgeupdate" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\edgeupdatem" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\SecurityHealthService" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WdBoot" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WdFilter" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WdNisDrv" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WdNisSvc" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WinDefend" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\GoogleChromeElevationService" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\UCPD" /f
+powershell -noprofile -executionpolicy bypass -command "Get-Service -Name 'GoogleUpdater*' | Set-Service -StartupType Disabled -Confirm:$false"
 reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Class\{71a27cdd-812a-11d0-bec7-08002be2092f}" /v "UpperFilters" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e96c-e325-11ce-bfc1-08002be10318}" /v "UpperFilters" /t REG_MULTI_SZ /d "" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e967-e325-11ce-bfc1-08002be10318}" /v "LowerFilters" /t REG_MULTI_SZ /d "" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{6bdd1fc6-810f-11d0-bec7-08002be2092f}" /v "UpperFilters" /t REG_MULTI_SZ /d "" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{71a27cdd-812a-11d0-bec7-08002be2092f}" /v "LowerFilters" /t REG_MULTI_SZ /d "" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\gupdate" /v "Start" /t REG_DWORD /d "3" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\gupdatem" /v "Start" /t REG_DWORD /d "3" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\CryptSvc" /v "Start" /t REG_DWORD /d "3" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\rdbss" /v "Start" /t REG_DWORD /d "3" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\StateRepository" /v "Start" /t REG_DWORD /d "3" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\AudioEndpointBuilder" /v "Start" /t REG_DWORD /d "3" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\EventSystem" /v "Start" /t REG_DWORD /d "3" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\nsi" /v "Start" /t REG_DWORD /d "3" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\wercplsupport" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\WerSvc" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\WSearch" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\lfsvc" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\MapsBroker" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\diagnosticshub.standardcollector.service" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\dmwappushservice" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\pla" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\PNRPAutoReg" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\wscsvc" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\DiagTrack" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\DPS" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\WdiServiceHost" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\WdiSystemHost" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\wisvc" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\BITS" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\DoSvc" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\UsoSvc" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\WaaSMedicSvc" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\WpnService" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\wuauserv" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\XblAuthManager" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\XblGameSave" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\xboxgip" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\XboxGipSvc" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\XboxNetApiSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Dhcp" /v "DependOnService" /t REG_MULTI_SZ /d "NSI\0Afd" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\hidserv" /v "DependOnService" /t REG_MULTI_SZ /d "" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\volsnap" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\AppXSvc" /v "Start" /t REG_DWORD /d "3" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\wlidsvc" /v "Start" /t REG_DWORD /d "3" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\PushToInstall" /v "Start" /t REG_DWORD /d "3" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\InstallService" /v "Start" /t REG_DWORD /d "3" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\WSService" /v "Start" /t REG_DWORD /d "3" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\scfilter" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\mpssvc" /v "DependOnService" /t REG_MULTI_SZ /d "bfe\0nsi" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\mpssvc" /v "Start" /t REG_DWORD /d "4" /f
@@ -408,15 +539,46 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\npsvctrig" /v "Start" /t REG_DWO
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\npsvctrig" /v "ErrorControl" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Wof" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Wof" /v "ErrorControl" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\iaStorAfsService" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\iaStorAfs" /v "Start" /t REG_DWORD /d "4" /f
 
 :: extra
-wevtutil.exe set-log "Microsoft-Windows-SleepStudy/Diagnostic" /e:false
-wevtutil.exe set-log "Microsoft-Windows-Kernel-Processor-Power/Diagnostic" /e:false
-wevtutil.exe set-log "Microsoft-Windows-UserModePowerService/Diagnostic" /e:false
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Control\WMI\AutoLogger" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe" /v "MitigationAuditOptions" /t REG_BINARY /d "222222222222222222222222222222222222222222222222" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe" /v "MitigationOptions" /t REG_BINARY /d "222222222222222222222222222222222222222222222222" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "4" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions" /v "IoPriority" /t REG_DWORD /d "3" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\dwm.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "4" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\dwm.exe\PerfOptions" /v "IoPriority" /t REG_DWORD /d "3" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\wininit.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "4" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\lsass.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\lsass.exe\PerfOptions" /v "IoPriority" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\svchost.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\svchost.exe\PerfOptions" /v "IoPriority" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Battle.net.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "5" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Agent.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "5" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Steam.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "5" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\EpicGamesLauncher.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "5" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\EADesktop.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "5" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\QtWebEngineProcess.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\QtWebEngineProcess.exe\PerfOptions" /v "IoPriority" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\steamwebhelper.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\steamservice.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\steamwebhelper.exe\PerfOptions" /v "IoPriority" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\EABackgroundService.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\EABackgroundService.exe\PerfOptions" /v "IoPriority" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Overwatch.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "3" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\fontdrvhost.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\fontdrvhost.exe\PerfOptions" /v "IoPriority" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\lsass.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\lsass.exe\PerfOptions" /v "IoPriority" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\svchost.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\svchost.exe\PerfOptions" /v "IoPriority" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sppsvc.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sppsvc.exe\PerfOptions" /v "IoPriority" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WmiPrvSE.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\WmiPrvSE.exe\PerfOptions" /v "IoPriority" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\explorer.exe" /v "UseLargePages" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\dllhost.exe" /v "UseLargePages" /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Overwatch.exe" /v "UseLargePages" /t REG_DWORD /d "1" /f
 for /f %%g in ('wmic path Win32_VideoController get PNPDeviceID ^| findstr /L "VEN_"') do (
 reg add "HKLM\SYSTEM\CurrentControlSet\Enum\%%g\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\%%g\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /f
@@ -449,12 +611,31 @@ for /f "delims=" %%d in ('powershell -noprofile -c "Get-ChildItem -Path 'HKLM:\S
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\nvlddmkm\State\DisplayDatabase\%%d" /v "DitherRegistryKey" /t REG_BINARY /d "db0100001000000002010104f4000000" /f )
 powershell -noprofile -executionpolicy bypass -command "Get-ChildItem 'Registry::\HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}' | ForEach-Object { Set-ItemProperty -Path $_.PSPath -Name 'EnableAdaptivity' -Type 'String' -Value '0' -Force}"
 powershell -noprofile -executionpolicy bypass -command "Get-ChildItem 'Registry::\HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}' | ForEach-Object { Set-ItemProperty -Path $_.PSPath -Name 'WirelessMode' -Type 'String' -Value '256' -Force}"
-for /f "tokens=*" %%i in ('reg query "HKLM\SYSTEM\CurrentControlSet\Enum\SCSI"^| findstr "HKEY"') do (
-	for /f "tokens=*" %%a in ('reg query "%%i"^| findstr "HKEY"') do reg.exe add "%%a\Device Parameters\Disk" /v "CacheIsPowerProtected" /t REG_DWORD /d "0" /f > NUL 2>&1
-)
-for /f "tokens=*" %%i in ('reg query "HKLM\SYSTEM\CurrentControlSet\Enum\SCSI"^| findstr "HKEY"') do (
-	for /f "tokens=*" %%a in ('reg query "%%i"^| findstr "HKEY"') do reg.exe add "%%a\Device Parameters\Disk" /v "UserWriteCacheSetting" /t REG_DWORD /d "0" /f > NUL 2>&1
-)
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Circular Kernel Context Logger" /v "Start" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\CloudExperienceHostOobe" /v "Start" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger" /v "Start" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderAuditLogger" /v "Start" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /v "Start" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\LwtNetLog" /v "Start" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Microsoft-Windows-Rdp-Graphics-RdpIdd-Trace" /v "Start" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\NetCore" /v "Start" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\NtfsLog" /v "Start" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\RadioMgr" /v "Start" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\RdrLog" /v "Start" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\ReadyBoot" /v "Start" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SpoolerLogger" /v "Start" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\UBPM" /v "Start" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiSession" /v "Start" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DiagLog" /v "Start" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WdiContextLog" /v "Start" /t REG_DWORD /d "0" /f
+rmdir /s /q "C:\Program Files (x86)\Microsoft\Edge"
+rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeCore"
+rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeUpdate"
+rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeWebView"
+rmdir /s /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch"
+wevtutil set-log "Microsoft-Windows-SleepStudy/Diagnostic" /q:false
+wevtutil set-log "Microsoft-Windows-Kernel-Processor-Power/Diagnostic" /q:false
+wevtutil set-log "Microsoft-Windows-UserModePowerService/Diagnostic" /q:false
 taskkill /f /im backgroundTaskHost.exe
 ren "C:\Windows\System32\backgroundTaskHost.exe" backgroundTaskHost_old.exe
 taskkill /f /im ctfmon.exe
@@ -469,6 +650,11 @@ taskkill /f /im StartMenuExperienceHost.exe
 ren "C:\Windows\SystemApps\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\StartMenuExperienceHost.exe" StartMenuExperienceHost_old.exe
 taskkill /f /im ChsIME.exe
 ren "C:\Windows\System32\InputMethod\CHS\ChsIME.exe" ChsIME_old.exe
+taskkill /f /im mobsync.exe
+ren "C:\Windows\System32\mobsync.exe" mobsync_old.exe
+ren "C:\Windows\SysWOW64\mobsync.exe" mobsync_old.exe
+ren C:\Windows\System32\mcupdate_GenuineIntel.dll mcupdate_GenuineIntel_old.dll
+ren C:\Windows\System32\mcupdate_AuthenticAMD.dll mcupdate_AuthenticAMD_old.dll
 
 :: for %%z in (
 :: Windows-Defender
