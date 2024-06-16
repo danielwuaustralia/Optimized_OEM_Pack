@@ -6,11 +6,7 @@ netsh wlan add profile filename="C:\TEMP\WiFi.xml" user=all
 netsh wlan set profileparameter name="LV426" connectionmode=auto
 netsh wlan connect name=LV426
 start /b /w C:\TEMP\UpdateTime.exe /U /M
-net stop ClipSVC /y
-net start ClipSVC
-cscript C:\Windows\System32\slmgr.vbs /ato
-schtasks /run /tn "Microsoft\Windows\CertificateServicesClient\SystemTask"
-schtasks /run /tn "Microsoft\Windows\CertificateServicesClient\UserTask"
+call "C:\TEMP\Activate.cmd" /HWID
 
 :: install
 start /b /w C:\TEMP\AMD_Chipset_Software.exe /S
@@ -20,8 +16,8 @@ powershell -noprofile -executionpolicy bypass -command "curl.exe -LSs 'https://a
 msiexec /i C:\TEMP\googlechromestandaloneenterprise64.msi /quiet /norestart
 start /b /w C:\TEMP\VC_redist.x86.exe /install /quiet /norestart
 start /b /w C:\TEMP\VC_redist.x64.exe /install /quiet /norestart
-start /b /w C:\TEMP\NVidiaProfileInspector\nvidiaProfileInspector.exe
-start /b /w C:\TEMP\idman.exe
+certutil -verifyCTL AuthRoot
+certutil -verifyCTL Disallowed
 
 :: features
 dism /english /Online /Enable-Feature /FeatureName:LegacyComponents /All /NoRestart
