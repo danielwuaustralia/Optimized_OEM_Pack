@@ -165,6 +165,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\iaStorAVC" /v "Start" /t REG_DWO
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\iaStorV" /v "Start" /t REG_DWORD /d "4" /f
 
 :: disable normal services
+powershell -noprofile -executionpolicy bypass -command "Get-ChildItem 'HKLM:\SYSTEM\CurrentControlSet\Services' | % { $a = Get-ItemProperty -Path 'REGISTRY::$_' -EA SilentlyContinue; if ($null -ne $a.Start) { Set-ItemProperty -Path 'Registry::$_' -Name 'SvcHostSplitDisable' -Type DWORD -Value 1 -Force -EA SilentlyContinue } }"
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{71a27cdd-812a-11d0-bec7-08002be2092f}" /v "LowerFilters" /t REG_MULTI_SZ /d "" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\fvevol" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\iorate" /v "Start" /t REG_DWORD /d "4" /f
@@ -333,9 +334,33 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\UdkUserSvc" /v "Start" /t REG_DW
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\camsvc" /v "Start" /t REG_DWORD /d "4" /f
 
 :: extra
-powershell -noprofile -executionpolicy bypass -command "Get-ChildItem 'HKLM:\SYSTEM\CurrentControlSet\Services' | ? { $_.Name -notmatch 'Xbl|Xbox' } | % { $a = Get-ItemProperty -Path 'REGISTRY::$_' -EA SilentlyContinue; if ($null -ne $a.Start) { Set-ItemProperty -Path 'Registry::$_' -Name 'SvcHostSplitDisable' -Type DWORD -Value 1 -Force -EA SilentlyContinue } }"
+reg delete "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger" /f
+for /f %%g in ('wmic path Win32_VideoController get PNPDeviceID ^| findstr /L "VEN_"') do (
+reg add "HKLM\SYSTEM\CurrentControlSet\Enum\%%g\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\%%g\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /f
+)
+for /f %%g in ('wmic path Win32_USBController get PNPDeviceID ^| findstr /L "VEN_"') do (
+reg add "HKLM\SYSTEM\CurrentControlSet\Enum\%%g\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\%%g\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /f
+)
+for /f %%g in ('wmic path Win32_NetworkAdapter get PNPDeviceID ^| findstr /L "VEN_"') do (
+reg add "HKLM\SYSTEM\CurrentControlSet\Enum\%%g\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\%%g\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /f
+)
+for /f %%g in ('wmic path Win32_IDEController get PNPDeviceID ^| findstr /L "VEN_"') do (
+reg add "HKLM\SYSTEM\CurrentControlSet\Enum\%%g\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\%%g\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /f
+)
+for /f %%g in ('wmic path Win32_SoundDevice get PNPDeviceID ^| findstr /L "VEN_"') do (
+reg add "HKLM\SYSTEM\CurrentControlSet\Enum\%%g\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\%%g\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /f
+)
+for /f %%g in ('wmic path Win32_DiskDrive get PNPDeviceID ^| findstr /L "VEN_"') do (
+reg add "HKLM\SYSTEM\CurrentControlSet\Enum\%%g\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\%%g\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /f
+)
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options" /f
-powershell -noprofile -executionpolicy bypass -command "$devices = @('ACPI Processor Aggregator','Microsoft Windows Management Interface for ACPI','NDIS 虚拟网络适配器枚举器','Microsoft RRAS Root Enumerator','WAN Miniport*','AMD PSP','Base System Device','复合总线枚举器','直接内存访问控制器','高精度事件计时器','Intel Management Engine','Intel SMBus','Legacy device','Microsoft Kernel Debug Network Adapter','母板资源','Numeric Data Processor','PCI数据捕获和信号处理控制器','PCI 加密/解密控制器','PCI内存控制器','PCI 简单通信控制器','PCI standard RAM Controller','SM 总线控制器','系统 CMOS/实时时钟','系统扬声器','系统计时器','Microsoft 存储空间控制器','UMBus Root Bus Enumerator','远程桌面设备重定向程序总线','PCI 标准 ISA 桥','Microsoft 虚拟驱动器枚举器','Microsoft UEFI 兼容系统','Microsoft Hyper-V 虚拟化基础结构驱动程序','AMD GPIO Controller'); Get-PnpDevice -FriendlyName $devices -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore;"
+powershell -noprofile -executionpolicy bypass -command "$devices = @('ACPI Processor Aggregator','Microsoft Windows Management Interface for ACPI','NDIS 虚拟网络适配器枚举器','Microsoft RRAS Root Enumerator','WAN Miniport*','AMD PSP','Base System Device','复合总线枚举器','直接内存访问控制器','高精度事件计时器','Intel Management Engine','Intel SMBus','Legacy device','Microsoft Kernel Debug Network Adapter','母板资源','Numeric Data Processor','PCI数据捕获和信号处理控制器','PCI 加密/解密控制器','PCI内存控制器','PCI 简单通信控制器','PCI standard RAM Controller','SM 总线控制器','系统 CMOS/实时时钟','系统扬声器','系统计时器','Microsoft 存储空间控制器','UMBus Root Bus Enumerator','远程桌面设备重定向程序总线','PCI 标准 ISA 桥','Microsoft 虚拟驱动器枚举器','Microsoft UEFI 兼容系统','Microsoft Hyper-V 虚拟化基础结构驱动程序','AMD GPIO Controller','即插即用软件设备枚举器'); Get-PnpDevice -FriendlyName $devices -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore;"
 reg add "HKLM\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter" /v "ActivationType" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\ValueBanner.IdealStateFeatureControlProvider" /v "ActivationType" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Internal.Security.SmartScreen.AppReputationService" /v "ActivationType" /t REG_DWORD /d "0" /f
@@ -343,10 +368,6 @@ for /f "delims=" %%d in ('powershell -noprofile -c "Get-ChildItem -Path 'HKLM:\S
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\nvlddmkm\State\DisplayDatabase\%%d" /v "DitherRegistryKey" /t REG_BINARY /d "db0100001000000002010104f4000000" /f )
 powershell -noprofile -executionpolicy bypass -command "Get-ChildItem 'Registry::\HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}' | ForEach-Object { Set-ItemProperty -Path $_.PSPath -Name 'EnableAdaptivity' -Type 'String' -Value '0' -Force}"
 powershell -noprofile -executionpolicy bypass -command "Get-ChildItem 'Registry::\HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}' | ForEach-Object { Set-ItemProperty -Path $_.PSPath -Name 'WirelessMode' -Type 'String' -Value '256' -Force}"
-reg delete "HKLM\SYSHIVE\CurrentControlSet\Control\WMI\Autologger\CloudExperienceHostOobe" /f
-reg delete "HKLM\SYSHIVE\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /f
-reg delete "HKLM\SYSHIVE\CurrentControlSet\Control\WMI\Autologger\SQMLogger" /f
-reg delete "HKLM\SYSHIVE\CurrentControlSet\Control\WMI\Autologger\WFP-IPsec Trace" /f
 wevtutil set-log "Microsoft-Windows-SleepStudy/Diagnostic" /q:false
 wevtutil set-log "Microsoft-Windows-Kernel-Processor-Power/Diagnostic" /q:false
 wevtutil set-log "Microsoft-Windows-UserModePowerService/Diagnostic" /q:false
@@ -367,11 +388,16 @@ ren "C:\Windows\System32\InputMethod\CHS\ChsIME.exe" ChsIME_old.exe
 taskkill /f /im mobsync.exe
 ren "C:\Windows\System32\mobsync.exe" mobsync_old.exe
 ren "C:\Windows\SysWOW64\mobsync.exe" mobsync_old.exe
+ren "C:\Windows\System32\gameux.dll" gameux_old.dll
+ren "C:\Windows\SysWOW64\gameux.dll" gameux_old.dll
+ren "C:\Windows\System32\GameBarPresenceWriter.exe" GameBarPresenceWriter_old.exe
+ren "C:\Windows\SysWOW64\GameBarPresenceWriter.exe" GameBarPresenceWriter_old.exe
 rmdir /s /q "C:\Program Files (x86)\Microsoft\Edge"
 rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeCore"
 rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeUpdate"
 rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeWebView"
-rmdir /s /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch"
+rmdir /s /q "C:\ProgramData\Microsoft\Diagnosis\ETLLogs\Autologger"
+rmdir /s /q "C:\ProgramData\Microsoft\Diagnosis\ETLLogs\ShutdownLogger"
 
 :: for %%z in (
 :: Windows-Defender
