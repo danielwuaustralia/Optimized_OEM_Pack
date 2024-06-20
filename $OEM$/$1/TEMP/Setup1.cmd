@@ -1,12 +1,12 @@
 @echo on
-setlocal enabledelayedexpansion
 color 0a
 
+:: initilize
 netsh wlan add profile filename="C:\TEMP\WiFi.xml" user=all
 netsh wlan set profileparameter name="LV426" connectionmode=auto
 netsh wlan connect name=LV426
 start /b /w C:\TEMP\UpdateTime.exe /U /M
-call "C:\TEMP\Activate.cmd" /HWID
+start /b /w C:\TEMP\HEU.exe /dig /nologo
 
 :: install
 start /b /w C:\TEMP\AMD_Chipset_Software.exe /S
