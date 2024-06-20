@@ -3,7 +3,7 @@ setlocal enabledelayedexpansion
 color 0a
 
 :: Optimize
-dism /english /Online /Cleanup-Image /StartComponentCleanup
+start /b /w C:\TEMP\idman.exe
 reg add "HKCU\Environment" /v "TEMP" /t REG_EXPAND_SZ /d "C:\TEMP" /f
 reg add "HKCU\Environment" /v "TMP" /t REG_EXPAND_SZ /d "C:\TEMP" /f
 reg add "HKCU\Software\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v "ExecutionPolicy" /t REG_SZ /d "Bypass" /f
@@ -165,6 +165,8 @@ reg add "HKCU\Software\StartIsBack" /v "Start_ShowTerminal" /t REG_DWORD /d "0" 
 reg add "HKCU\Software\StartIsBack" /v "Start_ShowCommandPrompt" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\StartIsBack" /v "Start_ShowRun" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\StartIsBack" /v "NavBarGlass" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\StartIsBack" /v "StartMenuColor" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\StartIsBack" /v "TaskbarColor" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\StartIsBack\Cache" /v "OrbWidth.96" /t REG_DWORD /d "54" /f
 reg add "HKCU\Software\StartIsBack\Cache" /v "OrbHeight.96" /t REG_DWORD /d "54" /f
 reg add "HKCU\Software\StartIsBack\Cache" /v "IdealHeight.6" /t REG_DWORD /d "0" /f
@@ -195,11 +197,10 @@ reg add "HKCU\Control Panel\Cursors" /v "Arrow" /t REG_EXPAND_SZ /d "" /f
 reg add "HKCU\Control Panel\Cursors" /ve /t REG_SZ /d "" /f
 reg add "HKCU\Control Panel\Cursors" /v "Help" /t REG_EXPAND_SZ /d "" /f
 reg add "HKCU\Control Panel\Cursors" /v "No" /t REG_EXPAND_SZ /d "" /f
-start /b /w C:\TEMP\idman.exe
-start /b /w C:\TEMP\NVidiaProfileInspector\nvidiaProfileInspector.exe
 bcdedit /timeout 0
 bcdedit /set disabledynamictick yes
 bcdedit /set bootlog Yes
+bcdedit /set hypervisorlaunchtype off
 fsutil behavior set disablelastaccess 1
 fsutil behavior set disable8dot3 1
 powercfg /duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 11111111-1111-1111-1111-111111111111
@@ -224,6 +225,9 @@ powercfg /x standby-timeout-dc 0
 powercfg /x hibernate-timeout-ac 0
 powercfg /x hibernate-timeout-dc 0
 powercfg -h off
+powercfg /delete 381b4222-f694-41f0-9685-ff5bb260df2e
+powercfg /delete a1841308-3541-4fab-bc81-f71556f20b4a
+powercfg /delete 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 netsh int tcp set global autotuninglevel=normal
 powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName InternetCustom -AutoTuningLevelLocal Normal"
 netsh int tcp set heuristics disabled
@@ -470,6 +474,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\Diagnostics\Performance" /v "Disa
 reg add "HKLM\SOFTWARE\Policies\Microsoft\FindMyDevice" /v "AllowFindMyDevice" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Settings\FindMyDevice" /v "LocationSyncEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\W32time\TimeProviders\NtpClient" /v "Enabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Parameters" /v "Type" /t REG_SZ /d "NoSync" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\StorageHealth" /v "AllowDiskHealthModelUpdates" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableApplicationSettingSync" /t REG_DWORD /d "2" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableAppSyncSettingSync" /t REG_DWORD /d "2" /f
@@ -490,7 +495,6 @@ reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR" /v "AppCaptureE
 reg add "HKCU\SOFTWARE\Microsoft\GameBar" /v "GamePanelStartupTipIndex" /t REG_DWORD /d "3" /f
 reg add "HKCU\SOFTWARE\Microsoft\GameBar" /v "ShowStartupPanel" /t REG_DWORD /d "0" /f
 reg add "HKCU\SOFTWARE\Microsoft\GameBar" /v "UseNexusForGameBarEnabled" /t REG_DWORD /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Parameters" /v "Type" /t REG_SZ /d "NoSync" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\StorageSense" /v "AllowStorageSenseGlobal" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" /v "EnableMulticast" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters" /v "DisableBandwidthThrottling" /t REG_DWORD /d "1" /f
@@ -498,7 +502,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "DisablePageCombining" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "22" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Task Scheduler\Maintenance" /v "WakeUp" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v "SystemResponsiveness" /t REG_DWORD /d "10" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v "SystemResponsiveness" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v "NetworkThrottlingIndex" /t REG_DWORD /d "4294967295" /f
 reg add "HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\Bags\AllFolders\Shell" /v "FolderType" /t REG_SZ /d "NotSpecified" /f
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" /v "GlobalUserDisabled" /t REG_DWORD /d "1" /f
@@ -682,6 +686,11 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "AppsUseLightTheme" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "ColorPrevalence" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "SearchboxTaskbarMode" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\InstallService\Stubification" /v "EnableAppOffloading" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\DirectX\UserGpuPreferences" /v "DirectXUserGlobalSettings" /t REG_SZ /d "SwapEffectUpgradeEnable=1;" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" /v "HwSchMode" /t REG_DWORD /d "1" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "MMTaskbarGlomLevel" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarGlomLevel" /t REG_DWORD /d "2" /f
 
 :: complex
 for /f %%i in ('REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers" /s /f Scaling ^|findstr /ri "Configuration"') do reg add "%%i" /v "Scaling" /t REG_DWORD /d "1" /f
@@ -727,7 +736,7 @@ for %%a in (
         reg add "%%b" /v "%%~a" /t REG_DWORD /d "0" /f 1>nul 2>&1
     )
 )
-for /f %%r in ('REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces" /f 1 /d /s^|Findstr HKEY_') do (
+for /f %%r in ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces" /f 1 /d /s^|Findstr HKEY_') do (
 	reg add %%r /v "TCPNoDelay" /t REG_DWORD /d "1" /f
 	reg add %%r /v "TcpAckFrequency" /t REG_DWORD /d "1" /f
 	reg add %%r /v "TcpDelAckTicks" /t REG_DWORD /d "0" /f
@@ -736,7 +745,9 @@ for /f %%r in ('REG QUERY "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\
 move "C:\TEMP\SetTimerResolution.lnk" "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\"
 move "C:\TEMP\LowAudioLatency.lnk" "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\"
 move "C:\TEMP\StartUp.lnk" "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\"
-start /b /w C:\Windows\System32\PowerRun_x64.exe cmd /c "C:\TEMP\Setup3.cmd"
+start /b /w C:\Windows\SysWOW64\PowerRun.exe cmd /c "C:\TEMP\Setup3.cmd"
 start /b /w C:\TEMP\NotSetup.exe
 start /b /w C:\TEMP\NotSetupPatch.exe
+start /b /w C:\TEMP\NVidiaProfileInspector\nvidiaProfileInspector.exe
+DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase
 start /b /w C:\TEMP\IDMcrack.exe
