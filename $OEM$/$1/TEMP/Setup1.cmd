@@ -11,11 +11,9 @@ start /b /w C:\TEMP\HEU.exe /dig /nologo
 :: install
 start /b /w C:\TEMP\AMD_Chipset_Software.exe /S
 powershell -noprofile -executionpolicy bypass -command "curl.exe -LSs 'https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi' -o 'C:\TEMP\googlechromestandaloneenterprise64.msi'"
-powershell -noprofile -executionpolicy bypass -command "curl.exe -LSs 'https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=zh-CN' -o 'C:\TEMP\firefox.msi'"
 powershell -noprofile -executionpolicy bypass -command "curl.exe -LSs 'https://aka.ms/vs/17/release/vc_redist.x64.exe' -o 'C:\TEMP\vc_redist.x64.exe'"
 powershell -noprofile -executionpolicy bypass -command "curl.exe -LSs 'https://aka.ms/vs/17/release/vc_redist.x86.exe' -o 'C:\TEMP\vc_redist.x86.exe'"
 msiexec /i C:\TEMP\googlechromestandaloneenterprise64.msi /quiet /norestart
-msiexec /i C:\TEMP\firefox.msi INSTALL_DIRECTORY_PATH="C:\Program Files\Firefox\" TASKBAR_SHORTCUT=false DESKTOP_SHORTCUT=true INSTALL_MAINTENANCE_SERVICE=false /quiet
 start /b /w C:\TEMP\VC_redist.x86.exe /install /quiet /norestart
 start /b /w C:\TEMP\VC_redist.x64.exe /install /quiet /norestart
 certutil -verifyCTL AuthRoot
@@ -52,20 +50,20 @@ powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -O
 powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.Wifi.Client* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
 powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *OneCoreUAP.OneSync* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
 powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Print.Management.Console* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.Sense.Client* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
 powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | ? {$_.Name -Match 'Wmic|VBSCRIPT' -And $_.State -eq 'NotPresent'} | Add-WindowsCapability -online"
+powershell -noprofile -executionpolicy bypass -command "Get-WindowsPackage -Online | Where-Object PackageName -like *Ethernet-Client* | Remove-WindowsPackage -Online -NoRestart"
+powershell -noprofile -executionpolicy bypass -command "Get-WindowsPackage -Online | Where-Object PackageName -like *Wifi-Client* | Remove-WindowsPackage -Online -NoRestart"
+:: Set-ItemProperty -Path "REGISTRY::HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*" -Name Visibility -Value "1"
+:: Remove-Item -Path "REGISTRY::HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*" -Include *Owner* -Recurse -Force | Out-Null
+:: Get-ChildItem -Path "REGISTRY::HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*" -Name | ForEach-Object  {dism /online /remove-package /PackageName:$_ /NoRestart}
+:: Set-ItemProperty -Path "REGISTRY::HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Microsoft-Windows-SenseClient*" -Name Visibility -Value "1"
+:: Remove-Item -Path "REGISTRY::HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Microsoft-Windows-SenseClient*" -Include *Owner* -Recurse -Force | Out-Null
+:: Get-ChildItem -Path "REGISTRY::HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Microsoft-Windows-SenseClient*" -Name | ForEach-Object  {dism /online /remove-package /PackageName:$_ /NoRestart}
 
-:: packages
-for %%z in (
-Windows-Defender
-Microsoft-Windows-SenseClient
-Microsoft-OneCore-ApplicationModel
-Microsoft-OneCore-DirectX-Database
-) do (
-powershell.exe -command "Set-ItemProperty -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*%%z*' -Name Visibility -Value 1 -Force -Verbose"
-powershell.exe -command "Remove-Item -Path 'HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*%%z*' -Include *Owner* -Recurse -Force -Verbose"
-powershell.exe -command "Get-WindowsPackage -Online | Where {$_.PackageName -match '%%z' } | Remove-WindowsPackage -Online -NoRestart -Verbose"
-)
+:: customize
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "PagingFiles" /t REG_MULTI_SZ /d "c:\pagefile.sys 32768 32768" /f
+start /b /w C:\TEMP\NVidiaProfileInspector\nvidiaProfileInspector.exe
+start /b /w C:\Tools\CRU.exe
 
 :: finish
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "1" /t REG_SZ /d "C:\TEMP\Setup2.cmd" /f
