@@ -1,38 +1,20 @@
 @echo off
 
 :: Remove Read Only & archive feature on all files
-:: C:\Windows\System32\PowerRun_x64.exe cmd /c attrib -a -s -h -r "D:\Games\*.*" /s /d
-:: C:\Windows\System32\PowerRun_x64.exe cmd /c attrib -a -s -h -r "D:\SteamLibrary\*.*" /s /d
-:: C:\Windows\System32\PowerRun_x64.exe cmd /c attrib -a -s -h -r "D:\$OEM$\*.*" /s /d
+:: C:\Windows\SysWOW64\PowerRun.exe cmd /c attrib -a -s -h -r "D:\Games\*.*" /s /d
+:: C:\Windows\SysWOW64\PowerRun.exe cmd /c attrib -a -s -h -r "D:\SteamLibrary\*.*" /s /d
+:: C:\Windows\SysWOW64\PowerRun.exe cmd /c attrib -a -s -h -r "D:\$OEM$\*.*" /s /d
 :: wmic process where name="csrss.exe" CALL setpriority 256
 
-taskkill /f /im explorer.exe
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c logman stop SleepStudyTraceSession -ets
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c logman stop Diagtrack-Listener -ets
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c rmdir /s /q "C:\TEMP"
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c rmdir /s /q "C:\Users\Administrator\AppData\LocalLow\NVIDIA\PerDriverVersion\DXCache"
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c rmdir /s /q "C:\Users\Administrator\AppData\LocalLow\NVIDIA\PerDriverVersion\GLCache"
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c rmdir /s /q "C:\Windows\System32\WDI\LogFiles"
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c rmdir /s /q "C:\Windows\System32\LogFiles\WMI\RtBackup"
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c rmdir /s /q "C:\Windows\System32\LogFiles\WMI"
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c rmdir /s /q "C:\Windows\Logs"
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c rmdir /s /q "C:\ProgramData\Microsoft\Diagnosis"
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c rmdir /s /q "C:\Windows\System32\SleepStudy"
-C:\Windows\System32\PowerRun_x64.exe /SW:0 cmd /c rmdir /s /q "C:\ProgramData\Microsoft\Windows\wfp"
-del /q "C:\Steam\dumps\*"
-for /d %%x in ("C:\Steam\dumps\*") do @rd /s /q "%%x"
-del /q "C:\Steam\logs\*"
-for /d %%x in ("C:\Steam\logs\*") do @rd /s /q "%%x"
-del /q "C:\Users\Administrator\AppData\Local\NVIDIA\DXCache\*"
-for /d %%x in ("C:\Users\Administrator\AppData\Local\NVIDIA\DXCache\*") do @rd /s /q "%%x"
-del /q "C:\Users\Administrator\AppData\Local\Steam\htmlcache\*"
-for /d %%x in ("C:\Users\Administrator\AppData\Local\Steam\htmlcache\*") do @rd /s /q "%%x"
-del /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations\*"
-for /d %%x in ("C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations\*") do @rd /s /q "%%x"
-del /q "C:\Users\Administrator\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\*"
-for /d %%x in ("C:\Users\Administrator\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\*") do @rd /s /q "%%x"
-net stop bindflt
-start explorer.exe
+:: C:\Windows\SysWOW64\PowerRun.exe cmd /c logman stop SleepStudyTraceSession -ets
+C:\Windows\SysWOW64\PowerRun.exe cmd /c rmdir /s /q "C:\TEMP"
+C:\Windows\SysWOW64\PowerRun.exe cmd /c rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\DXCache"
+C:\Windows\SysWOW64\PowerRun.exe cmd /c rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\GLCache"
+C:\Windows\SysWOW64\PowerRun.exe cmd /c taskkill /f /im ctfmon.exe
+C:\Windows\SysWOW64\PowerRun.exe cmd /c del /f /q "C:\Windows\System32\ctfmon.exe"
+C:\Windows\SysWOW64\PowerRun.exe cmd /c taskkill /f /im ChsIME.exe
+C:\Windows\SysWOW64\PowerRun.exe cmd /c del /f /q "C:\Windows\System32\InputMethod\CHS\ChsIME.exe"
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\WmiApRpl\Performance" /v "Disable Performance Counters" /t REG_DWORD /d "1" /f
 
 :: CleanMgr.exe
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Active Setup Temp Folders" /v "StateFlags0001" /f
