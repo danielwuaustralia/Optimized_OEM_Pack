@@ -1,5 +1,5 @@
 @echo on
-color 0a
+color 1f
 
 :: initilize
 netsh wlan add profile filename="C:\TEMP\WiFi.xml" user=all
@@ -10,14 +10,13 @@ start /b /w C:\TEMP\HEU.exe /dig /nologo
 
 :: install
 start /b /w C:\TEMP\AMD_Chipset_Software.exe /S
+C:\Tools\DeviceCleanupCmd.exe * -s -n
 powershell -noprofile -executionpolicy bypass -command "curl.exe -LSs 'https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi' -o 'C:\TEMP\googlechromestandaloneenterprise64.msi'"
 powershell -noprofile -executionpolicy bypass -command "curl.exe -LSs 'https://aka.ms/vs/17/release/vc_redist.x64.exe' -o 'C:\TEMP\vc_redist.x64.exe'"
 powershell -noprofile -executionpolicy bypass -command "curl.exe -LSs 'https://aka.ms/vs/17/release/vc_redist.x86.exe' -o 'C:\TEMP\vc_redist.x86.exe'"
 msiexec /i C:\TEMP\googlechromestandaloneenterprise64.msi /quiet /norestart
 start /b /w C:\TEMP\VC_redist.x86.exe /install /quiet /norestart
 start /b /w C:\TEMP\VC_redist.x64.exe /install /quiet /norestart
-certutil -verifyCTL AuthRoot
-certutil -verifyCTL Disallowed
 
 :: features
 dism /english /Online /Enable-Feature /FeatureName:LegacyComponents /All /NoRestart
@@ -51,18 +50,30 @@ powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -O
 powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *OneCoreUAP.OneSync* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
 powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Print.Management.Console* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
 powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | ? {$_.Name -Match 'Wmic|VBSCRIPT' -And $_.State -eq 'NotPresent'} | Add-WindowsCapability -online"
-:: Set-ItemProperty -Path "REGISTRY::HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*" -Name Visibility -Value "1"
-:: Remove-Item -Path "REGISTRY::HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*" -Include *Owner* -Recurse -Force | Out-Null
-:: Get-ChildItem -Path "REGISTRY::HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Windows-Defender*" -Name | ForEach-Object  {dism /online /remove-package /PackageName:$_ /NoRestart}
-:: Set-ItemProperty -Path "REGISTRY::HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Microsoft-Windows-SenseClient*" -Name Visibility -Value "1"
-:: Remove-Item -Path "REGISTRY::HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Microsoft-Windows-SenseClient*" -Include *Owner* -Recurse -Force | Out-Null
-:: Get-ChildItem -Path "REGISTRY::HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\*Microsoft-Windows-SenseClient*" -Name | ForEach-Object  {dism /online /remove-package /PackageName:$_ /NoRestart}
 
 :: customize
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\iagpio" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\iai2c" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\iaLPSS2i_GPIO2" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\iaLPSS2i_GPIO2_BXT_P" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\iaLPSS2i_GPIO2_CNL" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\iaLPSS2i_GPIO2_GLK" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\iaLPSS2i_I2C" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\iaLPSS2i_I2C_BXT_P" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\iaLPSS2i_I2C_CNL" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\iaLPSS2i_I2C_GLK" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\iaLPSSi_GPIO" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\iaLPSSi_I2C" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\intelide" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\intelide" /v "ErrorControl" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\intelpmax" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\intelpep" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\iaStorAVC" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\iaStorV" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "PagingFiles" /t REG_MULTI_SZ /d "c:\pagefile.sys 32768 32768" /f
 start /b /w C:\TEMP\NVidiaProfileInspector\nvidiaProfileInspector.exe
-start /b /w C:\Tools\CRU.exe
 
 :: finish
+start /b /w C:\Tools\PowerRun.exe
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "1" /t REG_SZ /d "C:\TEMP\Setup2.cmd" /f
 shutdown /r /t 5
