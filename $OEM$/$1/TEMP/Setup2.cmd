@@ -1,6 +1,8 @@
 @echo on
-color 0a
+color 1f
 
+certutil -verifyCTL AuthRoot
+certutil -verifyCTL Disallowed
 :: https://forums.mydigitallife.net/threads/repo-windows-10-telemetry-repository.63874/page-112#post-1838765
 reg add "HKLM\SOFTWARE\Microsoft\Windows\Shell\Copilot" /v "IsCopilotAvailable" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\Shell\Copilot" /v "CopilotDisabledReason" /t REG_SZ /d "FeatureIsDisabled" /f
@@ -203,8 +205,17 @@ powershell -noprofile -executionpolicy bypass -command "Get-Netadapter -Physical
 powershell -noprofile -executionpolicy bypass -command "Get-Netadapter -Physical | Set-NetAdapterAdvancedProperty -RegistryKeyword '*TransmitBuffers' -RegistryValue 2048 -ErrorAction silentlycontinue"
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "EnableConnectionRateLimiting" /t REG_DWORD /d "0" /f
 :: https://www.speedguide.net/articles/windows-10-tcpip-tweaks-5077
-netsh int ipv4 set subinterface "WLAN" mtu=1500 store=persistent
+netsh int tcp set global autotuninglevel=normal
+netsh interface tcp set heuristics disabled
+netsh int tcp set global dca=enabled
+netsh int tcp set global rsc=disabled
+netsh int ipv4 set subinterface "WLAN" mtu=1492 store=persistent
+netsh int tcp set global nonsackrttresiliency=enabled
 powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Internet -MemoryPressureProtection Disabled -Verbose"
+powershell -noprofile -executionpolicy bypass -command "Set-NetOffloadGlobalSetting -Chimney Disabled -Verbose"
+powershell -noprofile -executionpolicy bypass -command "Enable-NetAdapterChecksumOffload -Name * -Verbose"
+powershell -noprofile -executionpolicy bypass -command "Enable-NetAdapterRss -Name * -Verbose"
+powershell -noprofile -executionpolicy bypass -command "Disable-NetAdapterLso -Name * -Verbose"
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "DefaultTTL" /t REG_DWORD /d "64" /f 
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" /v "LocalPriority" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" /v "HostPriority" /t REG_DWORD /d "5" /f
@@ -579,7 +590,12 @@ reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "BoundSessionCredentialsEnable
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "PostQuantumKeyAgreementEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "UiAutomationProviderEnabled" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "UrlKeyedAnonymizedDataCollectionEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "ApplicationBoundEncryptionEnabled" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome" /v "DynamicCodeSettings" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome\ExtensionInstallBlocklist" /v "1" /t REG_SZ /d "ghbmnnjooekpmoecnnnilnnbdlolhkhi" /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome\ExtensionInstallBlocklist" /v "2" /t REG_SZ /d "nkeimhogjdpnpccoofpliimaahmaaome" /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome\ExtensionInstallBlocklist" /v "3" /t REG_SZ /d "nmmhkkegccagdldgiimedpiccmgmieda" /f
+reg add "HKLM\SOFTWARE\Policies\Google\Chrome\ExtensionInstallBlocklist" /v "4" /t REG_SZ /d "neajdppkdcdipfabeoofebfddakdcjhd" /f
 reg add "HKLM\SOFTWARE\Policies\Google\Chrome\TabDiscardingExceptions" /v "1" /t REG_SZ /d "*" /f
 reg add "HKCU\Software\DownloadManager" /v "bHideTabsBtn" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\DownloadManager" /v "bHideSLTabOnDwnlDlg" /t REG_DWORD /d "1" /f
@@ -662,7 +678,6 @@ reg add "HKCU\Software\StartIsBack" /v "NavBarGlass" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\StartIsBack" /v "LegacyTaskbar" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\StartIsBack" /v "RestyleIcons" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\StartIsBack" /v "TaskbarColor" /t REG_DWORD /d "0" /f
-reg add "HKCU\Software\StartIsBack" /v "CustomColors" /t REG_SZ /d "ColorA=FFFFFFFFColorB=FFFFFFFFColorC=FFFFFFFFColorD=FFFFFFFFColorE=FFFFFFFFColorF=FFFFFFFFColorG=FFFFFFFFColorH=FFFFFFFFColorI=FFFFFFFFColorJ=FFFFFFFFColorK=FFFFFFFFColorL=FFFFFFFFColorM=FFFFFFFFColorN=FFFFFFFFColorO=FFFFFFFFColorP=FFFFFFFF" /f
 reg add "HKCU\Software\7-Zip\Options" /v "CascadedMenu" /t REG_DWORD /d "0" /f
 reg add "HKCU\Control Panel\Cursors" /v "Hand" /t REG_EXPAND_SZ /d "" /f
 reg add "HKCU\Control Panel\Cursors" /v "Wait" /t REG_EXPAND_SZ /d "" /f
@@ -790,14 +805,6 @@ powershell -noprofile -executionpolicy bypass -command "Disable-NetAdapterBindin
 powershell -noprofile -executionpolicy bypass -command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_tcpip6"
 powershell -noprofile -executionpolicy bypass -command "Disable-NetAdapterBinding -Name '*' -ComponentID ms_pacer"
 powershell -noprofile -executionpolicy bypass -command "Get-ChildItem 'Registry::HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Configuration' -Depth 3 -Recurse | ForEach-Object { Set-ItemProperty -Path $_.PSPath -Name 'Scaling' -Type 'DWord' -Value '1' -Force}"
-powershell -noprofile -executionpolicy bypass -command "Limit-Eventlog -Logname 'System' -MaximumSize 64KB -OverflowAction OverwriteAsNeeded"
-powershell -noprofile -executionpolicy bypass -command "Limit-Eventlog -Logname 'Application' -MaximumSize 64KB -OverflowAction OverwriteAsNeeded"
-powershell -noprofile -executionpolicy bypass -command "Limit-Eventlog -Logname 'Security' -MaximumSize 64KB -OverflowAction OverwriteAsNeeded"
-powershell -noprofile -executionpolicy bypass -command "Limit-Eventlog -Logname 'Windows PowerShell' -MaximumSize 64KB -OverflowAction OverwriteAsNeeded"
-powershell -noprofile -executionpolicy bypass -command "Limit-Eventlog -Logname 'HardwareEvents' -MaximumSize 64KB -OverflowAction OverwriteAsNeeded"
-powershell -noprofile -executionpolicy bypass -command "Limit-Eventlog -Logname 'Key Management Service' -MaximumSize 64KB -OverflowAction OverwriteAsNeeded"
-powershell -noprofile -executionpolicy bypass -command "Limit-Eventlog -Logname 'Internet Explorer' -MaximumSize 64KB -OverflowAction OverwriteAsNeeded"
-auditpol /set /category:* /Success:disable /failure:disable
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib\_V2Providers" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\.NET CLR Data\Performance" /v "Disable Performance Counters" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\.NET CLR Networking 4.0.0.0\Performance" /v "Disable Performance Counters" /t REG_DWORD /d "1" /f
@@ -837,8 +844,8 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" /v "DisabledC
 reg delete "HKCU\Keyboard Layout\Preload" /f
 reg delete "HKCU\Control Panel\International\User Profile\zh-Hans-CN" /f
 reg delete "HKCU\Control Panel\International\User Profile System Backup\zh-Hans-CN" /f
-reg add "HKCU\Control Panel\International\Geo" /v "Nation" /t REG_SZ /d "244" /f
-reg add "HKCU\Control Panel\International\Geo" /v "Name" /t REG_SZ /d "US" /f
+reg add "HKCU\Control Panel\International\Geo" /v "Nation" /t REG_SZ /d "68" /f
+reg add "HKCU\Control Panel\International\Geo" /v "Name" /t REG_SZ /d "IE" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "SearchboxTaskbarMode" /t REG_DWORD /d "0" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" /v "GlobalTimerResolutionRequests" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Microsoft\DirectX\UserGpuPreferences" /v "DirectXUserGlobalSettings" /t REG_SZ /d "SwapEffectUpgradeEnable=1;" /f
@@ -918,6 +925,7 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "L
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "IconsOnly" /t REG_SZ /d "1" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ListviewShadow" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAnimations" /t REG_DWORD /d "0" /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowTypeOverlay" /t REG_DWORD /d "0" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /v "VisualFXSetting" /t REG_DWORD /d "3" /f
 reg add "HKCU\Software\Microsoft\Windows\DWM" /v "EnableAeroPeek" /t REG_DWORD /d "0" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "HiberbootEnabled" /t REG_DWORD /d "0" /f
@@ -937,6 +945,9 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib" /v "Disable 
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Perflib" /v "EventLogLevel" /t REG_DWORD /d "2" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections" /v "SavedLegacySettings" /t REG_BINARY /d "4600000003000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections" /v "DefaultConnectionSettings" /t REG_BINARY /d "4600000003000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" /f
+reg add "HKLM\Software\Policies\Microsoft\Windows\Appx" /v "AllowAutomaticAppArchiving" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" /v "LongPathsEnabled" /t REG_DWORD /d "1" /f
+Auditpol /set /category:* /Success:disable /failure:disable
 for /f "usebackq tokens=1*" %%a in (`reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume" /s /f "NukeOnDelete"^| findstr "HKEY"`) do reg add "%%a %%b" /v "NukeOnDelete" /t REG_DWORD /d "1" /f
 for %%a in (
     "batfile"
@@ -986,7 +997,6 @@ for /f %%r in ('REG QUERY "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Paramete
 move "C:\TEMP\SetTimerResolution.lnk" "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\"
 move "C:\TEMP\LowAudioLatency.lnk" "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\"
 move "C:\TEMP\StartUp.lnk" "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\"
-start /b /w C:\Windows\SysWOW64\PowerRun.exe cmd /c "C:\TEMP\Setup3.cmd"
 start /b /w C:\TEMP\NotSetupPatch.exe
-C:\Tools\DeviceCleanupCmd.exe * -s -n
 start /b /w C:\TEMP\IDMcrack.exe
+start /b /w C:\Tools\PowerRun.exe cmd /c "C:\TEMP\Setup3.cmd"
