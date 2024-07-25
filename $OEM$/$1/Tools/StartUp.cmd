@@ -7,13 +7,13 @@
 :: wmic process where name="csrss.exe" CALL setpriority 256
 
 :: C:\Windows\SysWOW64\PowerRun.exe cmd /c logman stop SleepStudyTraceSession -ets
-C:\Windows\SysWOW64\PowerRun.exe cmd /c rmdir /s /q "C:\TEMP"
-C:\Windows\SysWOW64\PowerRun.exe cmd /c rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\DXCache"
-C:\Windows\SysWOW64\PowerRun.exe cmd /c rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\GLCache"
-C:\Windows\SysWOW64\PowerRun.exe cmd /c taskkill /f /im ctfmon.exe
-C:\Windows\SysWOW64\PowerRun.exe cmd /c del /f /q "C:\Windows\System32\ctfmon.exe"
-C:\Windows\SysWOW64\PowerRun.exe cmd /c taskkill /f /im ChsIME.exe
-C:\Windows\SysWOW64\PowerRun.exe cmd /c del /f /q "C:\Windows\System32\InputMethod\CHS\ChsIME.exe"
+C:\Tools\PowerRun.exe /SW:0 cmd /c rmdir /s /q "C:\TEMP"
+C:\Tools\PowerRun.exe /SW:0 cmd /c rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\DXCache"
+C:\Tools\PowerRun.exe /SW:0 cmd /c rmdir /s /q "C:\Users\Administrator\AppData\Local\NVIDIA\GLCache"
+C:\Tools\PowerRun.exe /SW:0 cmd /c taskkill /f /im ctfmon.exe
+C:\Tools\PowerRun.exe /SW:0 cmd /c del /f /q "C:\Windows\System32\ctfmon.exe"
+C:\Tools\PowerRun.exe /SW:0 cmd /c taskkill /f /im ChsIME.exe
+C:\Tools\PowerRun.exe /SW:0 cmd /c del /f /q "C:\Windows\System32\InputMethod\CHS\ChsIME.exe"
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\WmiApRpl\Performance" /v "Disable Performance Counters" /t REG_DWORD /d "1" /f
 
 :: CleanMgr.exe
