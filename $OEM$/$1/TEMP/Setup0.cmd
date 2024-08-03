@@ -1,6 +1,9 @@
 @echo on
 color 1f
 
+dism /Online /Remove-DefaultAppAssociations
+dism /Online /Set-ReservedStorageState /State:Disabled
+compact /CompactOS:Never
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "WindowsDefender" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SecurityHealth" /f
 rd /s /q "C:\Program Files\Windows Defender"
@@ -71,8 +74,6 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager" /v "ProtectionMo
 reg delete "HKLM\SOFTWARE\Microsoft\WindowsUpdate\Orchestrator\UScheduler_Oobe" /f
 del /f /q "C:\Windows\System32\OneDriveSetup.exe"
 rmdir /s /q "C:\Windows\Web"
-rmdir /s /q "C:\Windows\System32\InputMethod\CHS"
-del /f /q "C:\Windows\System32\ctfmon.exe"
 rmdir /s /q "C:\Windows\System32\Microsoft-Edge-WebView"
 rmdir /s /q "C:\Program Files (x86)\Microsoft\Edge"
 rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeCore"
@@ -90,9 +91,7 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\De
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned\Microsoft.Windows.CloudExperienceHost_cw5n1h2txyewy" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned\MicrosoftWindows.Client.AIX_cw5n1h2txyewy" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned\MicrosoftWindows.Client.CBS_cw5n1h2txyewy" /f
-dism /Online /Remove-DefaultAppAssociations
-dism /Online /Set-ReservedStorageState /State:Disabled
-compact /CompactOS:Never
+reg add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "IsContinuousInnovationOptedIn" /t REG_DWORD /d "1" /f
 
 set key=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications
 FOR %%i IN (
