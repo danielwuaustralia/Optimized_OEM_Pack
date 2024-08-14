@@ -194,7 +194,6 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\amdgpio2" /v "Start" /t REG_DWOR
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\amdgpio3" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\NVDisplay.ContainerLocalSystem" /v "Start" /t REG_DWORD /d "4" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\RTUsbSwSrvc" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\GoogleChromeElevationService" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\UCPD" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\wercplsupport" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WerSvc" /f
@@ -247,6 +246,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{ca3e7ab9-b4c3-4ae6-8251-57
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\ksthunk" /v "Start" /t REG_DWORD /d "4" /f
 powershell -noprofile -executionpolicy bypass -command "Get-ChildItem 'HKLM:\SYSTEM\CurrentControlSet\Services' | % { $a = Get-ItemProperty -Path 'REGISTRY::$_' -EA SilentlyContinue; if ($null -ne $a.Start) { Set-ItemProperty -Path 'Registry::$_' -Name 'SvcHostSplitDisable' -Type DWORD -Value 1 -Force -EA SilentlyContinue } }"
 powershell -noprofile -executionpolicy bypass -command "Get-Service -Name 'GoogleUpdater*' | Set-Service -StartupType Disabled -Confirm:$false"
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\GoogleChromeElevationService" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\BluetoothUserService" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\PrintWorkFlowUserSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\webthreatdefusersvc" /v "Start" /t REG_DWORD /d "4" /f
@@ -411,13 +411,8 @@ ren "C:\Windows\SysWOW64\GameBarPresenceWriter.exe" GameBarPresenceWriter_old.ex
 ren "C:\Windows\SysWOW64\GameBarPresenceWriter.proxy.dll" GameBarPresenceWriter_old.proxy.dll
 taskkill /f /im GameInputSvc.exe
 ren "C:\Windows\System32\GameInputSvc.exe" GameInputSvc_old.exe
-powershell -noprofile -executionpolicy bypass -command "Get-PnpDevice -FriendlyName 'Microsoft Kernel Debug Network Adapter' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore;"
-powershell -noprofile -executionpolicy bypass -command "Get-PnpDevice -FriendlyName 'Microsoft Device Association Root Enumerator' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore;"
-powershell -noprofile -executionpolicy bypass -command "Get-PnpDevice -FriendlyName 'Microsoft GS 波表合成器' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore;"
-powershell -noprofile -executionpolicy bypass -command "Limit-Eventlog -Logname 'Application' -MaximumSize 64KB"
-powershell -noprofile -executionpolicy bypass -command "Limit-Eventlog -Logname 'System' -MaximumSize 64KB"
-powershell -noprofile -executionpolicy bypass -command "Limit-Eventlog -Logname 'Security' -MaximumSize 64KB"
-powershell -noprofile -executionpolicy bypass -command "Limit-Eventlog -Logname 'Windows PowerShell' -MaximumSize 64KB"
+ren "C:\Windows\System32\mcupdate_AuthenticAMD.dll" mcupdate_AuthenticAMD_old.dll
+ren "C:\Windows\System32\mcupdate_GenuineIntel.dll" mcupdate_GenuineIntel_old.dll
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Communications" /v "ConfigureChatAutoInstall" /t REG_DWORD /d "0" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options" /f
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "4" /f
@@ -440,6 +435,14 @@ rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeWebView"
 wevtutil set-log "Microsoft-Windows-SleepStudy/Diagnostic" /q:false
 wevtutil set-log "Microsoft-Windows-Kernel-Processor-Power/Diagnostic" /q:false
 wevtutil set-log "Microsoft-Windows-UserModePowerService/Diagnostic" /q:false
+powershell -noprofile -executionpolicy bypass -command "Get-PnpDevice -FriendlyName 'Microsoft Kernel Debug Network Adapter' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore;"
+powershell -noprofile -executionpolicy bypass -command "Get-PnpDevice -FriendlyName 'Microsoft Device Association Root Enumerator' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore;"
+powershell -noprofile -executionpolicy bypass -command "Get-PnpDevice -FriendlyName 'Microsoft GS 波表合成器' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore;"
+powershell -noprofile -executionpolicy bypass -command "Get-PnpDevice -InstanceId 'HID\VID_258A&PID_002A&MI_01&COL08\8&3B8A1BBF&0&0007' -ErrorAction Ignore | Disable-PnpDevice -Confirm:$false -ErrorAction Ignore;"
+powershell -noprofile -executionpolicy bypass -command "Limit-Eventlog -Logname 'Application' -MaximumSize 64KB"
+powershell -noprofile -executionpolicy bypass -command "Limit-Eventlog -Logname 'System' -MaximumSize 64KB"
+powershell -noprofile -executionpolicy bypass -command "Limit-Eventlog -Logname 'Security' -MaximumSize 64KB"
+powershell -noprofile -executionpolicy bypass -command "Limit-Eventlog -Logname 'Windows PowerShell' -MaximumSize 64KB"
 for /f %%a in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /s /f "DmaRemappingCompatible" ^| find /i "Services\" ') do (
     reg add "%%a" /v "DmaRemappingCompatible" /t REG_DWORD /d "0" /f
 )
