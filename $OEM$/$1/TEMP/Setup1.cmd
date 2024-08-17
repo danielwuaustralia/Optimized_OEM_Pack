@@ -2,48 +2,21 @@
 color 1f
 
 rem initial
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location" /v "Value" /t REG_SZ /d "Deny" /f
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location" /v "Value" /t REG_SZ /d "Allow" /f
 netsh wlan add profile filename="C:\TEMP\WiFi.xml" user=all
 netsh wlan set profileparameter name="LV426" connectionmode=auto
 netsh wlan connect name=LV426
 start /b /w C:\TEMP\UpdateTime.exe /U /M
-start /b /w C:\TEMP\HEU.exe /dig /nologo
+start /b /w C:\TEMP\HEU.exe /smart /nologo
+rem start /b /w C:\TEMP\HEU.exe /dig /nologo
 C:\Tools\DeviceCleanupCmd.exe * -s -n
-powershell -noprofile -executionpolicy bypass -command "$ProgressPreference = 'SilentlyContinue'"
-powershell -noprofile -executionpolicy bypass -command "Invoke-WebRequest 'https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi' -OutFile 'C:\TEMP\googlechromestandaloneenterprise64.msi'"
-powershell -noprofile -executionpolicy bypass -command "Invoke-WebRequest 'https://aka.ms/vs/17/release/vc_redist.x64.exe' -OutFile 'C:\TEMP\vc_redist.x64.exe'"
-powershell -noprofile -executionpolicy bypass -command "Invoke-WebRequest 'https://aka.ms/vs/17/release/vc_redist.x86.exe' -OutFile 'C:\TEMP\vc_redist.x86.exe'"
+powershell -noprofile -executionpolicy bypass -command "curl.exe -LSs 'https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi' -o 'C:\TEMP\googlechromestandaloneenterprise64.msi'"
+powershell -noprofile -executionpolicy bypass -command "curl.exe -LSs 'https://aka.ms/vs/17/release/vc_redist.x64.exe' -o 'C:\TEMP\vc_redist.x64.exe'"
+powershell -noprofile -executionpolicy bypass -command "curl.exe -LSs 'https://aka.ms/vs/17/release/vc_redist.x86.exe' -o 'C:\TEMP\vc_redist.x86.exe'"
 msiexec /i C:\TEMP\googlechromestandaloneenterprise64.msi /quiet /norestart
 start /b /w C:\TEMP\VC_redist.x86.exe /install /quiet /norestart
 start /b /w C:\TEMP\VC_redist.x64.exe /install /quiet /norestart
-dism /english /Online /Enable-Feature /FeatureName:LegacyComponents /All /NoRestart
-dism /english /Online /Enable-Feature /FeatureName:DirectPlay /All /NoRestart
-dism /english /Online /Disable-Feature /featurename:SmbDirect /NoRestart
-dism /english /Online /Disable-Feature /featurename:Printing-PrintToPDFServices-Features /NoRestart
-dism /english /Online /Disable-Feature /featurename:MicrosoftWindowsPowerShellV2Root /NoRestart
-dism /english /Online /Disable-Feature /featurename:MicrosoftWindowsPowerShellV2 /NoRestart
-dism /english /Online /Disable-Feature /featurename:Printing-Foundation-Features /NoRestart
-dism /english /Online /Disable-Feature /featurename:Printing-Foundation-InternetPrinting-Client /NoRestart
-dism /english /Online /Disable-Feature /featurename:Printing-Foundation-LPDPrintService /NoRestart
-dism /english /Online /Disable-Feature /featurename:Printing-Foundation-LPRPortMonitor /NoRestart
-dism /english /Online /Disable-Feature /featurename:WorkFolders-Client /NoRestart
-dism /english /Online /Disable-Feature /featurename:SearchEngine-Client-Package /NoRestart
-dism /english /Online /Disable-Feature /featurename:Windows-Defender-ApplicationGuard /NoRestart
-dism /english /Online /Disable-Feature /featurename:Windows-Defender-Default-Definitions /NoRestart
-dism /english /Online /Disable-Feature /featurename:MSRDC-Infrastructure /NoRestart
-dism /english /Online /Disable-Feature /featurename:Microsoft-RemoteDesktopConnection /NoRestart
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *App.StepsRecorder* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *DirectX.Configuration.Database* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Hello.Face* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *MathRecognizer* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.WordPad* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.PowerShell.ISE* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *OpenSSH.Client* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Wallpapers.Extended* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.Ethernet.Client* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.Wifi.Client* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *OneCoreUAP.OneSync* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Print.Management.Console* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | ? {$_.Name -Match 'Wmic|VBSCRIPT' -And $_.State -eq 'NotPresent'} | Add-WindowsCapability -online"
 
 rem for AMD only
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\iagpio" /v "Start" /t REG_DWORD /d "4" /f
