@@ -10,12 +10,9 @@ netsh wlan set profileparameter name="LV426" connectionmode=auto
 netsh wlan connect name=LV426
 start /b /w C:\TEMP\UpdateTime.exe /U /M
 start /b /w C:\TEMP\HEU.exe /smart /nologo
-rem start /b /w C:\TEMP\HEU.exe /dig /nologo
 C:\Tools\DeviceCleanupCmd.exe * -s -n
-powershell -noprofile -executionpolicy bypass -command "curl.exe -LSs 'https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi' -o 'C:\TEMP\googlechromestandaloneenterprise64.msi'"
 powershell -noprofile -executionpolicy bypass -command "curl.exe -LSs 'https://aka.ms/vs/17/release/vc_redist.x64.exe' -o 'C:\TEMP\vc_redist.x64.exe'"
 powershell -noprofile -executionpolicy bypass -command "curl.exe -LSs 'https://aka.ms/vs/17/release/vc_redist.x86.exe' -o 'C:\TEMP\vc_redist.x86.exe'"
-msiexec /i C:\TEMP\googlechromestandaloneenterprise64.msi /quiet /norestart
 C:\TEMP\VC_redist.x86.exe /install /quiet /norestart
 C:\TEMP\VC_redist.x64.exe /install /quiet /norestart
 
@@ -226,10 +223,74 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Maps" /v "AllowUntriggeredNetw
 reg add "HKLM\SOFTWARE\Microsoft\OneDrive" /v "PreventNetworkTrafficPreUserSignIn" /t REG_DWORD /d "1" /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_TrackProgs" /t REG_DWORD /d "0" /f
 
+:: https://www.speedguide.net/articles/windows-10-tcpip-tweaks-5077
 :: https://github.com/MysticFoxDE/WINDOWS-OPTIMIZATIONS/blob/main/W10ANDW11-NETWORK-TCP-DESUBOPTIMIZATION.ps1
-netsh int tcp set supplemental template=Internet congestionprovider=CTCP
+netsh int tcp set global rss=enabled
+netsh int tcp set global autotuninglevel=normal
+netsh int tcp set global fastopen=enabled
+netsh interface tcp set heuristics disabled
+netsh int tcp set global initialRto=3000
+netsh int tcp set global timestamps=disabled
+netsh int tcp set global dca=enabled
+netsh int tcp set global rsc=disabled
+netsh int ipv4 set subinterface "WLAN" mtu=1492 store=persistent
+netsh int tcp set global nonsackrttresiliency=enabled
+netsh int tcp set supplemental Internet congestionprovider=ctcp
+netsh int tcp set supplemental InternetCustom congestionprovider=ctcp
+netsh int tcp set supplemental DatacenterCustom congestionprovider=ctcp
+netsh int tcp set supplemental Compat congestionprovider=ctcp
+netsh int tcp set supplemental Datacenter congestionprovider=ctcp
 netsh int tcp set global ECN=Enabled
 netsh int tcp set global ecncapability=Enabled
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Internet -MemoryPressureProtection Disabled -Verbose"
+powershell -noprofile -executionpolicy bypass -command "Set-NetOffloadGlobalSetting -Chimney Disabled -Verbose"
+powershell -noprofile -executionpolicy bypass -command "Enable-NetAdapterChecksumOffload -Name * -Verbose"
+powershell -noprofile -executionpolicy bypass -command "Enable-NetAdapterRss -Name * -Verbose"
+powershell -noprofile -executionpolicy bypass -command "Disable-NetAdapterLso -Name * -Verbose"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Internet -Timestamps Disabled"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName InternetCustom -Timestamps Disabled"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName DatacenterCustom -Timestamps Disabled"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Compat -Timestamps Disabled"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Datacenter -Timestamps Disabled"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Internet -InitialRto 3000"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName InternetCustom -InitialRto 3000"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName DatacenterCustom -InitialRto 3000"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Compat -InitialRto 3000"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Datacenter -InitialRto 3000"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Internet -MinRto 300"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName InternetCustom  -MinRto 300"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName DatacenterCustom  -MinRto 300"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Compat  -MinRto 300"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Datacenter  -MinRto 300"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Internet -InitialCongestionWindow 10"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName InternetCustom -InitialCongestionWindow 10"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName DatacenterCustom -InitialCongestionWindow 10"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Compat -InitialCongestionWindow 10"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Datacenter -InitialCongestionWindow 10"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Internet -NonSackRttResiliency enabled"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName InternetCustom -NonSackRttResiliency enabled"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName DatacenterCustom -NonSackRttResiliency enabled"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Compat -NonSackRttResiliency enabled"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Datacenter -NonSackRttResiliency enabled"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Internet -ForceWS Disabled"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName InternetCustom -ForceWS Disabled"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName DatacenterCustom -ForceWS Disabled"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Compat -ForceWS Disabled"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Datacenter -ForceWS Disabled"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Internet -MaxSynRetransmissions 2"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName InternetCustom -MaxSynRetransmissions 2"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName DatacenterCustom -MaxSynRetransmissions 2"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Compat -MaxSynRetransmissions 2"
+powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Datacenter -MaxSynRetransmissions 2"
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "DefaultTTL" /t REG_DWORD /d "64" /f 
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" /v "LocalPriority" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" /v "HostPriority" /t REG_DWORD /d "5" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" /v "DnsPriority" /t REG_DWORD /d "6" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" /v "NetbtPriority" /t REG_DWORD /d "7" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "MaxUserPort" /t REG_DWORD /d "65534" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "TcpTimedWaitDelay" /t REG_DWORD /d "30" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Psched" /v "NonBestEffortLimit" /t REG_DWORD /d "0" /f
+reg add "HKLM\System\CurrentControlSet\Services\Tcpip\QoS" /v "Do not use NLA" /t REG_SZ /d "1" /f
 powershell -noprofile -executionpolicy bypass -command "Set-NetOffloadGlobalSetting -PacketCoalescingFilter Disabled -Verbose"
 powershell -noprofile -executionpolicy bypass -command "Set-NetOffloadGlobalSetting -ReceiveSideScaling Disabled -Verbose"
 powershell -noprofile -executionpolicy bypass -command "Set-NetOffloadGlobalSetting -ReceiveSegmentCoalescing Disabled -Verbose"
@@ -244,28 +305,6 @@ powershell -noprofile -executionpolicy bypass -command "Get-Netadapter -Physical
 powershell -noprofile -executionpolicy bypass -command "Get-Netadapter -Physical | Set-NetAdapterAdvancedProperty -RegistryKeyword '*TransmitBuffers' -RegistryValue 2048 -ErrorAction silentlycontinue"
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "EnableConnectionRateLimiting" /t REG_DWORD /d "0" /f
 
-:: https://www.speedguide.net/articles/windows-10-tcpip-tweaks-5077
-netsh int tcp set global autotuninglevel=normal
-netsh interface tcp set heuristics disabled
-netsh int tcp set global dca=enabled
-netsh int tcp set global rsc=disabled
-netsh int ipv4 set subinterface "WLAN" mtu=1492 store=persistent
-netsh int tcp set global nonsackrttresiliency=enabled
-powershell -noprofile -executionpolicy bypass -command "Set-NetTCPSetting -SettingName Internet -MemoryPressureProtection Disabled -Verbose"
-powershell -noprofile -executionpolicy bypass -command "Set-NetOffloadGlobalSetting -Chimney Disabled -Verbose"
-powershell -noprofile -executionpolicy bypass -command "Enable-NetAdapterChecksumOffload -Name * -Verbose"
-powershell -noprofile -executionpolicy bypass -command "Enable-NetAdapterRss -Name * -Verbose"
-powershell -noprofile -executionpolicy bypass -command "Disable-NetAdapterLso -Name * -Verbose"
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "DefaultTTL" /t REG_DWORD /d "64" /f 
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" /v "LocalPriority" /t REG_DWORD /d "4" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" /v "HostPriority" /t REG_DWORD /d "5" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" /v "DnsPriority" /t REG_DWORD /d "6" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" /v "NetbtPriority" /t REG_DWORD /d "7" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "MaxUserPort" /t REG_DWORD /d "65534" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "TcpTimedWaitDelay" /t REG_DWORD /d "30" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Psched" /v "NonBestEffortLimit" /t REG_DWORD /d "0" /f
-reg add "HKLM\System\CurrentControlSet\Services\Tcpip\QoS" /v "Do not use NLA" /t REG_SZ /d "1" /f
-
 :: optimize
 dism /Online /Remove-DefaultAppAssociations
 dism /Online /Set-ReservedStorageState /State:Disabled
@@ -273,23 +312,13 @@ compact /CompactOS:Never
 bcdedit /timeout 0
 bcdedit /set disabledynamictick yes
 bcdedit /set bootlog Yes
-bcdedit /set hypervisorlaunchtype off
-bcdedit /set allowedinmemorysettings 0x0
-bcdedit /set isolatedcontext no
-bcdedit /set loadoptions DISABLE-LSA-ISO,DISABLE-VBS
-bcdedit /set vsmlaunchtype off
-bcdedit /set vm No
-bcdedit /set x2apicpolicy Enable
-bcdedit /set configaccesspolicy Default
-bcdedit /set MSI Default
-bcdedit /set usephysicaldestination No
-bcdedit /set usefirmwarepcisettings No
 bcdedit /set disableelamdrivers yes
 fsutil behavior set disablelastaccess 1
 fsutil behavior set disable8dot3 1
 fsutil behavior set encryptpagingfile 0
+powercfg /delete a1841308-3541-4fab-bc81-f71556f20b4a
+powercfg /delete 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 powercfg /duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 11111111-1111-1111-1111-111111111111
-powercfg /setactive 11111111-1111-1111-1111-111111111111
 powercfg /setacvalueindex scheme_current 0012ee47-9041-4b5d-9b77-535fba8b1442 d3d55efd-c1ff-424e-9dc3-441be7833010 0
 powercfg /setacvalueindex scheme_current 0012ee47-9041-4b5d-9b77-535fba8b1442 d639518a-e56d-4345-8af2-b9f32fb26109 0
 powercfg /setacvalueindex scheme_current 0012ee47-9041-4b5d-9b77-535fba8b1442 fc7372b6-ab2d-43ee-8797-15e9841f2cca 0
@@ -307,7 +336,6 @@ powercfg /setacvalueindex scheme_current 238c9fa8-0aad-41ed-83f4-97be242c8f20 7b
 powercfg /setacvalueindex scheme_current 238c9fa8-0aad-41ed-83f4-97be242c8f20 bd3b718a-0680-4d9d-8ab2-e1d2b4ac806d 0
 powercfg /setacvalueindex scheme_current 2e601130-5351-4d9d-8e04-252966bad054 d502f7ee-1dc7-4efd-a55d-f04b6f5c0545 0
 powercfg /setacvalueindex scheme_current 0012ee47-9041-4b5d-9b77-535fba8b1442 6738e2c4-e8a5-4a42-b16a-e040e769756e 0
-powercfg /setactive scheme_current
 powercfg /x monitor-timeout-ac 0
 powercfg /x monitor-timeout-dc 0
 powercfg /x disk-timeout-ac 0
@@ -317,9 +345,6 @@ powercfg /x standby-timeout-dc 0
 powercfg /x hibernate-timeout-ac 0
 powercfg /x hibernate-timeout-dc 0
 powercfg -h off
-powercfg /delete 381b4222-f694-41f0-9685-ff5bb260df2e
-powercfg /delete a1841308-3541-4fab-bc81-f71556f20b4a
-powercfg /delete 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 powershell -noprofile -executionpolicy bypass -command "Get-WmiObject MSPower_DeviceEnable -Namespace root\wmi | ForEach-Object { $_.enable = $false; $_.psbase.put(); }"
 powershell -noprofile -executionpolicy bypass -command "Set-LocalUser -Name Administrator -PasswordNeverExpires 1"
 powershell -noprofile -executionpolicy bypass -command "Set-ProcessMitigation -System -Disable CFG"
@@ -951,26 +976,6 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power" /v "Miraca
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power" /v "MonitorLatencyTolerance" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power" /v "MonitorRefreshLatencyTolerance" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Power" /v "TransitionLatency" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "PreferSystemMemoryContiguous" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "D3PCLatency" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "F1TransitionLatency" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "LOWLATENCY" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "Node3DLowLatency" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "PciLatencyTimerControl" /t REG_DWORD /d "32" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "RMDeepL1EntryLatencyUsec" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "RmGspcMaxFtuS" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "RmGspcMinFtuS" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "RmGspcPerioduS" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "RMLpwrEiIdleThresholdUs" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "RMLpwrGrIdleThresholdUs" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "RMLpwrGrRgIdleThresholdUs" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "RMLpwrMsIdleThresholdUs" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "VRDirectFlipDPCDelayUs" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "VRDirectFlipTimingMarginUs" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "VRDirectJITFlipMsHybridFlipDelayUs" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "vrrCursorMarginUs" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "vrrDeflickerMarginUs" /t REG_DWORD /d "1" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "vrrDeflickerMaxUs" /t REG_DWORD /d "1" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000" /v "DpMstDscDisable" /t REG_DWORD /d "1" /f
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_PowerButtonAction" /t REG_DWORD /d "2" /f
 reg add "HKCU\Control Panel\Desktop" /v "FontSmoothing" /t REG_SZ /d "2" /f
@@ -1007,6 +1012,12 @@ reg add "HKLM\Software\Policies\Microsoft\Windows\Appx" /v "AllowAutomaticAppArc
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" /v "LongPathsEnabled" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Input" /v "InputServiceEnabled" /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Microsoft\Input" /v "InputServiceEnabledForCCI" /t REG_DWORD /d "1" /f
+reg add "HKCU\SOFTWARE\Microsoft\ServerManager" /v "RefreshInterval" /t REG_DWORD /d "14400" /f
+reg add "HKCU\SOFTWARE\Microsoft\ServerManager" /v "DoNotOpenServerManagerAtLogon" /t REG_DWORD /d "1" /f
+reg add "HKLM\System\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0013" /v "SupportMACRandom" /t REG_SZ /d "0" /f
+reg add "HKLM\System\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0013" /v "*WakeOnPattern" /t REG_SZ /d "0" /f
+reg add "HKLM\System\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0013" /v "*WakeOnMagicPacket" /t REG_SZ /d "0" /f
+reg add "HKLM\System\CurrentControlSet\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}\0013" /v "RegROAMSensitiveLevel" /t REG_SZ /d "127" /f
 for /f "usebackq tokens=1*" %%a in (`reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume" /s /f "NukeOnDelete"^| findstr "HKEY"`) do reg add "%%a %%b" /v "NukeOnDelete" /t REG_DWORD /d "1" /f
 for %%a in (
     "batfile"
@@ -1057,7 +1068,5 @@ move "C:\TEMP\SetTimerResolution.lnk" "C:\Users\Administrator\AppData\Roaming\Mi
 move "C:\TEMP\LowAudioLatency.lnk" "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\"
 move "C:\TEMP\StartUp.lnk" "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\"
 start /b /w C:\Tools\PowerRun.exe
-start /b /w C:\TEMP\NotSetupPatch.exe
 start /b /w C:\TEMP\IDMcrack.exe
 start /b /w C:\Tools\PowerRun.exe cmd /c "C:\TEMP\Setup2.cmd"
-pause
