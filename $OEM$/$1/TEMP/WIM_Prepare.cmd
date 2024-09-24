@@ -1,19 +1,17 @@
 @echo on
 color 1f
 
-rem initial
-mkdir C:\TEMP\Work
-mkdir C:\TEMP\Scratch
 rem add patch
-rem dism /mount-wim /wimfile:C:\TEMP\install.wim /index:1 /mountdir:C:\TEMP\Work
-rem dism /Image:C:\TEMP\Work /Add-Package /PackagePath:C:\TEMP\KB5041865.msu
-rem dism /Image:C:\TEMP\Work /Enable-Feature /FeatureName:NetFx3 /All /LimitAccess /Source:C:\TEMP\sxs
-rem dism /unmount-wim /mountdir:C:\TEMP\Work /commit
-rem dism /Export-Image /SourceImageFile:C:\TEMP\install.wim /SourceIndex:1 /DestinationImageFile:C:\TEMP\install2.wim /CheckIntegrity
-rem del /f /q C:\TEMP\install.wim
-rem ren C:\TEMP\install2.wim install.wim
 dism /mount-wim /wimfile:C:\TEMP\install.wim /index:1 /mountdir:C:\TEMP\Work
+dism /Image:C:\TEMP\Work /Add-Package /PackagePath:C:\TEMP\KB5043080.msu
+dism /Image:C:\TEMP\Work /Add-Package /PackagePath:C:\TEMP\KB5043178.msu
+dism /Image:C:\TEMP\Work /Enable-Feature /FeatureName:NetFx3 /All /LimitAccess /Source:C:\TEMP\sxs
+dism /unmount-wim /mountdir:C:\TEMP\Work /commit
+dism /Export-Image /SourceImageFile:C:\TEMP\install.wim /SourceIndex:1 /DestinationImageFile:C:\TEMP\install2.wim /CheckIntegrity
+del /f /q C:\TEMP\install.wim
+ren C:\TEMP\install2.wim install.wim
 
+dism /mount-wim /wimfile:C:\TEMP\install.wim /index:1 /mountdir:C:\TEMP\Work
 rem Dism /Image:C:\TEMP\Work /Get-Features
 dism /scratchdir:C:\TEMP\Scratch /image:C:\TEMP\Work /Disable-Feature /featurename:SmbDirect
 dism /scratchdir:C:\TEMP\Scratch /image:C:\TEMP\Work /Disable-Feature /featurename:Printing-PrintToPDFServices-Features
@@ -39,6 +37,7 @@ dism /scratchdir:C:\TEMP\Scratch /image:C:\TEMP\Work /enable-feature /featurenam
 dism /scratchdir:C:\TEMP\Scratch /image:C:\TEMP\Work /enable-feature /featurename:NetFx4 /all
 
 rem DISM /Image:C:\TEMP\Work /Get-Capabilities
+Dism /Image:C:\TEMP\Work /Add-Capability /CapabilityName:WMIC~~~~
 Dism /Image:C:\TEMP\Work /Remove-Capability /CapabilityName:App.StepsRecorder~~~~0.0.1.0
 Dism /Image:C:\TEMP\Work /Remove-Capability /CapabilityName:AzureArcSetup~~~~
 Dism /Image:C:\TEMP\Work /Remove-Capability /CapabilityName:DirectX.Configuration.Database~~~~0.0.1.0
@@ -48,6 +47,7 @@ Dism /Image:C:\TEMP\Work /Remove-Capability /CapabilityName:Microsoft.Windows.Po
 Dism /Image:C:\TEMP\Work /Remove-Capability /CapabilityName:OneCoreUAP.OneSync~~~~0.0.1.0
 Dism /Image:C:\TEMP\Work /Remove-Capability /CapabilityName:OpenSSH.Client~~~~0.0.1.0
 Dism /Image:C:\TEMP\Work /Remove-Capability /CapabilityName:OpenSSH.Server~~~~0.0.1.0
+Dism /Image:C:\TEMP\Work /Remove-Capability /CapabilityName:Microsoft.Windows.Sense.Client~~~~
 Dism /Image:C:\TEMP\Work /Remove-Capability /CapabilityName:XPS.Viewer~~~~0.0.1.0
 
 dism /unmount-wim /mountdir:C:\TEMP\Work /commit
