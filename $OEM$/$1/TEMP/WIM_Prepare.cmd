@@ -1,17 +1,19 @@
 @echo on
 color 1f
 
-rem add patch
-dism /mount-wim /wimfile:C:\TEMP\install.wim /index:1 /mountdir:C:\TEMP\Work
-dism /Image:C:\TEMP\Work /Add-Package /PackagePath:C:\TEMP\KB5043080.msu
-dism /Image:C:\TEMP\Work /Add-Package /PackagePath:C:\TEMP\KB5043178.msu
-dism /Image:C:\TEMP\Work /Enable-Feature /FeatureName:NetFx3 /All /LimitAccess /Source:C:\TEMP\sxs
-dism /unmount-wim /mountdir:C:\TEMP\Work /commit
-dism /Export-Image /SourceImageFile:C:\TEMP\install.wim /SourceIndex:1 /DestinationImageFile:C:\TEMP\install2.wim /CheckIntegrity
-del /f /q C:\TEMP\install.wim
-ren C:\TEMP\install2.wim install.wim
+:: Remove Read Only & archive feature on all files
+:: C:\Tools\PowerRun.exe cmd /c attrib -a -s -h -r "D:\Games\*.*" /s /d
+:: C:\Tools\PowerRun.exe cmd /c attrib -a -s -h -r "D:\SteamLibrary\*.*" /s /d
+:: C:\Tools\PowerRun.exe cmd /c attrib -a -s -h -r "E:\$OEM$\*.*" /s /d
+:: wmic process where name="csrss.exe" CALL setpriority 256
+
+rem Dism /Get-ImageInfo /imagefile:C:\TEMP\install.wim
+rem Dism /Export-Image /SourceImageFile:C:\TEMP\install.wim /SourceIndex:4 /DestinationImageFile:C:\TEMP\install2.wim /CheckIntegrity
+rem dism /Image:C:\TEMP\Work /Add-Package /PackagePath:C:\TEMP\kb5043178.msu
+rem dism /Image:C:\TEMP\Work /Enable-Feature /FeatureName:NetFx3 /All /LimitAccess /Source:C:\TEMP\sxs
 
 dism /mount-wim /wimfile:C:\TEMP\install.wim /index:1 /mountdir:C:\TEMP\Work
+dism /Image:C:\TEMP\Work /Set-Edition:ServerDatacenter /ProductKey:D764K-2NDRG-47T6Q-P8T8W-YP6DF /AcceptEula
 rem Dism /Image:C:\TEMP\Work /Get-Features
 dism /scratchdir:C:\TEMP\Scratch /image:C:\TEMP\Work /Disable-Feature /featurename:SmbDirect
 dism /scratchdir:C:\TEMP\Scratch /image:C:\TEMP\Work /Disable-Feature /featurename:Printing-PrintToPDFServices-Features
@@ -35,7 +37,6 @@ dism /scratchdir:C:\TEMP\Scratch /image:C:\TEMP\Work /enable-feature /featurenam
 dism /scratchdir:C:\TEMP\Scratch /image:C:\TEMP\Work /enable-feature /featurename:LegacyComponents /all
 dism /scratchdir:C:\TEMP\Scratch /image:C:\TEMP\Work /enable-feature /featurename:DirectPlay /all
 dism /scratchdir:C:\TEMP\Scratch /image:C:\TEMP\Work /enable-feature /featurename:NetFx4 /all
-
 rem DISM /Image:C:\TEMP\Work /Get-Capabilities
 Dism /Image:C:\TEMP\Work /Add-Capability /CapabilityName:WMIC~~~~
 Dism /Image:C:\TEMP\Work /Remove-Capability /CapabilityName:App.StepsRecorder~~~~0.0.1.0
