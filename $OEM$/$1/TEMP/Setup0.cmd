@@ -3,7 +3,6 @@ color 1f
 
 dism /Online /Remove-DefaultAppAssociations
 dism /Online /Set-ReservedStorageState /State:Disabled
-Compact.exe /CompactOS:never
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "WindowsDefender" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v "SecurityHealth" /f
 rd /s /q "C:\Program Files\Windows Defender"
