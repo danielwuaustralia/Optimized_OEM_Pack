@@ -10,11 +10,11 @@
             </RunSynchronous>
         </component>
         <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <ComputerName>Nostromo</ComputerName>
-            <RegisteredOwner>Ellen Ripley</RegisteredOwner>
+            <ComputerName>Sevastopol</ComputerName>
+            <RegisteredOwner>APOLLO</RegisteredOwner>
             <RegisteredOrganization>Weyland-Yutani</RegisteredOrganization>
             <TimeZone>AUS Eastern Standard Time</TimeZone>
-            <ProductKey>VK7JG-NPHTM-C97JM-9MPGT-3V66T</ProductKey>
+            <ProductKey>W269N-WFGWX-YVC9B-4J6C9-T83GX</ProductKey>
         </component>
     </settings>
     <settings pass="oobeSystem">
@@ -36,109 +36,104 @@
                 <SynchronousCommand wcm:action="add">
                     <Order>1</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>reg.exe add &quot;HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1&quot; /f /v &quot;Path&quot; /t REG_SZ /d &quot;C:\TEMP\Drivers&quot;</CommandLine>
-                    <Description></Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <RequiresUserInput>false</RequiresUserInput>
-                    <Order>2</Order>
-                    <CommandLine>C:\Windows\System32\pnpunattend.exe AuditSystem /L</CommandLine>
-                    <Description></Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>3</Order>
-                    <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>C:\TEMP\LegacyRedist\2005_x86.exe /q</CommandLine>
                     <Description></Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <Order>4</Order>
+                    <Order>2</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>C:\TEMP\LegacyRedist\2005_x64.exe /q</CommandLine>
                     <Description></Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <Order>5</Order>
+                    <Order>3</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>C:\TEMP\LegacyRedist\2008_x86.exe /q</CommandLine>
                     <Description></Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <Order>6</Order>
+                    <Order>4</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>C:\TEMP\LegacyRedist\2008_x64.exe /q</CommandLine>
                     <Description></Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <Order>7</Order>
+                    <Order>5</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>C:\TEMP\LegacyRedist\2010_x86.exe /q</CommandLine>
                     <Description></Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <Order>8</Order>
+                    <Order>6</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>C:\TEMP\LegacyRedist\2010_x64.exe /q</CommandLine>
                     <Description></Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <Order>9</Order>
+                    <Order>7</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>C:\TEMP\LegacyRedist\2012_x86.exe /q</CommandLine>
                     <Description></Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <Order>10</Order>
+                    <Order>8</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>C:\TEMP\LegacyRedist\2012_x64.exe /q</CommandLine>
                     <Description></Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <Order>11</Order>
+                    <Order>9</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>C:\TEMP\LegacyRedist\2013_x86.exe /q</CommandLine>
                     <Description></Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <Order>12</Order>
+                    <Order>10</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>C:\TEMP\LegacyRedist\2013_x64.exe /q</CommandLine>
                     <Description></Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
+                    <Order>11</Order>
+                    <RequiresUserInput>false</RequiresUserInput>
+                    <CommandLine>C:\TEMP\VC_redist.x86.exe /install /quiet /norestart</CommandLine>
+                    <Description></Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>12</Order>
+                    <RequiresUserInput>false</RequiresUserInput>
+                    <CommandLine>C:\TEMP\VC_redist.x64.exe /install /quiet /norestart</CommandLine>
+                    <Description></Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
                     <Order>13</Order>
-                    <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\VC_redist.x86.exe /install /passive /norestart</CommandLine>
-                    <Description></Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>14</Order>
-                    <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>C:\TEMP\VC_redist.x64.exe /install /passive /norestart</CommandLine>
-                    <Description></Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <Order>15</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>C:\TEMP\LegacyRedist\DXSETUP.exe /silent</CommandLine>
                     <Description></Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <Order>16</Order>
+                    <Order>14</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>C:\TEMP\7zip.exe /S /D="C:\Program Files\7-Zip"</CommandLine>
                     <Description></Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <Order>17</Order>
+                    <Order>15</Order>
                     <RequiresUserInput>false</RequiresUserInput>
-                    <CommandLine>cmd.exe /c msiexec /i C:\TEMP\googlechromestandaloneenterprise64.msi /quiet /norestart</CommandLine>
+                    <CommandLine>reg.exe add &quot;HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1&quot; /f /v &quot;Path&quot; /t REG_SZ /d &quot;C:\TEMP\Drivers&quot;</CommandLine>
                     <Description></Description>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <Order>18</Order>
+                    <RequiresUserInput>false</RequiresUserInput>
+                    <Order>16</Order>
+                    <CommandLine>C:\Windows\System32\pnpunattend.exe AuditSystem /L</CommandLine>
+                    <Description></Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Order>17</Order>
                     <RequiresUserInput>false</RequiresUserInput>
                     <CommandLine>cmd.exe /c "C:\TEMP\Setup1.cmd"</CommandLine>
+                    <Description></Description>
                 </SynchronousCommand>
             </FirstLogonCommands>
             <UserAccounts>
