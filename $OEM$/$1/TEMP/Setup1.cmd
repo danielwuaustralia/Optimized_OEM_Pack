@@ -4,6 +4,8 @@ color 1f
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location" /v "Value" /t REG_SZ /d "Allow" /f
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location\NonPackaged" /v "Value" /t REG_SZ /d "Deny" /f
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location" /v "ShowGlobalPrompts" /t REG_DWORD /d "0" /f
+powershell -noprofile -executionpolicy bypass -command "Set-NetAdapterAdvancedProperty -Name 'WLAN' -RegistryKeyword 'SupportMACRandom' -RegistryValue 0"
+powershell -noprofile -executionpolicy bypass -command "Set-NetAdapterAdvancedProperty -Name 'WLAN' -RegistryKeyword 'PreambleMode' -RegistryValue 1"
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\WlanSvc" /v "Start" /t REG_DWORD /d "2" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\iagpio" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\iai2c" /v "Start" /t REG_DWORD /d "4" /f
@@ -50,6 +52,7 @@ dism /english /Online /Disable-Feature /featurename:Windows-Defender-Application
 dism /english /Online /Disable-Feature /featurename:Windows-Defender-Default-Definitions /NoRestart
 dism /english /Online /Disable-Feature /featurename:MSRDC-Infrastructure /NoRestart
 dism /english /Online /Disable-Feature /featurename:Microsoft-RemoteDesktopConnection /NoRestart
+dism /english /Online /disable-feature /FeatureName:recall /noRestart
 powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *App.StepsRecorder* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
 powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *DirectX.Configuration.Database* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
 powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Hello.Face* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
@@ -62,8 +65,8 @@ powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -O
 powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.Wifi.Client* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
 powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *OneCoreUAP.OneSync* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
 powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Print.Management.Console* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | ? {$_.Name -Match 'Wmic|VBSCRIPT' -And $_.State -eq 'NotPresent'} | Add-WindowsCapability -online"
-start /b /w C:\TEMP\NotSetup.exe
+powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *WMIC* | Add-WindowsCapability -Online"
+powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *VBSCRIPT* | Add-WindowsCapability -Online"
 start /b /w C:\Tools\PowerRun.exe
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "1" /t REG_SZ /d "C:\TEMP\Setup2.cmd" /f
 shutdown /r /t 5
