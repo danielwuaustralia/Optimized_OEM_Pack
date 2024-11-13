@@ -1,6 +1,32 @@
 @echo on
 color 1f
 
+powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *App.StepsRecorder* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
+powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *AzureArcSetup* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
+powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *DirectX.Configuration.Database* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
+powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Downlevel.NLS.Sorting.Versions.Server* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
+powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *MathRecognizer* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
+powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.Sense.Client* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
+powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *OpenSSH.Client* | Remove-WindowsCapability -Online"
+powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *OpenSSH.Server* | Remove-WindowsCapability -Online"
+powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *XPS.Viewer* | Remove-WindowsCapability -Online"
+dism /english /Online /Enable-Feature /FeatureName:NetFx4 /All /NoRestart
+dism /english /Online /Enable-Feature /FeatureName:ServerMediaFoundation /All /NoRestart
+dism /english /Online /Enable-Feature /FeatureName:LegacyComponents /All /NoRestart
+dism /english /Online /Enable-Feature /FeatureName:DirectPlay /All /NoRestart
+dism /english /Online /Disable-Feature /featurename:Xps-Foundation-Xps-Viewer /NoRestart
+dism /english /Online /Disable-Feature /featurename:Windows-Defender /NoRestart
+dism /english /Online /Disable-Feature /featurename:Printing-PrintToPDFServices-Features /NoRestart
+dism /english /Online /Disable-Feature /featurename:Server-Drivers-Printers /NoRestart
+dism /english /Online /Disable-Feature /featurename:WindowsServerBackupSnapin /NoRestart
+dism /english /Online /Disable-Feature /featurename:Microsoft-Windows-Printing-PremiumTools /NoRestart
+dism /english /Online /Disable-Feature /featurename:RSAT /NoRestart
+dism /english /Online /Disable-Feature /featurename:FileAndStorage-Services /NoRestart
+dism /english /Online /Disable-Feature /featurename:Storage-Services /NoRestart
+dism /english /Online /Disable-Feature /featurename:WorkFolders-Client /NoRestart
+dism /english /Online /Disable-Feature /featurename:SystemDataArchiver /NoRestart
+dism /english /Online /Disable-Feature /featurename:SearchEngine-Client-Package /NoRestart
+dism /english /Online /Disable-Feature /featurename:WindowsAdminCenterSetup /NoRestart
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location" /v "Value" /t REG_SZ /d "Allow" /f
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location\NonPackaged" /v "Value" /t REG_SZ /d "Deny" /f
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location" /v "ShowGlobalPrompts" /t REG_DWORD /d "0" /f
@@ -30,43 +56,10 @@ netsh wlan set profileparameter name="LV426" connectionmode=auto
 netsh wlan connect name=LV426
 start /b /w C:\TEMP\AMD_Chipset_Software.exe /S
 start /b /w C:\TEMP\NVidiaProfileInspector\nvidiaProfileInspector.exe
-rem ***************************************************************************************************************************************************************************
-rem ***************************************************************************************************************************************************************************
-rem ***************************************************************************************************************************************************************************
 start /b /w C:\TEMP\UpdateTime.exe /U /M
-start /b /w C:\TEMP\HEU.exe /dig
+start /b /w C:\TEMP\HEU.exe /smart
 C:\Tools\DeviceCleanupCmd.exe * -s -n
-dism /english /Online /Enable-Feature /FeatureName:LegacyComponents /All /NoRestart
-dism /english /Online /Enable-Feature /FeatureName:DirectPlay /All /NoRestart
-dism /english /Online /Disable-Feature /featurename:SmbDirect /NoRestart
-dism /english /Online /Disable-Feature /featurename:Printing-PrintToPDFServices-Features /NoRestart
-dism /english /Online /Disable-Feature /featurename:MicrosoftWindowsPowerShellV2Root /NoRestart
-dism /english /Online /Disable-Feature /featurename:MicrosoftWindowsPowerShellV2 /NoRestart
-dism /english /Online /Disable-Feature /featurename:Printing-Foundation-Features /NoRestart
-dism /english /Online /Disable-Feature /featurename:Printing-Foundation-InternetPrinting-Client /NoRestart
-dism /english /Online /Disable-Feature /featurename:Printing-Foundation-LPDPrintService /NoRestart
-dism /english /Online /Disable-Feature /featurename:Printing-Foundation-LPRPortMonitor /NoRestart
-dism /english /Online /Disable-Feature /featurename:WorkFolders-Client /NoRestart
-dism /english /Online /Disable-Feature /featurename:SearchEngine-Client-Package /NoRestart
-dism /english /Online /Disable-Feature /featurename:Windows-Defender-ApplicationGuard /NoRestart
-dism /english /Online /Disable-Feature /featurename:Windows-Defender-Default-Definitions /NoRestart
-dism /english /Online /Disable-Feature /featurename:MSRDC-Infrastructure /NoRestart
-dism /english /Online /Disable-Feature /featurename:Microsoft-RemoteDesktopConnection /NoRestart
-dism /english /Online /disable-feature /FeatureName:recall /noRestart
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *App.StepsRecorder* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *DirectX.Configuration.Database* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Hello.Face* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *MathRecognizer* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.WordPad* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.PowerShell.ISE* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *OpenSSH.Client* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Wallpapers.Extended* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.Ethernet.Client* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.Wifi.Client* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *OneCoreUAP.OneSync* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Print.Management.Console* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *WMIC* | Add-WindowsCapability -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *VBSCRIPT* | Add-WindowsCapability -Online"
+
 start /b /w C:\Tools\PowerRun.exe
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "1" /t REG_SZ /d "C:\TEMP\Setup2.cmd" /f
 shutdown /r /t 5
