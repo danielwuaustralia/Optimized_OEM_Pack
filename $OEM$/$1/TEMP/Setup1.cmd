@@ -1,15 +1,21 @@
 @echo on
 color 1f
 
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *App.StepsRecorder* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *AzureArcSetup* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *DirectX.Configuration.Database* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Downlevel.NLS.Sorting.Versions.Server* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *MathRecognizer* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *Microsoft.Windows.Sense.Client* | Remove-WindowsCapability -ScratchDirectory 'C:\TEMP' -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *OpenSSH.Client* | Remove-WindowsCapability -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *OpenSSH.Server* | Remove-WindowsCapability -Online"
-powershell -noprofile -executionpolicy bypass -command "Get-WindowsCapability -Online | Where-Object Name -like *XPS.Viewer* | Remove-WindowsCapability -Online"
+powershell -noprofile -executionpolicy bypass -command "Remove-WindowsCapability -Name 'App.StepsRecorder~~~~0.0.1.0' -Online"
+powershell -noprofile -executionpolicy bypass -command "Remove-WindowsCapability -Name 'AzureArcSetup~~~~' -Online"
+powershell -noprofile -executionpolicy bypass -command "Remove-WindowsCapability -Name 'DirectX.Configuration.Database~~~~0.0.1.0' -Online"
+powershell -noprofile -executionpolicy bypass -command "Remove-WindowsCapability -Name 'Downlevel.NLS.Sorting.Versions.Server~~~~0.0.1.0' -Online"
+powershell -noprofile -executionpolicy bypass -command "Remove-WindowsCapability -Name 'MathRecognizer~~~~0.0.1.0' -Online"
+powershell -noprofile -executionpolicy bypass -command "Remove-WindowsCapability -Name 'Microsoft.Windows.Sense.Client~~~~' -Online"
+powershell -noprofile -executionpolicy bypass -command "Remove-WindowsCapability -Name 'OneCoreUAP.OneSync~~~~0.0.1.0' -Online"
+powershell -noprofile -executionpolicy bypass -command "Remove-WindowsCapability -Name 'OpenSSH.Client~~~~0.0.1.0' -Online"
+powershell -noprofile -executionpolicy bypass -command "Remove-WindowsCapability -Name 'OpenSSH.Server~~~~0.0.1.0' -Online"
+powershell -noprofile -executionpolicy bypass -command "Remove-WindowsCapability -Name 'XPS.Viewer~~~~0.0.1.0' -Online"
+powershell -noprofile -executionpolicy bypass -command "Remove-WindowsCapability -Name 'Language.Handwriting~~~zh-CN~0.0.1.0' -Online"
+powershell -noprofile -executionpolicy bypass -command "Remove-WindowsCapability -Name 'Language.OCR~~~zh-CN~0.0.1.0' -Online"
+powershell -noprofile -executionpolicy bypass -command "Remove-WindowsCapability -Name 'Language.Speech~~~zh-CN~0.0.1.0' -Online"
+powershell -noprofile -executionpolicy bypass -command "Remove-WindowsCapability -Name 'Language.TextToSpeech~~~zh-CN~0.0.1.0' -Online"
+powershell -noprofile -executionpolicy bypass -command "Add-WindowsCapability -Online -Name 'WMIC~~~~'"
 dism /english /Online /Enable-Feature /FeatureName:NetFx4 /All /NoRestart
 dism /english /Online /Enable-Feature /FeatureName:ServerMediaFoundation /All /NoRestart
 dism /english /Online /Enable-Feature /FeatureName:LegacyComponents /All /NoRestart
@@ -27,6 +33,11 @@ dism /english /Online /Disable-Feature /featurename:WorkFolders-Client /NoRestar
 dism /english /Online /Disable-Feature /featurename:SystemDataArchiver /NoRestart
 dism /english /Online /Disable-Feature /featurename:SearchEngine-Client-Package /NoRestart
 dism /english /Online /Disable-Feature /featurename:WindowsAdminCenterSetup /NoRestart
+dism /english /Online /Disable-Feature /featurename:ServerCoreFonts-NonCritical-Fonts-BitmapFonts /NoRestart
+dism /english /Online /Disable-Feature /featurename:ServerCoreFonts-NonCritical-Fonts-MinConsoleFonts /NoRestart
+dism /english /Online /Disable-Feature /featurename:ServerCoreFonts-NonCritical-Fonts-Support /NoRestart
+dism /english /Online /Disable-Feature /featurename:ServerCoreFonts-NonCritical-Fonts-TrueType /NoRestart
+dism /english /Online /Disable-Feature /featurename:ServerCoreFonts-NonCritical-Fonts-UAPFonts /NoRestart
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location" /v "Value" /t REG_SZ /d "Allow" /f
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location\NonPackaged" /v "Value" /t REG_SZ /d "Deny" /f
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location" /v "ShowGlobalPrompts" /t REG_DWORD /d "0" /f
