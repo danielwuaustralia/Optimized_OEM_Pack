@@ -2,7 +2,7 @@
 color 1f
 >nul chcp 65001
 
-:: tasks removal
+rem tasks
 powershell -noprofile -executionpolicy bypass -command "Get-ScheduledTask | Where {$_.TaskName -match 'StartAllBack Update' } | Unregister-ScheduledTask -Confirm:$false"
 powershell -noprofile -executionpolicy bypass -command "Get-ScheduledTask | Where {$_.TaskName -match 'MicrosoftEdge' } | Unregister-ScheduledTask -Confirm:$false"
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\GoogleSystem" /f
@@ -130,7 +130,7 @@ schtasks /change /tn "Microsoft\Windows\Sysmain\ResPriStaticDbSync" /disable
 schtasks /change /tn "Microsoft\Windows\ApplicationData\CleanupTemporaryState" /disable
 schtasks /change /tn "Microsoft\Windows\DeviceDirectoryClient\IntegrityCheck" /disable
 
-:: Disable Services
+rem Services
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\3ware" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\ADP80XX" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AmdK8" /v "Start" /t REG_DWORD /d "4" /f
@@ -185,42 +185,6 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\amdwps" /v "Start" /t REG_DWORD 
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\amdi2c" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AmdPpkgSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\AMDPCIDev" /v "Start" /t REG_DWORD /d "4" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\GoogleChromeElevationService" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\UCPD" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\DusmSvc" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\wercplsupport" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WerSvc" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WSearch" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\lfsvc" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\MapsBroker" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\edgeupdate" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\edgeupdatem" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\dmwappushservice" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\pla" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\SecurityHealthService" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\Sense" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WdBoot" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WdFilter" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WdNisDrv" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WdNisSvc" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WinDefend" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\wscsvc" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\DiagTrack" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\DPS" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WdiServiceHost" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WdiSystemHost" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\wisvc" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\BITS" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\DoSvc" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\UsoSvc" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WaaSMedicSvc" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WpnService" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\wuauserv" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\XblAuthManager" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\XblGameSave" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\xboxgip" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\XboxGipSvc" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\XboxNetApiSvc" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\RmSvc" /v "Start" /t REG_DWORD /d "2" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{71a27cdd-812a-11d0-bec7-08002be2092f}" /v "LowerFilters" /t REG_MULTI_SZ /d "" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\fvevol" /v "Start" /t REG_DWORD /d "4" /f
@@ -239,8 +203,6 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e96c-e325-11ce-bfc1-08
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{6bdd1fc6-810f-11d0-bec7-08002be2092f}" /v "UpperFilters" /t REG_MULTI_SZ /d "" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\{ca3e7ab9-b4c3-4ae6-8251-579ef933890f}" /v "UpperFilters" /t REG_MULTI_SZ /d "" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\ksthunk" /v "Start" /t REG_DWORD /d "4" /f
-powershell -noprofile -executionpolicy bypass -command "Get-ChildItem 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object { $_.Name -notmatch 'Xbl|Xbox' } | Foreach-Object { if ($null -ne (Get-ItemProperty -Path """Registry::$_""" -EA 0).Start) { Set-ItemProperty -Path """Registry::$_""" -Name 'SvcHostSplitDisable' -Type DWORD -Value 1 -Force -EA 0 }}"
-powershell -noprofile -executionpolicy bypass -command "Get-Service -Name 'GoogleUpdater*' | Set-Service -StartupType Disabled -Confirm:$false"
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\BluetoothUserService" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\PrintWorkFlowUserSvc" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\webthreatdefusersvc" /v "Start" /t REG_DWORD /d "4" /f
@@ -387,7 +349,41 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\InventorySvc" /v "Start" /t REG_
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\usbaudio" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CTIIO" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\MSIO" /v "Start" /t REG_DWORD /d "4" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\GoogleChromeElevationService" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\UCPD" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\DusmSvc" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\wercplsupport" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WerSvc" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WSearch" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\lfsvc" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\MapsBroker" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\dmwappushservice" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\pla" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\wscsvc" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\DiagTrack" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\DPS" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WdiServiceHost" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WdiSystemHost" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\wisvc" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\BITS" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\DoSvc" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\UsoSvc" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WaaSMedicSvc" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\WpnService" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\wuauserv" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\XblAuthManager" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\XblGameSave" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\xboxgip" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\XboxGipSvc" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\XboxNetApiSvc" /f
+powershell -noprofile -executionpolicy bypass -command "Get-Service -Name 'GoogleUpdater*' | Set-Service -StartupType Disabled -Confirm:$false"
 
+reg delete "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger" /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options" /f
+wevtutil set-log "Microsoft-Windows-SleepStudy/Diagnostic" /q:false
+wevtutil set-log "Microsoft-Windows-Kernel-Processor-Power/Diagnostic" /q:false
+wevtutil set-log "Microsoft-Windows-UserModePowerService/Diagnostic" /q:false
+powershell -noprofile -executionpolicy bypass -command "Get-ChildItem 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object { $_.Name -notmatch 'Xbl|Xbox' } | Foreach-Object { if ($null -ne (Get-ItemProperty -Path """Registry::$_""" -EA 0).Start) { Set-ItemProperty -Path """Registry::$_""" -Name 'SvcHostSplitDisable' -Type DWORD -Value 1 -Force -EA 0 }}"
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Communications" /v "ConfigureChatAutoInstall" /t REG_DWORD /d "0" /f
 taskkill /f /im backgroundTaskHost.exe
 ren "C:\Windows\System32\backgroundTaskHost.exe" backgroundTaskHost_old.exe
@@ -409,6 +405,7 @@ ren "C:\Windows\System32\mobsync.exe" mobsync_old.exe
 ren "C:\Windows\SysWOW64\mobsync.exe" mobsync_old.exe
 ren "C:\Windows\System32\gameux.dll" gameux_old.dll
 ren "C:\Windows\SysWOW64\gameux.dll" gameux_old.dll
+reg add "HKLM\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter" /v "ActivationType" /t REG_DWORD /d "0" /f
 taskkill /f /im GameBarPresenceWriter.exe
 ren "C:\Windows\System32\GameBarPresenceWriter.exe" GameBarPresenceWriter_old.exe
 ren "C:\Windows\System32\GameBarPresenceWriter.proxy.dll" GameBarPresenceWriter_old.proxy.dll
@@ -416,31 +413,9 @@ ren "C:\Windows\SysWOW64\GameBarPresenceWriter.exe" GameBarPresenceWriter_old.ex
 ren "C:\Windows\SysWOW64\GameBarPresenceWriter.proxy.dll" GameBarPresenceWriter_old.proxy.dll
 taskkill /f /im GameInputSvc.exe
 ren "C:\Windows\System32\GameInputSvc.exe" GameInputSvc_old.exe
-reg delete "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\CloudExperienceHostOobe" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SQMLogger" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WFP-IPsec Trace" /f
-rmdir /s /q "C:\Program Files (x86)\Microsoft\Edge"
-rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeCore"
-rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeUpdate"
-rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeWebView"
-wevtutil set-log "Microsoft-Windows-SleepStudy/Diagnostic" /q:false
-wevtutil set-log "Microsoft-Windows-Kernel-Processor-Power/Diagnostic" /q:false
-wevtutil set-log "Microsoft-Windows-UserModePowerService/Diagnostic" /q:false
-powershell -noprofile -executionpolicy bypass -command "Limit-Eventlog -Logname 'Application' -MaximumSize 64KB"
-powershell -noprofile -executionpolicy bypass -command "Limit-Eventlog -Logname 'System' -MaximumSize 64KB"
-powershell -noprofile -executionpolicy bypass -command "Limit-Eventlog -Logname 'Security' -MaximumSize 64KB"
-powershell -noprofile -executionpolicy bypass -command "Limit-Eventlog -Logname 'Windows PowerShell' -MaximumSize 64KB"
-reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions" /v "CpuPriorityClass" /t REG_DWORD /d "4" /f
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\csrss.exe\PerfOptions" /v "IoPriority" /t REG_DWORD /d "3" /f
+reg add "HKLM\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\ValueBanner.IdealStateFeatureControlProvider" /v "ActivationType" /t REG_DWORD /d "0" /f
 powershell -noprofile -executionpolicy bypass -command "Get-PnpDevice -FriendlyName 'Microsoft Kernel Debug Network Adapter' | Disable-PnpDevice -Confirm:$false -Verbose"
 powershell -noprofile -executionpolicy bypass -command "Get-PnpDevice -FriendlyName '高精度事件计时器' | Disable-PnpDevice -Confirm:$false -Verbose"
-rmdir /s /q "C:\Windows\System32\CodeIntegrity\CIPolicies\Active"
-ren "C:\Windows\System32\mcupdate_AuthenticAMD.dll" mcupdate_AuthenticAMD_old.dll
-ren "C:\Windows\System32\mcupdate_GenuineIntel.dll" mcupdate_GenuineIntel_old.dll
-ren "C:\Windows\System32\mcupdate_AuthenticAMD_old.dll" mcupdate_GenuineIntel.dll
-ren "C:\Windows\System32\mcupdate_GenuineIntel_old.dll" mcupdate_AuthenticAMD.dll
 reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\PCI\VEN_1022&DEV_15E3&SUBSYS_A1941458&REV_00\4&16012499&0&0641\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Enum\PCI\VEN_1022&DEV_15E3&SUBSYS_A1941458&REV_00\4&16012499&0&0641\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\PCI\VEN_10DE&DEV_22BB&SUBSYS_141A196E&REV_A1\4&d0bdf66&0&0109\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /f
@@ -449,6 +424,10 @@ reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\PCI\VEN_1CC1&DEV_627A&SUBSYS_627A
 reg add "HKLM\SYSTEM\CurrentControlSet\Enum\PCI\VEN_1CC1&DEV_627A&SUBSYS_627A1CC1&REV_03\4&218bd16b&0&000A\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\PCI\VEN_1022&DEV_43F6&SUBSYS_10621B21&REV_01\6&3ae87e62&0&00680011\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Enum\PCI\VEN_1022&DEV_43F6&SUBSYS_10621B21&REV_01\6&3ae87e62&0&00680011\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
+rmdir /s /q "C:\Program Files (x86)\Microsoft\Edge"
+rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeCore"
+rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeUpdate"
+rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeWebView"
 for /f "delims=" %%d in ('powershell -noprofile -c "Get-ChildItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\nvlddmkm\State\DisplayDatabase' | Select-Object -ExpandProperty Name | %% { $pathSplit = $_.Split('\'); $displayName = $pathSplit[$pathSplit.Length - 1]; $displayNameSplit = $displayName.Split('_'); if ($displayNameSplit.Length -eq 4) { return $displayName } }"') do (
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\nvlddmkm\State\DisplayDatabase\%%d" /v "DitherRegistryKey" /t REG_BINARY /d "db0100001000000002010104f4000000" /f )
 for /f %%a in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services" /s /f "DmaRemappingCompatible" ^| find /i "Services\" ') do (
