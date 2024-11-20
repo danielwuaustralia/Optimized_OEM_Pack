@@ -349,6 +349,8 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\InventorySvc" /v "Start" /t REG_
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\usbaudio" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CTIIO" /v "Start" /t REG_DWORD /d "4" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\MSIO" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\lltdsvc" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\wcncsvc" /v "Start" /t REG_DWORD /d "4" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\GoogleChromeElevationService" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\UCPD" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\DusmSvc" /f
@@ -378,13 +380,36 @@ reg delete "HKLM\SYSTEM\CurrentControlSet\Services\XboxGipSvc" /f
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\XboxNetApiSvc" /f
 powershell -noprofile -executionpolicy bypass -command "Get-Service -Name 'GoogleUpdater*' | Set-Service -StartupType Disabled -Confirm:$false"
 
+rem MSI Mode
+reg add "HKLM\SYSTEM\CurrentControlSet\Enum\PCI\VEN_1022&DEV_15E3&SUBSYS_A1941458&REV_00\4&16012499&0&0641\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Enum\PCI\VEN_10DE&DEV_22BB&SUBSYS_141A196E&REV_A1\4&d0bdf66&0&0109\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Enum\PCI\VEN_1022&DEV_43F6&SUBSYS_10621B21&REV_01\6&3ae87e62&0&00680011\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Enum\PCI\VEN_1CC1&DEV_627A&SUBSYS_627A1CC1&REV_03\4&218bd16b&0&000A\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
+reg add "HKLM\System\CurrentControlSet\Enum\PCI\VEN_1002&DEV_1640&SUBSYS_16401002&REV_00\4&16012499&0&0141\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
+reg add "HKLM\System\CurrentControlSet\Enum\PCI\VEN_1002&DEV_164E&SUBSYS_D0001458&REV_CB\4&16012499&0&0041\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
+reg add "HKLM\System\CurrentControlSet\Enum\PCI\VEN_1002&DEV_1640&SUBSYS_16401002&REV_00\4&16012499&0&0141\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePolicy" /t REG_DWORD /d "5" /f
+reg add "HKLM\System\CurrentControlSet\Enum\PCI\VEN_1002&DEV_164E&SUBSYS_D0001458&REV_CB\4&16012499&0&0041\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePolicy" /t REG_DWORD /d "5" /f
+reg add "HKLM\System\CurrentControlSet\Enum\PCI\VEN_1022&DEV_15B6&SUBSYS_50071458&REV_00\4&16012499&0&0341\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePolicy" /t REG_DWORD /d "5" /f
+reg add "HKLM\System\CurrentControlSet\Enum\PCI\VEN_1022&DEV_15B7&SUBSYS_50071458&REV_00\4&16012499&0&0441\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePolicy" /t REG_DWORD /d "5" /f
+reg add "HKLM\System\CurrentControlSet\Enum\PCI\VEN_1022&DEV_15B8&SUBSYS_50071458&REV_00\4&2c288d56&0&0043\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePolicy" /t REG_DWORD /d "5" /f
+reg add "HKLM\System\CurrentControlSet\Enum\PCI\VEN_1022&DEV_15E3&SUBSYS_A1941458&REV_00\4&16012499&0&0641\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePolicy" /t REG_DWORD /d "5" /f
+reg add "HKLM\System\CurrentControlSet\Enum\PCI\VEN_1022&DEV_1649&SUBSYS_16491022&REV_00\4&16012499&0&0241\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePolicy" /t REG_DWORD /d "5" /f
+reg add "HKLM\System\CurrentControlSet\Enum\PCI\VEN_1022&DEV_43F7&SUBSYS_11421B21&REV_01\6&2766d23f&0&00600011\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePolicy" /t REG_DWORD /d "5" /f
+reg add "HKLM\System\CurrentControlSet\Enum\PCI\VEN_10DE&DEV_22BB&SUBSYS_141A196E&REV_A1\4&d0bdf66&0&0109\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePolicy" /t REG_DWORD /d "5" /f
+reg add "HKLM\System\CurrentControlSet\Enum\PCI\VEN_10DE&DEV_2702&SUBSYS_141A196E&REV_A1\4&d0bdf66&0&0009\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePolicy" /t REG_DWORD /d "5" /f
+reg add "HKLM\System\CurrentControlSet\Enum\PCI\VEN_10EC&DEV_C852&SUBSYS_56001A3B&REV_01\00E04CFFFEC8520100\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePolicy" /t REG_DWORD /d "5" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\PCI\VEN_1022&DEV_15E3&SUBSYS_A1941458&REV_00\4&16012499&0&0641\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\PCI\VEN_10DE&DEV_22BB&SUBSYS_141A196E&REV_A1\4&d0bdf66&0&0109\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\PCI\VEN_1CC1&DEV_627A&SUBSYS_627A1CC1&REV_03\4&218bd16b&0&000A\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /f
+reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\PCI\VEN_1022&DEV_43F6&SUBSYS_10621B21&REV_01\6&3ae87e62&0&00680011\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /f
+
+rem others
 reg delete "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger" /f
 reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options" /f
 wevtutil set-log "Microsoft-Windows-SleepStudy/Diagnostic" /q:false
 wevtutil set-log "Microsoft-Windows-Kernel-Processor-Power/Diagnostic" /q:false
 wevtutil set-log "Microsoft-Windows-UserModePowerService/Diagnostic" /q:false
 powershell -noprofile -executionpolicy bypass -command "Get-ChildItem 'HKLM:\SYSTEM\CurrentControlSet\Services' | Where-Object { $_.Name -notmatch 'Xbl|Xbox' } | Foreach-Object { if ($null -ne (Get-ItemProperty -Path """Registry::$_""" -EA 0).Start) { Set-ItemProperty -Path """Registry::$_""" -Name 'SvcHostSplitDisable' -Type DWORD -Value 1 -Force -EA 0 }}"
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Communications" /v "ConfigureChatAutoInstall" /t REG_DWORD /d "0" /f
 taskkill /f /im backgroundTaskHost.exe
 ren "C:\Windows\System32\backgroundTaskHost.exe" backgroundTaskHost_old.exe
 ren "C:\Windows\SysWOW64\backgroundTaskHost.exe" backgroundTaskHost_old.exe
@@ -416,14 +441,6 @@ ren "C:\Windows\System32\GameInputSvc.exe" GameInputSvc_old.exe
 reg add "HKLM\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\ValueBanner.IdealStateFeatureControlProvider" /v "ActivationType" /t REG_DWORD /d "0" /f
 powershell -noprofile -executionpolicy bypass -command "Get-PnpDevice -FriendlyName 'Microsoft Kernel Debug Network Adapter' | Disable-PnpDevice -Confirm:$false -Verbose"
 powershell -noprofile -executionpolicy bypass -command "Get-PnpDevice -FriendlyName '高精度事件计时器' | Disable-PnpDevice -Confirm:$false -Verbose"
-reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\PCI\VEN_1022&DEV_15E3&SUBSYS_A1941458&REV_00\4&16012499&0&0641\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Enum\PCI\VEN_1022&DEV_15E3&SUBSYS_A1941458&REV_00\4&16012499&0&0641\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\PCI\VEN_10DE&DEV_22BB&SUBSYS_141A196E&REV_A1\4&d0bdf66&0&0109\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Enum\PCI\VEN_10DE&DEV_22BB&SUBSYS_141A196E&REV_A1\4&d0bdf66&0&0109\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\PCI\VEN_1CC1&DEV_627A&SUBSYS_627A1CC1&REV_03\4&218bd16b&0&000A\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Enum\PCI\VEN_1CC1&DEV_627A&SUBSYS_627A1CC1&REV_03\4&218bd16b&0&000A\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
-reg delete "HKLM\SYSTEM\CurrentControlSet\Enum\PCI\VEN_1022&DEV_43F6&SUBSYS_10621B21&REV_01\6&3ae87e62&0&00680011\Device Parameters\Interrupt Management\Affinity Policy" /v "DevicePriority" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Enum\PCI\VEN_1022&DEV_43F6&SUBSYS_10621B21&REV_01\6&3ae87e62&0&00680011\Device Parameters\Interrupt Management\MessageSignaledInterruptProperties" /v "MSISupported" /t REG_DWORD /d "1" /f
 rmdir /s /q "C:\Program Files (x86)\Microsoft\Edge"
 rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeCore"
 rmdir /s /q "C:\Program Files (x86)\Microsoft\EdgeUpdate"
