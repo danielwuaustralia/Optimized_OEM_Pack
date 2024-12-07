@@ -1,5 +1,4 @@
 @echo on
-color 1f
 
 powershell -noprofile -executionpolicy bypass -command "Remove-WindowsCapability -Name 'App.StepsRecorder~~~~0.0.1.0' -Online"
 powershell -noprofile -executionpolicy bypass -command "Remove-WindowsCapability -Name 'AzureArcSetup~~~~' -Online"
@@ -15,7 +14,6 @@ powershell -noprofile -executionpolicy bypass -command "Remove-WindowsCapability
 powershell -noprofile -executionpolicy bypass -command "Remove-WindowsCapability -Name 'Language.OCR~~~zh-CN~0.0.1.0' -Online"
 powershell -noprofile -executionpolicy bypass -command "Remove-WindowsCapability -Name 'Language.Speech~~~zh-CN~0.0.1.0' -Online"
 powershell -noprofile -executionpolicy bypass -command "Remove-WindowsCapability -Name 'Language.TextToSpeech~~~zh-CN~0.0.1.0' -Online"
-powershell -noprofile -executionpolicy bypass -command "Add-WindowsCapability -Online -Name 'WMIC~~~~'"
 dism /english /Online /Enable-Feature /FeatureName:NetFx4 /All /NoRestart
 dism /english /Online /Enable-Feature /FeatureName:ServerMediaFoundation /All /NoRestart
 dism /english /Online /Enable-Feature /FeatureName:LegacyComponents /All /NoRestart
@@ -38,6 +36,7 @@ dism /english /Online /Disable-Feature /featurename:ServerCoreFonts-NonCritical-
 dism /english /Online /Disable-Feature /featurename:ServerCoreFonts-NonCritical-Fonts-Support /NoRestart
 dism /english /Online /Disable-Feature /featurename:ServerCoreFonts-NonCritical-Fonts-TrueType /NoRestart
 dism /english /Online /Disable-Feature /featurename:ServerCoreFonts-NonCritical-Fonts-UAPFonts /NoRestart
+dism /english /Online /Enable-Feature /FeatureName:NetFx3 /All /LimitAccess /Source:C:\TEMP\sxs /NoRestart
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location" /v "Value" /t REG_SZ /d "Allow" /f
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location\NonPackaged" /v "Value" /t REG_SZ /d "Deny" /f
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location" /v "ShowGlobalPrompts" /t REG_DWORD /d "0" /f
